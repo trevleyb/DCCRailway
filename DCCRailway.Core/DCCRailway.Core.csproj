@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>false</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <WarningLevel>4</WarningLevel>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Remove="Exceptions\" />
+        <None Remove="JMRI\Roster\roster.xml" />
+        <None Remove="Utilities\" />
+        <None Remove="System.IO.Ports" />
+        <None Remove="DccSystems\Commands\Results\" />
+        <None Remove="Systems\Commands\Enums\" />
+        <None Remove="Adapters\" />
+        <None Remove="Commands\" />
+        <None Remove="Common\" />
+        <None Remove="Events\" />
+        <None Remove="Validators\" />
+        <None Remove="Simulator\" />
+        <None Remove="Entities\Collections\" />
+    </ItemGroup>
+    <ItemGroup>
+        <Resource Include="JMRI\Roster\roster.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.IO.Ports" Version="6.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Adapters\" />
+        <Folder Include="Commands\" />
+        <Folder Include="Events\" />
+        <Folder Include="JMRI\Decoders\" />
+        <Folder Include="Validators\" />
+        <Folder Include="Simulator\" />
+        <Folder Include="Entities\Collections\" />
+    </ItemGroup>
+</Project>

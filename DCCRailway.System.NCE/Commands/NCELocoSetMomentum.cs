@@ -1,0 +1,36 @@
+﻿using DCCRailway.Core.Adapters;
+using DCCRailway.Core.Commands;
+using DCCRailway.Core.Common;
+using DCCRailway.Core.Utilities;
+
+namespace DCCRailway.Systems.NCE.Commands {
+	public class NCELocoSetMomentum : NCECommandBase, ICmdLocoSetMomentum, ICommand {
+		public NCELocoSetMomentum() { }
+
+		public NCELocoSetMomentum(int address, byte momentum) : this(new DCCAddress(address), momentum) { }
+
+		public NCELocoSetMomentum(IDCCAddress address, byte momentum) {
+			Address = address;
+			Momentum = momentum;
+		}
+
+		public static string Name {
+			get { return "NCE Set Loco Momentum"; }
+		}
+
+		public IDCCAddress Address { get; set; }
+		public byte Momentum { get; set; }
+
+		public override IResult Execute(IAdapter adapter) {
+			byte[] command = { 0xA2 };
+			command = command.AddToArray(((DCCAddress)Address).AddressBytes);
+			command = command.AddToArray(0x12);
+			command = command.AddToArray(Momentum);
+			return SendAndReceieve(adapter, new NCEStandardValidation(), command);
+		}
+
+		public override string ToString() {
+			return $"LOCO MOMENTUM ({Address}={Momentum}";
+		}
+	}
+}

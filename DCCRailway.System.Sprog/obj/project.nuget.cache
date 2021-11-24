@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "k+OHWNoal6zDgCmojyaSaUQSXGhkqcsTIWetwRz1qdzVyFBG66PfF+BYMjTMPU8xqDCmUrPT5j89fybMmQ9I3Q==",
+  "success": true,
+  "projectFilePath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DccTrainTmp/DCCRailway.System.Sprog/DCCRailway.Systems.Sprog.csproj",
+  "expectedPackageFiles": [
+    "/Users/trevorleybourne/.nuget/packages/runtime.linux-arm.runtime.native.system.io.ports/6.0.0/runtime.linux-arm.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/Users/trevorleybourne/.nuget/packages/runtime.linux-arm64.runtime.native.system.io.ports/6.0.0/runtime.linux-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/Users/trevorleybourne/.nuget/packages/runtime.linux-x64.runtime.native.system.io.ports/6.0.0/runtime.linux-x64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/Users/trevorleybourne/.nuget/packages/runtime.native.system.io.ports/6.0.0/runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/Users/trevorleybourne/.nuget/packages/runtime.osx-arm64.runtime.native.system.io.ports/6.0.0/runtime.osx-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/Users/trevorleybourne/.nuget/packages/runtime.osx-x64.runtime.native.system.io.ports/6.0.0/runtime.osx-x64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "/Users/trevorleybourne/.nuget/packages/system.io.ports/6.0.0/system.io.ports.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
