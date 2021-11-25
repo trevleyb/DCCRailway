@@ -57,7 +57,7 @@ namespace DCCRailway.Core {
 			// Return previously loaded collection (for performance) if we have called this method before
 			// if we force a reload then clean and reload the data
 			// -----------------------------------------------------------------------------------------------------------
-			if (_supportedSystems.Count > 0 && forceReload == false) return _supportedSystems;
+			if (_supportedSystems is { Count: > 0 } && forceReload == false) return _supportedSystems;
 
 			// Get a list of files in the current folder and then look at each one to see if it is a DCCSYstem assembly
 			var pattern = @"(.*)DCCRailway\.Systems.(\D+)\.dll";

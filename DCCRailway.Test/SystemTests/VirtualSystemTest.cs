@@ -27,7 +27,7 @@ namespace DCCRailway.Test {
 			supportedCommands = virtualSystem.SupportedCommands;
 			Assert.IsTrue(supportedCommands!.Count == 2);
 		}
-
+		
 		[TestMethod]
 		public void TestRegisteredAndAttach1() {
 			var systems = SystemFactory.SupportedSystems();

@@ -1,0 +1,10 @@
+2021-11-26 11:47:51.113 +13:00 [INF] Logger initialised.
+2021-11-26 11:47:51.154 +13:00 [DBG] ASSEMBLy: Loading Assembly: ./DCCRailway.Systems.Digitrax.dll
+2021-11-26 11:47:51.162 +13:00 [DBG] ASSEMBLy: Loading Assembly: ./DCCRailway.Systems.Sprog.dll
+2021-11-26 11:47:51.164 +13:00 [DBG] ASSEMBLy: Loading Assembly: ./DCCRailway.Systems.Virtual.dll
+2021-11-26 11:47:51.170 +13:00 [DBG] ASSEMBLy: Loading Assembly: ./DCCRailway.Systems.NCE.dll
+2021-11-26 11:48:14.592 +13:00 [INF] Logger initialised.
+2021-11-26 11:48:14.624 +13:00 [DBG] ASSEMBLy: Loading Assembly: ./DCCRailway.Systems.Digitrax.dll
+2021-11-26 11:48:14.632 +13:00 [DBG] ASSEMBLy: Loading Assembly: ./DCCRailway.Systems.Sprog.dll
+2021-11-26 11:48:14.633 +13:00 [DBG] ASSEMBLy: Loading Assembly: ./DCCRailway.Systems.Virtual.dll
+2021-11-26 11:48:14.641 +13:00 [DBG] ASSEMBLy: Loading Assembly: ./DCCRailway.Systems.NCE.dll

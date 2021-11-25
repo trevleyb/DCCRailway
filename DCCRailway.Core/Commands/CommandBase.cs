@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DCCRailway.Core.Adapters;
 using DCCRailway.Core.Exceptions;
 using DCCRailway.Core.Utilities;
@@ -7,6 +8,15 @@ using DCCRailway.Core.Validators;
 namespace DCCRailway.Core.Commands {
 	public abstract class CommandBase : PropertyChangedBase, ICommand {
 		public abstract IResult Execute(IAdapter adapter);
+
+		/// <summary>
+		/// Used for Async/Await calls
+		/// </summary>
+		/// <param name="adapter"></param>
+		/// <returns></returns>
+		public async Task<IResult> ExecuteAsync(IAdapter adapter) {
+			return await Task.FromResult(Execute(adapter));
+		}
 
 		protected IResult SendAndReceieve(IAdapter adapter, IResultValidation validator, byte sendData) {
 			return SendAndReceieve(adapter, validator, new[] { sendData });
