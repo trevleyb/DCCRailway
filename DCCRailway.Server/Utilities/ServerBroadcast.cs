@@ -33,15 +33,15 @@ namespace DCCRailway.Server.Utilities {
 		}
 
 		private void Sd_ServiceInstanceShutdown(object? sender, ServiceInstanceShutdownEventArgs e) {
-			Console.WriteLine("SD: Shutdown=>{0}", e.Message);
+			DCCRailway.Core.Utilities.Logger.Log.Debug("SD: Shutdown=>{0}", e.Message);
 		}
 
 		private void Sd_ServiceInstanceDiscovered(object? sender, ServiceInstanceDiscoveryEventArgs e) {
-			Console.WriteLine("SD: Instance Discovered=>{0}", e.Message);
+			DCCRailway.Core.Utilities.Logger.Log.Debug("SD: Instance Discovered=>{0}", e.Message);
 		}
 
 		private void Sd_ServiceDiscovered(object? sender, DomainName e) {
-			Console.WriteLine("SD: Service Discovered=>{0}", e.Labels);
+			DCCRailway.Core.Utilities.Logger.Log.Debug("SD: Service Discovered=>{0}", e.Labels);
 		}
 	}
 }

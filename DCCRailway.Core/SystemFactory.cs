@@ -71,7 +71,7 @@ namespace DCCRailway.Core {
 				try {
 					var assembly = Assembly.LoadFrom(assemblyPath);
 					if (assembly == null) throw new ApplicationException($"Unable to load assembly: {assemblyPath}");
-					Console.WriteLine($"Loading Assembly: {assemblyPath}");
+					Utilities.Logger.Log.Debug($"ASSEMBLy: Loading Assembly: {assemblyPath}");
 
 					// Loop through each "CLASS" that supports the IDCCSystem Interface
 					// ----------------------------------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ namespace DCCRailway.Core {
 							};
 							_supportedSystems.Add(system);
 						} catch (Exception ex) {
-							Console.WriteLine("Unable to obtain the name of the Manufacturer or System from the Assembly.", ex);
+							Utilities.Logger.Log.Debug("ASSEMBLY: Unable to obtain the name of the Manufacturer or System from the Assembly.", ex);
 						}
 					}
 				} catch (Exception ex) {

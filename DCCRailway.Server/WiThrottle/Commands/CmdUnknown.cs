@@ -7,7 +7,7 @@ namespace DCCRailway.Server.WiThrottle.Commands {
 		}
 
 		public string? Execute() {
-			Console.WriteLine($"Recieved an unknown command from a throttle: '{connectionEntry.ConnectionID}' of '{cmdString}'");
+			Core.Utilities.Logger.Log.Information($"Received an unknown command from a throttle: '{ConnectionEntry.ConnectionID}' of '{CmdString}'");
 			return null;
 		}
 

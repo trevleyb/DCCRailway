@@ -1,0 +1,2 @@
+2021-11-26 08:53:01.422 +13:00 [INF] Logger initialised.
+2021-11-26 08:53:01.527 +13:00 [DBG] Testing again

@@ -10,24 +10,23 @@ namespace DCCRailway.Server.WiThrottle.Commands {
 		// as we will not respond to the client
 		// -----------------------------------------------------------------------
 		public string? Execute() {
-			Console.WriteLine($"Recieved a HARDWARE ID command from '{connectionEntry.ConnectionID}' of '{cmdString}'");
-			connectionEntry.HardwareID = cmdString;
+			Core.Utilities.Logger.Log.Information(($"Received a HARDWARE ID command from '{ConnectionEntry.ConnectionID}' of '{CmdString}'"));
+			ConnectionEntry.HardwareID = CmdString;
 
 			// Check if we already have an entry for this Hardware ID (in case of a disconnection)
 			// and if so, re-map the ID and delete the current one. 
 			// ------------------------------------------------------------------------------------
-			var existingEntry = connectionEntry.listReference.Find(cmdString);
+			var existingEntry = ConnectionEntry.listReference.Find(CmdString);
 			if (existingEntry != null) {
-				Console.WriteLine($"Existing HardwareID reference exists. Remapping '{connectionEntry.ConnectionID}' to '{existingEntry.ConnectionID}'");
-				connectionEntry.HardwareID = existingEntry.HardwareID;
-				connectionEntry.HeartbeatSeconds = existingEntry.HeartbeatSeconds;
-				connectionEntry.HeartbeatState = existingEntry.HeartbeatState;
-				connectionEntry.LastCommand = existingEntry.LastCommand;
-				connectionEntry.LastHeartbeat = DateTime.Now;
-				connectionEntry.ThrottleName = existingEntry.ThrottleName;
-				connectionEntry.listReference.Delete(existingEntry);
+				Core.Utilities.Logger.Log.Information($"Existing HardwareID reference exists. Remapping '{ConnectionEntry.ConnectionID}' to '{existingEntry.ConnectionID}'");
+				ConnectionEntry.HardwareID = existingEntry.HardwareID;
+				ConnectionEntry.HeartbeatSeconds = existingEntry.HeartbeatSeconds;
+				ConnectionEntry.HeartbeatState = existingEntry.HeartbeatState;
+				ConnectionEntry.LastCommand = existingEntry.LastCommand;
+				ConnectionEntry.LastHeartbeat = DateTime.Now;
+				ConnectionEntry.ThrottleName = existingEntry.ThrottleName;
+				ConnectionEntry.listReference.Delete(existingEntry);
 			}
-
 			return null;
 		}
 

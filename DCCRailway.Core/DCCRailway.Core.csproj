@@ -28,18 +28,20 @@
         <None Remove="Entities\Collections\" />
     </ItemGroup>
     <ItemGroup>
-        <Resource Include="JMRI\Roster\roster.xml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Resource>
-    </ItemGroup>
-    <ItemGroup>
+        <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+        <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="1.0.9" />
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+        <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
+        <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+        <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
         <PackageReference Include="System.IO.Ports" Version="6.0.0" />
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Adapters\" />
         <Folder Include="Commands\" />
         <Folder Include="Events\" />
-        <Folder Include="JMRI\Decoders\" />
         <Folder Include="Validators\" />
         <Folder Include="Simulator\" />
         <Folder Include="Entities\Collections\" />

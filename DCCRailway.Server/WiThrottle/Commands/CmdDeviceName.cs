@@ -10,12 +10,12 @@ namespace DCCRailway.Server.WiThrottle.Commands {
 		// Return *xx where xx is the seconds expected between heartbeats
 		// -----------------------------------------------------------------------
 		public string? Execute() {
-			Console.WriteLine($"Recieved a THROTTLE NAME command from '{connectionEntry.ConnectionID}' of '{cmdString}'");
-			connectionEntry.ThrottleName = cmdString;
+			Core.Utilities.Logger.Log.Information($"Received a THROTTLE NAME command from '{ConnectionEntry.ConnectionID}' of '{CmdString}'");
+			ConnectionEntry.ThrottleName = CmdString;
 
 			// Get all the Startup Data needed and return that as a response to a Throttle name
 			// ---------------------------------------------------------------------------------
-			var startup = new CmdStartup(connectionEntry, "");
+			var startup = new CmdStartup(ConnectionEntry, "");
 			return startup.Execute();
 		}
 

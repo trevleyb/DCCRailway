@@ -7,7 +7,7 @@ namespace DCCRailway.Server.WiThrottle.Commands {
 		}
 
 		public string? Execute() {
-			Console.WriteLine($"Recieved a QUIT command from '{connectionEntry.ConnectionID}'");
+			Core.Utilities.Logger.Log.Information($"Received a QUIT command from '{ConnectionEntry.ConnectionID}'");
 			return null;
 		}
 

@@ -28,7 +28,7 @@ namespace DCCRailway.Core.Adapters {
 		///     Open a connection to this adapter if it is not already open (close it first if it is)
 		/// </summary>
 		public void Connect() {
-			//Console.WriteLine($"Connecting to the {Name} Adapter");
+			Logger.Log.Debug($"ADAPTER:{Name} - Connecting");
 
 			if (IsConnected) Disconnect();
 			if (string.IsNullOrEmpty(_portName)) throw new AdapterException(Name, "No port has been defined. ");
@@ -40,7 +40,7 @@ namespace DCCRailway.Core.Adapters {
 				};
 
 				_connection.PinChanged += delegate(object sender, SerialPinChangedEventArgs args) {
-					Console.WriteLine($"{Name}: Connected = {0}", args.EventType);
+					Logger.Log.Debug($"ADAPTER:{Name} - Connected = {0}", args.EventType);
 					OnConnectionChangedState(new StateChangedArgs(args.EventType.ToString()));
 				};
 
@@ -50,7 +50,7 @@ namespace DCCRailway.Core.Adapters {
 				//};
 
 				_connection.ErrorReceived += delegate(object sender, SerialErrorReceivedEventArgs args) {
-					Console.WriteLine("SerialConnection Error Occurred: {0}", args);
+					Logger.Log.Debug($"ADAPTER:{Name} - SerialConnection Error Occurred: {0}", args);
 					OnErrorOccurred(new ErrorArgs(args.EventType.ToString(), this));
 				};
 
@@ -64,7 +64,7 @@ namespace DCCRailway.Core.Adapters {
 		///     Close the open Serial connection and reset the reference
 		/// </summary>
 		public void Disconnect() {
-			//Console.WriteLine($"Disconnecting from the {Name} Adapter");
+			Logger.Log.Debug($"ADAPTER:{Name} - Disconnecting");
 			if (_connection != null) _connection.Close();
 			_connection = null;
 		}
@@ -76,7 +76,7 @@ namespace DCCRailway.Core.Adapters {
 		/// <returns>Array of Bytes being the data read from the Adapter</returns>
 		/// <exception cref="AdapterException">Throws if there is a connection error</exception>
 		public byte[]? RecvData(ICommand? command = null) {
-			//Console.WriteLine($"Listening for data from the {Name} Adapter");
+			Logger.Log.Debug($"ADAPTER:{Name} - Listening for data");
 			if (!IsConnected) throw new AdapterException(Name, "No active connection to the Command Station.");
 
 			GuardClauses.IsNotNull(_connection, "_connection");
@@ -91,19 +91,17 @@ namespace DCCRailway.Core.Adapters {
 						var readData = new byte[_connection.BytesToRead];
 						_connection.Read(readData, 0, _connection.BytesToRead);
 
-						//Console.WriteLine($"{Name}: Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
+						Logger.Log.Debug($"ADAPTER:{Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
 						returnData.AddRange(readData);
 					}
 				}
 
-				//Console.WriteLine($"{Name}: Read '{0}' data as bytes from SerialPort.", returnData.ToArray().ToDisplayValueChars());
+				Logger.Log.Debug($"ADAPTER:{Name} - Read '{0}' data as bytes from SerialPort.", returnData.ToArray().ToDisplayValueChars());
 				OnDataRecieved(new DataRecvArgs(returnData.ToArray(), this, command));
 				return returnData.ToArray();
 			} catch (Exception ex) {
 				throw new AdapterException(Name, "Could not read from the Command Station", ex);
 			}
-
-			throw new AdapterException(Name, "Timeout occurred reading response from the command station.");
 		}
 
 		/// <summary>
@@ -112,18 +110,15 @@ namespace DCCRailway.Core.Adapters {
 		/// <param name="data">The data storerd as an array of bytes</param>
 		/// <exception cref="AdapterException">Throws an exception if there is a connection error</exception>
 		public void SendData(byte[] data, ICommand? commandReference = null) {
-			//Console.WriteLine($"Sending data to the {Name} Adapter '{data.ToDisplayValueChars()}'");
+			Logger.Log.Debug($"ADAPTER:{Name} -Sending data to the {Name} Adapter '{data.ToDisplayValueChars()}'");
 			if (!IsConnected) throw new AdapterException(Name, "No active connection to the Command Station.");
 
 			try {
 				if (_connection!.BytesToRead > 0) _connection.ReadExisting();
-
-				//Console.WriteLine($"Found data in the input buffer before we write data. Clearing Data: {_connection.ReadExisting()}");
 				_connection!.Write(data, 0, data.Length);
 			} catch (Exception ex) {
 				throw new AdapterException(Name, "Could not read/write to Command Station", ex);
 			}
-
 			OnDataSent(new DataSentArgs(data, this, commandReference));
 		}
 

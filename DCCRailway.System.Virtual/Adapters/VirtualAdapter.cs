@@ -19,31 +19,31 @@ namespace DCCRailway.Systems.Virtual {
 		public bool IsConnected { get; private set; }
 
 		public void Connect() {
-			Console.WriteLine("Connecting to the Virtual Adapter");
+			Core.Utilities.Logger.Log.Debug("Connecting to the Virtual Adapter");
 			IsConnected = true;
 		}
 
 		public void Disconnect() {
-			Console.WriteLine("Disconnecting from the Virtual Adapter");
+			Core.Utilities.Logger.Log.Debug("Disconnecting from the Virtual Adapter");
 			IsConnected = false;
 		}
 
 		public byte[]? RecvData(ICommand? command = null) {
-			Console.WriteLine("Listening for data from the Adapter: '" + _lastCommand.FromByteArray() + "'");
+			Core.Utilities.Logger.Log.Debug("Listening for data from the Adapter: '" + _lastCommand.FromByteArray() + "'");
 			var result = _lastCommand.FromByteArray() switch {
 				"STATUS_COMMAND" => "OK".ToByteArray(),
 				"DUMMY_COMMAND" => "OK".ToByteArray(),
 				_ => null
 			};
-			Console.WriteLine("Data to return: '" + result.FromByteArray() + "'");
+			Core.Utilities.Logger.Log.Debug("Data to return: '" + result.FromByteArray() + "'");
 			OnDataRecieved(new DataRecvArgs(result, this, command));
 			return result;
 		}
 
 		public void SendData(byte[] data, ICommand? command = null) {
-			Console.WriteLine("Sending data to the Adapter");
+			Core.Utilities.Logger.Log.Debug("Sending data to the Adapter");
 			_lastCommand = data;
-			Console.WriteLine("Data Sent: " + data.FromByteArray());
+			Core.Utilities.Logger.Log.Debug("Data Sent: " + data.FromByteArray());
 			OnDataSent(new DataSentArgs(data, this, command));
 		}
 	}

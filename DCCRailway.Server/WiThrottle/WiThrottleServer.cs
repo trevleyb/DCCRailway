@@ -11,8 +11,8 @@ using DCCRailway.Server.WiThrottle.Commands;
 namespace DCCRailway.Server.WiThrottle {
 	public class WiThrottleServer {
 		private const ushort DEFAULT_PORT = 12090;
-		public string terminator = "\x0A";
-		public WiThrottleConnectionList wiThrottleConnections = new();
+		private readonly string _terminator = "\x0A";
+		private readonly WiThrottleConnectionList _wiThrottleConnections = new();
 
 		/// <summary>
 		///     Default constructor which loads IP/Port from Config to
@@ -31,7 +31,11 @@ namespace DCCRailway.Server.WiThrottle {
 			Start(ip, port);
 		}
 
-		public bool ServerActive { get; set; } = true;
+		/// <summary>
+		/// Indicator that the server is currently active.
+		/// Set to FALSE to exit the while loop
+		/// </summary>
+		private bool ServerActive { get; set; } = true;
 
 		/// <summary>
 		///     Start up the Listener Service using the provided Port and IPAddress
@@ -42,18 +46,21 @@ namespace DCCRailway.Server.WiThrottle {
 			//
 			// Setup the Server to Broadcast its presence on the network
 			// ----------------------------------------------------------
-			Dictionary<string, string> properties = new();
-			properties.Add("node", "jmri-C4910CB13C68-3F39938d");
-			properties.Add("jmri", "4.21.4");
-			properties.Add("version", "4.2.1");
-			ServerBroadcast.Start("JMRI WiThrottle Railway", "_withrottle._tcp", ipAddress, port);
+			// TODO: This needs to come via parameters as we start up multiple instances
+			Dictionary<string, string> properties = new() {
+				{ "node", "jmri-C4910CB13C68-3F39938d" },
+				{ "jmri", "4.21.4" },
+				{ "version", "4.2.1" }
+			};
+			// TODO: The name should come from parameters 
+			ServerBroadcast.Start("JMRI WiThrottle Railway", "_withrottle._tcp", ipAddress, port, properties);
 
 			//
 			// Start up the TCP Server to listen for incoming connections and process
 			// ----------------------------------------------------------
-			var TCPServer = new TcpListener(ipAddress, port);
-			TCPServer.Start();
-			StartListener(TCPServer);
+			var tcpServer = new TcpListener(ipAddress, port);
+			tcpServer.Start();
+			StartListener(tcpServer);
 		}
 
 		/// <summary>
@@ -64,21 +71,18 @@ namespace DCCRailway.Server.WiThrottle {
 			ServerActive = false;
 		}
 
-		public void StartListener(TcpListener server) {
+		private void StartListener(TcpListener server) {
 			try {
-				Console.WriteLine("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
+				Core.Utilities.Logger.Log.Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
 				while (ServerActive) {
 					var client = server.AcceptTcpClient();
-					if (client != null) {
-						Thread t = new(HandleConnection);
-						t.Start(client);
-					}
+					Thread t = new(HandleConnection);
+					t.Start(client);
 				}
-
-				Console.WriteLine("Server Shutting Down on {0}", server.LocalEndpoint);
+				Core.Utilities.Logger.Log.Debug("Server Shutting Down on {0}", server.LocalEndpoint);
 				server.Stop();
 			} catch (SocketException e) {
-				Console.WriteLine("SocketException: {0}", e);
+				Core.Utilities.Logger.Log.Debug("SocketException: {0}", e);
 				server.Stop();
 			}
 		}
@@ -87,65 +91,59 @@ namespace DCCRailway.Server.WiThrottle {
 		///     Thread object to handle a request.
 		/// </summary>
 		/// <param name="obj"></param>
-		public void HandleConnection(object? obj) {
+		private void HandleConnection(object? obj) {
 			// This should not be possible but best to ensure and check for this edge case.
 			// -----------------------------------------------------------------------------
-			if (obj == null || obj is not TcpClient) {
-				Trace.TraceWarning("Started thread but provided a NULL or NON-TCP Client Object.");
+			if (obj == null || obj is not TcpClient client) {
+				Core.Utilities.Logger.Log.Warning("Started thread but provided a NULL or NON-TCP Client Object.");
 				return;
 			}
 
-			var client = (TcpClient)obj;
 			var stream = client.GetStream();
-			Console.WriteLine("Connection: Client '{0}' has connected.", client.Client.Handle);
-			var connectionEntry = wiThrottleConnections.Add((ulong)client.Client.Handle);
-			var cmdFactory = new RecvCommandFactory(connectionEntry!);
+			Core.Utilities.Logger.Log.Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
+			var connectionEntry = _wiThrottleConnections.Add((ulong)client.Client.Handle);
+			var cmdFactory = new WiThrottleCmdFactory(connectionEntry!);
 
 			try {
 				var bytesRead = 0;
-				string? data = null;
 				var bytes = new byte[256];
 				StringBuilder buffer = new();
 
 				while ((bytesRead = stream.Read(bytes, 0, bytes.Length)) != 0) {
-					// Read the data and append it to a String Builder incase there is more data to read.
+					// Read the data and append it to a String Builder in-case there is more data to read.
 					// We are only reading 256 bytes maximum at a time from the stream so keep reading until
 					// we get a terminator at the end of the data stream.
 					// -------------------------------------------------------------------------------------
-					var hex = BitConverter.ToString(bytes);
-					data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
-					Console.WriteLine($"{connectionEntry?.ConnectionID:D4}>>>>>{data.Trim()}");
+					var data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
+					Core.Utilities.Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}>>>>>{data.Trim()}");
 					buffer.Append(data);
 
-					if (buffer.ToString().Contains(terminator)) {
-						foreach (var command in buffer.ToString().Split(terminator)) {
+					if (buffer.ToString().Contains(_terminator)) {
+						foreach (var command in buffer.ToString().Split(_terminator)) {
 							if (!string.IsNullOrEmpty(command)) {
 								var cmd = cmdFactory.Interpret(CommandType.Client, command!);
-								if (cmd != null) {
-									Console.WriteLine($"{connectionEntry?.ConnectionID:D4}<=={cmd?.ToString()}");
-									var resData = cmd!.Execute();
-									if (cmd is CmdQuit) {
-										wiThrottleConnections.Disconnect(connectionEntry!);
-										break;
-									}
+								Core.Utilities.Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}<=={cmd.ToString()}");
+								
+								var resData = cmd!.Execute();
+								if (cmd is CmdQuit) {
+									_wiThrottleConnections.Disconnect(connectionEntry!);
+									break;
+								}
 
-									if (resData != null && resData.Length > 0) {
-										var reply = Encoding.ASCII.GetBytes(resData + terminator);
-										stream.Write(reply, 0, reply.Length);
-										Console.WriteLine($"{connectionEntry?.ConnectionID:D4}==>{resData}");
-									}
+								if (resData != null && resData.Length > 0) {
+									var reply = Encoding.ASCII.GetBytes(resData + _terminator);
+									stream.Write(reply, 0, reply.Length);
+									Core.Utilities.Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}==>{resData}");
 								}
 							}
 						}
-
 						buffer.Clear();
 					}
 				}
-
-				Console.WriteLine("Connection: Client '{0}' has closed.", connectionEntry?.ConnectionID);
+				Core.Utilities.Logger.Log.Debug("Connection: Client '{0}' has closed.", connectionEntry?.ConnectionID);
 				client.Close();
 			} catch (Exception e) {
-				Console.WriteLine("Exception: {0}", e);
+				Core.Utilities.Logger.Log.Error("Exception: {0}", e);
 				client.Close();
 			}
 		}

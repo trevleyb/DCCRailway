@@ -7,18 +7,19 @@ namespace DCCRailway.Server.WiThrottle.Commands {
 		}
 
 		public string? Execute() {
-			if (cmdString.Equals("+")) {
-				Console.WriteLine($"Recieved a HEARTBEAT + (ON) command from '{connectionEntry.ThrottleName}'");
-				connectionEntry.HeartbeatState = HeartbeatStateEnum.On;
-			} else if (cmdString.Equals("-")) {
-				Console.WriteLine($"Recieved a HEARTBEAT - (OFF) command from '{connectionEntry.ThrottleName}'");
-				connectionEntry.HeartbeatState = HeartbeatStateEnum.Off;
-			} else {
-				Console.WriteLine($"Recieved a HEARTBEAT from '{connectionEntry.ThrottleName}'");
-
-				// Do nothing as we jyust recieved a heartbeat
+			switch (CmdString) {
+			case "+":
+				Core.Utilities.Logger.Log.Information($"Received a HEARTBEAT + (ON) command from '{ConnectionEntry.ThrottleName}'");
+				ConnectionEntry.HeartbeatState = HeartbeatStateEnum.On;
+				break;
+			case "-":
+				Core.Utilities.Logger.Log.Information($"Received a HEARTBEAT - (OFF) command from '{ConnectionEntry.ThrottleName}'");
+				ConnectionEntry.HeartbeatState = HeartbeatStateEnum.Off;
+				break;
+			default: 
+				Core.Utilities.Logger.Log.Information($"Received a HEARTBEAT from '{ConnectionEntry.ThrottleName}'");
+				break;
 			}
-
 			return null;
 		}
 

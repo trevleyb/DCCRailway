@@ -1,7 +1,7 @@
 ﻿using System.IO.Ports;
 using DCCRailway.Core.Common;
 using DCCRailway.Core.Config;
-using DCCRailway.Core.JMRI.Roster;
+using DCCRailway.Conversion.JMRI.Roster;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Decoder = DCCRailway.Core.Config.Decoder;
 

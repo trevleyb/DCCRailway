@@ -1,13 +1,12 @@
 ﻿namespace DCCRailway.Server.WiThrottle.Commands {
 	public abstract class ThrottleCmdBase {
-		protected string cmdString;
+		protected readonly string CmdString;
+		protected readonly WiThrottleConnectionEntry ConnectionEntry;
 
-		protected WiThrottleConnectionEntry connectionEntry;
-
-		public ThrottleCmdBase(WiThrottleConnectionEntry connectionEntry, string cmdString) {
-			this.connectionEntry = connectionEntry;
-			this.cmdString = cmdString;
-			this.connectionEntry.UpdateHeartbeat();
+		protected ThrottleCmdBase(WiThrottleConnectionEntry connectionEntry, string cmdString) {
+			ConnectionEntry = connectionEntry;
+			CmdString = cmdString;
+			ConnectionEntry.UpdateHeartbeat();
 		}
 	}
 }
