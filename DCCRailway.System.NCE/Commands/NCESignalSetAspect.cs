@@ -1,7 +1,9 @@
 ﻿using System;
-using DCCRailway.Core.Adapters;
-using DCCRailway.Core.Commands;
 using DCCRailway.Core.Common;
+using DCCRailway.Core.Systems.Adapters;
+using DCCRailway.Core.Systems.Commands;
+using DCCRailway.Core.Systems.Commands.Interfaces;
+using DCCRailway.Core.Systems.Commands.Results;
 using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Systems.NCE.Commands {

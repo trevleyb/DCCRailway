@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using DCCRailway.Core;
 using DCCRailway.Core.Common;
-using DCCRailway.Core.Events;
+using DCCRailway.Core.Systems;
+using DCCRailway.Core.Systems.Adapters.Events;
+using DCCRailway.Core.Systems.Attributes;
 
 namespace DCCRailway.Systems.NCE {
-	public class NCEProCab : SystemBase, ISystem {
+	[SystemName(Manufacturer = "NCE", Name = "ProCab")]
+	public class NceProCab : SystemBase, ISystem {
 		public override IDCCAddress CreateAddress() {
 			return new DCCAddress();
 		}
@@ -21,14 +23,6 @@ namespace DCCRailway.Systems.NCE {
 				//adapters.Add((typeof(VirtualAdapter), VirtualAdapter.Name));
 				return adapters;
 			}
-		}
-
-		public static string Manufacturer {
-			get { return "NCE"; }
-		}
-
-		public static string SystemName {
-			get { return "ProCab"; }
 		}
 
 		protected override void RegisterCommands() {

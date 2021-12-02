@@ -1,7 +1,9 @@
-﻿using DCCRailway.Core;
-using DCCRailway.Core.Adapters;
-using DCCRailway.Core.Commands;
-using DCCRailway.Core.Common;
+﻿using DCCRailway.Core.Common;
+using DCCRailway.Core.Systems;
+using DCCRailway.Core.Systems.Adapters;
+using DCCRailway.Core.Systems.Commands.Interfaces;
+using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Systems.NCE;
 using DCCRailway.Systems.NCE.Adapters;
 using DCCRailway.Systems.NCE.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -63,7 +65,7 @@ namespace DCCRailway.Test {
 
 			var system = SystemFactory.Create("NCE", "PowerCab", adapter);
 			Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-			Assert.IsInstanceOfType(system, typeof(Systems.NCE.NCEPowerCab), "Should be a NCE:NCEPowerCab System Created");
+			Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 
 			// Setup some event management
 			// --------------------------------------------
@@ -97,7 +99,7 @@ namespace DCCRailway.Test {
 
 			var system = SystemFactory.Create("NCE", "PowerCab", adapter);
 			Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-			Assert.IsInstanceOfType(system, typeof(Systems.NCE.NCEPowerCab), "Should be a NCE:NCEPowerCab System Created");
+			Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 
 			// Setup some event management
 			// --------------------------------------------
@@ -138,7 +140,7 @@ namespace DCCRailway.Test {
 
 			var system = SystemFactory.Create("NCE", "PowerCab", adapter);
 			Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-			Assert.IsInstanceOfType(system, typeof(Systems.NCE.NCEPowerCab), "Should be a NCE:NCEPowerCab System Created");
+			Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 
 			// Set the time on the NCE PowerCab
 			// --------------------------------------------------------------------------

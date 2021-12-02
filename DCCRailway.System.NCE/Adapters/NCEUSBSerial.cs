@@ -1,5 +1,5 @@
 ﻿using System.IO.Ports;
-using DCCRailway.Core.Adapters;
+using DCCRailway.Core.Systems.Adapters;
 
 namespace DCCRailway.Systems.NCE.Adapters {
 	public class NCEUSBSerial : SerialAdapter, IAdapter {

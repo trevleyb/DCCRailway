@@ -1,4 +1,4 @@
-﻿using DCCRailway.Core.Adapters;
+﻿using DCCRailway.Core.Systems.Adapters;
 
 namespace DCCRailway.Systems.NCE.Adapters {
 	public class NCENetwork : NetworkAdapter, IAdapter {

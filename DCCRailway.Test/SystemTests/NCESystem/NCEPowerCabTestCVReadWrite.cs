@@ -1,5 +1,7 @@
-﻿using DCCRailway.Core;
-using DCCRailway.Core.Commands;
+﻿using DCCRailway.Core.Systems;
+using DCCRailway.Core.Systems.Commands.Interfaces;
+using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Systems.NCE;
 using DCCRailway.Systems.NCE.Adapters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,7 +14,7 @@ namespace DCCRailway.Test {
 			Assert.IsNotNull(adapter, "Should have a Serial Adapter created");
 			var system = SystemFactory.Create("NCE", "PowerCab", adapter);
 			Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-			Assert.IsInstanceOfType(system, typeof(Systems.NCE.NCEPowerCab), "Should be a NCE:NCEPowerCab System Created");
+			Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 			if (system != null && system.Adapter != null) {
 				var progTrk = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
 				var mainTrk = system.CreateCommand<ICmdTrackMain>(); // new NCESetMainTrk(adapter);
@@ -32,7 +34,7 @@ namespace DCCRailway.Test {
 			Assert.IsNotNull(adapter, "Should have a Serial Adapter created");
 			var system = SystemFactory.Create("NCE", "PowerCab", adapter);
 			Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-			Assert.IsInstanceOfType(system, typeof(Systems.NCE.NCEPowerCab), "Should be a NCE:NCEPowerCab System Created");
+			Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 			if (system != null && system.Adapter != null) {
 				var progTrk = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
 				var mainTrk = system.CreateCommand<ICmdTrackMain>(); // new NCESetMainTrk(adapter);
@@ -64,7 +66,7 @@ namespace DCCRailway.Test {
 			Assert.IsNotNull(adapter, "Should have a Serial Adapter created");
 			var system = SystemFactory.Create("NCE", "PowerCab", adapter);
 			Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-			Assert.IsInstanceOfType(system, typeof(Systems.NCE.NCEPowerCab), "Should be a NCE:NCEPowerCab System Created");
+			Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 			if (system != null && system.Adapter != null) {
 				var progTrk = system.CreateCommand<ICmdTrackProg>();
 				var mainTrk = system.CreateCommand<ICmdTrackMain>();

@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using DCCRailway.Core;
-using DCCRailway.Core.Adapters;
-using DCCRailway.Core.Commands;
 using DCCRailway.Core.Common;
-using DCCRailway.Core.Events;
 using DCCRailway.Core.Exceptions;
+using DCCRailway.Core.Systems;
+using DCCRailway.Core.Systems.Adapters;
+using DCCRailway.Core.Systems.Adapters.Events;
+using DCCRailway.Core.Systems.Attributes;
+using DCCRailway.Core.Systems.Commands.Interfaces;
+using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Core.Utilities;
 using DCCRailway.Systems.NCE.Adapters;
 using DCCRailway.Systems.NCE.Commands;
 
 namespace DCCRailway.Systems.NCE {
-	public class NCEPowerCab : SystemBase, ISystem {
-		public static string Manufacturer {
-			get { return "NCE"; }
-		}
-
-		public static string SystemName {
-			get { return "PowerCab"; }
-		}
-
+	[SystemName(Manufacturer = "NCE", Name = "PowerCab")]
+	public class NcePowerCab : SystemBase, ISystem {
 		public override List<(Type adapter, string name)>? SupportedAdapters {
 			get {
 				List<(Type adapter, string name)>? adapters = new();
@@ -109,19 +105,19 @@ namespace DCCRailway.Systems.NCE {
 
 		#region Manage the events from the Adapter
 		protected override void Adapter_ErrorOccurred(object? sender, ErrorArgs e) {
-			Core.Utilities.Logger.Log.Debug(e.ToString());
+			Logger.Log.Debug(e.ToString());
 		}
 
 		protected override void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e) {
-			Core.Utilities.Logger.Log.Debug(e.ToString());
+			Logger.Log.Debug(e.ToString());
 		}
 
 		protected override void Adapter_DataSent(object? sender, DataSentArgs e) {
-			Core.Utilities.Logger.Log.Debug(e.ToString());
+			Logger.Log.Debug(e.ToString());
 		}
 
 		protected override void Adapter_DataReceived(object? sender, DataRecvArgs e) {
-			Core.Utilities.Logger.Log.Debug(e.ToString());
+			Logger.Log.Debug(e.ToString());
 		}
 		#endregion
 	}

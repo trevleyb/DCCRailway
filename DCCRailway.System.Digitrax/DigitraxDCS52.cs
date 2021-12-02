@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using DCCRailway.Core;
 using DCCRailway.Core.Common;
-using DCCRailway.Core.Events;
+using DCCRailway.Core.Systems;
+using DCCRailway.Core.Systems.Adapters.Events;
+using DCCRailway.Core.Systems.Attributes;
 using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Systems.Digitrax {
+	[SystemName(Manufacturer = "Digitrax", Name = "DCS52")]
 	public class DCS52 : SystemBase, ISystem {
-		public static string Manufacturer {
-			get { return "Virtual"; }
-		}
-
-		public static string SystemName {
-			get { return "Virtual"; }
-		}
-
 		public override IDCCAddress CreateAddress() {
 			return new DCCAddress();
 		}
@@ -39,19 +33,19 @@ namespace DCCRailway.Systems.Digitrax {
 
 		#region Manage the events from the Adapter
 		protected override void Adapter_ErrorOccurred(object? sender, ErrorArgs e) {
-			Core.Utilities.Logger.Log.Debug("Error occurred in the Adapter: " + e);
+			Logger.Log.Debug("Error occurred in the Adapter: " + e);
 		}
 
 		protected override void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e) {
-			Core.Utilities.Logger.Log.Debug("A state change event occurred in the Adapter: " + e.EventType);
+			Logger.Log.Debug("A state change event occurred in the Adapter: " + e.EventType);
 		}
 
 		protected override void Adapter_DataSent(object? sender, DataSentArgs e) {
-			Core.Utilities.Logger.Log.Debug("Data was sent to the Adapter: " + e.Data?.ToDisplayValues());
+			Logger.Log.Debug("Data was sent to the Adapter: " + e.Data?.ToDisplayValues());
 		}
 
 		protected override void Adapter_DataReceived(object? sender, DataRecvArgs e) {
-			Core.Utilities.Logger.Log.Debug("Data was recieved from the Adapter: " + e.Data?.ToDisplayValues());
+			Logger.Log.Debug("Data was recieved from the Adapter: " + e.Data?.ToDisplayValues());
 		}
 		#endregion
 	}

@@ -1,0 +1,8 @@
+﻿using DCCRailway.Core.Common;
+
+namespace DCCRailway.Core.Systems.Commands.Interfaces {
+	public interface ICmdLocoSetFunctions : ICommand {
+		public IDCCAddress Address { get; set; }
+		public DCCFunctionBlocks Functions { get; }
+	}
+}

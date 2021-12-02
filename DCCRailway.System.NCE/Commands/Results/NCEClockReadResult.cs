@@ -1,5 +1,5 @@
 ﻿using System;
-using DCCRailway.Core.Commands;
+using DCCRailway.Core.Systems.Commands.Results;
 
 namespace DCCRailway.Systems.NCE.Commands {
 	public class NCEClockReadResult : ResultOK, IResult {

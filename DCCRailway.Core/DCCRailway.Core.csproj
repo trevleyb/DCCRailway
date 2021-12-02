@@ -39,9 +39,6 @@
         <PackageReference Include="System.IO.Ports" Version="6.0.0" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Adapters\" />
-        <Folder Include="Commands\" />
-        <Folder Include="Events\" />
         <Folder Include="Validators\" />
         <Folder Include="Simulator\" />
         <Folder Include="Entities\Collections\" />

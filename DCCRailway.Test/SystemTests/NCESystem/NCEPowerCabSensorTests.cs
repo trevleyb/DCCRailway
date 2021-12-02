@@ -1,6 +1,8 @@
-﻿using DCCRailway.Core;
-using DCCRailway.Core.Commands;
+﻿using DCCRailway.Core.Systems;
+using DCCRailway.Core.Systems.Commands.Interfaces;
+using DCCRailway.Core.Systems.Commands.Results;
 using DCCRailway.Core.Utilities;
+using DCCRailway.Systems.NCE;
 using DCCRailway.Systems.NCE.Adapters;
 using DCCRailway.Systems.NCE.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,7 +34,7 @@ namespace DCCRailway.Test {
 
 			var system = SystemFactory.Create("NCE", "PowerCab", adapter);
 			Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-			Assert.IsInstanceOfType(system, typeof(Systems.NCE.NCEPowerCab), "Should be a NCE:NCEPowerCab System Created");
+			Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 
 			if (system != null && system.Adapter != null) {
 				var sensorCmd = system.CreateCommand<ICmdSensorGetState>() as NCESensorGetState;

@@ -1,6 +1,6 @@
 ﻿using System;
-using DCCRailway.Core.Adapters;
-using DCCRailway.Core.Commands;
+using DCCRailway.Core.Systems.Adapters;
+using DCCRailway.Core.Systems.Commands;
 
 namespace DCCRailway.Core.Exceptions {
 	public class ExpectedDataException : Exception {

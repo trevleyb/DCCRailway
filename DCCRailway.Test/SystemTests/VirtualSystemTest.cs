@@ -1,5 +1,5 @@
-﻿using DCCRailway.Core;
-using DCCRailway.Core.Commands;
+﻿using DCCRailway.Core.Systems;
+using DCCRailway.Core.Systems.Commands.Interfaces;
 using DCCRailway.Core.Utilities;
 using DCCRailway.Systems.Virtual;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -27,7 +27,7 @@ namespace DCCRailway.Test {
 			supportedCommands = virtualSystem.SupportedCommands;
 			Assert.IsTrue(supportedCommands!.Count == 2);
 		}
-		
+
 		[TestMethod]
 		public void TestRegisteredAndAttach1() {
 			var systems = SystemFactory.SupportedSystems();

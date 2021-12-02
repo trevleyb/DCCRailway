@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using DCCRailway.Core.Commands;
+using DCCRailway.Core.Systems.Commands;
 
 namespace DCCRailway.Core.Utilities {
 	public static class InterfaceUtility {

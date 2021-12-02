@@ -1,5 +1,5 @@
 ﻿using System;
-using DCCRailway.Core.Adapters;
+using DCCRailway.Core.Systems.Adapters;
 
 namespace DCCRailway.Core.Exceptions {
 	public class AdapterException : Exception {

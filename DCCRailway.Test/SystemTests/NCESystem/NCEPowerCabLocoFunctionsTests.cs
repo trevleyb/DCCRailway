@@ -1,8 +1,10 @@
-﻿using DCCRailway.Core;
-using DCCRailway.Core.Adapters;
-using DCCRailway.Core.Commands;
-using DCCRailway.Core.Common;
-using DCCRailway.Core.Events;
+﻿using DCCRailway.Core.Common;
+using DCCRailway.Core.Systems;
+using DCCRailway.Core.Systems.Adapters;
+using DCCRailway.Core.Systems.Adapters.Events;
+using DCCRailway.Core.Systems.Commands.Interfaces;
+using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Systems.NCE;
 using DCCRailway.Systems.NCE.Adapters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,7 +27,7 @@ namespace DCCRailway.Test {
 			_system = SystemFactory.Create("NCE", "PowerCab");
 			if (_system != null) {
 				Assert.IsNotNull(_system, "Should have an NCE PowerCab system created.");
-				Assert.IsInstanceOfType(_system, typeof(Systems.NCE.NCEPowerCab), "Should be a NCE:NCEPowerCab System Created");
+				Assert.IsInstanceOfType(_system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 
 				_adapter = new NCEUSBSerial("COM3", 19200);
 				Assert.IsNotNull(_adapter, "Should have a Serial Adapter created");

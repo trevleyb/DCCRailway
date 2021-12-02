@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using DCCRailway.Core.Utilities;
 using DCCRailway.Server.Utilities;
 using DCCRailway.Server.WiThrottle.Commands;
 
 namespace DCCRailway.Server.WiThrottle {
 	public class WiThrottleServer {
 		private const ushort DEFAULT_PORT = 12090;
-		private readonly string _terminator = "\x0A";
+		private const string _terminator = "\x0A";
 		private readonly WiThrottleConnectionList _wiThrottleConnections = new();
 
 		/// <summary>
@@ -52,6 +52,7 @@ namespace DCCRailway.Server.WiThrottle {
 				{ "jmri", "4.21.4" },
 				{ "version", "4.2.1" }
 			};
+
 			// TODO: The name should come from parameters 
 			ServerBroadcast.Start("JMRI WiThrottle Railway", "_withrottle._tcp", ipAddress, port, properties);
 
@@ -73,16 +74,16 @@ namespace DCCRailway.Server.WiThrottle {
 
 		private void StartListener(TcpListener server) {
 			try {
-				Core.Utilities.Logger.Log.Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
+				Logger.Log.Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
 				while (ServerActive) {
 					var client = server.AcceptTcpClient();
 					Thread t = new(HandleConnection);
 					t.Start(client);
 				}
-				Core.Utilities.Logger.Log.Debug("Server Shutting Down on {0}", server.LocalEndpoint);
+				Logger.Log.Debug("Server Shutting Down on {0}", server.LocalEndpoint);
 				server.Stop();
 			} catch (SocketException e) {
-				Core.Utilities.Logger.Log.Debug("SocketException: {0}", e);
+				Logger.Log.Debug("SocketException: {0}", e);
 				server.Stop();
 			}
 		}
@@ -94,13 +95,13 @@ namespace DCCRailway.Server.WiThrottle {
 		private void HandleConnection(object? obj) {
 			// This should not be possible but best to ensure and check for this edge case.
 			// -----------------------------------------------------------------------------
-			if (obj == null || obj is not TcpClient client) {
-				Core.Utilities.Logger.Log.Warning("Started thread but provided a NULL or NON-TCP Client Object.");
+			if (obj is not TcpClient client) {
+				Logger.Log.Warning("Started thread but provided a NULL or NON-TCP Client Object.");
 				return;
 			}
 
 			var stream = client.GetStream();
-			Core.Utilities.Logger.Log.Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
+			Logger.Log.Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
 			var connectionEntry = _wiThrottleConnections.Add((ulong)client.Client.Handle);
 			var cmdFactory = new WiThrottleCmdFactory(connectionEntry!);
 
@@ -115,35 +116,35 @@ namespace DCCRailway.Server.WiThrottle {
 					// we get a terminator at the end of the data stream.
 					// -------------------------------------------------------------------------------------
 					var data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
-					Core.Utilities.Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}>>>>>{data.Trim()}");
+					Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}>>>>>{data.Trim()}");
 					buffer.Append(data);
 
 					if (buffer.ToString().Contains(_terminator)) {
 						foreach (var command in buffer.ToString().Split(_terminator)) {
 							if (!string.IsNullOrEmpty(command)) {
 								var cmd = cmdFactory.Interpret(CommandType.Client, command!);
-								Core.Utilities.Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}<=={cmd.ToString()}");
-								
+								Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}<=={cmd.ToString()}");
+
 								var resData = cmd!.Execute();
 								if (cmd is CmdQuit) {
 									_wiThrottleConnections.Disconnect(connectionEntry!);
 									break;
 								}
 
-								if (resData != null && resData.Length > 0) {
+								if (!string.IsNullOrEmpty(resData)) {
 									var reply = Encoding.ASCII.GetBytes(resData + _terminator);
 									stream.Write(reply, 0, reply.Length);
-									Core.Utilities.Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}==>{resData}");
+									Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}==>{resData}");
 								}
 							}
 						}
 						buffer.Clear();
 					}
 				}
-				Core.Utilities.Logger.Log.Debug("Connection: Client '{0}' has closed.", connectionEntry?.ConnectionID);
+				Logger.Log.Debug("Connection: Client '{0}' has closed.", connectionEntry?.ConnectionID);
 				client.Close();
 			} catch (Exception e) {
-				Core.Utilities.Logger.Log.Error("Exception: {0}", e);
+				Logger.Log.Error("Exception: {0}", e);
 				client.Close();
 			}
 		}

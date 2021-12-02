@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using DCCRailway.Core.Adapters;
-using DCCRailway.Core.Commands;
 using DCCRailway.Core.Common;
+using DCCRailway.Core.Systems.Adapters;
+using DCCRailway.Core.Systems.Commands.Interfaces;
+using DCCRailway.Core.Systems.Commands.Results;
 using DCCRailway.Core.Utilities;
 
 [assembly: InternalsVisibleTo("DCCRailway.Test.NCEPowerCabSensorTests")]

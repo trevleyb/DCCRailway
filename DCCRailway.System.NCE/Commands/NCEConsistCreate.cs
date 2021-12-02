@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using DCCRailway.Core.Adapters;
-using DCCRailway.Core.Commands;
 using DCCRailway.Core.Common;
+using DCCRailway.Core.Systems.Adapters;
+using DCCRailway.Core.Systems.Commands;
+using DCCRailway.Core.Systems.Commands.Interfaces;
+using DCCRailway.Core.Systems.Commands.Results;
 
 namespace DCCRailway.Systems.NCE.Commands {
 	public class NCEConsistCreate : NCECommandBase, ICmdConsistCreate, ICommand {
