@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F70E846-73DB-4594-A751-E69418F37F09}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCCRailway.Server", "DCCRailway.Server\DCCRailway.Server.csproj", "{C34D6238-EA1D-4A5A-A069-D1BE2B306BAC}"
@@ -25,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Systems.Virtual", "DCCRailway.System.Virtual\DCCRailway.Systems.Virtual.csproj", "{18A6D007-3A4B-4326-B98A-9240DD72652B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Conversion", "DCCRailway.Conversion\DCCRailway.Conversion.csproj", "{DDD1BF18-FDC3-465F-8681-52118961C83E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DccRailway.API", "DccRailway.API\DccRailway.API.csproj", "{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +71,10 @@ Global
 		{DDD1BF18-FDC3-465F-8681-52118961C83E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDD1BF18-FDC3-465F-8681-52118961C83E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDD1BF18-FDC3-465F-8681-52118961C83E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
