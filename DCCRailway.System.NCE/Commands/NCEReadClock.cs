@@ -2,7 +2,7 @@
 using DCCRailway.Core.Systems.Commands;
 using DCCRailway.Core.Systems.Commands.Interfaces;
 using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Validators;
+using DCCRailway.Core.Systems.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands {
 	public class NCEReadClock : CommandBase, ICmdClockRead, ICommand {

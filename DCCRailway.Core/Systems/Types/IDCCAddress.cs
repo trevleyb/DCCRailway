@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Core.Common {
+﻿namespace DCCRailway.Core.Systems.Types {
 	public interface IDCCAddress {
 		int Address { get; set; }
 		DCCAddressType AddressType { get; set; }

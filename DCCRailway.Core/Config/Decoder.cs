@@ -1,5 +1,5 @@
 ﻿using System.Xml.Serialization;
-using DCCRailway.Core.Common;
+using DCCRailway.Core.Systems.Types;
 
 namespace DCCRailway.Core.Config {
 	[XmlRoot(ElementName = "Decoder")]
@@ -27,6 +27,7 @@ namespace DCCRailway.Core.Config {
 		[XmlAttribute(AttributeName = "SpeedSteps")]
 		public DCCProtocol Protocol { get; set; }
 
-		[XmlArray(ElementName = "Parameters")] public Parameters Parameters { get; set; }
+		[XmlArray(ElementName = "Parameters")]
+		public Parameters Parameters { get; set; }
 	}
 }

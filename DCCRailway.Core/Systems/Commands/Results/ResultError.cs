@@ -1,7 +1,6 @@
 ﻿using System;
-using DCCRailway.Core.Systems.Commands.Results;
 
-namespace DCCRailway.Core.Commands {
+namespace DCCRailway.Core.Systems.Commands.Results {
 	public class ResultError : ResultBase, IResultError, IResult {
 		public ResultError(string description) : base(Array.Empty<byte>()) {
 			Error = description;

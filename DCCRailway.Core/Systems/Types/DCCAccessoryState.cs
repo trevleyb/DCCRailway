@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Core.Common {
+﻿namespace DCCRailway.Core.Systems.Types {
 	public enum DCCAccessoryState {
 		On = 01,
 		Off = 00,

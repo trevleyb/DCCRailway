@@ -1,8 +1,7 @@
-﻿using DCCRailway.Core.Commands;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Validators;
+﻿using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Core.Systems.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands {
+namespace DCCRailway.Systems.NCE.Commands.Validators {
 	public class NCEStandardValidation : IResultValidation {
 		public IResult Validate(byte[] data) {
 			// Standard result codes from the NCE system are as follows:
@@ -12,7 +11,7 @@ namespace DCCRailway.Systems.NCE.Commands {
 			// '3' = data out of range
 			// '4' = byte count out of range
 			// '!' = command completed successfully
-			if (data == null || data.Length != 1) return new ResultError("Unexpected data returned and not processed.", data!);
+			if (data.Length != 1) return new ResultError("Unexpected data returned and not processed.", data!);
 			return data[0] switch {
 				(byte)'0' => new ResultError("Command not supported."),
 				(byte)'1' => new ResultError("Loco address is out of range."),

@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Core.Common {
+﻿namespace DCCRailway.Core.Systems.Types {
 	internal enum DCCTurnoutType {
 		TurnoutLeft,
 		TurnoutRight,

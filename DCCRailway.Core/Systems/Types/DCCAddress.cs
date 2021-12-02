@@ -1,7 +1,7 @@
 ﻿using System;
 using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Core.Common {
+namespace DCCRailway.Core.Systems.Types {
 	/// <summary>
 	///     Represents the storage of an ADDRESS for a DCC Loco or Accessory
 	/// </summary>

@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Core.Common {
+﻿namespace DCCRailway.Core.Systems.Types {
 	public enum DCCProtocol {
 		DCC14 = 01,
 		DCC28 = 02,

@@ -1,5 +1,5 @@
 ﻿using System;
-using DCCRailway.Core.Common;
+using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Core.Simulator {

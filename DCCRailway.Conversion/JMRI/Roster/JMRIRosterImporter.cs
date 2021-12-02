@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using DCCRailway.Core.Common;
-using DCCRailway.Core.Config;
+﻿using DCCRailway.Core.Config;
+using DCCRailway.Core.Systems.Types;
 
 namespace DCCRailway.Conversion.JMRI.Roster {
 	public static class JMRIRosterImporter {

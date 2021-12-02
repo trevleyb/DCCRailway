@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DCCRailway.Core.Common;
+using DCCRailway.Core.Systems.Types;
 
 namespace DCCRailway.Core.Simulator {
 	[Serializable]

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using DCCRailway.Core.Common;
 using DCCRailway.Core.Systems;
 using DCCRailway.Core.Systems.Adapters.Events;
 using DCCRailway.Core.Systems.Attributes;
+using DCCRailway.Core.Systems.Types;
 
 namespace DCCRailway.Systems.NCE {
 	[SystemName(Manufacturer = "NCE", Name = "TwinCab")]

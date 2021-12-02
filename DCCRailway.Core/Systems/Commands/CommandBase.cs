@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using DCCRailway.Core.Exceptions;
 using DCCRailway.Core.Systems.Adapters;
 using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Core.Systems.Commands.Validators;
 using DCCRailway.Core.Utilities;
-using DCCRailway.Core.Validators;
 
 namespace DCCRailway.Core.Systems.Commands {
 	public abstract class CommandBase : PropertyChangedBase, ICommand {

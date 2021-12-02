@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DCCRailway.Core.Common;
 using DCCRailway.Core.Exceptions;
 using DCCRailway.Core.Systems;
 using DCCRailway.Core.Systems.Adapters;
@@ -8,6 +7,7 @@ using DCCRailway.Core.Systems.Adapters.Events;
 using DCCRailway.Core.Systems.Attributes;
 using DCCRailway.Core.Systems.Commands.Interfaces;
 using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
 using DCCRailway.Systems.NCE.Adapters;
 using DCCRailway.Systems.NCE.Commands;

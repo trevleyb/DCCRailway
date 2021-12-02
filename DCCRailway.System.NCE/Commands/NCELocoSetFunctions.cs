@@ -1,9 +1,10 @@
 ﻿using System.Text;
-using DCCRailway.Core.Common;
 using DCCRailway.Core.Systems.Adapters;
 using DCCRailway.Core.Systems.Commands;
 using DCCRailway.Core.Systems.Commands.Interfaces;
 using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Core.Systems.Types;
+using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands {
 	public class NCELocoSetFunctions : NCECommandBase, ICmdLocoSetFunctions, ICommand {

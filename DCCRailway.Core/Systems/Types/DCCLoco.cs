@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Core.Common {
+﻿namespace DCCRailway.Core.Systems.Types {
 	public class DCCLoco : IDCCLoco {
 		public DCCLoco(IDCCAddress address, DCCDirection direction = DCCDirection.Forward) {
 			Address = address;

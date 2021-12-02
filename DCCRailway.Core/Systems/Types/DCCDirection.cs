@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Core.Common {
+﻿namespace DCCRailway.Core.Systems.Types {
 	public enum DCCDirection {
 		Stop = 00,
 		Forward = 01,

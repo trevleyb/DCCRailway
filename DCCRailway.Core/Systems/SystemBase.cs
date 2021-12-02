@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DCCRailway.Core.Common;
 using DCCRailway.Core.Systems.Adapters;
 using DCCRailway.Core.Systems.Adapters.Events;
 using DCCRailway.Core.Systems.Commands;
 using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Core.Systems.Types;
 
 namespace DCCRailway.Core.Systems {
 	public abstract class SystemBase : ISystem {

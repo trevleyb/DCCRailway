@@ -1,8 +1,8 @@
-﻿using DCCRailway.Core.Common;
-using DCCRailway.Core.Exceptions;
+﻿using DCCRailway.Core.Exceptions;
 using DCCRailway.Core.Simulator;
 using DCCRailway.Core.Systems.Commands;
 using DCCRailway.Core.Systems.Commands.Interfaces;
+using DCCRailway.Core.Systems.Types;
 
 namespace DCCRailway.Core.Systems.Adapters {
 	/// <summary>

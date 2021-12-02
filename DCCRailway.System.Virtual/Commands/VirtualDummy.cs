@@ -2,8 +2,8 @@
 using DCCRailway.Core.Systems.Commands;
 using DCCRailway.Core.Systems.Commands.Interfaces;
 using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Core.Systems.Commands.Validators;
 using DCCRailway.Core.Utilities;
-using DCCRailway.Core.Validators;
 
 namespace DCCRailway.Systems.Virtual.Commands {
 	public class VirtualDummy : CommandBase, IDummyCmd {

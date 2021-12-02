@@ -1,7 +1,7 @@
 ﻿using System;
 using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Core.Common {
+namespace DCCRailway.Core.Systems.Types {
 	/// <summary>
 	///     A function block represents a set of bytes used to manage the functions to be sent to a loco
 	///     to control lights, sounds etc

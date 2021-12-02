@@ -1,8 +1,8 @@
-﻿using DCCRailway.Core.Common;
-using DCCRailway.Core.Systems;
+﻿using DCCRailway.Core.Systems;
 using DCCRailway.Core.Systems.Adapters;
 using DCCRailway.Core.Systems.Commands.Interfaces;
 using DCCRailway.Core.Systems.Commands.Results;
+using DCCRailway.Core.Systems.Types;
 using DCCRailway.Systems.NCE;
 using DCCRailway.Systems.NCE.Adapters;
 using DCCRailway.Systems.NCE.Commands;
