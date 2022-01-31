@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Systems.Virtual"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Conversion", "DCCRailway.Conversion\DCCRailway.Conversion.csproj", "{DDD1BF18-FDC3-465F-8681-52118961C83E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DccRailway.API", "DccRailway.API\DccRailway.API.csproj", "{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.API", "DCCRailway.API\DCCRailway.API.csproj", "{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -27,10 +27,12 @@
         <None Remove="ServerTest\" />
     </ItemGroup>
     <ItemGroup>
+        <Folder Include="APITests" />
         <Folder Include="Utility\" />
         <Folder Include="WiThrottleTest\" />
     </ItemGroup>
     <ItemGroup>
+        <ProjectReference Include="..\DCCRailway.API\DCCRailway.API.csproj" />
         <ProjectReference Include="..\DCCRailway.Core\DCCRailway.Core.csproj" />
         <ProjectReference Include="..\DCCRailway.Conversion\DCCRailway.Conversion.csproj" />
         <ProjectReference Include="..\DCCRailway.System.Digitrax\DCCRailway.Systems.Digitrax.csproj" />
