@@ -1,3 +1,3 @@
-﻿namespace DCCRailway.Core.Entities.Interfaces {
-	public interface IBlock { }
-}
+﻿namespace DCCRailway.Core.Entities.Interfaces; 
+
+public interface IBlock { }

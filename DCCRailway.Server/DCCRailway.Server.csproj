@@ -12,7 +12,6 @@
         <None Remove="Utility\" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="WebServer\" />
         <Folder Include="Utilities\" />
     </ItemGroup>
     <ItemGroup>

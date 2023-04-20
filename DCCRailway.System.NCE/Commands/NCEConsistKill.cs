@@ -6,32 +6,30 @@ using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
 using DCCRailway.Systems.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands {
-	public class NCEConsistKill : NCECommandBase, ICmdConsistKill, ICommand {
-		public NCEConsistKill() { }
+namespace DCCRailway.Systems.NCE.Commands; 
 
-		public NCEConsistKill(IDCCLoco loco) : this(loco.Address) { }
+public class NCEConsistKill : NCECommandBase, ICmdConsistKill, ICommand {
+    public NCEConsistKill() { }
 
-		public NCEConsistKill(IDCCAddress address) {
-			Address = address;
-		}
+    public NCEConsistKill(IDCCLoco loco) : this(loco.Address) { }
 
-		public IDCCAddress Address { get; set; }
+    public NCEConsistKill(IDCCAddress address) {
+        Address = address;
+    }
 
-		public static string Name {
-			get { return "NCE Consist Kill"; }
-		}
+    public IDCCAddress Address { get; set; }
 
-		public override IResult Execute(IAdapter adapter) {
-			byte[] command = { 0xA2 };
-			command = command.AddToArray(Address.AddressBytes);
-			command = command.AddToArray(0x11);
-			command = command.AddToArray(0);
-			return SendAndReceieve(adapter, new NCEStandardValidation(), command);
-		}
+    public static string Name => "NCE Consist Kill";
 
-		public override string ToString() {
-			return $"CONSIST KILL ({Address})";
-		}
-	}
+    public override IResult Execute(IAdapter adapter) {
+        byte[] command = {0xA2};
+        command = command.AddToArray(Address.AddressBytes);
+        command = command.AddToArray(0x11);
+        command = command.AddToArray(0);
+        return SendAndReceieve(adapter, new NCEStandardValidation(), command);
+    }
+
+    public override string ToString() {
+        return $"CONSIST KILL ({Address})";
+    }
 }

@@ -2,21 +2,21 @@
 using DCCRailway.Core.Systems.Adapters.Events;
 using DCCRailway.Core.Systems.Commands;
 
-namespace DCCRailway.Core.Systems.Adapters {
-	public interface IAdapter {
-		public static string Name { get; }
-		public string Description { get; }
-		bool IsConnected { get; }
+namespace DCCRailway.Core.Systems.Adapters; 
 
-		void Connect();
-		void Disconnect();
+public interface IAdapter {
+    static string Name { get; }
+    string Description { get; }
+    bool IsConnected { get; }
 
-		void SendData(byte[] data, ICommand command);
-		byte[]? RecvData(ICommand command);
+    void Connect();
+    void Disconnect();
 
-		event EventHandler<StateChangedArgs> ConnectionStatusChanged;
-		event EventHandler<DataRecvArgs> DataReceived;
-		event EventHandler<DataSentArgs> DataSent;
-		event EventHandler<ErrorArgs> ErrorOccurred;
-	}
+    void SendData(byte[] data, ICommand command);
+    byte[]? RecvData(ICommand command);
+
+    event EventHandler<StateChangedArgs> ConnectionStatusChanged;
+    event EventHandler<DataRecvArgs> DataReceived;
+    event EventHandler<DataSentArgs> DataSent;
+    event EventHandler<ErrorArgs> ErrorOccurred;
 }

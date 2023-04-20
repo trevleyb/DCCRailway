@@ -12,6 +12,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.Core\DCCRailway.Core.csproj" />
+        <ProjectReference Include="..\DCCRailway.Core\DCCRailway.Core.csproj"/>
     </ItemGroup>
 </Project>

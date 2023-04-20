@@ -1,19 +1,17 @@
 ﻿using System;
 
-namespace DCCRailway.Core.Systems.Commands.Results {
-	public class ResultError : ResultBase, IResultError, IResult {
-		public ResultError(string description) : base(Array.Empty<byte>()) {
-			Error = description;
-		}
+namespace DCCRailway.Core.Systems.Commands.Results; 
 
-		public ResultError(string description, byte[] data) : base(data) {
-			Error = description;
-		}
+public class ResultError : ResultBase, IResultError, IResult {
+    public ResultError(string description) : base(Array.Empty<byte>()) {
+        Error = description;
+    }
 
-		public string Error { get; }
+    public ResultError(string description, byte[] data) : base(data) {
+        Error = description;
+    }
 
-		public new bool OK {
-			get { return false; }
-		}
-	}
+    public string Error { get; }
+
+    public new bool OK => false;
 }

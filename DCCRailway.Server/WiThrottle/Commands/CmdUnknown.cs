@@ -1,18 +1,18 @@
-﻿using System;
+﻿using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Server.WiThrottle.Commands {
-	public class CmdUnknown : ThrottleCmdBase, IThrottleCmd {
-		public CmdUnknown(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
-			connectionEntry.LastCommand = this;
-		}
+namespace DCCRailway.Server.WiThrottle.Commands; 
 
-		public string? Execute() {
-			Core.Utilities.Logger.Log.Information($"Received an unknown command from a throttle: '{ConnectionEntry.ConnectionID}' of '{CmdString}'");
-			return null;
-		}
+public class CmdUnknown : ThrottleCmdBase, IThrottleCmd {
+    public CmdUnknown(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
+        connectionEntry.LastCommand = this;
+    }
 
-		public override string ToString() {
-			return "COMMAND: UNKNOWN";
-		}
-	}
+    public string? Execute() {
+        Logger.Log.Information($"Received an unknown command from a throttle: '{ConnectionEntry.ConnectionID}' of '{CmdString}'");
+        return null;
+    }
+
+    public override string ToString() {
+        return "COMMAND: UNKNOWN";
+    }
 }

@@ -6,32 +6,30 @@ using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
 using DCCRailway.Systems.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands {
-	public class NCEConsistDelete : NCECommandBase, ICmdConsistDelete, ICommand {
-		public NCEConsistDelete() { }
+namespace DCCRailway.Systems.NCE.Commands; 
 
-		public NCEConsistDelete(IDCCLoco loco) : this(loco.Address) { }
+public class NCEConsistDelete : NCECommandBase, ICmdConsistDelete, ICommand {
+    public NCEConsistDelete() { }
 
-		public NCEConsistDelete(IDCCAddress address) {
-			Address = address;
-		}
+    public NCEConsistDelete(IDCCLoco loco) : this(loco.Address) { }
 
-		public IDCCAddress Address { get; set; }
+    public NCEConsistDelete(IDCCAddress address) {
+        Address = address;
+    }
 
-		public static string Name {
-			get { return "NCE Consist Delete"; }
-		}
+    public IDCCAddress Address { get; set; }
 
-		public override IResult Execute(IAdapter adapter) {
-			byte[] command = { 0xA2 };
-			command = command.AddToArray(Address.AddressBytes);
-			command = command.AddToArray(0x10);
-			command = command.AddToArray(0);
-			return SendAndReceieve(adapter, new NCEStandardValidation(), command);
-		}
+    public static string Name => "NCE Consist Delete";
 
-		public override string ToString() {
-			return $"CONSIST DELETE ({Address})";
-		}
-	}
+    public override IResult Execute(IAdapter adapter) {
+        byte[] command = {0xA2};
+        command = command.AddToArray(Address.AddressBytes);
+        command = command.AddToArray(0x10);
+        command = command.AddToArray(0);
+        return SendAndReceieve(adapter, new NCEStandardValidation(), command);
+    }
+
+    public override string ToString() {
+        return $"CONSIST DELETE ({Address})";
+    }
 }

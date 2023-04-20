@@ -3,18 +3,16 @@ using DCCRailway.Core.Systems.Commands.Interfaces;
 using DCCRailway.Core.Systems.Commands.Results;
 using DCCRailway.Systems.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands {
-	public class NCESetMainTrk : NCECommandBase, ICmdTrackMain {
-		public string Name {
-			get { return "NCE Switch to the Main Track"; }
-		}
+namespace DCCRailway.Systems.NCE.Commands; 
 
-		public override IResult Execute(IAdapter adapter) {
-			return SendAndReceieve(adapter, new NCEStandardValidation(), 0x9F);
-		}
+public class NCESetMainTrk : NCECommandBase, ICmdTrackMain {
+    public string Name => "NCE Switch to the Main Track";
 
-		public override string ToString() {
-			return "MAIN TRACK";
-		}
-	}
+    public override IResult Execute(IAdapter adapter) {
+        return SendAndReceieve(adapter, new NCEStandardValidation(), 0x9F);
+    }
+
+    public override string ToString() {
+        return "MAIN TRACK";
+    }
 }

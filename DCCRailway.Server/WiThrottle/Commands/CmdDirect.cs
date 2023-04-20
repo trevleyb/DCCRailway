@@ -1,15 +1,15 @@
-﻿namespace DCCRailway.Server.WiThrottle.Commands {
-	public class CmdDirect : ThrottleCmdBase, IThrottleCmd {
-		public CmdDirect(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
-			connectionEntry.LastCommand = this;
-		}
+﻿namespace DCCRailway.Server.WiThrottle.Commands; 
 
-		public string? Execute() {
-			return null;
-		}
+public class CmdDirect : ThrottleCmdBase, IThrottleCmd {
+    public CmdDirect(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
+        connectionEntry.LastCommand = this;
+    }
 
-		public override string ToString() {
-			return "COMMAND: SEND DIRECT DATA";
-		}
-	}
+    public string? Execute() {
+        return null;
+    }
+
+    public override string ToString() {
+        return "COMMAND: SEND DIRECT DATA";
+    }
 }

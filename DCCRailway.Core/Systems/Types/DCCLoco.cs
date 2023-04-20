@@ -1,16 +1,16 @@
-﻿namespace DCCRailway.Core.Systems.Types {
-	public class DCCLoco : IDCCLoco {
-		public DCCLoco(IDCCAddress address, DCCDirection direction = DCCDirection.Forward) {
-			Address = address;
-			Direction = direction;
-		}
+﻿namespace DCCRailway.Core.Systems.Types; 
 
-		public DCCLoco(int address, DCCAddressType type = DCCAddressType.Long, DCCDirection direction = DCCDirection.Forward) {
-			Address = new DCCAddress(address, type);
-			Direction = direction;
-		}
+public class DCCLoco : IDCCLoco {
+    public DCCLoco(IDCCAddress address, DCCDirection direction = DCCDirection.Forward) {
+        Address = address;
+        Direction = direction;
+    }
 
-		public IDCCAddress Address { get; set; }
-		public DCCDirection Direction { get; set; }
-	}
+    public DCCLoco(int address, DCCAddressType type = DCCAddressType.Long, DCCDirection direction = DCCDirection.Forward) {
+        Address = new DCCAddress(address, type);
+        Direction = direction;
+    }
+
+    public IDCCAddress Address { get; set; }
+    public DCCDirection Direction { get; set; }
 }

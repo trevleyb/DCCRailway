@@ -1,10 +1,10 @@
-﻿namespace DCCRailway.Core.Systems.Types {
-	public enum DCCAccessoryState {
-		On = 01,
-		Off = 00,
-		Normal = On,
-		Reversed = Off,
-		Thrown = On,
-		Closed = Off
-	}
+﻿namespace DCCRailway.Core.Systems.Types; 
+
+public enum DCCAccessoryState {
+    On = 01,
+    Off = 00,
+    Normal = On,
+    Reversed = Off,
+    Thrown = On,
+    Closed = Off
 }

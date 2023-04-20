@@ -28,3 +28,18 @@
 /Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.dll
 /Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/ref/DCCRailway.Conversion.dll
 /Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.pdb
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/bin/Debug/net6.0/DCCRailway.Conversion.deps.json
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/bin/Debug/net6.0/DCCRailway.Conversion.dll
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/bin/Debug/net6.0/DCCRailway.Conversion.pdb
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/bin/Debug/net6.0/DCCRailway.Core.dll
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/bin/Debug/net6.0/DCCRailway.Core.pdb
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.csproj.AssemblyReference.cache
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.GeneratedMSBuildEditorConfig.editorconfig
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.AssemblyInfoInputs.cache
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.AssemblyInfo.cs
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.csproj.CoreCompileInputs.cache
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.csproj.CopyComplete
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.dll
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/refint/DCCRailway.Conversion.dll
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.pdb
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/Debug/net6.0/ref/DCCRailway.Conversion.dll

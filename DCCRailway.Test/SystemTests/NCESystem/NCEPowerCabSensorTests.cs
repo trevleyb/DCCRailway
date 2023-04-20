@@ -7,53 +7,53 @@ using DCCRailway.Systems.NCE.Adapters;
 using DCCRailway.Systems.NCE.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DCCRailway.Test {
-	[TestClass]
-	public class NCEPowerCabSensorTest {
-		[TestMethod]
-		public void TestCabConversion() {
-			Assert.IsTrue(CalculateAddress(11, 1) == (11 - 1) * 16 + (1 - 1));
-			Assert.IsTrue(CalculateCabPin(160) == (11, 1));
-		}
+namespace DCCRailway.Test; 
 
-		protected internal static (byte cab, byte pin) CalculateCabPin(int address) {
-			var pin = address % 16 + 1;
-			var cab = (address - pin) / 16 + 1;
-			return ((byte)cab, (byte)pin);
-		}
+[TestClass]
+public class NCEPowerCabSensorTest {
+    [TestMethod]
+    public void TestCabConversion() {
+        Assert.IsTrue(CalculateAddress(11, 1) == (11 - 1) * 16 + (1 - 1));
+        Assert.IsTrue(CalculateCabPin(160) == (11, 1));
+    }
 
-		protected internal static int CalculateAddress(byte cab, byte pin) {
-			// Formula (copied from JMRI) is :
-			return (cab - 1) * 16 + (pin - 1);
-		}
+    protected internal static (byte cab, byte pin) CalculateCabPin(int address) {
+        var pin = address % 16 + 1;
+        var cab = (address - pin) / 16 + 1;
+        return ((byte) cab, (byte) pin);
+    }
 
-		[TestMethod]
-		public void TestTheSensor() {
-			var adapter = new NCEUSBSerial("COM3", 19200);
-			Assert.IsNotNull(adapter, "Should have a Serial Adapter created");
+    protected internal static int CalculateAddress(byte cab, byte pin) {
+        // Formula (copied from JMRI) is :
+        return (cab - 1) * 16 + (pin - 1);
+    }
 
-			var system = SystemFactory.Create("NCE", "PowerCab", adapter);
-			Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-			Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
+    [TestMethod]
+    public void TestTheSensor() {
+        var adapter = new NCEUSBSerial("COM3", 19200);
+        Assert.IsNotNull(adapter, "Should have a Serial Adapter created");
 
-			if (system != null && system.Adapter != null) {
-				var sensorCmd = system.CreateCommand<ICmdSensorGetState>() as NCESensorGetState;
+        var system = SystemFactory.Create("NCE", "PowerCab", adapter);
+        Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
+        Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 
-				var states = new byte[2];
-				var loop = true;
-				while (loop) {
-					for (byte part = 0; part < 2; part++)
-					for (byte pin = 0; pin < 8; pin++) {
-						sensorCmd?.SetAddressByCabPin(4, (byte)(part * 8 + pin));
-						var state = system.Execute(sensorCmd!) as IResultState;
-						states[part] = states[part].SetBit(pin, state?.State ?? false);
-					}
+        if (system != null && system.Adapter != null) {
+            var sensorCmd = system.CreateCommand<ICmdSensorGetState>() as NCESensorGetState;
 
-					var dumpline = states[0].FormatBits() + " " + states[1].FormatBits();
-					Console.WriteLine("SENSOR STATES: " + dumpline);
-					Thread.Sleep(1000);
-				}
-			}
-		}
-	}
+            var states = new byte[2];
+            var loop = true;
+            while (loop) {
+                for (byte part = 0; part < 2; part++)
+                for (byte pin = 0; pin < 8; pin++) {
+                    sensorCmd?.SetAddressByCabPin(4, (byte) (part * 8 + pin));
+                    var state = system.Execute(sensorCmd!) as IResultState;
+                    states[part] = states[part].SetBit(pin, state?.State ?? false);
+                }
+
+                var dumpline = states[0].FormatBits() + " " + states[1].FormatBits();
+                Console.WriteLine("SENSOR STATES: " + dumpline);
+                Thread.Sleep(1000);
+            }
+        }
+    }
 }

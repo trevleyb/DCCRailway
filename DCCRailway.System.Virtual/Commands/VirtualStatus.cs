@@ -5,18 +5,16 @@ using DCCRailway.Core.Systems.Commands.Results;
 using DCCRailway.Core.Systems.Commands.Validators;
 using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Systems.Virtual.Commands {
-	public class VirtualStatus : CommandBase, ICmdStatus {
-		private readonly byte[] CommandData = "STATUS_COMMAND".ToByteArray();
+namespace DCCRailway.Systems.Virtual.Commands; 
 
-		public static string Name {
-			get { return "Virtual Status Command"; }
-		}
+public class VirtualStatus : CommandBase, ICmdStatus {
+    private readonly byte[] CommandData = "STATUS_COMMAND".ToByteArray();
 
-		public override IResult Execute(IAdapter adapter) {
-			var result = SendAndReceieve(adapter, new SimpleResultValidation(2), "STATUS_COMMAND".ToByteArray());
-			if (!result.OK) return result;
-			return new ResultOK(result.Data);
-		}
-	}
+    public static string Name => "Virtual Status Command";
+
+    public override IResult Execute(IAdapter adapter) {
+        var result = SendAndReceieve(adapter, new SimpleResultValidation(2), "STATUS_COMMAND".ToByteArray());
+        if (!result.OK) return result;
+        return new ResultOK(result.Data);
+    }
 }

@@ -1,3 +1,3 @@
-﻿namespace DCCRailway.Core.Entities.Interfaces {
-	public interface ILight { }
-}
+﻿namespace DCCRailway.Core.Entities.Interfaces; 
+
+public interface ILight { }

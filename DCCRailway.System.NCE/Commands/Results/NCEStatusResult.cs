@@ -1,26 +1,24 @@
 ﻿using System;
 using DCCRailway.Core.Systems.Commands.Results;
 
-namespace DCCRailway.Systems.NCE.Commands {
-	public class NCEStatusResult : ResultOK, IResultStatus {
-		private readonly int _major;
-		private readonly int _minor;
+namespace DCCRailway.Systems.NCE.Commands; 
 
-		private readonly int _version;
+public class NCEStatusResult : ResultOK, IResultStatus {
+    private readonly int _major;
+    private readonly int _minor;
 
-		public NCEStatusResult(byte[]? data) {
-			if (data == null || data.Length != 3) throw new ApplicationException("Invalid data provided to create a Version");
-			_version = data[0];
-			_major = data[1];
-			_minor = data[2];
-		}
+    private readonly int _version;
 
-		public string Version {
-			get { return $"{_version}.{_major}.{_minor}"; }
-		}
+    public NCEStatusResult(byte[]? data) {
+        if (data == null || data.Length != 3) throw new ApplicationException("Invalid data provided to create a Version");
+        _version = data[0];
+        _major = data[1];
+        _minor = data[2];
+    }
 
-		public override string ToString() {
-			return Version;
-		}
-	}
+    public string Version => $"{_version}.{_major}.{_minor}";
+
+    public override string ToString() {
+        return Version;
+    }
 }

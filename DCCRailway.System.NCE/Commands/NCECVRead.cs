@@ -7,31 +7,29 @@ using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
 using DCCRailway.Systems.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands {
-	public class NCECVRead : NCECommandBase, ICmdCVRead, ICommand {
-		public NCECVRead(int cv = 0) {
-			CV = cv;
-		}
+namespace DCCRailway.Systems.NCE.Commands; 
 
-		public static string Name {
-			get { return "NCE ReadCV Command"; }
-		}
+public class NCECVRead : NCECommandBase, ICmdCVRead, ICommand {
+    public NCECVRead(int cv = 0) {
+        CV = cv;
+    }
 
-		public DCCProgrammingMode ProgrammingMode { get; set; }
-		public int CV { get; set; }
+    public static string Name => "NCE ReadCV Command";
 
-		public override IResult Execute(IAdapter adapter) {
-			byte command = ProgrammingMode switch {
-				DCCProgrammingMode.Direct => 0xA9,
-				DCCProgrammingMode.Paged => 0xA1,
-				DCCProgrammingMode.Register => 0xA7,
-				_ => throw new UnsupportedCommandException("Invalid CV access type provided.")
-			};
-			return SendAndReceieve(adapter, new NCEDataReadValidation(), CV.ToByteArray().AddToArray(command));
-		}
+    public DCCProgrammingMode ProgrammingMode { get; set; }
+    public int CV { get; set; }
 
-		public override string ToString() {
-			return $"READ CV ({CV}/{ProgrammingMode})";
-		}
-	}
+    public override IResult Execute(IAdapter adapter) {
+        byte command = ProgrammingMode switch {
+            DCCProgrammingMode.Direct => 0xA9,
+            DCCProgrammingMode.Paged => 0xA1,
+            DCCProgrammingMode.Register => 0xA7,
+            _ => throw new UnsupportedCommandException("Invalid CV access type provided.")
+        };
+        return SendAndReceieve(adapter, new NCEDataReadValidation(), CV.ToByteArray().AddToArray(command));
+    }
+
+    public override string ToString() {
+        return $"READ CV ({CV}/{ProgrammingMode})";
+    }
 }

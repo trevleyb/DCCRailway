@@ -6,33 +6,31 @@ using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
 using DCCRailway.Systems.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands {
-	public class NCELocoSetSpeedSteps : NCECommandBase, ICmdLocoSetSpeedSteps, ICommand {
-		public NCELocoSetSpeedSteps() { }
+namespace DCCRailway.Systems.NCE.Commands; 
 
-		public NCELocoSetSpeedSteps(int address, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(new DCCAddress(address), speedSteps) { }
+public class NCELocoSetSpeedSteps : NCECommandBase, ICmdLocoSetSpeedSteps, ICommand {
+    public NCELocoSetSpeedSteps() { }
 
-		public NCELocoSetSpeedSteps(IDCCAddress address, DCCProtocol speedSteps = DCCProtocol.DCC128) {
-			Address = address;
-			SpeedSteps = speedSteps;
-		}
+    public NCELocoSetSpeedSteps(int address, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(new DCCAddress(address), speedSteps) { }
 
-		public static string Name {
-			get { return "NCE Set Loco Speed Steps"; }
-		}
+    public NCELocoSetSpeedSteps(IDCCAddress address, DCCProtocol speedSteps = DCCProtocol.DCC128) {
+        Address = address;
+        SpeedSteps = speedSteps;
+    }
 
-		public IDCCAddress Address { get; set; }
-		public DCCProtocol SpeedSteps { get; set; }
+    public static string Name => "NCE Set Loco Speed Steps";
 
-		public override IResult Execute(IAdapter adapter) {
-			byte[] command = { 0x8D };
-			command = command.AddToArray(((DCCAddress)Address).AddressBytes);
-			command = command.AddToArray((byte)SpeedSteps);
-			return SendAndReceieve(adapter, new NCEStandardValidation(), command);
-		}
+    public IDCCAddress Address { get; set; }
+    public DCCProtocol SpeedSteps { get; set; }
 
-		public override string ToString() {
-			return $"LOCO SPEED STEPS ({Address}={SpeedSteps}";
-		}
-	}
+    public override IResult Execute(IAdapter adapter) {
+        byte[] command = {0x8D};
+        command = command.AddToArray(((DCCAddress) Address).AddressBytes);
+        command = command.AddToArray((byte) SpeedSteps);
+        return SendAndReceieve(adapter, new NCEStandardValidation(), command);
+    }
+
+    public override string ToString() {
+        return $"LOCO SPEED STEPS ({Address}={SpeedSteps}";
+    }
 }

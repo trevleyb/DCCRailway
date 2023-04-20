@@ -1,26 +1,23 @@
 ﻿using System.Xml.Serialization;
 using DCCRailway.Core.Systems.Types;
 
-namespace DCCRailway.Core.Config {
-	[XmlRoot(ElementName = "Accessory")]
-	public class Accessory {
-		public Accessory() {
-			Parameters = new Parameters();
-			Decoder = new Decoder {
-				AddressType = DCCAddressType.Accessory
-			};
-		}
+namespace DCCRailway.Core.Config; 
 
-		[XmlAttribute(AttributeName = "Name")]
-		public string Name { get; set; }
+[XmlRoot(ElementName = "Accessory")]
+public class Accessory {
+    public Accessory() {
+        Parameters = new Parameters();
+        Decoder = new Decoder {
+            AddressType = DCCAddressType.Accessory
+        };
+    }
 
-		[XmlAttribute(AttributeName = "Description")]
-		public string Description { get; set; }
+    [XmlAttribute(AttributeName = "Name")] public string Name { get; set; }
 
-		[XmlElement(ElementName = "Decoder")]
-		public Decoder Decoder { get; set; }
+    [XmlAttribute(AttributeName = "Description")]
+    public string Description { get; set; }
 
-		[XmlArray(ElementName = "Parameters")]
-		public Parameters Parameters { get; set; }
-	}
+    [XmlElement(ElementName = "Decoder")] public Decoder Decoder { get; set; }
+
+    [XmlArray(ElementName = "Parameters")] public Parameters Parameters { get; set; }
 }

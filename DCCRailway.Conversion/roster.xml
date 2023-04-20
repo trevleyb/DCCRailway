@@ -1,680 +1,802 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="/xml/XSLT/roster2array.xsl" type="text/xsl"?>
-<roster-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/roster.xsd">
-  <!--Written by JMRI version 4.19.3+R7364caf9c on Tue Feb 11 14:36:16 EST 2020-->
-  <roster>
-    <locomotive id="CN3000" fileName="CN3000.xml" roadNumber="3000" roadName="Canadian National" mfg="ScaleTrains" owner="Trevor Leybourne" model="GE Tier 4 GEVO" dccAddress="3000" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-08T05:10:51.000+0000</dateUpdated>
-      <decoder model="LokSound Select direct / micro" family="ESU LokSound Select" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="3000" longaddress="yes" />
-        <number>3000</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
-        <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
-      </functionlabels>
-      <soundlabels>
-        <soundlabel num="25">Random sounds</soundlabel>
-        <soundlabel num="26">Automatic brake sound</soundlabel>
-        <soundlabel num="27">Gear shift sound</soundlabel>
-      </soundlabels>
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Canadian National</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="CN3045" fileName="CN3045.xml" roadNumber="3045" roadName="Canadian National" mfg="ScaleTrains" owner="Trevor Leybourne" model="GE Tier 4 GEVO" dccAddress="3045" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-08T05:11:32.000+0000</dateUpdated>
-      <decoder model="LokSound Select direct / micro" family="ESU LokSound Select" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="3045" longaddress="yes" />
-        <number>3045</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
-        <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
-      </functionlabels>
-      <soundlabels>
-        <soundlabel num="25">Random sounds</soundlabel>
-        <soundlabel num="26">Automatic brake sound</soundlabel>
-        <soundlabel num="27">Gear shift sound</soundlabel>
-      </soundlabels>
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Canadian National</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="CN3100" fileName="3100.xml" roadNumber="3100" roadName="Canadian National" mfg="ScaleTrains" owner="Trevor Leybourne" model="GE Tier 4 GEVO" dccAddress="3100" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2019-07-10T03:14:53.544+0000</dateUpdated>
-      <decoder model="LokSound Select direct / micro" family="ESU LokSound Select" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="3100" longaddress="yes" />
-        <number>3100</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
-        <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
-      </functionlabels>
-      <soundlabels>
-        <soundlabel num="25">Random sounds</soundlabel>
-        <soundlabel num="26">Automatic brake sound</soundlabel>
-        <soundlabel num="27">Gear shift sound</soundlabel>
-      </soundlabels>
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Canadian National</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="CN4382" fileName="CN4382.xml" roadNumber="4382" roadName="Canadian National" mfg="Atlas" owner="Trevor" model="GP-9" dccAddress="4382" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="F2">
-      <dateUpdated>2018-08-07T09:40:24.000+0000</dateUpdated>
-      <decoder model="N12A2" family="Silent Running w/ Torque Compensation" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="4382" longaddress="yes" />
-        <number>4382</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
-        <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Dim</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Canadian National</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="CN4521" fileName="CN4521.xml" roadNumber="4521" roadName="Canadian National" mfg="Atlas" owner="Trevor" model="GP-9" dccAddress="4521" comment="Forward light seems to be blown. " maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-07T08:38:41.000+0000</dateUpdated>
-      <decoder model="N12A2" family="Silent Running w/ Torque Compensation" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="4521" longaddress="yes" />
-        <number>4521</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>2018-08-07T08:03:09Z</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>0</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Canadian National</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="CN4700" fileName="CN4700.xml" roadNumber="4700" roadName="Canadian National" mfg="Atlas" owner="Trevor" model="GP38-2" dccAddress="4700" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-07T08:48:35.000+0000</dateUpdated>
-      <decoder model="LE063XF by Lenz (Part #447299)" family="Atlas N-Scale" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="4700" longaddress="yes" />
-        <number>4700</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
-        <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Dim</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Canadian National</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="CN6390" fileName="CN6390.xml" roadNumber="6390" roadName="Canadian Nation" mfg="Bachmann" owner="Trevor Leybourne" model="F3-A (Non-DCC) " dccAddress="0" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-08T08:15:53.000+0000</dateUpdated>
-      <decoder model="Raw CVs 1-255" family="Raw CVs 1-255" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="0" longaddress="yes" />
-        <number>0</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels />
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Canadian National</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="CN6409" fileName="CN6409.xml" roadNumber="6409" roadName="Canadian National" mfg="Atlas" owner="Trevor" model="GP40-2" dccAddress="6409" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2020-02-11T19:36:16.884+0000</dateUpdated>
-      <decoder model="1812 - N Scale - Atlas Short Board Diesels" family="Sound Decoders - N Scale" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="6409" longaddress="yes" />
-        <number>6409</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
-        <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Bell</functionlabel>
-        <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
-        <functionlabel num="3" lockable="false" functionImage="" functionImageSelected="">Air Release/Acc1 on or off</functionlabel>
-        <functionlabel num="4" lockable="false" functionImage="" functionImageSelected="">Coupling</functionlabel>
-        <functionlabel num="5" lockable="true" functionImage="" functionImageSelected="">Brake release/Squeal</functionlabel>
-        <functionlabel num="6" lockable="true" functionImage="" functionImageSelected="">Dynamic Brake</functionlabel>
-        <functionlabel num="7" lockable="false" functionImage="" functionImageSelected="">Air Hose/Uncoupling Lever</functionlabel>
-        <functionlabel num="8" lockable="false" functionImage="" functionImageSelected="">Shut Down/Notch Down</functionlabel>
-        <functionlabel num="9" lockable="true" functionImage="" functionImageSelected="">Fan/Notch Up</functionlabel>
-        <functionlabel num="10" lockable="true" functionImage="" functionImageSelected="">Rail Clack</functionlabel>
-        <functionlabel num="11" lockable="false" functionImage="" functionImageSelected="">loco Sound</functionlabel>
-        <functionlabel num="12" lockable="false" functionImage="" functionImageSelected="">Prime MoverType</functionlabel>
-        <functionlabel num="13" lockable="false" functionImage="" functionImageSelected="">Air release/ Acc2 on or off</functionlabel>
-        <functionlabel num="14" lockable="false" functionImage="" functionImageSelected="">Coupling 2</functionlabel>
-        <functionlabel num="15" lockable="true" functionImage="" functionImageSelected="">Air Pump</functionlabel>
-        <functionlabel num="16" lockable="false" functionImage="" functionImageSelected="">Loco Sound</functionlabel>
-        <functionlabel num="17" lockable="false" functionImage="" functionImageSelected="">Flange Noise 1</functionlabel>
-        <functionlabel num="18" lockable="false" functionImage="" functionImageSelected="">Bell Type</functionlabel>
-        <functionlabel num="19" lockable="false" functionImage="" functionImageSelected="">Horn Type</functionlabel>
-        <functionlabel num="20" lockable="false" functionImage="" functionImageSelected="">Loco Sound</functionlabel>
-        <functionlabel num="21" lockable="false" functionImage="" functionImageSelected="">Bell Volume</functionlabel>
-        <functionlabel num="22" lockable="false" functionImage="" functionImageSelected="">Horn Volume</functionlabel>
-        <functionlabel num="23" lockable="false" functionImage="" functionImageSelected="">Prime Mover Volume</functionlabel>
-        <functionlabel num="24" lockable="false" functionImage="" functionImageSelected="">Air Release</functionlabel>
-        <functionlabel num="25" lockable="false" functionImage="" functionImageSelected="">Flange Noise 2</functionlabel>
-        <functionlabel num="26" lockable="false" functionImage="" functionImageSelected="">loco sound</functionlabel>
-        <functionlabel num="27" lockable="false" functionImage="" functionImageSelected="">Sand drop</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>2020-02-11T19:33:46.985+0000</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>120</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Canadian National</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="CN9004" fileName="CN9004.xml" roadNumber="9004" roadName="Canadian Nation" mfg="Kato" owner="Trevor Leybourne" model="F3-B (Non-DCC)" dccAddress="0" comment="" maxSpeed="100" imageFilePath="preference:roster/CN_9102_at_Kelowna_BC_Feb_1987-b.jpg" iconFilePath="preference:roster/CN_9102_at_Kelowna_BC_Feb_1987-b.jpg" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-08T08:15:53.000+0000</dateUpdated>
-      <decoder model="Raw CVs 1-255" family="Raw CVs 1-255" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="0" longaddress="yes" />
-        <number>0</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels />
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Canadian National</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="KT400" fileName="KT400.xml" roadNumber="400" roadName="" mfg="Kato" owner="Trevor Leybourne" model="400 Series" dccAddress="400" comment="" maxSpeed="100" imageFilePath="preference:roster/351101346.jpg" iconFilePath="preference:roster/351101346.jpg" URL="" IsShuntingOn="">
-      <dateUpdated>2019-07-10T03:19:54.829+0000</dateUpdated>
-      <decoder model="DN143K2" family="Series 3 with FX3, silent, readback" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="400" longaddress="yes" />
-        <number>400</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels />
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Miscellaneous</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="MOW99" fileName="99.xml" roadNumber="99 MOW" roadName="Track Maintenance" mfg="Atlas" owner="Trevor Leybourne" model="MOW" dccAddress="99" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2016-06-18T22:31:23.000+0000</dateUpdated>
-      <decoder model="N12SR" family="Silent Running w/ Torque Compensation" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="99" longaddress="no" />
-        <number>99</number>
-        <protocol>dcc_short</protocol>
-      </locoaddress>
-      <functionlabels />
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Miscellaneous</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="NW8606" fileName="NW8606.xml" roadNumber="8606" roadName="North Western" mfg="Bachmann Spectrum" owner="Trevor" model="GE Dash 8-40CW" dccAddress="8606" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-07T10:03:28.000+0000</dateUpdated>
-      <decoder model="Z14SR" family="Silent Running w/ Torque Compensation" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="8606" longaddress="yes" />
-        <number>8606</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>Sun Jun 19 11:23:48 NZST 2016</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>0</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Miscellaneous</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP0136" fileName="Union_Pacific_136.xml" roadNumber="136" roadName="Union Pacific" mfg="Atlas" owner="Trevor" model="GE U23B" dccAddress="136" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="F0">
-      <dateUpdated>2018-08-07T10:17:24.000+0000</dateUpdated>
-      <decoder model="N12A2-ATL by NCE" family="Atlas N-Scale" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="136" longaddress="yes" />
-        <number>136</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP0137" fileName="Union_Pacific_137.xml" roadNumber="137" roadName="Union Pacific" mfg="Atlas" owner="Trevor" model="GE U23B" dccAddress="137" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-07T10:21:41.000+0000</dateUpdated>
-      <decoder model="LE063XF by Lenz (Part #447299)" family="Atlas N-Scale" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="137" longaddress="yes" />
-        <number>137</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>2018-04-16T08:20:05Z</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>6</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP1020" fileName="Union_Pacific_1020.xml" roadNumber="1020" roadName="Union Pacific" mfg="Kato USA" owner="Trevor" model="EMD NW2" dccAddress="1020" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-07T10:55:37.000+0000</dateUpdated>
-      <decoder model="K3D3" family="Jan 2012" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="1020" longaddress="yes" />
-        <number>1020</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels />
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>2018-04-16T08:19:30Z</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>99</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP1029" fileName="Union_Pacific_1029.xml" roadNumber="1029" roadName="Union Pacific" mfg="Kato USA" owner="Trevor" model="EMD NW2" dccAddress="1029" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-07T10:51:38.000+0000</dateUpdated>
-      <decoder model="K3D3" family="Jan 2012" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="1029" longaddress="yes" />
-        <number>1029</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>2018-10-12T23:48:34Z</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>95</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP1624" fileName="1625.xml" roadNumber="1624 (F1A)" roadName="Union Pacific" mfg="Lifelike" owner="Trevor Leybourne" model="F1/A" dccAddress="1624" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-08T07:13:53.000+0000</dateUpdated>
-      <decoder model="DZ123" family="Series 3 with FX3, silent, readback" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="1624" longaddress="yes" />
-        <number>1624</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels />
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>2017-07-25T05:06:42Z</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>261</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP1624a" fileName="1626.xml" roadNumber="1624 (F1B)" roadName="Union Pacific" mfg="Lifelike" owner="Trevor Leybourne" model="F1/B" dccAddress="1625" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-08T07:14:30.000+0000</dateUpdated>
-      <decoder model="N12SR" family="Silent Running w/ Torque Compensation" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="1625" longaddress="yes" />
-        <number>1625</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels />
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP30A" fileName="UP30A.xml" roadNumber="30A" roadName="Union Pacific" mfg="Scaletrains" owner="Trevor Leybourne" model="Union Pacific Big Blow Turbine - Motive" dccAddress="30" comment="" maxSpeed="100" imageFilePath="preference:roster/BigBlow-Main.jpg" iconFilePath="preference:roster/BigBlow-Main.jpg" URL="" IsShuntingOn="">
-      <dateUpdated>2019-07-10T04:26:43.196+0000</dateUpdated>
-      <decoder model="LokSound Select" family="ESU LokSound Select" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="30" longaddress="no" />
-        <number>30</number>
-        <protocol>dcc_short</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
-        <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Bell</functionlabel>
-        <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
-        <functionlabel num="3" lockable="true" functionImage="" functionImageSelected="">Turbine on B Unit</functionlabel>
-        <functionlabel num="4" lockable="true" functionImage="" functionImageSelected="">Dynamic Brake</functionlabel>
-        <functionlabel num="7" lockable="true" functionImage="" functionImageSelected="">Headlight Dimmer</functionlabel>
-        <functionlabel num="8" lockable="true" functionImage="" functionImageSelected="">Power On A Unit</functionlabel>
-        <functionlabel num="9" lockable="false" functionImage="" functionImageSelected="">Couple Clank</functionlabel>
-        <functionlabel num="10" lockable="true" functionImage="" functionImageSelected="">Rear Headlight</functionlabel>
-        <functionlabel num="11" lockable="false" functionImage="" functionImageSelected="">Sanding Valve</functionlabel>
-        <functionlabel num="12" lockable="false" functionImage="" functionImageSelected="">Short Air Let Off</functionlabel>
-      </functionlabels>
-      <soundlabels>
-        <soundlabel num="25">Random sounds</soundlabel>
-        <soundlabel num="26">Automatic brake sound</soundlabel>
-        <soundlabel num="27">Gear shift sound</soundlabel>
-      </soundlabels>
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>2019-05-04T04:42:27.959+0000</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>142</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP30B" fileName="30B.xml" roadNumber="30B" roadName="Union Pacific" mfg="Scaletrains" owner="Trevor Leybourne" model="Union Pacific Big Blow Turbine - Turbine" dccAddress="30" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2019-07-10T04:26:59.084+0000</dateUpdated>
-      <decoder model="LokSound Select" family="ESU LokSound Select" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="30" longaddress="no" />
-        <number>30</number>
-        <protocol>dcc_short</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
-        <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
-      </functionlabels>
-      <soundlabels>
-        <soundlabel num="25">Random sounds</soundlabel>
-        <soundlabel num="26">Automatic brake sound</soundlabel>
-        <soundlabel num="27">Gear shift sound</soundlabel>
-      </soundlabels>
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP30C" fileName="30C.xml" roadNumber="30C" roadName="Union Pacific " mfg="Scaletrains" owner="Trevor Leybourne" model="Union Pacific Big Blow Turbine - Fuel Tender" dccAddress="30" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2019-07-10T04:27:12.572+0000</dateUpdated>
-      <decoder model="Scale Trains Tender Light" family="ESU Miscellaneous decoders" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="30" longaddress="no" />
-        <number>30</number>
-        <protocol>dcc_short</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Rear light</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>2019-05-04T04:53:33.236+0000</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>3</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP4047" fileName="UP4047.xml" roadNumber="4047" roadName="Union Pacific" mfg="Intermountain" owner="Trevor" model="SD40-T2" dccAddress="4047" comment="" maxSpeed="100" imageFilePath="preference:roster/UP4047.jpg" iconFilePath="preference:roster/UP4047.jpg" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-08T06:44:45.000+0000</dateUpdated>
-      <decoder model="N12A0" family="Silent Running w/ Torque Compensation" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="4047" longaddress="yes" />
-        <number>4047</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP6900" fileName="UP6900.xml" roadNumber="6900" roadName="Union Pacific" mfg="Bachmann" owner="Trevor" model="EMD DD40AX" dccAddress="6900" comment="" maxSpeed="100" imageFilePath="preference:roster/up6900.jpg" iconFilePath="preference:roster/up6900.jpg" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-09T05:36:14.000+0000</dateUpdated>
-      <decoder model="EMD DD40AX" family="Tsunami Diesel Bachmann Sound Value" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="6900" longaddress="yes" />
-        <number>6900</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Headlight</functionlabel>
-        <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Bell</functionlabel>
-        <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Air Horn</functionlabel>
-        <functionlabel num="3" lockable="true" functionImage="" functionImageSelected="">Short Horn</functionlabel>
-        <functionlabel num="4" lockable="true" functionImage="" functionImageSelected="">Dynamic Brake</functionlabel>
-        <functionlabel num="5" lockable="true" functionImage="" functionImageSelected="">Flashing Light</functionlabel>
-        <functionlabel num="6" lockable="true" functionImage="" functionImageSelected="">Lighted # Boards</functionlabel>
-        <functionlabel num="7" lockable="true" functionImage="" functionImageSelected="">Dimming</functionlabel>
-        <functionlabel num="8" lockable="true" functionImage="" functionImageSelected="">Mute</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>Sun Jun 19 11:08:31 NZST 2016</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>38</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP6940" fileName="UP6940.xml" roadNumber="6940" roadName="Union Pacific" mfg="Bachmann" owner="Trevor" model="EMD DD40AX" dccAddress="6940" comment="" maxSpeed="100" imageFilePath="preference:roster/up6900.jpg" iconFilePath="preference:roster/up6900.jpg" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-09T05:38:33.000+0000</dateUpdated>
-      <decoder model="EMD DD40AX" family="Tsunami Diesel Bachmann Sound Value" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="6940" longaddress="yes" />
-        <number>6940</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Headlight</functionlabel>
-        <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Bell</functionlabel>
-        <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Air Horn</functionlabel>
-        <functionlabel num="3" lockable="true" functionImage="" functionImageSelected="">Short Horn</functionlabel>
-        <functionlabel num="4" lockable="true" functionImage="" functionImageSelected="">Dynamic Brake</functionlabel>
-        <functionlabel num="5" lockable="true" functionImage="" functionImageSelected="">Flashing Light</functionlabel>
-        <functionlabel num="6" lockable="true" functionImage="" functionImageSelected="">Lighted # Boards</functionlabel>
-        <functionlabel num="7" lockable="true" functionImage="" functionImageSelected="">Dimming</functionlabel>
-        <functionlabel num="8" lockable="true" functionImage="" functionImageSelected="">Mute</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP838" fileName="UP838.xml" roadNumber="838" roadName="Union Pacific" mfg="Kato" owner="Trevor Leybourne" model="BigBoy Steam" dccAddress="838" comment="" maxSpeed="100" imageFilePath="preference:roster/s-l1600.jpg" iconFilePath="preference:roster/s-l1600.jpg" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-07T09:32:39.000+0000</dateUpdated>
-      <decoder model="SDXN146K4" family="SFX Sound Decoders - Series 6" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="838" longaddress="yes" />
-        <number>838</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
-        <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Bell</functionlabel>
-        <functionlabel num="2" lockable="true" functionImage="" functionImageSelected="">Horn/Whistle</functionlabel>
-        <functionlabel num="3" lockable="false" functionImage="" functionImageSelected="">Coupler</functionlabel>
-        <functionlabel num="4" lockable="true" functionImage="" functionImageSelected="">Air feat. disabled</functionlabel>
-        <functionlabel num="5" lockable="true" functionImage="" functionImageSelected="">Dyn. Brakes Fans/Water Pump</functionlabel>
-        <functionlabel num="6" lockable="false" functionImage="" functionImageSelected="">Notch UP/Blowdown</functionlabel>
-        <functionlabel num="7" lockable="false" functionImage="" functionImageSelected="">Xing Gate Airhorn/Notch DOWN/Wheel Slip</functionlabel>
-        <functionlabel num="8" lockable="true" functionImage="" functionImageSelected="">Mute</functionlabel>
-        <functionlabel num="9" lockable="false" functionImage="" functionImageSelected="">Brake squeal</functionlabel>
-        <functionlabel num="10" lockable="false" functionImage="" functionImageSelected="">Xing Gate Airhorn</functionlabel>
-        <functionlabel num="11" lockable="false" functionImage="" functionImageSelected="">Greaser</functionlabel>
-        <functionlabel num="12" lockable="false" functionImage="" functionImageSelected="">Safety Blow off</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>2018-08-07T08:01:37Z</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>33</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-    <locomotive id="UP986" fileName="986.xml" roadNumber="986" roadName="Union Pacific" mfg="Lifelike" owner="Trevor Leybourne" model="E7" dccAddress="986" comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
-      <dateUpdated>2018-08-08T06:49:15.000+0000</dateUpdated>
-      <decoder model="DN143IP" family="Series 3 with FX3, silent, readback" comment="" />
-      <locoaddress>
-        <dcclocoaddress number="986" longaddress="yes" />
-        <number>986</number>
-        <protocol>dcc_long</protocol>
-      </locoaddress>
-      <functionlabels>
-        <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
-        <functionlabel num="6" lockable="true" functionImage="" functionImageSelected="">Swiching Speed</functionlabel>
-      </functionlabels>
-      <soundlabels />
-      <attributepairs>
-        <keyvaluepair>
-          <key>LastOperated</key>
-          <value>Sun Jun 19 11:02:47 NZST 2016</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>OperatingDuration</key>
-          <value>19</value>
-        </keyvaluepair>
-        <keyvaluepair>
-          <key>RosterGroup:Union Pacific</key>
-          <value>yes</value>
-        </keyvaluepair>
-      </attributepairs>
-    </locomotive>
-  </roster>
-  <rosterGroup>
-    <group>Miscellaneous</group>
-    <group>Union Pacific</group>
-    <group>Canadian National</group>
-  </rosterGroup>
+<roster-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/roster.xsd">
+    <!--Written by JMRI version 4.19.3+R7364caf9c on Tue Feb 11 14:36:16 EST 2020-->
+    <roster>
+        <locomotive id="CN3000" fileName="CN3000.xml" roadNumber="3000" roadName="Canadian National" mfg="ScaleTrains"
+                    owner="Trevor Leybourne" model="GE Tier 4 GEVO" dccAddress="3000" comment="" maxSpeed="100"
+                    imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-08T05:10:51.000+0000</dateUpdated>
+            <decoder model="LokSound Select direct / micro" family="ESU LokSound Select" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="3000" longaddress="yes"/>
+                <number>3000</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
+                <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
+            </functionlabels>
+            <soundlabels>
+                <soundlabel num="25">Random sounds</soundlabel>
+                <soundlabel num="26">Automatic brake sound</soundlabel>
+                <soundlabel num="27">Gear shift sound</soundlabel>
+            </soundlabels>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Canadian National</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="CN3045" fileName="CN3045.xml" roadNumber="3045" roadName="Canadian National" mfg="ScaleTrains"
+                    owner="Trevor Leybourne" model="GE Tier 4 GEVO" dccAddress="3045" comment="" maxSpeed="100"
+                    imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-08T05:11:32.000+0000</dateUpdated>
+            <decoder model="LokSound Select direct / micro" family="ESU LokSound Select" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="3045" longaddress="yes"/>
+                <number>3045</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
+                <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
+            </functionlabels>
+            <soundlabels>
+                <soundlabel num="25">Random sounds</soundlabel>
+                <soundlabel num="26">Automatic brake sound</soundlabel>
+                <soundlabel num="27">Gear shift sound</soundlabel>
+            </soundlabels>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Canadian National</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="CN3100" fileName="3100.xml" roadNumber="3100" roadName="Canadian National" mfg="ScaleTrains"
+                    owner="Trevor Leybourne" model="GE Tier 4 GEVO" dccAddress="3100" comment="" maxSpeed="100"
+                    imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2019-07-10T03:14:53.544+0000</dateUpdated>
+            <decoder model="LokSound Select direct / micro" family="ESU LokSound Select" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="3100" longaddress="yes"/>
+                <number>3100</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
+                <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
+            </functionlabels>
+            <soundlabels>
+                <soundlabel num="25">Random sounds</soundlabel>
+                <soundlabel num="26">Automatic brake sound</soundlabel>
+                <soundlabel num="27">Gear shift sound</soundlabel>
+            </soundlabels>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Canadian National</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="CN4382" fileName="CN4382.xml" roadNumber="4382" roadName="Canadian National" mfg="Atlas"
+                    owner="Trevor" model="GP-9" dccAddress="4382" comment="" maxSpeed="100" imageFilePath=""
+                    iconFilePath="" URL="" IsShuntingOn="F2">
+            <dateUpdated>2018-08-07T09:40:24.000+0000</dateUpdated>
+            <decoder model="N12A2" family="Silent Running w/ Torque Compensation" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="4382" longaddress="yes"/>
+                <number>4382</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
+                <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Dim</functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Canadian National</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="CN4521" fileName="CN4521.xml" roadNumber="4521" roadName="Canadian National" mfg="Atlas"
+                    owner="Trevor" model="GP-9" dccAddress="4521" comment="Forward light seems to be blown. "
+                    maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-07T08:38:41.000+0000</dateUpdated>
+            <decoder model="N12A2" family="Silent Running w/ Torque Compensation" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="4521" longaddress="yes"/>
+                <number>4521</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>2018-08-07T08:03:09Z</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>0</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Canadian National</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="CN4700" fileName="CN4700.xml" roadNumber="4700" roadName="Canadian National" mfg="Atlas"
+                    owner="Trevor" model="GP38-2" dccAddress="4700" comment="" maxSpeed="100" imageFilePath=""
+                    iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-07T08:48:35.000+0000</dateUpdated>
+            <decoder model="LE063XF by Lenz (Part #447299)" family="Atlas N-Scale" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="4700" longaddress="yes"/>
+                <number>4700</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
+                <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Dim</functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Canadian National</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="CN6390" fileName="CN6390.xml" roadNumber="6390" roadName="Canadian Nation" mfg="Bachmann"
+                    owner="Trevor Leybourne" model="F3-A (Non-DCC) " dccAddress="0" comment="" maxSpeed="100"
+                    imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-08T08:15:53.000+0000</dateUpdated>
+            <decoder model="Raw CVs 1-255" family="Raw CVs 1-255" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="0" longaddress="yes"/>
+                <number>0</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels/>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Canadian National</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="CN6409" fileName="CN6409.xml" roadNumber="6409" roadName="Canadian National" mfg="Atlas"
+                    owner="Trevor" model="GP40-2" dccAddress="6409" comment="" maxSpeed="100" imageFilePath=""
+                    iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2020-02-11T19:36:16.884+0000</dateUpdated>
+            <decoder model="1812 - N Scale - Atlas Short Board Diesels" family="Sound Decoders - N Scale" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="6409" longaddress="yes"/>
+                <number>6409</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
+                <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Bell</functionlabel>
+                <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
+                <functionlabel num="3" lockable="false" functionImage="" functionImageSelected="">Air Release/Acc1 on or
+                    off
+                </functionlabel>
+                <functionlabel num="4" lockable="false" functionImage="" functionImageSelected="">Coupling
+                </functionlabel>
+                <functionlabel num="5" lockable="true" functionImage="" functionImageSelected="">Brake release/Squeal
+                </functionlabel>
+                <functionlabel num="6" lockable="true" functionImage="" functionImageSelected="">Dynamic Brake
+                </functionlabel>
+                <functionlabel num="7" lockable="false" functionImage="" functionImageSelected="">Air Hose/Uncoupling
+                    Lever
+                </functionlabel>
+                <functionlabel num="8" lockable="false" functionImage="" functionImageSelected="">Shut Down/Notch Down
+                </functionlabel>
+                <functionlabel num="9" lockable="true" functionImage="" functionImageSelected="">Fan/Notch Up
+                </functionlabel>
+                <functionlabel num="10" lockable="true" functionImage="" functionImageSelected="">Rail Clack
+                </functionlabel>
+                <functionlabel num="11" lockable="false" functionImage="" functionImageSelected="">loco Sound
+                </functionlabel>
+                <functionlabel num="12" lockable="false" functionImage="" functionImageSelected="">Prime MoverType
+                </functionlabel>
+                <functionlabel num="13" lockable="false" functionImage="" functionImageSelected="">Air release/ Acc2 on
+                    or off
+                </functionlabel>
+                <functionlabel num="14" lockable="false" functionImage="" functionImageSelected="">Coupling 2
+                </functionlabel>
+                <functionlabel num="15" lockable="true" functionImage="" functionImageSelected="">Air Pump
+                </functionlabel>
+                <functionlabel num="16" lockable="false" functionImage="" functionImageSelected="">Loco Sound
+                </functionlabel>
+                <functionlabel num="17" lockable="false" functionImage="" functionImageSelected="">Flange Noise 1
+                </functionlabel>
+                <functionlabel num="18" lockable="false" functionImage="" functionImageSelected="">Bell Type
+                </functionlabel>
+                <functionlabel num="19" lockable="false" functionImage="" functionImageSelected="">Horn Type
+                </functionlabel>
+                <functionlabel num="20" lockable="false" functionImage="" functionImageSelected="">Loco Sound
+                </functionlabel>
+                <functionlabel num="21" lockable="false" functionImage="" functionImageSelected="">Bell Volume
+                </functionlabel>
+                <functionlabel num="22" lockable="false" functionImage="" functionImageSelected="">Horn Volume
+                </functionlabel>
+                <functionlabel num="23" lockable="false" functionImage="" functionImageSelected="">Prime Mover Volume
+                </functionlabel>
+                <functionlabel num="24" lockable="false" functionImage="" functionImageSelected="">Air Release
+                </functionlabel>
+                <functionlabel num="25" lockable="false" functionImage="" functionImageSelected="">Flange Noise 2
+                </functionlabel>
+                <functionlabel num="26" lockable="false" functionImage="" functionImageSelected="">loco sound
+                </functionlabel>
+                <functionlabel num="27" lockable="false" functionImage="" functionImageSelected="">Sand drop
+                </functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>2020-02-11T19:33:46.985+0000</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>120</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Canadian National</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="CN9004" fileName="CN9004.xml" roadNumber="9004" roadName="Canadian Nation" mfg="Kato"
+                    owner="Trevor Leybourne" model="F3-B (Non-DCC)" dccAddress="0" comment="" maxSpeed="100"
+                    imageFilePath="preference:roster/CN_9102_at_Kelowna_BC_Feb_1987-b.jpg"
+                    iconFilePath="preference:roster/CN_9102_at_Kelowna_BC_Feb_1987-b.jpg" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-08T08:15:53.000+0000</dateUpdated>
+            <decoder model="Raw CVs 1-255" family="Raw CVs 1-255" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="0" longaddress="yes"/>
+                <number>0</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels/>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Canadian National</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="KT400" fileName="KT400.xml" roadNumber="400" roadName="" mfg="Kato" owner="Trevor Leybourne"
+                    model="400 Series" dccAddress="400" comment="" maxSpeed="100"
+                    imageFilePath="preference:roster/351101346.jpg" iconFilePath="preference:roster/351101346.jpg"
+                    URL="" IsShuntingOn="">
+            <dateUpdated>2019-07-10T03:19:54.829+0000</dateUpdated>
+            <decoder model="DN143K2" family="Series 3 with FX3, silent, readback" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="400" longaddress="yes"/>
+                <number>400</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels/>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Miscellaneous</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="MOW99" fileName="99.xml" roadNumber="99 MOW" roadName="Track Maintenance" mfg="Atlas"
+                    owner="Trevor Leybourne" model="MOW" dccAddress="99" comment="" maxSpeed="100" imageFilePath=""
+                    iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2016-06-18T22:31:23.000+0000</dateUpdated>
+            <decoder model="N12SR" family="Silent Running w/ Torque Compensation" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="99" longaddress="no"/>
+                <number>99</number>
+                <protocol>dcc_short</protocol>
+            </locoaddress>
+            <functionlabels/>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Miscellaneous</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="NW8606" fileName="NW8606.xml" roadNumber="8606" roadName="North Western" mfg="Bachmann Spectrum"
+                    owner="Trevor" model="GE Dash 8-40CW" dccAddress="8606" comment="" maxSpeed="100" imageFilePath=""
+                    iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-07T10:03:28.000+0000</dateUpdated>
+            <decoder model="Z14SR" family="Silent Running w/ Torque Compensation" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="8606" longaddress="yes"/>
+                <number>8606</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>Sun Jun 19 11:23:48 NZST 2016</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>0</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Miscellaneous</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP0136" fileName="Union_Pacific_136.xml" roadNumber="136" roadName="Union Pacific" mfg="Atlas"
+                    owner="Trevor" model="GE U23B" dccAddress="136" comment="" maxSpeed="100" imageFilePath=""
+                    iconFilePath="" URL="" IsShuntingOn="F0">
+            <dateUpdated>2018-08-07T10:17:24.000+0000</dateUpdated>
+            <decoder model="N12A2-ATL by NCE" family="Atlas N-Scale" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="136" longaddress="yes"/>
+                <number>136</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP0137" fileName="Union_Pacific_137.xml" roadNumber="137" roadName="Union Pacific" mfg="Atlas"
+                    owner="Trevor" model="GE U23B" dccAddress="137" comment="" maxSpeed="100" imageFilePath=""
+                    iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-07T10:21:41.000+0000</dateUpdated>
+            <decoder model="LE063XF by Lenz (Part #447299)" family="Atlas N-Scale" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="137" longaddress="yes"/>
+                <number>137</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>2018-04-16T08:20:05Z</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>6</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP1020" fileName="Union_Pacific_1020.xml" roadNumber="1020" roadName="Union Pacific"
+                    mfg="Kato USA" owner="Trevor" model="EMD NW2" dccAddress="1020" comment="" maxSpeed="100"
+                    imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-07T10:55:37.000+0000</dateUpdated>
+            <decoder model="K3D3" family="Jan 2012" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="1020" longaddress="yes"/>
+                <number>1020</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels/>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>2018-04-16T08:19:30Z</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>99</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP1029" fileName="Union_Pacific_1029.xml" roadNumber="1029" roadName="Union Pacific"
+                    mfg="Kato USA" owner="Trevor" model="EMD NW2" dccAddress="1029" comment="" maxSpeed="100"
+                    imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-07T10:51:38.000+0000</dateUpdated>
+            <decoder model="K3D3" family="Jan 2012" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="1029" longaddress="yes"/>
+                <number>1029</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>2018-10-12T23:48:34Z</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>95</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP1624" fileName="1625.xml" roadNumber="1624 (F1A)" roadName="Union Pacific" mfg="Lifelike"
+                    owner="Trevor Leybourne" model="F1/A" dccAddress="1624" comment="" maxSpeed="100" imageFilePath=""
+                    iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-08T07:13:53.000+0000</dateUpdated>
+            <decoder model="DZ123" family="Series 3 with FX3, silent, readback" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="1624" longaddress="yes"/>
+                <number>1624</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels/>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>2017-07-25T05:06:42Z</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>261</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP1624a" fileName="1626.xml" roadNumber="1624 (F1B)" roadName="Union Pacific" mfg="Lifelike"
+                    owner="Trevor Leybourne" model="F1/B" dccAddress="1625" comment="" maxSpeed="100" imageFilePath=""
+                    iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-08T07:14:30.000+0000</dateUpdated>
+            <decoder model="N12SR" family="Silent Running w/ Torque Compensation" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="1625" longaddress="yes"/>
+                <number>1625</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels/>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP30A" fileName="UP30A.xml" roadNumber="30A" roadName="Union Pacific" mfg="Scaletrains"
+                    owner="Trevor Leybourne" model="Union Pacific Big Blow Turbine - Motive" dccAddress="30" comment=""
+                    maxSpeed="100" imageFilePath="preference:roster/BigBlow-Main.jpg"
+                    iconFilePath="preference:roster/BigBlow-Main.jpg" URL="" IsShuntingOn="">
+            <dateUpdated>2019-07-10T04:26:43.196+0000</dateUpdated>
+            <decoder model="LokSound Select" family="ESU LokSound Select" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="30" longaddress="no"/>
+                <number>30</number>
+                <protocol>dcc_short</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
+                <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Bell</functionlabel>
+                <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
+                <functionlabel num="3" lockable="true" functionImage="" functionImageSelected="">Turbine on B Unit
+                </functionlabel>
+                <functionlabel num="4" lockable="true" functionImage="" functionImageSelected="">Dynamic Brake
+                </functionlabel>
+                <functionlabel num="7" lockable="true" functionImage="" functionImageSelected="">Headlight Dimmer
+                </functionlabel>
+                <functionlabel num="8" lockable="true" functionImage="" functionImageSelected="">Power On A Unit
+                </functionlabel>
+                <functionlabel num="9" lockable="false" functionImage="" functionImageSelected="">Couple Clank
+                </functionlabel>
+                <functionlabel num="10" lockable="true" functionImage="" functionImageSelected="">Rear Headlight
+                </functionlabel>
+                <functionlabel num="11" lockable="false" functionImage="" functionImageSelected="">Sanding Valve
+                </functionlabel>
+                <functionlabel num="12" lockable="false" functionImage="" functionImageSelected="">Short Air Let Off
+                </functionlabel>
+            </functionlabels>
+            <soundlabels>
+                <soundlabel num="25">Random sounds</soundlabel>
+                <soundlabel num="26">Automatic brake sound</soundlabel>
+                <soundlabel num="27">Gear shift sound</soundlabel>
+            </soundlabels>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>2019-05-04T04:42:27.959+0000</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>142</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP30B" fileName="30B.xml" roadNumber="30B" roadName="Union Pacific" mfg="Scaletrains"
+                    owner="Trevor Leybourne" model="Union Pacific Big Blow Turbine - Turbine" dccAddress="30" comment=""
+                    maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2019-07-10T04:26:59.084+0000</dateUpdated>
+            <decoder model="LokSound Select" family="ESU LokSound Select" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="30" longaddress="no"/>
+                <number>30</number>
+                <protocol>dcc_short</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Light</functionlabel>
+                <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Horn</functionlabel>
+            </functionlabels>
+            <soundlabels>
+                <soundlabel num="25">Random sounds</soundlabel>
+                <soundlabel num="26">Automatic brake sound</soundlabel>
+                <soundlabel num="27">Gear shift sound</soundlabel>
+            </soundlabels>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP30C" fileName="30C.xml" roadNumber="30C" roadName="Union Pacific " mfg="Scaletrains"
+                    owner="Trevor Leybourne" model="Union Pacific Big Blow Turbine - Fuel Tender" dccAddress="30"
+                    comment="" maxSpeed="100" imageFilePath="" iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2019-07-10T04:27:12.572+0000</dateUpdated>
+            <decoder model="Scale Trains Tender Light" family="ESU Miscellaneous decoders" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="30" longaddress="no"/>
+                <number>30</number>
+                <protocol>dcc_short</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Rear light
+                </functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>2019-05-04T04:53:33.236+0000</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>3</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP4047" fileName="UP4047.xml" roadNumber="4047" roadName="Union Pacific" mfg="Intermountain"
+                    owner="Trevor" model="SD40-T2" dccAddress="4047" comment="" maxSpeed="100"
+                    imageFilePath="preference:roster/UP4047.jpg" iconFilePath="preference:roster/UP4047.jpg" URL=""
+                    IsShuntingOn="">
+            <dateUpdated>2018-08-08T06:44:45.000+0000</dateUpdated>
+            <decoder model="N12A0" family="Silent Running w/ Torque Compensation" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="4047" longaddress="yes"/>
+                <number>4047</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP6900" fileName="UP6900.xml" roadNumber="6900" roadName="Union Pacific" mfg="Bachmann"
+                    owner="Trevor" model="EMD DD40AX" dccAddress="6900" comment="" maxSpeed="100"
+                    imageFilePath="preference:roster/up6900.jpg" iconFilePath="preference:roster/up6900.jpg" URL=""
+                    IsShuntingOn="">
+            <dateUpdated>2018-08-09T05:36:14.000+0000</dateUpdated>
+            <decoder model="EMD DD40AX" family="Tsunami Diesel Bachmann Sound Value" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="6900" longaddress="yes"/>
+                <number>6900</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Headlight
+                </functionlabel>
+                <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Bell</functionlabel>
+                <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Air Horn
+                </functionlabel>
+                <functionlabel num="3" lockable="true" functionImage="" functionImageSelected="">Short Horn
+                </functionlabel>
+                <functionlabel num="4" lockable="true" functionImage="" functionImageSelected="">Dynamic Brake
+                </functionlabel>
+                <functionlabel num="5" lockable="true" functionImage="" functionImageSelected="">Flashing Light
+                </functionlabel>
+                <functionlabel num="6" lockable="true" functionImage="" functionImageSelected="">Lighted # Boards
+                </functionlabel>
+                <functionlabel num="7" lockable="true" functionImage="" functionImageSelected="">Dimming</functionlabel>
+                <functionlabel num="8" lockable="true" functionImage="" functionImageSelected="">Mute</functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>Sun Jun 19 11:08:31 NZST 2016</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>38</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP6940" fileName="UP6940.xml" roadNumber="6940" roadName="Union Pacific" mfg="Bachmann"
+                    owner="Trevor" model="EMD DD40AX" dccAddress="6940" comment="" maxSpeed="100"
+                    imageFilePath="preference:roster/up6900.jpg" iconFilePath="preference:roster/up6900.jpg" URL=""
+                    IsShuntingOn="">
+            <dateUpdated>2018-08-09T05:38:33.000+0000</dateUpdated>
+            <decoder model="EMD DD40AX" family="Tsunami Diesel Bachmann Sound Value" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="6940" longaddress="yes"/>
+                <number>6940</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Headlight
+                </functionlabel>
+                <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Bell</functionlabel>
+                <functionlabel num="2" lockable="false" functionImage="" functionImageSelected="">Air Horn
+                </functionlabel>
+                <functionlabel num="3" lockable="true" functionImage="" functionImageSelected="">Short Horn
+                </functionlabel>
+                <functionlabel num="4" lockable="true" functionImage="" functionImageSelected="">Dynamic Brake
+                </functionlabel>
+                <functionlabel num="5" lockable="true" functionImage="" functionImageSelected="">Flashing Light
+                </functionlabel>
+                <functionlabel num="6" lockable="true" functionImage="" functionImageSelected="">Lighted # Boards
+                </functionlabel>
+                <functionlabel num="7" lockable="true" functionImage="" functionImageSelected="">Dimming</functionlabel>
+                <functionlabel num="8" lockable="true" functionImage="" functionImageSelected="">Mute</functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP838" fileName="UP838.xml" roadNumber="838" roadName="Union Pacific" mfg="Kato"
+                    owner="Trevor Leybourne" model="BigBoy Steam" dccAddress="838" comment="" maxSpeed="100"
+                    imageFilePath="preference:roster/s-l1600.jpg" iconFilePath="preference:roster/s-l1600.jpg" URL=""
+                    IsShuntingOn="">
+            <dateUpdated>2018-08-07T09:32:39.000+0000</dateUpdated>
+            <decoder model="SDXN146K4" family="SFX Sound Decoders - Series 6" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="838" longaddress="yes"/>
+                <number>838</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
+                <functionlabel num="1" lockable="true" functionImage="" functionImageSelected="">Bell</functionlabel>
+                <functionlabel num="2" lockable="true" functionImage="" functionImageSelected="">Horn/Whistle
+                </functionlabel>
+                <functionlabel num="3" lockable="false" functionImage="" functionImageSelected="">Coupler
+                </functionlabel>
+                <functionlabel num="4" lockable="true" functionImage="" functionImageSelected="">Air feat. disabled
+                </functionlabel>
+                <functionlabel num="5" lockable="true" functionImage="" functionImageSelected="">Dyn. Brakes Fans/Water
+                    Pump
+                </functionlabel>
+                <functionlabel num="6" lockable="false" functionImage="" functionImageSelected="">Notch UP/Blowdown
+                </functionlabel>
+                <functionlabel num="7" lockable="false" functionImage="" functionImageSelected="">Xing Gate
+                    Airhorn/Notch DOWN/Wheel Slip
+                </functionlabel>
+                <functionlabel num="8" lockable="true" functionImage="" functionImageSelected="">Mute</functionlabel>
+                <functionlabel num="9" lockable="false" functionImage="" functionImageSelected="">Brake squeal
+                </functionlabel>
+                <functionlabel num="10" lockable="false" functionImage="" functionImageSelected="">Xing Gate Airhorn
+                </functionlabel>
+                <functionlabel num="11" lockable="false" functionImage="" functionImageSelected="">Greaser
+                </functionlabel>
+                <functionlabel num="12" lockable="false" functionImage="" functionImageSelected="">Safety Blow off
+                </functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>2018-08-07T08:01:37Z</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>33</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+        <locomotive id="UP986" fileName="986.xml" roadNumber="986" roadName="Union Pacific" mfg="Lifelike"
+                    owner="Trevor Leybourne" model="E7" dccAddress="986" comment="" maxSpeed="100" imageFilePath=""
+                    iconFilePath="" URL="" IsShuntingOn="">
+            <dateUpdated>2018-08-08T06:49:15.000+0000</dateUpdated>
+            <decoder model="DN143IP" family="Series 3 with FX3, silent, readback" comment=""/>
+            <locoaddress>
+                <dcclocoaddress number="986" longaddress="yes"/>
+                <number>986</number>
+                <protocol>dcc_long</protocol>
+            </locoaddress>
+            <functionlabels>
+                <functionlabel num="0" lockable="true" functionImage="" functionImageSelected="">Lights</functionlabel>
+                <functionlabel num="6" lockable="true" functionImage="" functionImageSelected="">Swiching Speed
+                </functionlabel>
+            </functionlabels>
+            <soundlabels/>
+            <attributepairs>
+                <keyvaluepair>
+                    <key>LastOperated</key>
+                    <value>Sun Jun 19 11:02:47 NZST 2016</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>OperatingDuration</key>
+                    <value>19</value>
+                </keyvaluepair>
+                <keyvaluepair>
+                    <key>RosterGroup:Union Pacific</key>
+                    <value>yes</value>
+                </keyvaluepair>
+            </attributepairs>
+        </locomotive>
+    </roster>
+    <rosterGroup>
+        <group>Miscellaneous</group>
+        <group>Union Pacific</group>
+        <group>Canadian National</group>
+    </rosterGroup>
 </roster-config>

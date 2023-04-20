@@ -5,29 +5,29 @@ using DCCRailway.Core.Systems.Commands;
 using DCCRailway.Core.Systems.Commands.Results;
 using DCCRailway.Core.Systems.Types;
 
-namespace DCCRailway.Core.Systems {
-	public interface ISystem {
-		// Attach or detect an Adapter to a Command Station
-		// ----------------------------------------------------------------------------
-		public IAdapter? Adapter { get; set; }
-		public List<(Type command, string name)>? SupportedCommands { get; }
-		public List<(Type adapter, string name)>? SupportedAdapters { get; }
+namespace DCCRailway.Core.Systems; 
 
-		// Execute a Command. Must be executed via here
-		// ----------------------------------------------------------------------------
-		public IResult? Execute(ICommand command);
-		public IAdapter? CreateAdapter<T>() where T : IAdapter;
-		public IAdapter? CreateAdapter(string name);
+public interface ISystem {
+    // Attach or detect an Adapter to a Command Station
+    // ----------------------------------------------------------------------------
+    public IAdapter? Adapter { get; set; }
+    public List<(Type command, string name)>? SupportedCommands { get; }
+    public List<(Type adapter, string name)>? SupportedAdapters { get; }
 
-		// Create and Execute commands that are associated with this command station
-		// --------------------------------------------------------------------------
-		public TCommand? CreateCommand<TCommand>() where TCommand : ICommand;
-		public TCommand? CreateCommand<TCommand>(int value) where TCommand : ICommand;
-		public TCommand? CreateCommand<TCommand>(byte value) where TCommand : ICommand;
+    // Execute a Command. Must be executed via here
+    // ----------------------------------------------------------------------------
+    public IResult? Execute(ICommand command);
+    public IAdapter? CreateAdapter<T>() where T : IAdapter;
+    public IAdapter? CreateAdapter(string name);
 
-		public IDCCAddress CreateAddress();
-		public IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
+    // Create and Execute commands that are associated with this command station
+    // --------------------------------------------------------------------------
+    public TCommand? CreateCommand<TCommand>() where TCommand : ICommand;
+    public TCommand? CreateCommand<TCommand>(int value) where TCommand : ICommand;
+    public TCommand? CreateCommand<TCommand>(byte value) where TCommand : ICommand;
 
-		public bool IsCommandSupported<T>() where T : ICommand;
-	}
+    public IDCCAddress CreateAddress();
+    public IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
+
+    public bool IsCommandSupported<T>() where T : ICommand;
 }

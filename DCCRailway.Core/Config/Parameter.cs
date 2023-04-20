@@ -2,25 +2,25 @@
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace DCCRailway.Core.Config {
-	[XmlRoot(ElementName = "Parameter")]
-	public class Parameter {
-		[XmlAttribute(AttributeName = "Name")] public string Name { get; set; }
+namespace DCCRailway.Core.Config; 
 
-		[XmlAttribute(AttributeName = "Value")]
-		public string Value { get; set; }
+[XmlRoot(ElementName = "Parameter")]
+public class Parameter {
+    [XmlAttribute(AttributeName = "Name")] public string Name { get; set; }
 
-		public void Set<T>(string Name, T Value) {
-			this.Name = Name;
-			this.Value = Value?.ToString() ?? string.Empty;
-		}
+    [XmlAttribute(AttributeName = "Value")]
+    public string Value { get; set; }
 
-		public T Get<T>() {
-			return (T)Convert.ChangeType(Value, typeof(T), CultureInfo.InvariantCulture);
-		}
+    public void Set<T>(string Name, T Value) {
+        this.Name = Name;
+        this.Value = Value?.ToString() ?? string.Empty;
+    }
 
-		public new string ToString() {
-			return $"{Name}='{Value}'";
-		}
-	}
+    public T Get<T>() {
+        return (T) Convert.ChangeType(Value, typeof(T), CultureInfo.InvariantCulture);
+    }
+
+    public new string ToString() {
+        return $"{Name}='{Value}'";
+    }
 }

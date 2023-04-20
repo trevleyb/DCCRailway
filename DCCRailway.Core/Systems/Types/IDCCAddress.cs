@@ -1,12 +1,12 @@
-﻿namespace DCCRailway.Core.Systems.Types {
-	public interface IDCCAddress {
-		int Address { get; set; }
-		DCCAddressType AddressType { get; set; }
-		bool IsLong { get; }
-		string AddressName { get; }
+﻿namespace DCCRailway.Core.Systems.Types; 
 
-		byte LowAddress { get; }
-		byte HighAddress { get; }
-		byte[] AddressBytes { get; }
-	}
+public interface IDCCAddress {
+    int Address { get; set; }
+    DCCAddressType AddressType { get; set; }
+    bool IsLong { get; }
+    string AddressName { get; }
+
+    byte LowAddress { get; }
+    byte HighAddress { get; }
+    byte[] AddressBytes { get; }
 }

@@ -1,3 +1,3 @@
-﻿namespace DCCRailway.Core.Systems.Commands.Results {
-	public interface IResultClock { }
-}
+﻿namespace DCCRailway.Core.Systems.Commands.Results; 
+
+public interface IResultClock { }

@@ -1,3 +1,3 @@
-﻿namespace DCCRailway.Core.Systems.Commands.Interfaces {
-	public interface ICmdClockStop : ICommand { }
-}
+﻿namespace DCCRailway.Core.Systems.Commands.Interfaces; 
+
+public interface ICmdClockStop : ICommand { }

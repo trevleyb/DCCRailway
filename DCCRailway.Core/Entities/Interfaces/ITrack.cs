@@ -1,3 +1,3 @@
-﻿namespace DCCRailway.Core.Entities {
-	public interface ITrack { }
-}
+﻿namespace DCCRailway.Core.Entities; 
+
+public interface ITrack { }

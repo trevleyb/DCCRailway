@@ -28,3 +28,18 @@
 /Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/DCCRailway.Server.dll
 /Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/ref/DCCRailway.Server.dll
 /Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/DCCRailway.Server.pdb
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/bin/Debug/net6.0/DCCRailway.Server.deps.json
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/bin/Debug/net6.0/DCCRailway.Server.dll
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/bin/Debug/net6.0/DCCRailway.Server.pdb
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/bin/Debug/net6.0/DCCRailway.Core.dll
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/bin/Debug/net6.0/DCCRailway.Core.pdb
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/DCCRailway.Server.csproj.AssemblyReference.cache
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/DCCRailway.Server.GeneratedMSBuildEditorConfig.editorconfig
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/DCCRailway.Server.AssemblyInfoInputs.cache
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/DCCRailway.Server.AssemblyInfo.cs
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/DCCRailway.Server.csproj.CoreCompileInputs.cache
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/DCCRailway.Server.csproj.CopyComplete
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/DCCRailway.Server.dll
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/refint/DCCRailway.Server.dll
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/DCCRailway.Server.pdb
+/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Server/obj/Debug/net6.0/ref/DCCRailway.Server.dll

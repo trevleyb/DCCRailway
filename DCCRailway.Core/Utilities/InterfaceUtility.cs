@@ -2,58 +2,59 @@
 using System.Reflection;
 using DCCRailway.Core.Systems.Commands;
 
-namespace DCCRailway.Core.Utilities {
-	public static class InterfaceUtility {
-		public static string? FindImplmentationInterface(IEnumerable<TypeInfo> definedTypes, string searchtype) {
-			foreach (var definedType in definedTypes)
-			foreach (var implementedInterface in definedType.ImplementedInterfaces) {
-				if (implementedInterface.Name.Equals(SplitInterfaceName(searchtype))) return definedType.FullName;
-			}
-			return null;
-		}
+namespace DCCRailway.Core.Utilities; 
 
-		public static string? FindImplmentationInterface<T>(IEnumerable<TypeInfo> definedTypes) where T : ICommand {
-			return FindImplmentationInterface(definedTypes, typeof(T).ToString());
-		}
+public static class InterfaceUtility {
+    public static string? FindImplmentationInterface(IEnumerable<TypeInfo> definedTypes, string searchtype) {
+        foreach (var definedType in definedTypes)
+        foreach (var implementedInterface in definedType.ImplementedInterfaces)
+            if (implementedInterface.Name.Equals(SplitInterfaceName(searchtype)))
+                return definedType.FullName;
+        return null;
+    }
 
-		public static bool ImplementsInterface(TypeInfo definedType, string searchInterface) {
-			return FindImplementsInterface(definedType, searchInterface) != null;
-		}
+    public static string? FindImplmentationInterface<T>(IEnumerable<TypeInfo> definedTypes) where T : ICommand {
+        return FindImplmentationInterface(definedTypes, typeof(T).ToString());
+    }
 
-		public static string? FindImplementsInterface(TypeInfo definedType, string searchInterface) {
-			foreach (var interfaceType in definedType.ImplementedInterfaces) {
-				var foundName = SplitInterfaceName(interfaceType.FullName);
-				if (foundName != null && foundName == searchInterface) return foundName;
-			}
+    public static bool ImplementsInterface(TypeInfo definedType, string searchInterface) {
+        return FindImplementsInterface(definedType, searchInterface) != null;
+    }
 
-			return null;
-		}
+    public static string? FindImplementsInterface(TypeInfo definedType, string searchInterface) {
+        foreach (var interfaceType in definedType.ImplementedInterfaces) {
+            var foundName = SplitInterfaceName(interfaceType.FullName);
+            if (foundName != null && foundName == searchInterface) return foundName;
+        }
 
-		public static List<string>? FindInterfaces(TypeInfo definedType, string searchInterface) {
-			var isICommand = false;
-			var foundInterfaces = new List<string>();
+        return null;
+    }
 
-			foreach (var interfaceType in definedType.ImplementedInterfaces) {
-				var foundName = SplitInterfaceName(interfaceType.FullName);
-				if (foundName != null) {
-					if (foundName == searchInterface)
-						isICommand = true;
-					else {
-						if (!string.IsNullOrEmpty(interfaceType.FullName)) foundInterfaces.Add(interfaceType.FullName);
-					}
-				}
-			}
+    public static List<string>? FindInterfaces(TypeInfo definedType, string searchInterface) {
+        var isICommand = false;
+        var foundInterfaces = new List<string>();
 
-			return isICommand ? foundInterfaces : null;
-		}
+        foreach (var interfaceType in definedType.ImplementedInterfaces) {
+            var foundName = SplitInterfaceName(interfaceType.FullName);
+            if (foundName != null) {
+                if (foundName == searchInterface) {
+                    isICommand = true;
+                }
+                else {
+                    if (!string.IsNullOrEmpty(interfaceType.FullName)) foundInterfaces.Add(interfaceType.FullName);
+                }
+            }
+        }
 
-		public static string? SplitInterfaceName(string? fullname) {
-			if (!string.IsNullOrEmpty(fullname)) {
-				var split = fullname.Split(".");
-				return split.Length > 0 ? split[^1] : null;
-			}
+        return isICommand ? foundInterfaces : null;
+    }
 
-			return null;
-		}
-	}
+    public static string? SplitInterfaceName(string? fullname) {
+        if (!string.IsNullOrEmpty(fullname)) {
+            var split = fullname.Split(".");
+            return split.Length > 0 ? split[^1] : null;
+        }
+
+        return null;
+    }
 }

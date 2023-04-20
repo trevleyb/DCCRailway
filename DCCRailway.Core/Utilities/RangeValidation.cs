@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DCCRailway.Core.Utilities {
-	internal sealed class RangeValidationAttribute : ValidationAttribute {
-		public RangeValidationAttribute(byte minValue, byte maxValue, string errorMessage) {
-			ErrorMessage = errorMessage;
-			MinValue = minValue;
-			MaxValue = maxValue;
-		}
+namespace DCCRailway.Core.Utilities; 
 
-		public byte MinValue { get; set; }
-		public byte MaxValue { get; set; }
+internal sealed class RangeValidationAttribute : ValidationAttribute {
+    public RangeValidationAttribute(byte minValue, byte maxValue, string errorMessage) {
+        ErrorMessage = errorMessage;
+        MinValue = minValue;
+        MaxValue = maxValue;
+    }
 
-		protected override ValidationResult? IsValid(object? value, ValidationContext validationContext) {
-			return base.IsValid(value, validationContext);
-		}
-	}
+    public byte MinValue { get; set; }
+    public byte MaxValue { get; set; }
+
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext) {
+        return base.IsValid(value, validationContext);
+    }
 }

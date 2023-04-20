@@ -1,20 +1,20 @@
 ﻿using System.Xml.Serialization;
 
-namespace DCCRailway.Core.Config {
-	[XmlRoot(ElementName = "System")]
-	public class System {
-		public System() {
-			Parameters = new Parameters();
-		}
+namespace DCCRailway.Core.Config; 
 
-		public System(string name) {
-			Name = name;
-		}
+[XmlRoot(ElementName = "System")]
+public class System {
+    public System() {
+        Parameters = new Parameters();
+    }
 
-		[XmlAttribute(AttributeName = "Name")] public string Name { get; set; }
+    public System(string name) {
+        Name = name;
+    }
 
-		[XmlElement(ElementName = "Adapter")] public Adapter Adapter { get; set; }
+    [XmlAttribute(AttributeName = "Name")] public string Name { get; set; }
 
-		[XmlArray(ElementName = "Parameters")] public Parameters Parameters { get; set; }
-	}
+    [XmlElement(ElementName = "Adapter")] public Adapter Adapter { get; set; }
+
+    [XmlArray(ElementName = "Parameters")] public Parameters Parameters { get; set; }
 }

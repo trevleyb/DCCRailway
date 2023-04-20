@@ -1,7 +1,7 @@
-﻿namespace DCCRailway.Core.Systems.Types {
-	public enum DCCProgrammingMode {
-		Direct,
-		Paged,
-		Register
-	}
+﻿namespace DCCRailway.Core.Systems.Types; 
+
+public enum DCCProgrammingMode {
+    Direct,
+    Paged,
+    Register
 }

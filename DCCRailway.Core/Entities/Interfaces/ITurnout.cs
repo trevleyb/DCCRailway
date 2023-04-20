@@ -1,3 +1,3 @@
-﻿namespace DCCRailway.Core.Entities {
-	public interface ITurnout { }
-}
+﻿namespace DCCRailway.Core.Entities; 
+
+public interface ITurnout { }

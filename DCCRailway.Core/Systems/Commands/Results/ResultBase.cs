@@ -1,27 +1,21 @@
 ﻿using System;
 
-namespace DCCRailway.Core.Systems.Commands.Results {
-	public class ResultBase : IResult {
-		public ResultBase(byte[]? data = null) {
-			Data = data;
-		}
+namespace DCCRailway.Core.Systems.Commands.Results; 
 
-		public ResultBase(byte? data = null) {
-			Data = data == null ? Array.Empty<byte>() : new[] { (byte)data };
-		}
+public class ResultBase : IResult {
+    public ResultBase(byte[]? data = null) {
+        Data = data;
+    }
 
-		public byte[]? Data { get; }
+    public ResultBase(byte? data = null) {
+        Data = data == null ? Array.Empty<byte>() : new[] {(byte) data};
+    }
 
-		public int Bytes {
-			get { return Data?.Length ?? 0; }
-		}
+    public byte[]? Data { get; }
 
-		public byte? Value {
-			get { return Data?[0]; }
-		}
+    public int Bytes => Data?.Length ?? 0;
 
-		public bool OK {
-			get { return true; }
-		}
-	}
+    public byte? Value => Data?[0];
+
+    public bool OK => true;
 }

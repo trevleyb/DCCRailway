@@ -1,23 +1,21 @@
 ﻿using System;
 
-namespace DCCRailway.Core.Systems.Commands.Results {
-	public class ResultState : ResultBase, IResultState, IResultOK, IResult {
-		public ResultState(bool? state) : base(Array.Empty<byte>()) {
-			State = state;
-		}
+namespace DCCRailway.Core.Systems.Commands.Results; 
 
-		public ResultState(bool? state, byte[]? data = null) : base(data) {
-			State = state;
-		}
+public class ResultState : ResultBase, IResultState, IResultOK, IResult {
+    public ResultState(bool? state) : base(Array.Empty<byte>()) {
+        State = state;
+    }
 
-		public ResultState(byte[]? data = null) : base(data) {
-			State = null;
-		}
+    public ResultState(bool? state, byte[]? data = null) : base(data) {
+        State = state;
+    }
 
-		public new bool OK {
-			get { return true; }
-		}
+    public ResultState(byte[]? data = null) : base(data) {
+        State = null;
+    }
 
-		public bool? State { get; }
-	}
+    public new bool OK => true;
+
+    public bool? State { get; }
 }
