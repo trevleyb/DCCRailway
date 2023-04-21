@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DCCRailway.Core.Attributes;
 using DCCRailway.Core.Systems;
 using DCCRailway.Core.Systems.Adapters.Events;
 using DCCRailway.Core.Systems.Attributes;
@@ -10,8 +11,8 @@ using DCCRailway.Systems.Virtual.Commands;
 
 namespace DCCRailway.Systems.Virtual; 
 
-[SystemName(Manufacturer = "Virtual", Name = "Virtual")]
-public class VirtualSystem : SystemBase, ISystem {
+[System("Virtual", "Virtual", "Virtual")]
+public class VirtualSystem : Core.Systems.System, ISystem {
     public override IDCCAddress CreateAddress() {
         return new DCCAddress();
     }
@@ -20,17 +21,14 @@ public class VirtualSystem : SystemBase, ISystem {
         return new DCCAddress(address, type);
     }
 
-    public override List<(Type adapter, string name)>? SupportedAdapters {
-        get {
-            List<(Type adapter, string name)>? adapters = new();
-            adapters.Add((typeof(VirtualAdapter), VirtualAdapter.Name));
-            return adapters;
-        }
+    protected override void RegisterAdapters() {
+        ClearAdapters();
+        RegisterAdapter<VirtualAdapter>();
     }
-
+    
     protected override void RegisterCommands() {
-        Register<IDummyCmd>(typeof(VirtualDummy));
-        Register<ICmdStatus>(typeof(VirtualStatus));
+        RegisterCommand<IDummyCmd>(typeof(VirtualDummy));
+        RegisterCommand<ICmdStatus>(typeof(VirtualStatus));
     }
 
     #region Manage the events from the Adapter

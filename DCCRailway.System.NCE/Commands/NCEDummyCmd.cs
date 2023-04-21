@@ -5,7 +5,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCEDummyCmd : NCECommandBase, IDummyCmd {
+public class NCEDummyCmd : NCECommand, IDummyCmd {
     public string Name => "NCE Dummy Command";
 
     protected byte[] CommandData {

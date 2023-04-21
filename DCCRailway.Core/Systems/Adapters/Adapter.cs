@@ -1,16 +1,16 @@
 ﻿using System;
 using DCCRailway.Core.Systems.Adapters.Events;
+using DCCRailway.Core.Systems.Attributes;
+using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Core.Systems.Adapters; 
 
-public abstract class BaseAdapter {
-    public abstract string Description { get; }
-
+public abstract class Adapter {
     public event EventHandler<StateChangedArgs> ConnectionStatusChanged;
     public event EventHandler<DataRecvArgs> DataReceived;
     public event EventHandler<DataSentArgs> DataSent;
     public event EventHandler<ErrorArgs> ErrorOccurred;
-
+    
     #region Event Delegates
 
     /// <summary>

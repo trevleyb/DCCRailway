@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using DCCRailway.Core.Attributes;
 using DCCRailway.Core.Systems;
+using DCCRailway.Core.Systems.Adapters;
 using DCCRailway.Core.Systems.Adapters.Events;
 using DCCRailway.Core.Systems.Attributes;
 using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
+using DCCRailway.Systems.Virtual;
 
 namespace DCCRailway.Systems.Digitrax; 
 
-[SystemName(Manufacturer = "Digitrax", Name = "DCS52")]
-public class DCS52 : SystemBase, ISystem {
+[System("DCS52", "DigiTrax", "DCS52")]
+public class DCS52 : Core.Systems.System, ISystem {
     public override IDCCAddress CreateAddress() {
         return new DCCAddress();
     }
@@ -18,18 +21,14 @@ public class DCS52 : SystemBase, ISystem {
         return new DCCAddress(address, type);
     }
 
-    public override List<(Type adapter, string name)>? SupportedAdapters {
-        get {
-            List<(Type adapter, string name)>? adapters = new();
-
-            //adapters.Add ((typeof (VirtualAdapter), VirtualAdapter.Name));
-            return adapters;
-        }
+    protected override void RegisterAdapters() {
+        ClearAdapters();
+        RegisterAdapter<DigitraxVirtualAdapter>();
     }
-
+    
     protected override void RegisterCommands() {
-        //Register<IDummyCmd> (typeof (Commands.VirtualDummy));
-        //Register<ICmdStatus> (typeof (Commands.VirtualStatus));
+        //RegisterCommand<IDummyCmd> (typeof (Commands.VirtualDummy));
+        //RegisterCommand<ICmdStatus> (typeof (Commands.VirtualStatus));
     }
 
     #region Manage the events from the Adapter

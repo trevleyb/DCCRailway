@@ -12,11 +12,9 @@ namespace DCCRailway.Core.Systems.Adapters;
 ///     and the simulator will act like a command station and will track the locos and accessories that are communicated
 ///     with.
 /// </summary>
-public abstract class VirtualAdapter : BaseAdapter, IAdapter {
+public abstract class VirtualAdapter : Adapter, IAdapter {
     private object? _lastResult;
     private DCCSimulator? _simulator;
-
-    public static string Name => "Virtual Adapter";
 
     public bool IsConnected => _simulator != null;
 

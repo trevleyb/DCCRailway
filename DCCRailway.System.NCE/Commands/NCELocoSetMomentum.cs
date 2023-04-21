@@ -8,7 +8,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCELocoSetMomentum : NCECommandBase, ICmdLocoSetMomentum, ICommand {
+public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
     public NCELocoSetMomentum() { }
 
     public NCELocoSetMomentum(int address, byte momentum) : this(new DCCAddress(address), momentum) { }

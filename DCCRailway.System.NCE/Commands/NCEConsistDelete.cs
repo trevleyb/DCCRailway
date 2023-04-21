@@ -8,7 +8,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCEConsistDelete : NCECommandBase, ICmdConsistDelete, ICommand {
+public class NCEConsistDelete : NCECommand, ICmdConsistDelete, ICommand {
     public NCEConsistDelete() { }
 
     public NCEConsistDelete(IDCCLoco loco) : this(loco.Address) { }

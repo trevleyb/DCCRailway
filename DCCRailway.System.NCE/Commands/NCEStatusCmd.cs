@@ -5,7 +5,7 @@ using DCCRailway.Core.Systems.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCEStatusCmd : NCECommandBase, ICmdStatus {
+public class NCEStatusCmd : NCECommand, ICmdStatus {
     public static string Name => "NCE Get Status";
 
     public override IResult Execute(IAdapter adapter) {

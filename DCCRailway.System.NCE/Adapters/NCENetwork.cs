@@ -1,9 +1,8 @@
 ﻿using DCCRailway.Core.Systems.Adapters;
+using DCCRailway.Core.Systems.Attributes;
 
 namespace DCCRailway.Systems.NCE.Adapters; 
 
+[Adapter("NCE Network Adapter",AdapterType.Network)]
 public class NCENetwork : NetworkAdapter, IAdapter {
-    public new static string Name => "NCE Network Adapter";
-
-    public override string Description => "NCE-Network";
 }

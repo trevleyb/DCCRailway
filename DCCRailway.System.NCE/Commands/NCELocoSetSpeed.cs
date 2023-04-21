@@ -8,7 +8,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCELocoSetSpeed : NCECommandBase, ICmdLocoSetSpeed, ICommand {
+public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
     public NCELocoSetSpeed() { }
 
     public NCELocoSetSpeed(IDCCLoco loco, byte speed = 0) : this(loco.Address, loco.Direction, speed) { }

@@ -3,8 +3,7 @@ using DCCRailway.Core.Systems.Commands;
 
 namespace DCCRailway.Core.Systems.Adapters; 
 
-public abstract class USBAdapter : BaseAdapter, IAdapter {
-    public static string Name => "USB Adapter";
+public abstract class USBAdapter : Adapter, IAdapter {
 
     public bool IsConnected => throw new NotImplementedException();
 

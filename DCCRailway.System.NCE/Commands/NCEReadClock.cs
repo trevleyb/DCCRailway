@@ -6,7 +6,7 @@ using DCCRailway.Core.Systems.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCEReadClock : CommandBase, ICmdClockRead, ICommand {
+public class NCEReadClock : Command, ICmdClockRead, ICommand {
     public static string Name => "NCE Read Fast Clock";
 
     public override IResult Execute(IAdapter adapter) {

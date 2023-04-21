@@ -7,10 +7,8 @@ using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Systems.Virtual.Commands; 
 
-public class VirtualStatus : CommandBase, ICmdStatus {
+public class VirtualStatus : Command, ICmdStatus {
     private readonly byte[] CommandData = "STATUS_COMMAND".ToByteArray();
-
-    public static string Name => "Virtual Status Command";
 
     public override IResult Execute(IAdapter adapter) {
         var result = SendAndReceieve(adapter, new SimpleResultValidation(2), "STATUS_COMMAND".ToByteArray());

@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using DCCRailway.Core.Attributes;
 using DCCRailway.Core.Systems;
+using DCCRailway.Core.Systems.Adapters;
 using DCCRailway.Core.Systems.Adapters.Events;
 using DCCRailway.Core.Systems.Attributes;
 using DCCRailway.Core.Systems.Types;
+using DCCRailway.Systems.NCE.Adapters;
 
 namespace DCCRailway.Systems.NCE; 
 
-[SystemName(Manufacturer = "NCE", Name = "ProCab")]
-public class NceProCab : SystemBase, ISystem {
+[System("NCEProCab", "North Coast Engineering (NCE)", "ProCab", "1.3")]
+public class NceProCab : Core.Systems.System, ISystem {
     public override IDCCAddress CreateAddress() {
         return new DCCAddress();
     }
 
+    protected override void RegisterAdapters() {
+        ClearAdapters();
+        RegisterAdapter<NCESerial>();
+        RegisterAdapter<NCEUSBSerial>();
+        RegisterAdapter<NCEVirtualAdapter>();
+    }
+    
     public override IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) {
         return new DCCAddress(address, type);
     }
-
-    public override List<(Type adapter, string name)>? SupportedAdapters {
-        get {
-            List<(Type adapter, string name)>? adapters = new();
-
-            //adapters.Add((typeof(VirtualAdapter), VirtualAdapter.Name));
-            return adapters;
-        }
-    }
-
+    
     protected override void RegisterCommands() {
         throw new NotImplementedException();
     }

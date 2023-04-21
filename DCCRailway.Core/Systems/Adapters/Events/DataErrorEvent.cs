@@ -1,5 +1,6 @@
 ﻿using System;
 using DCCRailway.Core.Systems.Commands;
+using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Core.Systems.Adapters.Events; 
 
@@ -15,6 +16,6 @@ public class ErrorArgs : EventArgs {
     public string Error { get; }
 
     public override string ToString() {
-        return $"ERROR: {Adapter?.Description ?? "Unknown Adapter"}:{Command?.ToString() ?? "Unknown Command"}<=={Error}";
+        return $"ERROR: {Adapter?.Info().Description ?? "Unknown Adapter"}:{Command?.ToString() ?? "Unknown Command"}<=={Error}";
     }
 }

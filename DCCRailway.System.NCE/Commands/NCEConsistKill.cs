@@ -8,7 +8,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCEConsistKill : NCECommandBase, ICmdConsistKill, ICommand {
+public class NCEConsistKill : NCECommand, ICmdConsistKill, ICommand {
     public NCEConsistKill() { }
 
     public NCEConsistKill(IDCCLoco loco) : this(loco.Address) { }

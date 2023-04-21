@@ -5,7 +5,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCESetMainTrk : NCECommandBase, ICmdTrackMain {
+public class NCESetMainTrk : NCECommand, ICmdTrackMain {
     public string Name => "NCE Switch to the Main Track";
 
     public override IResult Execute(IAdapter adapter) {

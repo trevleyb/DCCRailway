@@ -7,9 +7,7 @@ using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Systems.Virtual.Commands; 
 
-public class VirtualDummy : CommandBase, IDummyCmd {
-    public static string Name => "Virtual Dummy Command";
-
+public class VirtualDummy : Command, IDummyCmd {
     public override IResult Execute(IAdapter adapter) {
         var result = SendAndReceieve(adapter, new SimpleResultValidation(2), "DUMMY_COMMAND".ToByteArray());
         if (!result.OK) return result;

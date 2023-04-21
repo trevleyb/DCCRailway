@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using DCCRailway.Core.Attributes;
 using DCCRailway.Core.Exceptions;
 using DCCRailway.Core.Systems.Adapters;
 
@@ -13,18 +14,21 @@ namespace DCCRailway.Core.Systems;
 ///     method which takes an ADAPTER as a parameter
 /// </summary>
 public class SystemEntry {
-    public SystemEntry(string assemblyPath, Type assemblyType, string manufacturer = "UNKNOWN", string systemName = "UNKNOWN") {
+    public SystemEntry(string assemblyPath, Type assemblyType, SystemAttribute? attributes = null) {
         AssemblyPath = assemblyPath;
         AssemblyType = assemblyType;
-        Manufacturer = manufacturer;
-        SystemName = systemName;
+        Attributes = attributes ?? new SystemAttribute("Unknown");
     }
 
+    private SystemAttribute Attributes { get; }
     private Type AssemblyType { get; }
     private string AssemblyPath { get; }
-    public string Manufacturer { get; set; }
-    public string SystemName { get; set; }
 
+    public string Name => Attributes.Name;
+    public string Manufacturer => Attributes.Manufacturer;
+    public string Model => Attributes.Model;
+    public string version => Attributes.Version;
+    
     /// <summary>
     ///     Helper function to create an instance of a SYSTEM with an appropriate
     ///     adapter to connect to that system. An error will be thrown if the
@@ -47,13 +51,13 @@ public class SystemEntry {
     private ISystem Create() {
         try {
             var assembly = Assembly.LoadFrom(AssemblyPath);
-            if (assembly == null) throw new SystemInstantiateException(SystemName, $"Unable to get the Assembly from the Path '{AssemblyPath}'.");
-            if (AssemblyType == null) throw new SystemInstantiateException(SystemName, "Unable to determine the object type as the type is 'Undefined'.");
-            if (Activator.CreateInstance(AssemblyType) is not ISystem instance) throw new SystemInstantiateException(SystemName, "Unable to instantiate an instance of the system.");
+            if (assembly == null) throw new SystemInstantiateException(Name, $"Unable to get the Assembly from the Path '{AssemblyPath}'.");
+            if (AssemblyType == null) throw new SystemInstantiateException(Name, "Unable to determine the object type as the type is 'Undefined'.");
+            if (Activator.CreateInstance(AssemblyType) is not ISystem instance) throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the system.");
             return instance;
         }
         catch (Exception ex) {
-            throw new ApplicationException($"Unable to instantiate a new '{SystemName}' from {AssemblyPath}", ex);
+            throw new ApplicationException($"Unable to instantiate a new '{Name}' from {AssemblyPath}", ex);
         }
     }
 }

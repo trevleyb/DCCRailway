@@ -5,7 +5,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCEMacroRun : NCECommandBase, ICmdMacroRun {
+public class NCEMacroRun : NCECommand, ICmdMacroRun {
     public string Name => "NCE Execute Macro";
 
     public byte Macro { get; set; }

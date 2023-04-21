@@ -8,7 +8,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCELocoOpsProg : NCECommandBase, ICmdLocoOpsProg, ICommand {
+public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
     public NCELocoOpsProg() { }
 
     public NCELocoOpsProg(int locoAddress, DCCAddressType type, int cvAddress, byte value) {

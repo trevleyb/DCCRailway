@@ -12,7 +12,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCESensorGetState : NCECommandBase, ICmdSensorGetState {
+public class NCESensorGetState : NCECommand, ICmdSensorGetState {
     private readonly SensorCache _sensorCache = new();
 
     public NCESensorGetState() { }

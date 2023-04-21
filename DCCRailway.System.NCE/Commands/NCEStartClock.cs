@@ -6,7 +6,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCEStartClock : NCECommandBase, ICmdClockStart, ICommand {
+public class NCEStartClock : NCECommand, ICmdClockStart, ICommand {
     public string Name => "NCE Start Clock";
 
     public override IResult Execute(IAdapter adapter) {

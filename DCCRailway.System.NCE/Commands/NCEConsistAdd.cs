@@ -8,7 +8,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCEConsistAdd : NCECommandBase, ICmdConsistAdd, ICommand {
+public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
     public NCEConsistAdd() { }
 
     public NCEConsistAdd(byte consistAddress, IDCCLoco loco, DCCConsistPosition position = DCCConsistPosition.Front) {

@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DCCRailway.Core.Attributes;
 using DCCRailway.Core.Systems.Adapters;
 using DCCRailway.Core.Systems.Adapters.Events;
+using DCCRailway.Core.Systems.Attributes;
 using DCCRailway.Core.Systems.Commands;
 using DCCRailway.Core.Systems.Commands.Results;
 using DCCRailway.Core.Systems.Types;
+using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Core.Systems; 
 
-public abstract class SystemBase : ISystem {
+public abstract class System : ISystem {
     private IAdapter? _adapter; // Stores the adapter to be used
-    private Dictionary<Type, (Type Command, string Name)> _commands = new(); // Stores what operations the system will provide
+    protected Dictionary<Type, (Type Command, string Name)> _commands = new(); // Stores what operations the system will provide
+    protected Dictionary<Type, (Type Adapter, string Name)> _adapters = new(); // Stores what operations the system will provide
 
     /// <summary>
     ///     Execute a Given Command. We do this here so we can manage and log all command being executed
@@ -24,16 +28,7 @@ public abstract class SystemBase : ISystem {
         if (_adapter == null) throw new ApplicationException("No Adapter has been provided.");
         return command.Execute(_adapter);
     }
-
-    #region Supported Adapters List. Must be overriden to list supported Adapters
-
-    /// <summary>
-    ///     Return a list of what Commands this system will support.
-    /// </summary>
-    public abstract List<(Type adapter, string name)>? SupportedAdapters { get; }
-
-    #endregion
-
+    
     protected abstract void Adapter_ErrorOccurred(object? sender, ErrorArgs e);
     protected abstract void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e);
     protected abstract void Adapter_DataSent(object? sender, DataSentArgs e);
@@ -122,44 +117,44 @@ public abstract class SystemBase : ISystem {
     ///     functions if using the USBSerial adapter).
     /// </summary>
     protected abstract void RegisterCommands();
-
-    /// <summary>
-    ///     Register what commands are suitable for the system (what it supports)
-    ///     For example, the PowerCab does not support the CLOCK functions via
-    ///     the USB Serial interface.
-    ///     Call Register
-    ///     <T>
-    ///         to register a Command
-    ///         Call UnRegister<T> to remove a previous registered command
-    /// </summary>
-    protected void Register<T>(Type command) where T : ICommand {
-        if (command == null) throw new ApplicationException("Command instance cannot be NULL and must be a concrete object.");
-
-        if (!_commands.ContainsKey(typeof(T))) _commands.TryAdd(typeof(T), (command, command.Name));
+    protected void ClearCommands() {
+        _commands = new Dictionary<Type, (Type Command, string Name)>();
     }
 
-    protected void UnRegister<T>() where T : ICommand {
+    protected abstract void RegisterAdapters();
+    protected void ClearAdapters() {
+        _adapters = new Dictionary<Type, (Type Adapter, string Name)>();
+    }
+
+    protected void RegisterCommand<T>(Type command) where T : ICommand {
+        var attr = AttributeExtractor.GetAttribute<CommandAttribute>(command);
+        if (attr == null || string.IsNullOrEmpty(attr.Name)) throw new ApplicationException("Command instance cannot be NULL and must be a concrete object.");
+        if (!_commands.ContainsKey(typeof(T))) _commands.TryAdd(typeof(T), (command, attr.Name));
+    }
+
+    protected void UnRegisterCommand<T>() where T : ICommand {
         if (_commands.ContainsKey(typeof(T))) _commands.Remove(typeof(T));
     }
 
-    /// <summary>
-    ///     Returns true if the command request is supported by this system and adpater
-    /// </summary>
-    /// <typeparam name="T">The command type to check</typeparam>
-    /// <returns>True if it is supported, false otherwise</returns>
     public bool IsCommandSupported<T>() where T : ICommand {
         foreach (KeyValuePair<Type, (Type command, string name)> entry in _commands)
-            if (entry.Key == typeof(T))
-                return true;
-
+            if (entry.Key == typeof(T)) return true;
         return false;
     }
+    
+    protected void RegisterAdapter<T>() where T : IAdapter {
+        var attr = AttributeExtractor.GetAttribute<AdapterAttribute>(typeof(T));
+        if (attr == null || string.IsNullOrEmpty(attr.Name)) throw new ApplicationException("Adapter instance cannot be NULL and must be a concrete object.");
+        if (!_adapters.ContainsKey(typeof(T))) _adapters.TryAdd(typeof(T), (typeof(T), attr.Name));
+    }
 
-    /// <summary>
-    ///     Return a list of what Commands this system will support.
-    ///     This is only valid AFTER an adapter has been associated with the System
-    /// </summary>
+    protected void UnRegisterAdapter<T>() where T : IAdapter {
+        if (_adapters.ContainsKey(typeof(T))) _adapters.Remove(typeof(T));
+    }
+
+    
     public List<(Type command, string name)>? SupportedCommands => _commands.Values.ToList();
+    public List<(Type adapter, string name)>? SupportedAdapters => _adapters.Values.ToList();
 
     #endregion
 

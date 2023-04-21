@@ -5,7 +5,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCESetProgTrk : NCECommandBase, ICmdTrackProg {
+public class NCESetProgTrk : NCECommand, ICmdTrackProg {
     public static string Name => "NCE Switch to the Programming Track";
 
     public override IResult Execute(IAdapter adapter) {

@@ -16,6 +16,6 @@ public class DataRecvArgs : EventArgs {
     public byte[]? Data { get; }
 
     public override string ToString() {
-        return $"RECVDATA: {Adapter?.Description ?? "Unknown Adapter"}: {Command?.ToString() ?? "Unknown Command"}<=='{Data.ToDisplayValues()}'";
+        return $"RECVDATA: {Adapter?.Info().Description ?? "Unknown Adapter"}: {Command?.ToString() ?? "Unknown Command"}<=='{Data.ToDisplayValues()}'";
     }
 }

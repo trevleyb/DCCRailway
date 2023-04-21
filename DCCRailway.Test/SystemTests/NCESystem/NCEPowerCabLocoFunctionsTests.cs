@@ -13,11 +13,11 @@ namespace DCCRailway.Test;
 [TestClass]
 public class NCEPowerCabLocoFunctionsTests {
     /*
-            Register<ICmdLocoSetFunctions>(typeof(NCE.Commands.NCELocoSetFunctions));
-            Register<ICmdLocoSetSpeed>(typeof(NCE.Commands.NCELocoSetSpeed));
-            Register<ICmdLocoSetSpeedSteps>(typeof(NCE.Commands.NCELocoSetSpeedSteps));
-            Register<ICmdLocoSetMomentum>(typeof(NCE.Commands.NCELocoSetMomentum));
-            Register<ICmdLocoStop>(typeof(NCE.Commands.NCELocoStop));
+            RegisterCommand<ICmdLocoSetFunctions>(typeof(NCE.Commands.NCELocoSetFunctions));
+            RegisterCommand<ICmdLocoSetSpeed>(typeof(NCE.Commands.NCELocoSetSpeed));
+            RegisterCommand<ICmdLocoSetSpeedSteps>(typeof(NCE.Commands.NCELocoSetSpeedSteps));
+            RegisterCommand<ICmdLocoSetMomentum>(typeof(NCE.Commands.NCELocoSetMomentum));
+            RegisterCommand<ICmdLocoStop>(typeof(NCE.Commands.NCELocoStop));
     */
 
     private IAdapter _adapter;

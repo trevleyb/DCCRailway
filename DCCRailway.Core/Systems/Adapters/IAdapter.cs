@@ -5,10 +5,7 @@ using DCCRailway.Core.Systems.Commands;
 namespace DCCRailway.Core.Systems.Adapters; 
 
 public interface IAdapter {
-    static string Name { get; }
-    string Description { get; }
     bool IsConnected { get; }
-
     void Connect();
     void Disconnect();
 

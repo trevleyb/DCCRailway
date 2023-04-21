@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DCCRailway.Core.Attributes;
 using DCCRailway.Core.Exceptions;
 using DCCRailway.Core.Systems;
 using DCCRailway.Core.Systems.Adapters;
@@ -14,16 +15,14 @@ using DCCRailway.Systems.NCE.Commands;
 
 namespace DCCRailway.Systems.NCE; 
 
-[SystemName(Manufacturer = "NCE", Name = "PowerCab")]
-public class NcePowerCab : SystemBase, ISystem {
-    public override List<(Type adapter, string name)>? SupportedAdapters {
-        get {
-            List<(Type adapter, string name)>? adapters = new();
-            adapters.Add((typeof(NCESerial), NCESerial.Name));
-            adapters.Add((typeof(NCEUSBSerial), NCEUSBSerial.Name));
-            adapters.Add((typeof(NCEVirtualAdapter), VirtualAdapter.Name));
-            return adapters;
-        }
+[System("NCEPowerCab", "North Coast Engineering (NCE)", "PowerCab", "1.65")]
+public class NcePowerCab : Core.Systems.System, ISystem {
+    
+    protected override void RegisterAdapters() {
+        ClearAdapters();
+        RegisterAdapter<NCESerial>();
+        RegisterAdapter<NCEUSBSerial>();
+        RegisterAdapter<NCEVirtualAdapter>();
     }
 
     public override IDCCAddress CreateAddress() {
@@ -48,43 +47,44 @@ public class NcePowerCab : SystemBase, ISystem {
         // The USB when connected to a Power Pro system doesn't support any type of loco programming,
         // and when connected to a SB3 only operation mode (no program track) is available for loco programming.
         // -----------------------------------------------------------------
+        ClearCommands();
         if (Adapter != null) {
-            Register<IDummyCmd>(typeof(NCEDummyCmd));
-            Register<ICmdStatus>(typeof(NCEStatusCmd));
+            RegisterCommand<IDummyCmd>(typeof(NCEDummyCmd));
+            RegisterCommand<ICmdStatus>(typeof(NCEStatusCmd));
 
-            Register<ICmdTrackMain>(typeof(NCESetMainTrk));
-            Register<ICmdTrackProg>(typeof(NCESetProgTrk));
-            Register<ICmdPowerSetOn>(typeof(NCESetMainTrk));
-            Register<ICmdPowerSetOff>(typeof(NCESetProgTrk));
+            RegisterCommand<ICmdTrackMain>(typeof(NCESetMainTrk));
+            RegisterCommand<ICmdTrackProg>(typeof(NCESetProgTrk));
+            RegisterCommand<ICmdPowerSetOn>(typeof(NCESetMainTrk));
+            RegisterCommand<ICmdPowerSetOff>(typeof(NCESetProgTrk));
 
-            Register<ICmdSensorGetState>(typeof(NCESensorGetState));
-            Register<ICmdSignalSetAspect>(typeof(NCESignalSetAspect));
-            Register<ICmdAccySetState>(typeof(NCEAccySetState));
+            RegisterCommand<ICmdSensorGetState>(typeof(NCESensorGetState));
+            RegisterCommand<ICmdSignalSetAspect>(typeof(NCESignalSetAspect));
+            RegisterCommand<ICmdAccySetState>(typeof(NCEAccySetState));
 
-            Register<ICmdLocoSetFunctions>(typeof(NCELocoSetFunctions));
-            Register<ICmdLocoSetSpeed>(typeof(NCELocoSetSpeed));
-            Register<ICmdLocoSetSpeedSteps>(typeof(NCELocoSetSpeedSteps));
-            Register<ICmdLocoSetMomentum>(typeof(NCELocoSetMomentum));
-            Register<ICmdLocoStop>(typeof(NCELocoStop));
+            RegisterCommand<ICmdLocoSetFunctions>(typeof(NCELocoSetFunctions));
+            RegisterCommand<ICmdLocoSetSpeed>(typeof(NCELocoSetSpeed));
+            RegisterCommand<ICmdLocoSetSpeedSteps>(typeof(NCELocoSetSpeedSteps));
+            RegisterCommand<ICmdLocoSetMomentum>(typeof(NCELocoSetMomentum));
+            RegisterCommand<ICmdLocoStop>(typeof(NCELocoStop));
 
-            Register<ICmdAccyOpsProg>(typeof(NCEAccyOpsProg));
-            Register<ICmdLocoOpsProg>(typeof(NCELocoOpsProg));
+            RegisterCommand<ICmdAccyOpsProg>(typeof(NCEAccyOpsProg));
+            RegisterCommand<ICmdLocoOpsProg>(typeof(NCELocoOpsProg));
 
-            Register<ICmdConsistCreate>(typeof(NCEConsistCreate));
-            Register<ICmdConsistKill>(typeof(NCEConsistKill));
-            Register<ICmdConsistAdd>(typeof(NCEConsistAdd));
-            Register<ICmdConsistDelete>(typeof(NCEConsistDelete));
+            RegisterCommand<ICmdConsistCreate>(typeof(NCEConsistCreate));
+            RegisterCommand<ICmdConsistKill>(typeof(NCEConsistKill));
+            RegisterCommand<ICmdConsistAdd>(typeof(NCEConsistAdd));
+            RegisterCommand<ICmdConsistDelete>(typeof(NCEConsistDelete));
 
-            Register<ICmdCVRead>(typeof(NCECVRead));
-            Register<ICmdCVWrite>(typeof(NCECVWrite));
+            RegisterCommand<ICmdCVRead>(typeof(NCECVRead));
+            RegisterCommand<ICmdCVWrite>(typeof(NCECVWrite));
 
-            Register<ICmdMacroRun>(typeof(NCEMacroRun));
+            RegisterCommand<ICmdMacroRun>(typeof(NCEMacroRun));
 
             if (Adapter is NCESerial) {
-                Register<ICmdClockSet>(typeof(NCESetClock));
-                Register<ICmdClockRead>(typeof(NCEReadClock));
-                Register<ICmdClockStart>(typeof(NCEStartClock));
-                Register<ICmdClockStop>(typeof(NCEStopClock));
+                RegisterCommand<ICmdClockSet>(typeof(NCESetClock));
+                RegisterCommand<ICmdClockRead>(typeof(NCEReadClock));
+                RegisterCommand<ICmdClockStart>(typeof(NCEStartClock));
+                RegisterCommand<ICmdClockStop>(typeof(NCEStopClock));
             }
             else if (Adapter is NCEUSBSerial) {
                 if (CreateCommand<ICmdStatus>() is NCEStatusCmd statusCmd && statusCmd.Execute(Adapter) is IResultStatus status)

@@ -8,7 +8,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCELocoSetFunctions : NCECommandBase, ICmdLocoSetFunctions, ICommand {
+public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
     private readonly byte[] _opCodes = {0x07, 0x08, 0x09, 0x15, 0x16};
 
     public NCELocoSetFunctions() {

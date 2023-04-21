@@ -9,7 +9,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCESignalSetAspect : NCECommandBase, ICmdSignalSetAspect, ICommand {
+public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
     private byte _aspect;
 
     public NCESignalSetAspect() { }

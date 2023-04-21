@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using DCCRailway.Core.Attributes;
 using DCCRailway.Core.Systems.Adapters;
 using DCCRailway.Core.Systems.Attributes;
 using DCCRailway.Core.Utilities;
@@ -78,26 +79,15 @@ public static class SystemFactory {
                 if (assembly == null) throw new ApplicationException($"Unable to load assembly: {assemblyPath}");
                 Logger.Log.Debug($"ASSEMBLY: Loading Assembly: {assemblyPath}");
 
-                // Loop through each "CLASS" that supports the IDCCSystem Interface
-                // ----------------------------------------------------------------------------------------------------------------
-                //foreach (var dccSystemAttr in assembly.CustomAttributes.Where(attr => attr.AttributeType == typeof(SystemNameAttribute))) {
-                //	var system = new SystemEntry(assemblyPath, dccSystem) {
-                //		Manufacturer = dccSystem.DeclaredProperties.First(t => t.Name.Equals("Manufacturer")).GetValue(null, null) as string ?? "Unknown",
-                //		SystemName = dccSystem.DeclaredProperties.First(t => t.Name.Equals("SystemName")).GetValue(null, null) as string ?? "Unknown"
-                //	};
-                //	supportedSystems.Add(system);
-                //}
                 foreach (var dccSystem in assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(ISystem))))
                     // Get the relevant properties needed to report on what this system is via reflecting into the
                     // class instance members. 
                     // -------------------------------------------------------------------------------------------
                     try {
-                        var systemName = (SystemNameAttribute) Attribute.GetCustomAttribute(dccSystem, typeof(SystemNameAttribute))!;
-                        var system = new SystemEntry(assemblyPath, dccSystem) {
-                            Manufacturer = systemName.Manufacturer,
-                            SystemName = systemName.Name
-                        };
-                        supportedSystems.Add(system);
+                        var systemAttr = AttributeExtractor.GetAttribute<SystemAttribute>(dccSystem); //(SystemNameAttribute) Attribute.GetCustomAttribute(dccSystem, typeof(SystemNameAttribute))!;
+                        if (systemAttr != null) {
+                            supportedSystems.Add(new SystemEntry(assemblyPath, dccSystem, systemAttr));
+                        }
                     }
                     catch (Exception ex) {
                         Logger.Log.Debug("ASSEMBLY: Unable to obtain the name of the Manufacturer or System from the Assembly.", ex);
@@ -110,11 +100,11 @@ public static class SystemFactory {
         return supportedSystems;
     }
 
-    private static SystemEntry? Find(string manufacturer, string systemName, string defaultPath) {
-        return SupportedSystems(defaultPath).Find(x => x.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase) && x.Manufacturer.Equals(manufacturer, StringComparison.OrdinalIgnoreCase));
+    private static SystemEntry? Find(string name, string manufacturer, string defaultPath) {
+        return SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Manufacturer.Equals(manufacturer, StringComparison.OrdinalIgnoreCase));
     }
 
-    private static SystemEntry? Find(string systemName, string defaultPath) {
-        return SupportedSystems(defaultPath).Find(x => x.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+    private static SystemEntry? Find(string name, string defaultPath) {
+        return SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 }

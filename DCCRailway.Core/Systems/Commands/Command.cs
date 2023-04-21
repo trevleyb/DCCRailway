@@ -2,13 +2,14 @@
 using System.Threading.Tasks;
 using DCCRailway.Core.Exceptions;
 using DCCRailway.Core.Systems.Adapters;
+using DCCRailway.Core.Systems.Attributes;
 using DCCRailway.Core.Systems.Commands.Results;
 using DCCRailway.Core.Systems.Commands.Validators;
 using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Core.Systems.Commands; 
 
-public abstract class CommandBase : PropertyChangedBase, ICommand {
+public abstract class Command : PropertyChangedBase, ICommand {
     public abstract IResult Execute(IAdapter adapter);
 
     /// <summary>

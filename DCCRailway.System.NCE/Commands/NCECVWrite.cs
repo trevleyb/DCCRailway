@@ -9,7 +9,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCECVWrite : NCECommandBase, ICmdCVWrite, ICommand {
+public class NCECVWrite : NCECommand, ICmdCVWrite, ICommand {
     public NCECVWrite(int cv = 0, byte value = 0) {
         CV = cv;
         Value = value;

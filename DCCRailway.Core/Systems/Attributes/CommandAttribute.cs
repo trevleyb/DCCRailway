@@ -1,6 +1,6 @@
 using System;
 
-namespace DCCRailway.Core.Attributes;
+namespace DCCRailway.Core.Systems.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class CommandAttribute : Attribute {

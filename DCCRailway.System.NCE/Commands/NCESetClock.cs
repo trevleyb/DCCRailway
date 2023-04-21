@@ -8,7 +8,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCESetClock : NCECommandBase, ICmdClockSet, ICommand {
+public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
     private int _hour = 12;
     private bool _is24Hour;
     private int _minute;

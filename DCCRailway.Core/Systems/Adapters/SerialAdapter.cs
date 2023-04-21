@@ -9,13 +9,11 @@ using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Core.Systems.Adapters; 
 
-public abstract class SerialAdapter : BaseAdapter, IAdapter, IDisposable {
+public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
     /// <summary>
     ///     Return a list of available port names that can be used by the adapter
     /// </summary>
     public static List<string> PortNames => SerialPort.GetPortNames().ToList();
-
-    public static string Name => "Serial Adapter";
 
     public bool IsConnected => _connection?.IsOpen ?? false;
 
@@ -23,10 +21,10 @@ public abstract class SerialAdapter : BaseAdapter, IAdapter, IDisposable {
     ///     Open a connection to this adapter if it is not already open (close it first if it is)
     /// </summary>
     public void Connect() {
-        Logger.Log.Debug($"ADAPTER:{Name} - Connecting");
+        Logger.Log.Debug($"ADAPTER:{this.Info().Name} - Connecting");
 
         if (IsConnected) Disconnect();
-        if (string.IsNullOrEmpty(_portName)) throw new AdapterException(Name, "No port has been defined. ");
+        if (string.IsNullOrEmpty(_portName)) throw new AdapterException(this.Info().Name, "No port has been defined. ");
 
         try {
             _connection = new SerialPort(_portName, _baudRate, _parity, _dataBits, _stopBits) {
@@ -35,7 +33,7 @@ public abstract class SerialAdapter : BaseAdapter, IAdapter, IDisposable {
             };
 
             _connection.PinChanged += delegate(object sender, SerialPinChangedEventArgs args) {
-                Logger.Log.Debug($"ADAPTER:{Name} - Connected = {0}", args.EventType);
+                Logger.Log.Debug($"ADAPTER:{this.Info().Name} - Connected = {0}", args.EventType);
                 OnConnectionChangedState(new StateChangedArgs(args.EventType.ToString()));
             };
 
@@ -45,14 +43,14 @@ public abstract class SerialAdapter : BaseAdapter, IAdapter, IDisposable {
             //};
 
             _connection.ErrorReceived += delegate(object sender, SerialErrorReceivedEventArgs args) {
-                Logger.Log.Debug($"ADAPTER:{Name} - SerialConnection Error Occurred: {0}", args);
+                Logger.Log.Debug($"ADAPTER:{this.Info().Name} - SerialConnection Error Occurred: {0}", args);
                 OnErrorOccurred(new ErrorArgs(args.EventType.ToString(), this));
             };
 
             _connection.Open();
         }
         catch (Exception ex) {
-            throw new AdapterException(Name, "Could not connect to the device: " + _portName, ex);
+            throw new AdapterException(this.Info().Name, "Could not connect to the device: " + _portName, ex);
         }
     }
 
@@ -60,7 +58,7 @@ public abstract class SerialAdapter : BaseAdapter, IAdapter, IDisposable {
     ///     Close the open Serial connection and reset the reference
     /// </summary>
     public void Disconnect() {
-        Logger.Log.Debug($"ADAPTER:{Name} - Disconnecting");
+        Logger.Log.Debug($"ADAPTER:{this.Info().Name} - Disconnecting");
         if (_connection != null) _connection.Close();
         _connection = null;
     }
@@ -72,8 +70,8 @@ public abstract class SerialAdapter : BaseAdapter, IAdapter, IDisposable {
     /// <returns>Array of Bytes being the data read from the Adapter</returns>
     /// <exception cref="AdapterException">Throws if there is a connection error</exception>
     public byte[]? RecvData(ICommand? command = null) {
-        Logger.Log.Debug($"ADAPTER:{Name} - Listening for data");
-        if (!IsConnected) throw new AdapterException(Name, "No active connection to the Command Station.");
+        Logger.Log.Debug($"ADAPTER:{this.Info().Name} - Listening for data");
+        if (!IsConnected) throw new AdapterException(this.Info().Name, "No active connection to the Command Station.");
 
         GuardClauses.IsNotNull(_connection, "_connection");
         try {
@@ -87,16 +85,16 @@ public abstract class SerialAdapter : BaseAdapter, IAdapter, IDisposable {
                     var readData = new byte[_connection.BytesToRead];
                     _connection.Read(readData, 0, _connection.BytesToRead);
 
-                    Logger.Log.Debug($"ADAPTER:{Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
+                    Logger.Log.Debug($"ADAPTER:{this.Info().Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
                     returnData.AddRange(readData);
                 }
 
-            Logger.Log.Debug($"ADAPTER:{Name} - Read '{0}' data as bytes from SerialPort.", returnData.ToArray().ToDisplayValueChars());
+            Logger.Log.Debug($"ADAPTER:{this.Info().Name} - Read '{0}' data as bytes from SerialPort.", returnData.ToArray().ToDisplayValueChars());
             OnDataRecieved(new DataRecvArgs(returnData.ToArray(), this, command));
             return returnData.ToArray();
         }
         catch (Exception ex) {
-            throw new AdapterException(Name, "Could not read from the Command Station", ex);
+            throw new AdapterException(this.Info().Name, "Could not read from the Command Station", ex);
         }
     }
 
@@ -106,15 +104,15 @@ public abstract class SerialAdapter : BaseAdapter, IAdapter, IDisposable {
     /// <param name="data">The data storerd as an array of bytes</param>
     /// <exception cref="AdapterException">Throws an exception if there is a connection error</exception>
     public void SendData(byte[] data, ICommand? commandReference = null) {
-        Logger.Log.Debug($"ADAPTER:{Name} -Sending data to the {Name} Adapter '{data.ToDisplayValueChars()}'");
-        if (!IsConnected) throw new AdapterException(Name, "No active connection to the Command Station.");
+        Logger.Log.Debug($"ADAPTER:{this.Info().Name} -Sending data to the {this.Info().Name} Adapter '{data.ToDisplayValueChars()}'");
+        if (!IsConnected) throw new AdapterException(this.Info().Name, "No active connection to the Command Station.");
 
         try {
             if (_connection!.BytesToRead > 0) _connection.ReadExisting();
             _connection!.Write(data, 0, data.Length);
         }
         catch (Exception ex) {
-            throw new AdapterException(Name, "Could not read/write to Command Station", ex);
+            throw new AdapterException(this.Info().Name, "Could not read/write to Command Station", ex);
         }
 
         OnDataSent(new DataSentArgs(data, this, commandReference));
@@ -125,7 +123,7 @@ public abstract class SerialAdapter : BaseAdapter, IAdapter, IDisposable {
     /// </summary>
     /// <returns>String representation of the connection string</returns>
     public override string ToString() {
-        return $"Adapter '{Name}' = {_portName} @ {_baudRate},{_dataBits},{_stopBits},{_parity}";
+        return $"Adapter '{this.Info().Name}' = {_portName} @ {_baudRate},{_dataBits},{_stopBits},{_parity}";
     }
 
     #region local private data to hold connection information

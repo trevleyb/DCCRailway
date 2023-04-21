@@ -8,7 +8,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCELocoStop : NCECommandBase, ICmdLocoStop, ICommand {
+public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
     public NCELocoStop() { }
 
     public NCELocoStop(IDCCLoco loco) : this(loco.Address, loco.Direction) { }

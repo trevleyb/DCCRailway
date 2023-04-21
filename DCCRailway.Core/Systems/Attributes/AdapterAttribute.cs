@@ -1,6 +1,6 @@
 using System;
 
-namespace DCCRailway.Core.Attributes;
+namespace DCCRailway.Core.Systems.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class AdapterAttribute : Attribute {
@@ -16,6 +16,10 @@ public class AdapterAttribute : Attribute {
     public AdapterType Type { get; set; }
     public string Version { get; set; }
 }
+
+
+
+
 
 public enum AdapterType {
     Virtual,

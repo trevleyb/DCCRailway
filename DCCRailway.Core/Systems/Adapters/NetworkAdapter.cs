@@ -3,8 +3,7 @@ using DCCRailway.Core.Systems.Commands;
 
 namespace DCCRailway.Core.Systems.Adapters; 
 
-public abstract class NetworkAdapter : BaseAdapter, IAdapter {
-    public static string Name => "Network Adapter";
+public abstract class NetworkAdapter : Adapter, IAdapter {
 
     public bool IsConnected => throw new NotImplementedException();
 

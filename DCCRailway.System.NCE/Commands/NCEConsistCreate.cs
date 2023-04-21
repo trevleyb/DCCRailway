@@ -8,7 +8,7 @@ using DCCRailway.Core.Systems.Types;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCEConsistCreate : NCECommandBase, ICmdConsistCreate, ICommand {
+public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
     public byte ConsistAddress { get; set; }
     public IDCCLoco LeadLoco { get; set; }
     public IDCCLoco RearLoco { get; set; }

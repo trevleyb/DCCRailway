@@ -8,7 +8,7 @@ using DCCRailway.Systems.NCE.Commands.Validators;
 
 namespace DCCRailway.Systems.NCE.Commands; 
 
-public class NCEAccySetState : NCECommandBase, ICmdAccySetState, ICommand {
+public class NCEAccySetState : NCECommand, ICmdAccySetState, ICommand {
     public NCEAccySetState() { }
 
     public NCEAccySetState(DCCAccessoryState state = DCCAccessoryState.Normal) {

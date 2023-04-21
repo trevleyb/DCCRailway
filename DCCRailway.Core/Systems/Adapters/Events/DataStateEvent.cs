@@ -1,4 +1,5 @@
 ﻿using System;
+using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Core.Systems.Adapters.Events; 
 
@@ -12,6 +13,6 @@ public class StateChangedArgs : EventArgs {
     public string EventType { get; set; }
 
     public override string ToString() {
-        return $"STATE: {Adapter?.Description ?? "Unknown Adapter"}<==>{EventType}";
+        return $"STATE: {Adapter?.Info().Description ?? "Unknown Adapter"}<==>{EventType}";
     }
 }

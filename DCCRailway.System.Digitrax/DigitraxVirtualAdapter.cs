@@ -1,13 +1,15 @@
 ﻿using DCCRailway.Core.Systems.Adapters;
 using DCCRailway.Core.Systems.Adapters.Events;
+using DCCRailway.Core.Systems.Attributes;
 using DCCRailway.Core.Systems.Commands;
 using DCCRailway.Core.Utilities;
 
 namespace DCCRailway.Systems.Virtual; 
 
-public class VirtualAdapter : Adapter, IAdapter {
+[Adapter("Dixitrax")]
+public class DigitraxVirtualAdapter : Adapter, IAdapter {
     private byte[] _lastCommand;
-    
+
     public bool IsConnected { get; private set; }
 
     public void Connect() {
