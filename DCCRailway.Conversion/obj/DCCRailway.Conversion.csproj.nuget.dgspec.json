@@ -1,34 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/DCCRailway.Conversion.csproj": {}
+    "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Conversion/DCCRailway.Conversion.csproj": {}
   },
   "projects": {
-    "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/DCCRailway.Conversion.csproj": {
+    "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Conversion/DCCRailway.Conversion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/DCCRailway.Conversion.csproj",
+        "projectUniqueName": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Conversion/DCCRailway.Conversion.csproj",
         "projectName": "DCCRailway.Conversion",
-        "projectPath": "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/DCCRailway.Conversion.csproj",
-        "packagesPath": "/Users/trevor/.nuget/packages/",
-        "outputPath": "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Conversion/obj/",
+        "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Conversion/DCCRailway.Conversion.csproj",
+        "packagesPath": "/Users/trevorleybourne/.nuget/packages/",
+        "outputPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Conversion/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/trevor/.nuget/NuGet/NuGet.Config"
+          "/Users/trevorleybourne/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj": {
-                "projectPath": "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj"
+              "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj": {
+                "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj"
               }
             }
           }
@@ -58,27 +57,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.304/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj": {
+    "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj",
+        "projectUniqueName": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj",
         "projectName": "DCCRailway.Core",
-        "projectPath": "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj",
-        "packagesPath": "/Users/trevor/.nuget/packages/",
-        "outputPath": "/Users/trevor/RiderProjects/DCCRailway/DCCRailway.Core/obj/",
+        "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj",
+        "packagesPath": "/Users/trevorleybourne/.nuget/packages/",
+        "outputPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/trevor/.nuget/NuGet/NuGet.Config"
+          "/Users/trevorleybourne/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -150,7 +148,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.304/RuntimeIdentifierGraph.json"
         }
       }
     }
