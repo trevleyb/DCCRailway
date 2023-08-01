@@ -1,5 +1,8 @@
-﻿using DCCRailway.System.Virtual;
+﻿using DCCRailway.System;
+using DCCRailway.System.Adapters;
+using DCCRailway.System.Virtual;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VirtualAdapter = DCCRailway.System.Virtual.VirtualAdapter;
 
 namespace DCCRailway.Test;
 

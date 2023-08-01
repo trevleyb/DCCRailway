@@ -2,18 +2,21 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.Core\DCCRailway.Core.csproj"/>
-        <ProjectReference Include="..\DCCRailway.Server\DCCRailway.Server.csproj"/>
-        <ProjectReference Include="..\DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj"/>
-        <ProjectReference Include="..\DCCRailway.System.NCE\DCCRailway.System.NCE.csproj"/>
-        <ProjectReference Include="..\DCCRailway.System.Sprog\DCCRailway.System.Sprog.csproj"/>
-        <ProjectReference Include="..\DCCRailway.System.Virtual\DCCRailway.System.Virtual.csproj"/>
+        <ProjectReference Include="..\DCCRailway.API\DCCRailway.API.csproj" />
+        <ProjectReference Include="..\DCCRailway.Server\DCCRailway.Server.csproj" />
+        <ProjectReference Include="..\DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj" />
+        <ProjectReference Include="..\DCCRailway.System.NCE\DCCRailway.System.NCE.csproj" />
+        <ProjectReference Include="..\DCCRailway.System.Sprog\DCCRailway.System.Sprog.csproj" />
+        <ProjectReference Include="..\DCCRailway.System.Virtual\DCCRailway.System.Virtual.csproj" />
+        <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj" />
+        <ProjectReference Include="..\DCCRailway.Test\DCCRailway.Test.csproj" />
     </ItemGroup>
 
 </Project>

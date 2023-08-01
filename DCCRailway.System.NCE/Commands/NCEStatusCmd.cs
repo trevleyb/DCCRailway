@@ -1,4 +1,9 @@
-﻿namespace DCCRailway.System.NCE.Commands;
+﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Commands.Validators;
+
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCEStatusCmd : NCECommand, ICmdStatus {
     public static string Name => "NCE Get Status";

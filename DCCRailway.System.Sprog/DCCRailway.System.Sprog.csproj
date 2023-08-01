@@ -1,13 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>false</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>DCCRailway.System.Sprog</RootNamespace>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.Core\DCCRailway.Core.csproj"/>
+      <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj" />
     </ItemGroup>
 </Project>

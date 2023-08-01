@@ -1,4 +1,4 @@
-namespace DCCRailway.Core.Attributes;
+namespace DCCRailway.System.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class SystemAttribute : Attribute {

@@ -1,10 +1,13 @@
-﻿using DCCRailway.Core.Utilities;
+﻿using DCCRailway.System.Adapters.Events;
+using DCCRailway.System.Attributes;
+using DCCRailway.System.Types;
+using DCCRailway.System.Utilities;
 using DCCRailway.System.Virtual;
 
 namespace DCCRailway.System.Digitrax;
 
 [System("DCS52", "DigiTrax", "DCS52")]
-public class DCS52 : Core.Systems.System, ISystem {
+public class DCS52 : DCCRailway.System.System, ISystem {
     public override IDCCAddress CreateAddress() {
         return new DCCAddress();
     }

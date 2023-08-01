@@ -8,16 +8,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Remove="Roster\"/>
-        <None Remove="Decoders\"/>
+        <None Remove="Roster\" />
+        <None Remove="Decoders\" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="JMRI\Decoders"/>
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.Core\DCCRailway.Core.csproj"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="JMRI\Roster\roster.xml"/>
+        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
     </ItemGroup>
 </Project>

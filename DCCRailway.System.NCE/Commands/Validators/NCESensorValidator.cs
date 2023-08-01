@@ -1,4 +1,7 @@
-﻿namespace DCCRailway.System.NCE.Commands.Validators;
+﻿using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Commands.Validators;
+
+namespace DCCRailway.System.NCE.Commands.Validators;
 
 /// <summary>
 ///     This is a special validation just for Sensors. It will either return 2 bytes for the sensors

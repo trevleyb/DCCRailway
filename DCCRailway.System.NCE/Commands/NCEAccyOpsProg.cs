@@ -1,5 +1,11 @@
-﻿using DCCRailway.Core.Utilities;
+﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Commands;
+using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE.Commands.Validators;
+using DCCRailway.System.Types;
+using NotImplementedException = System.NotImplementedException;
 
 namespace DCCRailway.System.NCE.Commands;
 
@@ -31,6 +37,10 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand {
         cmd = cmd.AddToArray(Value);
 
         return SendAndReceieve(adapter, new NCEStandardValidation(), cmd);
+    }
+
+    private IResult SendAndReceieve(IAdapter adapter, NCEStandardValidation nceStandardValidation, byte[] cmd) {
+        throw new NotImplementedException();
     }
 
     public override string ToString() {

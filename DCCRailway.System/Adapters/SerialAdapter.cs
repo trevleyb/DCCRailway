@@ -1,5 +1,8 @@
-﻿using DCCRailway.System.Adapters.Events;
+﻿using System.IO.Ports;
+using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Commands;
+using DCCRailway.System.Exceptions;
+using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Adapters;
 

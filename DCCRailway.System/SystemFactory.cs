@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
-using DCCRailway.Core.Attributes;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Adapters;
+using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System;
 
@@ -16,8 +17,8 @@ public static class SystemFactory {
     /// <returns></returns>
     /*
     private static ISystem? LoadFromAssembly(string assemblyBase, string systemName) {
-        var assemblyPath = "DCCRailway.Core." + assemblyBase + ".dll";
-        var assemblyName = "DCCRailway.Core." + assemblyBase + "." + systemName;
+        var assemblyPath = "DCCRailway.System." + assemblyBase + ".dll";
+        var assemblyName = "DCCRailway.System." + assemblyBase + "." + systemName;
         try {
             var assembly = Assembly.LoadFrom(assemblyPath);
             var type = assembly.GetType(assemblyName);

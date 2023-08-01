@@ -1,4 +1,6 @@
-﻿namespace DCCRailway.System.Adapters.Events;
+﻿using DCCRailway.System.Utilities;
+
+namespace DCCRailway.System.Adapters.Events;
 
 public class StateChangedArgs : EventArgs {
     public StateChangedArgs(string eventType, IAdapter? adapter = null) {

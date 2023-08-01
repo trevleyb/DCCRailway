@@ -1199,7 +1199,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "DCCRailway.Core/1.0.0": {
+      "DCCRailway.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
@@ -1214,10 +1214,10 @@
           "System.IO.Ports": "6.0.0"
         },
         "compile": {
-          "bin/placeholder/DCCRailway.Core.dll": {}
+          "bin/placeholder/DCCRailway.Common.dll": {}
         },
         "runtime": {
-          "bin/placeholder/DCCRailway.Core.dll": {}
+          "bin/placeholder/DCCRailway.Common.dll": {}
         }
       }
     }
@@ -4068,15 +4068,15 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "DCCRailway.Core/1.0.0": {
+    "DCCRailway.Common/1.0.0": {
       "type": "project",
-      "path": "../DCCRailway.Core/DCCRailway.Core.csproj",
-      "msbuildProject": "../DCCRailway.Core/DCCRailway.Core.csproj"
+      "path": "../DCCRailway.Common/DCCRailway.Common.csproj",
+      "msbuildProject": "../DCCRailway.Common/DCCRailway.Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "DCCRailway.Core >= 1.0.0"
+      "DCCRailway.Common >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4104,8 +4104,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj": {
-              "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Core/DCCRailway.Core.csproj"
+            "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Common/DCCRailway.Common.csproj": {
+              "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Common/DCCRailway.Common.csproj"
             }
           }
         }

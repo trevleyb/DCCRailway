@@ -1,4 +1,7 @@
-﻿namespace DCCRailway.System.NCE.Commands.Validators;
+﻿using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Commands.Validators;
+
+namespace DCCRailway.System.NCE.Commands.Validators;
 
 public class NCEDataReadValidation : IResultValidation {
     public IResult Validate(byte[] data) {

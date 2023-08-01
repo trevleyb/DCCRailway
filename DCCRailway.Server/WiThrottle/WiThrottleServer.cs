@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using DCCRailway.Core.Utilities;
+using DCCRailway.System.Utilities;
 using DCCRailway.Server.Utilities;
 using DCCRailway.Server.WiThrottle.Commands;
 

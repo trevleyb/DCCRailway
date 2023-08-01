@@ -1,10 +1,13 @@
 ﻿using System;
+using DCCRailway.System.Adapters.Events;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.NCE.Adapters;
+using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE;
 
 [System("NCEProCab", "North Coast Engineering (NCE)", "ProCab", "1.3")]
-public class NceProCab : Core.Systems.System, ISystem {
+public class NceProCab : DCCRailway.System.System, ISystem {
     public override IDCCAddress CreateAddress() {
         return new DCCAddress();
     }

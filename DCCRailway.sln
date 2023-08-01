@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31815.197
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCCRailway.Core", "DCCRailway.Core\DCCRailway.Core.csproj", "{21677963-FBA6-47B9-A1F3-E1135C528FA9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCCRailway.Test", "DCCRailway.Test\DCCRailway.Test.csproj", "{5489776D-7885-48FE-AC7F-D92DC35EC324}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F70E846-73DB-4594-A751-E69418F37F09}"
@@ -25,8 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Sprog", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Virtual", "DCCRailway.System.Virtual\DCCRailway.System.Virtual.csproj", "{18A6D007-3A4B-4326-B98A-9240DD72652B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Conversion", "DCCRailway.Conversion\DCCRailway.Conversion.csproj", "{DDD1BF18-FDC3-465F-8681-52118961C83E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.API", "DCCRailway.API\DCCRailway.API.csproj", "{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System", "DCCRailway.System\DCCRailway.System.csproj", "{E61F9487-50EC-4021-A612-C90C6A9DBC6D}"
@@ -37,10 +33,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{21677963-FBA6-47B9-A1F3-E1135C528FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21677963-FBA6-47B9-A1F3-E1135C528FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21677963-FBA6-47B9-A1F3-E1135C528FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21677963-FBA6-47B9-A1F3-E1135C528FA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5489776D-7885-48FE-AC7F-D92DC35EC324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5489776D-7885-48FE-AC7F-D92DC35EC324}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5489776D-7885-48FE-AC7F-D92DC35EC324}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,10 +61,6 @@ Global
 		{18A6D007-3A4B-4326-B98A-9240DD72652B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18A6D007-3A4B-4326-B98A-9240DD72652B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18A6D007-3A4B-4326-B98A-9240DD72652B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDD1BF18-FDC3-465F-8681-52118961C83E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDD1BF18-FDC3-465F-8681-52118961C83E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDD1BF18-FDC3-465F-8681-52118961C83E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDD1BF18-FDC3-465F-8681-52118961C83E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}.Release|Any CPU.ActiveCfg = Release|Any CPU

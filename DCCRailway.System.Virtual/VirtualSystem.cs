@@ -1,10 +1,14 @@
-﻿using DCCRailway.Core.Utilities;
+﻿using DCCRailway.System.Adapters.Events;
+using DCCRailway.System.Attributes;
+using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Types;
+using DCCRailway.System.Utilities;
 using DCCRailway.System.Virtual.Commands;
 
 namespace DCCRailway.System.Virtual;
 
 [System("Virtual", "Virtual", "Virtual")]
-public class VirtualSystem : Core.Systems.System, ISystem {
+public class VirtualSystem : DCCRailway.System.System, ISystem {
     public override IDCCAddress CreateAddress() {
         return new DCCAddress();
     }

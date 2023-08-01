@@ -1,4 +1,6 @@
-﻿namespace DCCRailway.System.Types;
+﻿using DCCRailway.System.Utilities;
+
+namespace DCCRailway.System.Types;
 
 /// <summary>
 ///     A function block represents a set of bytes used to manage the functions to be sent to a loco

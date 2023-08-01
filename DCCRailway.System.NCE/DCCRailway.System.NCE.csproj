@@ -1,27 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>false</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>DCCRailway.System.NCE</RootNamespace>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Remove="Common\**"/>
-        <EmbeddedResource Remove="Common\**"/>
-        <None Remove="Common\**"/>
+        <Compile Remove="Common\**" />
+        <EmbeddedResource Remove="Common\**" />
+        <None Remove="Common\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Commands\"/>
-        <None Remove="Adapters\"/>
-        <None Remove="Common\"/>
+        <None Remove="Commands\" />
+        <None Remove="Adapters\" />
+        <None Remove="Common\" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Adapters\"/>
+        <Folder Include="Adapters\" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.Core\DCCRailway.Core.csproj"/>
+      <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj" />
     </ItemGroup>
 </Project>

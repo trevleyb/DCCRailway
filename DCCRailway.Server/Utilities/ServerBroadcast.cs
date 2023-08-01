@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using DCCRailway.Core.Utilities;
+using DCCRailway.System.Utilities;
 using Makaretu.Dns;
 
 namespace DCCRailway.Server.Utilities;

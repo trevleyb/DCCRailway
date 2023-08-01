@@ -1,8 +1,9 @@
 ﻿using System.IO.Ports;
 using DCCRailway.Conversion.JMRI.Roster;
-using DCCRailway.Core.Config;
+using DCCRailway.System.Config;
+using DCCRailway.System.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Decoder = DCCRailway.Core.Config.Decoder;
+using Decoder = DCCRailway.System.Config.Decoder;
 
 namespace DCCRailway.Test;
 
@@ -11,7 +12,7 @@ public class ConfigurationTest {
     [TestMethod]
     public void SaveConfigFileTest() {
         Configuration config = new() { Name = @"testconfig.xml" };
-        config!.Systems.Add(new Core.Config.System("System1"));
+        config!.Systems.Add(new DCCRailway.System.Config.System("System1"));
 
         var adapter = new Adapter { Name = "NCEUSB" };
         var parameters = new Parameters();

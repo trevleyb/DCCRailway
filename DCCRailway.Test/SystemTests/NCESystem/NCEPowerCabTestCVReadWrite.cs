@@ -1,4 +1,7 @@
-﻿using DCCRailway.System.NCE;
+﻿using DCCRailway.System;
+using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Commands.Results;
+using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -1,12 +1,17 @@
-﻿using DCCRailway.Core.Exceptions;
-using DCCRailway.Core.Utilities;
+﻿using DCCRailway.System.Adapters.Events;
+using DCCRailway.System.Attributes;
+using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Exceptions;
+using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.NCE.Commands;
+using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE;
 
 [System("NCEPowerCab", "North Coast Engineering (NCE)", "PowerCab", "1.65")]
-public class NcePowerCab : Core.Systems.System, ISystem {
+public class NcePowerCab : DCCRailway.System.System, ISystem {
     protected override void RegisterAdapters() {
         ClearAdapters();
         RegisterAdapter<NCESerial>();

@@ -1,4 +1,17 @@
-﻿namespace DCCRailway.System.Types;
+﻿using DCCRailway.System.Utilities;
+
+namespace DCCRailway.System.Types;
+
+public enum DCCAddressType {
+    Short,
+    Long,
+    Accessory,
+    Signal,
+    Sensor,
+    Turnout,
+    CV,
+    Consist
+}
 
 /// <summary>
 ///     Represents the storage of an ADDRESS for a DCC Loco or Accessory
@@ -25,7 +38,6 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
     public byte LowAddress {
         get {
             CalculateHighLowAddress();
-
             return _lowAddress;
         }
     }
@@ -37,7 +49,6 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
     public byte HighAddress {
         get {
             CalculateHighLowAddress();
-
             return _highAddress;
         }
     }
@@ -79,7 +90,6 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
                 DCCAddressType.Consist => "CON",
                 _ => "S"
             };
-
             return $"{Address:D4}({shortOrLong})";
         }
     }

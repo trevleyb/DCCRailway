@@ -1,4 +1,4 @@
-﻿using DCCRailway.Core.Utilities;
+﻿using DCCRailway.System.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DCCRailway.Test.Utility;

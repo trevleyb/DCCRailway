@@ -1,4 +1,6 @@
-﻿using DCCRailway.Core.Utilities;
+﻿using DCCRailway.System;
+using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Utilities;
 using DCCRailway.System.Virtual;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -1,6 +1,11 @@
-﻿using DCCRailway.System.NCE;
+﻿using DCCRailway.System;
+using DCCRailway.System.Adapters;
+using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Commands.Results;
+using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.NCE.Commands;
+using DCCRailway.System.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DCCRailway.Test;
