@@ -1,21 +1,19 @@
-﻿using DCCRailway.Core.Systems;
-using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Systems.NCE;
-using DCCRailway.Systems.NCE.Adapters;
-using DCCRailway.Systems.NCE.Commands;
+﻿using DCCRailway.System.NCE;
+using DCCRailway.System.NCE.Adapters;
+using DCCRailway.System.NCE.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DCCRailway.Test; 
+namespace DCCRailway.Test;
 
 [TestClass]
 public class NCEPowerCab {
     [TestMethod]
     public void GetSerialList() {
         var portList = SerialAdapter.PortNames;
-        foreach (var port in portList) Console.WriteLine("Port==> " + port);
+
+        foreach (var port in portList) {
+            Console.WriteLine("Port==> " + port);
+        }
 
         //Assert.Fail("Stop here to see the output");
     }
@@ -71,6 +69,7 @@ public class NCEPowerCab {
 
         var dataSent = false;
         var dataRecv = false;
+
         if (system != null && system.Adapter != null) {
             system.Adapter.DataSent += delegate { dataSent = true; };
 
@@ -122,8 +121,8 @@ public class NCEPowerCab {
             Assert.IsInstanceOfType(result, typeof(IResultStatus), "Should in fact be a IResult Status type");
             Assert.IsInstanceOfType(result, typeof(NCEStatusResult), "Should in fact be a specified NCE Result Status type");
             Assert.IsTrue(result.OK, "Result should be OK");
-            Assert.IsTrue(!string.IsNullOrEmpty(((NCEStatusResult) result).Version), "Result Version number should not be null or empty");
-            Console.WriteLine("Status=>" + ((NCEStatusResult) result).Version);
+            Assert.IsTrue(!string.IsNullOrEmpty(((NCEStatusResult)result).Version), "Result Version number should not be null or empty");
+            Console.WriteLine("Status=>" + ((NCEStatusResult)result).Version);
 
             Assert.IsTrue(dataSent, "Should have raised an event that we sent some data.");
             Assert.IsTrue(dataRecv, "Should have raised an event that we recv some data.");
@@ -174,6 +173,7 @@ public class NCEPowerCab {
             var getTimeLoop = system.CreateCommand<ICmdClockRead>() as NCEReadClock;
             Assert.IsNotNull(getTimeLoop);
             getTimeRes = system.Execute(getTime) as NCEClockReadResult;
+
             if (getTimeRes != null) {
                 Assert.IsInstanceOfType(getTimeRes, typeof(IResult));
                 Assert.IsInstanceOfType(getTimeRes, typeof(NCEClockReadResult));
@@ -186,6 +186,7 @@ public class NCEPowerCab {
 
         var stopClock = system.CreateCommand<ICmdClockStop>();
         Assert.IsNotNull(startClock);
+
         if (stopClock != null) {
             var stopClockRes = system.Execute(stopClock);
             Assert.IsNotNull(stopClockRes);

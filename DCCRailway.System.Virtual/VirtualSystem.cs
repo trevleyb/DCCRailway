@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using DCCRailway.Core.Attributes;
-using DCCRailway.Core.Systems;
-using DCCRailway.Core.Systems.Adapters.Events;
-using DCCRailway.Core.Systems.Attributes;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.Virtual.Commands;
+﻿using DCCRailway.Core.Utilities;
+using DCCRailway.System.Virtual.Commands;
 
-namespace DCCRailway.Systems.Virtual; 
+namespace DCCRailway.System.Virtual;
 
 [System("Virtual", "Virtual", "Virtual")]
 public class VirtualSystem : Core.Systems.System, ISystem {
@@ -25,14 +17,13 @@ public class VirtualSystem : Core.Systems.System, ISystem {
         ClearAdapters();
         RegisterAdapter<VirtualAdapter>();
     }
-    
+
     protected override void RegisterCommands() {
         RegisterCommand<IDummyCmd>(typeof(VirtualDummy));
         RegisterCommand<ICmdStatus>(typeof(VirtualStatus));
     }
 
     #region Manage the events from the Adapter
-
     protected override void Adapter_ErrorOccurred(object? sender, ErrorArgs e) {
         Logger.Log.Debug("Error occurred in the Adapter: " + e);
     }
@@ -48,6 +39,5 @@ public class VirtualSystem : Core.Systems.System, ISystem {
     protected override void Adapter_DataReceived(object? sender, DataRecvArgs e) {
         Logger.Log.Debug("Data was recieved from the Adapter: " + e.Data?.ToDisplayValues());
     }
-
     #endregion
 }

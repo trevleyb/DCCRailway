@@ -3,7 +3,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using DccRailway.API.Entities;
 
-namespace DccRailway.API.Repositories; 
+namespace DccRailway.API.Repositories;
 
 public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> where TEntity : IEntity<TID> where TID : IComparable {
     private readonly List<TEntity> _entities;
@@ -32,23 +32,27 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
         if (obj == null) throw new NullReferenceException("Cannot add a null object.");
         obj.Id = obj.GenerateID();
         _entities.Add(obj);
+
         return obj.Id;
     }
 
     public void Update(TEntity obj) {
         var index = _entities.FindIndex(x => x.Id.Equals(obj.Id));
+
         if (index == -1) throw new InvalidDataException("Specified object does not exist. Needs to be added first.");
         _entities[index] = obj;
     }
 
     public void Delete(TEntity obj) {
         var index = _entities.FindIndex(x => x.Id.Equals(obj.Id));
+
         if (index == -1) throw new InvalidDataException("Specified object does not exist. No need to delete it.");
         _entities.RemoveAt(index);
     }
 
     public void Delete(TID id) {
         var index = _entities.FindIndex(x => x.Id.Equals(id));
+
         if (index == -1) throw new InvalidDataException("Specified object does not exist. No need to delete it.");
         _entities.RemoveAt(index);
     }
@@ -63,7 +67,6 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
     }
 
     #region Load and Save Functions
-
     /// <summary>
     ///     Load an instance of class T from a provided filename and throw an exception if the
     ///     file name does not exist.
@@ -77,8 +80,10 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
 
             var elementName = typeof(TEntity).Name;
             XmlSerializer xmlSerializer = new(typeof(XmlEntity), new XmlRootAttribute(elementName));
+
             using (TextReader reader = new StreamReader(name)) {
                 if (xmlSerializer.Deserialize(reader!) is not XmlEntity xmlFile) throw new ApplicationException($"Unable to load the configuration file '{name}' as the deserializer did not return correctly.");
+
                 return xmlFile.Item;
             }
 
@@ -99,7 +104,7 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------
         try {
-            var xmlWriterSettings = new XmlWriterSettings {Indent = true};
+            var xmlWriterSettings = new XmlWriterSettings { Indent = true };
             xmlWriterSettings.OmitXmlDeclaration = true;
 
             var elementName = typeof(TEntity).Name;
@@ -109,8 +114,9 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
             //xmlAttributes.Xmlns = false;
 
             XmlSerializer xmlSerializer = new(typeof(XmlEntity), new XmlRootAttribute(elementName));
+
             using (var xmlWriter = XmlWriter.Create(name, xmlWriterSettings)) {
-                xmlSerializer.Serialize(xmlWriter, new XmlEntity {EntityList = entityList});
+                xmlSerializer.Serialize(xmlWriter, new XmlEntity { EntityList = entityList });
                 xmlWriter.Close();
             }
         }
@@ -132,6 +138,5 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
             set => EntityList = value;
         }
     }
-
     #endregion
 }

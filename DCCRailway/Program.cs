@@ -1,6 +1,6 @@
 ﻿using DCCRailway.Core.Utilities;
 
-namespace DCCRailway; 
+namespace DCCRailway;
 
 public class Startup {
     private static void Main(string[] args) {

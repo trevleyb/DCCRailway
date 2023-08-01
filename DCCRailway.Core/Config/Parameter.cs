@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace DCCRailway.Core.Config; 
+namespace DCCRailway.Core.Config;
 
 [XmlRoot(ElementName = "Parameter")]
 public class Parameter {
@@ -17,7 +17,7 @@ public class Parameter {
     }
 
     public T Get<T>() {
-        return (T) Convert.ChangeType(Value, typeof(T), CultureInfo.InvariantCulture);
+        return (T)Convert.ChangeType(Value, typeof(T), CultureInfo.InvariantCulture);
     }
 
     public new string ToString() {

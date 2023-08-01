@@ -1,6 +1,6 @@
 ﻿using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Server.WiThrottle.Commands; 
+namespace DCCRailway.Server.WiThrottle.Commands;
 
 public class CmdQuit : ThrottleCmdBase, IThrottleCmd {
     public CmdQuit(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
@@ -9,6 +9,7 @@ public class CmdQuit : ThrottleCmdBase, IThrottleCmd {
 
     public string? Execute() {
         Logger.Log.Information($"Received a QUIT command from '{ConnectionEntry.ConnectionID}'");
+
         return null;
     }
 

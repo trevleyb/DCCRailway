@@ -1,12 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
     public byte ConsistAddress { get; set; }
@@ -23,18 +18,22 @@ public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
         // -----------------------------------------------------------------------------
         var killCmd = new NCEConsistKill(LeadLoco);
         result = killCmd.Execute(adapter);
+
         if (!result.OK) return result;
 
         // Add each loco to the consist
         // -----------------------------------------------------------------------------
         result = AddLocoToConsist(adapter, ConsistAddress, LeadLoco, DCCConsistPosition.Front);
+
         if (!result.OK) return result;
 
         result = AddLocoToConsist(adapter, ConsistAddress, RearLoco, DCCConsistPosition.Rear);
+
         if (!result.OK) return result;
 
         foreach (var extraLoco in AddLoco) {
             result = AddLocoToConsist(adapter, ConsistAddress, RearLoco, DCCConsistPosition.Middle);
+
             if (!result.OK) return result;
         }
 
@@ -46,10 +45,12 @@ public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
         // -----------------------------------------------
         var delCmd = new NCEConsistDelete(loco);
         var delRes = delCmd.Execute(adapter);
+
         if (!delRes.OK) return delRes;
 
         var addCmd = new NCEConsistAdd(consistAddress, loco, position);
         var addRes = addCmd.Execute(adapter);
+
         if (!addRes.OK) return addRes;
 
         return new ResultOK();
@@ -57,7 +58,11 @@ public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
 
     public override string ToString() {
         var sb = new StringBuilder();
-        foreach (var loco in AddLoco) sb.Append(loco + ",");
+
+        foreach (var loco in AddLoco) {
+            sb.Append(loco + ",");
+        }
+
         return $"CREATE CONSIST ({ConsistAddress}={LeadLoco},{sb}{RearLoco}";
     }
 }

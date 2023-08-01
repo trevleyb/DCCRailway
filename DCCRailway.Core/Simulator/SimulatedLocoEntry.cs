@@ -1,8 +1,7 @@
 ﻿using System;
-using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Core.Simulator; 
+namespace DCCRailway.Core.Simulator;
 
 /// <summary>
 ///     Represents a Loco that is being simulated
@@ -17,7 +16,10 @@ public class SimulatedLocoEntry {
         this.Address = Address;
 
         _cvValues = new byte?[MAX_CV_VALUE];
-        for (var i = 0; i < _cvValues.Length; i++) _cvValues[i] = null;
+
+        for (var i = 0; i < _cvValues.Length; i++) {
+            _cvValues[i] = null;
+        }
 
         // Setup the common CV Values so we can report stuff correctly
         // -----------------------------------------------------------
@@ -37,7 +39,7 @@ public class SimulatedLocoEntry {
             this[18] = Address.LowAddress;
         }
         else {
-            this[1] = (byte) Address.Address;
+            this[1] = (byte)Address.Address;
             this[17] = 0;
             this[18] = 0;
             this[29] = this[29].SetBit(5, false);
@@ -59,11 +61,13 @@ public class SimulatedLocoEntry {
 
     public byte this[int cvAddress] {
         get {
-            if (cvAddress >= 0 && cvAddress <= MAX_CV_VALUE) return (byte) (_cvValues[cvAddress] == null ? 123 : _cvValues[cvAddress]!);
+            if (cvAddress >= 0 && cvAddress <= MAX_CV_VALUE) return (byte)(_cvValues[cvAddress] == null ? 123 : _cvValues[cvAddress]!);
+
             throw new IndexOutOfRangeException($"CV Address must be between 0...{MAX_CV_VALUE}");
         }
         set {
             if (cvAddress >= 0 && cvAddress <= MAX_CV_VALUE) _cvValues[cvAddress] = value;
+
             throw new IndexOutOfRangeException($"CV Address must be between 0...{MAX_CV_VALUE}");
         }
     }
@@ -81,7 +85,7 @@ public class SimulatedLocoEntry {
     }
 
     public void SetConsist(int consistAddress, DCCDirection direction) {
-        this[19] = (byte) consistAddress;
+        this[19] = (byte)consistAddress;
         this[19] = this[19].SetBit(7, direction == DCCDirection.Forward ? false : true);
     }
 }

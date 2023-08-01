@@ -1,3 +1,3 @@
-﻿namespace DCCRailway.Core.Entities; 
+﻿namespace DCCRailway.Core.Entities;
 
 public class Configuration { }

@@ -1,8 +1,6 @@
 ﻿using System;
-using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands;
 
-namespace DCCRailway.Core.Exceptions; 
+namespace DCCRailway.Core.Exceptions;
 
 public class ExpectedDataException : Exception {
     public ExpectedDataException(ICommand? command, IAdapter? adapter, string? message, Exception? ex = null) : base(adapter + ":" + message, ex) {

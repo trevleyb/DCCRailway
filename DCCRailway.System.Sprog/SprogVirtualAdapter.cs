@@ -1,10 +1,6 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Adapters.Events;
-using DCCRailway.Core.Systems.Attributes;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Utilities;
+﻿using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Systems.Virtual; 
+namespace DCCRailway.System.Virtual;
 
 [Adapter("Sprog")]
 public class SprogVirtualAdapter : Adapter, IAdapter {
@@ -24,6 +20,7 @@ public class SprogVirtualAdapter : Adapter, IAdapter {
 
     public byte[]? RecvData(ICommand? command = null) {
         Logger.Log.Debug("Listening for data from the Adapter: '" + _lastCommand.FromByteArray() + "'");
+
         var result = _lastCommand.FromByteArray() switch {
             "STATUS_COMMAND" => "OK".ToByteArray(),
             "DUMMY_COMMAND" => "OK".ToByteArray(),
@@ -31,6 +28,7 @@ public class SprogVirtualAdapter : Adapter, IAdapter {
         };
         Logger.Log.Debug("Data to return: '" + result.FromByteArray() + "'");
         OnDataRecieved(new DataRecvArgs(result, this, command));
+
         return result;
     }
 

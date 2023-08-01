@@ -1,15 +1,12 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Systems.NCE.Commands.Validators;
+﻿using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCEDummyCmd : NCECommand, IDummyCmd {
     public string Name => "NCE Dummy Command";
 
     protected byte[] CommandData {
-        get { return new byte[] {0x80}; }
+        get { return new byte[] { 0x80 }; }
     }
 
     public override IResult Execute(IAdapter adapter) {

@@ -1,13 +1,12 @@
 ﻿using System.Xml.Serialization;
-using DCCRailway.Core.Systems.Types;
 
-namespace DCCRailway.Core.Config; 
+namespace DCCRailway.Core.Config;
 
 [XmlRoot(ElementName = "Decoder")]
 public class Decoder {
     public Decoder() {
         Parameters = new Parameters();
-        Manufacturer = new Manufacturer {Name = "Unknown", Identifier = 00};
+        Manufacturer = new Manufacturer { Name = "Unknown", Identifier = 00 };
     }
 
     [XmlAttribute(AttributeName = "Manufacturer")]

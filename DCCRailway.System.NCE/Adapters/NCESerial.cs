@@ -1,8 +1,6 @@
 ﻿using System.IO.Ports;
-using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Attributes;
 
-namespace DCCRailway.Systems.NCE.Adapters; 
+namespace DCCRailway.System.NCE.Adapters;
 
 [Adapter("NCE Serial Adapter", AdapterType.Serial)]
 public class NCESerial : SerialAdapter, IAdapter {

@@ -1,6 +1,6 @@
 ﻿using DCCRailway.Server.WiThrottle.Commands;
 
-namespace DCCRailway.Server.WiThrottle; 
+namespace DCCRailway.Server.WiThrottle;
 
 public class WiThrottleCmdFactory {
     private readonly WiThrottleConnectionEntry _connectionEntry;

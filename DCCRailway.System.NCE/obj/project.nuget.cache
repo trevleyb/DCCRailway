@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xxUETJTzqnaYNGC38Ybw03ZBTvLiZQMA2t4vrTgzbW0eZMyF5TOJVD5f47Ztizd42pFAukQk7IiVXgcck6T30A==",
+  "dgSpecHash": "W4shFKdfzzhgfX2uFM1tvYVvMYivTgVAS1NUuN3Elwcli5ft+b/tNIAKSYqy+NX6HZquxzDAkBm8+Aiw1mCcDw==",
   "success": true,
-  "projectFilePath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.NCE/DCCRailway.Systems.NCE.csproj",
+  "projectFilePath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.NCE/DCCRailway.System.NCE.csproj",
   "expectedPackageFiles": [
     "/Users/trevorleybourne/.nuget/packages/microsoft.csharp/4.0.1/microsoft.csharp.4.0.1.nupkg.sha512",
     "/Users/trevorleybourne/.nuget/packages/microsoft.dotnet.platformabstractions/2.0.4/microsoft.dotnet.platformabstractions.2.0.4.nupkg.sha512",

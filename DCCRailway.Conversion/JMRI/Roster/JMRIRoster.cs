@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 using DCCRailway.Core.Config;
 
-namespace DCCRailway.Conversion.JMRI.Roster; 
+namespace DCCRailway.Conversion.JMRI.Roster;
 
 [XmlRoot(ElementName = "decoder")]
 public class Decoder {

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace DCCRailway.Server.WiThrottle.Commands; 
+namespace DCCRailway.Server.WiThrottle.Commands;
 
 /// <summary>
 ///     Startup command used to setup a new connection for a Throttle
@@ -19,6 +19,7 @@ public class CmdStartup : ThrottleCmdBase, IThrottleCmd {
         //response.AppendLine ("PCC0");		// TODO: Add Consists
         response.AppendLine("PW12080");
         response.AppendLine($"*{ConnectionEntry.HeartbeatSeconds:D2}");
+
         return response.ToString();
     }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Server.WiThrottle.Commands; 
+namespace DCCRailway.Server.WiThrottle.Commands;
 
 public class CmdDeviceID : ThrottleCmdBase, IThrottleCmd {
     public CmdDeviceID(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
@@ -19,6 +19,7 @@ public class CmdDeviceID : ThrottleCmdBase, IThrottleCmd {
         // and if so, re-map the ID and delete the current one. 
         // ------------------------------------------------------------------------------------
         var existingEntry = ConnectionEntry.listReference.Find(CmdString);
+
         if (existingEntry != null) {
             Logger.Log.Information($"Existing HardwareID reference exists. Remapping '{ConnectionEntry.ConnectionID}' to '{existingEntry.ConnectionID}'");
             ConnectionEntry.HardwareID = existingEntry.HardwareID;

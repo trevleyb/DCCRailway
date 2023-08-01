@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE.Commands.Validators;
+using DCCRailway.System.NCE.Commands.Validators;
 
 [assembly: InternalsVisibleTo("DCCRailway.Test.NCEPowerCabSensorTests")]
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCESensorGetState : NCECommand, ICmdSensorGetState {
     private readonly SensorCache _sensorCache = new();
@@ -36,7 +32,8 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
 
     public override IResult Execute(IAdapter adapter) {
         if (!_sensorCache.IsCurrent) {
-            var result = SendAndReceieve(adapter, new NCESensorValidator(), new byte[] {0x9B, CalculateCabPin(SensorAddress).cab});
+            var result = SendAndReceieve(adapter, new NCESensorValidator(), new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
+
             if (!result.OK) return result;
             _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data);
         }
@@ -55,7 +52,8 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
     protected internal static (byte cab, byte pin) CalculateCabPin(int address) {
         var pin = address % 16 + 1;
         var cab = (address - address % 16) / 16 + 1;
-        return ((byte) cab, (byte) pin);
+
+        return ((byte)cab, (byte)pin);
     }
 
     protected internal static int CalculateAddress(byte cab, byte pin) {
@@ -87,20 +85,20 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
             get {
                 var ts = DateTime.Now - lastUpdated;
                 var isCurrent = ts.TotalMilliseconds < CACHE_VALIDITY;
+
                 return isCurrent;
             }
         }
 
         public void UpdateCache(byte cab, byte[]? data) {
-            sensorEntry = new Dictionary<int, byte[]> {
-                {cab, data ?? new byte[] {0, 0}}
-            };
+            sensorEntry = new Dictionary<int, byte[]> { { cab, data ?? new byte[] { 0, 0 } } };
             lastUpdated = DateTime.Now;
         }
 
         public bool GetState(int address) {
             var cab = CalculateCabPin(address).cab;
             var pin = CalculateCabPin(address).pin;
+
             return GetState(cab, pin);
         }
 
@@ -123,7 +121,7 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
                     }
                     else if (pin >= 9 && pin <= 16) {
                         pinCheck = new byte().SetBit(pin - 9, true);
-                        pinValue = (byte?) (data?[0].Invert() - 0xC0);
+                        pinValue = (byte?)(data?[0].Invert() - 0xC0);
                     }
                     else {
                         return false;

@@ -1,6 +1,6 @@
 ﻿using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Server.WiThrottle.Commands; 
+namespace DCCRailway.Server.WiThrottle.Commands;
 
 public class CmdDeviceName : ThrottleCmdBase, IThrottleCmd {
     public CmdDeviceName(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
@@ -17,6 +17,7 @@ public class CmdDeviceName : ThrottleCmdBase, IThrottleCmd {
         // Get all the Startup Data needed and return that as a response to a Throttle name
         // ---------------------------------------------------------------------------------
         var startup = new CmdStartup(ConnectionEntry, "");
+
         return startup.Execute();
     }
 

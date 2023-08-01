@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Core.Simulator; 
+﻿namespace DCCRailway.Core.Simulator;
 
 public enum DCCSimulatorCommands {
     SetPowerOn,

@@ -1,13 +1,8 @@
 ﻿using DCCRailway.Core.Exceptions;
-using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE.Commands.Validators;
+using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
     public NCECVRead(int cv = 0) {
@@ -26,6 +21,7 @@ public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
             DCCProgrammingMode.Register => 0xA7,
             _ => throw new UnsupportedCommandException("Invalid CV access type provided.")
         };
+
         return SendAndReceieve(adapter, new NCEDataReadValidation(), CV.ToByteArray().AddToArray(command));
     }
 

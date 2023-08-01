@@ -1,13 +1,10 @@
-﻿using DCCRailway.Core.Systems;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE;
-using DCCRailway.Systems.NCE.Adapters;
-using DCCRailway.Systems.NCE.Commands;
+﻿using DCCRailway.Core.Utilities;
+using DCCRailway.System.NCE;
+using DCCRailway.System.NCE.Adapters;
+using DCCRailway.System.NCE.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DCCRailway.Test; 
+namespace DCCRailway.Test;
 
 [TestClass]
 public class NCEPowerCabSensorTest {
@@ -20,7 +17,8 @@ public class NCEPowerCabSensorTest {
     protected internal static (byte cab, byte pin) CalculateCabPin(int address) {
         var pin = address % 16 + 1;
         var cab = (address - pin) / 16 + 1;
-        return ((byte) cab, (byte) pin);
+
+        return ((byte)cab, (byte)pin);
     }
 
     protected internal static int CalculateAddress(byte cab, byte pin) {
@@ -42,10 +40,11 @@ public class NCEPowerCabSensorTest {
 
             var states = new byte[2];
             var loop = true;
+
             while (loop) {
                 for (byte part = 0; part < 2; part++)
                 for (byte pin = 0; pin < 8; pin++) {
-                    sensorCmd?.SetAddressByCabPin(4, (byte) (part * 8 + pin));
+                    sensorCmd?.SetAddressByCabPin(4, (byte)(part * 8 + pin));
                     var state = system.Execute(sensorCmd!) as IResultState;
                     states[part] = states[part].SetBit(pin, state?.State ?? false);
                 }

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using DCCRailway.Core.Systems.Types;
 
-namespace DCCRailway.Core.Simulator; 
+namespace DCCRailway.Core.Simulator;
 
 [Serializable]
 public class SimulatedLocoList : Dictionary<int, SimulatedLocoEntry> {
@@ -12,6 +11,7 @@ public class SimulatedLocoList : Dictionary<int, SimulatedLocoEntry> {
     /// </summary>
     public SimulatedLocoEntry? GetLoco(int Address) {
         if (ContainsKey(Address)) return this[Address];
+
         return null;
     }
 
@@ -21,9 +21,11 @@ public class SimulatedLocoList : Dictionary<int, SimulatedLocoEntry> {
     /// </summary>
     public SimulatedLocoEntry? GetRandomLoco() {
         var max = Count;
+
         while (max > 0) {
             max -= 1;
             var findPos = new Random().Next(0, Count);
+
             if (this[findPos] != null && (this[findPos].Type == DCCAddressType.Short || this[findPos].Type == DCCAddressType.Long)) return this[findPos];
         }
 
@@ -36,6 +38,7 @@ public class SimulatedLocoList : Dictionary<int, SimulatedLocoEntry> {
     /// </summary>
     public SimulatedLocoEntry GetLoco(DCCAddress Address) {
         if (!ContainsKey(Address.Address)) Add(Address.Address, new SimulatedLocoEntry(Address));
+
         return this[Address.Address];
     }
 }

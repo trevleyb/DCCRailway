@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Server.WiThrottle.Commands; 
+﻿namespace DCCRailway.Server.WiThrottle.Commands;
 
 public interface IThrottleCmd {
     string? Execute();

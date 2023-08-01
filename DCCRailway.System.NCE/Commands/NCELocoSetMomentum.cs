@@ -1,12 +1,7 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE.Commands.Validators;
+﻿using DCCRailway.Core.Utilities;
+using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
     public NCELocoSetMomentum() { }
@@ -24,10 +19,11 @@ public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
     public byte Momentum { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
-        byte[] command = {0xA2};
-        command = command.AddToArray(((DCCAddress) Address).AddressBytes);
+        byte[] command = { 0xA2 };
+        command = command.AddToArray(((DCCAddress)Address).AddressBytes);
         command = command.AddToArray(0x12);
         command = command.AddToArray(Momentum);
+
         return SendAndReceieve(adapter, new NCEStandardValidation(), command);
     }
 

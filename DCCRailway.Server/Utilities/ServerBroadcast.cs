@@ -4,13 +4,15 @@ using System.Net;
 using DCCRailway.Core.Utilities;
 using Makaretu.Dns;
 
-namespace DCCRailway.Server.Utilities; 
+namespace DCCRailway.Server.Utilities;
 
 public class ServerBroadcast {
     public static void Start(string instance, string service, IPAddress ipAddress, ushort port, Dictionary<string, string>? properties = null) {
         var host = Dns.GetHostEntry(Dns.GetHostName());
+
         if (host != null && host.AddressList.Length > 0) // Start service discovery for tyhis service.
             // -------------------------------------------------------------
+        {
             try {
                 var sd = new ServiceDiscovery();
                 sd.AnswersContainsAdditionalRecords = true;
@@ -29,8 +31,10 @@ public class ServerBroadcast {
             catch (Exception ex) {
                 throw new ApplicationException("Could not start Broadcast", ex);
             }
-        else
+        }
+        else {
             throw new ApplicationException("Could not Broadcast since cannot determin elocal IP Addresses.");
+        }
     }
 
     private void Sd_ServiceInstanceShutdown(object? sender, ServiceInstanceShutdownEventArgs e) {

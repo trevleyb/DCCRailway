@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace DCCRailway.Core.Config; 
+namespace DCCRailway.Core.Config;
 
 public class Adapter {
     public Adapter() {

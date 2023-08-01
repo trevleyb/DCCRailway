@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DCCRailway.Server.WiThrottle; 
+namespace DCCRailway.Server.WiThrottle;
 
 /// <summary>
 ///     ConnectionInfo stores the details of each connected throttle to the system
@@ -25,6 +25,7 @@ public class WiThrottleConnectionList {
             entry.HardwareID = hardwareID;
             entry.ThrottleName = throttleName;
             Entries.Add(entry);
+
             return entry;
         }
 

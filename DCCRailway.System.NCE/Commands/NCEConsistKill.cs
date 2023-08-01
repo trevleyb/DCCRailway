@@ -1,12 +1,7 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE.Commands.Validators;
+﻿using DCCRailway.Core.Utilities;
+using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCEConsistKill : NCECommand, ICmdConsistKill, ICommand {
     public NCEConsistKill() { }
@@ -22,10 +17,11 @@ public class NCEConsistKill : NCECommand, ICmdConsistKill, ICommand {
     public static string Name => "NCE Consist Kill";
 
     public override IResult Execute(IAdapter adapter) {
-        byte[] command = {0xA2};
+        byte[] command = { 0xA2 };
         command = command.AddToArray(Address.AddressBytes);
         command = command.AddToArray(0x11);
         command = command.AddToArray(0);
+
         return SendAndReceieve(adapter, new NCEStandardValidation(), command);
     }
 

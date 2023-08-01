@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DCCRailway.Core.Utilities; 
+namespace DCCRailway.Core.Utilities;
 
 internal sealed class RangeValidationAttribute : ValidationAttribute {
     public RangeValidationAttribute(byte minValue, byte maxValue, string errorMessage) {

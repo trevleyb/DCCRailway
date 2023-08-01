@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using DCCRailway.Core.Attributes;
-using DCCRailway.Core.Exceptions;
-using DCCRailway.Core.Systems;
-using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Adapters.Events;
-using DCCRailway.Core.Systems.Attributes;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
+﻿using DCCRailway.Core.Exceptions;
 using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE.Adapters;
-using DCCRailway.Systems.NCE.Commands;
+using DCCRailway.System.NCE.Adapters;
+using DCCRailway.System.NCE.Commands;
 
-namespace DCCRailway.Systems.NCE; 
+namespace DCCRailway.System.NCE;
 
 [System("NCEPowerCab", "North Coast Engineering (NCE)", "PowerCab", "1.65")]
 public class NcePowerCab : Core.Systems.System, ISystem {
-    
     protected override void RegisterAdapters() {
         ClearAdapters();
         RegisterAdapter<NCESerial>();
@@ -48,6 +37,7 @@ public class NcePowerCab : Core.Systems.System, ISystem {
         // and when connected to a SB3 only operation mode (no program track) is available for loco programming.
         // -----------------------------------------------------------------
         ClearCommands();
+
         if (Adapter != null) {
             RegisterCommand<IDummyCmd>(typeof(NCEDummyCmd));
             RegisterCommand<ICmdStatus>(typeof(NCEStatusCmd));
@@ -87,7 +77,7 @@ public class NcePowerCab : Core.Systems.System, ISystem {
                 RegisterCommand<ICmdClockStop>(typeof(NCEStopClock));
             }
             else if (Adapter is NCEUSBSerial) {
-                if (CreateCommand<ICmdStatus>() is NCEStatusCmd statusCmd && statusCmd.Execute(Adapter) is IResultStatus status)
+                if (CreateCommand<ICmdStatus>() is NCEStatusCmd statusCmd && statusCmd.Execute(Adapter) is IResultStatus status) {
                     switch (status.Version) {
                         case "6.x.x": break; // Cannot get AIU Information
                         case "7.3.0": break;
@@ -99,14 +89,15 @@ public class NcePowerCab : Core.Systems.System, ISystem {
                         case "7.3.6": break;
                         case "7.3.7": break;
                     }
-                else
+                }
+                else {
                     throw new AdapterException(Adapter, ":Unable to communicate with the Command Station.");
+                }
             }
         }
     }
 
     #region Manage the events from the Adapter
-
     protected override void Adapter_ErrorOccurred(object? sender, ErrorArgs e) {
         Logger.Log.Debug(e.ToString());
     }
@@ -122,6 +113,5 @@ public class NcePowerCab : Core.Systems.System, ISystem {
     protected override void Adapter_DataReceived(object? sender, DataRecvArgs e) {
         Logger.Log.Debug(e.ToString());
     }
-
     #endregion
 }

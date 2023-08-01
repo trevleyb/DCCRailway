@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Test.SystemTests.NCESystem; 
+﻿namespace DCCRailway.Test.SystemTests.NCESystem;
 /*
 
     [TestClass]

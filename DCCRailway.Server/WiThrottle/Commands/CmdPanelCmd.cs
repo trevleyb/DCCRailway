@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Server.WiThrottle.Commands; 
+﻿namespace DCCRailway.Server.WiThrottle.Commands;
 
 public class CmdPanelCmd : ThrottleCmdBase, IThrottleCmd {
     public CmdPanelCmd(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {

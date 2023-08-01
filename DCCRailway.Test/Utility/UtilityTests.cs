@@ -1,7 +1,7 @@
 ﻿using DCCRailway.Core.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DCCRailway.Test.Utility; 
+namespace DCCRailway.Test.Utility;
 
 [TestClass]
 public class UtilityTests {

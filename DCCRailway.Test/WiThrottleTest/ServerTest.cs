@@ -1,7 +1,7 @@
 ﻿using DCCRailway.Server.WiThrottle;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DCCRailway.Test.WiThrottleTest; 
+namespace DCCRailway.Test.WiThrottleTest;
 
 [TestClass]
 public class ServerTest {

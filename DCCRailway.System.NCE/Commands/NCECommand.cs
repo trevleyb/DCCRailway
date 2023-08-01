@@ -1,5 +1,3 @@
-﻿using DCCRailway.Core.Systems.Commands;
-
-namespace DCCRailway.Systems.NCE.Commands; 
+﻿namespace DCCRailway.System.NCE.Commands;
 
 public abstract class NCECommand : Command { }

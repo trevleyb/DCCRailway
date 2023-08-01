@@ -8,7 +8,7 @@ using DCCRailway.Core.Utilities;
 using DCCRailway.Server.Utilities;
 using DCCRailway.Server.WiThrottle.Commands;
 
-namespace DCCRailway.Server.WiThrottle; 
+namespace DCCRailway.Server.WiThrottle;
 
 public class WiThrottleServer {
     private const ushort DEFAULT_PORT = 12090;
@@ -48,11 +48,7 @@ public class WiThrottleServer {
         // Setup the Server to Broadcast its presence on the network
         // ----------------------------------------------------------
         // TODO: This needs to come via parameters as we start up multiple instances
-        Dictionary<string, string> properties = new() {
-            {"node", "jmri-C4910CB13C68-3F39938d"},
-            {"jmri", "4.21.4"},
-            {"version", "4.2.1"}
-        };
+        Dictionary<string, string> properties = new() { { "node", "jmri-C4910CB13C68-3F39938d" }, { "jmri", "4.21.4" }, { "version", "4.2.1" } };
 
         // TODO: The name should come from parameters 
         ServerBroadcast.Start("JMRI WiThrottle Railway", "_withrottle._tcp", ipAddress, port, properties);
@@ -76,6 +72,7 @@ public class WiThrottleServer {
     private void StartListener(TcpListener server) {
         try {
             Logger.Log.Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
+
             while (ServerActive) {
                 var client = server.AcceptTcpClient();
                 Thread t = new(HandleConnection);
@@ -100,12 +97,13 @@ public class WiThrottleServer {
         // -----------------------------------------------------------------------------
         if (obj is not TcpClient client) {
             Logger.Log.Warning("Started thread but provided a NULL or NON-TCP Client Object.");
+
             return;
         }
 
         var stream = client.GetStream();
         Logger.Log.Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
-        var connectionEntry = _wiThrottleConnections.Add((ulong) client.Client.Handle);
+        var connectionEntry = _wiThrottleConnections.Add((ulong)client.Client.Handle);
         var cmdFactory = new WiThrottleCmdFactory(connectionEntry!);
 
         try {
@@ -123,14 +121,16 @@ public class WiThrottleServer {
                 buffer.Append(data);
 
                 if (buffer.ToString().Contains(_terminator)) {
-                    foreach (var command in buffer.ToString().Split(_terminator))
+                    foreach (var command in buffer.ToString().Split(_terminator)) {
                         if (!string.IsNullOrEmpty(command)) {
                             var cmd = cmdFactory.Interpret(CommandType.Client, command!);
                             Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}<=={cmd}");
 
                             var resData = cmd!.Execute();
+
                             if (cmd is CmdQuit) {
                                 _wiThrottleConnections.Disconnect(connectionEntry!);
+
                                 break;
                             }
 
@@ -140,6 +140,7 @@ public class WiThrottleServer {
                                 Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}==>{resData}");
                             }
                         }
+                    }
 
                     buffer.Clear();
                 }

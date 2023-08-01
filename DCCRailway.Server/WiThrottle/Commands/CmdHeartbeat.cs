@@ -1,6 +1,6 @@
 ﻿using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Server.WiThrottle.Commands; 
+namespace DCCRailway.Server.WiThrottle.Commands;
 
 public class CmdHeartBeat : ThrottleCmdBase, IThrottleCmd {
     public CmdHeartBeat(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
@@ -12,13 +12,16 @@ public class CmdHeartBeat : ThrottleCmdBase, IThrottleCmd {
             case "+":
                 Logger.Log.Information($"Received a HEARTBEAT + (ON) command from '{ConnectionEntry.ThrottleName}'");
                 ConnectionEntry.HeartbeatState = HeartbeatStateEnum.On;
+
                 break;
             case "-":
                 Logger.Log.Information($"Received a HEARTBEAT - (OFF) command from '{ConnectionEntry.ThrottleName}'");
                 ConnectionEntry.HeartbeatState = HeartbeatStateEnum.Off;
+
                 break;
             default:
                 Logger.Log.Information($"Received a HEARTBEAT from '{ConnectionEntry.ThrottleName}'");
+
                 break;
         }
 

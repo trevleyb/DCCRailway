@@ -1,11 +1,8 @@
-﻿using DCCRailway.Core.Systems;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Systems.NCE;
-using DCCRailway.Systems.NCE.Adapters;
+﻿using DCCRailway.System.NCE;
+using DCCRailway.System.NCE.Adapters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DCCRailway.Test; 
+namespace DCCRailway.Test;
 
 [TestClass]
 public class NCEPowerCabTestCVReadWrite {
@@ -16,6 +13,7 @@ public class NCEPowerCabTestCVReadWrite {
         var system = SystemFactory.Create("NCE", "PowerCab", adapter);
         Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
         Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
+
         if (system != null && system.Adapter != null) {
             var progTrk = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
             var mainTrk = system.CreateCommand<ICmdTrackMain>(); // new NCESetMainTrk(adapter);
@@ -36,6 +34,7 @@ public class NCEPowerCabTestCVReadWrite {
         var system = SystemFactory.Create("NCE", "PowerCab", adapter);
         Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
         Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
+
         if (system != null && system.Adapter != null) {
             var progTrk = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
             var mainTrk = system.CreateCommand<ICmdTrackMain>(); // new NCESetMainTrk(adapter);
@@ -53,7 +52,7 @@ public class NCEPowerCabTestCVReadWrite {
             var result2 = system.Execute(readCVCmd!);
             Assert.IsInstanceOfType(result2, typeof(IResultOK));
             Assert.IsTrue(result2!.OK);
-            Assert.IsTrue(((IResultOK) result2).Value == 3);
+            Assert.IsTrue(((IResultOK)result2).Value == 3);
 
             var result3 = system.Execute(mainTrk!);
             Assert.IsInstanceOfType(result3, typeof(IResultOK));
@@ -68,6 +67,7 @@ public class NCEPowerCabTestCVReadWrite {
         var system = SystemFactory.Create("NCE", "PowerCab", adapter);
         Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
         Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
+
         if (system != null && system.Adapter != null) {
             var progTrk = system.CreateCommand<ICmdTrackProg>();
             var mainTrk = system.CreateCommand<ICmdTrackMain>();

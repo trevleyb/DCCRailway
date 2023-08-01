@@ -10,10 +10,10 @@
     <ItemGroup>
         <ProjectReference Include="..\DCCRailway.Core\DCCRailway.Core.csproj"/>
         <ProjectReference Include="..\DCCRailway.Server\DCCRailway.Server.csproj"/>
-        <ProjectReference Include="..\DCCRailway.System.Digitrax\DCCRailway.Systems.Digitrax.csproj"/>
-        <ProjectReference Include="..\DCCRailway.System.NCE\DCCRailway.Systems.NCE.csproj"/>
-        <ProjectReference Include="..\DCCRailway.System.Sprog\DCCRailway.Systems.Sprog.csproj"/>
-        <ProjectReference Include="..\DCCRailway.System.Virtual\DCCRailway.Systems.Virtual.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.NCE\DCCRailway.System.NCE.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.Sprog\DCCRailway.System.Sprog.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.Virtual\DCCRailway.System.Virtual.csproj"/>
     </ItemGroup>
 
 </Project>

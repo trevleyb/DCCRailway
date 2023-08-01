@@ -3,11 +3,10 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace DCCRailway.Core.Config; 
+namespace DCCRailway.Core.Config;
 
 public class ConfigSerializer<T> {
     #region Load and Save Functions
-
     /// <summary>
     ///     Load an instance of class T from a provided filename and throw an exception if the
     ///     file name does not exist.
@@ -19,9 +18,12 @@ public class ConfigSerializer<T> {
         try {
             if (!File.Exists(name)) throw new FileNotFoundException($"Unable to access file '{name}'");
             XmlSerializer xmlSerializer = new(typeof(T));
+
             if (xmlSerializer != null) {
                 using TextReader reader = new StreamReader(name);
+
                 if (xmlSerializer.Deserialize(reader!) is not T xmlFile) throw new ApplicationException($"Unable to load the configuration file '{name}' as the deserializer did not return correctly.");
+
                 return xmlFile;
             }
 
@@ -42,7 +44,7 @@ public class ConfigSerializer<T> {
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------
         try {
-            var xmlWriterSettings = new XmlWriterSettings {Indent = true};
+            var xmlWriterSettings = new XmlWriterSettings { Indent = true };
             xmlWriterSettings.OmitXmlDeclaration = true;
 
             XmlSerializer xmlSerializer = new(typeof(T));
@@ -54,6 +56,5 @@ public class ConfigSerializer<T> {
             throw new ApplicationException($"Unable to save configuration data to '{name}' due to '{ex.Message}'");
         }
     }
-
     #endregion
 }

@@ -1,9 +1,6 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Systems.NCE.Commands.Validators;
+﻿using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCESetProgTrk : NCECommand, ICmdTrackProg {
     public static string Name => "NCE Switch to the Programming Track";

@@ -1,13 +1,8 @@
 ﻿using System;
-using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
 using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE.Commands.Validators;
+using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
     private byte _aspect;
@@ -32,18 +27,21 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
 
     public bool Off {
         set {
-            if (value)
+            if (value) {
                 _aspect = 31;
-            else
+            }
+            else {
                 _aspect = 15;
+            }
         }
     }
 
     public override IResult Execute(IAdapter adapter) {
-        var cmd = new byte[] {0xAD}; // Command is 0xAD
-        cmd = cmd.AddToArray(((DCCAddress) Address).AddressBytes); // Add the high and low bytes of the Address
+        var cmd = new byte[] { 0xAD }; // Command is 0xAD
+        cmd = cmd.AddToArray(((DCCAddress)Address).AddressBytes); // Add the high and low bytes of the Address
         cmd = cmd.AddToArray(0x05); // Signals command is 0x05
         cmd = cmd.AddToArray(Aspect); // Aspect must be 00 to 0x0f
+
         return SendAndReceieve(adapter, new NCEStandardValidation(), cmd);
     }
 

@@ -1,12 +1,7 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE.Commands.Validators;
+﻿using DCCRailway.Core.Utilities;
+using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand {
     public NCELocoSetSpeedSteps() { }
@@ -24,9 +19,10 @@ public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand 
     public DCCProtocol SpeedSteps { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
-        byte[] command = {0x8D};
-        command = command.AddToArray(((DCCAddress) Address).AddressBytes);
-        command = command.AddToArray((byte) SpeedSteps);
+        byte[] command = { 0x8D };
+        command = command.AddToArray(((DCCAddress)Address).AddressBytes);
+        command = command.AddToArray((byte)SpeedSteps);
+
         return SendAndReceieve(adapter, new NCEStandardValidation(), command);
     }
 

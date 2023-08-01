@@ -1,7 +1,6 @@
 ﻿using System;
-using DCCRailway.Core.Systems.Adapters;
 
-namespace DCCRailway.Core.Exceptions; 
+namespace DCCRailway.Core.Exceptions;
 
 public class AdapterException : Exception {
     public AdapterException(string adapter, string? message, Exception? ex = null) : base(adapter + ":" + message, ex) {

@@ -1,4 +1,4 @@
-namespace DccRailway.API.Entities; 
+namespace DccRailway.API.Entities;
 
 [Serializable]
 public class Loco : IEntity<Guid> {

@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using DCCRailway.Core.Systems.Commands;
 
-namespace DCCRailway.Core.Utilities; 
+namespace DCCRailway.Core.Utilities;
 
 public static class InterfaceUtility {
     public static string? FindImplmentationInterface(IEnumerable<TypeInfo> definedTypes, string searchtype) {
         foreach (var definedType in definedTypes)
-        foreach (var implementedInterface in definedType.ImplementedInterfaces)
-            if (implementedInterface.Name.Equals(SplitInterfaceName(searchtype)))
+        foreach (var implementedInterface in definedType.ImplementedInterfaces) {
+            if (implementedInterface.Name.Equals(SplitInterfaceName(searchtype))) {
                 return definedType.FullName;
+            }
+        }
+
         return null;
     }
 
@@ -24,6 +26,7 @@ public static class InterfaceUtility {
     public static string? FindImplementsInterface(TypeInfo definedType, string searchInterface) {
         foreach (var interfaceType in definedType.ImplementedInterfaces) {
             var foundName = SplitInterfaceName(interfaceType.FullName);
+
             if (foundName != null && foundName == searchInterface) return foundName;
         }
 
@@ -36,6 +39,7 @@ public static class InterfaceUtility {
 
         foreach (var interfaceType in definedType.ImplementedInterfaces) {
             var foundName = SplitInterfaceName(interfaceType.FullName);
+
             if (foundName != null) {
                 if (foundName == searchInterface) {
                     isICommand = true;
@@ -52,6 +56,7 @@ public static class InterfaceUtility {
     public static string? SplitInterfaceName(string? fullname) {
         if (!string.IsNullOrEmpty(fullname)) {
             var split = fullname.Split(".");
+
             return split.Length > 0 ? split[^1] : null;
         }
 

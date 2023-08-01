@@ -1,6 +1,6 @@
 using DccRailway.API.Entities;
 
-namespace DccRailway.API.Repositories; 
+namespace DccRailway.API.Repositories;
 
 public class DatabaseRepository<TEntity, TID> : IRepository<TEntity, TID> where TEntity : IEntity<TID> where TID : IComparable {
     public TEntity GetById(TID id) {

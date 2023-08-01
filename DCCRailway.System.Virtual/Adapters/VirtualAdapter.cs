@@ -1,13 +1,10 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Adapters.Events;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Utilities;
+﻿using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Systems.Virtual; 
+namespace DCCRailway.System.Virtual;
 
 public class VirtualAdapter : Adapter, IAdapter {
     private byte[] _lastCommand;
-    
+
     public bool IsConnected { get; private set; }
 
     public void Connect() {
@@ -22,6 +19,7 @@ public class VirtualAdapter : Adapter, IAdapter {
 
     public byte[]? RecvData(ICommand? command = null) {
         Logger.Log.Debug("Listening for data from the Adapter: '" + _lastCommand.FromByteArray() + "'");
+
         var result = _lastCommand.FromByteArray() switch {
             "STATUS_COMMAND" => "OK".ToByteArray(),
             "DUMMY_COMMAND" => "OK".ToByteArray(),
@@ -29,6 +27,7 @@ public class VirtualAdapter : Adapter, IAdapter {
         };
         Logger.Log.Debug("Data to return: '" + result.FromByteArray() + "'");
         OnDataRecieved(new DataRecvArgs(result, this, command));
+
         return result;
     }
 

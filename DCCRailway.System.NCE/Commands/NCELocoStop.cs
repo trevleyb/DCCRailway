@@ -1,12 +1,7 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE.Commands.Validators;
+﻿using DCCRailway.Core.Utilities;
+using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
     public NCELocoStop() { }
@@ -27,10 +22,11 @@ public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
     public static string Name => "NCE Stop Loco";
 
     public override IResult Execute(IAdapter adapter) {
-        byte[] command = {0xA2};
-        command = command.AddToArray(((DCCAddress) Address).AddressBytes);
-        command = command.AddToArray((byte) (Direction == DCCDirection.Forward ? 0x06 : 0x05));
+        byte[] command = { 0xA2 };
+        command = command.AddToArray(((DCCAddress)Address).AddressBytes);
+        command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x06 : 0x05));
         command = command.AddToArray(0);
+
         return SendAndReceieve(adapter, new NCEStandardValidation(), command);
     }
 

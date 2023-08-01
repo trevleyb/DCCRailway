@@ -1,7 +1,6 @@
 ﻿using DCCRailway.Core.Config;
-using DCCRailway.Core.Systems.Types;
 
-namespace DCCRailway.Conversion.JMRI.Roster; 
+namespace DCCRailway.Conversion.JMRI.Roster;
 
 public static class JMRIRosterImporter {
     public static List<Loco> Import(string rosterName) {
@@ -11,7 +10,9 @@ public static class JMRIRosterImporter {
         // ---------------------------------------------------------
         try {
             var jmriRoster = Rosterconfig.Load(rosterName);
+
             if (jmriRoster == null) return new List<Loco>();
+
             return MapJMRItoDCCTrain(jmriRoster);
         }
         catch (Exception ex) {

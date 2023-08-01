@@ -1,6 +1,6 @@
 ﻿using DCCRailway.Core.Utilities;
 
-namespace DCCRailway.Server.WiThrottle.Commands; 
+namespace DCCRailway.Server.WiThrottle.Commands;
 
 public class CmdUnknown : ThrottleCmdBase, IThrottleCmd {
     public CmdUnknown(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
@@ -9,6 +9,7 @@ public class CmdUnknown : ThrottleCmdBase, IThrottleCmd {
 
     public string? Execute() {
         Logger.Log.Information($"Received an unknown command from a throttle: '{ConnectionEntry.ConnectionID}' of '{CmdString}'");
+
         return null;
     }
 

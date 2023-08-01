@@ -1,12 +1,7 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE.Commands.Validators;
+﻿using DCCRailway.Core.Utilities;
+using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
     public NCELocoOpsProg() { }
@@ -30,10 +25,11 @@ public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
     public byte Value { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
-        var cmd = new byte[] {0xAE};
+        var cmd = new byte[] { 0xAE };
         cmd = cmd.AddToArray(LocoAddress.AddressBytes);
         cmd = cmd.AddToArray(CVAddress.AddressBytes);
         cmd = cmd.AddToArray(Value);
+
         return SendAndReceieve(adapter, new NCEStandardValidation(), cmd);
     }
 

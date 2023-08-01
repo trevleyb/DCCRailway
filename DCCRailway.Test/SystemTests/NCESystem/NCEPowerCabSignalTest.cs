@@ -1,11 +1,8 @@
-﻿using DCCRailway.Core.Systems;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Systems.NCE;
-using DCCRailway.Systems.NCE.Adapters;
+﻿using DCCRailway.System.NCE;
+using DCCRailway.System.NCE.Adapters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DCCRailway.Test; 
+namespace DCCRailway.Test;
 
 [TestClass]
 public class NCEPowerCabSignalTest {
@@ -20,9 +17,11 @@ public class NCEPowerCabSignalTest {
 
         if (system != null && system.Adapter != null) {
             var signalCmd = system.CreateCommand<ICmdSignalSetAspect>();
+
             if (signalCmd != null) {
                 for (byte i = 0; i < 16; i++) {
                     signalCmd.Aspect = i;
+
                     for (var sig = 11; sig < 15; sig++) {
                         signalCmd.Address = new DCCAddress(sig, DCCAddressType.Signal);
                         system.Execute(signalCmd);
@@ -40,6 +39,7 @@ public class NCEPowerCabSignalTest {
                 }
 
                 Thread.Sleep(500);
+
                 for (var sig = 11; sig < 15; sig++) {
                     signalCmd.Address = new DCCAddress(sig, DCCAddressType.Signal);
                     signalCmd.Off = true;

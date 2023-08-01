@@ -1,15 +1,12 @@
 ﻿using System.Xml.Serialization;
-using DCCRailway.Core.Systems.Types;
 
-namespace DCCRailway.Core.Config; 
+namespace DCCRailway.Core.Config;
 
 [XmlRoot(ElementName = "Turnout")]
 public class Turnout {
     public Turnout() {
         Parameters = new Parameters();
-        Decoder = new Decoder {
-            AddressType = DCCAddressType.Turnout
-        };
+        Decoder = new Decoder { AddressType = DCCAddressType.Turnout };
     }
 
     [XmlAttribute(AttributeName = "Name")] public string Name { get; set; }

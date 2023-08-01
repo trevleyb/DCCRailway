@@ -1,12 +1,7 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.NCE.Commands.Validators;
+﻿using DCCRailway.Core.Utilities;
+using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
     public NCEConsistAdd() { }
@@ -26,14 +21,16 @@ public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
     public DCCConsistPosition Position { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
-        byte[] command = {0xA2};
+        byte[] command = { 0xA2 };
         command = command.AddToArray(Loco.Address.AddressBytes);
+
         command = Position switch {
-            DCCConsistPosition.Front => command.AddToArray((byte) (Loco.Direction == DCCDirection.Forward ? 0x0b : 0x0a)),
-            DCCConsistPosition.Rear => command.AddToArray((byte) (Loco.Direction == DCCDirection.Forward ? 0x0d : 0x0c)),
-            _ => command.AddToArray((byte) (Loco.Direction == DCCDirection.Forward ? 0x0f : 0x0e))
+            DCCConsistPosition.Front => command.AddToArray((byte)(Loco.Direction == DCCDirection.Forward ? 0x0b : 0x0a)),
+            DCCConsistPosition.Rear => command.AddToArray((byte)(Loco.Direction == DCCDirection.Forward ? 0x0d : 0x0c)),
+            _ => command.AddToArray((byte)(Loco.Direction == DCCDirection.Forward ? 0x0f : 0x0e))
         };
         command = command.AddToArray(ConsistAddress);
+
         return SendAndReceieve(adapter, new NCEStandardValidation(), command);
     }
 

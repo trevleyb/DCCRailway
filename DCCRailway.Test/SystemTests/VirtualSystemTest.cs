@@ -1,10 +1,8 @@
-﻿using DCCRailway.Core.Systems;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.Virtual;
+﻿using DCCRailway.Core.Utilities;
+using DCCRailway.System.Virtual;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DCCRailway.Test; 
+namespace DCCRailway.Test;
 
 [TestClass]
 public class VirtualSystemTest {

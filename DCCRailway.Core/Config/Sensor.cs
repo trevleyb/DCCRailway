@@ -1,16 +1,13 @@
 ﻿using System.Xml.Serialization;
-using DCCRailway.Core.Systems.Types;
 
-namespace DCCRailway.Core.Config; 
+namespace DCCRailway.Core.Config;
 
 [XmlRoot(ElementName = "Sensor")]
 public class Sensor {
     public Sensor() {
         Parameters = new Parameters();
 
-        Decoder = new Decoder {
-            AddressType = DCCAddressType.Sensor
-        };
+        Decoder = new Decoder { AddressType = DCCAddressType.Sensor };
     }
 
     [XmlAttribute(AttributeName = "Name")] public string Name { get; set; }

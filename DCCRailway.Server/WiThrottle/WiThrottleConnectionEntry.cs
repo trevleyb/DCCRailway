@@ -2,7 +2,7 @@
 using DCCRailway.Server.WiThrottle;
 using DCCRailway.Server.WiThrottle.Commands;
 
-namespace DCCRailway.Server; 
+namespace DCCRailway.Server;
 
 public class WiThrottleConnectionEntry {
     private int _heartbeatSeconds = 15;
@@ -32,12 +32,15 @@ public class WiThrottleConnectionEntry {
     public int HeartbeatSeconds {
         get => _heartbeatSeconds;
         set {
-            if (value <= 0)
+            if (value <= 0) {
                 _heartbeatSeconds = 0;
-            else if (value >= 99)
+            }
+            else if (value >= 99) {
                 _heartbeatSeconds = 99;
-            else
+            }
+            else {
                 _heartbeatSeconds = value;
+            }
         }
     }
 
@@ -55,6 +58,7 @@ public class WiThrottleConnectionEntry {
         get {
             if (HeartbeatState == HeartbeatStateEnum.Off) return true;
             if ((DateTime.Now - LastHeartbeat).TotalSeconds < HeartbeatSeconds) return true;
+
             return false;
         }
     }

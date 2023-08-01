@@ -4085,9 +4085,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Digitrax/DCCRailway.Systems.Digitrax.csproj",
-      "projectName": "DCCRailway.Systems.Digitrax",
-      "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Digitrax/DCCRailway.Systems.Digitrax.csproj",
+      "projectUniqueName": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Digitrax/DCCRailway.System.Digitrax.csproj",
+      "projectName": "DCCRailway.System.Digitrax",
+      "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Digitrax/DCCRailway.System.Digitrax.csproj",
       "packagesPath": "/Users/trevorleybourne/.nuget/packages/",
       "outputPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Digitrax/obj/",
       "projectStyle": "PackageReference",

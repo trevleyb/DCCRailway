@@ -1,10 +1,7 @@
-﻿using DCCRailway.Core.Systems;
-using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Systems.Virtual;
+﻿using DCCRailway.System.Virtual;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VirtualAdapter = DCCRailway.Systems.Virtual.VirtualAdapter;
 
-namespace DCCRailway.Test; 
+namespace DCCRailway.Test;
 
 [TestClass]
 public class LoadSystemsTest {
@@ -44,8 +41,10 @@ public class LoadSystemsTest {
         Assert.IsNotNull(commandsSupported);
         Assert.AreEqual(commandsSupported?.Count, 2);
 
-        if (commandsSupported != null)
-            foreach (var cmd in commandsSupported)
+        if (commandsSupported != null) {
+            foreach (var cmd in commandsSupported) {
                 Console.WriteLine("Command==>" + cmd);
+            }
+        }
     }
 }

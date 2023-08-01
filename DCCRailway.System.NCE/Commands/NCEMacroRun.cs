@@ -1,9 +1,6 @@
-﻿using DCCRailway.Core.Systems.Adapters;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Systems.NCE.Commands.Validators;
+﻿using DCCRailway.System.NCE.Commands.Validators;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCEMacroRun : NCECommand, ICmdMacroRun {
     public string Name => "NCE Execute Macro";
@@ -11,7 +8,7 @@ public class NCEMacroRun : NCECommand, ICmdMacroRun {
     public byte Macro { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
-        return SendAndReceieve(adapter, new NCEStandardValidation(), new byte[] {0xAC, Macro});
+        return SendAndReceieve(adapter, new NCEStandardValidation(), new byte[] { 0xAC, Macro });
     }
 
     public override string ToString() {

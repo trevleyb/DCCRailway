@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace DCCRailway.Core.Config; 
+namespace DCCRailway.Core.Config;
 
 /// <summary>
 ///     Represents a self-contained set of configuration items for the running
@@ -25,7 +25,6 @@ public class Configuration : ConfigSerializer<Configuration> {
     [XmlAttribute(AttributeName = "Name")] public string Name { get; set; }
 
     #region Elements and Sttributes Saved as part of this configuration file
-
     [XmlArray(ElementName = "Systems")] public List<System> Systems { get; set; }
 
     [XmlArray(ElementName = "Locos")] public List<Loco> Locos { get; set; }
@@ -40,11 +39,9 @@ public class Configuration : ConfigSerializer<Configuration> {
     [XmlArray(ElementName = "Sensors")] public List<Sensor> Sensors { get; set; }
 
     [XmlArray(ElementName = "Blocks")] public List<Block> Blocks { get; set; }
-
     #endregion
 
     #region Load and Save Functions
-
     /// <summary>
     ///     Load an instance of this type and store the name of the file that was used to load
     ///     it into the instance itself.
@@ -54,6 +51,7 @@ public class Configuration : ConfigSerializer<Configuration> {
     public new static Configuration? Load(string Name) {
         var config = ConfigSerializer<Configuration>.Load(Name);
         if (config != null) config.Name = Name;
+
         return config;
     }
 
@@ -64,6 +62,5 @@ public class Configuration : ConfigSerializer<Configuration> {
     public void Save() {
         Save(this, Name);
     }
-
     #endregion
 }

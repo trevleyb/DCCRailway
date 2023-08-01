@@ -1,4 +1,4 @@
-namespace DccRailway.API.Entities; 
+namespace DccRailway.API.Entities;
 
 public interface IEntity<TID> {
     public TID Id { get; set; }

@@ -4085,9 +4085,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Virtual/DCCRailway.Systems.Virtual.csproj",
-      "projectName": "DCCRailway.Systems.Virtual",
-      "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Virtual/DCCRailway.Systems.Virtual.csproj",
+      "projectUniqueName": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Virtual/DCCRailway.System.Virtual.csproj",
+      "projectName": "DCCRailway.System.Virtual",
+      "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Virtual/DCCRailway.System.Virtual.csproj",
       "packagesPath": "/Users/trevorleybourne/.nuget/packages/",
       "outputPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Virtual/obj/",
       "projectStyle": "PackageReference",

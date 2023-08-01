@@ -1,7 +1,4 @@
-﻿using DCCRailway.Core.Systems.Commands.Results;
-using DCCRailway.Core.Systems.Commands.Validators;
-
-namespace DCCRailway.Systems.NCE.Commands.Validators; 
+﻿namespace DCCRailway.System.NCE.Commands.Validators;
 
 public class NCEStandardValidation : IResultValidation {
     public IResult Validate(byte[] data) {
@@ -13,13 +10,14 @@ public class NCEStandardValidation : IResultValidation {
         // '4' = byte count out of range
         // '!' = command completed successfully
         if (data.Length != 1) return new ResultError("Unexpected data returned and not processed.", data!);
+
         return data[0] switch {
-            (byte) '0' => new ResultError("Command not supported."),
-            (byte) '1' => new ResultError("Loco address is out of range."),
-            (byte) '2' => new ResultError("Cab address is out of range."),
-            (byte) '3' => new ResultError("Data provided is out of range."),
-            (byte) '4' => new ResultError("Byte count is out of range."),
-            (byte) '!' => new ResultOK(data),
+            (byte)'0' => new ResultError("Command not supported."),
+            (byte)'1' => new ResultError("Loco address is out of range."),
+            (byte)'2' => new ResultError("Cab address is out of range."),
+            (byte)'3' => new ResultError("Data provided is out of range."),
+            (byte)'4' => new ResultError("Byte count is out of range."),
+            (byte)'!' => new ResultOK(data),
             _ => new ResultError("Unknown response from the NCE System.", data!)
         };
     }

@@ -1,11 +1,8 @@
-﻿using DCCRailway.Core.Systems;
-using DCCRailway.Core.Systems.Commands.Interfaces;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Systems.NCE;
-using DCCRailway.Systems.NCE.Adapters;
+﻿using DCCRailway.System.NCE;
+using DCCRailway.System.NCE.Adapters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DCCRailway.Test; 
+namespace DCCRailway.Test;
 
 [TestClass]
 public class NCEPowerCabAccessoryTest {
@@ -18,7 +15,7 @@ public class NCEPowerCabAccessoryTest {
         Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
         Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 
-        if (system != null && system.Adapter != null)
+        if (system != null && system.Adapter != null) {
             if (system.CreateCommand<ICmdAccySetState>() is ICmdAccySetState accyCmd) {
                 accyCmd.Address = new DCCAddress(0x01, DCCAddressType.Accessory);
                 accyCmd.State = DCCAccessoryState.On;
@@ -45,5 +42,6 @@ public class NCEPowerCabAccessoryTest {
                 system.Execute(accyCmd);
                 Thread.Sleep(1000);
             }
+        }
     }
 }

@@ -17,19 +17,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCCRailway.Server", "DCCRai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCCRailway", "DCCRailway\DCCRailway.csproj", "{B1C696D4-9778-4F10-A9E2-0528FB675FA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Systems.Digitrax", "DCCRailway.System.Digitrax\DCCRailway.Systems.Digitrax.csproj", "{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Digitrax", "DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj", "{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Systems.NCE", "DCCRailway.System.NCE\DCCRailway.Systems.NCE.csproj", "{814A4EEE-CDA5-4CE1-ACE8-AC64C8B68C86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.NCE", "DCCRailway.System.NCE\DCCRailway.System.NCE.csproj", "{814A4EEE-CDA5-4CE1-ACE8-AC64C8B68C86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Systems.Sprog", "DCCRailway.System.Sprog\DCCRailway.Systems.Sprog.csproj", "{483C03E0-FDE2-44DA-B10B-69069513F76B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Sprog", "DCCRailway.System.Sprog\DCCRailway.System.Sprog.csproj", "{483C03E0-FDE2-44DA-B10B-69069513F76B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Systems.Virtual", "DCCRailway.System.Virtual\DCCRailway.Systems.Virtual.csproj", "{18A6D007-3A4B-4326-B98A-9240DD72652B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Virtual", "DCCRailway.System.Virtual\DCCRailway.System.Virtual.csproj", "{18A6D007-3A4B-4326-B98A-9240DD72652B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Conversion", "DCCRailway.Conversion\DCCRailway.Conversion.csproj", "{DDD1BF18-FDC3-465F-8681-52118961C83E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.API", "DCCRailway.API\DCCRailway.API.csproj", "{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Systems", "DCCRailway.Systems\DCCRailway.Systems.csproj", "{E61F9487-50EC-4021-A612-C90C6A9DBC6D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System", "DCCRailway.System\DCCRailway.System.csproj", "{E61F9487-50EC-4021-A612-C90C6A9DBC6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

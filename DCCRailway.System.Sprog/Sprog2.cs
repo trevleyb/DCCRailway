@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using DCCRailway.Core.Attributes;
-using DCCRailway.Core.Systems;
-using DCCRailway.Core.Systems.Adapters.Events;
-using DCCRailway.Core.Systems.Attributes;
-using DCCRailway.Core.Systems.Types;
-using DCCRailway.Core.Utilities;
-using DCCRailway.Systems.Virtual;
+﻿using DCCRailway.Core.Utilities;
+using DCCRailway.System.Virtual;
 
-namespace DCCRailway.Systems.Sprog; 
+namespace DCCRailway.System.Sprog;
 
 [System("Sprog II", "DCCSystems", "Sprog II")]
 public class Sprog2 : Core.Systems.System, ISystem {
@@ -24,14 +17,13 @@ public class Sprog2 : Core.Systems.System, ISystem {
         ClearAdapters();
         RegisterAdapter<SprogVirtualAdapter>();
     }
-    
+
     protected override void RegisterCommands() {
         //RegisterCommand<IDummyCmd> (typeof (Commands.VirtualDummy));
         //RegisterCommand<ICmdStatus> (typeof (Commands.VirtualStatus));
     }
 
     #region Manage the events from the Adapter
-
     protected override void Adapter_ErrorOccurred(object? sender, ErrorArgs e) {
         Logger.Log.Debug("Error occurred in the Adapter: " + e);
     }
@@ -47,6 +39,5 @@ public class Sprog2 : Core.Systems.System, ISystem {
     protected override void Adapter_DataReceived(object? sender, DataRecvArgs e) {
         Logger.Log.Debug("Data was recieved from the Adapter: " + e.Data?.ToDisplayValues());
     }
-
     #endregion
 }

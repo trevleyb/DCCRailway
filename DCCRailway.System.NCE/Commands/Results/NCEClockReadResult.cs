@@ -1,7 +1,6 @@
 ﻿using System;
-using DCCRailway.Core.Systems.Commands.Results;
 
-namespace DCCRailway.Systems.NCE.Commands; 
+namespace DCCRailway.System.NCE.Commands;
 
 public class NCEClockReadResult : ResultOK, IResult {
     private readonly int _hour;
