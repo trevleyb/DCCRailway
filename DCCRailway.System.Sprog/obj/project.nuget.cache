@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6U2SsvU9mFEPOfwwnBqGzsKxm6ur0v5yTuCuWy2FpGCjBj8Y4eXRu5nR2AqHs/KOD9NQZ0rSO1sDImDRAWmQ2w==",
+  "dgSpecHash": "Q3gLBsM4eC5p/FtVkFpjsCm5QaeMdO3AzSFu1pEW5rPu1qs1Qq4NYgGLRZ6YNAgwpESD7r0uOl6VAEqPYyxmFw==",
   "success": true,
-  "projectFilePath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Sprog/DCCRailway.System.Sprog.csproj",
+  "projectFilePath": "/Users/trevorleybourne/Development/DCCRailway/DCCRailway.System.Sprog/DCCRailway.System.Sprog.csproj",
   "expectedPackageFiles": [
     "/Users/trevorleybourne/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "/Users/trevorleybourne/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",

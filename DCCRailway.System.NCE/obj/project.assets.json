@@ -5245,11 +5245,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.NCE/DCCRailway.System.NCE.csproj",
+      "projectUniqueName": "/Users/trevorleybourne/Development/DCCRailway/DCCRailway.System.NCE/DCCRailway.System.NCE.csproj",
       "projectName": "DCCRailway.System.NCE",
-      "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.NCE/DCCRailway.System.NCE.csproj",
+      "projectPath": "/Users/trevorleybourne/Development/DCCRailway/DCCRailway.System.NCE/DCCRailway.System.NCE.csproj",
       "packagesPath": "/Users/trevorleybourne/.nuget/packages/",
-      "outputPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.NCE/obj/",
+      "outputPath": "/Users/trevorleybourne/Development/DCCRailway/DCCRailway.System.NCE/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/trevorleybourne/.nuget/NuGet/NuGet.Config"
@@ -5264,8 +5264,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System/DCCRailway.System.csproj": {
-              "projectPath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System/DCCRailway.System.csproj"
+            "/Users/trevorleybourne/Development/DCCRailway/DCCRailway.System/DCCRailway.System.csproj": {
+              "projectPath": "/Users/trevorleybourne/Development/DCCRailway/DCCRailway.System/DCCRailway.System.csproj"
             }
           }
         }

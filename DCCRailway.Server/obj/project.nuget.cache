@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "c2gUzv0UZdM27MFEZ/i0dZGZJb3MpexuDGL3X9fJJcVFmyxbAd3GY5dnSYWupMt448rp8dghu1BnKgZI/w+k6g==",
+  "dgSpecHash": "AixNiF/SVin1W3o1+GhycdU2d5KTzaa4Px+DGLTWzE+B9T+QKFOeEB4IMko7kybBU/HI1LYcivn57f6lAuW2sA==",
   "success": true,
-  "projectFilePath": "/Users/trevorleybourne/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Server/DCCRailway.Server.csproj",
+  "projectFilePath": "/Users/trevorleybourne/Development/DCCRailway/DCCRailway.Server/DCCRailway.Server.csproj",
   "expectedPackageFiles": [
     "/Users/trevorleybourne/.nuget/packages/common.logging/3.4.1/common.logging.3.4.1.nupkg.sha512",
     "/Users/trevorleybourne/.nuget/packages/common.logging.core/3.4.1/common.logging.core.3.4.1.nupkg.sha512",
