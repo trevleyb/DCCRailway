@@ -3,6 +3,7 @@ using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
+using DCCRailway.System.Virtual.Adapters;
 using DCCRailway.System.Virtual.Commands;
 
 namespace DCCRailway.System.Virtual;

@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,6 +9,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("LocoStop", "Stop the Loco")]
 public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
     public NCELocoStop() { }
 
@@ -23,9 +25,7 @@ public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
     public DCCDirection Direction { get; set; }
 
     public IDCCAddress Address { get; set; }
-
-    public static string Name => "NCE Stop Loco";
-
+    
     public override IResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
         command = command.AddToArray(((DCCAddress)Address).AddressBytes);

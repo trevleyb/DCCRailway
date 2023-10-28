@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
+using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Utilities;
@@ -12,6 +14,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("SensorGetState", "Get the state of a given Sensor")]
 public class NCESensorGetState : NCECommand, ICmdSensorGetState {
     private readonly SensorCache _sensorCache = new();
 
@@ -29,8 +32,6 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
         SensorAddress = address;
         SensorAddress.AddressType = DCCAddressType.Accessory;
     }
-
-    public static string Name => "NCE Get the State of a Sensor";
 
     public IDCCAddress SensorAddress { get; set; }
 

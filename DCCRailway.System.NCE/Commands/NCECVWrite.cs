@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -9,14 +10,13 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("CVWrite", "Write a value to a CV on a Loco")]
 public class NCECVWrite : NCECommand, ICmdCVWrite, ICommand {
     public NCECVWrite(int cv = 0, byte value = 0) {
         CV = cv;
         Value = value;
     }
-
-    public static string Name => "NCE WriteCV Command";
-
+    
     public DCCProgrammingMode ProgrammingMode { get; set; }
     public int CV { get; set; }
     public byte Value { get; set; }

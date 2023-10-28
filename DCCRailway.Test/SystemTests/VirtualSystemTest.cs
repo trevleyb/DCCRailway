@@ -2,6 +2,7 @@
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Utilities;
 using DCCRailway.System.Virtual;
+using DCCRailway.System.Virtual.Adapters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DCCRailway.Test;

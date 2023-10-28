@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,6 +9,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("LocoOpsProg", "Program a Loco in Ops Mode (POM)")]
 public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
     public NCELocoOpsProg() { }
 
@@ -22,9 +24,7 @@ public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
         CVAddress = cvAddress;
         Value = value;
     }
-
-    public static string Name => "NCE Loco Programming on Main (POM)";
-
+    
     public IDCCAddress LocoAddress { get; set; }
     public IDCCAddress CVAddress { get; set; }
     public byte Value { get; set; }

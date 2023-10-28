@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,15 +9,13 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("AccySetState", "Set the state of an Accessory")]
 public class NCEAccySetState : NCECommand, ICmdAccySetState, ICommand {
     public NCEAccySetState() { }
 
     public NCEAccySetState(DCCAccessoryState state = DCCAccessoryState.Normal) {
         State = state;
     }
-
-    public static string Name => "NCE Set Accessory State";
-
     public IDCCAddress Address { get; set; }
     public DCCAccessoryState State { get; set; }
 

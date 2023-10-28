@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,6 +9,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("LocoSetSpeedSteps", "Set the number of Speed Steps for this Loco")]
 public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand {
     public NCELocoSetSpeedSteps() { }
 
@@ -17,9 +19,7 @@ public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand 
         Address = address;
         SpeedSteps = speedSteps;
     }
-
-    public static string Name => "NCE Set Loco Speed Steps";
-
+    
     public IDCCAddress Address { get; set; }
     public DCCProtocol SpeedSteps { get; set; }
 

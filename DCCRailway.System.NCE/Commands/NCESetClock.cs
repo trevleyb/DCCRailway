@@ -1,5 +1,6 @@
 ﻿using System;
 using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,14 +9,13 @@ using DCCRailway.System.NCE.Commands.Validators;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("SetClock", "Set the Clock on a NCE controller")]
 public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
     private int _hour = 12;
     private bool _is24Hour;
     private int _minute;
     private int _ratio = 1;
-
-    public static string Name => "NCE Set Clock";
-
+    
     public int Hour {
         set {
             if (value <= 0 || value > 24) throw new ValidationException("Hour must be in the range of 1..24");

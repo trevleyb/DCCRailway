@@ -97,7 +97,6 @@ public static class ExtensionMethods {
             sb.Append(Convert.ToHexString(bytes, i, 1));
             if (i < bytes.Length - 1) sb.Append('-');
         }
-
         return sb.ToString();
     }
 
@@ -109,7 +108,6 @@ public static class ExtensionMethods {
             sb.Append(Convert.ToChar(bytes[i]));
             if (i < bytes.Length - 1) sb.Append('-');
         }
-
         return sb.ToString();
     }
 
@@ -119,7 +117,6 @@ public static class ExtensionMethods {
         sb.Append(" (");
         sb.Append(bytes.ToDisplayChars());
         sb.Append(')');
-
         return sb.ToString();
     }
 
@@ -129,7 +126,6 @@ public static class ExtensionMethods {
 
     public static string? FromByteArray(this byte[] bytes, int length) {
         if (bytes != null && bytes.Length >= length) return Encoding.Default.GetString(bytes, 0, length);
-
         return null;
     }
 
@@ -142,7 +138,6 @@ public static class ExtensionMethods {
     public static bool Compare(this byte[]? array1, byte[]? array2) {
         if (array1 == null || array2 == null) return false;
         if (array1.Length != array2.Length) return false;
-
         return !array1.Where((t, i) => t != array2[i]).Any();
     }
 }

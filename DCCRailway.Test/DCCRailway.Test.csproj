@@ -15,6 +15,7 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="6.11.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
         <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
         <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
@@ -28,7 +29,6 @@
         <None Remove="ServerTest\" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Utility\" />
         <Folder Include="WiThrottleTest\" />
     </ItemGroup>
     <ItemGroup>

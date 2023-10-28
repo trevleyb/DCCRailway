@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,14 +9,13 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("ConsistCreate", "Create a Consist")]
 public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
     public byte ConsistAddress { get; set; }
     public IDCCLoco LeadLoco { get; set; }
     public IDCCLoco RearLoco { get; set; }
     public List<IDCCLoco> AddLoco { get; } = new();
-
-    public static string Name => "NCE Consist Create";
-
+    
     public override IResult Execute(IAdapter adapter) {
         IResult result;
 

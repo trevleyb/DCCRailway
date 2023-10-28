@@ -2,7 +2,7 @@
 using DCCRailway.System.Adapters;
 using DCCRailway.System.Virtual;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VirtualAdapter = DCCRailway.System.Virtual.VirtualAdapter;
+using VirtualAdapter = DCCRailway.System.Virtual.Adapters.VirtualAdapter;
 
 namespace DCCRailway.Test;
 

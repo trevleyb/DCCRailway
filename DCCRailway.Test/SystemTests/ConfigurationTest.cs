@@ -4,6 +4,7 @@ using DCCRailway.System.Config;
 using DCCRailway.System.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Decoder = DCCRailway.System.Config.Decoder;
+using FluentAssertions;
 
 namespace DCCRailway.Test;
 

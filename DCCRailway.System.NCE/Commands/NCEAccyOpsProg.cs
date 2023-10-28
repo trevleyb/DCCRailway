@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -9,6 +10,7 @@ using NotImplementedException = System.NotImplementedException;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("AccyOpsProg", "Accessory Ops Programming")]
 public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand {
     public NCEAccyOpsProg() { }
 

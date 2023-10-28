@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,6 +9,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("LocoSetFunctions", "Set the Loco Functions")]
 public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
     private readonly byte[] _opCodes = { 0x07, 0x08, 0x09, 0x15, 0x16 };
 
@@ -26,9 +28,7 @@ public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
     }
 
     public DCCFunctionBlocks Previous { get; set; }
-
-    public static string Name => "NCE Set Loco Functions";
-
+    
     public IDCCAddress Address { get; set; }
     public DCCFunctionBlocks Functions { get; }
 

@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,6 +9,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("ConsistDelete", "Remove a Loco from a Consist")]
 public class NCEConsistDelete : NCECommand, ICmdConsistDelete, ICommand {
     public NCEConsistDelete() { }
 
@@ -18,9 +20,6 @@ public class NCEConsistDelete : NCECommand, ICmdConsistDelete, ICommand {
     }
 
     public IDCCAddress Address { get; set; }
-
-    public static string Name => "NCE Consist Delete";
-
     public override IResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
         command = command.AddToArray(Address.AddressBytes);

@@ -1,12 +1,14 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
+using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
 using DCCRailway.System.NCE.Commands.Validators;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("DummyCmd", "A Dummy Command that does not do anything")]
 public class NCEDummyCmd : NCECommand, IDummyCmd {
-    public string Name => "NCE Dummy Command";
 
     protected byte[] CommandData {
         get { return new byte[] { 0x80 }; }

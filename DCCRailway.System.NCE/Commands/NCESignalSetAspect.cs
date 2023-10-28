@@ -1,5 +1,6 @@
 ﻿using System;
 using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -9,6 +10,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("SetSignalAspect", "Set the Aspect of a defined Signal")]
 public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
     private byte _aspect;
 
@@ -17,8 +19,6 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
     public NCESignalSetAspect(byte aspect = 0) {
         Aspect = aspect;
     }
-
-    public static string Name => "NCE Set Signal Aspect";
 
     public IDCCAddress Address { get; set; }
 
@@ -51,6 +51,6 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
     }
 
     public override string ToString() {
-        return $"SIGNAL ASPECT ({Address}@{Aspect}";
+        return $"SIGNAL ASPECT ({Address}@{Aspect})";
     }
 }

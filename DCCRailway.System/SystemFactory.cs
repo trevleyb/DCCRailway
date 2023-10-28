@@ -39,7 +39,7 @@ public static class SystemFactory {
     /// <returns>An ISystem instance</returns>
     /// <exception cref="ApplicationException"></exception>
     public static ISystem Create(string manufacturer, string systemName, IAdapter? adapter = null, string defaultPath = ".") {
-        var system = Find(manufacturer, systemName, defaultPath);
+        var system = Find(systemName, defaultPath);
 
         if (system != null) return system.Create(adapter);
 
@@ -64,7 +64,7 @@ public static class SystemFactory {
     public static List<SystemEntry> SupportedSystems(string defaultPath = ".") {
         // Get a list of files in the current folder and then look at each one to see if it is a DCCSystem assembly
         // ---------------------------------------------------------------------------------------------------------
-        const string pattern = @"(.*)DCCRailway\.Systems.(\D+)\.dll";
+        const string pattern = @"(.*)DCCRailway\.System.(\D+)\.dll";
 
         if (!Directory.Exists(defaultPath)) throw new ApplicationException("[SystemFactory] Invalid Path provided for the Assembly Search");
         var fileEntries = Directory.GetFiles(defaultPath).Where(path => Regex.Match(path, pattern).Success).ToList();
@@ -107,9 +107,9 @@ public static class SystemFactory {
         return supportedSystems;
     }
 
-    private static SystemEntry? Find(string name, string manufacturer, string defaultPath) {
-        return SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Manufacturer.Equals(manufacturer, StringComparison.OrdinalIgnoreCase));
-    }
+    //private static SystemEntry? Find(string name, string manufacturer, string defaultPath) {
+    //    return SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Manufacturer.Equals(manufacturer, StringComparison.OrdinalIgnoreCase));
+    //}
 
     private static SystemEntry? Find(string name, string defaultPath) {
         return SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));

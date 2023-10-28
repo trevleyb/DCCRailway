@@ -6,8 +6,8 @@ using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Virtual.Adapters;
 
-[Adapter("Virtual", AdapterType.Virtual)]
-public class VirtualAdapter : Adapter, IAdapter {
+[Adapter("Sprog", AdapterType.Virtual)]
+public class SprogAdapter : Adapter, IAdapter {
     private byte[] _lastCommand;
 
     public bool IsConnected { get; private set; }

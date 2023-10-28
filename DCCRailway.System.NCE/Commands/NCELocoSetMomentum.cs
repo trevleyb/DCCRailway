@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,6 +9,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("LocoSetMomentum", "Set the Momentum of a Loco")]
 public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
     public NCELocoSetMomentum() { }
 
@@ -17,9 +19,7 @@ public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
         Address = address;
         Momentum = momentum;
     }
-
-    public static string Name => "NCE Set Loco Momentum";
-
+    
     public IDCCAddress Address { get; set; }
     public byte Momentum { get; set; }
 

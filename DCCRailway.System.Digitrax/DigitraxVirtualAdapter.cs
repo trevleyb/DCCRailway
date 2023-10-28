@@ -6,7 +6,7 @@ using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Virtual;
 
-[Adapter("Dixitrax")]
+[Adapter("Digxitrax")]
 public class DigitraxVirtualAdapter : Adapter, IAdapter {
     private byte[] _lastCommand;
 

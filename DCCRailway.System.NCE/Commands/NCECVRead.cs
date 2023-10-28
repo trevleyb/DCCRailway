@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -9,13 +10,12 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("CVRead", "Read a CV from a Loco")]
 public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
     public NCECVRead(int cv = 0) {
         CV = cv;
     }
-
-    public static string Name => "NCE ReadCV Command";
-
+    
     public DCCProgrammingMode ProgrammingMode { get; set; }
     public int CV { get; set; }
 

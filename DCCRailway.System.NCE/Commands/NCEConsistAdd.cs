@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,6 +9,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("ConsistAdd", "Add a Loco to a Consist")]
 public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
     public NCEConsistAdd() { }
 
@@ -18,9 +20,7 @@ public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
     }
 
     public NCEConsistAdd(byte consistAddress, IDCCAddress address, DCCDirection direction = DCCDirection.Forward, DCCConsistPosition position = DCCConsistPosition.Front) : this(consistAddress, new DCCLoco(address, direction), position) { }
-
-    public static string Name => "NCE Consist Add";
-
+    
     public byte ConsistAddress { get; set; }
     public IDCCLoco Loco { get; set; }
     public DCCConsistPosition Position { get; set; }

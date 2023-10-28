@@ -1,3 +1,4 @@
+using System.Reflection;
 using DCCRailway.System.Adapters;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
@@ -5,10 +6,10 @@ using DCCRailway.System.Commands;
 namespace DCCRailway.System.Utilities;
 
 public static class AttributeExtractor {
-    public static T? GetAttribute<T>(Type type) where T : class {
+    public static T? GetAttribute<T>(ICustomAttributeProvider type) where T : class {
         try {
+            var attrs = type.GetCustomAttributes(typeof(T), true); 
             var attr = type.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T;
-
             return attr;
         }
         catch {

@@ -9,13 +9,13 @@ using DCCRailway.System.Utilities;
 namespace DCCRailway.System;
 
 public abstract class System : ISystem {
-    private IAdapter? _adapter; // Stores the adapter to be used
-    protected Dictionary<Type, (Type Adapter, string Name)> _adapters = new(); // Stores what operations the system will provide
-    protected Dictionary<Type, (Type Command, string Name)> _commands = new(); // Stores what operations the system will provide
+    private IAdapter?                                     _adapter;          // Stores the adapter to be used
+    private Dictionary<Type, (Type Adapter, string Name)> _adapters = new(); // Stores what operations the system will provide
+    private Dictionary<Type, (Type Command, string Name)> _commands = new(); // Stores what operations the system will provide
 
     /// <summary>
     ///     Execute a Given Command. We do this here so we can manage and log all command being executed
-    ///     and the results that each command recieved.
+    ///     and the results that each command received.
     /// </summary>
     /// <param name="command">The command object to be executed</param>
     /// <returns>A result object of type IResult which should be cast according to the command</returns>
@@ -26,10 +26,10 @@ public abstract class System : ISystem {
         return command.Execute(_adapter);
     }
 
-    protected abstract void Adapter_ErrorOccurred(object? sender, ErrorArgs e);
+    protected abstract void Adapter_ErrorOccurred(object?           sender, ErrorArgs        e);
     protected abstract void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e);
-    protected abstract void Adapter_DataSent(object? sender, DataSentArgs e);
-    protected abstract void Adapter_DataReceived(object? sender, DataRecvArgs e);
+    protected abstract void Adapter_DataSent(object?                sender, DataSentArgs     e);
+    protected abstract void Adapter_DataReceived(object?            sender, DataRecvArgs     e);
 
     #region Create an Address. Must be overriden to the supported Command Station
     public abstract IDCCAddress CreateAddress();
@@ -43,7 +43,7 @@ public abstract class System : ISystem {
     public IAdapter? Adapter {
         get => _adapter;
         set {
-            if (_adapter != value) Detatch();
+            if (_adapter != value) Detach();
             Attach(value);
         }
     }
@@ -53,7 +53,7 @@ public abstract class System : ISystem {
     ///     System.Adapter = System.CreateAdapter(name);
     /// </summary>
     public IAdapter? CreateAdapter<T>() where T : IAdapter {
-        if (SupportedAdapters != null && SupportedAdapters.Count > 0) {
+        if (SupportedAdapters is { Count: > 0 }) {
             foreach (var (adapter, _) in SupportedAdapters!) {
                 if (adapter == typeof(T)) {
                     return (IAdapter?)Activator.CreateInstance(adapter);
@@ -69,7 +69,7 @@ public abstract class System : ISystem {
     ///     System.Adapter = System.CreateAdapter(name);
     /// </summary>
     public IAdapter? CreateAdapter(string adapterName) {
-        if (SupportedAdapters != null && SupportedAdapters.Count > 0) {
+        if (SupportedAdapters is { Count: > 0 }) {
             foreach (var (adapter, name) in SupportedAdapters!) {
                 if (name.Equals(adapterName, StringComparison.InvariantCultureIgnoreCase)) {
                     return (IAdapter?)Activator.CreateInstance(adapter);
@@ -83,11 +83,11 @@ public abstract class System : ISystem {
     /// <summary>
     ///     Remove an previously attached adapter. Ensure it is closed and resources returned
     /// </summary>
-    public void Detatch() {
+    public void Detach() {
         if (_adapter != null) {
-            _adapter.DataReceived -= Adapter_DataReceived;
-            _adapter.DataSent -= Adapter_DataSent;
-            _adapter.ErrorOccurred -= Adapter_ErrorOccurred;
+            _adapter.DataReceived            -= Adapter_DataReceived;
+            _adapter.DataSent                -= Adapter_DataSent;
+            _adapter.ErrorOccurred           -= Adapter_ErrorOccurred;
             _adapter.ConnectionStatusChanged -= Adapter_ConnectionStatusChanged;
             _adapter.Disconnect();
             _commands = new Dictionary<Type, (Type command, string name)>();
@@ -96,10 +96,10 @@ public abstract class System : ISystem {
 
     public IAdapter? Attach(IAdapter? adapter) {
         if (adapter != null) {
-            _adapter = adapter;
-            _adapter.DataReceived += Adapter_DataReceived;
-            _adapter.DataSent += Adapter_DataSent;
-            _adapter.ErrorOccurred += Adapter_ErrorOccurred;
+            _adapter                         =  adapter;
+            _adapter.DataReceived            += Adapter_DataReceived;
+            _adapter.DataSent                += Adapter_DataSent;
+            _adapter.ErrorOccurred           += Adapter_ErrorOccurred;
             _adapter.ConnectionStatusChanged += Adapter_ConnectionStatusChanged;
             _adapter.Connect();
             RegisterCommands();
@@ -118,20 +118,15 @@ public abstract class System : ISystem {
     /// </summary>
     protected abstract void RegisterCommands();
 
-    protected void ClearCommands() {
-        _commands = new Dictionary<Type, (Type Command, string Name)>();
-    }
+    protected void ClearCommands() => _commands = new Dictionary<Type, (Type Command, string Name)>();
 
     protected abstract void RegisterAdapters();
 
-    protected void ClearAdapters() {
-        _adapters = new Dictionary<Type, (Type Adapter, string Name)>();
-    }
+    protected void ClearAdapters() => _adapters = new Dictionary<Type, (Type Adapter, string Name)>();
 
     protected void RegisterCommand<T>(Type command) where T : ICommand {
         var attr = AttributeExtractor.GetAttribute<CommandAttribute>(command);
-
-        if (attr == null || string.IsNullOrEmpty(attr.Name)) throw new ApplicationException("Command instance cannot be NULL and must be a concrete object.");
+        if (attr == null || string.IsNullOrEmpty(attr.Name)) throw new ApplicationException("Command does not contain Info Definition. Add Attributes first");
         if (!_commands.ContainsKey(typeof(T))) _commands.TryAdd(typeof(T), (command, attr.Name));
     }
 
@@ -143,13 +138,11 @@ public abstract class System : ISystem {
         foreach (KeyValuePair<Type, (Type command, string name)> entry in _commands) {
             if (entry.Key == typeof(T)) return true;
         }
-
         return false;
     }
 
     protected void RegisterAdapter<T>() where T : IAdapter {
         var attr = AttributeExtractor.GetAttribute<AdapterAttribute>(typeof(T));
-
         if (attr == null || string.IsNullOrEmpty(attr.Name)) throw new ApplicationException("Adapter instance cannot be NULL and must be a concrete object.");
         if (!_adapters.ContainsKey(typeof(T))) _adapters.TryAdd(typeof(T), (typeof(T), attr.Name));
     }
@@ -157,7 +150,6 @@ public abstract class System : ISystem {
     protected void UnRegisterAdapter<T>() where T : IAdapter {
         if (_adapters.ContainsKey(typeof(T))) _adapters.Remove(typeof(T));
     }
-
 
     public List<(Type command, string name)>? SupportedCommands => _commands.Values.ToList();
     public List<(Type adapter, string name)>? SupportedAdapters => _adapters.Values.ToList();
@@ -173,46 +165,32 @@ public abstract class System : ISystem {
     /// <returns>An object instance that is a Type T object</returns>
     public TCommand? CreateCommand<TCommand>() where TCommand : ICommand {
         if (_adapter == null) throw new ApplicationException("Adapter cannot be null when creating commands");
-
         var typeToCreate = _commands[typeof(TCommand)].Command ?? null;
-
         if (typeToCreate == null) throw new ApplicationException("Should not have an instance where the command returned is NULL");
 
         try {
             var command = (TCommand?)Activator.CreateInstance(typeToCreate, true);
-
             if (command == null) throw new ApplicationException("Could not create an instance of the command.");
-
             return command;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException("Could not create an instance of the command.", ex);
         }
     }
 
-    public TCommand? CreateCommand<TCommand>(int value) where TCommand : ICommand {
-        return Create<TCommand, int>(value);
-    }
+    public TCommand? CreateCommand<TCommand>(int value) where TCommand : ICommand => Create<TCommand, int>(value);
 
-    public TCommand? CreateCommand<TCommand>(byte value) where TCommand : ICommand {
-        return Create<TCommand, byte>(value);
-    }
+    public TCommand? CreateCommand<TCommand>(byte value) where TCommand : ICommand => Create<TCommand, byte>(value);
 
     private TCommand? Create<TCommand, P>(P value) where TCommand : ICommand {
         if (_adapter == null) throw new ApplicationException("Adapter cannot be null when creating commands");
-
         var typeToCreate = _commands[typeof(TCommand)].Command ?? null;
-
         if (typeToCreate == null) throw new ApplicationException("Should not have an instance where the command returned is NULL");
 
         try {
             var command = (TCommand?)Activator.CreateInstance(typeToCreate, value);
-
             if (command == null) throw new ApplicationException("Could not create an instance of the command.");
-
             return command;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException("Could not create an instance of the command.", ex);
         }
     }

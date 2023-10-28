@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
@@ -8,6 +9,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;
 
+[Command("ConsistKill", "Remove a whole Consist")]
 public class NCEConsistKill : NCECommand, ICmdConsistKill, ICommand {
     public NCEConsistKill() { }
 
@@ -18,9 +20,7 @@ public class NCEConsistKill : NCECommand, ICmdConsistKill, ICommand {
     }
 
     public IDCCAddress Address { get; set; }
-
-    public static string Name => "NCE Consist Kill";
-
+    
     public override IResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
         command = command.AddToArray(Address.AddressBytes);
