@@ -6,7 +6,7 @@ namespace DCCRailway.System.Config;
 [XmlRoot(ElementName = "Decoder")]
 public class Decoder {
     public Decoder() {
-        Parameters = new Parameters();
+        Parameters   = new Parameters();
         Manufacturer = new Manufacturer { Name = "Unknown", Identifier = 00 };
     }
 
@@ -28,6 +28,6 @@ public class Decoder {
     [XmlAttribute(AttributeName = "SpeedSteps")]
     public DCCProtocol Protocol { get; set; }
 
-    [XmlArray(ElementName = "Parameters")] 
+    [XmlArray(ElementName = "Parameters")]
     public Parameters Parameters { get; set; }
 }

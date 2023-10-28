@@ -2,7 +2,7 @@ namespace DccRailway.API.Entities;
 
 [Serializable]
 public class Loco : IEntity<Guid> {
-    public Guid Id { get; set; }
+    public Guid   Id   { get; set; }
     public string Name { get; set; }
 
     //public string Description { get; set; }
@@ -14,7 +14,5 @@ public class Loco : IEntity<Guid> {
 
     //public Decoder Decoder { get; set; }
     //public Parameters Parameters { get; set; }
-    public Guid GenerateID() {
-        return Guid.NewGuid();
-    }
+    public Guid GenerateID() => Guid.NewGuid();
 }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using DCCRailway.System.Adapters;
 using DCCRailway.System.Attributes;
-using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Types;
+using DCCRailway.System.Utilities;
 
 [assembly: InternalsVisibleTo("DCCRailway.Test.NCEPowerCabSensorTests")]
 
@@ -20,16 +19,12 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
 
     public NCESensorGetState() { }
 
-    public NCESensorGetState(byte cab, byte pin) {
-        SetAddressByCabPin(cab, pin);
-    }
+    public NCESensorGetState(byte cab, byte pin) => SetAddressByCabPin(cab, pin);
 
-    public NCESensorGetState(int address) {
-        SensorAddress = new DCCAddress(address, DCCAddressType.Accessory);
-    }
+    public NCESensorGetState(int address) => SensorAddress = new DCCAddress(address, DCCAddressType.Accessory);
 
     public NCESensorGetState(IDCCAddress address) {
-        SensorAddress = address;
+        SensorAddress             = address;
         SensorAddress.AddressType = DCCAddressType.Accessory;
     }
 
@@ -46,13 +41,9 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
         return new ResultState(_sensorCache.GetState(SensorAddress.Address));
     }
 
-    public void SetAddressByCabPin(byte cab, byte pin) {
-        SensorAddress = new DCCAddress(CalculateAddress(cab, pin), DCCAddressType.Accessory);
-    }
+    public void SetAddressByCabPin(byte cab, byte pin) => SensorAddress = new DCCAddress(CalculateAddress(cab, pin), DCCAddressType.Accessory);
 
-    protected internal static (byte cab, byte pin) CalculateCabPin(IDCCAddress address) {
-        return CalculateCabPin(address.Address);
-    }
+    protected internal static (byte cab, byte pin) CalculateCabPin(IDCCAddress address) => CalculateCabPin(address.Address);
 
     protected internal static (byte cab, byte pin) CalculateCabPin(int address) {
         var pin = address % 16 + 1;
@@ -61,14 +52,12 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
         return ((byte)cab, (byte)pin);
     }
 
-    protected internal static int CalculateAddress(byte cab, byte pin) {
-        // Formula (copied from JMRI) is :
-        return (cab - 1) * 16 + (pin - 1);
-    }
+    protected internal static int CalculateAddress(byte cab, byte pin) =>
 
-    public override string ToString() {
-        return $"GET SENSOR STATE ({SensorAddress})";
-    }
+        // Formula (copied from JMRI) is :
+        (cab - 1) * 16 + (pin - 1);
+
+    public override string ToString() => $"GET SENSOR STATE ({SensorAddress})";
 
     /// <summary>
     ///     A simple cache of the data so we don't need to continuously go to the command
@@ -77,9 +66,9 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
     ///     we need to pull all the states quickly.
     /// </summary>
     protected class SensorCache {
-        private const int CACHE_VALIDITY = 1000;
-        protected DateTime lastUpdated;
-        protected Dictionary<int, byte[]> sensorEntry;
+        private const int                     CACHE_VALIDITY = 1000;
+        protected     DateTime                lastUpdated;
+        protected     Dictionary<int, byte[]> sensorEntry;
 
         public SensorCache() {
             lastUpdated = DateTime.MinValue;
@@ -88,7 +77,7 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
 
         public bool IsCurrent {
             get {
-                var ts = DateTime.Now - lastUpdated;
+                var ts        = DateTime.Now - lastUpdated;
                 var isCurrent = ts.TotalMilliseconds < CACHE_VALIDITY;
 
                 return isCurrent;
@@ -123,12 +112,10 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
                     if (pin >= 1 && pin <= 8) {
                         pinCheck = new byte().SetBit(pin - 1, true);
                         pinValue = data?[1].Invert();
-                    }
-                    else if (pin >= 9 && pin <= 16) {
+                    } else if (pin >= 9 && pin <= 16) {
                         pinCheck = new byte().SetBit(pin - 9, true);
                         pinValue = (byte?)(data?[0].Invert() - 0xC0);
-                    }
-                    else {
+                    } else {
                         return false;
                     }
 
@@ -136,8 +123,7 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
                 }
 
                 return false;
-            }
-            catch {
+            } catch {
                 return false;
             }
         }

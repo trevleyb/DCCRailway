@@ -15,7 +15,7 @@ public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
 
     public NCELocoSetFunctions() {
         Functions = new DCCFunctionBlocks();
-        Previous = new DCCFunctionBlocks();
+        Previous  = new DCCFunctionBlocks();
     }
 
     public NCELocoSetFunctions(int address) : this(new DCCAddress(address), new DCCFunctionBlocks()) { }
@@ -23,13 +23,13 @@ public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
     public NCELocoSetFunctions(int address, DCCFunctionBlocks functions) : this(new DCCAddress(address), functions) { }
 
     public NCELocoSetFunctions(IDCCAddress address, DCCFunctionBlocks functions) {
-        Address = address;
+        Address   = address;
         Functions = functions;
     }
 
     public DCCFunctionBlocks Previous { get; set; }
-    
-    public IDCCAddress Address { get; set; }
+
+    public IDCCAddress       Address   { get; set; }
     public DCCFunctionBlocks Functions { get; }
 
     public override IResult Execute(IAdapter adapter) {

@@ -11,11 +11,11 @@ namespace DCCRailway.System.NCE.Commands;
 
 [Command("ConsistCreate", "Create a Consist")]
 public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
-    public byte ConsistAddress { get; set; }
-    public IDCCLoco LeadLoco { get; set; }
-    public IDCCLoco RearLoco { get; set; }
-    public List<IDCCLoco> AddLoco { get; } = new();
-    
+    public byte           ConsistAddress { get; set; }
+    public IDCCLoco       LeadLoco       { get; set; }
+    public IDCCLoco       RearLoco       { get; set; }
+    public List<IDCCLoco> AddLoco        { get; } = new();
+
     public override IResult Execute(IAdapter adapter) {
         IResult result;
 

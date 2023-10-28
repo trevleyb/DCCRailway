@@ -1,12 +1,12 @@
-﻿using DCCRailway.System.Adapters;
+﻿using System;
+using DCCRailway.System.Adapters;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Types;
-using NotImplementedException = System.NotImplementedException;
+using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.NCE.Commands;
 
@@ -16,21 +16,21 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand {
 
     public NCEAccyOpsProg(int locoAddress, DCCAddressType type, int cvAddress, byte value) {
         LocoAddress = new DCCAddress(locoAddress, type);
-        CVAddress = new DCCAddress(cvAddress, DCCAddressType.CV);
-        Value = value;
+        CVAddress   = new DCCAddress(cvAddress, DCCAddressType.CV);
+        Value       = value;
     }
 
     public NCEAccyOpsProg(IDCCAddress locoAddress, IDCCAddress cvAddress, byte value) {
         LocoAddress = locoAddress;
-        CVAddress = cvAddress;
-        Value = value;
+        CVAddress   = cvAddress;
+        Value       = value;
     }
 
     public static string Name => "NCE Accessory Programming";
 
     public IDCCAddress LocoAddress { get; set; }
-    public IDCCAddress CVAddress { get; set; }
-    public byte Value { get; set; }
+    public IDCCAddress CVAddress   { get; set; }
+    public byte        Value       { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAF };
@@ -41,11 +41,7 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand {
         return SendAndReceieve(adapter, new NCEStandardValidation(), cmd);
     }
 
-    private IResult SendAndReceieve(IAdapter adapter, NCEStandardValidation nceStandardValidation, byte[] cmd) {
-        throw new NotImplementedException();
-    }
+    private IResult SendAndReceieve(IAdapter adapter, NCEStandardValidation nceStandardValidation, byte[] cmd) => throw new NotImplementedException();
 
-    public override string ToString() {
-        return $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
-    }
+    public override string ToString() => $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
 }

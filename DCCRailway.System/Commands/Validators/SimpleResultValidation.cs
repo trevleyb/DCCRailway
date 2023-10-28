@@ -3,9 +3,7 @@
 namespace DCCRailway.System.Commands.Validators;
 
 public class SimpleResultValidation : IResultValidation {
-    public SimpleResultValidation(int expectedLength) {
-        LengthExpected = expectedLength;
-    }
+    public SimpleResultValidation(int expectedLength) => LengthExpected = expectedLength;
 
     public int LengthExpected { get; set; }
 

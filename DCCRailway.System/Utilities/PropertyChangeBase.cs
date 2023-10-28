@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace DCCRailway.System.Utilities;
@@ -7,9 +6,7 @@ namespace DCCRailway.System.Utilities;
 public class PropertyChangedBase : INotifyPropertyChanged {
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged(PropertyChangedEventArgs e) {
-        PropertyChanged?.Invoke(this, e);
-    }
+    protected virtual void OnPropertyChanged(PropertyChangedEventArgs e) => PropertyChanged?.Invoke(this, e);
 
     protected void SetPropertyField<T>(ref T field, T newValue, [CallerMemberName] string propertyName = "") {
         if (!EqualityComparer<T>.Default.Equals(field, newValue)) {

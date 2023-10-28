@@ -9,8 +9,7 @@ namespace DCCRailway.Test.AdapterTests;
 public class SerialAdapterTest {
     [TestMethod]
     public void OpenAndCloseAdapter() {
-
-        var adapter = new TestSerial("/dev/cu.SLAB_USBtoUART", 19200, 8);
+        var adapter = new TestSerial("/dev/cu.SLAB_USBtoUART", 19200);
         adapter.Connect();
         adapter.SendData(new byte[] { 0x80 });
         var res = adapter.RecvData();

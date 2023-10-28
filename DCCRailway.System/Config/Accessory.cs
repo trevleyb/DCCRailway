@@ -7,7 +7,7 @@ namespace DCCRailway.System.Config;
 public class Accessory {
     public Accessory() {
         Parameters = new Parameters();
-        Decoder = new Decoder { AddressType = DCCAddressType.Accessory };
+        Decoder    = new Decoder { AddressType = DCCAddressType.Accessory };
     }
 
     [XmlAttribute(AttributeName = "Name")]

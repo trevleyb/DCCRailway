@@ -7,15 +7,15 @@ using DCCRailway.System.Utilities;
 namespace DCCRailway.System.Adapters;
 
 public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
+    private readonly SerialAdapterSettings _serialAdapterSettings;
 
     private SerialPort? _connection;
-    private readonly SerialAdapterSettings _serialAdapterSettings;
 
     /// <summary>
     ///     Return a list of available port names that can be used by the adapter
     /// </summary>
     public static List<string> PortNames => SerialPort.GetPortNames().ToList();
-    
+
     public bool IsConnected => _connection?.IsOpen ?? false;
 
     /// <summary>
@@ -29,9 +29,7 @@ public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
         if (string.IsNullOrEmpty(_serialAdapterSettings.PortName)) throw new AdapterException(this.Info().Name, "No port has been defined. ");
 
         try {
-            _connection = new SerialPort(_serialAdapterSettings.PortName, _serialAdapterSettings.BaudRate, _serialAdapterSettings.Parity, _serialAdapterSettings.DataBits, _serialAdapterSettings.StopBits) {
-                WriteTimeout = _serialAdapterSettings.Timeout, ReadTimeout = _serialAdapterSettings.Timeout
-            };
+            _connection = new SerialPort(_serialAdapterSettings.PortName, _serialAdapterSettings.BaudRate, _serialAdapterSettings.Parity, _serialAdapterSettings.DataBits, _serialAdapterSettings.StopBits) { WriteTimeout = _serialAdapterSettings.Timeout, ReadTimeout = _serialAdapterSettings.Timeout };
 
             _connection.PinChanged += delegate(object sender, SerialPinChangedEventArgs args) {
                 Logger.Log.Debug($"ADAPTER:{this.Info().Name} - Connected = {0}", args.EventType);
@@ -49,8 +47,7 @@ public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
             };
 
             _connection.Open();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new AdapterException(this.Info().Name, "Could not connect to the device: " + _serialAdapterSettings.PortName, ex);
         }
     }
@@ -79,8 +76,8 @@ public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
 
         try {
             var timeoutTime = DateTime.Now.AddMilliseconds(_serialAdapterSettings.Timeout);
-            var returnData = new List<byte>();
-            var readBytes = true;
+            var returnData  = new List<byte>();
+            var readBytes   = true;
 
             while (DateTime.Now < timeoutTime && (readBytes || _connection!.BytesToRead > 0)) {
                 if (_connection!.BytesToRead > 0) {
@@ -97,8 +94,7 @@ public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
             OnDataRecieved(new DataRecvArgs(returnData.ToArray(), this, command));
 
             return returnData.ToArray();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new AdapterException(this.Info().Name, "Could not read from the Command Station", ex);
         }
     }
@@ -116,8 +112,7 @@ public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
         try {
             if (_connection!.BytesToRead > 0) _connection.ReadExisting();
             _connection!.Write(data, 0, data.Length);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new AdapterException(this.Info().Name, "Could not read/write to Command Station", ex);
         }
 
@@ -128,19 +123,13 @@ public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
     ///     Override the ToString to display "Serial = tty @ 9600,8,1,N"
     /// </summary>
     /// <returns>String representation of the connection string</returns>
-    public override string ToString() {
-        return $"Adapter '{this.Info().Name}' = {_serialAdapterSettings.PortName} @ {_serialAdapterSettings.BaudRate},{_serialAdapterSettings.DataBits},{_serialAdapterSettings.StopBits},{_serialAdapterSettings.Parity}";
-    }
+    public override string ToString() => $"Adapter '{this.Info().Name}' = {_serialAdapterSettings.PortName} @ {_serialAdapterSettings.BaudRate},{_serialAdapterSettings.DataBits},{_serialAdapterSettings.StopBits},{_serialAdapterSettings.Parity}";
 
-    
+
     #region Constructor and Destructor
-    protected SerialAdapter(string portName = "dev/ttyUSB0", int baudRate = 9600, int dataBits = 8, Parity parity = Parity.None, StopBits stopBits = StopBits.One, int timeout = 2000) {
-        _serialAdapterSettings = new SerialAdapterSettings(portName, baudRate, dataBits, parity, stopBits, timeout);
-    }
-    
-    protected SerialAdapter(SerialAdapterSettings settings) {
-        _serialAdapterSettings = settings;
-    }
+    protected SerialAdapter(string portName = "dev/ttyUSB0", int baudRate = 9600, int dataBits = 8, Parity parity = Parity.None, StopBits stopBits = StopBits.One, int timeout = 2000) => _serialAdapterSettings = new SerialAdapterSettings(portName, baudRate, dataBits, parity, stopBits, timeout);
+
+    protected SerialAdapter(SerialAdapterSettings settings) => _serialAdapterSettings = settings;
 
     public void Dispose() {
         Dispose(true);

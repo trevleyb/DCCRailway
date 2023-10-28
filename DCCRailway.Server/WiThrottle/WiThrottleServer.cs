@@ -4,33 +4,29 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using DCCRailway.System.Utilities;
 using DCCRailway.Server.Utilities;
 using DCCRailway.Server.WiThrottle.Commands;
+using DCCRailway.System.Utilities;
 
 namespace DCCRailway.Server.WiThrottle;
 
 public class WiThrottleServer {
-    private const ushort DEFAULT_PORT = 12090;
-    private const string _terminator = "\x0A";
+    private const    ushort                   DEFAULT_PORT           = 12090;
+    private const    string                   _terminator            = "\x0A";
     private readonly WiThrottleConnectionList _wiThrottleConnections = new();
 
     /// <summary>
     ///     Default constructor which loads IP/Port from Config to
     ///     start the server.
     /// </summary>
-    public WiThrottleServer() {
-        Start(Network.GetLocalIPAddress(), DEFAULT_PORT);
-    }
+    public WiThrottleServer() => Start(Network.GetLocalIPAddress(), DEFAULT_PORT);
 
     /// <summary>
     ///     Constructor and start up of the Server listener
     /// </summary>
     /// <param name="ip">The IP that we will listen on (default to this IP) </param>
     /// <param name="port">The port that we will listen on</param>
-    public WiThrottleServer(IPAddress ip, ushort port) {
-        Start(ip, port);
-    }
+    public WiThrottleServer(IPAddress ip, ushort port) => Start(ip, port);
 
     /// <summary>
     ///     Indicator that the server is currently active.
@@ -65,24 +61,21 @@ public class WiThrottleServer {
     ///     Causes the Server to stop listening and to shut down all threads that
     ///     have connections.
     /// </summary>
-    public void Stop() {
-        ServerActive = false;
-    }
+    public void Stop() => ServerActive = false;
 
     private void StartListener(TcpListener server) {
         try {
             Logger.Log.Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
 
             while (ServerActive) {
-                var client = server.AcceptTcpClient();
-                Thread t = new(HandleConnection);
+                var    client = server.AcceptTcpClient();
+                Thread t      = new(HandleConnection);
                 t.Start(client);
             }
 
             Logger.Log.Debug("Server Shutting Down on {0}", server.LocalEndpoint);
             server.Stop();
-        }
-        catch (SocketException e) {
+        } catch (SocketException e) {
             Logger.Log.Debug("SocketException: {0}", e);
             server.Stop();
         }
@@ -104,12 +97,12 @@ public class WiThrottleServer {
         var stream = client.GetStream();
         Logger.Log.Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
         var connectionEntry = _wiThrottleConnections.Add((ulong)client.Client.Handle);
-        var cmdFactory = new WiThrottleCmdFactory(connectionEntry!);
+        var cmdFactory      = new WiThrottleCmdFactory(connectionEntry!);
 
         try {
-            var bytesRead = 0;
-            var bytes = new byte[256];
-            StringBuilder buffer = new();
+            var           bytesRead = 0;
+            var           bytes     = new byte[256];
+            StringBuilder buffer    = new();
 
             while ((bytesRead = stream.Read(bytes, 0, bytes.Length)) != 0) {
                 // Read the data and append it to a String Builder in-case there is more data to read.
@@ -148,8 +141,7 @@ public class WiThrottleServer {
 
             Logger.Log.Debug("Connection: Client '{0}' has closed.", connectionEntry?.ConnectionID);
             client.Close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Logger.Log.Error("Exception: {0}", e);
             client.Close();
         }

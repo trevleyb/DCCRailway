@@ -7,14 +7,12 @@ public class DataRecvArgs : EventArgs {
     public DataRecvArgs(byte[]? data, IAdapter? adapter = null, ICommand? command = null) {
         Adapter = adapter;
         Command = command;
-        Data = data;
+        Data    = data;
     }
 
     public ICommand? Command { get; set; }
     public IAdapter? Adapter { get; set; }
-    public byte[]? Data { get; }
+    public byte[]?   Data    { get; }
 
-    public override string ToString() {
-        return $"RECVDATA: {Adapter?.Info().Description ?? "Unknown Adapter"}: {Command?.ToString() ?? "Unknown Command"}<=='{Data.ToDisplayValues()}'";
-    }
+    public override string ToString() => $"RECVDATA: {Adapter?.Info().Description ?? "Unknown Adapter"}: {Command?.ToString() ?? "Unknown Command"}<=='{Data.ToDisplayValues()}'";
 }

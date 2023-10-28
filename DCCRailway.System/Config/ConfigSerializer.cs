@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Xml;
+﻿using System.Xml;
 using System.Xml.Serialization;
 
 namespace DCCRailway.System.Config;
@@ -28,8 +26,7 @@ public class ConfigSerializer<T> {
             }
 
             throw new ApplicationException($"Unable to load the configuration file '{name}' due to issues with the XML serializer.");
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException($"Unable to load the configuration file '{name}' due to '{ex.Message}'", ex);
         }
     }
@@ -48,11 +45,10 @@ public class ConfigSerializer<T> {
             xmlWriterSettings.OmitXmlDeclaration = true;
 
             XmlSerializer xmlSerializer = new(typeof(T));
-            using var xmlWriter = XmlWriter.Create(name, xmlWriterSettings);
+            using var     xmlWriter     = XmlWriter.Create(name, xmlWriterSettings);
             xmlSerializer.Serialize(xmlWriter, xmlObject);
             xmlWriter.Close();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException($"Unable to save configuration data to '{name}' due to '{ex.Message}'");
         }
     }

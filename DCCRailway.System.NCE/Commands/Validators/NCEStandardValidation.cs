@@ -21,7 +21,7 @@ public class NCEStandardValidation : IResultValidation {
             (byte)'3' => new ResultError("Data provided is out of range."),
             (byte)'4' => new ResultError("Byte count is out of range."),
             (byte)'!' => new ResultOK(data),
-            _ => new ResultError("Unknown response from the NCE System.", data!)
+            _         => new ResultError("Unknown response from the NCE System.", data!)
         };
     }
 }

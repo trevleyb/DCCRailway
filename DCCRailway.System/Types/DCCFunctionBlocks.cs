@@ -50,7 +50,7 @@ public class DCCFunctionBlocks {
         _block[1] = _block[1].SetBit(2, functions[7]); // F7
         _block[1] = _block[1].SetBit(3, functions[8]); // F8
 
-        _block[2] = _block[2].SetBit(0, functions[9]); // F9
+        _block[2] = _block[2].SetBit(0, functions[9]);  // F9
         _block[2] = _block[2].SetBit(1, functions[10]); // F10
         _block[2] = _block[2].SetBit(2, functions[11]); // F11
         _block[2] = _block[2].SetBit(3, functions[12]); // F12
@@ -89,13 +89,21 @@ public class DCCFunctionBlocks {
             throw new IndexOutOfRangeException("Function number must be between 0..28");
         }
         set {
-            if (i == 0) _block[0].SetBit(4, value);
-            else if (i is >= 1 and <= 4)   _block[0].SetBit(i - 1, value);
-            else if (i is >= 5 and <= 8)   _block[1].SetBit(i - 5, value);
-            else if (i is >= 9 and <= 12)  _block[2].SetBit(i - 9, value);
-            else if (i is >= 13 and <= 20) _block[3].SetBit(i - 13, value);
-            else if (i is >= 21 and <= 28) _block[4].SetBit(i - 21, value);
-            else throw new IndexOutOfRangeException("Function number must be between 0..28");
+            if (i == 0) {
+                _block[0].SetBit(4, value);
+            } else if (i is >= 1 and <= 4) {
+                _block[0].SetBit(i - 1, value);
+            } else if (i is >= 5 and <= 8) {
+                _block[1].SetBit(i - 5, value);
+            } else if (i is >= 9 and <= 12) {
+                _block[2].SetBit(i - 9, value);
+            } else if (i is >= 13 and <= 20) {
+                _block[3].SetBit(i - 13, value);
+            } else if (i is >= 21 and <= 28) {
+                _block[4].SetBit(i - 21, value);
+            } else {
+                throw new IndexOutOfRangeException("Function number must be between 0..28");
+            }
         }
     }
 
@@ -111,11 +119,7 @@ public class DCCFunctionBlocks {
         _block[blockNum - 1] = value;
     }
 
-    public byte[] ToByteArray() {
-        return _block;
-    }
+    public byte[] ToByteArray() => _block;
 
-    public override string ToString() {
-        return _block.ToDisplayValues();
-    }
+    public override string ToString() => _block.ToDisplayValues();
 }

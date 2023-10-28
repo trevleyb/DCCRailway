@@ -19,15 +19,15 @@ public enum DCCAddressType {
 public class DCCAddress : PropertyChangedBase, IDCCAddress {
     private const int MAX_ADDRESS = 10000;
 
-    private int _address;
+    private int            _address;
     private DCCAddressType _addressType;
-    private byte _highAddress;
-    private byte _lowAddress;
+    private byte           _highAddress;
+    private byte           _lowAddress;
 
     public DCCAddress() : this(3, DCCAddressType.Short) { }
 
     public DCCAddress(int address, DCCAddressType addressType = DCCAddressType.Long) {
-        Address = address;
+        Address     = address;
         AddressType = addressType;
     }
 
@@ -53,9 +53,7 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
         }
     }
 
-    public byte[] AddressBytes {
-        get { return new[] { HighAddress, LowAddress }; }
-    }
+    public byte[] AddressBytes => new[] { HighAddress, LowAddress };
 
     /// <summary>
     ///     Set the address but if it is > 127 then it MUST BE A LONG ADDRESS
@@ -80,15 +78,15 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
     public string AddressName {
         get {
             var shortOrLong = AddressType switch {
-                DCCAddressType.Short => "S",
-                DCCAddressType.Long => "L",
+                DCCAddressType.Short     => "S",
+                DCCAddressType.Long      => "L",
                 DCCAddressType.Accessory => "ACCY",
-                DCCAddressType.Signal => "SIG",
-                DCCAddressType.Sensor => "SEN",
-                DCCAddressType.Turnout => "T",
-                DCCAddressType.CV => "CV",
-                DCCAddressType.Consist => "CON",
-                _ => "S"
+                DCCAddressType.Signal    => "SIG",
+                DCCAddressType.Sensor    => "SEN",
+                DCCAddressType.Turnout   => "T",
+                DCCAddressType.CV        => "CV",
+                DCCAddressType.Consist   => "CON",
+                _                        => "S"
             };
             return $"{Address:D4}({shortOrLong})";
         }
@@ -101,21 +99,17 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
     /// </summary>
     private void CalculateHighLowAddress() {
         if (AddressType == DCCAddressType.Short) {
-            _lowAddress = (byte)Address; // Take the low order bits
-            _highAddress = 0; // Short address is ALWAYS 0
-        }
-        else if (AddressType == DCCAddressType.Long) {
-            _lowAddress = (byte)Address; // Take the low order bits
-            _highAddress = (byte)(Address >> 8); // Take the 2nd order bits
+            _lowAddress  = (byte)Address; // Take the low order bits
+            _highAddress = 0;             // Short address is ALWAYS 0
+        } else if (AddressType == DCCAddressType.Long) {
+            _lowAddress  = (byte)Address;               // Take the low order bits
+            _highAddress = (byte)(Address >> 8);        // Take the 2nd order bits
             _highAddress = (byte)(_highAddress | 0xC0); // Turn on 2 bits to indicate LONG address
-        }
-        else {
-            _lowAddress = (byte)Address; // Take the low order bits
+        } else {
+            _lowAddress  = (byte)Address;        // Take the low order bits
             _highAddress = (byte)(Address >> 8); // Take the 2nd order bits
         }
     }
 
-    public override string ToString() {
-        return $"ADDRESS:{_address:D4} ({(_addressType == DCCAddressType.Short ? "Short" : "Long")}) ";
-    }
+    public override string ToString() => $"ADDRESS:{_address:D4} ({(_addressType == DCCAddressType.Short ? "Short" : "Long")}) ";
 }

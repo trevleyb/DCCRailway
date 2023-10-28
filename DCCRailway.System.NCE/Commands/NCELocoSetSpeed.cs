@@ -3,9 +3,9 @@ using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Types;
+using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.NCE.Commands;
 
@@ -18,16 +18,16 @@ public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
     public NCELocoSetSpeed(int address, DCCDirection direction = DCCDirection.Forward, byte speed = 0, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(new DCCAddress(address), direction, speed, speedSteps) { }
 
     public NCELocoSetSpeed(IDCCAddress address, DCCDirection direction = DCCDirection.Forward, byte speed = 0, DCCProtocol speedSteps = DCCProtocol.DCC128) {
-        Address = address;
-        Speed = speed;
-        Direction = direction;
+        Address    = address;
+        Speed      = speed;
+        Direction  = direction;
         SpeedSteps = speedSteps;
     }
-    
-    public IDCCAddress Address { get; set; }
-    public DCCProtocol SpeedSteps { get; set; }
-    public DCCDirection Direction { get; set; }
-    public byte Speed { get; set; }
+
+    public IDCCAddress  Address    { get; set; }
+    public DCCProtocol  SpeedSteps { get; set; }
+    public DCCDirection Direction  { get; set; }
+    public byte         Speed      { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
@@ -35,13 +35,11 @@ public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
 
         if (Direction == DCCDirection.Stop) {
             command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x06 : 0x05));
-            Speed = 0;
-        }
-        else {
+            Speed   = 0;
+        } else {
             if (SpeedSteps == DCCProtocol.DCC14 || SpeedSteps == DCCProtocol.DCC28) {
                 command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x02 : 0x01));
-            }
-            else {
+            } else {
                 command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x04 : 0x03));
             }
         }
@@ -51,7 +49,5 @@ public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
         return SendAndReceieve(adapter, new NCEStandardValidation(), command);
     }
 
-    public override string ToString() {
-        return $"LOCO SPEED ({Address}={Direction}@{SpeedSteps}={Speed}";
-    }
+    public override string ToString() => $"LOCO SPEED ({Address}={Direction}@{SpeedSteps}={Speed}";
 }

@@ -3,9 +3,9 @@ using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Types;
+using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.NCE.Commands;
 
@@ -16,12 +16,12 @@ public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
     public NCELocoSetMomentum(int address, byte momentum) : this(new DCCAddress(address), momentum) { }
 
     public NCELocoSetMomentum(IDCCAddress address, byte momentum) {
-        Address = address;
+        Address  = address;
         Momentum = momentum;
     }
-    
-    public IDCCAddress Address { get; set; }
-    public byte Momentum { get; set; }
+
+    public IDCCAddress Address  { get; set; }
+    public byte        Momentum { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
@@ -32,7 +32,5 @@ public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
         return SendAndReceieve(adapter, new NCEStandardValidation(), command);
     }
 
-    public override string ToString() {
-        return $"LOCO MOMENTUM ({Address}={Momentum}";
-    }
+    public override string ToString() => $"LOCO MOMENTUM ({Address}={Momentum}";
 }

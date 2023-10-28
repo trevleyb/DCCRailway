@@ -27,25 +27,17 @@ public class ServerBroadcast {
                 //sp.AddProperty ("Server", "DCCRailway");
                 sd.AnswersContainsAdditionalRecords = true;
                 sd.Advertise(sp);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 throw new ApplicationException("Could not start Broadcast", ex);
             }
-        }
-        else {
+        } else {
             throw new ApplicationException("Could not Broadcast since cannot determine local IP Addresses.");
         }
     }
 
-    private void Sd_ServiceInstanceShutdown(object? sender, ServiceInstanceShutdownEventArgs e) {
-        Logger.Log.Debug($"SD: Shutdown=>{e.Message}");
-    }
+    private void Sd_ServiceInstanceShutdown(object? sender, ServiceInstanceShutdownEventArgs e) => Logger.Log.Debug($"SD: Shutdown=>{e.Message}");
 
-    private void Sd_ServiceInstanceDiscovered(object? sender, ServiceInstanceDiscoveryEventArgs e) {
-        Logger.Log.Debug($"SD: Instance Discovered=>{e.Message}");
-    }
+    private void Sd_ServiceInstanceDiscovered(object? sender, ServiceInstanceDiscoveryEventArgs e) => Logger.Log.Debug($"SD: Instance Discovered=>{e.Message}");
 
-    private void Sd_ServiceDiscovered(object? sender, DomainName e) {
-        Logger.Log.Debug($"SD: Service Discovered=>{e.Labels}");
-    }
+    private void Sd_ServiceDiscovered(object? sender, DomainName e) => Logger.Log.Debug($"SD: Service Discovered=>{e.Labels}");
 }

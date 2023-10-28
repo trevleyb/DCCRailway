@@ -27,8 +27,8 @@ public class SprogAdapter : Adapter, IAdapter {
 
         var result = _lastCommand.FromByteArray() switch {
             "STATUS_COMMAND" => "OK".ToByteArray(),
-            "DUMMY_COMMAND" => "OK".ToByteArray(),
-            _ => null
+            "DUMMY_COMMAND"  => "OK".ToByteArray(),
+            _                => null
         };
         Logger.Log.Debug("Data to return: '" + result.FromByteArray() + "'");
         OnDataRecieved(new DataRecvArgs(result, this, command));

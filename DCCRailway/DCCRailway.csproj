@@ -9,14 +9,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.API\DCCRailway.API.csproj" />
-        <ProjectReference Include="..\DCCRailway.Server\DCCRailway.Server.csproj" />
-        <ProjectReference Include="..\DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj" />
-        <ProjectReference Include="..\DCCRailway.System.NCE\DCCRailway.System.NCE.csproj" />
-        <ProjectReference Include="..\DCCRailway.System.Sprog\DCCRailway.System.Sprog.csproj" />
-        <ProjectReference Include="..\DCCRailway.System.Virtual\DCCRailway.System.Virtual.csproj" />
-        <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj" />
-        <ProjectReference Include="..\DCCRailway.Test\DCCRailway.Test.csproj" />
+        <ProjectReference Include="..\DCCRailway.API\DCCRailway.API.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Server\DCCRailway.Server.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.NCE\DCCRailway.System.NCE.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.Sprog\DCCRailway.System.Sprog.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.Virtual\DCCRailway.System.Virtual.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Test\DCCRailway.Test.csproj"/>
     </ItemGroup>
 
 </Project>

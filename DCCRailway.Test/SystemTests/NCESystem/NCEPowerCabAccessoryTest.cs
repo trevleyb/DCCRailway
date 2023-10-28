@@ -21,7 +21,7 @@ public class NCEPowerCabAccessoryTest {
         if (system != null && system.Adapter != null) {
             if (system.CreateCommand<ICmdAccySetState>() is ICmdAccySetState accyCmd) {
                 accyCmd.Address = new DCCAddress(0x01, DCCAddressType.Accessory);
-                accyCmd.State = DCCAccessoryState.On;
+                accyCmd.State   = DCCAccessoryState.On;
                 system.Execute(accyCmd);
                 Thread.Sleep(1000);
 

@@ -1,6 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
 using DCCRailway.System.Attributes;
-using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Commands.Validators;
@@ -17,7 +16,5 @@ public class NCEStatusCmd : NCECommand, ICmdStatus {
         return new NCEStatusResult(result.Data);
     }
 
-    public override string ToString() {
-        return "GET STATUS";
-    }
+    public override string ToString() => "GET STATUS";
 }

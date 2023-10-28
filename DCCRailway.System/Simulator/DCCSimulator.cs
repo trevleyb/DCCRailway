@@ -1,5 +1,4 @@
-﻿using System;
-using DCCRailway.System.Types;
+﻿using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Simulator;
@@ -16,15 +15,15 @@ namespace DCCRailway.System.Simulator;
 /// TODO: While we access a LocoEntry here, this should move to be part of a global list (runtime real)
 public class DCCSimulator {
     private readonly SimulatedLocoList _locoList = new();
-    private DateTime? _clockSetAt;
+    private          DateTime?         _clockSetAt;
 
-    private int _hour;
+    private int  _hour;
     private bool _mainTrackSelected = true;
-    private int _min;
+    private int  _min;
 
     private DCCPowerState _powerState = DCCPowerState.Unknown;
-    private bool _progTrackSelected;
-    private int _ratio;
+    private bool          _progTrackSelected;
+    private int           _ratio;
 
     #region Power On/Off and Main Track/Prog Track operations
     public object? SetPowerState(DCCPowerState state) {
@@ -39,9 +38,7 @@ public class DCCSimulator {
         return null;
     }
 
-    public DCCPowerState GetPowerState() {
-        return _powerState;
-    }
+    public DCCPowerState GetPowerState() => _powerState;
 
     public object? SetProgTrack() {
         _mainTrackSelected = false;
@@ -102,9 +99,7 @@ public class DCCSimulator {
         return null;
     }
 
-    private int FindConsistAddress(int Address) {
-        return FindConsistAddress(new DCCAddress(Address));
-    }
+    private int FindConsistAddress(int Address) => FindConsistAddress(new DCCAddress(Address));
 
     private int FindConsistAddress(DCCAddress Address) {
         var entry = _locoList.GetLoco(Address.Address);
@@ -141,8 +136,8 @@ public class DCCSimulator {
 
     #region Clock Start/Stop and Set Functions for a Fast Clock
     public object? SetClock(int hour, int min, int ratio = 1) {
-        _hour = hour;
-        _min = min;
+        _hour  = hour;
+        _min   = min;
         _ratio = ratio;
 
         return null;
@@ -161,8 +156,8 @@ public class DCCSimulator {
     }
 
     public object? StopClock() {
-        _hour = CalculateTimeDifference().hour;
-        _min = CalculateTimeDifference().min;
+        _hour       = CalculateTimeDifference().hour;
+        _min        = CalculateTimeDifference().min;
         _clockSetAt = null;
 
         return null;
@@ -190,7 +185,7 @@ public class DCCSimulator {
 
     public object? WriteCV(int cv, byte value) {
         if (!_progTrackSelected || _mainTrackSelected) throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
-        var loco = _locoList.GetRandomLoco();
+        var loco                   = _locoList.GetRandomLoco();
         if (loco != null) loco[cv] = value;
 
         return null;
@@ -243,17 +238,11 @@ public class DCCSimulator {
     #endregion
 
     #region Misc Functions
-    public object? DoNothing() {
-        return null;
-    }
+    public object? DoNothing() => null;
 
-    public string GetStatus() {
-        return "1.0.0";
-    }
+    public string GetStatus() => "1.0.0";
 
-    public object? RunMacro(int macro) {
-        return macro > 0 ? null : null;
-    }
+    public object? RunMacro(int macro) => macro > 0 ? null : null;
     #endregion
 
     #region Control the Locomotive Direction and Speed
@@ -281,7 +270,7 @@ public class DCCSimulator {
 
     public object? SetLocoSpeed(DCCAddress address, byte speed, DCCDirection direction) {
         var entry = _locoList.GetLoco(address);
-        entry.Speed = speed;
+        entry.Speed     = speed;
         entry.Direction = direction;
 
         return null;
@@ -292,8 +281,7 @@ public class DCCSimulator {
 
         if (steps == DCCProtocol.DCC14) {
             entry[29] = entry[29].SetBit(2, false);
-        }
-        else {
+        } else {
             entry[29] = entry[29].SetBit(2, true);
         }
 

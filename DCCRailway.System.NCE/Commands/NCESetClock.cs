@@ -11,11 +11,11 @@ namespace DCCRailway.System.NCE.Commands;
 
 [Command("SetClock", "Set the Clock on a NCE controller")]
 public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
-    private int _hour = 12;
+    private int  _hour = 12;
     private bool _is24Hour;
-    private int _minute;
-    private int _ratio = 1;
-    
+    private int  _minute;
+    private int  _ratio = 1;
+
     public int Hour {
         set {
             if (value <= 0 || value > 24) throw new ValidationException("Hour must be in the range of 1..24");
@@ -65,7 +65,5 @@ public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
         return result;
     }
 
-    public override string ToString() {
-        return $"SET CLOCK ({_hour:D2}:{_minute:D2}@{_ratio}:15";
-    }
+    public override string ToString() => $"SET CLOCK ({_hour:D2}:{_minute:D2}@{_ratio}:15";
 }

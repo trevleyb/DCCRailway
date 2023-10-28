@@ -7,18 +7,18 @@ namespace DCCRailway.System.Config;
 public class Turnout {
     public Turnout() {
         Parameters = new Parameters();
-        Decoder = new Decoder { AddressType = DCCAddressType.Turnout };
+        Decoder    = new Decoder { AddressType = DCCAddressType.Turnout };
     }
 
-    [XmlAttribute(AttributeName = "Name")] 
+    [XmlAttribute(AttributeName = "Name")]
     public string Name { get; set; }
 
     [XmlAttribute(AttributeName = "Description")]
     public string Description { get; set; }
 
-    [XmlElement(ElementName = "Decoder")] 
+    [XmlElement(ElementName = "Decoder")]
     public Decoder Decoder { get; set; }
 
-    [XmlArray(ElementName = "Parameters")] 
+    [XmlArray(ElementName = "Parameters")]
     public Parameters Parameters { get; set; }
 }

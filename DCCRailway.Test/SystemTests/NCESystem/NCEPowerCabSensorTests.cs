@@ -1,10 +1,10 @@
 ﻿using DCCRailway.System;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.NCE.Commands;
+using DCCRailway.System.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DCCRailway.Test;
@@ -24,10 +24,10 @@ public class NCEPowerCabSensorTest {
         return ((byte)cab, (byte)pin);
     }
 
-    protected internal static int CalculateAddress(byte cab, byte pin) {
+    protected internal static int CalculateAddress(byte cab, byte pin) =>
+
         // Formula (copied from JMRI) is :
-        return (cab - 1) * 16 + (pin - 1);
-    }
+        (cab - 1) * 16 + (pin - 1);
 
     [TestMethod]
     public void TestTheSensor() {
@@ -42,7 +42,7 @@ public class NCEPowerCabSensorTest {
             var sensorCmd = system.CreateCommand<ICmdSensorGetState>() as NCESensorGetState;
 
             var states = new byte[2];
-            var loop = true;
+            var loop   = true;
 
             while (loop) {
                 for (byte part = 0; part < 2; part++)

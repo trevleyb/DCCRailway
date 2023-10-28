@@ -11,7 +11,7 @@ public class NCEProgrammingValidation : IResultValidation {
             (byte)'0' => new ResultError("Programming Track is not enabled."),
             (byte)'3' => new ResultError("Short Circuit detected on the track."),
             (byte)'!' => new ResultOK(),
-            _ => new ResultError("Unknown response from the NCE System.", data!)
+            _         => new ResultError("Unknown response from the NCE System.", data!)
         };
     }
 }

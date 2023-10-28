@@ -3,7 +3,7 @@ using Serilog;
 namespace DCCRailway.System.Utilities;
 
 public static class Logger {
-    private static ILogger _logger;
+    private static          ILogger _logger;
     private static readonly object? Lock = new();
 
     public static ILogger Log {

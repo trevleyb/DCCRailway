@@ -8,11 +8,11 @@ public interface IAdapter {
     void Connect();
     void Disconnect();
 
-    void SendData(byte[] data, ICommand command);
+    void    SendData(byte[]   data, ICommand command);
     byte[]? RecvData(ICommand command);
 
     event EventHandler<StateChangedArgs> ConnectionStatusChanged;
-    event EventHandler<DataRecvArgs> DataReceived;
-    event EventHandler<DataSentArgs> DataSent;
-    event EventHandler<ErrorArgs> ErrorOccurred;
+    event EventHandler<DataRecvArgs>     DataReceived;
+    event EventHandler<DataSentArgs>     DataSent;
+    event EventHandler<ErrorArgs>        ErrorOccurred;
 }

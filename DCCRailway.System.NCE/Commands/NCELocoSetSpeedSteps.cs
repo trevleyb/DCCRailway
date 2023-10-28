@@ -3,9 +3,9 @@ using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Types;
+using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.NCE.Commands;
 
@@ -16,11 +16,11 @@ public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand 
     public NCELocoSetSpeedSteps(int address, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(new DCCAddress(address), speedSteps) { }
 
     public NCELocoSetSpeedSteps(IDCCAddress address, DCCProtocol speedSteps = DCCProtocol.DCC128) {
-        Address = address;
+        Address    = address;
         SpeedSteps = speedSteps;
     }
-    
-    public IDCCAddress Address { get; set; }
+
+    public IDCCAddress Address    { get; set; }
     public DCCProtocol SpeedSteps { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
@@ -31,7 +31,5 @@ public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand 
         return SendAndReceieve(adapter, new NCEStandardValidation(), command);
     }
 
-    public override string ToString() {
-        return $"LOCO SPEED STEPS ({Address}={SpeedSteps}";
-    }
+    public override string ToString() => $"LOCO SPEED STEPS ({Address}={SpeedSteps}";
 }

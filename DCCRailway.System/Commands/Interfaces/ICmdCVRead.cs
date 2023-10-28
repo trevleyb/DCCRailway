@@ -7,5 +7,5 @@ namespace DCCRailway.System.Commands.Interfaces;
 /// </summary>
 public interface ICmdCVRead : ICommand {
     public DCCProgrammingMode ProgrammingMode { get; set; }
-    public int CV { get; set; }
+    public int                CV              { get; set; }
 }

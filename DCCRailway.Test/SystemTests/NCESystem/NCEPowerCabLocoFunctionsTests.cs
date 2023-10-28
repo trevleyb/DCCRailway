@@ -33,39 +33,30 @@ public class NCEPowerCabLocoFunctionsTests {
 
             _adapter = new NCEUSBSerial("COM3", 19200);
             Assert.IsNotNull(_adapter, "Should have a Serial Adapter created");
-            _adapter.DataReceived += Adapter_DataReceived;
-            _adapter.DataSent += Adapter_DataSent;
+            _adapter.DataReceived            += Adapter_DataReceived;
+            _adapter.DataSent                += Adapter_DataSent;
             _adapter.ConnectionStatusChanged += Adapter_ConnectionStatusChanged;
-            _adapter.ErrorOccurred += Adapter_ErrorOccurred;
-            _system.Adapter = _adapter;
-        }
-        else {
+            _adapter.ErrorOccurred           += Adapter_ErrorOccurred;
+            _system.Adapter                  =  _adapter;
+        } else {
             Assert.Fail("Could not create a System Object");
         }
     }
 
-    private void Adapter_ErrorOccurred(object? sender, ErrorArgs e) {
-        Console.WriteLine(e.ToString());
-    }
+    private void Adapter_ErrorOccurred(object? sender, ErrorArgs e) => Console.WriteLine(e.ToString());
 
-    private void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e) {
-        Console.WriteLine(e.ToString());
-    }
+    private void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e) => Console.WriteLine(e.ToString());
 
-    private void Adapter_DataSent(object? sender, DataSentArgs e) {
-        Console.WriteLine(e.ToString());
-    }
+    private void Adapter_DataSent(object? sender, DataSentArgs e) => Console.WriteLine(e.ToString());
 
-    private void Adapter_DataReceived(object? sender, DataRecvArgs e) {
-        Console.WriteLine(e.ToString());
-    }
+    private void Adapter_DataReceived(object? sender, DataRecvArgs e) => Console.WriteLine(e.ToString());
 
     [TestCleanup]
     public void TestCleanup() {
-        _adapter.DataReceived -= Adapter_DataReceived;
-        _adapter.DataSent -= Adapter_DataSent;
+        _adapter.DataReceived            -= Adapter_DataReceived;
+        _adapter.DataSent                -= Adapter_DataSent;
         _adapter.ConnectionStatusChanged -= Adapter_ConnectionStatusChanged;
-        _adapter.ErrorOccurred -= Adapter_ErrorOccurred;
+        _adapter.ErrorOccurred           -= Adapter_ErrorOccurred;
         _adapter.Disconnect();
     }
 
@@ -80,6 +71,7 @@ public class NCEPowerCabLocoFunctionsTests {
                     functionCmd.Functions[0] = i % 2 == 0;
                     var result = _system.Execute(functionCmd);
                     if (!result!.OK) Console.WriteLine("Did Not Work." + (char)33);
+
                     //Thread.Sleep(1500);
                 }
             }
@@ -93,33 +85,33 @@ public class NCEPowerCabLocoFunctionsTests {
 
             if (_system.CreateCommand<ICmdLocoSetFunctions>() is ICmdLocoSetFunctions functionCmd) {
                 functionCmd.Address = new DCCAddress(3, DCCAddressType.Short);
-                speedCmd!.Address = functionCmd.Address;
+                speedCmd!.Address   = functionCmd.Address;
 
                 functionCmd.Functions[0] = true;
                 var result = _system.Execute(functionCmd);
                 if (!result!.OK) Console.WriteLine(((IResultError)result)!.ToString());
 
-                speedCmd.Direction = DCCDirection.Forward;
+                speedCmd.Direction  = DCCDirection.Forward;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;
-                speedCmd.Speed = 5;
+                speedCmd.Speed      = 5;
                 _system.Execute(speedCmd);
 
                 functionCmd.Functions[0] = false;
-                result = _system.Execute(functionCmd);
+                result                   = _system.Execute(functionCmd);
                 if (!result!.OK) Console.WriteLine(((IResultError)result)!.ToString());
 
-                speedCmd.Direction = DCCDirection.Forward;
+                speedCmd.Direction  = DCCDirection.Forward;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;
-                speedCmd.Speed = 5;
+                speedCmd.Speed      = 5;
                 _system.Execute(speedCmd);
 
                 functionCmd.Functions[0] = true;
-                result = _system.Execute(functionCmd);
+                result                   = _system.Execute(functionCmd);
                 if (!result!.OK) Console.WriteLine(((IResultError)result)!.ToString());
 
-                speedCmd.Direction = DCCDirection.Stop;
+                speedCmd.Direction  = DCCDirection.Stop;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;
-                speedCmd.Speed = 0;
+                speedCmd.Speed      = 0;
                 _system.Execute(speedCmd);
             }
         }
@@ -172,28 +164,28 @@ public class NCEPowerCabLocoFunctionsTests {
     public void SetSpeedTest() {
         if (_system != null && _system.Adapter != null) {
             if (_system.CreateCommand<ICmdLocoSetSpeed>() is ICmdLocoSetSpeed cmd) {
-                cmd.Address = new DCCAddress(3, DCCAddressType.Short);
-                cmd.Direction = DCCDirection.Forward;
+                cmd.Address    = new DCCAddress(3, DCCAddressType.Short);
+                cmd.Direction  = DCCDirection.Forward;
                 cmd.SpeedSteps = DCCProtocol.DCC28;
-                cmd.Speed = 8;
+                cmd.Speed      = 8;
                 _system.Execute(cmd);
                 Thread.Sleep(1500);
 
-                cmd.Direction = DCCDirection.Forward;
+                cmd.Direction  = DCCDirection.Forward;
                 cmd.SpeedSteps = DCCProtocol.DCC28;
-                cmd.Speed = 0;
+                cmd.Speed      = 0;
                 _system.Execute(cmd);
                 Thread.Sleep(1500);
 
-                cmd.Direction = DCCDirection.Reverse;
+                cmd.Direction  = DCCDirection.Reverse;
                 cmd.SpeedSteps = DCCProtocol.DCC28;
-                cmd.Speed = 8;
+                cmd.Speed      = 8;
                 _system.Execute(cmd);
                 Thread.Sleep(1500);
 
-                cmd.Direction = DCCDirection.Reverse;
+                cmd.Direction  = DCCDirection.Reverse;
                 cmd.SpeedSteps = DCCProtocol.DCC28;
-                cmd.Speed = 0;
+                cmd.Speed      = 0;
                 _system.Execute(cmd);
                 Thread.Sleep(1500);
             }
@@ -204,10 +196,10 @@ public class NCEPowerCabLocoFunctionsTests {
     public void SetStopTest() {
         if (_system != null && _system.Adapter != null) {
             if (_system.CreateCommand<ICmdLocoSetSpeed>() is ICmdLocoSetSpeed cmd) {
-                cmd.Address = new DCCAddress(3, DCCAddressType.Short);
-                cmd.Direction = DCCDirection.Forward;
+                cmd.Address    = new DCCAddress(3, DCCAddressType.Short);
+                cmd.Direction  = DCCDirection.Forward;
                 cmd.SpeedSteps = DCCProtocol.DCC28;
-                cmd.Speed = 8;
+                cmd.Speed      = 8;
                 _system.Execute(cmd);
                 Thread.Sleep(1500);
 

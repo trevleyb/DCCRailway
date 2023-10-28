@@ -3,8 +3,6 @@ using DCCRailway.Conversion.JMRI.Roster;
 using DCCRailway.System.Config;
 using DCCRailway.System.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Decoder = DCCRailway.System.Config.Decoder;
-using FluentAssertions;
 
 namespace DCCRailway.Test;
 
@@ -13,9 +11,9 @@ public class ConfigurationTest {
     [TestMethod]
     public void SaveConfigFileTest() {
         Configuration config = new() { Name = @"testconfig.xml" };
-        config!.Systems.Add(new DCCRailway.System.Config.System("System1"));
+        config!.Systems.Add(new System.Config.System("System1"));
 
-        var adapter = new Adapter { Name = "NCEUSB" };
+        var adapter    = new Adapter { Name = "NCEUSB" };
         var parameters = new Parameters();
 
         parameters.Set<string>("style", "steam");
@@ -31,10 +29,10 @@ public class ConfigurationTest {
         var decoder = new Decoder { Address = 1029, AddressType = DCCAddressType.Long, Protocol = DCCProtocol.DCC28 };
 
         config.Accessories.Add(new Accessory { Name = "Accessory1", Description = "Accessory Description", Decoder = decoder, Parameters = parameters });
-        config.Signals.Add(new Signal { Name = "Signal1", Description = "Loco Description", Decoder = decoder, Parameters = parameters });
-        config.Sensors.Add(new Sensor { Name = "Sensor1", Description = "Loco Description", Decoder = decoder, Parameters = parameters });
-        config.Turnouts.Add(new Turnout { Name = "Turnout1", Description = "Loco Description", Decoder = decoder, Parameters = parameters });
-        config.Blocks.Add(new Block { Name = "Block1", Description = "Loco Description" });
+        config.Signals.Add(new Signal { Name        = "Signal1", Description    = "Loco Description", Decoder      = decoder, Parameters = parameters });
+        config.Sensors.Add(new Sensor { Name        = "Sensor1", Description    = "Loco Description", Decoder      = decoder, Parameters = parameters });
+        config.Turnouts.Add(new Turnout { Name      = "Turnout1", Description   = "Loco Description", Decoder      = decoder, Parameters = parameters });
+        config.Blocks.Add(new Block { Name          = "Block1", Description     = "Loco Description" });
 
         config.Locos = JMRIRosterImporter.Import("roster.xml");
 

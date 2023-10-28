@@ -4,9 +4,7 @@ using DCCRailway.System.Utilities;
 namespace DCCRailway.Server.WiThrottle.Commands;
 
 public class CmdDeviceID : ThrottleCmdBase, IThrottleCmd {
-    public CmdDeviceID(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
-        connectionEntry.LastCommand = this;
-    }
+    public CmdDeviceID(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) => connectionEntry.LastCommand = this;
 
     // If we get a HardwareID just store it against the entry and retun a null
     // as we will not respond to the client
@@ -22,19 +20,17 @@ public class CmdDeviceID : ThrottleCmdBase, IThrottleCmd {
 
         if (existingEntry != null) {
             Logger.Log.Information($"Existing HardwareID reference exists. Remapping '{ConnectionEntry.ConnectionID}' to '{existingEntry.ConnectionID}'");
-            ConnectionEntry.HardwareID = existingEntry.HardwareID;
+            ConnectionEntry.HardwareID       = existingEntry.HardwareID;
             ConnectionEntry.HeartbeatSeconds = existingEntry.HeartbeatSeconds;
-            ConnectionEntry.HeartbeatState = existingEntry.HeartbeatState;
-            ConnectionEntry.LastCommand = existingEntry.LastCommand;
-            ConnectionEntry.LastHeartbeat = DateTime.Now;
-            ConnectionEntry.ThrottleName = existingEntry.ThrottleName;
+            ConnectionEntry.HeartbeatState   = existingEntry.HeartbeatState;
+            ConnectionEntry.LastCommand      = existingEntry.LastCommand;
+            ConnectionEntry.LastHeartbeat    = DateTime.Now;
+            ConnectionEntry.ThrottleName     = existingEntry.ThrottleName;
             ConnectionEntry.listReference.Delete(existingEntry);
         }
 
         return null;
     }
 
-    public override string ToString() {
-        return "COMMAND: DEVICE ID";
-    }
+    public override string ToString() => "COMMAND: DEVICE ID";
 }

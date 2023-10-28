@@ -3,9 +3,7 @@
 namespace DCCRailway.Server.WiThrottle.Commands;
 
 public class CmdDeviceName : ThrottleCmdBase, IThrottleCmd {
-    public CmdDeviceName(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) {
-        connectionEntry.LastCommand = this;
-    }
+    public CmdDeviceName(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) => connectionEntry.LastCommand = this;
 
     // If we get a HardwareID just store it against the entry 
     // Return *xx where xx is the seconds expected between heartbeats
@@ -21,7 +19,5 @@ public class CmdDeviceName : ThrottleCmdBase, IThrottleCmd {
         return startup.Execute();
     }
 
-    public override string ToString() {
-        return "COMMAND: THROTTLE NAME";
-    }
+    public override string ToString() => "COMMAND: THROTTLE NAME";
 }

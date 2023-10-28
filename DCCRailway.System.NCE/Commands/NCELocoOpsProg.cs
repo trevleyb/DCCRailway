@@ -3,9 +3,9 @@ using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Types;
+using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.NCE.Commands;
 
@@ -15,19 +15,19 @@ public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
 
     public NCELocoOpsProg(int locoAddress, DCCAddressType type, int cvAddress, byte value) {
         LocoAddress = new DCCAddress(locoAddress, type);
-        CVAddress = new DCCAddress(cvAddress, DCCAddressType.CV);
-        Value = value;
+        CVAddress   = new DCCAddress(cvAddress, DCCAddressType.CV);
+        Value       = value;
     }
 
     public NCELocoOpsProg(IDCCAddress locoAddress, IDCCAddress cvAddress, byte value) {
         LocoAddress = locoAddress;
-        CVAddress = cvAddress;
-        Value = value;
+        CVAddress   = cvAddress;
+        Value       = value;
     }
-    
+
     public IDCCAddress LocoAddress { get; set; }
-    public IDCCAddress CVAddress { get; set; }
-    public byte Value { get; set; }
+    public IDCCAddress CVAddress   { get; set; }
+    public byte        Value       { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAE };
@@ -38,7 +38,5 @@ public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
         return SendAndReceieve(adapter, new NCEStandardValidation(), cmd);
     }
 
-    public override string ToString() {
-        return $"LOCO OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
-    }
+    public override string ToString() => $"LOCO OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
 }

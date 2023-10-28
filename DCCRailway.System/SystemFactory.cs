@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
-using DCCRailway.System.Attributes;
 using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System;
@@ -83,6 +83,7 @@ public static class SystemFactory {
                 Logger.Log.Debug($"ASSEMBLY: Loading Assembly: {assemblyPath}");
 
                 foreach (var dccSystem in assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(ISystem))))
+
                     // Get the relevant properties needed to report on what this system is via reflecting into the
                     // class instance members. 
                     // -------------------------------------------------------------------------------------------
@@ -93,13 +94,11 @@ public static class SystemFactory {
                         if (systemAttr != null) {
                             supportedSystems.Add(new SystemEntry(assemblyPath, dccSystem, systemAttr));
                         }
-                    }
-                    catch (Exception ex) {
+                    } catch (Exception ex) {
                         Logger.Log.Debug("ASSEMBLY: Unable to obtain the name of the Manufacturer or System from the Assembly.", ex);
                     }
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 throw new ApplicationException($"Could not load assembly: {assemblyPath}", ex);
             }
         }
@@ -111,7 +110,5 @@ public static class SystemFactory {
     //    return SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Manufacturer.Equals(manufacturer, StringComparison.OrdinalIgnoreCase));
     //}
 
-    private static SystemEntry? Find(string name, string defaultPath) {
-        return SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-    }
+    private static SystemEntry? Find(string name, string defaultPath) => SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 }

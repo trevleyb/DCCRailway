@@ -7,12 +7,12 @@ public class DataSentArgs : EventArgs {
     public DataSentArgs(byte[]? data, IAdapter? adapter = null, ICommand? command = null) {
         Adapter = adapter;
         Command = command;
-        Data = data;
+        Data    = data;
     }
 
     public ICommand? Command { get; set; }
     public IAdapter? Adapter { get; set; }
-    public byte[]? Data { get; }
+    public byte[]?   Data    { get; }
 
     public override string ToString() {
         var tmp = Data.ToDisplayValueChars();

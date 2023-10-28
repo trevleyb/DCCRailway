@@ -11,7 +11,7 @@ public class CmdStartup : ThrottleCmdBase, IThrottleCmd {
     public string? Execute() {
         StringBuilder response = new();
         response.AppendLine("VN2.0");
-        response.AppendLine("RL0"); // TODO: Add roster entries
+        response.AppendLine("RL0");  // TODO: Add roster entries
         response.AppendLine("PPA0"); // TODO: Add Power Support
 
         //response.AppendLine ("PTT0");		// TODO: Add Turnouts
@@ -23,7 +23,5 @@ public class CmdStartup : ThrottleCmdBase, IThrottleCmd {
         return response.ToString();
     }
 
-    public override string ToString() {
-        return "COMMAND: STARTUP";
-    }
+    public override string ToString() => "COMMAND: STARTUP";
 }

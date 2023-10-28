@@ -45,7 +45,7 @@ public class NCEPowerCab {
 
         // 1029 = 00000100(4) 00000101(5)
         address.AddressType = DCCAddressType.Short;
-        address.Address = 1029;
+        address.Address     = 1029;
         Assert.IsTrue(address.Address == 1029);
         Assert.IsTrue(address.AddressType == DCCAddressType.Long);
         Assert.IsTrue(address.LowAddress == 5);
@@ -149,10 +149,10 @@ public class NCEPowerCab {
         // --------------------------------------------------------------------------
         var setTime = system.CreateCommand<ICmdClockSet>() as NCESetClock;
         Assert.IsNotNull(setTime);
-        setTime.Hour = 9;
-        setTime.Minute = 30;
+        setTime.Hour     = 9;
+        setTime.Minute   = 30;
         setTime.Is24Hour = false;
-        setTime.Ratio = 15; // Fast, 1 minute = 15 seconds 
+        setTime.Ratio    = 15; // Fast, 1 minute = 15 seconds 
         var setTimeRes = system.Execute(setTime);
         Assert.IsInstanceOfType(setTimeRes, typeof(ResultOK));
 

@@ -3,9 +3,9 @@ using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Types;
+using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.NCE.Commands;
 
@@ -18,14 +18,14 @@ public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
     public NCELocoStop(int address, DCCDirection direction = DCCDirection.Forward) : this(new DCCAddress(address), direction) { }
 
     public NCELocoStop(IDCCAddress address, DCCDirection direction = DCCDirection.Forward) {
-        Address = address;
+        Address   = address;
         Direction = direction;
     }
 
     public DCCDirection Direction { get; set; }
 
     public IDCCAddress Address { get; set; }
-    
+
     public override IResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
         command = command.AddToArray(((DCCAddress)Address).AddressBytes);
@@ -35,7 +35,5 @@ public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
         return SendAndReceieve(adapter, new NCEStandardValidation(), command);
     }
 
-    public override string ToString() {
-        return $"LOCO STOP ({Address}={Direction}";
-    }
+    public override string ToString() => $"LOCO STOP ({Address}={Direction}";
 }

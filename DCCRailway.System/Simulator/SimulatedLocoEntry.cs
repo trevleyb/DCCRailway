@@ -1,5 +1,4 @@
-﻿using System;
-using DCCRailway.System.Types;
+﻿using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Simulator;
@@ -10,8 +9,8 @@ namespace DCCRailway.System.Simulator;
 /// TODO: Need to make this serializable so we can save/restore Simulated Settings
 [Serializable]
 public class SimulatedLocoEntry {
-    private const int MAX_CV_VALUE = 2048;
-    private byte?[] _cvValues;
+    private const int     MAX_CV_VALUE = 2048;
+    private       byte?[] _cvValues;
 
     public SimulatedLocoEntry(DCCAddress Address) {
         this.Address = Address;
@@ -35,23 +34,22 @@ public class SimulatedLocoEntry {
 
         if (Address.AddressType == DCCAddressType.Long) {
             this[29] = this[29].SetBit(5, true);
-            this[1] = 3;
+            this[1]  = 3;
             this[17] = Address.HighAddress;
             this[18] = Address.LowAddress;
-        }
-        else {
-            this[1] = (byte)Address.Address;
+        } else {
+            this[1]  = (byte)Address.Address;
             this[17] = 0;
             this[18] = 0;
             this[29] = this[29].SetBit(5, false);
         }
     }
 
-    public byte Speed { get; set; }
-    public int SignalAspect { get; set; }
-    public DCCAccessoryState State { get; set; }
-    public DCCFunctionBlocks Functions { get; set; }
-    public DCCAddress Address { get; set; }
+    public byte              Speed        { get; set; }
+    public int               SignalAspect { get; set; }
+    public DCCAccessoryState State        { get; set; }
+    public DCCFunctionBlocks Functions    { get; set; }
+    public DCCAddress        Address      { get; set; }
 
     public DCCAddressType Type => Address.AddressType;
 
@@ -73,17 +71,11 @@ public class SimulatedLocoEntry {
         }
     }
 
-    public int ConsistAddress() {
-        return this[19].SetBit(7, false);
-    }
+    public int ConsistAddress() => this[19].SetBit(7, false);
 
-    public bool IsInConsist(int consistAddress) {
-        return ConsistAddress() != 0;
-    }
+    public bool IsInConsist(int consistAddress) => ConsistAddress() != 0;
 
-    public void ClearConsist() {
-        this[29] = 0;
-    }
+    public void ClearConsist() => this[29] = 0;
 
     public void SetConsist(int consistAddress, DCCDirection direction) {
         this[19] = (byte)consistAddress;

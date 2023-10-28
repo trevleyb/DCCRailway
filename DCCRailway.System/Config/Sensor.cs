@@ -7,18 +7,18 @@ namespace DCCRailway.System.Config;
 public class Sensor {
     public Sensor() {
         Parameters = new Parameters();
-        Decoder = new Decoder { AddressType = DCCAddressType.Sensor };
+        Decoder    = new Decoder { AddressType = DCCAddressType.Sensor };
     }
 
-    [XmlAttribute(AttributeName = "Name")] 
+    [XmlAttribute(AttributeName = "Name")]
     public string Name { get; set; }
 
     [XmlAttribute(AttributeName = "Description")]
     public string Description { get; set; }
 
-    [XmlElement(ElementName = "Decoder")] 
+    [XmlElement(ElementName = "Decoder")]
     public Decoder Decoder { get; set; }
 
-    [XmlArray(ElementName = "Parameters")] 
+    [XmlArray(ElementName = "Parameters")]
     public Parameters Parameters { get; set; }
 }

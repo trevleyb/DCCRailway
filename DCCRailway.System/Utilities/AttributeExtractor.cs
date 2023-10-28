@@ -8,24 +8,17 @@ namespace DCCRailway.System.Utilities;
 public static class AttributeExtractor {
     public static T? GetAttribute<T>(ICustomAttributeProvider type) where T : class {
         try {
-            var attrs = type.GetCustomAttributes(typeof(T), true); 
-            var attr = type.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T;
+            var attrs = type.GetCustomAttributes(typeof(T), true);
+            var attr  = type.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T;
             return attr;
-        }
-        catch {
+        } catch {
             return default(T?) ?? null;
         }
     }
 
-    public static AdapterAttribute Info(this IAdapter adapter) {
-        return GetAttribute<AdapterAttribute>(adapter.GetType())!;
-    }
+    public static AdapterAttribute Info(this IAdapter adapter) => GetAttribute<AdapterAttribute>(adapter.GetType())!;
 
-    public static SystemAttribute Info(this ISystem system) {
-        return GetAttribute<SystemAttribute>(system.GetType())!;
-    }
+    public static SystemAttribute Info(this ISystem system) => GetAttribute<SystemAttribute>(system.GetType())!;
 
-    public static CommandAttribute Info(this ICommand command) {
-        return GetAttribute<CommandAttribute>(command.GetType())!;
-    }
+    public static CommandAttribute Info(this ICommand command) => GetAttribute<CommandAttribute>(command.GetType())!;
 }

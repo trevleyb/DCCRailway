@@ -1,13 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace DCCRailway.System.Utilities;
 
 public static class ExtensionMethods {
-    public static byte Invert(this byte inByte) {
-        return (byte)~inByte;
-    }
+    public static byte Invert(this byte inByte) => (byte)~inByte;
 
     /// <summary>
     ///     Allows easy setting of the bits in a 8-bit byte
@@ -22,8 +18,7 @@ public static class ExtensionMethods {
         if (value) //left-shift 1, then bitwise OR
         {
             bits = (byte)(bits | (1 << pos));
-        }
-        else //left-shift 1, then take complement, then bitwise AND
+        } else //left-shift 1, then take complement, then bitwise AND
         {
             bits = (byte)(bits & ~(1 << pos));
         }
@@ -80,14 +75,12 @@ public static class ExtensionMethods {
     public static byte[] ToByteArray(this int value) {
         var bytes = new byte[2];
         bytes[0] = (byte)(value >> 8); // Take the 2nd order bits
-        bytes[1] = (byte)value; // Take the low order bits
+        bytes[1] = (byte)value;        // Take the low order bits
 
         return bytes;
     }
 
-    public static byte[] ToByteArray(this string value) {
-        return Encoding.Default.GetBytes(value);
-    }
+    public static byte[] ToByteArray(this string value) => Encoding.Default.GetBytes(value);
 
     public static string ToDisplayValues(this byte[]? bytes) {
         if (bytes == null || bytes.Length == 0) return "<empty>";
@@ -120,9 +113,7 @@ public static class ExtensionMethods {
         return sb.ToString();
     }
 
-    public static string FromByteArray(this byte[]? bytes) {
-        return bytes == null ? "" : Encoding.Default.GetString(bytes);
-    }
+    public static string FromByteArray(this byte[]? bytes) => bytes == null ? "" : Encoding.Default.GetString(bytes);
 
     public static string? FromByteArray(this byte[] bytes, int length) {
         if (bytes != null && bytes.Length >= length) return Encoding.Default.GetString(bytes, 0, length);

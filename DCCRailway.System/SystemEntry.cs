@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using DCCRailway.System.Attributes;
 using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Exceptions;
 
 namespace DCCRailway.System;
@@ -16,17 +16,17 @@ public class SystemEntry {
     public SystemEntry(string assemblyPath, Type assemblyType, SystemAttribute? attributes = null) {
         AssemblyPath = assemblyPath;
         AssemblyType = assemblyType;
-        Attributes = attributes ?? new SystemAttribute("Unknown");
+        Attributes   = attributes ?? new SystemAttribute("Unknown");
     }
 
-    private SystemAttribute Attributes { get; }
-    private Type AssemblyType { get; }
-    private string AssemblyPath { get; }
+    private SystemAttribute Attributes   { get; }
+    private Type            AssemblyType { get; }
+    private string          AssemblyPath { get; }
 
-    public string Name => Attributes.Name;
+    public string Name         => Attributes.Name;
     public string Manufacturer => Attributes.Manufacturer;
-    public string Model => Attributes.Model;
-    public string version => Attributes.Version;
+    public string Model        => Attributes.Model;
+    public string version      => Attributes.Version;
 
     /// <summary>
     ///     Helper function to create an instance of a SYSTEM with an appropriate
@@ -57,8 +57,7 @@ public class SystemEntry {
             if (Activator.CreateInstance(AssemblyType) is not ISystem instance) throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the system.");
 
             return instance;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException($"Unable to instantiate a new '{Name}' from {AssemblyPath}", ex);
         }
     }

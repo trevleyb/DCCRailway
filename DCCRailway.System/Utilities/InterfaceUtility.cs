@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using DCCRailway.System.Commands;
 
 namespace DCCRailway.System.Utilities;
@@ -16,13 +15,9 @@ public static class InterfaceUtility {
         return null;
     }
 
-    public static string? FindImplmentationInterface<T>(IEnumerable<TypeInfo> definedTypes) where T : ICommand {
-        return FindImplmentationInterface(definedTypes, typeof(T).ToString());
-    }
+    public static string? FindImplmentationInterface<T>(IEnumerable<TypeInfo> definedTypes) where T : ICommand => FindImplmentationInterface(definedTypes, typeof(T).ToString());
 
-    public static bool ImplementsInterface(TypeInfo definedType, string searchInterface) {
-        return FindImplementsInterface(definedType, searchInterface) != null;
-    }
+    public static bool ImplementsInterface(TypeInfo definedType, string searchInterface) => FindImplementsInterface(definedType, searchInterface) != null;
 
     public static string? FindImplementsInterface(TypeInfo definedType, string searchInterface) {
         foreach (var interfaceType in definedType.ImplementedInterfaces) {
@@ -35,7 +30,7 @@ public static class InterfaceUtility {
     }
 
     public static List<string>? FindInterfaces(TypeInfo definedType, string searchInterface) {
-        var isICommand = false;
+        var isICommand      = false;
         var foundInterfaces = new List<string>();
 
         foreach (var interfaceType in definedType.ImplementedInterfaces) {
@@ -44,8 +39,7 @@ public static class InterfaceUtility {
             if (foundName != null) {
                 if (foundName == searchInterface) {
                     isICommand = true;
-                }
-                else {
+                } else {
                     if (!string.IsNullOrEmpty(interfaceType.FullName)) foundInterfaces.Add(interfaceType.FullName);
                 }
             }

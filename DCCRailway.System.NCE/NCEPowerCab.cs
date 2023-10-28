@@ -3,28 +3,24 @@ using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Exceptions;
-using DCCRailway.System.Utilities;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.NCE.Commands;
 using DCCRailway.System.Types;
+using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.NCE;
 
 [System("NCEPowerCab", "North Coast Engineering (NCE)", "PowerCab", "1.65")]
-public class NcePowerCab : DCCRailway.System.System, ISystem {
+public class NcePowerCab : System, ISystem {
+    public override IDCCAddress CreateAddress() => new DCCAddress();
+
+    public override IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);
+
     protected override void RegisterAdapters() {
         ClearAdapters();
         RegisterAdapter<NCESerial>();
         RegisterAdapter<NCEUSBSerial>();
         RegisterAdapter<NCEVirtualAdapter>();
-    }
-
-    public override IDCCAddress CreateAddress() {
-        return new DCCAddress();
-    }
-
-    public override IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) {
-        return new DCCAddress(address, type);
     }
 
     protected override void RegisterCommands() {
@@ -80,22 +76,20 @@ public class NcePowerCab : DCCRailway.System.System, ISystem {
                 RegisterCommand<ICmdClockRead>(typeof(NCEReadClock));
                 RegisterCommand<ICmdClockStart>(typeof(NCEStartClock));
                 RegisterCommand<ICmdClockStop>(typeof(NCEStopClock));
-            }
-            else if (Adapter is NCEUSBSerial) {
+            } else if (Adapter is NCEUSBSerial) {
                 if (CreateCommand<ICmdStatus>() is NCEStatusCmd statusCmd && statusCmd.Execute(Adapter) is IResultStatus status) {
                     switch (status.Version) {
-                        case "6.x.x": break; // Cannot get AIU Information
-                        case "7.3.0": break;
-                        case "7.3.1": break;
-                        case "7.3.2": break;
-                        case "7.3.3": break;
-                        case "7.3.4": break;
-                        case "7.3.5": break;
-                        case "7.3.6": break;
-                        case "7.3.7": break;
+                    case "6.x.x": break; // Cannot get AIU Information
+                    case "7.3.0": break;
+                    case "7.3.1": break;
+                    case "7.3.2": break;
+                    case "7.3.3": break;
+                    case "7.3.4": break;
+                    case "7.3.5": break;
+                    case "7.3.6": break;
+                    case "7.3.7": break;
                     }
-                }
-                else {
+                } else {
                     throw new AdapterException(Adapter, ":Unable to communicate with the Command Station.");
                 }
             }
@@ -103,20 +97,12 @@ public class NcePowerCab : DCCRailway.System.System, ISystem {
     }
 
     #region Manage the events from the Adapter
-    protected override void Adapter_ErrorOccurred(object? sender, ErrorArgs e) {
-        Logger.Log.Debug(e.ToString());
-    }
+    protected override void Adapter_ErrorOccurred(object? sender, ErrorArgs e) => Logger.Log.Debug(e.ToString());
 
-    protected override void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e) {
-        Logger.Log.Debug(e.ToString());
-    }
+    protected override void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e) => Logger.Log.Debug(e.ToString());
 
-    protected override void Adapter_DataSent(object? sender, DataSentArgs e) {
-        Logger.Log.Debug(e.ToString());
-    }
+    protected override void Adapter_DataSent(object? sender, DataSentArgs e) => Logger.Log.Debug(e.ToString());
 
-    protected override void Adapter_DataReceived(object? sender, DataRecvArgs e) {
-        Logger.Log.Debug(e.ToString());
-    }
+    protected override void Adapter_DataReceived(object? sender, DataRecvArgs e) => Logger.Log.Debug(e.ToString());
     #endregion
 }

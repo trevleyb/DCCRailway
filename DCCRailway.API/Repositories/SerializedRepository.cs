@@ -20,13 +20,9 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
         _entities = Load(_filename) ?? new List<TEntity>();
     }
 
-    public TEntity? GetById(TID id) {
-        return _entities.FirstOrDefault(item => item.Id.Equals(id));
-    }
+    public TEntity? GetById(TID id) => _entities.FirstOrDefault(item => item.Id.Equals(id));
 
-    public IEnumerable<TEntity> GetAll() {
-        return _entities;
-    }
+    public IEnumerable<TEntity> GetAll() => _entities;
 
     public TID Add(TEntity obj) {
         if (obj == null) throw new NullReferenceException("Cannot add a null object.");
@@ -57,9 +53,7 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
         _entities.RemoveAt(index);
     }
 
-    public void Save() {
-        Save(_entities, _filename);
-    }
+    public void Save() => Save(_entities, _filename);
 
     public void Save(string filename) {
         _filename = filename;
@@ -78,7 +72,7 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
         try {
             if (!File.Exists(name)) return null;
 
-            var elementName = typeof(TEntity).Name;
+            var           elementName   = typeof(TEntity).Name;
             XmlSerializer xmlSerializer = new(typeof(XmlEntity), new XmlRootAttribute(elementName));
 
             using (TextReader reader = new StreamReader(name)) {
@@ -88,8 +82,7 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
             }
 
             throw new ApplicationException($"Unable to load the configuration file '{name}' due to issues with the XML serializer.");
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException($"Unable to load the configuration file '{name}' due to '{ex.Message}'", ex);
         }
     }
@@ -108,6 +101,7 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
             xmlWriterSettings.OmitXmlDeclaration = true;
 
             var elementName = typeof(TEntity).Name;
+
             //XmlAttributes xmlAttributes = new XmlAttributes();
             //xmlAttributes.XmlIgnore = true;
             //xmlAttributes.XmlRoot = new XmlRootAttribute(elementName);
@@ -119,8 +113,7 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
                 xmlSerializer.Serialize(xmlWriter, new XmlEntity { EntityList = entityList });
                 xmlWriter.Close();
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException($"Unable to save configuration data to '{name}' due to '{ex.Message}'");
         }
     }
@@ -128,11 +121,10 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
 
     [XmlRoot]
     public class XmlEntity {
-        [XmlIgnore] public IEnumerable<TEntity> EntityList { get; set; }
+        [XmlIgnore]
+        public IEnumerable<TEntity> EntityList { get; set; }
 
-        [XmlElement]
-        [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [XmlElement, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
         public List<TEntity> Item {
             get => EntityList.ToList();
             set => EntityList = value;

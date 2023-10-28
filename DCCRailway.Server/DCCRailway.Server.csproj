@@ -8,17 +8,17 @@
         <LangVersion>default</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-        <None Remove="WebServer\" />
-        <None Remove="Makaretu.Dns.Multicast" />
-        <None Remove="Utility\" />
+        <None Remove="WebServer\"/>
+        <None Remove="Makaretu.Dns.Multicast"/>
+        <None Remove="Utility\"/>
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Utilities\" />
+        <Folder Include="Utilities\"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Makaretu.Dns.Multicast" Version="0.27.0" />
+        <PackageReference Include="Makaretu.Dns.Multicast" Version="0.27.0"/>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj" />
+        <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj"/>
     </ItemGroup>
 </Project>

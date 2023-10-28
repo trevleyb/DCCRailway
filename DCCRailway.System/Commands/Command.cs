@@ -14,13 +14,9 @@ public abstract class Command : PropertyChangedBase, ICommand {
     /// </summary>
     /// <param name="adapter"></param>
     /// <returns></returns>
-    public async Task<IResult> ExecuteAsync(IAdapter adapter) {
-        return await Task.FromResult(Execute(adapter));
-    }
+    public async Task<IResult> ExecuteAsync(IAdapter adapter) => await Task.FromResult(Execute(adapter));
 
-    protected IResult SendAndReceieve(IAdapter adapter, IResultValidation validator, byte sendData) {
-        return SendAndReceieve(adapter, validator, new[] { sendData });
-    }
+    protected IResult SendAndReceieve(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceieve(adapter, validator, new[] { sendData });
 
     protected IResult SendAndReceieve(IAdapter adapter, IResultValidation validator, byte[] sendData) {
         // Send the command provided to the command station

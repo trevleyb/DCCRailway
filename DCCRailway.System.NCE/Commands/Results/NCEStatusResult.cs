@@ -12,13 +12,11 @@ public class NCEStatusResult : ResultOK, IResultStatus {
     public NCEStatusResult(byte[]? data) {
         if (data == null || data.Length != 3) throw new ApplicationException("Invalid data provided to create a Version");
         _version = data[0];
-        _major = data[1];
-        _minor = data[2];
+        _major   = data[1];
+        _minor   = data[2];
     }
 
     public string Version => $"{_version}.{_major}.{_minor}";
 
-    public override string ToString() {
-        return Version;
-    }
+    public override string ToString() => Version;
 }
