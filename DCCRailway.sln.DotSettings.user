@@ -3,23 +3,19 @@
   &lt;Assembly Path="/Users/trevorleybourne/.nuget/packages/system.io.ports/8.0.0-preview.6.23329.7/lib/net7.0/System.IO.Ports.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/trevorleybourne/Library/Caches/JetBrains/Rider2023.2/resharper-host/temp/Rider/vAny/CoverageData/_DCCRailway.1110481759/Snapshot/snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=41b92374_002D72a7_002D40e5_002Db9e8_002Dc22bb39bc536/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CycleSignals" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=723dcd27_002D57a0_002D43bd_002Da81c_002D9e540775374e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CycleSignals #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;MSTest::5489776D-7885-48FE-AC7F-D92DC35EC324::net7.0::DCCRailway.Test.NCEPowerCabSignalTest.CycleSignals&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc01ef17_002D954c_002D473f_002Daa34_002D4872f8299b03/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FindSerialAdapter" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc01ef17_002D954c_002D473f_002Daa34_002D4872f8299b03/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="FindSerialAdapter" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;MSTest::5489776D-7885-48FE-AC7F-D92DC35EC324::net7.0::DCCRailway.Test.AdapterTests.FindSerialAdapterTest.FindSerialAdapter&lt;/TestId&gt;
     &lt;TestId&gt;MSTest::5489776D-7885-48FE-AC7F-D92DC35EC324::net7.0::DCCRailway.Test.NCEPowerCabSignalTest.CycleSignals&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fe62c631_002Da942_002D4e2a_002Da178_002Dfa726797cbe8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestSerialAdapter" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;MSTest::5489776D-7885-48FE-AC7F-D92DC35EC324::net7.0::DCCRailway.Test.AdapterTests.FindSerialAdapterTest.TestSerialAdapter&lt;/TestId&gt;
-    &lt;TestId&gt;MSTest::5489776D-7885-48FE-AC7F-D92DC35EC324::net7.0::DCCRailway.Test.AdapterTests.FindSerialAdapterTest.FindSerialAdapter&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
+	
 	
 	
 	

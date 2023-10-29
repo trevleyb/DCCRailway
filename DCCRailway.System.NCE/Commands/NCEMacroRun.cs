@@ -10,7 +10,7 @@ namespace DCCRailway.System.NCE.Commands;
 public class NCEMacroRun : NCECommand, ICmdMacroRun {
     public byte Macro { get; set; }
 
-    public override IResult Execute(IAdapter adapter) => SendAndReceieve(adapter, new NCEStandardValidation(), new byte[] { 0xAC, Macro });
+    public override IResult Execute(IAdapter adapter) => SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0xAC, Macro });
 
     public override string ToString() => $"RUN MACRO ({Macro})";
 }

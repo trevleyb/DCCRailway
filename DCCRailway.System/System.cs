@@ -3,6 +3,7 @@ using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Results;
+using DCCRailway.System.SystemEvents;
 using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
 
@@ -13,6 +14,9 @@ public abstract class System : ISystem {
     private Dictionary<Type, (Type Adapter, string Name)> _adapters = new(); // Stores what operations the system will provide
     private Dictionary<Type, (Type Command, string Name)> _commands = new(); // Stores what operations the system will provide
 
+    public event SystemEvents SystemEvent;
+    public delegate void      SystemEvents(object sender, SystemEventArgs e);
+    
     /// <summary>
     ///     Execute a Given Command. We do this here so we can manage and log all command being executed
     ///     and the results that each command received.
@@ -22,14 +26,10 @@ public abstract class System : ISystem {
     /// <exception cref="ApplicationException">Will throw an exception if no adapter specified</exception>
     public IResult? Execute(ICommand command) {
         if (_adapter == null) throw new ApplicationException("No Adapter has been provided.");
-
-        return command.Execute(_adapter);
+        var result = command.Execute(_adapter);
+        OnCommandExecute(this, command, result);
+        return result;
     }
-
-    protected abstract void Adapter_ErrorOccurred(object?           sender, ErrorArgs        e);
-    protected abstract void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e);
-    protected abstract void Adapter_DataSent(object?                sender, DataSentArgs     e);
-    protected abstract void Adapter_DataReceived(object?            sender, DataRecvArgs     e);
 
     #region Create an Address. Must be overriden to the supported Command Station
     public abstract IDCCAddress CreateAddress();
@@ -60,7 +60,6 @@ public abstract class System : ISystem {
                 }
             }
         }
-
         return null;
     }
 
@@ -76,35 +75,27 @@ public abstract class System : ISystem {
                 }
             }
         }
-
         return null;
     }
 
     /// <summary>
     ///     Remove an previously attached adapter. Ensure it is closed and resources returned
     /// </summary>
-    public void Detach() {
+    private void Detach() {
         if (_adapter != null) {
-            _adapter.DataReceived            -= Adapter_DataReceived;
-            _adapter.DataSent                -= Adapter_DataSent;
-            _adapter.ErrorOccurred           -= Adapter_ErrorOccurred;
-            _adapter.ConnectionStatusChanged -= Adapter_ConnectionStatusChanged;
+            OnAdapterRemoved(this,_adapter);
             _adapter.Disconnect();
             _commands = new Dictionary<Type, (Type command, string name)>();
         }
     }
 
-    public IAdapter? Attach(IAdapter? adapter) {
+    private IAdapter? Attach(IAdapter? adapter) {
         if (adapter != null) {
-            _adapter                         =  adapter;
-            _adapter.DataReceived            += Adapter_DataReceived;
-            _adapter.DataSent                += Adapter_DataSent;
-            _adapter.ErrorOccurred           += Adapter_ErrorOccurred;
-            _adapter.ConnectionStatusChanged += Adapter_ConnectionStatusChanged;
+            _adapter =  adapter;
             _adapter.Connect();
             RegisterCommands();
+            OnAdapterAdd(this,adapter);
         }
-
         return adapter;
     }
     #endregion
@@ -162,6 +153,7 @@ public abstract class System : ISystem {
     ///     system to ask it to execute it.
     /// </summary>
     /// <typeparam name="T">An interface that adheres to a ICommand interface</typeparam>
+    /// <typeparam name="TCommand"></typeparam>
     /// <returns>An object instance that is a Type T object</returns>
     public TCommand? CreateCommand<TCommand>() where TCommand : ICommand {
         if (_adapter == null) throw new ApplicationException("Adapter cannot be null when creating commands");
@@ -181,7 +173,7 @@ public abstract class System : ISystem {
 
     public TCommand? CreateCommand<TCommand>(byte value) where TCommand : ICommand => Create<TCommand, byte>(value);
 
-    private TCommand? Create<TCommand, P>(P value) where TCommand : ICommand {
+    private TCommand? Create<TCommand, TP>(TP value) where TCommand : ICommand {
         if (_adapter == null) throw new ApplicationException("Adapter cannot be null when creating commands");
         var typeToCreate = _commands[typeof(TCommand)].Command ?? null;
         if (typeToCreate == null) throw new ApplicationException("Should not have an instance where the command returned is NULL");
@@ -195,4 +187,23 @@ public abstract class System : ISystem {
         }
     }
     #endregion
+
+    protected virtual void OnCommandExecute(object sender, ICommand command, IResult result) {
+        var e = new SystemEventCommandArgs(command, result,$"Command {command.GetType().Name} executed with result {result.GetType().Name}");
+        SystemEvent?.Invoke(sender, e);
+    }
+    
+    protected virtual void OnAdapterAdd(object sender, IAdapter adapter) {
+        var e = new SystemEventAdapterArgs(adapter, SystemEventAction.Add, $"Adapter {adapter.GetType().Name} added");
+        SystemEvent?.Invoke(sender, e);
+    }
+
+    protected virtual void OnAdapterRemoved(object sender, IAdapter adapter) {
+        var e = new SystemEventAdapterArgs(adapter, SystemEventAction.Delete, $"Adapter {adapter.GetType().Name} removed");
+        SystemEvent?.Invoke(sender, e);
+    }
+
+    protected virtual void OnSystemEvent(SystemEventArgs e) {
+        SystemEvent?.Invoke(this, e);
+    }
 }

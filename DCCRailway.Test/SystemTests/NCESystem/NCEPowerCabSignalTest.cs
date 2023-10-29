@@ -1,4 +1,5 @@
-﻿using System.IO.Ports;
+﻿using System.Diagnostics;
+using System.IO.Ports;
 using DCCRailway.System;
 using DCCRailway.System.Commands.Interfaces;
 using DCCRailway.System.NCE;
@@ -21,6 +22,10 @@ public class NCEPowerCabSignalTest {
         Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
         Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 
+        system.SystemEvent += (sender, args) => {
+            Debug.WriteLine(args.ToString());
+        };
+        
         if (system?.Adapter != null) {
             var signalCmd = system.CreateCommand<ICmdSignalSetAspect>();
             if (signalCmd != null) {

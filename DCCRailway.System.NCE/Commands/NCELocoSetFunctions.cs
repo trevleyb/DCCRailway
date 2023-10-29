@@ -41,7 +41,7 @@ public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
         for (var block = 1; block <= 5; block++) {
             if (Functions.GetBlock(block) != Previous.GetBlock(block)) {
                 var command = new byte[] { 0xA2, ((DCCAddress)Address).HighAddress, ((DCCAddress)Address).LowAddress, _opCodes[block - 1], Functions.GetBlock(block) };
-                result = SendAndReceieve(adapter, new NCEStandardValidation(), command);
+                result = SendAndReceive(adapter, new NCEStandardValidation(), command);
 
                 if (!result.OK) return result;
             }

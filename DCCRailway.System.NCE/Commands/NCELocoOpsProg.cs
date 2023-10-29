@@ -25,6 +25,7 @@ public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
         Value       = value;
     }
 
+    public IDCCAddress Address     => LocoAddress;
     public IDCCAddress LocoAddress { get; set; }
     public IDCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }
@@ -35,7 +36,7 @@ public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
         cmd = cmd.AddToArray(CVAddress.AddressBytes);
         cmd = cmd.AddToArray(Value);
 
-        return SendAndReceieve(adapter, new NCEStandardValidation(), cmd);
+        return SendAndReceive(adapter, new NCEStandardValidation(), cmd);
     }
 
     public override string ToString() => $"LOCO OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";

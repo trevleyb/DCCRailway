@@ -10,7 +10,7 @@ namespace DCCRailway.System.NCE.Commands;
 [Command("ReadClock", "Read the Clock from the NCE Controller")]
 public class NCEReadClock : Command, ICmdClockRead, ICommand {
     public override IResult Execute(IAdapter adapter) {
-        var result = SendAndReceieve(adapter, new SimpleResultValidation(2), new byte[] { 0x82 });
+        var result = SendAndReceive(adapter, new SimpleResultValidation(2), new byte[] { 0x82 });
 
         if (!result.OK) return result;
 

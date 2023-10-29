@@ -25,7 +25,7 @@ public class NCEConsistDelete : NCECommand, ICmdConsistDelete, ICommand {
         command = command.AddToArray(0x10);
         command = command.AddToArray(0);
 
-        return SendAndReceieve(adapter, new NCEStandardValidation(), command);
+        return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
     public override string ToString() => $"CONSIST DELETE ({Address})";

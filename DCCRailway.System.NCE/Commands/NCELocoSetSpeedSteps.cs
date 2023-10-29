@@ -28,7 +28,7 @@ public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand 
         command = command.AddToArray(((DCCAddress)Address).AddressBytes);
         command = command.AddToArray((byte)SpeedSteps);
 
-        return SendAndReceieve(adapter, new NCEStandardValidation(), command);
+        return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
     public override string ToString() => $"LOCO SPEED STEPS ({Address}={SpeedSteps}";

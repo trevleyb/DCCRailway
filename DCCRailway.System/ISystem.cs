@@ -2,10 +2,14 @@
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Types;
+using DCCRailway.System.SystemEvents;
 
 namespace DCCRailway.System;
 
 public interface ISystem {
+    
+    public event System.SystemEvents SystemEvent;
+
     // Attach or detect an Adapter to a Command Station
     // ----------------------------------------------------------------------------
     public IAdapter?                          Adapter           { get; set; }

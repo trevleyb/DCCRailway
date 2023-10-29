@@ -32,7 +32,7 @@ public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
         command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x06 : 0x05));
         command = command.AddToArray(0);
 
-        return SendAndReceieve(adapter, new NCEStandardValidation(), command);
+        return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
     public override string ToString() => $"LOCO STOP ({Address}={Direction}";

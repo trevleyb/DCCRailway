@@ -11,7 +11,7 @@ using DCCRailway.System.Utilities;
 namespace DCCRailway.System.NCE.Commands;
 
 [Command("AccyOpsProg", "Accessory Ops Programming")]
-public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand {
+public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand, IAccyCommand {
     public NCEAccyOpsProg() { }
 
     public NCEAccyOpsProg(int locoAddress, DCCAddressType type, int cvAddress, byte value) {
@@ -28,6 +28,7 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand {
 
     public static string Name => "NCE Accessory Programming";
 
+    public IDCCAddress Address     => LocoAddress;
     public IDCCAddress LocoAddress { get; set; }
     public IDCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }
@@ -43,5 +44,5 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand {
 
     private IResult SendAndReceieve(IAdapter adapter, NCEStandardValidation nceStandardValidation, byte[] cmd) => throw new NotImplementedException();
 
-    public override string ToString() => $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
+    public override string      ToString() => $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
 }

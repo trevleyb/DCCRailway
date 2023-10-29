@@ -95,14 +95,4 @@ public class NcePowerCab : System, ISystem {
             }
         }
     }
-
-    #region Manage the events from the Adapter
-    protected override void Adapter_ErrorOccurred(object? sender, ErrorArgs e) => Logger.Log.Debug(e.ToString());
-
-    protected override void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e) => Logger.Log.Debug(e.ToString());
-
-    protected override void Adapter_DataSent(object? sender, DataSentArgs e) => Logger.Log.Debug(e.ToString());
-
-    protected override void Adapter_DataReceived(object? sender, DataRecvArgs e) => Logger.Log.Debug(e.ToString());
-    #endregion
 }

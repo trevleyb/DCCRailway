@@ -25,7 +25,7 @@ public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
             _                           => throw new UnsupportedCommandException("Invalid CV access type provided.")
         };
 
-        return SendAndReceieve(adapter, new NCEDataReadValidation(), CV.ToByteArray().AddToArray(command));
+        return SendAndReceive(adapter, new NCEDataReadValidation(), CV.ToByteArray().AddToArray(command));
     }
 
     public override string ToString() => $"READ CV ({CV}/{ProgrammingMode})";

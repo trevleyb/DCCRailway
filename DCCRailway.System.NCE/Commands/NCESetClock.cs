@@ -54,9 +54,9 @@ public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
         // -----------------------------------------------------------------------------------------
         IResult result;
 
-        if ((result = SendAndReceieve(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).OK) {
-            if ((result = SendAndReceieve(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).OK) {
-                if ((result = SendAndReceieve(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).OK) {
+        if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).OK) {
+            if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).OK) {
+                if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).OK) {
                     return new ResultOK();
                 }
             }

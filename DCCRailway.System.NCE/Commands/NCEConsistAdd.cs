@@ -36,7 +36,7 @@ public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
         };
         command = command.AddToArray(ConsistAddress);
 
-        return SendAndReceieve(adapter, new NCEStandardValidation(), command);
+        return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
     public override string ToString() => $"CONSIST ADD TO {ConsistAddress:D3} @ {Position} ({Loco.Address}={Loco.Direction})";

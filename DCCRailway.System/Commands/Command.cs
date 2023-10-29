@@ -16,9 +16,9 @@ public abstract class Command : PropertyChangedBase, ICommand {
     /// <returns></returns>
     public async Task<IResult> ExecuteAsync(IAdapter adapter) => await Task.FromResult(Execute(adapter));
 
-    protected IResult SendAndReceieve(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceieve(adapter, validator, new[] { sendData });
+    protected IResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceive(adapter, validator, new[] { sendData });
 
-    protected IResult SendAndReceieve(IAdapter adapter, IResultValidation validator, byte[] sendData) {
+    protected IResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte[] sendData) {
         // Send the command provided to the command station
         // -----------------------------------------------------------------------------------------------------------
         if (adapter == null) throw new ArgumentNullException(nameof(adapter), "The adapter cannot be null.");
@@ -28,7 +28,7 @@ public abstract class Command : PropertyChangedBase, ICommand {
         // ------------------------------------------------------------
         var recvData = adapter.RecvData(this);
 
-        if (recvData == null) throw new ExpectedDataException(null, adapter, "Command expected to recieve data from the Adapter but recieved nothing. ");
+        if (recvData == null) throw new ExpectedDataException(null, adapter, "Command expected to receive data from the Adapter but received nothing. ");
 
         // Validate the data. All NCE Commands return a ! for OK or another code for an error, or some data if appropriate
         // ---------------------------------------------------------------------------------------------------------------

@@ -46,7 +46,7 @@ public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
 
         command = command.AddToArray(Speed);
 
-        return SendAndReceieve(adapter, new NCEStandardValidation(), command);
+        return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
     public override string ToString() => $"LOCO SPEED ({Address}={Direction}@{SpeedSteps}={Speed}";

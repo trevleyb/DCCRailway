@@ -21,13 +21,4 @@ public class NceTwinCab : System, ISystem {
 
     protected override void RegisterCommands() => throw new NotImplementedException();
 
-    #region Manage the events from the Adapter
-    protected override void Adapter_ErrorOccurred(object? sender, ErrorArgs e) => throw new NotImplementedException();
-
-    protected override void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e) => throw new NotImplementedException();
-
-    protected override void Adapter_DataSent(object? sender, DataSentArgs e) => throw new NotImplementedException();
-
-    protected override void Adapter_DataReceived(object? sender, DataRecvArgs e) => throw new NotImplementedException();
-    #endregion
 }

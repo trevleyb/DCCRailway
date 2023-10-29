@@ -44,7 +44,7 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
         cmd = cmd.AddToArray(0x05);                               // Signals command is 0x05
         cmd = cmd.AddToArray(Aspect);                             // Aspect must be 00 to 0x0f
 
-        return SendAndReceieve(adapter, new NCEStandardValidation(), cmd);
+        return SendAndReceive(adapter, new NCEStandardValidation(), cmd);
     }
 
     public override string ToString() => $"SIGNAL ASPECT ({Address}@{Aspect})";

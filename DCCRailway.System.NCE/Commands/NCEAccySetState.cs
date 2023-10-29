@@ -24,7 +24,7 @@ public class NCEAccySetState : NCECommand, ICmdAccySetState, ICommand {
         cmd = cmd.AddToArray((byte)(State == DCCAccessoryState.On ? 0x03 : 0x04)); // Normal=0x03, Thrown=0x04
         cmd = cmd.AddToArray(0);                                                   // Accessory always has a data of 0x00
 
-        return SendAndReceieve(adapter, new NCEStandardValidation(), cmd);
+        return SendAndReceive(adapter, new NCEStandardValidation(), cmd);
     }
 
     public override string ToString() => $"ACCY STATE ({Address} = {State})";

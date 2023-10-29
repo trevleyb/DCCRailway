@@ -25,7 +25,7 @@ public class NCEConsistKill : NCECommand, ICmdConsistKill, ICommand {
         command = command.AddToArray(0x11);
         command = command.AddToArray(0);
 
-        return SendAndReceieve(adapter, new NCEStandardValidation(), command);
+        return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
     public override string ToString() => $"CONSIST KILL ({Address})";

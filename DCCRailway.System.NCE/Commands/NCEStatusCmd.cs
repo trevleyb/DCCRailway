@@ -9,7 +9,7 @@ namespace DCCRailway.System.NCE.Commands;
 [Command("StatusCmd", "Get the NCE Status")]
 public class NCEStatusCmd : NCECommand, ICmdStatus {
     public override IResult Execute(IAdapter adapter) {
-        var result = SendAndReceieve(adapter, new SimpleResultValidation(3), new byte[] { 0xAA });
+        var result = SendAndReceive(adapter, new SimpleResultValidation(3), new byte[] { 0xAA });
 
         if (!result.OK) return result;
 

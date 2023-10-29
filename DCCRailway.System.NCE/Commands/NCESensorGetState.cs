@@ -28,11 +28,12 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
         SensorAddress.AddressType = DCCAddressType.Accessory;
     }
 
+    public IDCCAddress Address       => SensorAddress;
     public IDCCAddress SensorAddress { get; set; }
 
     public override IResult Execute(IAdapter adapter) {
         if (!_sensorCache.IsCurrent) {
-            var result = SendAndReceieve(adapter, new NCESensorValidator(), new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
+            var result = SendAndReceive(adapter, new NCESensorValidator(), new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
 
             if (!result.OK) return result;
             _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data);

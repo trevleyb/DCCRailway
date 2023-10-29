@@ -38,7 +38,7 @@ public class NCEPowerCabSensorTest {
         Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
         Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
 
-        if (system != null && system.Adapter != null) {
+        if (system.Adapter != null) {
             var sensorCmd = system.CreateCommand<ICmdSensorGetState>() as NCESensorGetState;
 
             var states = new byte[2];
