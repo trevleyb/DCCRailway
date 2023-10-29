@@ -3,6 +3,7 @@ Train Command and Control solution in C#
 
 Early stages of work and happy for others to help contribute. 
 Most of the work is in the NCE classes as that is what I use.
+This is not a working solution - it is the basis to build a solution. 
 
 This is a system to allow the control of DCC Model Trains. I have tried to build it to be plugable so that I can add and support different systems
 and boosters easily. In fact, the system will discover additional .DLLs that meet the DCCRailway.System,*.dll contruct and will use reflection 
