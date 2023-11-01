@@ -24,6 +24,8 @@
 *.suo
 *.user
 .vs/
+**/obj/**
+**/bin/**
 [Bb]in/
 [Oo]bj/
 _UpgradeReport_Files/
