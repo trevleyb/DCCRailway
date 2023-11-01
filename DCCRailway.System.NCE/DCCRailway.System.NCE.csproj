@@ -12,6 +12,9 @@
         <Compile Remove="Common\**"/>
         <EmbeddedResource Remove="Common\**"/>
         <None Remove="Common\**"/>
+        <Compile Remove="obj\**" />
+        <EmbeddedResource Remove="obj\**" />
+        <None Remove="obj\**" />
     </ItemGroup>
 
     <ItemGroup>
