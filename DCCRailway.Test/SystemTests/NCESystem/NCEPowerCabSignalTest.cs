@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO.Ports;
 using DCCRailway.System;
-using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Commands.CommandType;
 using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.Types;

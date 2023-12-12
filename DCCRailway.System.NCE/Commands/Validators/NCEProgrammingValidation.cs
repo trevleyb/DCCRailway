@@ -1,5 +1,5 @@
-﻿using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Commands.Validators;
+﻿using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Validator;
 
 namespace DCCRailway.System.NCE.Commands.Validators;
 

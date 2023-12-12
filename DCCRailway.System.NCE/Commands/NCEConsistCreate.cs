@@ -3,8 +3,8 @@ using System.Text;
 using DCCRailway.System.Adapters;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
-using DCCRailway.System.Commands.Interfaces;
-using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Commands.CommandType;
+using DCCRailway.System.Commands.Result;
 using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE.Commands;

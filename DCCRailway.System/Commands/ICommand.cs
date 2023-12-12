@@ -1,5 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
-using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Commands.Result;
 
 namespace DCCRailway.System.Commands;
 

@@ -1,6 +1,6 @@
 ﻿using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Attributes;
-using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Commands.CommandType;
 using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
 using DCCRailway.System.Virtual.Adapters;

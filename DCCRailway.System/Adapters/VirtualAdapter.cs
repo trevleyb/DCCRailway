@@ -1,5 +1,5 @@
 ﻿using DCCRailway.System.Commands;
-using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Commands.CommandType;
 using DCCRailway.System.Exceptions;
 using DCCRailway.System.Simulator;
 using DCCRailway.System.Types;

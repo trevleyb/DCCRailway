@@ -1,5 +1,5 @@
 ﻿using DCCRailway.System;
-using DCCRailway.System.Commands.Interfaces;
+using DCCRailway.System.Commands.CommandType;
 using DCCRailway.System.Utilities;
 using DCCRailway.System.Virtual;
 using DCCRailway.System.Virtual.Adapters;

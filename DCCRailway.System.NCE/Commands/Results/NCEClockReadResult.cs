@@ -1,5 +1,5 @@
 ﻿using System;
-using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Commands.Result;
 
 namespace DCCRailway.System.NCE.Commands;
 

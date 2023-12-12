@@ -26,7 +26,7 @@ public class SystemEntry {
     public string Name         => Attributes.Name;
     public string Manufacturer => Attributes.Manufacturer;
     public string Model        => Attributes.Model;
-    public string version      => Attributes.Version;
+    public string Version      => Attributes.Version;
 
     /// <summary>
     ///     Helper function to create an instance of a SYSTEM with an appropriate

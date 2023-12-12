@@ -2,7 +2,7 @@
 using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
-using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Commands.Result;
 using DCCRailway.System.SystemEvents;
 using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;

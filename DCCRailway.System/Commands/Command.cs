@@ -1,6 +1,6 @@
 ﻿using DCCRailway.System.Adapters;
-using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Commands.Validators;
+using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Validator;
 using DCCRailway.System.Exceptions;
 using DCCRailway.System.Utilities;
 
