@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using DCCRailway.System.Adapters;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
@@ -31,7 +31,7 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
     public IDCCAddress Address       => SensorAddress;
     public IDCCAddress SensorAddress { get; set; }
 
-    public override IResult Execute(IAdapter adapter) {
+    public override IResultOld Execute(IAdapter adapter) {
         if (!_sensorCache.IsCurrent) {
             var result = SendAndReceive(adapter, new NCESensorValidator(), new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
 
@@ -39,7 +39,7 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
             _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data);
         }
 
-        return new ResultState(_sensorCache.GetState(SensorAddress.Address));
+        return new ResultOldState(_sensorCache.GetState(SensorAddress.Address));
     }
 
     public void SetAddressByCabPin(byte cab, byte pin) => SensorAddress = new DCCAddress(CalculateAddress(cab, pin), DCCAddressType.Accessory);

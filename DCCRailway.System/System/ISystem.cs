@@ -1,8 +1,7 @@
 ﻿using DCCRailway.System.Adapters;
 using DCCRailway.System.Commands;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Types;
-using DCCRailway.System.SystemEvents;
 
 namespace DCCRailway.System;
 
@@ -12,15 +11,16 @@ public interface ISystem {
 
     // Attach or detect an Adapter to a Command Station
     // ----------------------------------------------------------------------------
-    public IAdapter?                          Adapter           { get; set; }
-    public List<(Type command, string name)>? SupportedCommands { get; }
-    public List<(Type adapter, string name)>? SupportedAdapters { get; }
-
-    // Execute a Command. Must be executed via here
-    // ----------------------------------------------------------------------------
-    public IResult?  Execute(ICommand command);
+    public IAdapter? Adapter { get; set; }
     public IAdapter? CreateAdapter<T>() where T : IAdapter;
     public IAdapter? CreateAdapter(string name);
+
+    
+    // Execute a Command. Must be executed via here
+    // ----------------------------------------------------------------------------
+    public CommandResult Execute(ICommand command);
+    public List<(Type command, string name)>? SupportedCommands { get; }
+    public List<(Type adapter, string name)>? SupportedAdapters { get; }
 
     // Create and Execute commands that are associated with this command station
     // --------------------------------------------------------------------------

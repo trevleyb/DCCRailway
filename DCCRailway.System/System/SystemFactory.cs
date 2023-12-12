@@ -24,7 +24,7 @@ public static class SystemFactory {
             var type = assembly.GetType(assemblyName);
             return type != null ? Activator.CreateInstance(type) as ISystem : null;
         } catch (Exception ex) {
-            throw new ApplicationException($"[SystemFactory] Unable to load ISystem: Path='{assemblyPath}' | Type='{assemblyName}'", ex);
+            throw new ApplicationException($"[SystemFactory] Unable to load ISystem: Path='{assemblyPath}' | Types='{assemblyName}'", ex);
         }
     }
 */

@@ -2,7 +2,7 @@
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Commands.Validator;
 using DCCRailway.System.Utilities;
 
@@ -12,11 +12,7 @@ namespace DCCRailway.System.Virtual.Commands;
 public class VirtualStatus : Command, ICmdStatus {
     private readonly byte[] CommandData = "STATUS_COMMAND".ToByteArray();
 
-    public override IResult Execute(IAdapter adapter) {
-        var result = SendAndReceive(adapter, new SimpleResultValidation(2), "STATUS_COMMAND".ToByteArray());
-
-        if (!result.OK) return result;
-
-        return new ResultOK(result.Data);
+    public override CommandResult Execute(IAdapter adapter) {
+        return SendAndReceive(adapter, new SimpleResultValidation(2), "STATUS_COMMAND".ToByteArray());
     }
 }

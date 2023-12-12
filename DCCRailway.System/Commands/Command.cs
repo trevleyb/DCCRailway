@@ -1,5 +1,5 @@
 ﻿using DCCRailway.System.Adapters;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Commands.Validator;
 using DCCRailway.System.Exceptions;
 using DCCRailway.System.Utilities;
@@ -7,18 +7,13 @@ using DCCRailway.System.Utilities;
 namespace DCCRailway.System.Commands;
 
 public abstract class Command : PropertyChangedBase, ICommand {
-    public abstract IResult Execute(IAdapter adapter);
+    public abstract CommandResult Execute(IAdapter adapter);
+    
+    public async Task<CommandResult> ExecuteAsync(IAdapter adapter) => await Task.FromResult(Execute(adapter));
 
-    /// <summary>
-    ///     Used for Async/Await calls
-    /// </summary>
-    /// <param name="adapter"></param>
-    /// <returns></returns>
-    public async Task<IResult> ExecuteAsync(IAdapter adapter) => await Task.FromResult(Execute(adapter));
+    protected CommandResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceive(adapter, validator, new[] { sendData });
 
-    protected IResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceive(adapter, validator, new[] { sendData });
-
-    protected IResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte[] sendData) {
+    protected CommandResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte[] sendData) {
         // Send the command provided to the command station
         // -----------------------------------------------------------------------------------------------------------
         if (adapter == null) throw new ArgumentNullException(nameof(adapter), "The adapter cannot be null.");

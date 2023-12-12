@@ -1,7 +1,7 @@
 ﻿using DCCRailway.System;
 using DCCRailway.System.Adapters;
 using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.NCE.Commands;
@@ -86,8 +86,8 @@ public class NCEPowerCab {
             Assert.IsInstanceOfType(dummyCmd, typeof(NCEDummyCmd), "Should in fact be a NCE Dummy");
 
             var result = system.Execute(dummyCmd);
-            Assert.IsNotNull(result, "Should have recieved a result of some description");
-            Assert.IsInstanceOfType(result, typeof(IResult), "Should be an IResult type");
+            Assert.IsNotNull(result, "Should have recieved a resultOld of some description");
+            Assert.IsInstanceOfType(result, typeof(IResultOld), "Should be an IResultOld type");
             Assert.IsTrue(dataSent, "Should have raised an event that we sent some data.");
             Assert.IsTrue(dataRecv, "Should have raised an event that we recv some data.");
         }
@@ -121,13 +121,13 @@ public class NCEPowerCab {
             Assert.IsInstanceOfType(dummyCmd, typeof(NCEStatusCmd), "Should in fact be a NCE Dummy");
 
             var result = system.Execute(dummyCmd);
-            Assert.IsInstanceOfType(result, typeof(IResult), "Should be an IResult type");
-            Assert.IsNotNull(result, "Should have recieved a result of some description");
-            Assert.IsInstanceOfType(result, typeof(IResultStatus), "Should in fact be a IResult Status type");
-            Assert.IsInstanceOfType(result, typeof(NCEStatusResult), "Should in fact be a specified NCE Result Status type");
-            Assert.IsTrue(result.OK, "Result should be OK");
-            Assert.IsTrue(!string.IsNullOrEmpty(((NCEStatusResult)result).Version), "Result Version number should not be null or empty");
-            Console.WriteLine("Status=>" + ((NCEStatusResult)result).Version);
+            Assert.IsInstanceOfType(result, typeof(IResultOld), "Should be an IResultOld type");
+            Assert.IsNotNull(result, "Should have recieved a resultOld of some description");
+            Assert.IsInstanceOfType(result, typeof(IResultOldStatus), "Should in fact be a IResultOld Status type");
+            Assert.IsInstanceOfType(result, typeof(NCEStatusResultOld), "Should in fact be a specified NCE Results Status type");
+            Assert.IsTrue(result.OK, "Results should be OK");
+            Assert.IsTrue(!string.IsNullOrEmpty(((NCEStatusResultOld)result).Version), "Results Version number should not be null or empty");
+            Console.WriteLine("Status=>" + ((NCEStatusResultOld)result).Version);
 
             Assert.IsTrue(dataSent, "Should have raised an event that we sent some data.");
             Assert.IsTrue(dataRecv, "Should have raised an event that we recv some data.");
@@ -154,34 +154,34 @@ public class NCEPowerCab {
         setTime.Is24Hour = false;
         setTime.Ratio    = 15; // Fast, 1 minute = 15 seconds 
         var setTimeRes = system.Execute(setTime);
-        Assert.IsInstanceOfType(setTimeRes, typeof(ResultOK));
+        Assert.IsInstanceOfType(setTimeRes, typeof(ResultOldOk));
 
         // Read the time on the NCE PowerCab
         // --------------------------------------------------------------------------
         var getTime = system.CreateCommand<ICmdClockRead>() as NCEReadClock;
         Assert.IsNotNull(getTime);
-        var getTimeRes = system.Execute(getTime) as NCEClockReadResult;
-        Assert.IsInstanceOfType(getTimeRes, typeof(IResult));
-        Assert.IsInstanceOfType(getTimeRes, typeof(NCEClockReadResult));
+        var getTimeRes = system.Execute(getTime) as NCEClockReadResultOld;
+        Assert.IsInstanceOfType(getTimeRes, typeof(IResultOld));
+        Assert.IsInstanceOfType(getTimeRes, typeof(NCEClockReadResultOld));
         Assert.IsTrue(getTimeRes?.FastClock == "09:30");
 
         var startClock = system.CreateCommand<ICmdClockStart>();
         Assert.IsNotNull(startClock);
         var startClockRes = system.Execute(startClock);
         Assert.IsNotNull(startClockRes);
-        Assert.IsInstanceOfType(startClockRes, typeof(IResult));
-        Assert.IsInstanceOfType(startClockRes, typeof(ResultOK));
+        Assert.IsInstanceOfType(startClockRes, typeof(IResultOld));
+        Assert.IsInstanceOfType(startClockRes, typeof(ResultOldOk));
 
         for (var i = 0; i < 30; i++) {
             // Read the time on the NCE PowerCab
             // --------------------------------------------------------------------------
             var getTimeLoop = system.CreateCommand<ICmdClockRead>() as NCEReadClock;
             Assert.IsNotNull(getTimeLoop);
-            getTimeRes = system.Execute(getTime) as NCEClockReadResult;
+            getTimeRes = system.Execute(getTime) as NCEClockReadResultOld;
 
             if (getTimeRes != null) {
-                Assert.IsInstanceOfType(getTimeRes, typeof(IResult));
-                Assert.IsInstanceOfType(getTimeRes, typeof(NCEClockReadResult));
+                Assert.IsInstanceOfType(getTimeRes, typeof(IResultOld));
+                Assert.IsInstanceOfType(getTimeRes, typeof(NCEClockReadResultOld));
                 var fastClock = getTimeRes.FastClock;
                 Console.WriteLine(fastClock);
             }
@@ -195,8 +195,8 @@ public class NCEPowerCab {
         if (stopClock != null) {
             var stopClockRes = system.Execute(stopClock);
             Assert.IsNotNull(stopClockRes);
-            Assert.IsInstanceOfType(startClockRes, typeof(IResult));
-            Assert.IsInstanceOfType(startClockRes, typeof(ResultOK));
+            Assert.IsInstanceOfType(startClockRes, typeof(IResultOld));
+            Assert.IsInstanceOfType(startClockRes, typeof(ResultOldOk));
         }
     }
 }

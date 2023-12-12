@@ -8,7 +8,7 @@ public abstract class Adapter {
     public event EventHandler<DataSentArgs>     DataSent;
     public event EventHandler<ErrorArgs>        ErrorOccurred;
 
-    #region Event Delegates
+    #region Events Delegates
     /// <summary>
     ///     When the state of an Adapters Connection changes, then raise an event
     ///     so that the systems using the Adapter know that a state change has

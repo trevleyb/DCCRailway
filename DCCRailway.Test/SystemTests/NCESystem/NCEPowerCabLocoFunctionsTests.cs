@@ -2,7 +2,7 @@
 using DCCRailway.System.Adapters;
 using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.Types;
@@ -89,7 +89,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
                 functionCmd.Functions[0] = true;
                 var result = _system.Execute(functionCmd);
-                if (!result!.OK) Console.WriteLine(((IResultError)result)!.ToString());
+                if (!result!.OK) Console.WriteLine(((IResultOldError)result)!.ToString());
 
                 speedCmd.Direction  = DCCDirection.Forward;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;
@@ -98,7 +98,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
                 functionCmd.Functions[0] = false;
                 result                   = _system.Execute(functionCmd);
-                if (!result!.OK) Console.WriteLine(((IResultError)result)!.ToString());
+                if (!result!.OK) Console.WriteLine(((IResultOldError)result)!.ToString());
 
                 speedCmd.Direction  = DCCDirection.Forward;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;
@@ -107,7 +107,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
                 functionCmd.Functions[0] = true;
                 result                   = _system.Execute(functionCmd);
-                if (!result!.OK) Console.WriteLine(((IResultError)result)!.ToString());
+                if (!result!.OK) Console.WriteLine(((IResultOldError)result)!.ToString());
 
                 speedCmd.Direction  = DCCDirection.Stop;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;

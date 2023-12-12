@@ -3,7 +3,7 @@ using DCCRailway.System.Adapters;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Exceptions;
 using DCCRailway.System.NCE.Commands.Validators;
 
@@ -44,7 +44,7 @@ public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
         get => _ratio;
     }
 
-    public override IResult Execute(IAdapter adapter) {
+    public override IResultOld Execute(IAdapter adapter) {
         if (adapter == null) throw new ArgumentNullException("adapter", "The adapter connot be null.");
 
         // Tell the NCE System to set the Clock to 24 hours mode
@@ -52,17 +52,17 @@ public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
         // ; 0x86 xx Set clock 12 / 24(1) 0 = 12 hr 1 = 24 hr
         // ; 0x87 xx Set clock ratio(1) 
         // -----------------------------------------------------------------------------------------
-        IResult result;
+        IResultOld resultOld;
 
-        if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).OK) {
-            if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).OK) {
-                if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).OK) {
-                    return new ResultOK();
+        if ((resultOld = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).OK) {
+            if ((resultOld = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).OK) {
+                if ((resultOld = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).OK) {
+                    return new ResultOldOk();
                 }
             }
         }
 
-        return result;
+        return resultOld;
     }
 
     public override string ToString() => $"SET CLOCK ({_hour:D2}:{_minute:D2}@{_ratio}:15";

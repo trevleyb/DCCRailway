@@ -1,4 +1,4 @@
-﻿using DCCRailway.System.Commands.Result;
+﻿using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Commands.Validator;
 
 namespace DCCRailway.System.NCE.Commands.Validators;
@@ -8,15 +8,15 @@ namespace DCCRailway.System.NCE.Commands.Validators;
 ///     or will return '0' to includate that the command is not supported
 /// </summary>
 public class NCESensorValidator : IResultValidation {
-    public IResult Validate(byte[] data) =>
+    public IResultOld Validate(byte[] data) =>
         data.Length switch {
-            0 => new ResultError("Unexpected data returned and not processed. Expected 2 Bytes.", data!),
+            0 => new ResultOldError("Unexpected data returned and not processed. Expected 2 Bytes.", data!),
             1 => data[0] switch {
-                (byte)'0' => new ResultError("Command not supported or not in Programming Track mode."),
-                (byte)'3' => new ResultError("Data provided is out of range."),
-                _         => new ResultError("Unknown response from the NCE System.", data!)
+                (byte)'0' => new ResultOldError("Command not supported or not in Programming Track mode."),
+                (byte)'3' => new ResultOldError("Data provided is out of range."),
+                _         => new ResultOldError("Unknown response from the NCE System.", data!)
             },
-            2 => new ResultOK(data),
-            _ => new ResultError("Unknown response from the NCE System.", data!)
+            2 => new ResultOldOk(data),
+            _ => new ResultOldError("Unknown response from the NCE System.", data!)
         };
 }

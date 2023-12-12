@@ -1,8 +1,7 @@
 ﻿using DCCRailway.System.Adapters;
-using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.SystemEvents;
 using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
@@ -22,9 +21,9 @@ public abstract class System : ISystem {
     ///     and the results that each command received.
     /// </summary>
     /// <param name="command">The command object to be executed</param>
-    /// <returns>A result object of type IResult which should be cast according to the command</returns>
+    /// <returns>A resultOld object of type IResultOld which should be cast according to the command</returns>
     /// <exception cref="ApplicationException">Will throw an exception if no adapter specified</exception>
-    public IResult? Execute(ICommand command) {
+    public CommandResult Execute(ICommand command) {
         if (_adapter == null) throw new ApplicationException("No Adapter has been provided.");
         var result = command.Execute(_adapter);
         OnCommandExecute(this, command, result);
@@ -154,7 +153,7 @@ public abstract class System : ISystem {
     /// </summary>
     /// <typeparam name="T">An interface that adheres to a ICommand interface</typeparam>
     /// <typeparam name="TCommand"></typeparam>
-    /// <returns>An object instance that is a Type T object</returns>
+    /// <returns>An object instance that is a Types T object</returns>
     public TCommand? CreateCommand<TCommand>() where TCommand : ICommand {
         if (_adapter == null) throw new ApplicationException("Adapter cannot be null when creating commands");
         var typeToCreate = _commands[typeof(TCommand)].Command ?? null;
@@ -188,8 +187,8 @@ public abstract class System : ISystem {
     }
     #endregion
 
-    protected virtual void OnCommandExecute(object sender, ICommand command, IResult result) {
-        var e = new SystemEventCommandArgs(command, result,$"Command {command.GetType().Name} executed with result {result.GetType().Name}");
+    protected virtual void OnCommandExecute(object sender, ICommand command, CommandResult resultOld) {
+        var e = new SystemEventCommandArgs(command, resultOld,$"Command {command.GetType().Name} executed with resultOld {resultOld.GetType().Name}");
         SystemEvent?.Invoke(sender, e);
     }
     

@@ -1,7 +1,7 @@
 ﻿using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Exceptions;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.NCE.Commands;
@@ -77,7 +77,7 @@ public class NcePowerCab : System, ISystem {
                 RegisterCommand<ICmdClockStart>(typeof(NCEStartClock));
                 RegisterCommand<ICmdClockStop>(typeof(NCEStopClock));
             } else if (Adapter is NCEUSBSerial) {
-                if (CreateCommand<ICmdStatus>() is NCEStatusCmd statusCmd && statusCmd.Execute(Adapter) is IResultStatus status) {
+                if (CreateCommand<ICmdStatus>() is NCEStatusCmd statusCmd && statusCmd.Execute(Adapter) is IResultOldStatus status) {
                     switch (status.Version) {
                     case "6.x.x": break; // Cannot get AIU Information
                     case "7.3.0": break;

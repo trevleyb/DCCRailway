@@ -1,6 +1,6 @@
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Entities;
 using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
@@ -8,7 +8,7 @@ using DCCRailway.System.Utilities;
 namespace DCCRailway.System.SystemEvents;
 
 public class SystemEventCommandArgs : SystemEventArgs {
-    public SystemEventCommandArgs(ICommand command, IResult result, string message) {
+    public SystemEventCommandArgs(ICommand command, CommandResult result, string message) {
         Type    = SystemEventType.Command;
         Action  = SystemEventAction.Execute;
         Message = message;
@@ -18,14 +18,14 @@ public class SystemEventCommandArgs : SystemEventArgs {
         switch (command) {
         case ILocoCommand locoCommand:
             Address     = locoCommand.Address;
-            Description = $"Executed command '{Name}' on Loco '{Address}' with a result of '{result.OK}' and a value of '{result.Data.ToDisplayValues()}' - {Message}";
+            Description = $"Executed command '{Name}' on Loco '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.DataAsString}' - {Message}";
             break;
         case IAccyCommand accyCommand:
             Address     = accyCommand.Address;
-            Description = $"Executed command '{Name}' on Accessory '{Address}' with a result of '{result.OK}' and a value of '{result.Data.ToDisplayValues()}' - {Message}";
+            Description = $"Executed command '{Name}' on Accessory '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.DataAsString}' - {Message}";
             break;
         default:
-            Description = $"Executed command '{Name}' with a result of '{result.OK}' and a value of '{result.Data.ToDisplayValues()}' - {{Message}}";
+            Description = $"Executed command '{Name}' with a resultOld of '{result.IsOK}' and a value of '{result.DataAsString}' - {{Message}}";
             break;
         }
     }

@@ -2,7 +2,7 @@
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
@@ -30,7 +30,7 @@ public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
     public IDCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }
 
-    public override IResult Execute(IAdapter adapter) {
+    public override IResultOld Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAE };
         cmd = cmd.AddToArray(LocoAddress.AddressBytes);
         cmd = cmd.AddToArray(CVAddress.AddressBytes);

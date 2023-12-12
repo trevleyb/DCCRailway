@@ -3,7 +3,7 @@ using DCCRailway.System.Adapters;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Result;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
@@ -38,7 +38,7 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
         }
     }
 
-    public override IResult Execute(IAdapter adapter) {
+    public override IResultOld Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAD };                            // Command is 0xAD
         cmd = cmd.AddToArray(((DCCAddress)Address).AddressBytes); // Add the high and low bytes of the Address
         cmd = cmd.AddToArray(0x05);                               // Signals command is 0x05

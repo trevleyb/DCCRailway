@@ -1,5 +1,4 @@
 using DCCRailway.System.Adapters;
-using DCCRailway.System.Commands.Result;
 using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.SystemEvents;

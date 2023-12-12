@@ -19,7 +19,7 @@ public class Loco {
     [XmlAttribute(AttributeName = "Description")]
     public string Description { get; set; }
 
-    [XmlAttribute(AttributeName = "Type")]
+    [XmlAttribute(AttributeName = "Types")]
     public string Type { get; set; }
 
     [XmlAttribute(AttributeName = "RoadName")]
