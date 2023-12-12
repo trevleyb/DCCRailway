@@ -77,20 +77,14 @@ public class NcePowerCab : System, ISystem {
                 RegisterCommand<ICmdClockStart>(typeof(NCEStartClock));
                 RegisterCommand<ICmdClockStop>(typeof(NCEStopClock));
             } else if (Adapter is NCEUSBSerial) {
-                if (CreateCommand<ICmdStatus>() is NCEStatusCmd statusCmd && statusCmd.Execute(Adapter) is IResultOldStatus status) {
-                    switch (status.Version) {
-                    case "6.x.x": break; // Cannot get AIU Information
-                    case "7.3.0": break;
-                    case "7.3.1": break;
-                    case "7.3.2": break;
-                    case "7.3.3": break;
-                    case "7.3.4": break;
-                    case "7.3.5": break;
-                    case "7.3.6": break;
-                    case "7.3.7": break;
+                if (CreateCommand<ICmdStatus>() is NCEStatusCmd statusCmd && statusCmd.Execute(Adapter) is NCECommandResultVersion status) {
+                    if (status.IsVersionMatch("6.x.x")) {
+                        // Does not support AIU cards
+                    } else if (status.IsVersionMatch("7.3.x")) {
+                        // Standard NCE Interface
+                    } else {
+                        throw new AdapterException(Adapter, ":Unable to communicate with the Command Station.");
                     }
-                } else {
-                    throw new AdapterException(Adapter, ":Unable to communicate with the Command Station.");
                 }
             }
         }

@@ -1,19 +1,37 @@
 using System;
 using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Types;
+using DCCRailway.System.Utilities.Results;
 
 namespace DCCRailway.System.NCE.Commands;
 
-public class NCECommandResultVersion : CommandResultMessage {
-
-    public NCECommandResultVersion(CommandResultDataSet dataSet) : base(null, "") {
-        if (dataSet.Data == null || dataSet.Bytes != 3) throw new ApplicationException("Invalid data provided to create a Version");
+public class NCECommandResultVersion : CommandResult {
+    
+    public NCECommandResultVersion(CommandResultData dataSet) : base(true, dataSet, null) {
+        if (dataSet.Data == null || dataSet.Length != 3) {
+            this.IsSuccess = false;
+        } else {
             Version = dataSet[0];
             Major   = dataSet[1];
             Minor   = dataSet[2];
+        }
     }
-    public new string ToString => $"{Version}.{Major}.{Minor}";
+    public new string ToVersionString => $"{Version}.{Major}.{Minor}";
 
+    public bool IsVersionMatch(string compare) {
+        return IsVersionMatch(ToVersionString, compare);
+    }
+
+    public bool IsVersionMatch(string source, string compare) {
+        var sourceSplit = source.Split('.');
+        var compareSplit = compare.Split('.');
+        if (sourceSplit.Length != compareSplit.Length) return false;
+        for (var i = 0; i < sourceSplit.Length; i++) {
+            if (sourceSplit[i] != compareSplit[i] && compareSplit[i].ToUpperInvariant() != "X") return false;
+        }
+        return true;
+    }
+    
     public int Major    { get; }
     public int Minor    { get; }
     public int Version { get; }

@@ -30,7 +30,7 @@ public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
     public IDCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }
 
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAE };
         cmd = cmd.AddToArray(LocoAddress.AddressBytes);
         cmd = cmd.AddToArray(CVAddress.AddressBytes);

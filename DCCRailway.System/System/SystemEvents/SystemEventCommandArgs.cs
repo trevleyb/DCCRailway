@@ -8,7 +8,7 @@ using DCCRailway.System.Utilities;
 namespace DCCRailway.System.SystemEvents;
 
 public class SystemEventCommandArgs : SystemEventArgs {
-    public SystemEventCommandArgs(ICommand command, CommandResult result, string message) {
+    public SystemEventCommandArgs(ICommand command, ICommandResult result, string message) {
         Type    = SystemEventType.Command;
         Action  = SystemEventAction.Execute;
         Message = message;
@@ -18,14 +18,14 @@ public class SystemEventCommandArgs : SystemEventArgs {
         switch (command) {
         case ILocoCommand locoCommand:
             Address     = locoCommand.Address;
-            Description = $"Executed command '{Name}' on Loco '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.DataAsString}' - {Message}";
+            Description = $"Executed command '{Name}' on Loco '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.ToString()}' - {Message}";
             break;
         case IAccyCommand accyCommand:
             Address     = accyCommand.Address;
-            Description = $"Executed command '{Name}' on Accessory '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.DataAsString}' - {Message}";
+            Description = $"Executed command '{Name}' on Accessory '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.ToString()}' - {Message}";
             break;
         default:
-            Description = $"Executed command '{Name}' with a resultOld of '{result.IsOK}' and a value of '{result.DataAsString}' - {{Message}}";
+            Description = $"Executed command '{Name}' with a resultOld of '{result.IsOK}' and a value of '{result.ToString()}' - {{Message}}";
             break;
         }
     }

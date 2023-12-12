@@ -44,7 +44,7 @@ public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
         get => _ratio;
     }
 
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         if (adapter == null) throw new ArgumentNullException("adapter", "The adapter connot be null.");
 
         // Tell the NCE System to set the Clock to 24 hours mode
@@ -52,17 +52,16 @@ public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
         // ; 0x86 xx Set clock 12 / 24(1) 0 = 12 hr 1 = 24 hr
         // ; 0x87 xx Set clock ratio(1) 
         // -----------------------------------------------------------------------------------------
-        IResultOld resultOld;
+        ICommandResult result;
 
-        if ((resultOld = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).OK) {
-            if ((resultOld = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).OK) {
-                if ((resultOld = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).OK) {
-                    return new ResultOldOk();
+        if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).IsOK) {
+            if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).IsOK) {
+                if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).IsOK) {
+                    return NCECommandResultClock.Success(result.Data);
                 }
             }
         }
-
-        return resultOld;
+        return result;
     }
 
     public override string ToString() => $"SET CLOCK ({_hour:D2}:{_minute:D2}@{_ratio}:15";

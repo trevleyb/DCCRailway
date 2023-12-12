@@ -33,7 +33,7 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand, IAccyComman
     public IDCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }
 
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAF };
         cmd = cmd.AddToArray(LocoAddress.AddressBytes);
         cmd = cmd.AddToArray(CVAddress.AddressBytes);
@@ -42,7 +42,7 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand, IAccyComman
         return SendAndReceieve(adapter, new NCEStandardValidation(), cmd);
     }
 
-    private IResultOld SendAndReceieve(IAdapter adapter, NCEStandardValidation nceStandardValidation, byte[] cmd) => throw new NotImplementedException();
+    private ICommandResult SendAndReceieve(IAdapter adapter, NCEStandardValidation nceStandardValidation, byte[] cmd) => throw new NotImplementedException();
 
     public override string      ToString() => $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
 }

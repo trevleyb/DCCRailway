@@ -1,4 +1,5 @@
 ﻿using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Utilities.Results;
 
 namespace DCCRailway.System.Commands.Validator;
 
@@ -7,12 +8,12 @@ public class SimpleResultValidation : IResultValidation {
 
     public int LengthExpected { get; set; }
 
-    public CommandResult Validate(byte[] dataRecieved) {
-        if (dataRecieved == null && LengthExpected != 0) return CommandResult.Fail("Expected data from the Adapter but recieved null.");
-        if (LengthExpected == 0 && dataRecieved?.Length != 0) return CommandResult.Fail("No data was expected, but data was recieved.", new CommandResultDataSet(dataRecieved!));
-        if (dataRecieved?.Length == 0 && LengthExpected > 0) return CommandResult.Fail($"No data was recieved but {LengthExpected} was expected.");
-        if (dataRecieved?.Length > LengthExpected) return CommandResult.Fail($"Too much data was recieved. Expected {LengthExpected} but recieved {dataRecieved?.Length}", new CommandResultDataSet(dataRecieved!));
-        if (dataRecieved?.Length < LengthExpected) return CommandResult.Fail($"Not enough data was recieved. Expected {LengthExpected} but only recieved {dataRecieved?.Length}", new CommandResultDataSet(dataRecieved)!);
-        return CommandResult.Ok(new CommandResultDataSet(dataRecieved!));
+    public ICommandResult Validate(byte[]? dataReceived) {
+        if (dataReceived == null && LengthExpected != 0) return CommandResult.Fail("Expected data from the Adapter but recieved null.");
+        if (LengthExpected == 0 && dataReceived?.Length != 0) return CommandResult.Fail("No data was expected, but data was recieved.", new CommandResultData(dataReceived!));
+        if (dataReceived?.Length == 0 && LengthExpected > 0) return CommandResult.Fail($"No data was recieved but {LengthExpected} was expected.");
+        if (dataReceived?.Length > LengthExpected) return CommandResult.Fail($"Too much data was recieved. Expected {LengthExpected} but recieved {dataReceived?.Length}", new CommandResultData(dataReceived!));
+        if (dataReceived?.Length < LengthExpected) return CommandResult.Fail($"Not enough data was recieved. Expected {LengthExpected} but only recieved {dataReceived?.Length}", new CommandResultData(dataReceived)!);
+        return CommandResult.Success(new CommandResultData(dataReceived!));
     }
 }

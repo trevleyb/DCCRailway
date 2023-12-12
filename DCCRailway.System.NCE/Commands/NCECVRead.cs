@@ -17,7 +17,7 @@ public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
     public DCCProgrammingMode ProgrammingMode { get; set; }
     public int                CV              { get; set; }
 
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         byte command = ProgrammingMode switch {
             DCCProgrammingMode.Direct   => 0xA9,
             DCCProgrammingMode.Paged    => 0xA1,

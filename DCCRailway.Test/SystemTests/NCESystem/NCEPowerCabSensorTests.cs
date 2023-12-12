@@ -48,7 +48,7 @@ public class NCEPowerCabSensorTest {
                 for (byte part = 0; part < 2; part++)
                 for (byte pin = 0; pin < 8; pin++) {
                     sensorCmd?.SetAddressByCabPin(4, (byte)(part * 8 + pin));
-                    var state = system.Execute(sensorCmd!) as IResultState;
+                    var state = system.Execute(sensorCmd!) as NCECommandResultSensorState;
                     states[part] = states[part].SetBit(pin, state?.State ?? false);
                 }
 

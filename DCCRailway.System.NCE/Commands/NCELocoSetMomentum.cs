@@ -23,7 +23,7 @@ public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
     public IDCCAddress Address  { get; set; }
     public byte        Momentum { get; set; }
 
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
         command = command.AddToArray(((DCCAddress)Address).AddressBytes);
         command = command.AddToArray(0x12);

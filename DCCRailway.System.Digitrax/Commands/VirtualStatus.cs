@@ -12,7 +12,7 @@ namespace DCCRailway.System.Virtual.Commands;
 public class VirtualStatus : Command, ICmdStatus {
     private readonly byte[] CommandData = "STATUS_COMMAND".ToByteArray();
 
-    public override CommandResult Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         return SendAndReceive(adapter, new SimpleResultValidation(2), "STATUS_COMMAND".ToByteArray());
     }
 }

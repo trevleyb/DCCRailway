@@ -18,7 +18,7 @@ public class NCEAccySetState : NCECommand, ICmdAccySetState, ICommand {
     public IDCCAddress       Address { get; set; }
     public DCCAccessoryState State   { get; set; }
 
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAD };                                             // Command is 0xAD
         cmd = cmd.AddToArray(((DCCAddress)Address).AddressBytes);                  // Add the high and low bytes of the Address
         cmd = cmd.AddToArray((byte)(State == DCCAccessoryState.On ? 0x03 : 0x04)); // Normal=0x03, Thrown=0x04

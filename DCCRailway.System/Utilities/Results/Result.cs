@@ -1,39 +1,43 @@
 namespace DCCRailway.System.Utilities.Results;
 
-public class Result : IResult {
-    
-    protected Result(bool success, string error) {
-        if (success && error != string.Empty)  throw new InvalidOperationException();
-        if (!success && error == string.Empty)  throw new InvalidOperationException();
-        Success = success;
-        Error   = error;
+public class Result : IResult
+{
+    public bool    IsSuccess { get; protected set; }
+    public bool    IsFailure => !IsSuccess;
+    public bool    IsOK      => IsSuccess;
+    public string? Error     { get; }
+
+    protected Result(bool isSuccess, string? error) {
+        IsSuccess = isSuccess;
+        Error     = error;
     }
 
-    public bool   Success   { get; }
-    public string Error     { get; }
-    public bool   IsFailure => !Success;
-    public bool   IsOK      => Success;
-
-    public static Result Fail(string message) {
-        return new Result(false, message);
+    public static Result Success() {
+        return new Result(true, null);
     }
 
-    public static Result<T?> Fail<T>(string message) {
-        return new Result<T?>(default, false, message);
-    }
-
-    public static Result Ok() {
-        return new Result(true, string.Empty);
-    }
-
-    public static Result<T> Ok<T>(T value) {
-        return new Result<T>(value, true, string.Empty);
+    public static Result Fail(string? error) {
+        return new Result(false, error);
     }
 }
 
-public class Result<T> : Result {
-    protected internal Result(T value, bool success, string error) : base(success, error) {
+public class Result<T> : Result, IResult {
+    public T Value { get; }
+
+    protected internal Result(bool isSuccess, T value, string? error) : base(isSuccess, error) {
         Value = value;
     }
-    public T Value { get; set; }
+
+    public static Result<T> Success(T value) {
+        return new Result<T>(true, value, null);
+    }
+
+    public static Result<T> Fail(string? error) {
+        return new Result<T>(false, default, error);
+    }
+
+    public static Result<T> Fail(string? error, T value) {
+        return new Result<T>(false, value, error);
+    }
+
 }

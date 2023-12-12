@@ -27,29 +27,25 @@ public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
         Functions = functions;
     }
 
-    public DCCFunctionBlocks Previous { get; set; }
+    public DCCFunctionBlocks? Previous  { get; set; }
+    public IDCCAddress        Address   { get; set; }
+    public DCCFunctionBlocks  Functions { get; }
 
-    public IDCCAddress       Address   { get; set; }
-    public DCCFunctionBlocks Functions { get; }
-
-    public override IResultOld Execute(IAdapter adapter) {
-        IResultOld resultOld;
-        if (Previous == null) Previous = new DCCFunctionBlocks();
+    public override ICommandResult Execute(IAdapter adapter) {
+        Previous ??= new DCCFunctionBlocks();
 
         // Loop through the 5 groups of functions and see if any have changed from last time
         // If any have changed, then sent those new settings to the command station for the Loco Address
         for (var block = 1; block <= 5; block++) {
             if (Functions.GetBlock(block) != Previous.GetBlock(block)) {
                 var command = new byte[] { 0xA2, ((DCCAddress)Address).HighAddress, ((DCCAddress)Address).LowAddress, _opCodes[block - 1], Functions.GetBlock(block) };
-                resultOld = SendAndReceive(adapter, new NCEStandardValidation(), command);
-
-                if (!resultOld.OK) return resultOld;
+                var result  = SendAndReceive(adapter, new NCEStandardValidation(), command);
+                if (!result.IsOK) return result;
             }
         }
 
         Previous = new DCCFunctionBlocks(Functions); // save the last time we sent this 
-
-        return new ResultOldOk();
+        return CommandResult.Success();
     }
 
     public override string ToString() {

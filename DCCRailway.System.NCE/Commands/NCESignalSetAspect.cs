@@ -38,7 +38,7 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
         }
     }
 
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAD };                            // Command is 0xAD
         cmd = cmd.AddToArray(((DCCAddress)Address).AddressBytes); // Add the high and low bytes of the Address
         cmd = cmd.AddToArray(0x05);                               // Signals command is 0x05

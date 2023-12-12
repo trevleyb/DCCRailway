@@ -29,7 +29,7 @@ public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
     public DCCDirection Direction  { get; set; }
     public byte         Speed      { get; set; }
 
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
         command = command.AddToArray(((DCCAddress)Address).AddressBytes);
 

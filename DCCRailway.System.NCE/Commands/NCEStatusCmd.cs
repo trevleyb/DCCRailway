@@ -8,13 +8,9 @@ namespace DCCRailway.System.NCE.Commands;
 
 [Command("StatusCmd", "Get the NCE Status")]
 public class NCEStatusCmd : NCECommand, ICmdStatus {
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         var result = SendAndReceive(adapter, new SimpleResultValidation(3), new byte[] { 0xAA });
-
-        if (!result.OK) return result;
-
-        return new NCEStatusResultOld(result.Data);
+        return result.IsOK ? new NCECommandResultVersion(result.Data) : CommandResult.Fail("Failed to get NCE Status", result.Data);
     }
-
     public override string ToString() => "GET STATUS";
 }

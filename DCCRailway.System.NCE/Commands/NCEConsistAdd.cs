@@ -25,7 +25,7 @@ public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
     public IDCCLoco           Loco           { get; set; }
     public DCCConsistPosition Position       { get; set; }
 
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
         command = command.AddToArray(Loco.Address.AddressBytes);
 

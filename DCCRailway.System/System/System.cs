@@ -23,7 +23,7 @@ public abstract class System : ISystem {
     /// <param name="command">The command object to be executed</param>
     /// <returns>A resultOld object of type IResultOld which should be cast according to the command</returns>
     /// <exception cref="ApplicationException">Will throw an exception if no adapter specified</exception>
-    public CommandResult Execute(ICommand command) {
+    public ICommandResult Execute(ICommand command) {
         if (_adapter == null) throw new ApplicationException("No Adapter has been provided.");
         var result = command.Execute(_adapter);
         OnCommandExecute(this, command, result);
@@ -187,8 +187,8 @@ public abstract class System : ISystem {
     }
     #endregion
 
-    protected virtual void OnCommandExecute(object sender, ICommand command, CommandResult resultOld) {
-        var e = new SystemEventCommandArgs(command, resultOld,$"Command {command.GetType().Name} executed with resultOld {resultOld.GetType().Name}");
+    protected virtual void OnCommandExecute(object sender, ICommand command, ICommandResult result) {
+        var e = new SystemEventCommandArgs(command, result,$"Command {command.GetType().Name} executed with resultOld {result.GetType().Name}");
         SystemEvent?.Invoke(sender, e);
     }
     

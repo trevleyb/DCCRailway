@@ -31,15 +31,13 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
     public IDCCAddress Address       => SensorAddress;
     public IDCCAddress SensorAddress { get; set; }
 
-    public override IResultOld Execute(IAdapter adapter) {
+    public override ICommandResult Execute(IAdapter adapter) {
         if (!_sensorCache.IsCurrent) {
             var result = SendAndReceive(adapter, new NCESensorValidator(), new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
-
-            if (!result.OK) return result;
-            _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data);
+            if (result.IsFailure) return result;
+            _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data.Data);
         }
-
-        return new ResultOldState(_sensorCache.GetState(SensorAddress.Address));
+        return new NCECommandResultSensorState(Address, _sensorCache.GetState(SensorAddress.Address));
     }
 
     public void SetAddressByCabPin(byte cab, byte pin) => SensorAddress = new DCCAddress(CalculateAddress(cab, pin), DCCAddressType.Accessory);

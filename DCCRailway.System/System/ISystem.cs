@@ -18,7 +18,7 @@ public interface ISystem {
     
     // Execute a Command. Must be executed via here
     // ----------------------------------------------------------------------------
-    public CommandResult Execute(ICommand command);
+    public ICommandResult Execute(ICommand command);
     public List<(Type command, string name)>? SupportedCommands { get; }
     public List<(Type adapter, string name)>? SupportedAdapters { get; }
 
