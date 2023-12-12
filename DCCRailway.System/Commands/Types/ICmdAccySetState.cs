@@ -2,7 +2,6 @@
 
 namespace DCCRailway.System.Commands.CommandType;
 
-public interface ICmdAccySetState : ICommand,IAccyCommand {
-    public IDCCAddress       Address { get; set; }
+public interface ICmdAccySetState : ICommand, IAccyCommand {
     public DCCAccessoryState State   { get; set; }
 }

@@ -25,7 +25,7 @@ public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
         Value       = value;
     }
 
-    public IDCCAddress Address     => LocoAddress;
+    public IDCCAddress Address     { get; set; }
     public IDCCAddress LocoAddress { get; set; }
     public IDCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }

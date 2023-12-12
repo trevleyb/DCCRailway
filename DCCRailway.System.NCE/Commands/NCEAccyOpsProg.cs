@@ -28,7 +28,7 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand, IAccyComman
 
     public static string Name => "NCE Accessory Programming";
 
-    public IDCCAddress Address     => LocoAddress;
+    public IDCCAddress Address     { get; set; }
     public IDCCAddress LocoAddress { get; set; }
     public IDCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }
