@@ -1,13 +1,13 @@
 ﻿using DCCRailway.System.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DCCRailway.Test.Utility;
 
-[TestClass]
+[TestFixture]
 public class UtilityTests {
-    [TestMethod]
+    [Test]
     public void SplitInterFaceTest() {
         var fullname = "System.Test.Utility";
-        Assert.AreEqual(InterfaceUtility.SplitInterfaceName(fullname), "Utility");
+        Assert.That(InterfaceUtility.SplitInterfaceName(fullname), Is.EqualTo("Utility"));
     }
 }

@@ -5,16 +5,16 @@ using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.NCE.Commands;
 using DCCRailway.System.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
-[TestClass]
+[TestFixture]
 public class NCEPowerCabSensorTest {
-    [TestMethod]
+    [Test]
     public void TestCabConversion() {
-        Assert.IsTrue(CalculateAddress(11, 1) == (11 - 1) * 16 + (1 - 1));
-        Assert.IsTrue(CalculateCabPin(160) == (11, 1));
+        Assert.That(CalculateAddress(11, 1) == (11 - 1) * 16 + (1 - 1));
+        Assert.That(CalculateCabPin(160) == (11, 1));
     }
 
     protected internal static (byte cab, byte pin) CalculateCabPin(int address) {
@@ -29,14 +29,14 @@ public class NCEPowerCabSensorTest {
         // Formula (copied from JMRI) is :
         (cab - 1) * 16 + (pin - 1);
 
-    [TestMethod]
+    [Test]
     public void TestTheSensor() {
         var adapter = new NCEUSBSerial("COM3", 19200);
-        Assert.IsNotNull(adapter, "Should have a Serial Adapter created");
+        Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
 
         var system = SystemFactory.Create("NCE", "PowerCab", adapter);
-        Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-        Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
+        Assert.That(system, Is.Not.Null,  "Should have an NCE PowerCab system created.");
+        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
 
         if (system.Adapter != null) {
             var sensorCmd = system.CreateCommand<ICmdSensorGetState>() as NCESensorGetState;

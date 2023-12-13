@@ -1,7 +1,7 @@
 ﻿namespace DCCRailway.Test.SystemTests.NCESystem;
 /*
 
-    [TestClass]
+    [TestFixture]
     public class NCEPowerCabLocoFunctions {
 
         IAdapter _adapter;
@@ -28,7 +28,7 @@
         }
 
 
-        [TestMethod]
+        [Test]
         public void StopLoco() {
 
             ISetLocoSpeed? locoCmd = _system.CreateCommand<ISetLocoSpeed>() as ISetLocoSpeed;
@@ -59,17 +59,17 @@
 
         }
 
-        [TestMethod]
+        [Test]
         public void SetFunctions() { }
 
-        [TestMethod]
+        [Test]
         public void MoveTrainForward() { }
 
-        [TestMethod]
+        [Test]
         public void MoveTrainBackwards() { }
 
 
-        [TestMethod]
+        [Test]
         public void CheckDummyStatus() {
 
             var systems = SystemFactory.SupportedSystems();

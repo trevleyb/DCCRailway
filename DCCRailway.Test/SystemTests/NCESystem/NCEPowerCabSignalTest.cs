@@ -5,22 +5,22 @@ using DCCRailway.System.Commands.CommandType;
 using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.Types;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
-[TestClass]
+[TestFixture]
 public class NCEPowerCabSignalTest {
-    [TestMethod]
+    [Test]
     public void CycleSignals() {
         //var adapter = new NCEUSBSerial("COM3", 19200);
         var ports   = SerialPort.GetPortNames();
         var adapter = new NCEUSBSerial("/dev/cu.SLAB_USBtoUART", 19200, 8, Parity.None, StopBits.One, 500);
-        Assert.IsNotNull(adapter, "Should have a Serial Adapter created");
+        Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
 
         var system = SystemFactory.Create("NCEPowerCab", adapter);
-        Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-        Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
+        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
+        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
 
         system.SystemEvent += (sender, args) => {
             Debug.WriteLine(args.ToString());

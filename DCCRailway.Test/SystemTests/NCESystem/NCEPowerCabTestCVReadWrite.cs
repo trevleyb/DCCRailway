@@ -3,40 +3,40 @@ using DCCRailway.System.Commands.CommandType;
 using DCCRailway.System.Commands.Results;
 using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
-[TestClass]
+[TestFixture]
 public class NCEPowerCabTestCVReadWrite {
-    [TestMethod]
+    [Test]
     public void SwitchMainandProg() {
         var adapter = new NCEUSBSerial("COM3", 19200);
-        Assert.IsNotNull(adapter, "Should have a Serial Adapter created");
+        Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
         var system = SystemFactory.Create("NCE", "PowerCab", adapter);
-        Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-        Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
+        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
+        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
 
         if (system != null && system.Adapter != null) {
             var progTrk = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
             var mainTrk = system.CreateCommand<ICmdTrackMain>(); // new NCESetMainTrk(adapter);
 
             var result1 = system.Execute(progTrk!);
-            Assert.IsTrue(result1!.IsOK);
+            Assert.That(result1!.IsOK);
             Thread.Sleep(1000);
 
             var result2 = system.Execute(mainTrk!);
-            Assert.IsTrue(result2!.IsOK);
+            Assert.That(result2!.IsOK);
         }
     }
 
-    [TestMethod]
+    [Test]
     public void ReadCV() {
         var adapter = new NCEUSBSerial("COM3", 19200);
-        Assert.IsNotNull(adapter, "Should have a Serial Adapter created");
+        Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
         var system = SystemFactory.Create("NCE", "PowerCab", adapter);
-        Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-        Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
+        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
+        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
 
         if (system != null && system.Adapter != null) {
             var progTrk   = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
@@ -49,27 +49,27 @@ public class NCEPowerCabTestCVReadWrite {
             //Assert.IsTrue(result0.OK == false);
 
             var result1 = system.Execute(progTrk!);
-            Assert.IsInstanceOfType(result1, typeof(ICommandResult));
-            Assert.IsTrue(result1!.IsOK);
+            Assert.That(result1, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result1!.IsOK);
 
             var result2 = system.Execute(readCVCmd!);
-            Assert.IsInstanceOfType(result2, typeof(ICommandResult));
-            Assert.IsTrue(result2!.IsOK);
+            Assert.That(result2, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result2!.IsOK);
             //Assert.IsTrue(((ICommandResult)result2).Value == 3);
 
             var result3 = system.Execute(mainTrk!);
-            Assert.IsInstanceOfType(result3, typeof(ICommandResult));
-            Assert.IsTrue(result3!.IsOK);
+            Assert.That(result3, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result3!.IsOK);
         }
     }
 
-    [TestMethod]
+    [Test]
     public void ReadWriteCV() {
         var adapter = new NCEUSBSerial("COM3", 19200);
-        Assert.IsNotNull(adapter, "Should have a Serial Adapter created");
+        Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
         var system = SystemFactory.Create("NCE", "PowerCab", adapter);
-        Assert.IsNotNull(system, "Should have an NCE PowerCab system created.");
-        Assert.IsInstanceOfType(system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
+        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
+        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
 
         if (system != null && system.Adapter != null) {
             var progTrk    = system.CreateCommand<ICmdTrackProg>();
@@ -79,41 +79,41 @@ public class NCEPowerCabTestCVReadWrite {
 
             // Should fail because we are not in programming mode
             var result0 = system.Execute(readCVCmd!);
-            Assert.IsInstanceOfType(result0, typeof(ICommandResult));
-            Assert.IsTrue(result0!.IsOK == false);
+            Assert.That(result0, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result0!.IsOK == false);
 
             var result1 = system.Execute(progTrk!);
-            Assert.IsInstanceOfType(result1, typeof(ICommandResult));
-            Assert.IsTrue(result1!.IsOK);
+            Assert.That(result1, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result1!.IsOK);
 
             var result2 = system.Execute(readCVCmd!);
-            Assert.IsInstanceOfType(result2, typeof(ICommandResult));
-            Assert.IsTrue(result2!.IsOK);
-            Assert.IsTrue(result2.Byte == 3);
+            Assert.That(result2, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result2!.IsOK);
+            Assert.That(result2.Byte == 3);
 
             writeCVCmd!.Value = 67;
             var result3 = system.Execute(writeCVCmd);
-            Assert.IsInstanceOfType(result3, typeof(ICommandResult));
-            Assert.IsTrue(result3!.IsOK);
+            Assert.That(result3, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result3!.IsOK);
 
             var result4 = system.Execute(readCVCmd!);
-            Assert.IsInstanceOfType(result4, typeof(ICommandResult));
-            Assert.IsTrue(result4!.IsOK);
-            Assert.IsTrue(result4.Byte == 67);
+            Assert.That(result4, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result4!.IsOK);
+            Assert.That(result4.Byte == 67);
 
             writeCVCmd!.Value = result2.Byte;
             var result5 = system.Execute(writeCVCmd);
-            Assert.IsInstanceOfType(result5, typeof(ICommandResult));
-            Assert.IsTrue(result5!.IsOK);
+            Assert.That(result5, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result5!.IsOK);
 
             var result6 = system.Execute(readCVCmd!);
-            Assert.IsInstanceOfType(result6, typeof(ICommandResult));
-            Assert.IsTrue(result6!.IsOK);
-            Assert.IsTrue(result6.Byte == result2.Byte);
+            Assert.That(result6, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result6!.IsOK);
+            Assert.That(result6.Byte == result2.Byte);
 
             var result7 = system.Execute(mainTrk!);
-            Assert.IsInstanceOfType(result7, typeof(ICommandResult));
-            Assert.IsTrue(result7!.IsOK);
+            Assert.That(result7, Is.TypeOf(typeof(ICommandResult)));
+            Assert.That(result7!.IsOK,Is.True);
         }
     }
 }

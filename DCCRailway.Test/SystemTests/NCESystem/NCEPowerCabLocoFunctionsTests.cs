@@ -6,11 +6,11 @@ using DCCRailway.System.Commands.Results;
 using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.Types;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
-[TestClass]
+[TestFixture]
 public class NCEPowerCabLocoFunctionsTests {
     /*
             RegisterCommand<ICmdLocoSetFunctions>(typeof(NCE.Commands.NCELocoSetFunctions));
@@ -23,16 +23,16 @@ public class NCEPowerCabLocoFunctionsTests {
     private IAdapter _adapter;
     private ISystem? _system;
 
-    [TestInitialize]
+    [SetUp]
     public void TestSetup() {
         _system = SystemFactory.Create("NCE", "PowerCab");
 
         if (_system != null) {
-            Assert.IsNotNull(_system, "Should have an NCE PowerCab system created.");
-            Assert.IsInstanceOfType(_system, typeof(NcePowerCab), "Should be a NCE:NCEPowerCab System Created");
+            Assert.That(_system, Is.Not.Null,"Should have an NCE PowerCab system created.");
+            Assert.That(_system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
 
             _adapter = new NCEUSBSerial("COM3", 19200);
-            Assert.IsNotNull(_adapter, "Should have a Serial Adapter created");
+            Assert.That(_adapter,Is.Not.Null, "Should have a Serial Adapter created");
             _adapter.DataReceived            += Adapter_DataReceived;
             _adapter.DataSent                += Adapter_DataSent;
             _adapter.ConnectionStatusChanged += Adapter_ConnectionStatusChanged;
@@ -51,7 +51,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
     private void Adapter_DataReceived(object? sender, DataRecvArgs e) => Console.WriteLine(e.ToString());
 
-    [TestCleanup]
+    [TearDown]
     public void TestCleanup() {
         _adapter.DataReceived            -= Adapter_DataReceived;
         _adapter.DataSent                -= Adapter_DataSent;
@@ -60,7 +60,7 @@ public class NCEPowerCabLocoFunctionsTests {
         _adapter.Disconnect();
     }
 
-    [TestMethod]
+    [Test]
     public void TurnOnOffLightsTest() {
         if (_system != null && _system.Adapter != null) {
             if (_system.CreateCommand<ICmdLocoSetFunctions>() is ICmdLocoSetFunctions functionCmd) {
@@ -78,7 +78,7 @@ public class NCEPowerCabLocoFunctionsTests {
         }
     }
 
-    [TestMethod]
+    [Test]
     public void TurnOnOffLightsTest2() {
         if (_system != null && _system.Adapter != null) {
             var speedCmd = _system.CreateCommand<ICmdLocoSetSpeed>();
@@ -117,7 +117,7 @@ public class NCEPowerCabLocoFunctionsTests {
         }
     }
 
-    [TestMethod]
+    [Test]
     public void SetSpeedStepsTest() {
         if (_system != null && _system.Adapter != null) {
             if (_system.CreateCommand<ICmdLocoSetSpeedSteps>() is ICmdLocoSetSpeedSteps cmd) {
@@ -142,7 +142,7 @@ public class NCEPowerCabLocoFunctionsTests {
         }
     }
 
-    [TestMethod]
+    [Test]
     public void SetMomentumTest() {
         if (_system != null && _system.Adapter != null) {
             if (_system.CreateCommand<ICmdLocoSetMomentum>() is ICmdLocoSetMomentum cmd) {
@@ -160,7 +160,7 @@ public class NCEPowerCabLocoFunctionsTests {
         }
     }
 
-    [TestMethod]
+    [Test]
     public void SetSpeedTest() {
         if (_system != null && _system.Adapter != null) {
             if (_system.CreateCommand<ICmdLocoSetSpeed>() is ICmdLocoSetSpeed cmd) {
@@ -192,7 +192,7 @@ public class NCEPowerCabLocoFunctionsTests {
         }
     }
 
-    [TestMethod]
+    [Test]
     public void SetStopTest() {
         if (_system != null && _system.Adapter != null) {
             if (_system.CreateCommand<ICmdLocoSetSpeed>() is ICmdLocoSetSpeed cmd) {

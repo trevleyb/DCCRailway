@@ -3,91 +3,91 @@ using DCCRailway.System.Commands.CommandType;
 using DCCRailway.System.Utilities;
 using DCCRailway.System.Virtual;
 using DCCRailway.System.Virtual.Adapters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
-[TestClass]
+[TestFixture]
 public class VirtualSystemTest {
-    [TestMethod]
+    [Test]
     public void TestRegisteredCommands() {
         var systems = SystemFactory.SupportedSystems();
-        Assert.IsNotNull(systems);
-        Assert.IsTrue(systems.Count > 0);
+        Assert.That(systems,Is.Not.Null);
+        Assert.That(systems.Count > 0);
 
         var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
-        Assert.IsNotNull(virtualSystem);
+        Assert.That(virtualSystem,Is.Not.Null);
 
         var supportedAdapters = virtualSystem.SupportedAdapters;
-        Assert.IsTrue(supportedAdapters!.Count == 1);
+        Assert.That(supportedAdapters!.Count == 1);
 
         // todo: Assert.IsTrue(supportedAdapters[0].name == VirtualAdapter.Name);
 
         var supportedCommands = virtualSystem.SupportedCommands;
-        Assert.IsTrue(supportedCommands!.Count == 0, " Should not return any since we have not attached an adapter");
+        Assert.That(supportedCommands!.Count == 0, " Should not return any since we have not attached an adapter");
 
         virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
         supportedCommands     = virtualSystem.SupportedCommands;
-        Assert.IsTrue(supportedCommands!.Count == 2);
+        Assert.That(supportedCommands!.Count == 2);
     }
 
-    [TestMethod]
+    [Test]
     public void TestRegisteredAndAttach1() {
         var systems = SystemFactory.SupportedSystems();
-        Assert.IsNotNull(systems);
-        Assert.IsTrue(systems.Count > 0);
+        Assert.That(systems,Is.Not.Null);
+        Assert.That(systems.Count > 0);
 
         var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
-        Assert.IsNotNull(virtualSystem);
+        Assert.That(virtualSystem,Is.Not.Null);
 
         var supportedAdapters = virtualSystem.SupportedAdapters;
-        Assert.IsTrue(supportedAdapters!.Count == 1);
+        Assert.That(supportedAdapters!.Count == 1);
 
         virtualSystem.Adapter = virtualSystem.CreateAdapter(supportedAdapters[0].name);
-        Assert.IsNotNull(virtualSystem.Adapter);
+        Assert.That(virtualSystem.Adapter,Is.Not.Null);
     }
 
-    [TestMethod]
+    [Test]
     public void TestRegisteredAndAttach2() {
         var systems = SystemFactory.SupportedSystems();
-        Assert.IsNotNull(systems);
-        Assert.IsTrue(systems.Count > 0);
+        Assert.That(systems,Is.Not.Null);
+        Assert.That(systems.Count > 0);
 
         var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
-        Assert.IsNotNull(virtualSystem);
+        Assert.That(virtualSystem,Is.Not.Null);
 
         var supportedAdapters = virtualSystem.SupportedAdapters;
-        Assert.IsTrue(supportedAdapters!.Count == 1);
+        Assert.That(supportedAdapters!.Count == 1);
 
         virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
-        Assert.IsNotNull(virtualSystem.Adapter);
+        Assert.That(virtualSystem.Adapter,Is.Not.Null);
     }
 
-    [TestMethod]
+    [Test]
     public void TestCommandSupported() {
         var systems = SystemFactory.SupportedSystems();
-        Assert.IsNotNull(systems);
-        Assert.IsTrue(systems.Count > 0);
+        Assert.That(systems,Is.Not.Null);
+        Assert.That(systems.Count > 0);
 
         var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
-        Assert.IsNotNull(virtualSystem);
+        Assert.That(virtualSystem,Is.Not.Null);
         virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
-        Assert.IsNotNull(virtualSystem.Adapter);
+        Assert.That(virtualSystem.Adapter,Is.Not.Null);
 
-        Assert.IsTrue(virtualSystem.IsCommandSupported<IDummyCmd>());
-        Assert.IsTrue(virtualSystem.IsCommandSupported<ICmdStatus>());
-        Assert.IsFalse(virtualSystem.IsCommandSupported<ICmdClockStart>());
+        Assert.That(virtualSystem.IsCommandSupported<IDummyCmd>());
+        Assert.That(virtualSystem.IsCommandSupported<ICmdStatus>());
+        Assert.That(!virtualSystem.IsCommandSupported<ICmdClockStart>());
     }
 
-    [TestMethod]
+    [Test]
     public void LoadAndCallVirtualSystem() {
         // Create the Adapter and an instance of the System
         // ------------------------------------------------------------------------------------
         var adapter = new VirtualAdapter();
-        Assert.IsNotNull(adapter);
+        Assert.That(adapter,Is.Not.Null);
         var system = SystemFactory.Create("Virtual", "Virtual", adapter);
-        Assert.IsNotNull(system);
-        Assert.IsInstanceOfType(system, typeof(VirtualSystem), "Should be a Virtual:Virtual System Created");
+        Assert.That(system,Is.Not.Null);
+        Assert.That(system,Is.TypeOf(typeof(VirtualSystem)), "Should be a Virtual:Virtual System Created");
 
         // Setup some event management
         // --------------------------------------------
@@ -102,8 +102,8 @@ public class VirtualSystemTest {
 
             adapter.SendData("DUMMY_COMMAND".ToByteArray());
             var dummy_data = adapter.RecvData();
-            Assert.IsNull(dummy_data, "should not have recieved data on a DUMMY Command");
-            Assert.IsTrue(dataSent, "Should have raised an event that we sent some data.");
+            Assert.That(dummy_data, Is.Null,  "should not have recieved data on a DUMMY Command");
+            Assert.That(dataSent, "Should have raised an event that we sent some data.");
             dataSent = false;
             dataRecv = false;
 
@@ -111,9 +111,9 @@ public class VirtualSystemTest {
             var data = adapter.RecvData();
             Console.WriteLine("Got back: '" + data.ToDisplayValues() + "' from the virtual adapter.");
             Console.WriteLine("Size of data returned: " + data?.Length);
-            Assert.IsTrue(data != null && data.Length == 1 && data[0] == 0x09, "Should have recieved 0x09");
-            Assert.IsTrue(dataSent, "Should have raised an event that we sent some data.");
-            Assert.IsTrue(dataRecv, "Should have raised an event that we recv some data.");
+            Assert.That(data != null && data.Length == 1 && data[0] == 0x09, "Should have recieved 0x09");
+            Assert.That(dataSent, "Should have raised an event that we sent some data.");
+            Assert.That(dataRecv, "Should have raised an event that we recv some data.");
         }
     }
 }

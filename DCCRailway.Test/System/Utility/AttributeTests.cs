@@ -1,15 +1,15 @@
 using DCCRailway.System.NCE.Commands;
 using DCCRailway.System.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DCCRailway.Test.Utility;
 
-[TestClass]
+[TestFixture]
 public class AttributeTests {
-    [TestMethod]
+    [Test]
     public void TestICommand() {
         var cmd  = new NCEDummyCmd();
         var attr = cmd.Info();
-        Assert.IsNotNull(attr, "Does the command include the appropriate Attributes?");
+        Assert.That(attr, Is.Not.Null,"Does the command include the appropriate Attributes?");
     }
 }

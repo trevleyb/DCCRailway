@@ -2,16 +2,16 @@
 using DCCRailway.Conversion.JMRI.Roster;
 using DCCRailway.System.Config;
 using DCCRailway.System.Types;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
-[TestClass]
+[TestFixture]
 public class ConfigurationTest {
-    [TestMethod]
+    [Test]
     public void SaveConfigFileTest() {
         Configuration config = new() { Name = @"testconfig.xml" };
-        config!.Systems.Add(new System.Config.System("System1"));
+        //TODO: config!.Systems.Add(new System.Config.System("System1"));
 
         var adapter    = new Adapter { Name = "NCEUSB" };
         var parameters = new Parameters();
@@ -39,22 +39,22 @@ public class ConfigurationTest {
         config.Save();
 
         var loadConfig = Configuration.Load(config.Name);
-        Assert.IsNotNull(loadConfig);
-        Assert.AreEqual(loadConfig, config);
+        Assert.That(loadConfig, Is.Not.Null);
+        Assert.That(loadConfig, Is.EqualTo(config));
     }
 
-    [TestMethod]
+    [Test]
     public void ManufacturersTest() {
         var mnf = new Manufacturers();
-        Assert.IsTrue(mnf.Count == 169);
+        Assert.That(mnf.Count == 169);
     }
 
-    [TestMethod]
+    [Test]
     public void ImportJMRIRoster() {
         var imported = JMRIRosterImporter.Import("systemTests\\roster.xml");
-        Assert.IsTrue(imported.Count > 0);
+        Assert.That(imported.Count > 0);
     }
 
-    [TestMethod]
+    [Test]
     public void DoNothingTest() { }
 }

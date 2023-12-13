@@ -6,13 +6,13 @@ using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.NCE.Commands;
 using DCCRailway.System.Types;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
-[TestClass]
+[TestFixture]
 public class NCEPowerCab {
-    [TestMethod]
+    [Test]
     public void GetSerialList() {
         var portList = SerialAdapter.PortNames;
 
@@ -23,39 +23,39 @@ public class NCEPowerCab {
         //Assert.Fail("Stop here to see the output");
     }
 
-    [TestMethod]
+    [Test]
     public void TestAddressRange() {
         DCCAddress address = new(3, DCCAddressType.Short);
-        Assert.IsTrue(address.Address == 3);
-        Assert.IsTrue(address.AddressType == DCCAddressType.Short);
-        Assert.IsTrue(address.LowAddress == 3);
-        Assert.IsTrue(address.HighAddress == 0);
+        Assert.That(address.Address == 3);
+        Assert.That(address.AddressType == DCCAddressType.Short);
+        Assert.That(address.LowAddress == 3);
+        Assert.That(address.HighAddress == 0);
 
         address.Address = 127;
-        Assert.IsTrue(address.Address == 127);
-        Assert.IsTrue(address.AddressType == DCCAddressType.Short);
-        Assert.IsTrue(address.LowAddress == 127);
-        Assert.IsTrue(address.HighAddress == 0);
+        Assert.That(address.Address == 127);
+        Assert.That(address.AddressType == DCCAddressType.Short);
+        Assert.That(address.LowAddress == 127);
+        Assert.That(address.HighAddress == 0);
 
         address.AddressType = DCCAddressType.Long;
-        Assert.IsTrue(address.Address == 127);
-        Assert.IsTrue(address.AddressType == DCCAddressType.Long);
-        Assert.IsTrue(address.LowAddress == 127);
-        Assert.IsTrue(address.HighAddress == 0xC0);
+        Assert.That(address.Address == 127);
+        Assert.That(address.AddressType == DCCAddressType.Long);
+        Assert.That(address.LowAddress == 127);
+        Assert.That(address.HighAddress == 0xC0);
 
         // 1029 = 00000100(4) 00000101(5)
         address.AddressType = DCCAddressType.Short;
         address.Address     = 1029;
-        Assert.IsTrue(address.Address == 1029);
-        Assert.IsTrue(address.AddressType == DCCAddressType.Long);
-        Assert.IsTrue(address.LowAddress == 5);
-        Assert.IsTrue(address.HighAddress == 196);
+        Assert.That(address.Address == 1029);
+        Assert.That(address.AddressType == DCCAddressType.Long);
+        Assert.That(address.LowAddress == 5);
+        Assert.That(address.HighAddress == 196);
 
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => address.Address = 0);
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => address.Address = 10001);
+        Assert.Catch<ArgumentOutOfRangeException>(() => address.Address = 0);
+        Assert.Catch<ArgumentOutOfRangeException>(() => address.Address = 10001);
     }
 /*
-    [TestMethod]
+    [Test]
     public void CheckDummyStatus() {
         var systems = SystemFactory.SupportedSystems();
 
@@ -93,7 +93,7 @@ public class NCEPowerCab {
         }
     }
 
-    [TestMethod]
+    [Test]
     public void CheckVersionStatus() {
         // Create the Adapter and an instance of the System
         // ------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ public class NCEPowerCab {
         }
     }
 
-    [TestMethod]
+    [Test]
     public void TestClockFunctions() {
         // Create the Adapter and an instance of the System
         // ------------------------------------------------------------------------------------
