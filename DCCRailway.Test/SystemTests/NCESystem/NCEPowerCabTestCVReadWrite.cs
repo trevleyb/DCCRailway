@@ -13,7 +13,7 @@ public class NCEPowerCabTestCVReadWrite {
     public void SwitchMainandProg() {
         var adapter = new NCEUSBSerial("COM3", 19200);
         Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
-        var system = SystemFactory.Create("NCE", "PowerCab", adapter);
+        var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
         Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
 
@@ -34,7 +34,7 @@ public class NCEPowerCabTestCVReadWrite {
     public void ReadCV() {
         var adapter = new NCEUSBSerial("COM3", 19200);
         Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
-        var system = SystemFactory.Create("NCE", "PowerCab", adapter);
+        var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
         Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
 
@@ -67,7 +67,7 @@ public class NCEPowerCabTestCVReadWrite {
     public void ReadWriteCV() {
         var adapter = new NCEUSBSerial("COM3", 19200);
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
-        var system = SystemFactory.Create("NCE", "PowerCab", adapter);
+        var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
         Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
 

@@ -15,17 +15,39 @@ public class NCEPowerCabSensorTest {
     public void TestCabConversion() {
         Assert.That(CalculateAddress(11, 1) == (11 - 1) * 16 + (1 - 1));
         Assert.That(CalculateCabPin(160) == (11, 1));
-    }
+        
+        Assert.That(CalculateCabPin(160) == (11,1));
+        Assert.That(CalculateCabPin(161) == (11,2));
+        Assert.That(CalculateCabPin(162) == (11,3));
+        Assert.That(CalculateCabPin(163) == (11,4));
+        Assert.That(CalculateCabPin(164) == (11,5));
+        Assert.That(CalculateCabPin(165) == (11,6));
+        Assert.That(CalculateCabPin(166) == (11,7));
+        Assert.That(CalculateCabPin(167) == (11,8));
+        Assert.That(CalculateCabPin(168) == (11,9));
+        Assert.That(CalculateCabPin(169) == (11,10));
+        Assert.That(CalculateCabPin(170) == (11,11));
+        Assert.That(CalculateCabPin(171) == (11,12));
+        Assert.That(CalculateCabPin(172) == (11,13));
+        Assert.That(CalculateCabPin(173) == (11,14));
+        Assert.That(CalculateCabPin(174) == (11,15));
+        Assert.That(CalculateCabPin(175) == (11,16));
+        Assert.That(CalculateCabPin(176) == (12,1));
+        Assert.That(CalculateCabPin(177) == (12,2));
+        Assert.That(CalculateCabPin(178) == (12,3));
+        Assert.That(CalculateCabPin(179) == (12,4));
+        Assert.That(CalculateCabPin(180) == (12,5));
+        
+     }
 
     protected internal static (byte cab, byte pin) CalculateCabPin(int address) {
-        var pin = address % 16 + 1;
-        var cab = (address - pin) / 16 + 1;
-
+        var pin = (address % 16) + 1;
+        //var cab = (address - pin) / 16 + 1;
+        var cab = (address / 16) + 1;
         return ((byte)cab, (byte)pin);
     }
 
     protected internal static int CalculateAddress(byte cab, byte pin) =>
-
         // Formula (copied from JMRI) is :
         (cab - 1) * 16 + (pin - 1);
 
@@ -34,7 +56,7 @@ public class NCEPowerCabSensorTest {
         var adapter = new NCEUSBSerial("COM3", 19200);
         Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
 
-        var system = SystemFactory.Create("NCE", "PowerCab", adapter);
+        var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
         Assert.That(system, Is.Not.Null,  "Should have an NCE PowerCab system created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
 

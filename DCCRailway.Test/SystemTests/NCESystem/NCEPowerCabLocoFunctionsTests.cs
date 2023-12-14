@@ -25,7 +25,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
     [SetUp]
     public void TestSetup() {
-        _system = SystemFactory.Create("NCE", "PowerCab");
+        _system = SystemFactory.Create("NCE", "NCEPowerCab");
 
         if (_system != null) {
             Assert.That(_system, Is.Not.Null,"Should have an NCE PowerCab system created.");
