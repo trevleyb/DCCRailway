@@ -5,7 +5,7 @@ namespace DCCRailway.System.Commands.Results;
 
 public class CommandResult : Result<CommandResultData>, ICommandResult, IResult {
 
-    protected internal CommandResult(bool isSuccess, CommandResultData value, string? error) : base(isSuccess, value, error) { }
+    protected CommandResult(bool isSuccess, CommandResultData value, string? error) : base(isSuccess, value, error) { }
 
     public new static CommandResult Success() {
         return new CommandResult (true, null, null );

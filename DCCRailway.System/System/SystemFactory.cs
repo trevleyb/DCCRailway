@@ -112,3 +112,30 @@ public static class SystemFactory {
 
     private static SystemEntry? Find(string name, string defaultPath) => SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 }
+
+
+/* IS THIS A BETTER WAY?
+
+var assemblyName = new AssemblyName("DynamicAssembly");
+   var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+   var moduleBuilder = assemblyBuilder.DefineDynamicModule("MainModule");
+   var typeBuilder = moduleBuilder.DefineType("MyDynamicType", TypeAttributes.Public);
+   var dynamicType = typeBuilder.CreateType();
+   // Now you have a brand new type to play with!
+
+
+
+[Conditional("DEBUG")]
+   public void LogDebugInfo(string message)
+   {
+       Console.WriteLine($"Debug: {message}");
+   }
+   
+   public void ProcessData()
+   {
+       LogDebugInfo("Processing data..."); // This call only happens in DEBUG mode
+   }
+
+
+
+*/

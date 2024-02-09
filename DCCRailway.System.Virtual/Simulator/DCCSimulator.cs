@@ -1,4 +1,5 @@
-﻿using DCCRailway.System.Types;
+﻿using System;
+using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Simulator;
