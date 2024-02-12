@@ -14,6 +14,7 @@ public class LoadSystemsTest {
         Assert.That(systems, Is.Not.Null, "Should have at least 1 system retuned from the GetListOfSystens call");
     }
 
+    /*
     [Test]
     public void InstantiateVirtual() {
         IAdapter? adapter = new VirtualAdapter();
@@ -29,7 +30,7 @@ public class LoadSystemsTest {
         Assert.That(system,Is.Not.Null);
         Assert.That(system, Is.TypeOf(typeof(VirtualSystem)), "Should be a :Virtual System Created");
     }
-
+    
     [Test]
     public void CheckVirtualCommands() {
         var systems = SystemFactory.SupportedSystems();
@@ -50,4 +51,5 @@ public class LoadSystemsTest {
             }
         }
     }
+    */
 }

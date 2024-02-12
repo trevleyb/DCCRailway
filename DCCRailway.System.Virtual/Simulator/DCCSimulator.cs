@@ -90,13 +90,14 @@ public class DCCSimulator {
     public object? KillConsist(DCCAddress Address) {
         var consistAddress = FindConsistAddress(Address);
 
+        /*
         foreach (var entry in _locoList.Values) {
             if (entry.IsInConsist(consistAddress)) {
                 entry.ClearConsist();
             }
         }
         _locoList.Remove(consistAddress);
-
+        */
         return null;
     }
 

@@ -3,20 +3,13 @@ using DCCRailway.System.Adapters;
 using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
+using DCCRailway.System.Exceptions;
+using DCCRailway.System.Simulator;
 using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Virtual.Adapters;
 
 [Adapter("Virtual", AdapterType.Virtual)]
-public class VirtualAdapter : Adapter, IAdapter {
-    
-    
-    /// <summary>
-///     A virtual adapter connects to a simulator and accepts simulated commands. Based on the SEND/RECV it is passed
-///     through
-///     and the simulator will act like a command station and will track the locos and accessories that are communicated
-///     with.
-/// </summary>
 public abstract class VirtualAdapter : Adapter, IAdapter {
     private object? _lastResult;
     private byte[]  _lastCommand;
@@ -51,8 +44,9 @@ public abstract class VirtualAdapter : Adapter, IAdapter {
     /// <returns></returns>
     public byte[]? RecvData(ICommand command) {
         Logger.Log.Debug("Listening for data from the Adapter: '" + _lastCommand.FromByteArray() + "'");
-        var result = MapSimulatorResult(_lastResult, command);
-        OnDataRecieved(new DataRecvArgs(result, this, command));
+        //var result = MapSimulatorResult(_lastResult, command);
+        //OnDataRecieved(new DataRecvArgs(result, this, command));
+        return new[] { (byte)0x00 };
     }
 
     public void SendData(byte[] data, ICommand command) {

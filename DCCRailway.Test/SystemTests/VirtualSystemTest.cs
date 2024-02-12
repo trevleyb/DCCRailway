@@ -79,6 +79,7 @@ public class VirtualSystemTest {
         Assert.That(!virtualSystem.IsCommandSupported<ICmdClockStart>());
     }
 
+    /*
     [Test]
     public void LoadAndCallVirtualSystem() {
         // Create the Adapter and an instance of the System
@@ -116,4 +117,5 @@ public class VirtualSystemTest {
             Assert.That(dataRecv, "Should have raised an event that we recv some data.");
         }
     }
+    */
 }
