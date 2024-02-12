@@ -30,9 +30,9 @@ public class ControllerInfo(ControllerAttribute attributes, string assemblyPath,
     /// <param name="adapter">An instance of an adapter to connect to</param>
     /// <returns>An instance of a DCCSystem to use to control</returns>
     /// <exception cref="ApplicationException"></exception>
-    public IController Create(IAdapter adapter) {
+    public IController Create(IAdapter? adapter) {
         var controller = Create();
-        controller.Adapter = adapter;
+        controller.Adapter = adapter ?? new NullAdapter();
         return controller;
     }
 

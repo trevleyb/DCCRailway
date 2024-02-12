@@ -1,9 +1,11 @@
 using DCCRailway.System.Adapters.Events;
+using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Adapters;
 
+[Adapter("Console", AdapterType.Virtual, "Adapter that writes to the Console", "1.0")]
 public class ConsoleAdapter : Adapter, IAdapter {
     
     private bool _connected = false;
