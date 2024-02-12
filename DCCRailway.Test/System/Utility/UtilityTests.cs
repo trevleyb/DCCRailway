@@ -7,7 +7,7 @@ namespace DCCRailway.Test.Utility;
 public class UtilityTests {
     [Test]
     public void SplitInterFaceTest() {
-        var fullname = "System.Test.Utility";
+        var fullname = "Controller.Test.Utility";
         Assert.That(InterfaceUtility.SplitInterfaceName(fullname), Is.EqualTo("Utility"));
     }
 }

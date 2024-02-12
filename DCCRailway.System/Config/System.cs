@@ -2,7 +2,7 @@
 
 namespace DCCRailway.System.Config;
 
-[XmlRoot(ElementName = "System")]
+[XmlRoot(ElementName = "Controller")]
 public class System {
     public System() => Parameters = new Parameters();
 

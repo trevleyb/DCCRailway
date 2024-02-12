@@ -21,15 +21,15 @@ public class NCEPowerCabLocoFunctionsTests {
     */
 
     private IAdapter _adapter;
-    private ISystem? _system;
+    private IController? _system;
 
     [SetUp]
     public void TestSetup() {
         _system = SystemFactory.Create("NCE", "NCEPowerCab");
 
         if (_system != null) {
-            Assert.That(_system, Is.Not.Null,"Should have an NCE PowerCab system created.");
-            Assert.That(_system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
+            Assert.That(_system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
+            Assert.That(_system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
             _adapter = new NCEUSBSerial("COM3", 19200);
             Assert.That(_adapter,Is.Not.Null, "Should have a Serial Adapter created");
@@ -39,7 +39,7 @@ public class NCEPowerCabLocoFunctionsTests {
             _adapter.ErrorOccurred           += Adapter_ErrorOccurred;
             _system.Adapter                  =  _adapter;
         } else {
-            Assert.Fail("Could not create a System Object");
+            Assert.Fail("Could not create a Controller Object");
         }
     }
 

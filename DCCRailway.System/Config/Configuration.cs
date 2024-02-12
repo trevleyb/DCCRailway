@@ -6,7 +6,7 @@ namespace DCCRailway.System.Config;
 ///     Represents a self-contained set of configuration items for the running
 ///     of a DCC Train Layout. This will include what SYSTEMS to instantiate,
 ///     what Adapaters to attach, and what "things" can be operated on within the
-///     system such as Locos, Accessories, Signals, Aspects and Turnouts
+///     controller such as Locos, Accessories, Signals, Aspects and Turnouts
 /// </summary>
 [XmlRoot(ElementName = "DCCTrainCommander")]
 public class Configuration : ConfigSerializer<Configuration> {

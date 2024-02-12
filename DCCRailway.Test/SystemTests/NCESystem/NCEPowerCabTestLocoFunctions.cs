@@ -14,10 +14,10 @@
             Assert.IsNotNull(_adapter, "Should have a Serial Adapter created");
 
             _system = SystemFactory.Create("NCE", "PowerCab", _adapter);
-            Assert.IsNotNull(_system, "Should have an NCE PowerCab system created.");
-            Assert.IsInstanceOfType(_system, typeof(DccSystems.NCE.NCEPowerCab), "Should be a NCE:NCEPowerCab System Created");
+            Assert.IsNotNull(_system, "Should have an NCE PowerCab controller created.");
+            Assert.IsInstanceOfType(_system, typeof(DccSystems.NCE.NCEPowerCab), "Should be a NCE:NCEPowerCab Controller Created");
 
-            Assert.IsNotNull(_system.Reference, "System Reference should not be null");
+            Assert.IsNotNull(_system.Reference, "Controller Reference should not be null");
             Assert.AreEqual(_system.Reference?.Manufacturer, "NCE");
 
         }
@@ -74,7 +74,7 @@
 
             var systems = SystemFactory.SupportedSystems();
 
-            // Create the Adapter and an instance of the System
+            // Create the Adapter and an instance of the Controller
             // ------------------------------------------------------------------------------------
             //var adapter = new SerialAdapter("cu.SLAB_USBtoUART",19200);
 

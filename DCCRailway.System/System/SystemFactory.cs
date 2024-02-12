@@ -8,70 +8,70 @@ namespace DCCRailway.System;
 
 public static class SystemFactory {
     // <summary>
-    /// Create by Assembly bypasses the search for a list of supported system and allows the
-    /// creation of a system based on a Assembly File and Assemlbly type. For example, the file
+    /// Create by Assembly bypasses the search for a list of supported controller and allows the
+    /// creation of a controller based on a Assembly File and Assemlbly type. For example, the file
     /// could be 'NCE.dll' and the type could be 'NCE.NCEPowerCab'
     /// </summary>
-    /// <param name="assemblyBase">The base name (eg: 'NCE') of the assembly library (DCCRailway.System...dll)</param>
-    /// <param name="systemName">The type name of the system to load (eg: NCEPowerCab)</param>
+    /// <param name="assemblyBase">The base name (eg: 'NCE') of the assembly library (DCCRailway.Controller...dll)</param>
+    /// <param name="systemName">The type name of the controller to load (eg: NCEPowerCab)</param>
     /// <returns></returns>
     /*
-    private static ISystem? LoadFromAssembly(string assemblyBase, string systemName) {
-        var assemblyPath = "DCCRailway.System." + assemblyBase + ".dll";
-        var assemblyName = "DCCRailway.System." + assemblyBase + "." + systemName;
+    private static IController? LoadFromAssembly(string assemblyBase, string systemName) {
+        var assemblyPath = "DCCRailway.Controller." + assemblyBase + ".dll";
+        var assemblyName = "DCCRailway.Controller." + assemblyBase + "." + systemName;
         try {
             var assembly = Assembly.LoadFrom(assemblyPath);
             var type = assembly.GetType(assemblyName);
-            return type != null ? Activator.CreateInstance(type) as ISystem : null;
+            return type != null ? Activator.CreateInstance(type) as IController : null;
         } catch (Exception ex) {
-            throw new ApplicationException($"[SystemFactory] Unable to load ISystem: Path='{assemblyPath}' | Types='{assemblyName}'", ex);
+            throw new ApplicationException($"[SystemFactory] Unable to load IController: Path='{assemblyPath}' | Types='{assemblyName}'", ex);
         }
     }
 */
 
     /// <summary>
-    ///     Create a System Interface by the Manufacturer and System name
+    ///     Create a Controller Interface by the Manufacturer and Controller name
     ///     (ie: NCE,ProCab) and an adapter
     /// </summary>
     /// <param name="manufacturer">The name of the manufacturer</param>
-    /// <param name="systemName">The name of the system to create</param>
+    /// <param name="systemName">The name of the controller to create</param>
     /// <param name="adapter">A reference to an adapter (ie: serial)</param>
-    /// <returns>An ISystem instance</returns>
+    /// <returns>An IController instance</returns>
     /// <exception cref="ApplicationException"></exception>
-    public static ISystem Create(string manufacturer, string systemName, IAdapter? adapter = null, string defaultPath = ".") {
+    public static IController Create(string manufacturer, string systemName, IAdapter? adapter = null, string defaultPath = ".") {
         var system = Find(systemName, defaultPath);
 
         if (system != null) return system.Create(adapter);
 
-        throw new ApplicationException("Invalid Manufacturer or System Name provided");
+        throw new ApplicationException("Invalid Manufacturer or Controller Name provided");
     }
 
-    public static ISystem Create(string systemName, IAdapter? adapter = null, string defaultPath = ".") {
+    public static IController Create(string systemName, IAdapter? adapter = null, string defaultPath = ".") {
         var system = Find(systemName, defaultPath);
 
         if (system != null) return system.Create(adapter);
 
-        throw new ApplicationException("Invalid Manufacturer or System Name provided");
+        throw new ApplicationException("Invalid Manufacturer or Controller Name provided");
     }
 
     /// <summary>
     ///     The function returns a collection of supported systems by looking at all libraries in the current folder
-    ///     (or by override the path) and looking for classes that support the ISystem interface. Once you have obtained
-    ///     a SupportedSystem instance, you can use that instance to create a system and to make operations on that system.
+    ///     (or by override the path) and looking for classes that support the IController interface. Once you have obtained
+    ///     a SupportedSystem instance, you can use that instance to create a controller and to make operations on that controller.
     /// </summary>
     /// <param name="defaultPath"></param>
     /// <returns>List of systems that have been found</returns>
     public static List<SystemEntry> SupportedSystems(string defaultPath = ".") {
         // Get a list of files in the current folder and then look at each one to see if it is a DCCSystem assembly
         // ---------------------------------------------------------------------------------------------------------
-        const string pattern = @"(.*)DCCRailway\.System.(\D+)\.dll";
+        const string pattern = @"(.*)DCCRailway\.Controller.(\D+)\.dll";
 
         if (!Directory.Exists(defaultPath)) throw new ApplicationException("[SystemFactory] Invalid Path provided for the Assembly Search");
         var fileEntries = Directory.GetFiles(defaultPath).Where(path => Regex.Match(path, pattern).Success).ToList();
 
-        if (fileEntries == null || fileEntries.Any() == false) throw new ApplicationException("[SystemFactory] Could not find any System Assemblies 'DCCRailway.System.");
+        if (fileEntries == null || fileEntries.Any() == false) throw new ApplicationException("[SystemFactory] Could not find any Controller Assemblies 'DCCRailway.Controller.");
 
-        // Process each file and load in its system information looking for IDCCSystem as an interface
+        // Process each file and load in its controller information looking for IDCCSystem as an interface
         // -------------------------------------------------------------------------------------------
         var supportedSystems = new List<SystemEntry>();
 
@@ -82,9 +82,9 @@ public static class SystemFactory {
                 if (assembly == null) throw new ApplicationException($"Unable to load assembly: {assemblyPath}");
                 Logger.Log.Debug($"ASSEMBLY: Loading Assembly: {assemblyPath}");
 
-                foreach (var dccSystem in assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(ISystem))))
+                foreach (var dccSystem in assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(IController))))
 
-                    // Get the relevant properties needed to report on what this system is via reflecting into the
+                    // Get the relevant properties needed to report on what this controller is via reflecting into the
                     // class instance members. 
                     // -------------------------------------------------------------------------------------------
                 {
@@ -95,7 +95,7 @@ public static class SystemFactory {
                             supportedSystems.Add(new SystemEntry(assemblyPath, dccSystem, systemAttr));
                         }
                     } catch (Exception ex) {
-                        Logger.Log.Debug("ASSEMBLY: Unable to obtain the name of the Manufacturer or System from the Assembly.", ex);
+                        Logger.Log.Debug("ASSEMBLY: Unable to obtain the name of the Manufacturer or Controller from the Assembly.", ex);
                     }
                 }
             } catch (Exception ex) {

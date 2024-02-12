@@ -7,7 +7,7 @@ using DCCRailway.System.Virtual;
 namespace DCCRailway.System.Digitrax;
 
 [System("DCS52", "DigiTrax", "DCS52")]
-public class DCS52 : System, ISystem {
+public class DCS52 : Controller, IController {
     public override IDCCAddress CreateAddress() => new DCCAddress();
 
     public override IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);

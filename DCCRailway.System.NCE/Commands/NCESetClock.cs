@@ -47,7 +47,7 @@ public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
     public override ICommandResult Execute(IAdapter adapter) {
         if (adapter == null) throw new ArgumentNullException("adapter", "The adapter connot be null.");
 
-        // Tell the NCE System to set the Clock to 24 hours mode
+        // Tell the NCE Controller to set the Clock to 24 hours mode
         // ; 0x85 xx xx    Set clock hr / min(1)
         // ; 0x86 xx Set clock 12 / 24(1) 0 = 12 hr 1 = 24 hr
         // ; 0x87 xx Set clock ratio(1) 

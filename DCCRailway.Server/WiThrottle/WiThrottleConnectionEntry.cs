@@ -48,7 +48,7 @@ public class WiThrottleConnectionEntry {
 
     /// <summary>
     ///     Returns TRUE if we have recieved a HeartBeat command within the HeartBeat timeout
-    ///     duration. System expected the 'LastHeartbeat' to be updated by a Heartbeat command
+    ///     duration. Controller expected the 'LastHeartbeat' to be updated by a Heartbeat command
     ///     every x seconds or it will issue a E-STOP command on the current Loco attached to
     ///     this controller.
     /// </summary>

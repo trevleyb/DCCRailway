@@ -7,7 +7,7 @@ using DCCRailway.System.Types;
 namespace DCCRailway.System.NCE;
 
 [System("NCETwinCab", "North Coast Engineering (NCE)", "TwinCab", "1.1")]
-public class NceTwinCab : System, ISystem {
+public class NceTwinCab : Controller, IController {
     public override IDCCAddress CreateAddress() => new DCCAddress();
 
     public override IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);

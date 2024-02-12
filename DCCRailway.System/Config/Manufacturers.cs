@@ -127,7 +127,7 @@ public class Manufacturers : List<Manufacturer> {
         Add(new Manufacturer { Name = "NAC Services, Inc", Identifier                 = 37 });
         Add(new Manufacturer { Name = "NMRA Reserved", Identifier                     = 238 });
         Add(new Manufacturer { Name = "NYRS", Identifier                              = 136 });
-        Add(new Manufacturer { Name = "Nagasue System Design Office", Identifier      = 103 });
+        Add(new Manufacturer { Name = "Nagasue Controller Design Office", Identifier      = 103 });
         Add(new Manufacturer { Name = "Nagoden", Identifier                           = 108 });
         Add(new Manufacturer { Name = "New York Byano Limited", Identifier            = 71 });
         Add(new Manufacturer { Name = "Ngineering", Identifier                        = 43 });

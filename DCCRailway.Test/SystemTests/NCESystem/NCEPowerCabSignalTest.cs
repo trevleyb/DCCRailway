@@ -19,8 +19,8 @@ public class NCEPowerCabSignalTest {
         Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
 
         var system = SystemFactory.Create("NCEPowerCab", adapter);
-        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
-        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
+        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
+        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
         system.SystemEvent += (sender, args) => {
             Debug.WriteLine(args.ToString());

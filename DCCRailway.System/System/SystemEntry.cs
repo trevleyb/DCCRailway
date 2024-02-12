@@ -6,10 +6,10 @@ using DCCRailway.System.Exceptions;
 namespace DCCRailway.System;
 
 /// <summary>
-///     This is a holder class which contains information loaded form the file system
-///     about each concrete system that is supported along. It then allows accessing what
+///     This is a holder class which contains information loaded form the file controller
+///     about each concrete controller that is supported along. It then allows accessing what
 ///     commands are supported and what adapters are supported.
-///     This also allows the creation of a system by calling the Create helper
+///     This also allows the creation of a controller by calling the Create helper
 ///     method which takes an ADAPTER as a parameter
 /// </summary>
 public class SystemEntry {
@@ -30,13 +30,13 @@ public class SystemEntry {
 
     /// <summary>
     ///     Helper function to create an instance of a SYSTEM with an appropriate
-    ///     adapter to connect to that system. An error will be thrown if the
-    ///     system does not suport the type of adapter being requested.
+    ///     adapter to connect to that controller. An error will be thrown if the
+    ///     controller does not suport the type of adapter being requested.
     /// </summary>
     /// <param name="adapter">An instance of an adapter to connect to</param>
     /// <returns>An instance of a DCCSystem to use to control</returns>
     /// <exception cref="ApplicationException"></exception>
-    public ISystem Create(IAdapter? adapter) {
+    public IController Create(IAdapter? adapter) {
         var system = Create();
         system.Adapter = adapter;
 
@@ -46,15 +46,15 @@ public class SystemEntry {
     /// <summary>
     ///     Create an instance of a SYSTEM and return it.
     /// </summary>
-    /// <returns>An instance of a system</returns>
+    /// <returns>An instance of a controller</returns>
     /// <exception cref="ApplicationException">If it cannot create an instance dynamically</exception>
-    private ISystem Create() {
+    private IController Create() {
         try {
             var assembly = Assembly.LoadFrom(AssemblyPath);
 
             if (assembly == null) throw new SystemInstantiateException(Name, $"Unable to get the Assembly from the Path '{AssemblyPath}'.");
             if (AssemblyType == null) throw new SystemInstantiateException(Name, "Unable to determine the object type as the type is 'Undefined'.");
-            if (Activator.CreateInstance(AssemblyType) is not ISystem instance) throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the system.");
+            if (Activator.CreateInstance(AssemblyType) is not IController instance) throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the controller.");
 
             return instance;
         } catch (Exception ex) {

@@ -8,10 +8,10 @@ using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System;
 
-public abstract class System : ISystem {
+public abstract class Controller : IController {
     private IAdapter?                                     _adapter;          // Stores the adapter to be used
-    private Dictionary<Type, (Type Adapter, string Name)> _adapters = new(); // Stores what operations the system will provide
-    private Dictionary<Type, (Type Command, string Name)> _commands = new(); // Stores what operations the system will provide
+    private Dictionary<Type, (Type Adapter, string Name)> _adapters = new(); // Stores what operations the controller will provide
+    private Dictionary<Type, (Type Command, string Name)> _commands = new(); // Stores what operations the controller will provide
 
     public event SystemEvents SystemEvent;
     public delegate void      SystemEvents(object sender, SystemEventArgs e);
@@ -35,9 +35,9 @@ public abstract class System : ISystem {
     public abstract IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
     #endregion
 
-    #region Create and attach an Adapter to this system
+    #region Create and attach an Adapter to this controller
     /// <summary>
-    ///     Property for the Adapter that this system will communicate through
+    ///     Property for the Adapter that this controller will communicate through
     /// </summary>
     public IAdapter? Adapter {
         get => _adapter;
@@ -49,7 +49,7 @@ public abstract class System : ISystem {
 
     /// <summary>
     ///     Create and return an Adapter. This does not attach it. This command should be executed as
-    ///     System.Adapter = System.CreateAdapter(name);
+    ///     Controller.Adapter = Controller.CreateAdapter(name);
     /// </summary>
     public IAdapter? CreateAdapter<T>() where T : IAdapter {
         if (SupportedAdapters is { Count: > 0 }) {
@@ -64,7 +64,7 @@ public abstract class System : ISystem {
 
     /// <summary>
     ///     Create and return an Adapter. This does not attach it. This command should be executed as
-    ///     System.Adapter = System.CreateAdapter(name);
+    ///     Controller.Adapter = Controller.CreateAdapter(name);
     /// </summary>
     public IAdapter? CreateAdapter(string adapterName) {
         if (SupportedAdapters is { Count: > 0 }) {
@@ -99,10 +99,10 @@ public abstract class System : ISystem {
     }
     #endregion
 
-    #region Generic Factory Implementation to register what operations each System will provide
+    #region Generic Factory Implementation to register what operations each Controller will provide
     /// <summary>
     ///     This function must be overridden in the derived class to ensure that the operations
-    ///     that this system provides are loaded. This is done because some operations may only
+    ///     that this controller provides are loaded. This is done because some operations may only
     ///     be supported on a particular adapter or interface (eg: NCE does not support the clock
     ///     functions if using the USBSerial adapter).
     /// </summary>
@@ -145,11 +145,11 @@ public abstract class System : ISystem {
     public List<(Type adapter, string name)>? SupportedAdapters => _adapters.Values.ToList();
     #endregion
 
-    #region Create Command Objects that are supported by this System.
+    #region Create Command Objects that are supported by this Controller.
     /// <summary>
     ///     Creates a command object that can be executed. A command object can be
     ///     executed by calling its execute function or passing it back to the
-    ///     system to ask it to execute it.
+    ///     controller to ask it to execute it.
     /// </summary>
     /// <typeparam name="T">An interface that adheres to a ICommand interface</typeparam>
     /// <typeparam name="TCommand"></typeparam>

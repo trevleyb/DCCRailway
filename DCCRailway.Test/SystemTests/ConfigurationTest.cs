@@ -11,7 +11,7 @@ public class ConfigurationTest {
     [Test]
     public void SaveConfigFileTest() {
         Configuration config = new() { Name = @"testconfig.xml" };
-        //TODO: config!.Systems.Add(new System.Config.System("System1"));
+        //TO-DO: config!.Systems.Add(new Controller.Config.Controller("System1"));
 
         var adapter    = new Adapter { Name = "NCEUSB" };
         var parameters = new Parameters();

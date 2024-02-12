@@ -9,7 +9,7 @@ using DCCRailway.System.Virtual.Commands;
 namespace DCCRailway.System.Virtual;
 
 [System("Virtual", "Virtual", "Virtual")]
-public class VirtualSystem : System, ISystem {
+public class VirtualController : Controller, IController {
     public override IDCCAddress CreateAddress() => new DCCAddress();
 
     public override IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);

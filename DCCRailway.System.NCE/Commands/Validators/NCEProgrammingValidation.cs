@@ -11,7 +11,7 @@ public class NCEProgrammingValidation : IResultValidation {
             (byte)'0' => CommandResult.Fail("Programming Track is not enabled."),
             (byte)'3' => CommandResult.Fail("Short Circuit detected on the track."),
             (byte)'!' => CommandResult.Success(),
-            _         => CommandResult.Fail("Unknown response from the NCE System.", data!)
+            _         => CommandResult.Fail("Unknown response from the NCE Controller.", data!)
         };
     }
 }

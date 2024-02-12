@@ -5,7 +5,7 @@ using System.Linq;
 namespace DCCRailway.Server.WiThrottle;
 
 /// <summary>
-///     ConnectionInfo stores the details of each connected throttle to the system
+///     ConnectionInfo stores the details of each connected throttle to the controller
 ///     and will track a connection to a Command Station and what commands are or
 ///     have been sent on behalf of the throttle.
 /// </summary>

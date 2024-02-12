@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace DCCRailway.Test;
 
 [TestFixture]
-public class VirtualSystemTest {
+public class VirtualControllerTest {
     [Test]
     public void TestRegisteredCommands() {
         var systems = SystemFactory.SupportedSystems();
@@ -82,13 +82,13 @@ public class VirtualSystemTest {
     /*
     [Test]
     public void LoadAndCallVirtualSystem() {
-        // Create the Adapter and an instance of the System
+        // Create the Adapter and an instance of the Controller
         // ------------------------------------------------------------------------------------
         var adapter = new VirtualAdapter();
         Assert.That(adapter,Is.Not.Null);
-        var system = SystemFactory.Create("Virtual", "Virtual", adapter);
-        Assert.That(system,Is.Not.Null);
-        Assert.That(system,Is.TypeOf(typeof(VirtualSystem)), "Should be a Virtual:Virtual System Created");
+        var controller = SystemFactory.Create("Virtual", "Virtual", adapter);
+        Assert.That(controller,Is.Not.Null);
+        Assert.That(controller,Is.TypeOf(typeof(VirtualController)), "Should be a Virtual:Virtual Controller Created");
 
         // Setup some event management
         // --------------------------------------------
@@ -96,10 +96,10 @@ public class VirtualSystemTest {
         var dataSent = false;
         var dataRecv = false;
 
-        if (system != null && system.Adapter != null) {
-            system.Adapter.DataSent += delegate { dataSent = true; };
+        if (controller != null && controller.Adapter != null) {
+            controller.Adapter.DataSent += delegate { dataSent = true; };
 
-            system.Adapter.DataReceived += delegate { dataRecv = true; };
+            controller.Adapter.DataReceived += delegate { dataRecv = true; };
 
             adapter.SendData("DUMMY_COMMAND".ToByteArray());
             var dummy_data = adapter.RecvData();

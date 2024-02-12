@@ -14,8 +14,8 @@ public class NCEPowerCabTestCVReadWrite {
         var adapter = new NCEUSBSerial("COM3", 19200);
         Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
         var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
-        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
-        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
+        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
+        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
         if (system != null && system.Adapter != null) {
             var progTrk = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
@@ -35,8 +35,8 @@ public class NCEPowerCabTestCVReadWrite {
         var adapter = new NCEUSBSerial("COM3", 19200);
         Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
         var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
-        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
-        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
+        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
+        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
         if (system != null && system.Adapter != null) {
             var progTrk   = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
@@ -68,8 +68,8 @@ public class NCEPowerCabTestCVReadWrite {
         var adapter = new NCEUSBSerial("COM3", 19200);
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
         var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
-        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab system created.");
-        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab System Created");
+        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
+        Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
         if (system != null && system.Adapter != null) {
             var progTrk    = system.CreateCommand<ICmdTrackProg>();

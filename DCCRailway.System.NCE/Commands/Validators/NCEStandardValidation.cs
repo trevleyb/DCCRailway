@@ -5,7 +5,7 @@ namespace DCCRailway.System.NCE.Commands.Validators;
 
 public class NCEStandardValidation : IResultValidation {
     public ICommandResult Validate(byte[]? data) {
-        // Standard resultOld codes from the NCE system are as follows:
+        // Standard resultOld codes from the NCE controller are as follows:
         // '0' = command not supported
         // '1' = loco address out of range
         // '2' = cab address out of range
@@ -21,7 +21,7 @@ public class NCEStandardValidation : IResultValidation {
             (byte)'3' => CommandResult.Fail("Data provided is out of range."),
             (byte)'4' => CommandResult.Fail("Byte count is out of range."),
             (byte)'!' => CommandResult.Success(data),
-            _         => CommandResult.Fail("Unknown response from the NCE System.", data!)
+            _         => CommandResult.Fail("Unknown response from the NCE Controller.", data!)
         } ?? CommandResult.Fail("Invalid data returned from the command execution.");
     }
 }

@@ -5,9 +5,9 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System;
 
-public interface ISystem {
+public interface IController {
     
-    public event System.SystemEvents SystemEvent;
+    public event Controller.SystemEvents SystemEvent;
 
     // Attach or detect an Adapter to a Command Station
     // ----------------------------------------------------------------------------
