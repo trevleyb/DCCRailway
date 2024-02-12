@@ -18,7 +18,7 @@ public static class AttributeExtractor {
 
     public static AdapterAttribute Info(this IAdapter adapter) => GetAttribute<AdapterAttribute>(adapter.GetType())!;
 
-    public static SystemAttribute Info(this IController controller) => GetAttribute<SystemAttribute>(controller.GetType())!;
+    public static ControllerAttribute Info(this IController controller) => GetAttribute<ControllerAttribute>(controller.GetType())!;
 
     public static CommandAttribute Info(this ICommand command) => GetAttribute<CommandAttribute>(command.GetType())!;
 }

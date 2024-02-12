@@ -1,8 +1,8 @@
 namespace DCCRailway.System.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class SystemAttribute : Attribute {
-    public SystemAttribute(string name, string? manufacturer = null, string? model = null, string? version = null) {
+public class ControllerAttribute : Attribute {
+    public ControllerAttribute(string name, string? manufacturer = null, string? model = null, string? version = null) {
         Name         = name;
         Manufacturer = manufacturer ?? "";
         Model        = model ?? "";

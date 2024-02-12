@@ -10,8 +10,8 @@ namespace DCCRailway.Test;
 public class LoadSystemsTest {
     [Test]
     public void LoadSystemsList() {
-        var systems = SystemFactory.SupportedSystems();
-        Assert.That(systems, Is.Not.Null, "Should have at least 1 controller retuned from the GetListOfSystens call");
+        var systems = new ControllerFactory().Controllers;
+        Assert.That(systems, Is.Not.Null, "Should have at least 1 controller returned from the Controllers call");
     }
 
     /*

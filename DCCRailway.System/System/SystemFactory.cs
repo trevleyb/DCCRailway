@@ -6,7 +6,7 @@ using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System;
 
-public static class SystemFactory {
+public static class xxxSystemFactory {
     // <summary>
     /// Create by Assembly bypasses the search for a list of supported controller and allows the
     /// creation of a controller based on a Assembly File and Assemlbly type. For example, the file
@@ -61,7 +61,7 @@ public static class SystemFactory {
     /// </summary>
     /// <param name="defaultPath"></param>
     /// <returns>List of systems that have been found</returns>
-    public static List<SystemEntry> SupportedSystems(string defaultPath = ".") {
+    public static List<xxxSystemEntry> SupportedSystems(string defaultPath = ".") {
         // Get a list of files in the current folder and then look at each one to see if it is a DCCSystem assembly
         // ---------------------------------------------------------------------------------------------------------
         const string pattern = @"(.*)DCCRailway\.Controller.(\D+)\.dll";
@@ -73,7 +73,7 @@ public static class SystemFactory {
 
         // Process each file and load in its controller information looking for IDCCSystem as an interface
         // -------------------------------------------------------------------------------------------
-        var supportedSystems = new List<SystemEntry>();
+        var supportedSystems = new List<xxxSystemEntry>();
 
         foreach (var assemblyPath in fileEntries) {
             try {
@@ -89,10 +89,10 @@ public static class SystemFactory {
                     // -------------------------------------------------------------------------------------------
                 {
                     try {
-                        var systemAttr = AttributeExtractor.GetAttribute<SystemAttribute>(dccSystem); //(SystemNameAttribute) Attribute.GetCustomAttribute(dccSystem, typeof(SystemNameAttribute))!;
+                        var systemAttr = AttributeExtractor.GetAttribute<ControllerAttribute>(dccSystem); //(SystemNameAttribute) Attribute.GetCustomAttribute(dccSystem, typeof(SystemNameAttribute))!;
 
                         if (systemAttr != null) {
-                            supportedSystems.Add(new SystemEntry(assemblyPath, dccSystem, systemAttr));
+                            supportedSystems.Add(new xxxSystemEntry(assemblyPath, dccSystem, systemAttr));
                         }
                     } catch (Exception ex) {
                         Logger.Log.Debug("ASSEMBLY: Unable to obtain the name of the Manufacturer or Controller from the Assembly.", ex);
@@ -110,7 +110,7 @@ public static class SystemFactory {
     //    return SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Manufacturer.Equals(manufacturer, StringComparison.OrdinalIgnoreCase));
     //}
 
-    private static SystemEntry? Find(string name, string defaultPath) => SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+    private static xxxSystemEntry? Find(string name, string defaultPath) => SupportedSystems(defaultPath).Find(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 }
 
 

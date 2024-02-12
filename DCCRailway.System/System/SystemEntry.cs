@@ -12,14 +12,14 @@ namespace DCCRailway.System;
 ///     This also allows the creation of a controller by calling the Create helper
 ///     method which takes an ADAPTER as a parameter
 /// </summary>
-public class SystemEntry {
-    public SystemEntry(string assemblyPath, Type assemblyType, SystemAttribute? attributes = null) {
+public class xxxSystemEntry {
+    public xxxSystemEntry(string assemblyPath, Type assemblyType, ControllerAttribute? attributes = null) {
         AssemblyPath = assemblyPath;
         AssemblyType = assemblyType;
-        Attributes   = attributes ?? new SystemAttribute("Unknown");
+        Attributes   = attributes ?? new ControllerAttribute("Unknown");
     }
 
-    private SystemAttribute Attributes   { get; }
+    private ControllerAttribute Attributes   { get; }
     private Type            AssemblyType { get; }
     private string          AssemblyPath { get; }
 

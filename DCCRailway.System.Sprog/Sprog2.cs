@@ -6,7 +6,7 @@ using DCCRailway.System.Virtual;
 
 namespace DCCRailway.System.Sprog;
 
-[System("Sprog II", "DCCSystems", "Sprog II")]
+[Controller("Sprog II", "DCCSystems", "Sprog II")]
 public class Sprog2 : Controller, IController {
     public override IDCCAddress CreateAddress() => new DCCAddress();
 

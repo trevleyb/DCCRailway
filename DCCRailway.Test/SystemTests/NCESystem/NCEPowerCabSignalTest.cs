@@ -18,7 +18,8 @@ public class NCEPowerCabSignalTest {
         var adapter = new NCEUSBSerial("/dev/cu.SLAB_USBtoUART", 19200, 8, Parity.None, StopBits.One, 500);
         Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
 
-        var system = SystemFactory.Create("NCEPowerCab", adapter);
+        var system = new ControllerFactory().Find("NCEPowerCab")?.Create(adapter);
+        //var system = SystemFactory.Create("NCEPowerCab", adapter);
         Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 

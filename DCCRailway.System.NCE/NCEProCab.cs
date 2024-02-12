@@ -6,7 +6,7 @@ using DCCRailway.System.Types;
 
 namespace DCCRailway.System.NCE;
 
-[System("NCEProCab", "North Coast Engineering (NCE)", "ProCab", "1.3")]
+[Controller("NCEProCab", "North Coast Engineering (NCE)", "ProCab", "1.3")]
 public class NceProCab : Controller, IController {
     public override IDCCAddress CreateAddress() => new DCCAddress();
 

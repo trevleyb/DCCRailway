@@ -10,7 +10,7 @@ using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.NCE;
 
-[System("NCEPowerCab", "North Coast Engineering (NCE)", "PowerCab", "1.65")]
+[Controller("NCEPowerCab", "North Coast Engineering (NCE)", "PowerCab", "1.65")]
 public class NcePowerCab : Controller, IController {
     public override IDCCAddress CreateAddress() => new DCCAddress();
 

@@ -8,7 +8,7 @@ using DCCRailway.System.Virtual.Commands;
 
 namespace DCCRailway.System.Virtual;
 
-[System("Virtual", "Virtual", "Virtual")]
+[Controller("Virtual", "Virtual", "Virtual")]
 public class VirtualController : Controller, IController {
     public override IDCCAddress CreateAddress() => new DCCAddress();
 
