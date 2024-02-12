@@ -36,7 +36,6 @@ public class NCEPowerCabLocoFunctionsTests {
             Assert.That(_adapter,Is.Not.Null, "Should have a Serial Adapter created");
             _adapter.DataReceived            += Adapter_DataReceived;
             _adapter.DataSent                += Adapter_DataSent;
-            _adapter.ConnectionStatusChanged += Adapter_ConnectionStatusChanged;
             _adapter.ErrorOccurred           += Adapter_ErrorOccurred;
             _system.Adapter                  =  _adapter;
         } else {
@@ -45,9 +44,7 @@ public class NCEPowerCabLocoFunctionsTests {
     }
 
     private void Adapter_ErrorOccurred(object? sender, ErrorArgs e) => Console.WriteLine(e.ToString());
-
-    private void Adapter_ConnectionStatusChanged(object? sender, StateChangedArgs e) => Console.WriteLine(e.ToString());
-
+    
     private void Adapter_DataSent(object? sender, DataSentArgs e) => Console.WriteLine(e.ToString());
 
     private void Adapter_DataReceived(object? sender, DataRecvArgs e) => Console.WriteLine(e.ToString());
@@ -56,7 +53,6 @@ public class NCEPowerCabLocoFunctionsTests {
     public void TestCleanup() {
         _adapter.DataReceived            -= Adapter_DataReceived;
         _adapter.DataSent                -= Adapter_DataSent;
-        _adapter.ConnectionStatusChanged -= Adapter_ConnectionStatusChanged;
         _adapter.ErrorOccurred           -= Adapter_ErrorOccurred;
         _adapter.Disconnect();
     }

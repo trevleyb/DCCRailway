@@ -3,7 +3,7 @@ using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Adapters.Events;
 
-public class ErrorArgs : EventArgs {
+public class ErrorArgs : EventArgs, IAdapterEvent {
     public ErrorArgs(string error, IAdapter? adapter = null, ICommand? command = null) {
         Adapter = adapter;
         Command = command;

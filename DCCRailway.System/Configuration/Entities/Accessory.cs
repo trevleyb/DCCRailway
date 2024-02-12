@@ -1,10 +1,11 @@
 ﻿using System.Xml.Serialization;
+using DCCRailway.System.Entities;
 using DCCRailway.System.Types;
 
 namespace DCCRailway.System.Config;
 
 [XmlRoot(ElementName = "Accessory")]
-public class Accessory {
+public class Accessory : IAccessory{
     public Accessory() {
         Parameters = new Parameters();
         Decoder    = new Decoder { AddressType = DCCAddressType.Accessory };

@@ -3,20 +3,11 @@
 namespace DCCRailway.System.Adapters;
 
 public abstract class Adapter {
-    public event EventHandler<StateChangedArgs> ConnectionStatusChanged;
     public event EventHandler<DataRecvArgs>     DataReceived;
     public event EventHandler<DataSentArgs>     DataSent;
     public event EventHandler<ErrorArgs>        ErrorOccurred;
 
     #region Events Delegates
-    /// <summary>
-    ///     When the state of an Adapters Connection changes, then raise an event
-    ///     so that the systems using the Adapter know that a state change has
-    ///     occurred and can react to it
-    /// </summary>
-    /// <param name="e">The event arguments and details of the change</param>
-    protected virtual void OnConnectionChangedState(StateChangedArgs e) => ConnectionStatusChanged?.Invoke(this, e);
-
     /// <summary>
     ///     When data is recieved by the Adapater, raise this event with the
     ///     underlying data so other systems can listen for this information

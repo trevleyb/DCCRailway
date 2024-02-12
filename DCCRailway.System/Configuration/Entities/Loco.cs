@@ -1,9 +1,10 @@
 ﻿using System.Xml.Serialization;
+using DCCRailway.System.Entities;
 
 namespace DCCRailway.System.Config;
 
 [XmlRoot(ElementName = "Loco")]
-public class Loco {
+public class Loco : ILoco {
     public Loco() {
         Parameters = new Parameters();
 

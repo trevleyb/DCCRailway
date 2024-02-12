@@ -3,7 +3,7 @@ using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Adapters.Events;
 
-public class DataRecvArgs : EventArgs {
+public class DataRecvArgs : EventArgs, IAdapterEvent {
     public DataRecvArgs(byte[]? data, IAdapter? adapter = null, ICommand? command = null) {
         Adapter = adapter;
         Command = command;

@@ -30,12 +30,7 @@ public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
 
         try {
             _connection = new SerialPort(_serialAdapterSettings.PortName, _serialAdapterSettings.BaudRate, _serialAdapterSettings.Parity, _serialAdapterSettings.DataBits, _serialAdapterSettings.StopBits) { WriteTimeout = _serialAdapterSettings.Timeout, ReadTimeout = _serialAdapterSettings.Timeout };
-
-            _connection.PinChanged += delegate(object sender, SerialPinChangedEventArgs args) {
-                Logger.Log.Debug($"ADAPTER:{this.Info().Name} - Connected = {0}", args.EventType);
-                OnConnectionChangedState(new StateChangedArgs(args.EventType.ToString()));
-            };
-
+            
             //_connection.DataReceived += delegate (object sender, SerialDataReceivedEventArgs args) {
             //    Console.WriteLine($"{Name}: Received message: {0}", args.ToString());
             //    OnDataRecieved(new DataRecvArgs(args.ToString()!.ToByteArray(), this));
@@ -124,7 +119,6 @@ public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
     /// </summary>
     /// <returns>String representation of the connection string</returns>
     public override string ToString() => $"Adapter '{this.Info().Name}' = {_serialAdapterSettings.PortName} @ {_serialAdapterSettings.BaudRate},{_serialAdapterSettings.DataBits},{_serialAdapterSettings.StopBits},{_serialAdapterSettings.Parity}";
-
 
     #region Constructor and Destructor
     protected SerialAdapter(string portName = "dev/ttyUSB0", int baudRate = 9600, int dataBits = 8, Parity parity = Parity.None, StopBits stopBits = StopBits.One, int timeout = 2000) => _serialAdapterSettings = new SerialAdapterSettings(portName, baudRate, dataBits, parity, stopBits, timeout);

@@ -14,7 +14,7 @@ public abstract class Controller : IController {
     private Dictionary<Type, (Type Command, string Name)> _commands = new(); // Stores what operations the controller will provide
 
     public event SystemEvents SystemEvent;
-    public delegate void      SystemEvents(object sender, SystemEventArgs e);
+    public delegate void SystemEvents(object sender, SystemEventArgs e);
     
     /// <summary>
     ///     Execute a Given Command. We do this here so we can manage and log all command being executed
