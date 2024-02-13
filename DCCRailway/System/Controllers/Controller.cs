@@ -15,6 +15,11 @@ public abstract class Controller : IController {
     public event SystemEvents SystemEvent;
     public delegate void SystemEvents(object sender, SystemEventArgs e);
     
+    protected Controller() {
+        // ReSharper disable VirtualMemberCallInConstructor
+        RegisterAdapters();
+    }
+    
     /// <summary>
     ///     Execute a Given Command. We do this here so we can manage and log all command being executed
     ///     and the results that each command received.
@@ -115,7 +120,7 @@ public abstract class Controller : IController {
 
     protected void RegisterCommand<T>(Type command) where T : ICommand {
         var attr = AttributeExtractor.GetAttribute<CommandAttribute>(command);
-        if (attr == null || string.IsNullOrEmpty(attr.Name)) throw new ApplicationException("Command does not contain Info Definition. Add Attributes first");
+        if (attr == null || string.IsNullOrEmpty(attr.Name)) throw new ApplicationException("Command does not contain AttributeInfo Definition. Add AttributeInfo first");
         if (!_commands.ContainsKey(typeof(T))) _commands.TryAdd(typeof(T), (command, attr.Name));
     }
 

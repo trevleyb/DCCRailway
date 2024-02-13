@@ -8,8 +8,8 @@ public class SystemEventAdapterArgs : SystemEventArgs {
         Type        = SystemEventType.Adapter;
         Action      = action;
         Message     = message;
-        Name        = adapter.Info().Name;
-        Description = adapter.Info().Description;
+        Name        = adapter.AttributeInfo().Name;
+        Description = adapter.AttributeInfo().Description;
     }
 
     public string Message     { get; set; }

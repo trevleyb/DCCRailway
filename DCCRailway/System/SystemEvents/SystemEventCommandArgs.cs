@@ -11,8 +11,8 @@ public class SystemEventCommandArgs : SystemEventArgs {
         Type    = SystemEventType.Command;
         Action  = SystemEventAction.Execute;
         Message = message;
-        Name = command.Info().Name;
-        Description = command.Info().Description;
+        Name = command.AttributeInfo().Name;
+        Description = command.AttributeInfo().Description;
         
         switch (command) {
         case ILocoCommand locoCommand:

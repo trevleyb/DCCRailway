@@ -20,11 +20,11 @@ public class ConsoleAdapter : Adapter, IAdapter {
     }
 
     public void SendData(byte[] data, ICommand command) {
-        Console.WriteLine("Sending Data {0} => {1}", data.ToDisplayValues(), command.Info().Name);
+        Console.WriteLine("Sending Data {0} => {1}", data.ToDisplayValues(), command.AttributeInfo().Name);
     }
 
     public byte[]? RecvData(ICommand command) {
-        Console.WriteLine("Receiving Data <= {0}", command.Info().Name);
+        Console.WriteLine("Receiving Data <= {0}", command.AttributeInfo().Name);
         return [];
     }
 }

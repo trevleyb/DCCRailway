@@ -9,7 +9,7 @@ public class WiThrottleConnectionEntry {
     internal WiThrottleConnectionList listReference;
 
     /// <summary>
-    ///     A connection Info Entry stores information about a particular entry in the throttle
+    ///     A connection AttributeInfo Entry stores information about a particular entry in the throttle
     ///     roster and allows us to ensure we are tracking the connections and can
     ///     send "STOP" messages if we need to if we do not hear from the throttle.
     /// </summary>

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Reflection;
 using DCCRailway.System.Adapters;
 using DCCRailway.Utilities.Exceptions;
@@ -9,6 +10,7 @@ namespace DCCRailway.System.Controllers;
 /// dynamically read by scanning all assemblies in the current folder and determining
 /// attributes and information about the controller.
 /// </summary>
+[DebuggerDisplay("Name: {Name}, Manufacturer: {Manufacturer}, Model: {Model}, Version: {Version}")]
 public class ControllerInfo(ControllerAttribute attributes, string assemblyPath, Type assemblyType)
 {
     private ControllerAttribute Attributes   { get; } = attributes;
@@ -28,9 +30,9 @@ public class ControllerInfo(ControllerAttribute attributes, string assemblyPath,
     /// <param name="adapter">An instance of an adapter to connect to</param>
     /// <returns>An instance of a DCCSystem to use to control</returns>
     /// <exception cref="ApplicationException"></exception>
-    public IController Create(IAdapter? adapter) {
+    public IController Create(IAdapter adapter) {
         var controller = Create();
-        controller.Adapter = adapter ?? new NullAdapter();
+        controller.Adapter = adapter;
         return controller;
     }
 
@@ -39,7 +41,7 @@ public class ControllerInfo(ControllerAttribute attributes, string assemblyPath,
     /// </summary>
     /// <returns>An instance of a controller</returns>
     /// <exception cref="ApplicationException">If it cannot create an instance dynamically</exception>
-    private IController Create() {
+    public IController Create() {
         try {
             if (!File.Exists(AssemblyPath)) throw new SystemInstantiateException(Name, $"The Assembly '{AssemblyPath}' does not exist."); 
             if (AssemblyType is null) throw new SystemInstantiateException(Name, "Unable to determine the object type as the type is 'Undefined'.");

@@ -14,11 +14,11 @@ public abstract class VirtualAdapter : Adapter, IAdapter {
     }
     
     public void SendData(byte[] data, ICommand command) {
-        Logger.Log.Debug($"Sending Data to the Adapter: '{command.Info().Name} => {data.FromByteArray()}'");
+        Logger.Log.Debug($"Sending Data to the Adapter: '{command.AttributeInfo().Name} => {data.FromByteArray()}'");
     }
     
     public byte[]? RecvData(ICommand command) {
-        Logger.Log.Debug($"Receiving Data from the Adapter: '{command.Info().Name}'");
+        Logger.Log.Debug($"Receiving Data from the Adapter: '{command.AttributeInfo().Name}'");
         return new byte[] { 0x00 };
     }
 }

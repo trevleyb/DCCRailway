@@ -15,7 +15,7 @@ public class ControllerFactory
     /// </summary>
     private Dictionary<string, ControllerInfo>? _controllers = new();
 
-    private const string DefaultAssemblyPattern = @"(.*)DCCRailway.Delete\.Controller.(\D+)\.dll";
+    private const string DefaultAssemblyPattern = @"(.*)DCCRailway.Manufacturer\.(\D+)\.dll";
     private const string DefaultPath            = ".";
 
     /// <summary>
