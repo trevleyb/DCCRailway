@@ -1,8 +1,7 @@
 ﻿using System.Xml.Serialization;
-using DCCRailway.System.Entities;
-using DCCRailway.System.Types;
+using DCCRailway.System.Layout.Types;
 
-namespace DCCRailway.System.Config;
+namespace DCCRailway.System.Configuration.Entities;
 
 [XmlRoot(ElementName = "Accessory")]
 public class Accessory : IAccessory{

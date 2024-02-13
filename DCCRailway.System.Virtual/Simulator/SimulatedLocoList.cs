@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DCCRailway.System.Types;
+using DCCRailway.System.Layout.Types;
 
 namespace DCCRailway.System.Simulator;
 

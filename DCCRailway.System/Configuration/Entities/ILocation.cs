@@ -1,3 +1,3 @@
-﻿namespace DCCRailway.System.Entities.Interfaces;
+﻿namespace DCCRailway.System.Configuration.Entities;
 
 public interface ILocation { }

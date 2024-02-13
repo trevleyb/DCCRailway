@@ -1,6 +1,7 @@
 ﻿using System.Xml.Serialization;
+using DCCRailway.System.Configuration.Entities;
 
-namespace DCCRailway.System.Config;
+namespace DCCRailway.System.Configuration;
 
 /// <summary>
 ///     Represents a self-contained set of configuration items for the running

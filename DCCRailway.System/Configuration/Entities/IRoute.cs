@@ -1,3 +1,3 @@
-﻿namespace DCCRailway.System.Entities;
+﻿namespace DCCRailway.System.Configuration.Entities;
 
 public interface IRoute { }

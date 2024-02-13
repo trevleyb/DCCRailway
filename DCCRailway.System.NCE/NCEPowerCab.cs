@@ -1,12 +1,10 @@
-﻿using DCCRailway.System.Adapters.Events;
-using DCCRailway.System.Attributes;
-using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Exceptions;
+﻿using DCCRailway.System.Layout.Commands.Types;
+using DCCRailway.System.Layout.Controllers;
+using DCCRailway.System.Layout.Types;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.NCE.Commands;
-using DCCRailway.System.Types;
 using DCCRailway.System.Utilities;
+using DCCRailway.System.Utilities.Exceptions;
 
 namespace DCCRailway.System.NCE;
 

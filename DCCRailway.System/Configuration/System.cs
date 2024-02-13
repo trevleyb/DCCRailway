@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace DCCRailway.System.Config;
+namespace DCCRailway.System.Configuration;
 
 [XmlRoot(ElementName = "Controller")]
 public class System {

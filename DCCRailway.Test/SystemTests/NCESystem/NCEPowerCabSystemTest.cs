@@ -1,11 +1,9 @@
 ﻿using DCCRailway.System;
-using DCCRailway.System.Adapters;
-using DCCRailway.System.Commands.CommandType;
-using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Layout.Adapters;
+using DCCRailway.System.Layout.Types;
 using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using DCCRailway.System.NCE.Commands;
-using DCCRailway.System.Types;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;

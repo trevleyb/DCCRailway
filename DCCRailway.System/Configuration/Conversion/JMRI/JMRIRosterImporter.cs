@@ -1,8 +1,7 @@
-﻿using DCCRailway.System.Config;
-using DCCRailway.System.Conversion.JMRI;
-using DCCRailway.System.Types;
+﻿using DCCRailway.System.Configuration.Entities;
+using DCCRailway.System.Layout.Types;
 
-namespace DCCRailway.Conversion.JMRI.Roster;
+namespace DCCRailway.System.Configuration.Conversion.JMRI;
 
 public static class JMRIRosterImporter {
     public static List<Loco> Import(string rosterName) {

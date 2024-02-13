@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace DCCRailway.System.Config;
+namespace DCCRailway.System.Configuration;
 
 public class Manufacturer {
     [XmlAttribute(AttributeName = "Name")]

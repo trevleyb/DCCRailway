@@ -1,7 +1,6 @@
 ﻿using System.Xml.Serialization;
-using DCCRailway.System.Entities;
 
-namespace DCCRailway.System.Config;
+namespace DCCRailway.System.Configuration.Entities;
 
 [XmlRoot(ElementName = "Loco")]
 public class Loco : ILoco {

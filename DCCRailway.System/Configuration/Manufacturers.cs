@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace DCCRailway.System.Config;
+namespace DCCRailway.System.Configuration;
 
 [XmlRoot(ElementName = "NMRA_Manufacturers")]
 public class Manufacturers : List<Manufacturer> {

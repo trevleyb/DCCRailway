@@ -1,7 +1,7 @@
 using System.Reflection;
-using DCCRailway.System.Adapters;
-using DCCRailway.System.Attributes;
-using DCCRailway.System.Commands;
+using DCCRailway.System.Layout.Adapters;
+using DCCRailway.System.Layout.Commands;
+using DCCRailway.System.Layout.Controllers;
 
 namespace DCCRailway.System.Utilities;
 

@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.System.Exceptions;
+﻿namespace DCCRailway.System.Utilities.Exceptions;
 
 public class SystemInstantiateException : Exception {
     public SystemInstantiateException(string systemName, string? message, Exception? ex = null) : base(systemName + ":" + message, ex) => SystemName = systemName;

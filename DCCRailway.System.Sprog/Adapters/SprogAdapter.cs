@@ -1,7 +1,6 @@
-﻿using DCCRailway.System.Adapters;
-using DCCRailway.System.Adapters.Events;
-using DCCRailway.System.Attributes;
-using DCCRailway.System.Commands;
+﻿using DCCRailway.System.Layout.Adapters;
+using DCCRailway.System.Layout.Adapters.Events;
+using DCCRailway.System.Layout.Commands;
 using DCCRailway.System.Utilities;
 
 namespace DCCRailway.System.Virtual.Adapters;

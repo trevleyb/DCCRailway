@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Xml.Serialization;
 
-namespace DCCRailway.System.Config;
+namespace DCCRailway.System.Configuration;
 
 [XmlRoot(ElementName = "Parameters")]
 public class Parameters : List<Parameter> {

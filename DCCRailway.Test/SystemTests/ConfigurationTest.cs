@@ -1,8 +1,10 @@
 ﻿using System.IO.Ports;
-using DCCRailway.Conversion.JMRI.Roster;
-using DCCRailway.System.Config;
-using DCCRailway.System.Types;
+using DCCRailway.System.Configuration;
+using DCCRailway.System.Configuration.Conversion.JMRI;
+using DCCRailway.System.Configuration.Entities;
+using DCCRailway.System.Layout.Types;
 using NUnit.Framework;
+using Decoder = DCCRailway.System.Configuration.Decoder;
 
 namespace DCCRailway.Test;
 
