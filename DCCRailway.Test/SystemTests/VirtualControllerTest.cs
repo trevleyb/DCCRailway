@@ -1,13 +1,10 @@
-﻿using DCCRailway.Layout.Adapters;
-using DCCRailway.Layout.Commands.Types;
-using DCCRailway.Layout.Controllers;
-using DCCRailway.System;
-using DCCRailway.System.NCE.Adapters;
-using DCCRailway.System.Virtual;
+﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Commands.Types;
+using DCCRailway.System.Controllers;
 using NUnit.Framework;
-using VirtualAdapter = DCCRailway.System.Virtual.Adapters.VirtualAdapter;
+using VirtualAdapter = DCCRailway.Manufacturer.Virtual.Adapters.VirtualAdapter;
 
-namespace DCCRailway.Test;
+namespace DCCRailway.Test.SystemTests;
 
 [TestFixture]
 public class VirtualControllerTest {

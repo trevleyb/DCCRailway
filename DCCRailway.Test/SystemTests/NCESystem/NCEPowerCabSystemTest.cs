@@ -1,12 +1,8 @@
-﻿using DCCRailway.Layout.Adapters;
-using DCCRailway.Layout.Types;
-using DCCRailway.System;
-using DCCRailway.System.NCE;
-using DCCRailway.System.NCE.Adapters;
-using DCCRailway.System.NCE.Commands;
+﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Types;
 using NUnit.Framework;
 
-namespace DCCRailway.Test;
+namespace DCCRailway.Test.SystemTests.NCESystem;
 
 [TestFixture]
 public class NCEPowerCab {

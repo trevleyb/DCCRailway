@@ -1,10 +1,7 @@
-﻿using DCCRailway.Layout.Controllers;
-using DCCRailway.System;
-using DCCRailway.System.Virtual;
+﻿using DCCRailway.System.Controllers;
 using NUnit.Framework;
-using VirtualAdapter = DCCRailway.System.Virtual.Adapters.VirtualAdapter;
 
-namespace DCCRailway.Test;
+namespace DCCRailway.Test.SystemTests;
 
 [TestFixture]
 public class LoadSystemsTest {

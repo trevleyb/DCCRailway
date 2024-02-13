@@ -1,5 +1,5 @@
 ﻿using System.Xml.Serialization;
-using DCCRailway.Layout.Types;
+using DCCRailway.System.Types;
 
 namespace DCCRailway.Configuration;
 

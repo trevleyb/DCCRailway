@@ -2,11 +2,11 @@
 using DCCRailway.Configuration;
 using DCCRailway.Configuration.Conversion.JMRI;
 using DCCRailway.Configuration.Entities;
-using DCCRailway.Layout.Types;
+using DCCRailway.System.Types;
 using NUnit.Framework;
 using Decoder = DCCRailway.Configuration.Decoder;
 
-namespace DCCRailway.Test;
+namespace DCCRailway.Test.SystemTests;
 
 [TestFixture]
 public class ConfigurationTest {

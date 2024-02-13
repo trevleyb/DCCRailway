@@ -27,11 +27,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DCCRailway.API\DCCRailway.API.csproj" />
-    <ProjectReference Include="..\DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj" />
-    <ProjectReference Include="..\DCCRailway.System.NCE\DCCRailway.System.NCE.csproj" />
-    <ProjectReference Include="..\DCCRailway.System.Sprog\DCCRailway.System.Sprog.csproj" />
-    <ProjectReference Include="..\DCCRailway.System.Virtual\DCCRailway.System.Virtual.csproj" />
-    <ProjectReference Include="..\DCCRailway.Server\DCCRailway.Server.csproj" />
+    <ProjectReference Include="..\DCCRailway.Manufacturer.Digitrax\DCCRailway.Manufacturer.Digitrax.csproj" />
+    <ProjectReference Include="..\DCCRailway.Manufacturer.NCE\DCCRailway.Manufacturer.NCE.csproj" />
+    <ProjectReference Include="..\DCCRailway.Manufacturer.Sprog\DCCRailway.Manufacturer.Sprog.csproj" />
+    <ProjectReference Include="..\DCCRailway.Manufacturer.Virtual\DCCRailway.Manufacturer.Virtual.csproj" />
     <ProjectReference Include="..\DCCRailway\DCCRailway.csproj" />
   </ItemGroup>
   <ItemGroup>

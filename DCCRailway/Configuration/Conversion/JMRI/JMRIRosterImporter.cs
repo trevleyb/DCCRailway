@@ -1,5 +1,5 @@
 ﻿using DCCRailway.Configuration.Entities;
-using DCCRailway.Layout.Types;
+using DCCRailway.System.Types;
 
 namespace DCCRailway.Configuration.Conversion.JMRI;
 

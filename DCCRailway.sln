@@ -12,15 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCCRailway.Server", "DCCRailway.Server\DCCRailway.Server.csproj", "{C34D6238-EA1D-4A5A-A069-D1BE2B306BAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Manufacturer.Digitrax", "DCCRailway.Manufacturer.Digitrax\DCCRailway.Manufacturer.Digitrax.csproj", "{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Digitrax", "DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj", "{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Manufacturer.NCE", "DCCRailway.Manufacturer.NCE\DCCRailway.Manufacturer.NCE.csproj", "{814A4EEE-CDA5-4CE1-ACE8-AC64C8B68C86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.NCE", "DCCRailway.System.NCE\DCCRailway.System.NCE.csproj", "{814A4EEE-CDA5-4CE1-ACE8-AC64C8B68C86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Manufacturer.Sprog", "DCCRailway.Manufacturer.Sprog\DCCRailway.Manufacturer.Sprog.csproj", "{483C03E0-FDE2-44DA-B10B-69069513F76B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Sprog", "DCCRailway.System.Sprog\DCCRailway.System.Sprog.csproj", "{483C03E0-FDE2-44DA-B10B-69069513F76B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Virtual", "DCCRailway.System.Virtual\DCCRailway.System.Virtual.csproj", "{18A6D007-3A4B-4326-B98A-9240DD72652B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Manufacturer.Virtual", "DCCRailway.Manufacturer.Virtual\DCCRailway.Manufacturer.Virtual.csproj", "{18A6D007-3A4B-4326-B98A-9240DD72652B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.API", "DCCRailway.API\DCCRailway.API.csproj", "{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}"
 EndProject
@@ -36,10 +34,6 @@ Global
 		{5489776D-7885-48FE-AC7F-D92DC35EC324}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5489776D-7885-48FE-AC7F-D92DC35EC324}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5489776D-7885-48FE-AC7F-D92DC35EC324}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C34D6238-EA1D-4A5A-A069-D1BE2B306BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C34D6238-EA1D-4A5A-A069-D1BE2B306BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C34D6238-EA1D-4A5A-A069-D1BE2B306BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C34D6238-EA1D-4A5A-A069-D1BE2B306BAC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}.Release|Any CPU.ActiveCfg = Release|Any CPU

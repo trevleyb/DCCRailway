@@ -1,7 +1,7 @@
 ﻿using DCCRailway.Utilities;
 using NUnit.Framework;
 
-namespace DCCRailway.Test.Utility;
+namespace DCCRailway.Test.System.Utility;
 
 [TestFixture]
 public class UtilityTests {

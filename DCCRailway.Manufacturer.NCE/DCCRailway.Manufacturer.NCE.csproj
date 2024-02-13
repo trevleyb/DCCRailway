@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>false</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>DCCRailway.Manufacturer.NCE</RootNamespace>
+        <LangVersion>default</LangVersion>
+        <AssemblyName>DCCRailway.Manufacturer.NCE</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="Common\**"/>
+        <EmbeddedResource Remove="Common\**"/>
+        <None Remove="Common\**"/>
+        <Compile Remove="obj\**" />
+        <EmbeddedResource Remove="obj\**" />
+        <None Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Commands\"/>
+        <None Remove="Adapters\"/>
+        <None Remove="Common\"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Adapters\"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\DCCRailway\DCCRailway.csproj" />
+    </ItemGroup>
+</Project>
