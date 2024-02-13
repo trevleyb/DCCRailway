@@ -1,6 +1,6 @@
-﻿using DCCRailway.System.Layout.Types;
+﻿using DCCRailway.Layout.Types;
 
-namespace DCCRailway.System.Layout.Commands.Types;
+namespace DCCRailway.Layout.Commands.Types;
 
 /// <summary>
 ///     Read a CV from a controller

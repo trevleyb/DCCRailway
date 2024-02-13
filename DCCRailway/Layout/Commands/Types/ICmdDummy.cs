@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.System.Layout.Commands.Types;
+﻿namespace DCCRailway.Layout.Commands.Types;
 
 /// <summary>
 ///     A dummy command that sends nothing and does nothing - used for testing

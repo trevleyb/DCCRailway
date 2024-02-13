@@ -1,10 +1,10 @@
-﻿using DCCRailway.System.Layout.Adapters;
-using DCCRailway.System.Layout.Commands.Results;
-using DCCRailway.System.Layout.Commands.Validators;
-using DCCRailway.System.Utilities;
-using DCCRailway.System.Utilities.Exceptions;
+﻿using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Commands.Results;
+using DCCRailway.Layout.Commands.Validators;
+using DCCRailway.Utilities;
+using DCCRailway.Utilities.Exceptions;
 
-namespace DCCRailway.System.Layout.Commands;
+namespace DCCRailway.Layout.Commands;
 
 public abstract class Command : PropertyChangedBase, ICommand {
     public abstract ICommandResult Execute(IAdapter adapter);

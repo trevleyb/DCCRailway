@@ -1,10 +1,10 @@
 ﻿using System.IO.Ports;
-using DCCRailway.System.Layout.Adapters.Events;
-using DCCRailway.System.Layout.Commands;
-using DCCRailway.System.Utilities;
-using DCCRailway.System.Utilities.Exceptions;
+using DCCRailway.Layout.Adapters.Events;
+using DCCRailway.Layout.Commands;
+using DCCRailway.Utilities;
+using DCCRailway.Utilities.Exceptions;
 
-namespace DCCRailway.System.Layout.Adapters;
+namespace DCCRailway.Layout.Adapters;
 
 public abstract class SerialAdapter : Adapter, IAdapter, IDisposable {
     private readonly SerialAdapterSettings _serialAdapterSettings;

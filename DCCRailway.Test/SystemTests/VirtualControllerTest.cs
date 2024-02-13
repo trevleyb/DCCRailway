@@ -1,9 +1,8 @@
-﻿using DCCRailway.System;
-using DCCRailway.System.Layout.Adapters;
-using DCCRailway.System.Layout.Commands.Types;
-using DCCRailway.System.Layout.Controllers;
+﻿using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Commands.Types;
+using DCCRailway.Layout.Controllers;
+using DCCRailway.System;
 using DCCRailway.System.NCE.Adapters;
-using DCCRailway.System.Utilities;
 using DCCRailway.System.Virtual;
 using NUnit.Framework;
 using VirtualAdapter = DCCRailway.System.Virtual.Adapters.VirtualAdapter;

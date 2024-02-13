@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.System.Layout.Types;
+﻿namespace DCCRailway.Layout.Types;
 
 public interface IDCCLoco {
     IDCCAddress  Address   { get; set; }

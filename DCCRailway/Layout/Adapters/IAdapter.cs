@@ -1,7 +1,7 @@
-﻿using DCCRailway.System.Layout.Adapters.Events;
-using DCCRailway.System.Layout.Commands;
+﻿using DCCRailway.Layout.Adapters.Events;
+using DCCRailway.Layout.Commands;
 
-namespace DCCRailway.System.Layout.Adapters;
+namespace DCCRailway.Layout.Adapters;
 
 public interface IAdapter {
     bool IsConnected { get; }

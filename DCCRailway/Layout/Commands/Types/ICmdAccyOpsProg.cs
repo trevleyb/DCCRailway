@@ -1,6 +1,6 @@
-﻿using DCCRailway.System.Layout.Types;
+﻿using DCCRailway.Layout.Types;
 
-namespace DCCRailway.System.Layout.Commands.Types;
+namespace DCCRailway.Layout.Commands.Types;
 
 public interface ICmdAccyOpsProg : ICommand, IAccyCommand  {
     public IDCCAddress LocoAddress { get; set; }

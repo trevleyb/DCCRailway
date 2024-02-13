@@ -1,9 +1,9 @@
 using System.Reflection;
-using DCCRailway.System.Layout.Adapters;
-using DCCRailway.System.Layout.Commands;
-using DCCRailway.System.Layout.Controllers;
+using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Commands;
+using DCCRailway.Layout.Controllers;
 
-namespace DCCRailway.System.Utilities;
+namespace DCCRailway.Utilities;
 
 public static class AttributeExtractor {
     public static T? GetAttribute<T>(ICustomAttributeProvider type) where T : class {

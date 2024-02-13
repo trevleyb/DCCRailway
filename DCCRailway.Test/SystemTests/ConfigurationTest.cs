@@ -1,10 +1,10 @@
 ﻿using System.IO.Ports;
-using DCCRailway.System.Configuration;
-using DCCRailway.System.Configuration.Conversion.JMRI;
-using DCCRailway.System.Configuration.Entities;
-using DCCRailway.System.Layout.Types;
+using DCCRailway.Configuration;
+using DCCRailway.Configuration.Conversion.JMRI;
+using DCCRailway.Configuration.Entities;
+using DCCRailway.Layout.Types;
 using NUnit.Framework;
-using Decoder = DCCRailway.System.Configuration.Decoder;
+using Decoder = DCCRailway.Configuration.Decoder;
 
 namespace DCCRailway.Test;
 
@@ -12,7 +12,7 @@ namespace DCCRailway.Test;
 public class ConfigurationTest {
     [Test]
     public void SaveConfigFileTest() {
-        Configuration config = new() { Name = @"testconfig.xml" };
+        Configuration.Configuration config = new() { Name = @"testconfig.xml" };
         //TO-DO: config!.Systems.Add(new Controller.Config.Controller("System1"));
 
         var adapter    = new Adapter { Name = "NCEUSB" };
@@ -40,7 +40,7 @@ public class ConfigurationTest {
 
         config.Save();
 
-        var loadConfig = Configuration.Load(config.Name);
+        var loadConfig = Configuration.Configuration.Load(config.Name);
         Assert.That(loadConfig, Is.Not.Null);
         Assert.That(loadConfig, Is.EqualTo(config));
     }

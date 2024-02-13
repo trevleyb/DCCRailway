@@ -1,4 +1,4 @@
-namespace DCCRailway.System.Layout.Responses.Events;
+namespace DCCRailway.Layout.Responses.Events;
 
 public class ResponseEvent {
     

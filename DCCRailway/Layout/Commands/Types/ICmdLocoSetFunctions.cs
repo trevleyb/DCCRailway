@@ -1,6 +1,6 @@
-﻿using DCCRailway.System.Layout.Types;
+﻿using DCCRailway.Layout.Types;
 
-namespace DCCRailway.System.Layout.Commands.Types;
+namespace DCCRailway.Layout.Commands.Types;
 
 public interface ICmdLocoSetFunctions : ICommand,ILocoCommand {
     public DCCFunctionBlocks Functions { get; }

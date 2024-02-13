@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DCCRailway.System.Utilities;
+namespace DCCRailway.Utilities;
 
 public class PropertyChangedBase : INotifyPropertyChanged {
     public event PropertyChangedEventHandler? PropertyChanged;

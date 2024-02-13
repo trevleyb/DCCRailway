@@ -1,6 +1,6 @@
-﻿using DCCRailway.System.Layout.Commands.Results;
+﻿using DCCRailway.Layout.Commands.Results;
 
-namespace DCCRailway.System.Layout.Commands.Validators;
+namespace DCCRailway.Layout.Commands.Validators;
 
 public class SimpleResultValidation : IResultValidation {
     public SimpleResultValidation(int expectedLength) => LengthExpected = expectedLength;

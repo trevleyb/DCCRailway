@@ -1,4 +1,4 @@
-namespace DCCRailway.System.Layout.Commands;
+namespace DCCRailway.Layout.Commands;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class CommandAttribute : Attribute {

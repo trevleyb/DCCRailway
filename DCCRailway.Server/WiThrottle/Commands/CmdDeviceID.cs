@@ -1,5 +1,5 @@
 ﻿using System;
-using DCCRailway.System.Utilities;
+using DCCRailway.Utilities;
 
 namespace DCCRailway.Server.WiThrottle.Commands;
 

@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.System.Layout.Types;
+﻿namespace DCCRailway.Layout.Types;
 
 public class DCCLoco : IDCCLoco {
     public DCCLoco(IDCCAddress address, DCCDirection direction = DCCDirection.Forward) {

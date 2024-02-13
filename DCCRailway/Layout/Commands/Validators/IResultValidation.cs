@@ -1,6 +1,6 @@
-﻿using DCCRailway.System.Layout.Commands.Results;
+﻿using DCCRailway.Layout.Commands.Results;
 
-namespace DCCRailway.System.Layout.Commands.Validators;
+namespace DCCRailway.Layout.Commands.Validators;
 
 public interface IResultValidation {
     public ICommandResult Validate(byte[]? data);

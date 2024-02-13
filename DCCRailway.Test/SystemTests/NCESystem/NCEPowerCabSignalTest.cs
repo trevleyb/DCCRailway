@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using System.IO.Ports;
+using DCCRailway.Layout.Commands.Types;
+using DCCRailway.Layout.Controllers;
+using DCCRailway.Layout.Types;
 using DCCRailway.System;
-using DCCRailway.System.Layout.Commands.Types;
-using DCCRailway.System.Layout.Controllers;
-using DCCRailway.System.Layout.Types;
 using DCCRailway.System.NCE;
 using DCCRailway.System.NCE.Adapters;
 using NUnit.Framework;

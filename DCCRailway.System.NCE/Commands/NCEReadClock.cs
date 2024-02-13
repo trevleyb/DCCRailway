@@ -1,8 +1,8 @@
-﻿using DCCRailway.System.Layout.Adapters;
-using DCCRailway.System.Layout.Commands;
-using DCCRailway.System.Layout.Commands.Results;
-using DCCRailway.System.Layout.Commands.Types;
-using DCCRailway.System.Layout.Commands.Validators;
+﻿using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Commands;
+using DCCRailway.Layout.Commands.Results;
+using DCCRailway.Layout.Commands.Types;
+using DCCRailway.Layout.Commands.Validators;
 
 namespace DCCRailway.System.NCE.Commands;
 

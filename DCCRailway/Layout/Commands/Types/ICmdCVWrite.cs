@@ -1,6 +1,6 @@
-﻿using DCCRailway.System.Layout.Types;
+﻿using DCCRailway.Layout.Types;
 
-namespace DCCRailway.System.Layout.Commands.Types;
+namespace DCCRailway.Layout.Commands.Types;
 
 /// <summary>
 ///     Write a value to a specific CV

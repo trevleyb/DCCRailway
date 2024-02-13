@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
-using DCCRailway.System.Layout.Commands;
+using DCCRailway.Layout.Commands;
 
-namespace DCCRailway.System.Utilities;
+namespace DCCRailway.Utilities;
 
 public static class InterfaceUtility {
     public static string? FindImplmentationInterface(IEnumerable<TypeInfo> definedTypes, string searchtype) {

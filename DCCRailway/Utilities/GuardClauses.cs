@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.System.Utilities;
+﻿namespace DCCRailway.Utilities;
 
 public static class GuardClauses {
     public static void IsNotNull(object? argumentValue, string argumentName) {

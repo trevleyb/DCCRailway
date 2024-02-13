@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
 
-namespace DCCRailway.System.Configuration;
+namespace DCCRailway.Configuration;
 
 public class ConfigSerializer<T> {
     #region Load and Save Functions

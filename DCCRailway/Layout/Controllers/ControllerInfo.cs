@@ -1,8 +1,8 @@
 using System.Reflection;
-using DCCRailway.System.Layout.Adapters;
-using DCCRailway.System.Utilities.Exceptions;
+using DCCRailway.Layout.Adapters;
+using DCCRailway.Utilities.Exceptions;
 
-namespace DCCRailway.System.Layout.Controllers;
+namespace DCCRailway.Layout.Controllers;
 
 /// <summary>
 /// The controller info class is used to store information about the controller. This is

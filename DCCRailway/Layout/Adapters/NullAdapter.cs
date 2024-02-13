@@ -1,6 +1,6 @@
-using DCCRailway.System.Layout.Commands;
+using DCCRailway.Layout.Commands;
 
-namespace DCCRailway.System.Layout.Adapters;
+namespace DCCRailway.Layout.Adapters;
 
 [Adapter("Console", AdapterType.Virtual, "Adapter that writes to the Console", "1.0")]
 public class NullAdapter : Adapter, IAdapter {

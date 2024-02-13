@@ -1,7 +1,7 @@
-using DCCRailway.System.Layout.Adapters;
-using DCCRailway.System.Utilities;
+using DCCRailway.Layout.Adapters;
+using DCCRailway.Utilities;
 
-namespace DCCRailway.System.Layout.SystemEvents;
+namespace DCCRailway.Layout.SystemEvents;
 
 public class SystemEventAdapterArgs : SystemEventArgs {
     public SystemEventAdapterArgs(IAdapter adapter, SystemEventAction action, string message) {

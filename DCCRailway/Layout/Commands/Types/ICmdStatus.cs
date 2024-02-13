@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.System.Layout.Commands.Types;
+﻿namespace DCCRailway.Layout.Commands.Types;
 
 /// <summary>
 ///     Get the current status of the controller

@@ -1,4 +1,4 @@
-namespace DCCRailway.System.Layout.Commands.Results;
+namespace DCCRailway.Layout.Commands.Results;
 
 public interface ICommandResult {
         public bool    IsSuccess { get; }

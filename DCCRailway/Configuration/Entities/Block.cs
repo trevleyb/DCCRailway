@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace DCCRailway.System.Configuration.Entities;
+namespace DCCRailway.Configuration.Entities;
 
 [XmlRoot(ElementName = "Block")]
 public class Block : IBlock {

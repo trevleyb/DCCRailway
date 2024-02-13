@@ -1,4 +1,4 @@
-namespace DCCRailway.System.Layout.SystemEvents;
+namespace DCCRailway.Layout.SystemEvents;
 
 public abstract class SystemEventArgs {
     public SystemEventType Type { get; set; }

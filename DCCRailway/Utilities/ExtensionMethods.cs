@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace DCCRailway.System.Utilities;
+namespace DCCRailway.Utilities;
 
 public static class ExtensionMethods {
     public static byte Invert(this byte inByte) => (byte)~inByte;

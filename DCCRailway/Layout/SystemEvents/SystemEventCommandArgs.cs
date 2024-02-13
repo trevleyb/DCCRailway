@@ -1,10 +1,10 @@
-using DCCRailway.System.Layout.Commands;
-using DCCRailway.System.Layout.Commands.Results;
-using DCCRailway.System.Layout.Commands.Types;
-using DCCRailway.System.Layout.Types;
-using DCCRailway.System.Utilities;
+using DCCRailway.Layout.Commands;
+using DCCRailway.Layout.Commands.Results;
+using DCCRailway.Layout.Commands.Types;
+using DCCRailway.Layout.Types;
+using DCCRailway.Utilities;
 
-namespace DCCRailway.System.Layout.SystemEvents;
+namespace DCCRailway.Layout.SystemEvents;
 
 public class SystemEventCommandArgs : SystemEventArgs {
     public SystemEventCommandArgs(ICommand command, ICommandResult result, string message) {

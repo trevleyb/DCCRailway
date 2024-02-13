@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.System.Utilities.Exceptions;
+﻿namespace DCCRailway.Utilities.Exceptions;
 
 public class ValidationException : Exception {
     public ValidationException(string? message) : base(message) { }

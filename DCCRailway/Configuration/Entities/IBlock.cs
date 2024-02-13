@@ -1,3 +1,3 @@
-﻿namespace DCCRailway.System.Configuration.Entities;
+﻿namespace DCCRailway.Configuration.Entities;
 
 public interface IBlock { }

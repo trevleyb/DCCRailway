@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DCCRailway.System.Layout.Commands.Types;
+namespace DCCRailway.Layout.Commands.Types;
 
 /// <summary>
 ///     Allows you to Turn the FAST Clock on or Off and Set the Fast Clock

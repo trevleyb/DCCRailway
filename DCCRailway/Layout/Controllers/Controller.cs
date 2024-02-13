@@ -1,11 +1,11 @@
-﻿using DCCRailway.System.Layout.Adapters;
-using DCCRailway.System.Layout.Commands;
-using DCCRailway.System.Layout.Commands.Results;
-using DCCRailway.System.Layout.SystemEvents;
-using DCCRailway.System.Layout.Types;
-using DCCRailway.System.Utilities;
+﻿using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Commands;
+using DCCRailway.Layout.Commands.Results;
+using DCCRailway.Layout.SystemEvents;
+using DCCRailway.Layout.Types;
+using DCCRailway.Utilities;
 
-namespace DCCRailway.System.Layout.Controllers;
+namespace DCCRailway.Layout.Controllers;
 
 public abstract class Controller : IController {
     private IAdapter?                                     _adapter;          // Stores the adapter to be used

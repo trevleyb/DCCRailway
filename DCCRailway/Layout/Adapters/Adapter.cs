@@ -1,6 +1,6 @@
-﻿using DCCRailway.System.Layout.Adapters.Events;
+﻿using DCCRailway.Layout.Adapters.Events;
 
-namespace DCCRailway.System.Layout.Adapters;
+namespace DCCRailway.Layout.Adapters;
 
 public abstract class Adapter {
     public event EventHandler<DataRecvArgs>     DataReceived;

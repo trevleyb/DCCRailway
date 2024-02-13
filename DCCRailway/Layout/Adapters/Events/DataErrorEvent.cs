@@ -1,7 +1,7 @@
-﻿using DCCRailway.System.Layout.Commands;
-using DCCRailway.System.Utilities;
+﻿using DCCRailway.Layout.Commands;
+using DCCRailway.Utilities;
 
-namespace DCCRailway.System.Layout.Adapters.Events;
+namespace DCCRailway.Layout.Adapters.Events;
 
 public class ErrorArgs : EventArgs, IAdapterEvent {
     public ErrorArgs(string error, IAdapter? adapter = null, ICommand? command = null) {

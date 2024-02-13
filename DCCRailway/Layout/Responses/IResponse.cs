@@ -1,4 +1,4 @@
-namespace DCCRailway.System.Layout.Responses;
+namespace DCCRailway.Layout.Responses;
 
 public class IResponse {
     

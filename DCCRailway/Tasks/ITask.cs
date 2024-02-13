@@ -1,4 +1,4 @@
-namespace DCCRailway.System.Tasks; 
+namespace DCCRailway.Tasks; 
 
 public interface ITask {
     

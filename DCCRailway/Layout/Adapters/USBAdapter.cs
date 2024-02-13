@@ -1,6 +1,6 @@
-﻿using DCCRailway.System.Layout.Commands;
+﻿using DCCRailway.Layout.Commands;
 
-namespace DCCRailway.System.Layout.Adapters;
+namespace DCCRailway.Layout.Adapters;
 
 public abstract class USBAdapter : Adapter, IAdapter {
     public bool IsConnected => throw new NotImplementedException();

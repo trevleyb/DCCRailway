@@ -1,4 +1,4 @@
-namespace DCCRailway.System.Layout.Commands.Events; 
+namespace DCCRailway.Layout.Commands.Events; 
 
 public class CommandEvent : ICommandEvent {
     

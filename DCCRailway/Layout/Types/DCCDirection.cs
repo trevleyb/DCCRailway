@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.System.Layout.Types;
+﻿namespace DCCRailway.Layout.Types;
 
 public enum DCCDirection {
     Stop    = 00,

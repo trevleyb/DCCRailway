@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
-using DCCRailway.System.Layout.Types;
+using DCCRailway.Layout.Types;
 
-namespace DCCRailway.System.Configuration.Entities;
+namespace DCCRailway.Configuration.Entities;
 
 [XmlRoot(ElementName = "Sensor")]
 public class Sensor {

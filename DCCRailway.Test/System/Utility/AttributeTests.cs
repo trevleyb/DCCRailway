@@ -1,5 +1,5 @@
 using DCCRailway.System.NCE.Commands;
-using DCCRailway.System.Utilities;
+using DCCRailway.Utilities;
 using NUnit.Framework;
 
 namespace DCCRailway.Test.Utility;

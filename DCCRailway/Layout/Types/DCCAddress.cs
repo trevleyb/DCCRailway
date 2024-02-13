@@ -1,6 +1,6 @@
-﻿using DCCRailway.System.Utilities;
+﻿using DCCRailway.Utilities;
 
-namespace DCCRailway.System.Layout.Types;
+namespace DCCRailway.Layout.Types;
 
 public enum DCCAddressType {
     Short,

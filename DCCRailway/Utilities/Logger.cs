@@ -1,6 +1,6 @@
 using Serilog;
 
-namespace DCCRailway.System.Utilities;
+namespace DCCRailway.Utilities;
 
 public static class Logger {
     private static          ILogger _logger;

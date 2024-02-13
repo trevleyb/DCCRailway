@@ -1,6 +1,6 @@
 using System.IO.Ports;
 
-namespace DCCRailway.System.Layout.Adapters;
+namespace DCCRailway.Layout.Adapters;
 
 public class SerialAdapterSettings {
     public SerialAdapterSettings(string portName, int baudRate = 19200, int dataBits = 8, Parity parity = Parity.None, StopBits stopBits = StopBits.None, int timeout = 500) {

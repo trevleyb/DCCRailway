@@ -1,9 +1,9 @@
-﻿using DCCRailway.System.Layout.Adapters;
-using DCCRailway.System.Layout.Commands;
-using DCCRailway.System.Layout.Commands.Results;
-using DCCRailway.System.Layout.Types;
+﻿using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Commands;
+using DCCRailway.Layout.Commands.Results;
+using DCCRailway.Layout.Types;
 
-namespace DCCRailway.System.Layout.Controllers;
+namespace DCCRailway.Layout.Controllers;
 
 public interface IController {
     

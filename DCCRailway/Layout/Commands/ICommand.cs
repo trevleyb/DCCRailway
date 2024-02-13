@@ -1,7 +1,7 @@
-﻿using DCCRailway.System.Layout.Adapters;
-using DCCRailway.System.Layout.Commands.Results;
+﻿using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Commands.Results;
 
-namespace DCCRailway.System.Layout.Commands;
+namespace DCCRailway.Layout.Commands;
 
 public interface ICommand {
     public ICommandResult       Execute     (IAdapter adapter);

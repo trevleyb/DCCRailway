@@ -1,7 +1,7 @@
 using System.IO.Ports;
-using DCCRailway.System.Utilities;
+using DCCRailway.Utilities;
 
-namespace DCCRailway.System.Layout.Adapters;
+namespace DCCRailway.Layout.Adapters;
 
 public static class SerialAdapterFinder {
     /// <summary>

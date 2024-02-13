@@ -1,4 +1,4 @@
-namespace DCCRailway.System.Layout.Controllers;
+namespace DCCRailway.Layout.Controllers;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class ControllerAttribute : Attribute {

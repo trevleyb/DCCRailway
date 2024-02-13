@@ -1,4 +1,4 @@
-﻿using DCCRailway.System.Utilities;
+﻿using DCCRailway.Utilities;
 using NUnit.Framework;
 
 namespace DCCRailway.Test.System.Utility;

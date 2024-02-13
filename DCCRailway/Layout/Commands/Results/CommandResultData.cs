@@ -1,4 +1,4 @@
-namespace DCCRailway.System.Layout.Commands.Results;
+namespace DCCRailway.Layout.Commands.Results;
 
 public class CommandResultData(byte[]? data = null) {
 

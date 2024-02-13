@@ -1,6 +1,6 @@
-using DCCRailway.System.Layout.Commands;
+using DCCRailway.Layout.Commands;
 
-namespace DCCRailway.System.Layout.Adapters.Events;
+namespace DCCRailway.Layout.Adapters.Events;
 
 public interface IAdapterEvent  {
     public IAdapter? Adapter { get; set; }

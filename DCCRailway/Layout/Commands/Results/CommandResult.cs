@@ -1,7 +1,7 @@
-using DCCRailway.System.Utilities;
-using DCCRailway.System.Utilities.Results;
+using DCCRailway.Utilities;
+using DCCRailway.Utilities.Results;
 
-namespace DCCRailway.System.Layout.Commands.Results;
+namespace DCCRailway.Layout.Commands.Results;
 
 public class CommandResult : Result<CommandResultData>, ICommandResult, IResult {
 

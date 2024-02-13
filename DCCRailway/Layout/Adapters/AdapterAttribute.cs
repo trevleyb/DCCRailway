@@ -1,4 +1,4 @@
-namespace DCCRailway.System.Layout.Adapters;
+namespace DCCRailway.Layout.Adapters;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class AdapterAttribute : Attribute {
