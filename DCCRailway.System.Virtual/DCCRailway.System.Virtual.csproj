@@ -26,6 +26,6 @@
         <Folder Include="Commands\"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj"/>
+        <ProjectReference Include="..\DCCRailway\DCCRailway.csproj" />
     </ItemGroup>
 </Project>

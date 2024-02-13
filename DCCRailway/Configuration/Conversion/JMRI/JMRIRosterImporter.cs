@@ -21,7 +21,7 @@ public static class JMRIRosterImporter {
     }
 
     /// <summary>
-    ///     Mapp the Locomotives from JMRI to the DCCRailway Format
+    ///     Mapp the Locomotives from JMRI to the DCCRailway.Delete Format
     /// </summary>
     /// <param name="locoList">Collection of Locomotives</param>
     /// <param name="jMRIRoster">The JMRI Roster File</param>

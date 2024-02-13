@@ -15,7 +15,7 @@ public class ControllerFactory
     /// </summary>
     private Dictionary<string, ControllerInfo>? _controllers = new();
 
-    private const string DefaultAssemblyPattern = @"(.*)DCCRailway\.Controller.(\D+)\.dll";
+    private const string DefaultAssemblyPattern = @"(.*)DCCRailway.Delete\.Controller.(\D+)\.dll";
     private const string DefaultPath            = ".";
 
     /// <summary>
@@ -48,7 +48,7 @@ public class ControllerFactory
         // ---------------------------------------------------------------------------------------------------------
         if (!Directory.Exists(DefaultPath)) throw new ApplicationException("[Controllers] Invalid Path provided for the Controller Assembly Search");
         var assemblies = Directory.GetFiles(DefaultPath).Where(path => Regex.Match(path, pattern).Success).ToList();
-        if (assemblies == null || assemblies.Any() == false) throw new ApplicationException("[Controllers] Could not find any Controller Assemblies 'DCCRailway.Controller.");
+        if (assemblies == null || assemblies.Any() == false) throw new ApplicationException("[Controllers] Could not find any Controller Assemblies 'DCCRailway.Delete.Controller.");
 
         // Process each file and load in its controller information looking for IDCCSystem as an interface
         // -------------------------------------------------------------------------------------------

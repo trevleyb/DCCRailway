@@ -9,7 +9,7 @@ using DCCRailway.System.Layout.Types;
 using DCCRailway.System.NCE.Commands.Validators;
 using DCCRailway.System.Utilities;
 
-[assembly: InternalsVisibleTo("DCCRailway.Test.NCEPowerCabSensorTests")]
+[assembly: InternalsVisibleTo("DCCRailway.Delete.Test.NCEPowerCabSensorTests")]
 
 namespace DCCRailway.System.NCE.Commands;
 

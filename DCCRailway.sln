@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCCRailway.Server", "DCCRailway.Server\DCCRailway.Server.csproj", "{C34D6238-EA1D-4A5A-A069-D1BE2B306BAC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCCRailway", "DCCRailway\DCCRailway.csproj", "{B1C696D4-9778-4F10-A9E2-0528FB675FA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCCRailway.Delete", "DCCRailway.Delete\DCCRailway.Delete.csproj", "{B1C696D4-9778-4F10-A9E2-0528FB675FA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Digitrax", "DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj", "{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}"
 EndProject
@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Virtual",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.API", "DCCRailway.API\DCCRailway.API.csproj", "{0B939E40-DA36-44BD-8FF8-9D8F82E9050C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System", "DCCRailway.System\DCCRailway.System.csproj", "{E61F9487-50EC-4021-A612-C90C6A9DBC6D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway", "DCCRailway\DCCRailway.csproj", "{E61F9487-50EC-4021-A612-C90C6A9DBC6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
