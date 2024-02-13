@@ -8,14 +8,14 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=NUnit3x/@EntryIndexedValue">db4927dd-2e12-48a7-9a84-2b7e3e31b9c8</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3f8ed76b_002Deede_002D4088_002Da04e_002D907249c5f7f7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestCabConversion" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::NUnit3x::DCCRailway.Test.NCEPowerCabSensorTest.TestCabConversion&lt;/TestId&gt;
+    &lt;TestId&gt;net8.0::NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::DCCRailway.Test.NCEPowerCabSensorTest.TestCabConversion&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	
 	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=723dcd27_002D57a0_002D43bd_002Da81c_002D9e540775374e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CycleSignals #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::NUnit3x::DCCRailway.Test.System.Utility.ByteComparison&lt;/TestId&gt;
+    &lt;TestId&gt;net8.0::NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::DCCRailway.Test.System.Utility.ByteComparison&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc01ef17_002D954c_002D473f_002Daa34_002D4872f8299b03/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FindSerialAdapter" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
