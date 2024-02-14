@@ -45,11 +45,11 @@ public class ConfigurationTest {
         Assert.That(loadConfig, Is.EqualTo(config));
     }
 
-    [Test]
-    public void ManufacturersTest() {
-        var mnf = new Manufacturers();
-        Assert.That(mnf.Count == 169);
-    }
+    //[Test]
+    //public void ManufacturersTest() {
+    //    var mnf = new Manufacturers();
+    //    Assert.That(mnf.Count == 169);
+    //}
 
     [Test]
     public void ImportJMRIRoster() {

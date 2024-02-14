@@ -2,7 +2,7 @@
 using DCCRailway.System.Types;
 using NUnit.Framework;
 
-namespace DCCRailway.Test.SystemTests.NCESystem;
+namespace DCCRailway.Test.Manufacturers.NCE;
 
 [TestFixture]
 public class NCEPowerCab {
