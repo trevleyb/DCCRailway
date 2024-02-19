@@ -1,28 +1,14 @@
 ﻿using System.Xml.Serialization;
 
 namespace DCCRailway.Configuration;
-
-[XmlRoot(ElementName = "NMRA_Manufacturers")]
-public class Manufacturers : List<Manufacturer> {
+public class Manufacturers : ConfigCollectionBase<Manufacturer> {
     public Manufacturers() => BuildDefaults();
-
-    public Manufacturer Find(string name) {
-        foreach (var manufacturer in this) {
-            if (manufacturer.Name.Equals(name, StringComparison.OrdinalIgnoreCase)) {
-                return manufacturer;
-            }
-        }
-
-        return new Manufacturer { Name = "Unknown", Identifier = 0 };
-    }
-
     public Manufacturer Find(byte id) {
         foreach (var manufacturer in this) {
             if (manufacturer.Identifier.Equals(id)) {
                 return manufacturer;
             }
         }
-
         return new Manufacturer { Name = "Unknown", Identifier = 0 };
     }
 

@@ -2,19 +2,54 @@
 using System.Xml.Serialization;
 
 namespace DCCRailway.Configuration;
-
-[XmlRoot(ElementName = "Parameters")]
 public class Parameters : List<Parameter> {
-    public void Set<T>(string Name, T Value) {
-        var parameter                    = Find(x => x.Name == Name);
-        if (parameter == null) parameter = new Parameter { Name = Name };
-        parameter!.Value = Value?.ToString() ?? string.Empty;
+
+    public void Delete(string name) {
+        ArgumentNullException.ThrowIfNull(name);
+        var parameter = Find(x => x.Name.Equals(name));
+        if (parameter != null) this.Remove(parameter);
+    }
+    
+    public void Add(string name, object value) {
+        ArgumentNullException.ThrowIfNull(value);
+        ArgumentNullException.ThrowIfNull(name);
+        if (Find(x => x.Name.Equals(name)) != null) throw new ArgumentException($"Parameter '{name}' already exists");
+        Add(new Parameter ( name, value ));
+    }
+    
+    public void Add<T>(string name, T value) {
+        ArgumentNullException.ThrowIfNull(value);
+        ArgumentNullException.ThrowIfNull(name);
+        Add(new Parameter ( name, value ));
+    }
+
+    public void Set<T>(string name, object value) {
+        ArgumentNullException.ThrowIfNull(value);
+        ArgumentNullException.ThrowIfNull(name);
+        var parameter = Find(x => x.Name.Equals(name)) ?? new Parameter { Name = name };
+        parameter.Set(name, value);
         Add(parameter);
     }
 
-    public T? Get<T>(string Name) {
-        var parameter = Find(x => x.Name == Name);
+    public void Set(string name, object value) {
+        ArgumentNullException.ThrowIfNull(value);
+        ArgumentNullException.ThrowIfNull(name);
+        var parameter = Find(x => x.Name.Equals(name)) ?? new Parameter { Name = name };
+        parameter.Set(name, value);
+        Add(parameter);
+    }
 
-        return parameter != null ? (T)Convert.ChangeType(parameter.Value, typeof(T), CultureInfo.InvariantCulture) : default;
+    public object? Get(string name) {
+        ArgumentNullException.ThrowIfNull(name);
+        var parameter = Find(x => x.Name.Equals(name));
+        if (parameter != null) return parameter.Get();
+        return default;
+    }
+
+    public T? Get<T>(string name) {
+        ArgumentNullException.ThrowIfNull(name);
+        var parameter = Find(x => x.Name.Equals(name));
+        if (parameter != null) return parameter.Get<T>();
+        return default;
     }
 }

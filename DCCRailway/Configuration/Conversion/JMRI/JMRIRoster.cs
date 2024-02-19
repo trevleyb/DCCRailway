@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using DCCRailway.Utilities;
 
 namespace DCCRailway.Configuration.Conversion.JMRI;
 
@@ -165,7 +166,7 @@ public class RosterGroup {
 }
 
 [XmlRoot(ElementName = "roster-config")]
-public class Rosterconfig : ConfigSerializer<Rosterconfig> {
+public class JMRIRoster : XmlSerializerHelper<JMRIRoster> {
     [XmlElement(ElementName = "roster")]
     public Roster Roster { get; set; }
 
@@ -178,3 +179,5 @@ public class Rosterconfig : ConfigSerializer<Rosterconfig> {
     [XmlAttribute(AttributeName = "noNamespaceSchemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
     public string NoNamespaceSchemaLocation { get; set; }
 }
+
+

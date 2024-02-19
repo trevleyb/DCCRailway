@@ -1,19 +1,18 @@
 ﻿using DCCRailway.Configuration.Entities;
 using DCCRailway.System.Types;
+using DCCRailway.Utilities;
 
 namespace DCCRailway.Configuration.Conversion.JMRI;
 
-public static class JMRIRosterImporter {
+public static class JMRIRosterImporter  {
     public static List<Loco> Import(string rosterName) {
         if (!File.Exists(rosterName)) throw new ApplicationException($"Could not find the file '{rosterName}' in '{Directory.GetCurrentDirectory()}'");
 
         // First attempt to load the existing roster file from JMRI
         // ---------------------------------------------------------
         try {
-            var jmriRoster = Rosterconfig.Load(rosterName);
-
+            var jmriRoster = JMRIRoster.Load(rosterName);
             if (jmriRoster == null) return new List<Loco>();
-
             return MapJMRItoDCCTrain(jmriRoster);
         } catch (Exception ex) {
             throw new Exception($"Unable to load the current JMRI Roster file '{rosterName}' due to '{ex.Message}'");
@@ -25,7 +24,7 @@ public static class JMRIRosterImporter {
     /// </summary>
     /// <param name="locoList">Collection of Locomotives</param>
     /// <param name="jMRIRoster">The JMRI Roster File</param>
-    private static List<Loco> MapJMRItoDCCTrain(Rosterconfig jmriRoster) {
+    private static List<Loco> MapJMRItoDCCTrain(JMRIRoster jmriRoster) {
         List<Loco> locoList      = new();
         var        manufacturers = new Manufacturers();
 
