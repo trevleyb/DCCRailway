@@ -1,4 +1,4 @@
-namespace DCCRailway.Configuration;
+namespace DCCRailway.Configuration.Base;
 
 public class ConfigCollectionBase<T> : List<T> where T : ConfigBase {
     public T? Find(string name) {

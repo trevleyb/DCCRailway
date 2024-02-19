@@ -1,12 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using DCCRailway.Configuration.Base;
 
 namespace DCCRailway.Configuration.Entities;
-
-[XmlRoot(ElementName = "Block")]
-public class Block : IBlock {
-    [XmlAttribute(AttributeName = "Name")]
-    public string Name { get; set; }
-
-    [XmlAttribute(AttributeName = "Description")]
-    public string Description { get; set; }
+public class Block  : ConfigBase {
 }

@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
+﻿namespace DCCRailway.Configuration;
 
-namespace DCCRailway.Configuration;
-
-public class Adapter : ConfigBase {
+public class Adapter : Base.ConfigBase {
 }

@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace DCCRailway.Test.Manufacturers.NCE;
 
-[TestFixture]
+[TestFixture, Ignore("This is a hardware test")]
 public class NCEPowerCabSignalTest {
     [Test]
     public void CycleSignals() {

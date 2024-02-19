@@ -1,7 +1,5 @@
 ﻿using System.Globalization;
 using System.IO.Ports;
-using System.Text.Json.Serialization;
-using System.Xml.Serialization;
 
 namespace DCCRailway.Configuration;
 

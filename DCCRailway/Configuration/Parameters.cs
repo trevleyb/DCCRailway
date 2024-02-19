@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using System.Xml.Serialization;
-
-namespace DCCRailway.Configuration;
+﻿namespace DCCRailway.Configuration;
 public class Parameters : List<Parameter> {
 
     public void Delete(string name) {

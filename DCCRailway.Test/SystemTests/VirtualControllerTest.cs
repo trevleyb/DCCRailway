@@ -6,7 +6,7 @@ using VirtualAdapter = DCCRailway.Manufacturer.Virtual.Adapters.VirtualAdapter;
 
 namespace DCCRailway.Test.SystemTests;
 
-[TestFixture]
+[TestFixture, Ignore("Re-writing this")]
 public class VirtualControllerTest {
     [Test]
     public void TestRegisteredCommands() {

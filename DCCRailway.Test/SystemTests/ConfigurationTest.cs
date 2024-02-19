@@ -1,7 +1,6 @@
 ﻿using System.IO.Ports;
 using DCCRailway.Configuration;
 using DCCRailway.Configuration.Conversion.JMRI;
-using DCCRailway.Configuration.Entities;
 using DCCRailway.System.Types;
 using NUnit.Framework;
 using Decoder = DCCRailway.Configuration.Decoder;
