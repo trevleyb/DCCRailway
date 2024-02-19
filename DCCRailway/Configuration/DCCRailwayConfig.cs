@@ -1,10 +1,8 @@
-﻿using System.Xml;
-using System.Xml.Serialization;
-using DCCRailway.Configuration;
+﻿using System.Xml.Serialization;
 using DCCRailway.Configuration.Entities;
 using DCCRailway.Utilities;
 
-namespace DCCRailway;
+namespace DCCRailway.Configuration;
 
 /// <summary>
 /// System: Represents the configuration and status of an operating DCC Model Train System. These classes are
@@ -12,9 +10,9 @@ namespace DCCRailway;
 /// </summary>
 
 [XmlRoot(ElementName = "System")]
-public class DCCRailway {
+public class DCCRailwayConfig {
 
-    public DCCRailway() {}
+    public DCCRailwayConfig() {}
 
     public string      Name        { get; set; } = "My Layout";
     public string      Description { get; set; } = ""; 
@@ -28,11 +26,11 @@ public class DCCRailway {
     public Blocks      Blocks      { get; set; } = new Blocks();
 
     #region Load and Save Functions
-    public static DCCRailway? Load(string name) => JsonSerializerHelper<DCCRailway>.Load(name);
-    public        void       Save(string name) => JsonSerializerHelper<DCCRailway>.Save(this, name);
+    public static DCCRailwayConfig? Load(string name) => JsonSerializerHelper<DCCRailwayConfig>.Load(name);
+    public        void       Save(string name) => JsonSerializerHelper<DCCRailwayConfig>.Save(this, name);
     public string Save() {
         var fileName = System.IO.Path.ChangeExtension(Name, ".json");
-        JsonSerializerHelper<DCCRailway>.Save(this, fileName);
+        JsonSerializerHelper<DCCRailwayConfig>.Save(this, fileName);
         return fileName;
     }
 

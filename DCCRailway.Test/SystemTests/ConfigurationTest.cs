@@ -13,11 +13,11 @@ public class ConfigurationTest {
 
     [Test]
     public void SimpleSaveWithoutnameTest() {
-        var system = new DCCRailway {
+        var system = new DCCRailwayConfig {
             Name        = "SaveWithoutNameTest",
             Description = "Test System Description"
         };
-        var restore = DCCRailway.Load(system.Save());
+        var restore = DCCRailwayConfig.Load(system.Save());
         Assert.That(restore is not null);
         Assert.That(restore!.Name, Is.EqualTo(system.Name));
         Assert.That(restore!.Description, Is.EqualTo(system.Description));
@@ -26,14 +26,14 @@ public class ConfigurationTest {
     [Test]
     public void SaveSystemConfigTestSimple() {
 
-        var system = new DCCRailway {
+        var system = new DCCRailwayConfig {
             Name        = "TestSystem",
             Description = "Test System Description"
         };
 
         system.Save("SaveSystemConfigTestSimple.json");
         
-        var restore = DCCRailway.Load("SaveSystemConfigTestSimple.json");
+        var restore = DCCRailwayConfig.Load("SaveSystemConfigTestSimple.json");
         Assert.That(restore is not null);
         Assert.That(restore!.Name, Is.EqualTo(system.Name));
         Assert.That(restore!.Description, Is.EqualTo(system.Description));
@@ -42,7 +42,7 @@ public class ConfigurationTest {
     [Test]
     public void SaveSystemConfigWithParameters() {
 
-        var system = new DCCRailway {
+        var system = new DCCRailwayConfig {
             Name        = "TestSystem",
             Description = "Test System Description"
         };
@@ -54,7 +54,7 @@ public class ConfigurationTest {
         
         system.Save("SaveSystemConfigWithParameters.json");
         
-        var restore = DCCRailway.Load("SaveSystemConfigWithParameters.json");
+        var restore = DCCRailwayConfig.Load("SaveSystemConfigWithParameters.json");
         Assert.That(restore is not null);
         Assert.That(restore!.Name, Is.EqualTo(system.Name));
         Assert.That(restore!.Description, Is.EqualTo(system.Description));
@@ -68,7 +68,7 @@ public class ConfigurationTest {
     [Test]
     public void SaveConfigFileWithAllOptionsIncluded() {
 
-        var system = new DCCRailway {
+        var system = new DCCRailwayConfig {
             Name        = "TestSystemWithAll",
             Description = "Test System With All"
         };
@@ -81,7 +81,7 @@ public class ConfigurationTest {
         system.Turnouts.Add(new Turnout { Name       = "TestTurnout", Description    = "Test Turnout Description" });
 
         system.Save("TestSystemWithAll.json");
-        var restore = DCCRailway.Load("TestSystemWithAll.json");
+        var restore = DCCRailwayConfig.Load("TestSystemWithAll.json");
         
         Assert.That(restore is not null);
         Assert.That(restore!.Name, Is.EqualTo(system.Name));
