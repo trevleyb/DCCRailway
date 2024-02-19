@@ -29,8 +29,10 @@ public class ParameterTests {
         var bag = new Parameters();
         Assert.That(() => bag.Add(null!, null!), Throws.Exception);
         Assert.That(() => bag.Add("Empty", null!), Throws.Exception);
+        Assert.That(() => bag.Add(null!, "empty"), Throws.Exception);
         Assert.That(() => bag.Add<String>(null!, null!), Throws.Exception);
         Assert.That(() => bag.Add<String>("Empty", null!), Throws.Exception);
+        Assert.That(() => bag.Add<string>(null!, "empty"), Throws.Exception);
         Assert.That(() => bag.Set(null!, "Value"), Throws.Exception);
         Assert.That(() => bag.Set<String>(null!, "Value"), Throws.Exception);
         Assert.That(() => bag.Set("Empty", null!), Throws.Exception);
@@ -38,6 +40,53 @@ public class ParameterTests {
         Assert.That(() => bag.Get(null!), Throws.Exception);
         Assert.That(() => bag.Get<String>(null!), Throws.Exception);
     }
+
+    [Test]
+    public void PropertyBagSetAndCheckTests() {
+
+        var bag = new Parameters();
+        bag.Add("Value1","Value");
+        Assert.That(bag.Get("value1").Equals("Value"));
+        bag.Add("Value2",42);
+        Assert.That(bag.Get("value2").Equals(42));
+        bag.Add("Value3",Parity.Even);
+        Assert.That(bag.Get("value3").Equals(Parity.Even));
+
+        bag.Add<string>("Value4","Value");
+        Assert.That(bag.Get("value4").Equals("Value"));
+        bag.Add<int>("Value5",42);
+        Assert.That(bag.Get("value5").Equals(42));
+        bag.Add<Parity>("Value6",Parity.Even);
+        Assert.That(bag.Get("value6").Equals(Parity.Even));
+    }
+    
+    [Test]
+    public void PropertyBagSetAndUpdate() {
+
+        var bag = new Parameters();
+        bag.Add("Value1","Value");
+        Assert.That(bag.Get("value1").Equals("Value"));
+        bag.Set("Value1","New Value");
+        Assert.That(bag.Get("value1").Equals("New Value"));
+        bag.Set<string>("Value1","New Value Too");
+        Assert.That(bag.Get("value1").Equals("New Value Too"));
+        
+        bag.Add("Value2",42);
+        Assert.That(bag.Get("value2").Equals(42));
+        bag.Set("Value2",43);
+        Assert.That(bag.Get("value2").Equals(43));
+        bag.Set<int>("Value2",44);
+        Assert.That(bag.Get("value2").Equals(44));
+        
+        bag.Add("Value3",Parity.Even);
+        Assert.That(bag.Get("value3").Equals(Parity.Even));
+        bag.Set("Value3",Parity.Odd);
+        Assert.That(bag.Get("value3").Equals(Parity.Odd));
+        bag.Set<Parity>("Value3",Parity.None);
+        Assert.That(bag.Get("value3").Equals(Parity.None));
+
+    }
+
 
     [Test]
     public void PropertyBagDeleteTest() {
@@ -50,7 +99,21 @@ public class ParameterTests {
     }
 
     [Test]
-    public void PropertyBagAddTest() {
+    public void PropertyBagAdd() {
+        var bag = new Parameters();
+        bag.Add("1","b");
+        bag.Add("2",(object) "c");
+        bag.Add("3", (object)new string("aaa"));
+        
+        Assert.That(() => bag.Add(null!, null!), Throws.Exception);
+        Assert.That(() => bag.Add("5", null!), Throws.Exception);
+        Assert.That(() => bag.Add(null!, (object)"aaa"), Throws.Exception);
+        Assert.That(() => bag.Add("1", "b"), Throws.Exception);
+        Assert.That(() => bag.Add("1", (object)"b"), Throws.Exception);
+    }
+
+    [Test]
+    public void PropertyBagAddGetTest() {
 
         var bag = new Parameters();
 
@@ -69,5 +132,13 @@ public class ParameterTests {
         bag.Add("Parity", Parity.Even);
         Assert.That(bag.Get("Parity"), Is.EqualTo(Parity.Even));
         Assert.That(bag.Get<Parity>("Parity"), Is.EqualTo(Parity.Even));
+    }
+
+    [Test]
+    public void TestToString() {
+        var bag = new Parameters();
+        bag.Add("String", "String Value");
+        var p = bag["String"];
+        Assert.That(p.ToString(), Is.EqualTo("String='String Value'"));
     }
 }

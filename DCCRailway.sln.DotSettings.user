@@ -2,13 +2,15 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;
   &lt;Assembly Path="/Users/trevorleybourne/.nuget/packages/system.io.ports/8.0.0-preview.6.23329.7/lib/net7.0/System.IO.Ports.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/trevor/Library/Caches/JetBrains/Rider2023.3/resharper-host/temp/Rider/vAny/CoverageData/_DCCRailway.-971728165/Snapshot/snapshot.utdcvr</s:String>
+	
 	<s:Boolean x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/ShowAdvancedOptions/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=E61F9487_002D50EC_002D4021_002DA612_002DC90C6A9DBC6D/@EntryIndexedValue">5489776D-7885-48FE-AC7F-D92DC35EC324</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=MSTest/@EntryIndexedValue">d6790ab7-33c2-4425-b2c9-51480cd1a852</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=NUnit3x/@EntryIndexedValue">db4927dd-2e12-48a7-9a84-2b7e3e31b9c8</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3f8ed76b_002Deede_002D4088_002Da04e_002D907249c5f7f7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestCabConversion" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::NUnit3x::DCCRailway.Test.System.Controllers.ControllerFactoryTest.ControllerFactorLoadControllersTest&lt;/TestId&gt;
+    &lt;TestId&gt;net8.0::NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::DCCRailway.Test.System.Controllers.ControllerFactoryTest.ControllerFactorLoadControllersTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	

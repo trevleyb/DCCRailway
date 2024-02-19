@@ -41,6 +41,5 @@ public class Parameter {
         }
         return Value;
     }
-
-public new string ToString() => $"{Name}='{Value}'";
+    public new string ToString() => $"{Name}='{Value}'";
 }

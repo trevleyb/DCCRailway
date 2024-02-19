@@ -10,6 +10,19 @@ namespace DCCRailway.Test.SystemTests;
 [TestFixture]
 public class ConfigurationTest {
 
+
+    [Test]
+    public void SimpleSaveWithoutnameTest() {
+        var system = new DCCRailway {
+            Name        = "SaveWithoutNameTest",
+            Description = "Test System Description"
+        };
+        var restore = DCCRailway.Load(system.Save());
+        Assert.That(restore is not null);
+        Assert.That(restore!.Name, Is.EqualTo(system.Name));
+        Assert.That(restore!.Description, Is.EqualTo(system.Description));
+    }
+
     [Test]
     public void SaveSystemConfigTestSimple() {
 
