@@ -8,7 +8,7 @@ public class Manufacturers : Base.ConfigCollectionBase<Manufacturer> {
         return this.Where(name => name.Name.Equals(manufacturer)).FirstOrDefault();
     }
 
-    public Manufacturer? FindByIdentifier(string identifier) {
+    public Manufacturer? FindByIdentifier(byte identifier) {
         return this.Where(manufacturer => manufacturer.Identifier.Equals(identifier)).FirstOrDefault();
     }
 

@@ -1,4 +1,4 @@
-using DCCRailway.System.Types;
+using DCCRailway.Layout.Types;
 
 namespace DCCRailway.Configuration.Base;
 

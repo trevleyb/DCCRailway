@@ -13,4 +13,12 @@ public class ManufacturersLoadTest {
             Assert.That(manufacturers.FindByIdentifier(manufacturer.Identifier) != null);
         }
     }
+    
+    [Test]
+    public void ManufacturersTest() {
+        var mnf = new Configuration.Manufacturers();
+        Assert.That(mnf.Count == 169);
+    }
+
+
 }

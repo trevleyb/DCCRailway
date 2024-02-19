@@ -91,7 +91,7 @@ public class Attributepairs {
 }
 
 [XmlRoot(ElementName = "locomotive")]
-public class Locomotive {
+public class JMRILoco {
     [XmlElement(ElementName = "dateUpdated")]
     public string DateUpdated { get; set; }
 
@@ -156,7 +156,7 @@ public class Locomotive {
 [XmlRoot(ElementName = "roster")]
 public class Roster {
     [XmlElement(ElementName = "locomotive")]
-    public List<Locomotive> Locomotive { get; set; }
+    public List<JMRILoco> JMRILocos { get; set; }
 }
 
 [XmlRoot(ElementName = "rosterGroup")]

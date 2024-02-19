@@ -1,5 +1,5 @@
 ﻿using DCCRailway.Configuration.Entities;
-using DCCRailway.System.Types;
+using DCCRailway.Layout.Types;
 using DCCRailway.Utilities;
 
 namespace DCCRailway.Configuration.Conversion.JMRI;
@@ -28,10 +28,9 @@ public static class JMRIRosterImporter  {
         Locomotives locoList = new();
         var manufacturers = new Manufacturers();
 
-        foreach (var jmri in jmriRoster.Roster.Locomotive) {
+        foreach (var jmri in jmriRoster.Roster.JMRILocos) {
             try {
                 var loco = new Entities.Locomotive {
-                    Identifier   = jmri.Id,
                     Name         = (jmri.RoadName + ' ' + jmri.RoadNumber).Trim(),
                     Description  = jmri.Comment,
                     Type         = "unknown",

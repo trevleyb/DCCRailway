@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Commands;
+using DCCRailway.Layout.Commands.Results;
+using DCCRailway.Layout.Commands.Types;
+using DCCRailway.Layout.Types;
 using DCCRailway.Manufacturer.NCE.Commands.Results;
 using DCCRailway.Manufacturer.NCE.Commands.Validators;
-using DCCRailway.System.Adapters;
-using DCCRailway.System.Commands;
-using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Commands.Types;
-using DCCRailway.System.Types;
 using DCCRailway.Utilities;
 
 [assembly: InternalsVisibleTo("DCCRailway.Delete.Test.NCEPowerCabSensorTests")]

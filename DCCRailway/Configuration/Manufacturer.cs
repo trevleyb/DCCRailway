@@ -1,11 +1,10 @@
 ﻿namespace DCCRailway.Configuration;
 public class Manufacturer : Base.ConfigBase {
 
-    public Manufacturer(string name, string identifier) {
+    public byte Identifier { get; set; }
+    public Manufacturer(string name, byte identifier) {
         Name        = name;
         Description = name;
         Identifier  = identifier;
     }
-
-    public Manufacturer(string name, int identifier) : this(name, identifier.ToString()) { }
 }

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using DCCRailway.System.Adapters;
-using DCCRailway.System.Commands;
-using DCCRailway.System.Commands.Results;
-using DCCRailway.System.Commands.Types;
-using DCCRailway.System.Types;
+using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Commands;
+using DCCRailway.Layout.Commands.Results;
+using DCCRailway.Layout.Commands.Types;
+using DCCRailway.Layout.Types;
 
 namespace DCCRailway.Manufacturer.NCE.Commands;
 

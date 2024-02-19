@@ -1,7 +1,7 @@
 ﻿using System;
+using DCCRailway.Layout.Controllers;
+using DCCRailway.Layout.Types;
 using DCCRailway.Manufacturer.NCE.Adapters;
-using DCCRailway.System.Controllers;
-using DCCRailway.System.Types;
 
 namespace DCCRailway.Manufacturer.NCE;
 

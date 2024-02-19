@@ -1,6 +1,6 @@
 ﻿
 using DCCRailway.Configuration.Base;
-using DCCRailway.System.Types;
+using DCCRailway.Layout.Types;
 
 namespace DCCRailway.Configuration.Entities;
 public class Locomotive() : ConfigWithDecoder(DCCAddressType.Long) {
@@ -10,5 +10,5 @@ public class Locomotive() : ConfigWithDecoder(DCCAddressType.Long) {
     public string Manufacturer { get; set; }
     public string Model { get; set; }
 
-    public new string ToString() => $"{Identifier}:{Name}";
+    public new string ToString() => $"{Name}";
 }

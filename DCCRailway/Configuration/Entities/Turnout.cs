@@ -1,5 +1,5 @@
 ﻿using DCCRailway.Configuration.Base;
-using DCCRailway.System.Types;
+using DCCRailway.Layout.Types;
 
 namespace DCCRailway.Configuration.Entities;
 public class Turnout() : ConfigWithDecoder(DCCAddressType.Turnout);
