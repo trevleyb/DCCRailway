@@ -12,10 +12,6 @@ namespace DCCRailway.Manufacturer.NCE.Commands;
 public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
     public NCELocoSetSpeed() { }
 
-    public NCELocoSetSpeed(IDCCLoco loco, byte speed = 0) : this(loco.Address, loco.Direction, speed) { }
-
-    public NCELocoSetSpeed(int address, DCCDirection direction = DCCDirection.Forward, byte speed = 0, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(new DCCAddress(address), direction, speed, speedSteps) { }
-
     public NCELocoSetSpeed(IDCCAddress address, DCCDirection direction = DCCDirection.Forward, byte speed = 0, DCCProtocol speedSteps = DCCProtocol.DCC128) {
         Address    = address;
         Speed      = speed;

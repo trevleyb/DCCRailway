@@ -3,8 +3,8 @@
 namespace DCCRailway.Layout.Commands.Types;
 
 public interface ICmdConsistCreate : ICommand {
-    public byte           ConsistAddress { get; set; }
-    public IDCCLoco       LeadLoco       { get; set; }
-    public IDCCLoco       RearLoco       { get; set; }
-    public List<IDCCLoco> AddLoco        { get; }
+    public byte             ConsistAddress { get; set; }
+    public DCCAddress       LeadLoco       { get; set; }
+    public DCCAddress       RearLoco       { get; set; }
+    public List<DCCAddress> AddLoco        { get; }
 }

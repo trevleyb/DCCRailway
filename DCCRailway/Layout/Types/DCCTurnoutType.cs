@@ -1,6 +1,6 @@
 ﻿namespace DCCRailway.Layout.Types;
 
-internal enum DCCTurnoutType {
+public enum DCCTurnoutType {
     TurnoutLeft,
     TurnoutRight,
     CurvedLeft,

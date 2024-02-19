@@ -10,10 +10,12 @@ namespace DCCRailway.Manufacturer.NCE.Commands;
 
 [Command("ConsistCreate", "Create a Consist")]
 public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
-    public byte           ConsistAddress { get; set; }
-    public IDCCLoco       LeadLoco       { get; set; }
-    public IDCCLoco       RearLoco       { get; set; }
-    public List<IDCCLoco> AddLoco        { get; } = new();
+    public byte             ConsistAddress { get; set; }
+    public DCCAddress       LeadLoco       { get; set; }
+    public DCCDirection     LeadDirection  { get; set; }
+    public DCCAddress       RearLoco       { get; set; }
+    public DCCDirection     RearDirection  { get; set; }
+    public List<DCCAddress> AddLoco        { get; } = new();
 
     public override ICommandResult Execute(IAdapter adapter) {
         ICommandResult result;
@@ -27,29 +29,29 @@ public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
 
         // Add each loco to the consist
         // -----------------------------------------------------------------------------
-        result = AddLocoToConsist(adapter, ConsistAddress, LeadLoco, DCCConsistPosition.Front);
+        result = AddLocoToConsist(adapter, ConsistAddress, LeadLoco, LeadDirection, DCCConsistPosition.Front);
         if (!result.IsOK) return result;
 
-        result = AddLocoToConsist(adapter, ConsistAddress, RearLoco, DCCConsistPosition.Rear);
+        result = AddLocoToConsist(adapter, ConsistAddress, RearLoco, RearDirection, DCCConsistPosition.Rear);
         if (!result.IsOK) return result;
 
         foreach (var extraLoco in AddLoco) {
-            result = AddLocoToConsist(adapter, ConsistAddress, RearLoco, DCCConsistPosition.Middle);
+            result = AddLocoToConsist(adapter, ConsistAddress, extraLoco, DCCDirection.Forward, DCCConsistPosition.Middle);
             if (!result.IsOK) return result;
         }
 
         return CommandResult.Success();
     }
 
-    private static ICommandResult AddLocoToConsist(IAdapter adapter, byte consistAddress, IDCCLoco loco, DCCConsistPosition position) {
+    private static ICommandResult AddLocoToConsist(IAdapter adapter, byte consistAddress, DCCAddress address, DCCDirection direction, DCCConsistPosition position) {
         // First Delete the loco from any existing Consist
         // -----------------------------------------------
-        var delCmd = new NCEConsistDelete(loco);
+        var delCmd = new NCEConsistDelete(address);
         var delRes = delCmd.Execute(adapter);
 
         if (!delRes.IsOK) return delRes;
 
-        var addCmd = new NCEConsistAdd(consistAddress, loco, position);
+        var addCmd = new NCEConsistAdd(consistAddress, address, direction, position);
         var addRes = addCmd.Execute(adapter);
 
         if (!addRes.IsOK) return addRes;

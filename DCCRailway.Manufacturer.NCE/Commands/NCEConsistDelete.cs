@@ -12,9 +12,7 @@ namespace DCCRailway.Manufacturer.NCE.Commands;
 public class NCEConsistDelete : NCECommand, ICmdConsistDelete, ICommand {
     public NCEConsistDelete() { }
 
-    public NCEConsistDelete(IDCCLoco loco) : this(loco.Address) { }
-
-    public NCEConsistDelete(IDCCAddress address) => Address = address;
+    public NCEConsistDelete(DCCAddress address) => Address = address;
 
     public IDCCAddress Address { get; set; }
 

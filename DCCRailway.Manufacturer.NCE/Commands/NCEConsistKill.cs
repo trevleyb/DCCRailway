@@ -12,9 +12,7 @@ namespace DCCRailway.Manufacturer.NCE.Commands;
 public class NCEConsistKill : NCECommand, ICmdConsistKill, ICommand {
     public NCEConsistKill() { }
 
-    public NCEConsistKill(IDCCLoco loco) : this(loco.Address) { }
-
-    public NCEConsistKill(IDCCAddress address) => Address = address;
+    public NCEConsistKill(DCCAddress address) => Address = address;
 
     public IDCCAddress Address { get; set; }
 

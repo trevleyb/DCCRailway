@@ -33,6 +33,5 @@ public class DCCRailwayConfig {
         JsonSerializerHelper<DCCRailwayConfig>.Save(this, fileName);
         return fileName;
     }
-
     #endregion
 }

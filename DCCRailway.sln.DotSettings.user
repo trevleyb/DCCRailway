@@ -4,23 +4,19 @@
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/trevor/Library/Caches/JetBrains/Rider2023.3/resharper-host/temp/Rider/vAny/CoverageData/_DCCRailway.-971728165/Snapshot/snapshot.utdcvr</s:String>
 	
+	
 	<s:Boolean x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/ShowAdvancedOptions/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=E61F9487_002D50EC_002D4021_002DA612_002DC90C6A9DBC6D/@EntryIndexedValue">5489776D-7885-48FE-AC7F-D92DC35EC324</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=MSTest/@EntryIndexedValue">d6790ab7-33c2-4425-b2c9-51480cd1a852</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=NUnit3x/@EntryIndexedValue">db4927dd-2e12-48a7-9a84-2b7e3e31b9c8</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3f8ed76b_002Deede_002D4088_002Da04e_002D907249c5f7f7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestCabConversion" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;net8.0::NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::DCCRailway.Test.System.Controllers.ControllerFactoryTest.ControllerFactorLoadControllersTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6d67ba4d_002D5209_002D4305_002D87b8_002D7a91631691b6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>
 	
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=723dcd27_002D57a0_002D43bd_002Da81c_002D9e540775374e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CycleSignals #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Test" Presentation="&amp;lt;DCCRailway.Test&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc01ef17_002D954c_002D473f_002Daa34_002D4872f8299b03/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="FindSerialAdapter" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Test" Presentation="&amp;lt;DCCRailway.Test&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
 	<s:String x:Key="/Default/Monitoring/StartMode/@EntryValue">Disabled</s:String>
 	
 	
