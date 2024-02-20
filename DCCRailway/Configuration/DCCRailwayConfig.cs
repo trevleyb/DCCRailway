@@ -16,14 +16,14 @@ public class DCCRailwayConfig {
 
     public string      Name        { get; set; } = "My Layout";
     public string      Description { get; set; } = ""; 
-    public Controllers Controllers { get; set; } = new Controllers();
-    public Parameters  Parameters  { get; set; } = new Parameters();
-    public Locomotives Locomotives { get; set; } = new Locomotives();
-    public Turnouts    Turnouts    { get; set; } = new Turnouts();
-    public Signals     Signals     { get; set; } = new Signals();
-    public Sensors     Sensors     { get; set; } = new Sensors();
-    public Accessories Accessories { get; set; } = new Accessories();
-    public Blocks      Blocks      { get; set; } = new Blocks();
+    public Controllers Controllers { get; set; } = [];
+    public Parameters  Parameters  { get; set; } = [];
+    public Locomotives Locomotives { get; set; } = [];
+    public Turnouts    Turnouts    { get; set; } = [];
+    public Signals     Signals     { get; set; } = [];
+    public Sensors     Sensors     { get; set; } = [];
+    public Accessories Accessories { get; set; } = [];
+    public Blocks      Blocks      { get; set; } = [];
 
     #region Load and Save Functions
     public static DCCRailwayConfig? Load(string name) => JsonSerializerHelper<DCCRailwayConfig>.Load(name);

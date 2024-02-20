@@ -1,20 +1,19 @@
 ﻿using DCCRailway.Layout.Adapters;
 using DCCRailway.Layout.Commands;
 using DCCRailway.Layout.Commands.Results;
+using DCCRailway.Layout.Controllers.Events;
 using DCCRailway.Layout.Types;
 
 namespace DCCRailway.Layout.Controllers;
 
 public interface IController {
     
-    public event Controller.SystemEvents SystemEvent;
-
+    public event EventHandler<ControllerEventArgs> ControllerEvent;
+    
     // Attach or detect an Adapter to a Command Station
     // ----------------------------------------------------------------------------
     public IAdapter? Adapter { get; set; }
-    public IAdapter? CreateAdapter<T>() where T : IAdapter;
     public IAdapter? CreateAdapter(string name);
-
     
     // Execute a Command. Must be executed via here
     // ----------------------------------------------------------------------------

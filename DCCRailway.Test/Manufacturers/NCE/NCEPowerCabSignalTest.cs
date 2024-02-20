@@ -24,7 +24,7 @@ public class NCEPowerCabSignalTest {
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
         if (system != null) {
-            system.SystemEvent += (sender, args) => { Debug.WriteLine(args.ToString()); };
+            system.ControllerEvent += (sender, args) => { Debug.WriteLine(args.ToString()); };
 
             if (system?.Adapter != null) {
                 var signalCmd = system.CreateCommand<ICmdSignalSetAspect>();

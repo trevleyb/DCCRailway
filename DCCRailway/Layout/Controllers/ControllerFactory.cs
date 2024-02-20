@@ -29,6 +29,18 @@ public class ControllerFactory
             return _controllers?.Values.ToList() ?? [];
         }
     }
+
+    /// <summary>
+    /// Create a New Controller directly from the Factory without any further details (ignore the Controller info)
+    /// </summary>
+    /// <param name="name">The Name of the Controller to create</param>
+    /// <returns>A new Controller</returns>
+    /// <exception cref="ApplicationException">If the name is not valod</exception>
+    public IController CreateController(string name) {
+        var controller = Find(name);
+        if (controller is null) throw new ApplicationException($"Controller {name} not found");
+        return controller.Create();
+    }
     
     /// <summary>
     ///     The function returns a collection of supported systems by looking at all libraries in the current folder
@@ -80,5 +92,6 @@ public class ControllerFactory
     }
 
     public List<ControllerInfo> FindByManufacturer(string manufacturer) => _controllers?.Where(key => key.Value.Manufacturer.Equals(manufacturer,StringComparison.InvariantCultureIgnoreCase)).Select(key => key.Value).ToList() ?? [];
-    public ControllerInfo? Find(string name) => _controllers?[name] ?? null;
+    public ControllerInfo? this[string name] => Find(name);
+    public ControllerInfo? Find(string name) => Controllers?.FirstOrDefault(key => key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
 }

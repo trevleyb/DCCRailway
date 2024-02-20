@@ -12,7 +12,7 @@ public class ErrorArgs : EventArgs, IAdapterEvent {
 
     public IAdapter? Adapter { get; set; }
     public ICommand? Command { get; set; }
-    public string    Error   { get; }
+    public string    Error   { get; init; }
 
     public override string ToString() => $"ERROR: {Adapter?.AttributeInfo().Description ?? "Unknown Adapter"}:{Command?.ToString() ?? "Unknown Command"}<=={Error}";
 }

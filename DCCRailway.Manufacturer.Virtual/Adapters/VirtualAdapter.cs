@@ -8,7 +8,7 @@ using DCCRailway.Utilities.Exceptions;
 namespace DCCRailway.Manufacturer.Virtual.Adapters;
 
 [Adapter("Virtual", AdapterType.Virtual)]
-public abstract class VirtualAdapter : Adapter, IAdapter {
+public class VirtualAdapter : Adapter, IAdapter {
     private object? _lastResult;
     private byte[]  _lastCommand;
     private DCCSimulator? _simulator;

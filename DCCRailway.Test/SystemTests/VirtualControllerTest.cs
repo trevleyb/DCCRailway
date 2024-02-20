@@ -28,7 +28,7 @@ public class VirtualControllerTest {
         Assert.That(supportedCommands!.Count == 0, " Should not return any since we have not attached an adapter");
 
         if (virtualSystem != null) {
-            virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
+            virtualSystem.Adapter = virtualSystem.CreateAdapter("Virtual");
             supportedCommands     = virtualSystem.SupportedCommands;
         }
 
@@ -70,7 +70,7 @@ public class VirtualControllerTest {
         Assert.That(supportedAdapters!.Count == 1);
 
         if (virtualSystem != null) {
-            virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
+            virtualSystem.Adapter = virtualSystem.CreateAdapter("Virtual");
             Assert.That(virtualSystem.Adapter, Is.Not.Null);
         }
     }
@@ -86,7 +86,7 @@ public class VirtualControllerTest {
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem,Is.Not.Null);
         if (virtualSystem != null) {
-            virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
+            virtualSystem.Adapter = virtualSystem.CreateAdapter("Virtual");
             Assert.That(virtualSystem.Adapter, Is.Not.Null);
 
             Assert.That(virtualSystem.IsCommandSupported<IDummyCmd>());

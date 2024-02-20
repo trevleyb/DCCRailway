@@ -1,6 +1,8 @@
 ﻿using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Adapters.Events;
 using DCCRailway.Layout.Commands;
 using DCCRailway.Layout.Commands.Results;
+using DCCRailway.Layout.Controllers.Events;
 using DCCRailway.Layout.SystemEvents;
 using DCCRailway.Layout.Types;
 using DCCRailway.Utilities;
@@ -12,8 +14,7 @@ public abstract class Controller : IController {
     private Dictionary<Type, (Type Adapter, string Name)> _adapters = new(); // Stores what operations the controller will provide
     private Dictionary<Type, (Type Command, string Name)> _commands = new(); // Stores what operations the controller will provide
 
-    public event SystemEvents SystemEvent;
-    public delegate void SystemEvents(object sender, SystemEventArgs e);
+    public event EventHandler<ControllerEventArgs> ControllerEvent;
     
     protected Controller() {
         // ReSharper disable VirtualMemberCallInConstructor
@@ -50,22 +51,7 @@ public abstract class Controller : IController {
             Attach(value);
         }
     }
-
-    /// <summary>
-    ///     Create and return an Adapter. This does not attach it. This command should be executed as
-    ///     Controller.Adapter = Controller.CreateAdapter(name);
-    /// </summary>
-    public IAdapter? CreateAdapter<T>() where T : IAdapter {
-        if (SupportedAdapters is { Count: > 0 }) {
-            foreach (var (adapter, _) in SupportedAdapters!) {
-                if (adapter == typeof(T)) {
-                    return (IAdapter?)Activator.CreateInstance(adapter);
-                }
-            }
-        }
-        return null;
-    }
-
+    
     /// <summary>
     ///     Create and return an Adapter. This does not attach it. This command should be executed as
     ///     Controller.Adapter = Controller.CreateAdapter(name);
@@ -88,18 +74,21 @@ public abstract class Controller : IController {
         if (_adapter != null) {
             OnAdapterRemoved(this,_adapter);
             _adapter.Disconnect();
+            _adapter = null;
             _commands = new Dictionary<Type, (Type command, string name)>();
         }
     }
 
-    private IAdapter? Attach(IAdapter? adapter) {
+    private void Attach(IAdapter? adapter) {
         if (adapter != null) {
-            _adapter =  adapter;
+            _adapter               =  adapter;
+            _adapter.DataReceived  += (sender, e) => OnAdapterEvent(sender!, _adapter, e);
+            _adapter.DataSent      += (sender, e) => OnAdapterEvent(sender!, _adapter, e);
+            _adapter.ErrorOccurred += (sender, e)    => OnAdapterEvent(sender!, _adapter, e);
             _adapter.Connect();
             RegisterCommands();
             OnAdapterAdd(this,adapter);
         }
-        return adapter;
     }
     #endregion
 
@@ -191,22 +180,35 @@ public abstract class Controller : IController {
     }
     #endregion
 
-    protected virtual void OnCommandExecute(object sender, ICommand command, ICommandResult result) {
-        var e = new SystemEventCommandArgs(command, result,$"Command {command.GetType().Name} executed with resultOld {result.GetType().Name}");
-        SystemEvent?.Invoke(sender, e);
-    }
-    
-    protected virtual void OnAdapterAdd(object sender, IAdapter adapter) {
-        var e = new SystemEventAdapterArgs(adapter, SystemEventAction.Add, $"Adapter {adapter.GetType().Name} added");
-        SystemEvent?.Invoke(sender, e);
+    #region Raise Events
+    // Raise when this Controller executes a command
+    private void OnCommandExecute(object sender, ICommand command, ICommandResult result) {
+        var e = new ControllerEventCommandExec(command, result, Adapter!, $"Command {command.GetType().Name} executed with resultOld {result.GetType().Name}");
+        ControllerEvent?.Invoke(sender, e);
     }
 
-    protected virtual void OnAdapterRemoved(object sender, IAdapter adapter) {
-        var e = new SystemEventAdapterArgs(adapter, SystemEventAction.Delete, $"Adapter {adapter.GetType().Name} removed");
-        SystemEvent?.Invoke(sender, e);
+    // Raise when we add an Adapter to this controller
+    private void OnAdapterAdd(object sender, IAdapter adapter) {
+        var e = new ControllerEventAdapterAdd(adapter, $"Adapter {adapter.GetType().Name} added");
+        ControllerEvent?.Invoke(sender, e);
     }
 
-    protected virtual void OnSystemEvent(SystemEventArgs e) {
-        SystemEvent?.Invoke(this, e);
+    // Raise when we delete or remove an Adapter from this Controller
+    private void OnAdapterRemoved(object sender, IAdapter adapter) {
+        var e = new ControllerEventAdapterDel(adapter, $"Adapter {adapter.GetType().Name} removed");
+        ControllerEvent?.Invoke(sender, e);
     }
+
+    // Raise when we delete or remove an Adapter from this Controller
+    private void OnAdapterEvent(object sender, IAdapter adapter, IAdapterEvent adapterEvent) {
+        var e = new ControllerEventAdapter(adapter, adapterEvent ,$"Adapter {adapter.GetType().Name} removed");
+        ControllerEvent?.Invoke(sender, e);
+    }
+
+    // Used for general Controller Events to be Raised
+    private void OnControllerEvent(object sender, string message) {
+        var e = new ControllerEventArgs(message);
+        ControllerEvent?.Invoke(sender, e);
+    }
+    #endregion
 }
