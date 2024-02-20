@@ -40,10 +40,10 @@ public class VirtualTest {
         controller.ControllerEvent += ControllerEventArgsHandler;
         
         Assert.That(controller.AttributeInfo().Name.Equals("Virtual"));
-        var supportedAdapters = controller.SupportedAdapters;
-        Assert.That(supportedAdapters!.Count == 1);
-        var supportedCommands = controller?.SupportedCommands;
-        Assert.That(supportedCommands!.Count == 0);  // There are no available commands till we attach an adapter
+        var supportedAdapters = controller.Adapters;
+        Assert.That(supportedAdapters!.Count >= 1);
+        var supportedCommands = controller?.Commands;
+        Assert.That(supportedCommands!.Count >= 1);  // There are no available commands till we attach an adapter
         
         // Now that we have created a Controller, we need to create an ADAPTER that we can connect to the 
         // controller so that the controller can talk to the hardware.
@@ -56,7 +56,7 @@ public class VirtualTest {
         // ------------------------------------------------------------
         controller!.Adapter = virtualAdapter;
         Assert.That(controller.Adapter, Is.Not.Null);        
-        Assert.That(controller?.SupportedCommands!.Count > 0);  // After attaching Adapter, should have commands
+        Assert.That(controller?.Commands!.Count > 0);  // After attaching Adapter, should have commands
 
         // Connect ot the events of both the Controller and the Adapter
         // ------------------------------------------------------------

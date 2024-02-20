@@ -19,17 +19,17 @@ public class VirtualControllerTest {
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem,Is.Not.Null);
 
-        var supportedAdapters = virtualSystem?.SupportedAdapters;
+        var supportedAdapters = virtualSystem?.Adapters;
         Assert.That(supportedAdapters!.Count == 1);
 
         // todo: Assert.IsTrue(supportedAdapters[0].name == VirtualAdapter.Name);
 
-        var supportedCommands = virtualSystem?.SupportedCommands;
+        var supportedCommands = virtualSystem?.Commands;
         Assert.That(supportedCommands!.Count == 0, " Should not return any since we have not attached an adapter");
 
         if (virtualSystem != null) {
             virtualSystem.Adapter = virtualSystem.CreateAdapter("Virtual");
-            supportedCommands     = virtualSystem.SupportedCommands;
+            supportedCommands     = virtualSystem.Commands;
         }
 
         Assert.That(supportedCommands!.Count == 2);
@@ -46,11 +46,11 @@ public class VirtualControllerTest {
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem,Is.Not.Null);
 
-        var supportedAdapters = virtualSystem?.SupportedAdapters;
+        var supportedAdapters = virtualSystem?.Adapters;
         Assert.That(supportedAdapters!.Count == 1);
 
         if (virtualSystem != null) {
-            virtualSystem.Adapter = virtualSystem.CreateAdapter(supportedAdapters[0].name);
+            virtualSystem.Adapter = virtualSystem.CreateAdapter(supportedAdapters[0].Name);
             Assert.That(virtualSystem.Adapter, Is.Not.Null);
         }
     }
@@ -66,7 +66,7 @@ public class VirtualControllerTest {
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem,Is.Not.Null);
 
-        var supportedAdapters = virtualSystem?.SupportedAdapters;
+        var supportedAdapters = virtualSystem?.Adapters;
         Assert.That(supportedAdapters!.Count == 1);
 
         if (virtualSystem != null) {

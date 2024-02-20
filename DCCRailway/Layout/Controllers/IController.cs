@@ -1,4 +1,5 @@
 ﻿using DCCRailway.Layout.Adapters;
+using DCCRailway.Layout.Adapters.Events;
 using DCCRailway.Layout.Commands;
 using DCCRailway.Layout.Commands.Results;
 using DCCRailway.Layout.Controllers.Events;
@@ -10,17 +11,23 @@ public interface IController {
     
     public event EventHandler<ControllerEventArgs> ControllerEvent;
     
+    public List<(Type Command, string Name)> Commands { get; }
+    public List<(Type Adapter, string Name)> Adapters { get; }
+    
+    public bool IsCommandSupported<T>() where T : ICommand;
+    public bool IsAdapterSupported<T>() where T : IAdapter;
+    public bool IsCommandSupported(string name);
+    public bool IsAdapterSupported(string name);
+
+    // Execute a Command. Must be executed via here
+    // ----------------------------------------------------------------------------
+    public ICommandResult Execute(ICommand command);
+
     // Attach or detect an Adapter to a Command Station
     // ----------------------------------------------------------------------------
     public IAdapter? Adapter { get; set; }
     public IAdapter? CreateAdapter(string name);
     
-    // Execute a Command. Must be executed via here
-    // ----------------------------------------------------------------------------
-    public ICommandResult Execute(ICommand command);
-    public List<(Type command, string name)>? SupportedCommands { get; }
-    public List<(Type adapter, string name)>? SupportedAdapters { get; }
-
     // Create and Execute commands that are associated with this command station
     // --------------------------------------------------------------------------
     public TCommand? CreateCommand<TCommand>() where TCommand : ICommand;
@@ -29,6 +36,5 @@ public interface IController {
 
     public IDCCAddress CreateAddress();
     public IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
-
-    public bool IsCommandSupported<T>() where T : ICommand;
+    
 }

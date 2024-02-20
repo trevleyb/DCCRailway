@@ -10,16 +10,13 @@ using DCCRailway.Utilities;
 namespace DCCRailway.Layout.Controllers;
 
 public abstract class Controller : IController {
-    private IAdapter?                                     _adapter;          // Stores the adapter to be used
-    private Dictionary<Type, (Type Adapter, string Name)> _adapters = new(); // Stores what operations the controller will provide
-    private Dictionary<Type, (Type Command, string Name)> _commands = new(); // Stores what operations the controller will provide
+    private IAdapter? _adapter;                                       // Stores the adapter to be used
+    private Dictionary<Type, (Type Adapter, string Name)> _adapters = []; // Stores what operations the controller will provide
+    private Dictionary<Type, (Type Command, string Name)> _commands = []; // Stores what operations the controller will provide
 
     public event EventHandler<ControllerEventArgs> ControllerEvent;
     
-    protected Controller() {
-        // ReSharper disable VirtualMemberCallInConstructor
-        RegisterAdapters();
-    }
+    protected Controller() { }
     
     /// <summary>
     ///     Execute a Given Command. We do this here so we can manage and log all command being executed
@@ -57,11 +54,11 @@ public abstract class Controller : IController {
     ///     Controller.Adapter = Controller.CreateAdapter(name);
     /// </summary>
     public IAdapter? CreateAdapter(string adapterName) {
-        if (SupportedAdapters is { Count: > 0 }) {
-            foreach (var (adapter, name) in SupportedAdapters!) {
-                if (name.Equals(adapterName, StringComparison.InvariantCultureIgnoreCase)) {
-                    return (IAdapter?)Activator.CreateInstance(adapter);
-                }
+        if (_adapter is null) RegisterAdapters();
+        if (SupportedAdapters is not { Count: > 0 }) return null;
+        foreach (var (adapter, name) in SupportedAdapters.Values!) {
+            if (name.Equals(adapterName, StringComparison.InvariantCultureIgnoreCase)) {
+                return (IAdapter?)Activator.CreateInstance(adapter);
             }
         }
         return null;
@@ -99,29 +96,36 @@ public abstract class Controller : IController {
     ///     be supported on a particular adapter or interface (eg: NCE does not support the clock
     ///     functions if using the USBSerial adapter).
     /// </summary>
+
+    private Dictionary<Type, (Type Command, string Name)> SupportedCommands {
+        get {
+            if (_commands.Count == 0) RegisterCommands();
+            return _commands;
+        }
+    }
+
+    private Dictionary<Type, (Type Adapter, string Name)> SupportedAdapters {
+        get { 
+            if (_adapters.Count == 0) RegisterAdapters();
+            return _adapters;
+        }
+    }
+
+    public List<(Type Command, string Name)> Commands => SupportedCommands.Values.ToList();
+    public List<(Type Adapter, string Name)> Adapters => SupportedAdapters.Values.ToList();
+    
     protected abstract void RegisterCommands();
-
-    protected void ClearCommands() => _commands = new Dictionary<Type, (Type Command, string Name)>();
-
     protected abstract void RegisterAdapters();
-
-    protected void ClearAdapters() => _adapters = new Dictionary<Type, (Type Adapter, string Name)>();
+    
+    public bool IsCommandSupported<T>() where T : ICommand => SupportedCommands.ContainsKey(typeof(T));
+    public bool IsAdapterSupported<T>() where T : IAdapter => SupportedAdapters.ContainsKey(typeof(T));
+    public bool IsCommandSupported(string name) => SupportedCommands.Any(pair => pair.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+    public bool IsAdapterSupported(string name) => SupportedAdapters.Any(pair => pair.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
 
     protected void RegisterCommand<T>(Type command) where T : ICommand {
         var attr = AttributeExtractor.GetAttribute<CommandAttribute>(command);
         if (attr == null || string.IsNullOrEmpty(attr.Name)) throw new ApplicationException("Command does not contain AttributeInfo Definition. Add AttributeInfo first");
         if (!_commands.ContainsKey(typeof(T))) _commands.TryAdd(typeof(T), (command, attr.Name));
-    }
-
-    protected void UnRegisterCommand<T>() where T : ICommand {
-        if (_commands.ContainsKey(typeof(T))) _commands.Remove(typeof(T));
-    }
-
-    public bool IsCommandSupported<T>() where T : ICommand {
-        foreach (KeyValuePair<Type, (Type command, string name)> entry in _commands) {
-            if (entry.Key == typeof(T)) return true;
-        }
-        return false;
     }
 
     protected void RegisterAdapter<T>() where T : IAdapter {
@@ -130,12 +134,13 @@ public abstract class Controller : IController {
         if (!_adapters.ContainsKey(typeof(T))) _adapters.TryAdd(typeof(T), (typeof(T), attr.Name));
     }
 
-    protected void UnRegisterAdapter<T>() where T : IAdapter {
-        if (_adapters.ContainsKey(typeof(T))) _adapters.Remove(typeof(T));
+    protected void ClearAdapters() {
+        _adapters = new Dictionary<Type, (Type Adapter, string Name)>();
     }
 
-    public List<(Type command, string name)>? SupportedCommands => _commands.Values.ToList();
-    public List<(Type adapter, string name)>? SupportedAdapters => _adapters.Values.ToList();
+    protected void ClearCommands() {
+        _commands = new Dictionary<Type, (Type Adapter, string Name)>();
+    }
     #endregion
 
     #region Create Command Objects that are supported by this Controller.
@@ -162,9 +167,7 @@ public abstract class Controller : IController {
     }
 
     public TCommand? CreateCommand<TCommand>(int value) where TCommand : ICommand => Create<TCommand, int>(value);
-
     public TCommand? CreateCommand<TCommand>(byte value) where TCommand : ICommand => Create<TCommand, byte>(value);
-
     private TCommand? Create<TCommand, TP>(TP value) where TCommand : ICommand {
         if (_adapter == null) throw new ApplicationException("Adapter cannot be null when creating commands");
         var typeToCreate = _commands[typeof(TCommand)].Command ?? null;

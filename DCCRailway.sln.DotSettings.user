@@ -13,10 +13,7 @@
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=99739a6a_002D71fb_002D42c8_002Da28b_002D9f69e882a6cb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestControllerCreation" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.Layout.VirtualTest.TestControllerCreation&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.Layout.VirtualTest.ComplexAndCompleteVirtualTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+  &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Test" Presentation="&amp;lt;DCCRailway.Test&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	
 	

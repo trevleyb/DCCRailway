@@ -15,6 +15,7 @@ public class DCS52 : Controller, IController {
     }
 
     protected override void RegisterCommands() {
+        ClearCommands();
         //RegisterCommand<IDummyCmd> (typeof (Commands.VirtualDummy));
         //RegisterCommand<ICmdStatus> (typeof (Commands.VirtualStatus));
     }
