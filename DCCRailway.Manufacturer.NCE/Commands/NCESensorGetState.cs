@@ -36,7 +36,7 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState {
         if (!_sensorCache.IsCurrent) {
             var result = SendAndReceive(adapter, new NCESensorValidator(), new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
             if (result.IsFailure) return result;
-            _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data.Data);
+            _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data?.Data);
         }
         return new NCECommandResultSensorState(Address, _sensorCache.GetState(SensorAddress.Address));
     }

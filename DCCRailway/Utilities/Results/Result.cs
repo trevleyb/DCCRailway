@@ -22,9 +22,9 @@ public class Result : IResult
 }
 
 public class Result<T> : Result, IResult {
-    public T Value { get; }
+    protected T? Value { get; }
 
-    protected internal Result(bool isSuccess, T value, string? error) : base(isSuccess, error) {
+    protected Result(bool isSuccess, T? value, string? error) : base(isSuccess, error) {
         Value = value;
     }
 
@@ -32,7 +32,7 @@ public class Result<T> : Result, IResult {
         return new Result<T>(true, value, null);
     }
 
-    public static Result<T> Fail(string? error) {
+    public new static Result<T> Fail(string? error) {
         return new Result<T>(false, default, error);
     }
 

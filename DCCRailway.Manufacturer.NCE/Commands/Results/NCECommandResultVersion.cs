@@ -4,8 +4,8 @@ namespace DCCRailway.Manufacturer.NCE.Commands.Results;
 
 public class NCECommandResultVersion : CommandResult {
     
-    public NCECommandResultVersion(CommandResultData dataSet) : base(true, dataSet, null) {
-        if (dataSet.Data == null || dataSet.Length != 3) {
+    public NCECommandResultVersion(CommandResultData? dataSet) : base(true, dataSet, null) {
+        if (dataSet?.Data == null || dataSet.Length != 3) {
             this.IsSuccess = false;
         } else {
             Version = dataSet[0];
@@ -13,7 +13,7 @@ public class NCECommandResultVersion : CommandResult {
             Minor   = dataSet[2];
         }
     }
-    public new string ToVersionString => $"{Version}.{Major}.{Minor}";
+    public string ToVersionString => $"{Version}.{Major}.{Minor}";
 
     public bool IsVersionMatch(string compare) {
         return IsVersionMatch(ToVersionString, compare);

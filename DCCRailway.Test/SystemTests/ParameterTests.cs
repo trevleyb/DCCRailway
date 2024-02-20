@@ -10,15 +10,15 @@ public class ParameterTests {
     [Test]
     public void TypeConvertTest() {
 
-        int var1                      = 42;
+        var var1                      = 42;
         var typeName                  = var1.GetType().Name;
         var typeFullName              = var1.GetType().FullName;
         var typeAssemblyQualifiedName = var1.GetType().AssemblyQualifiedName;
         var typeToString              = var1.GetType().ToString();
 
         var convertName                  = Type.GetType(typeName);
-        var convertFullName              = Type.GetType(typeFullName);
-        var convertAssemblyQualifiedName = Type.GetType(typeAssemblyQualifiedName);
+        var convertFullName              = Type.GetType(typeFullName ?? typeName);
+        var convertAssemblyQualifiedName = Type.GetType(typeAssemblyQualifiedName ?? typeName);
         var convertToString              = Type.GetType(typeToString);
 
     }
@@ -30,34 +30,33 @@ public class ParameterTests {
         Assert.That(() => bag.Add(null!, null!), Throws.Exception);
         Assert.That(() => bag.Add("Empty", null!), Throws.Exception);
         Assert.That(() => bag.Add(null!, "empty"), Throws.Exception);
-        Assert.That(() => bag.Add<String>(null!, null!), Throws.Exception);
-        Assert.That(() => bag.Add<String>("Empty", null!), Throws.Exception);
+        Assert.That(() => bag.Add<string>(null!, null!), Throws.Exception);
+        Assert.That(() => bag.Add<string>("Empty", null!), Throws.Exception);
         Assert.That(() => bag.Add<string>(null!, "empty"), Throws.Exception);
         Assert.That(() => bag.Set(null!, "Value"), Throws.Exception);
-        Assert.That(() => bag.Set<String>(null!, "Value"), Throws.Exception);
+        Assert.That(() => bag.Set<string>(null!, "Value"), Throws.Exception);
         Assert.That(() => bag.Set("Empty", null!), Throws.Exception);
-        Assert.That(() => bag.Set<String>("Empty", null!), Throws.Exception);
+        Assert.That(() => bag.Set<string>("Empty", null!), Throws.Exception);
         Assert.That(() => bag.Get(null!), Throws.Exception);
-        Assert.That(() => bag.Get<String>(null!), Throws.Exception);
+        Assert.That(() => bag.Get<string>(null!), Throws.Exception);
     }
 
     [Test]
     public void PropertyBagSetAndCheckTests() {
 
-        var bag = new Parameters();
-        bag.Add("Value1","Value");
-        Assert.That(bag.Get("value1").Equals("Value"));
+        var bag = new Parameters { { "Value1", "Value" } };
+        Assert.That(bag.Get("value1")!.Equals("Value"));
         bag.Add("Value2",42);
-        Assert.That(bag.Get("value2").Equals(42));
+        Assert.That(bag.Get("value2")!.Equals(42));
         bag.Add("Value3",Parity.Even);
-        Assert.That(bag.Get("value3").Equals(Parity.Even));
+        Assert.That(bag.Get("value3")!.Equals(Parity.Even));
 
         bag.Add<string>("Value4","Value");
-        Assert.That(bag.Get("value4").Equals("Value"));
+        Assert.That(bag.Get("value4")!.Equals("Value"));
         bag.Add<int>("Value5",42);
-        Assert.That(bag.Get("value5").Equals(42));
+        Assert.That(bag.Get("value5")!.Equals(42));
         bag.Add<Parity>("Value6",Parity.Even);
-        Assert.That(bag.Get("value6").Equals(Parity.Even));
+        Assert.That(bag.Get("value6")!.Equals(Parity.Even));
     }
     
     [Test]
@@ -65,25 +64,25 @@ public class ParameterTests {
 
         var bag = new Parameters();
         bag.Add("Value1","Value");
-        Assert.That(bag.Get("value1").Equals("Value"));
+        Assert.That(bag.Get("value1")!.Equals("Value"));
         bag.Set("Value1","New Value");
-        Assert.That(bag.Get("value1").Equals("New Value"));
+        Assert.That(bag.Get("value1")!.Equals("New Value"));
         bag.Set<string>("Value1","New Value Too");
-        Assert.That(bag.Get("value1").Equals("New Value Too"));
+        Assert.That(bag.Get("value1")!.Equals("New Value Too"));
         
         bag.Add("Value2",42);
-        Assert.That(bag.Get("value2").Equals(42));
+        Assert.That(bag.Get("value2")!.Equals(42));
         bag.Set("Value2",43);
-        Assert.That(bag.Get("value2").Equals(43));
+        Assert.That(bag.Get("value2")!.Equals(43));
         bag.Set<int>("Value2",44);
-        Assert.That(bag.Get("value2").Equals(44));
+        Assert.That(bag.Get("value2")!.Equals(44));
         
         bag.Add("Value3",Parity.Even);
-        Assert.That(bag.Get("value3").Equals(Parity.Even));
+        Assert.That(bag.Get("value3")!.Equals(Parity.Even));
         bag.Set("Value3",Parity.Odd);
-        Assert.That(bag.Get("value3").Equals(Parity.Odd));
+        Assert.That(bag.Get("value3")!.Equals(Parity.Odd));
         bag.Set<Parity>("Value3",Parity.None);
-        Assert.That(bag.Get("value3").Equals(Parity.None));
+        Assert.That(bag.Get("value3")!.Equals(Parity.None));
 
     }
 
@@ -100,11 +99,12 @@ public class ParameterTests {
 
     [Test]
     public void PropertyBagAdd() {
-        var bag = new Parameters();
-        bag.Add("1","b");
-        bag.Add("2",(object) "c");
-        bag.Add("3", (object)new string("aaa"));
-        
+        var bag = new Parameters {
+            { "1", "b" },
+            { "2", (object)"c" },
+            { "3", (object)new string("aaa") }
+        };
+
         Assert.That(() => bag.Add(null!, null!), Throws.Exception);
         Assert.That(() => bag.Add("5", null!), Throws.Exception);
         Assert.That(() => bag.Add(null!, (object)"aaa"), Throws.Exception);
@@ -119,11 +119,11 @@ public class ParameterTests {
 
         bag.Add("String", "String Value");
         Assert.That(bag.Get("String"), Is.EqualTo("String Value"));
-        Assert.That(bag.Get<String>("String"), Is.EqualTo("String Value"));
+        Assert.That(bag.Get<string>("String"), Is.EqualTo("String Value"));
 
-        bag.Add<String>("String2", "String Value Too");
+        bag.Add<string>("String2", "String Value Too");
         Assert.That(bag.Get("String2"), Is.EqualTo("String Value Too"));
-        Assert.That(bag.Get<String>("String2"), Is.EqualTo("String Value Too"));
+        Assert.That(bag.Get<string>("String2"), Is.EqualTo("String Value Too"));
 
         bag.Add("Number", 42);
         Assert.That(bag.Get("Number"), Is.EqualTo(42));
@@ -136,9 +136,8 @@ public class ParameterTests {
 
     [Test]
     public void TestToString() {
-        var bag = new Parameters();
-        bag.Add("String", "String Value");
-        var p = bag["String"];
+        var bag = new Parameters { { "String", "String Value" } };
+        var p   = bag["String"];
         Assert.That(p.ToString(), Is.EqualTo("String='String Value'"));
     }
 }

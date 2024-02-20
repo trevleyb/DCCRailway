@@ -46,8 +46,8 @@ public class ControllerFactory
         
         // Get a list of files in the current folder and then look at each one to see if it is a DCCSystem assembly
         // ---------------------------------------------------------------------------------------------------------
-        if (!Directory.Exists(DefaultPath)) throw new ApplicationException("[Controllers] Invalid Path provided for the Controller Assembly Search");
-        var assemblies = Directory.GetFiles(DefaultPath).Where(path => Regex.Match(path, pattern).Success).ToList();
+        if (!Directory.Exists(path)) throw new ApplicationException("[Controllers] Invalid Path provided for the Controller Assembly Search");
+        var assemblies = Directory.GetFiles(DefaultPath).Where(directory => Regex.Match(directory, pattern).Success).ToList();
         if (assemblies == null || assemblies.Any() == false) throw new ApplicationException("[Controllers] Could not find any Controller Assemblies 'DCCRailway.Delete.Controller.");
 
         // Process each file and load in its controller information looking for IDCCSystem as an interface

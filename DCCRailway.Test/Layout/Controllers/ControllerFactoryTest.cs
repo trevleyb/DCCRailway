@@ -21,7 +21,7 @@ public class ControllerFactoryTest {
             var instance = controller.Create();
             Assert.That(instance, Is.Not.Null, "Should be able to create an instance of the controller.");
             Assert.That(instance, Is.InstanceOf<IController>(), "Should be an instance of IController.");
-            Assert.That(instance.SupportedAdapters.Count, Is.GreaterThan(0), "Should have at least one adapter registered.");
+            Assert.That(instance.SupportedAdapters?.Count, Is.GreaterThan(0), "Should have at least one adapter registered.");
         }
     }
 
@@ -32,7 +32,7 @@ public class ControllerFactoryTest {
             var instance = controller.Create();
             Assert.That(instance, Is.Not.Null, "Should be able to create an instance of the controller.");
             Assert.That(instance, Is.InstanceOf<IController>(), "Should be an instance of IController.");
-            Assert.That(instance.SupportedAdapters.Count, Is.GreaterThan(0), "Should have at least one adapter registered.");
+            Assert.That(instance.SupportedAdapters?.Count, Is.GreaterThan(0), "Should have at least one adapter registered.");
             //foreach (var adapter in instance.SupportedAdapters) {
             //    var instanceAdapter = instance.CreateAdapter(adapter.name);
             //    Assert.That(instance.Adapter, Is.Not.Null, "Should be able to create an instance of the adapter.");

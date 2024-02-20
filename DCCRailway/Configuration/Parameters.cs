@@ -3,7 +3,7 @@
 namespace DCCRailway.Configuration;
 public class Parameters : List<Parameter> {
 
-    public Parameter this[string name] => Find(x => x.Name.Equals(name,StringComparison.InvariantCultureIgnoreCase)); 
+    public Parameter this[string name] => Find(x => x.Name.Equals(name,StringComparison.InvariantCultureIgnoreCase)) ?? new Parameter(name,""); 
     
     public void Delete(string name) {
         ArgumentNullException.ThrowIfNull(name);

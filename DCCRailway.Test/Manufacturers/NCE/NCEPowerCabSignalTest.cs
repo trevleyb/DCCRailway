@@ -23,21 +23,21 @@ public class NCEPowerCabSignalTest {
         Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
-        system.SystemEvent += (sender, args) => {
-            Debug.WriteLine(args.ToString());
-        };
-        
-        if (system?.Adapter != null) {
-            var signalCmd = system.CreateCommand<ICmdSignalSetAspect>();
-            if (signalCmd != null) {
-                var aspects = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 30, 31 };
-                var signals = new[] { 11, 12, 14, 13 };
-                foreach (var aspect in aspects) {
-                    foreach (var signal in signals) {
-                        signalCmd.Address = new DCCAddress(signal, DCCAddressType.Signal);
-                        signalCmd.Aspect  = aspect;
-                        system.Execute(signalCmd);
-                        Thread.Sleep(500);
+        if (system != null) {
+            system.SystemEvent += (sender, args) => { Debug.WriteLine(args.ToString()); };
+
+            if (system?.Adapter != null) {
+                var signalCmd = system.CreateCommand<ICmdSignalSetAspect>();
+                if (signalCmd != null) {
+                    var aspects = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 30, 31 };
+                    var signals = new[] { 11, 12, 14, 13 };
+                    foreach (var aspect in aspects) {
+                        foreach (var signal in signals) {
+                            signalCmd.Address = new DCCAddress(signal, DCCAddressType.Signal);
+                            signalCmd.Aspect  = aspect;
+                            system.Execute(signalCmd);
+                            Thread.Sleep(500);
+                        }
                     }
                 }
             }

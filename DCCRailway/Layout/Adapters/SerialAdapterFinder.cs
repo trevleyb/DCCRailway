@@ -26,6 +26,39 @@ public static class SerialAdapterFinder {
     }
 
     public static async Task<byte[]?> TestSerialPort(SerialAdapterSettings settings, byte[] data) {
+        var readData = Array.Empty<byte>();
+
+        try {
+            using (var connection = new SerialPort(settings.PortName, settings.BaudRate, settings.Parity, settings.DataBits, settings.StopBits)) {
+                connection.WriteTimeout = settings.Timeout;
+                connection.ReadTimeout  = settings.Timeout;
+
+                connection.Open();
+                await connection.BaseStream.WriteAsync(data, 0, data.Length);
+
+                var timeoutTime = DateTime.Now.AddMilliseconds(settings.Timeout);
+                while (DateTime.Now <= timeoutTime && connection.BytesToRead == 0) {
+                    await Task.Delay(10); // Adjust as needed
+                }
+
+                if (connection.BytesToRead > 0) {
+                    readData = new byte[connection.BytesToRead];
+                    await connection.BaseStream.ReadAsync(readData, 0, readData.Length);
+                } else {
+                    Console.WriteLine("stop here");
+                }
+            }
+        } catch (Exception ex) {
+            Logger.Log.Debug($"ERROR Connecting to port: {ex.Message}");
+        }
+
+        return readData;
+    }
+    
+    
+    /* Old NON-AWAITable version
+    
+    public static async Task<byte[]?> TestSerialPort(SerialAdapterSettings settings, byte[] data) {
         var readBytes = 0;
         var readData  = Array.Empty<byte>();
 
@@ -55,4 +88,5 @@ public static class SerialAdapterFinder {
         }
         return readData;
     }
+    */
 }

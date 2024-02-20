@@ -4,7 +4,7 @@ namespace DCCRailway.Manufacturer.NCE.Commands.Results;
 
 public class NCECommandResultClock : CommandResult {
     
-    public NCECommandResultClock(CommandResultData dataSet) : base(true, dataSet, null) {
+    public NCECommandResultClock(CommandResultData? dataSet) : base(true, dataSet, null) {
         if (dataSet == null || dataSet.Length != 2) {
             this.IsSuccess = false;
         } else {

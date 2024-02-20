@@ -19,16 +19,19 @@ public class VirtualControllerTest {
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem,Is.Not.Null);
 
-        var supportedAdapters = virtualSystem.SupportedAdapters;
+        var supportedAdapters = virtualSystem?.SupportedAdapters;
         Assert.That(supportedAdapters!.Count == 1);
 
         // todo: Assert.IsTrue(supportedAdapters[0].name == VirtualAdapter.Name);
 
-        var supportedCommands = virtualSystem.SupportedCommands;
+        var supportedCommands = virtualSystem?.SupportedCommands;
         Assert.That(supportedCommands!.Count == 0, " Should not return any since we have not attached an adapter");
 
-        virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
-        supportedCommands     = virtualSystem.SupportedCommands;
+        if (virtualSystem != null) {
+            virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
+            supportedCommands     = virtualSystem.SupportedCommands;
+        }
+
         Assert.That(supportedCommands!.Count == 2);
     }
 
@@ -43,11 +46,13 @@ public class VirtualControllerTest {
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem,Is.Not.Null);
 
-        var supportedAdapters = virtualSystem.SupportedAdapters;
+        var supportedAdapters = virtualSystem?.SupportedAdapters;
         Assert.That(supportedAdapters!.Count == 1);
 
-        virtualSystem.Adapter = virtualSystem.CreateAdapter(supportedAdapters[0].name);
-        Assert.That(virtualSystem.Adapter,Is.Not.Null);
+        if (virtualSystem != null) {
+            virtualSystem.Adapter = virtualSystem.CreateAdapter(supportedAdapters[0].name);
+            Assert.That(virtualSystem.Adapter, Is.Not.Null);
+        }
     }
 
     [Test]
@@ -61,11 +66,13 @@ public class VirtualControllerTest {
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem,Is.Not.Null);
 
-        var supportedAdapters = virtualSystem.SupportedAdapters;
+        var supportedAdapters = virtualSystem?.SupportedAdapters;
         Assert.That(supportedAdapters!.Count == 1);
 
-        virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
-        Assert.That(virtualSystem.Adapter,Is.Not.Null);
+        if (virtualSystem != null) {
+            virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
+            Assert.That(virtualSystem.Adapter, Is.Not.Null);
+        }
     }
 
     [Test]
@@ -78,12 +85,14 @@ public class VirtualControllerTest {
         var virtualSystem = new ControllerFactory().Find("Virtual")?.Create(new ConsoleAdapter()); 
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem,Is.Not.Null);
-        virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
-        Assert.That(virtualSystem.Adapter,Is.Not.Null);
+        if (virtualSystem != null) {
+            virtualSystem.Adapter = virtualSystem.CreateAdapter<VirtualAdapter>();
+            Assert.That(virtualSystem.Adapter, Is.Not.Null);
 
-        Assert.That(virtualSystem.IsCommandSupported<IDummyCmd>());
-        Assert.That(virtualSystem.IsCommandSupported<ICmdStatus>());
-        Assert.That(!virtualSystem.IsCommandSupported<ICmdClockStart>());
+            Assert.That(virtualSystem.IsCommandSupported<IDummyCmd>());
+            Assert.That(virtualSystem.IsCommandSupported<ICmdStatus>());
+            Assert.That(!virtualSystem.IsCommandSupported<ICmdClockStart>());
+        }
     }
 
     /*

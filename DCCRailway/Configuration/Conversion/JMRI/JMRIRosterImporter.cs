@@ -40,7 +40,7 @@ public static class JMRIRosterImporter  {
                     Model        = jmri.Model
                 };
 
-                loco.Decoder.Manufacturer = manufacturers.FindByManufacturer(jmri.Mfg);
+                loco.Decoder.Manufacturer = manufacturers.FindByManufacturer(jmri.Mfg) ?? new Manufacturer("unknown", 00);
                 loco.Decoder.Model        = jmri.Decoder.Model;
                 loco.Decoder.Family       = jmri.Decoder.Family;
 

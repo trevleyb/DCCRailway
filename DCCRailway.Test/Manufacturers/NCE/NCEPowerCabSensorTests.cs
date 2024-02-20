@@ -61,13 +61,13 @@ public class NCEPowerCabSensorTest {
         Assert.That(system, Is.Not.Null,  "Should have an NCE PowerCab controller created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
-        if (system.Adapter != null) {
+        if (system?.Adapter != null) {
             var sensorCmd = system.CreateCommand<ICmdSensorGetState>() as NCESensorGetState;
 
             var states = new byte[2];
-            var loop   = true;
+            var count  = 0;
 
-            while (loop) {
+            while (count++ < 5) {
                 for (byte part = 0; part < 2; part++)
                 for (byte pin = 0; pin < 8; pin++) {
                     sensorCmd?.SetAddressByCabPin(4, (byte)(part * 8 + pin));
@@ -75,8 +75,8 @@ public class NCEPowerCabSensorTest {
                     states[part] = states[part].SetBit(pin, state?.State ?? false);
                 }
 
-                var dumpline = states[0].FormatBits() + " " + states[1].FormatBits();
-                Console.WriteLine("SENSOR STATES: " + dumpline);
+                var dumpLine = states[0].FormatBits() + " " + states[1].FormatBits();
+                Console.WriteLine("SENSOR STATES: " + dumpLine);
                 Thread.Sleep(1000);
             }
         }
