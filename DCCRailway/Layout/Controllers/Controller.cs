@@ -144,37 +144,17 @@ public abstract class Controller : IController {
     #endregion
 
     #region Create Command Objects that are supported by this Controller.
-    /// <summary>
-    ///     Creates a command object that can be executed. A command object can be
-    ///     executed by calling its execute function or passing it back to the
-    ///     controller to ask it to execute it.
-    /// </summary>
-    /// <typeparam name="T">An interface that adheres to a ICommand interface</typeparam>
-    /// <typeparam name="TCommand"></typeparam>
-    /// <returns>An object instance that is a Types T object</returns>
-    public TCommand? CreateCommand<TCommand>() where TCommand : ICommand {
+
+     public TCommand? CreateCommand<TCommand>() where TCommand : ICommand {
         if (_adapter == null) throw new ApplicationException("Adapter cannot be null when creating commands");
         var typeToCreate = _commands[typeof(TCommand)].Command ?? null;
         if (typeToCreate == null) throw new ApplicationException("Should not have an instance where the command returned is NULL");
-
-        try {
-            var command = (TCommand?)Activator.CreateInstance(typeToCreate, true);
-            if (command == null) throw new ApplicationException("Could not create an instance of the command.");
-            return command;
-        } catch (Exception ex) {
-            throw new ApplicationException("Could not create an instance of the command.", ex);
-        }
+        return CreateCommandInstance<TCommand>(typeToCreate);
     }
 
-    public TCommand? CreateCommand<TCommand>(int value) where TCommand : ICommand => Create<TCommand, int>(value);
-    public TCommand? CreateCommand<TCommand>(byte value) where TCommand : ICommand => Create<TCommand, byte>(value);
-    private TCommand? Create<TCommand, TP>(TP value) where TCommand : ICommand {
-        if (_adapter == null) throw new ApplicationException("Adapter cannot be null when creating commands");
-        var typeToCreate = _commands[typeof(TCommand)].Command ?? null;
-        if (typeToCreate == null) throw new ApplicationException("Should not have an instance where the command returned is NULL");
-
+    private static TCommand? CreateCommandInstance<TCommand>(Type typeToCreate) where TCommand : ICommand {
         try {
-            var command = (TCommand?)Activator.CreateInstance(typeToCreate, value);
+            var command = (TCommand?)Activator.CreateInstance(typeToCreate);
             if (command == null) throw new ApplicationException("Could not create an instance of the command.");
             return command;
         } catch (Exception ex) {

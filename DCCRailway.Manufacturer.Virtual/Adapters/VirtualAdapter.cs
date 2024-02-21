@@ -8,52 +8,7 @@ using DCCRailway.Utilities.Exceptions;
 namespace DCCRailway.Manufacturer.Virtual.Adapters;
 
 [Adapter("Virtual", AdapterType.Virtual)]
-public class VirtualAdapter : Adapter, IAdapter {
-    private object? _lastResult;
-    private byte[]  _lastCommand;
-    private DCCSimulator? _simulator;
-
-    public bool IsConnected { get; set; }
-
-    /// <summary>
-    ///     When connecting, create a new Simulator Instance Class
-    /// </summary>
-    public void Connect() {
-        Logger.Log.Debug("Connecting to the Virtual Adapter");
-        if (IsConnected && _simulator != null) Disconnect();
-        _simulator = new DCCSimulator();
-        IsConnected = true;
-    }
-
-    /// <summary>
-    ///     Disconnect from the Simulator. Clear it and release any memory used.
-    /// </summary>
-    public void Disconnect() {
-        Logger.Log.Debug("Disconnecting from the Virtual Adapter");
-        _simulator = null;
-        IsConnected = false;
-    }
-
-    /// <summary>
-    ///     Send a command to the simulator but also allow an override in a simulator instance
-    ///     for specific results to be returned (for example, returning a simulator version number)
-    /// </summary>
-    /// <param name="command"></param>
-    /// <returns></returns>
-    public byte[]? RecvData(ICommand command) {
-        Logger.Log.Debug("Listening for data from the Adapter: '" + _lastCommand.FromByteArray() + "'");
-        //var result = MapSimulatorResult(_lastResult, command);
-        //OnDataRecieved(new DataRecvArgs(result, this, command));
-        return new[] { (byte)0x00 };
-    }
-
-    public void SendData(byte[] data, ICommand command) {
-        Logger.Log.Debug("Sending data to the Adapter");
-        if (!IsConnected) throw new AdapterException(this, "Not connected to the simulator.");
-        if (command == null) throw new AdapterException(this, "No command actually specified in Simulator. Aborting");
-
-        _lastCommand = data;
-        OnDataSent(new DataSentArgs(data, this, command));
+public class VirtualAdapter : ConsoleAdapter, IAdapter {
 
         /*
         _lastResult = command.GetType() switch {
@@ -87,6 +42,5 @@ public class VirtualAdapter : Adapter, IAdapter {
             _                     => null
         };
         */
-    }
 
 }

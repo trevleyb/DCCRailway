@@ -44,7 +44,7 @@ public class NCEPowerCabTestCVReadWrite {
         if (system != null && system.Adapter != null) {
             var progTrk   = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
             var mainTrk   = system.CreateCommand<ICmdTrackMain>(); // new NCESetMainTrk(adapter);
-            var readCVCmd = system.CreateCommand<ICmdCVRead>(01);  // new NCECVRead(01);
+            var readCVCmd = system.CreateCommand<ICmdCVRead>();  // new NCECVRead(01);
 
             //Should fail because we are not in programming mode
             //var result0 = readCVCmd.Execute(adapter);
@@ -78,8 +78,8 @@ public class NCEPowerCabTestCVReadWrite {
         if (system != null && system.Adapter != null) {
             var progTrk    = system.CreateCommand<ICmdTrackProg>();
             var mainTrk    = system.CreateCommand<ICmdTrackMain>();
-            var readCVCmd  = system.CreateCommand<ICmdCVRead>(01);
-            var writeCVCmd = system.CreateCommand<ICmdCVWrite>(01);
+            var readCVCmd  = system.CreateCommand<ICmdCVRead>();
+            var writeCVCmd = system.CreateCommand<ICmdCVWrite>();
 
             // Should fail because we are not in programming mode
             var result0 = system.Execute(readCVCmd!);

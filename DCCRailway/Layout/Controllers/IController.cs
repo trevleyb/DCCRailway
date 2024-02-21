@@ -22,6 +22,7 @@ public interface IController {
     // Execute a Command. Must be executed via here
     // ----------------------------------------------------------------------------
     public ICommandResult Execute(ICommand command);
+    public TCommand?      CreateCommand<TCommand>() where TCommand : ICommand;
 
     // Attach or detect an Adapter to a Command Station
     // ----------------------------------------------------------------------------
@@ -30,10 +31,6 @@ public interface IController {
     
     // Create and Execute commands that are associated with this command station
     // --------------------------------------------------------------------------
-    public TCommand? CreateCommand<TCommand>() where TCommand : ICommand;
-    public TCommand? CreateCommand<TCommand>(int  value) where TCommand : ICommand;
-    public TCommand? CreateCommand<TCommand>(byte value) where TCommand : ICommand;
-
     public IDCCAddress CreateAddress();
     public IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
     
