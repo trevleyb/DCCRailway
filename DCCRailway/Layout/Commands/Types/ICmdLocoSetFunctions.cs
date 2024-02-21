@@ -2,6 +2,6 @@
 
 namespace DCCRailway.Layout.Commands.Types;
 
-public interface ICmdLocoSetFunctions : ICommand,ILocoCommand {
+public interface ICmdLocoSetFunctions : ICommand,ICmdWithAddress {
     public DCCFunctionBlocks Functions { get; }
 }

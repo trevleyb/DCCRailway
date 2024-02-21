@@ -15,7 +15,7 @@ public class SystemEventCommandArgs : SystemEventArgs {
         Description = command.AttributeInfo().Description;
         
         switch (command) {
-        case ILocoCommand locoCommand:
+        case ICmdWithAddress locoCommand:
             Address     = locoCommand.Address;
             Description = $"Executed command '{Name}' on Loco '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.ToString()}' - {Message}";
             break;

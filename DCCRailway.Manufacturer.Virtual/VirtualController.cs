@@ -18,7 +18,7 @@ public class VirtualController : Controller, IController {
     }
 
     protected override void RegisterCommands() {
-        RegisterCommand<IDummyCmd>(typeof(VirtualDummy));
-        RegisterCommand<ICmdStatus>(typeof(VirtualStatus));
+        RegisterCommand<IDummyCmd>(typeof(VirtualDummyCmd));
+        RegisterCommand<ICmdStatus>(typeof(VirtualStatusCmd));
     }
 }
