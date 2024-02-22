@@ -32,4 +32,5 @@ public class NCECVWrite : NCECommand, ICmdCVWrite, ICommand {
     }
 
     public override string ToString() => $"WRITE CV ({CV}={Value}/{ProgrammingMode})";
+    public          IDCCAddress? Address    { get; set; }
 }

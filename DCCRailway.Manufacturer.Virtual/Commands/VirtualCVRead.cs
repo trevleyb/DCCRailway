@@ -10,7 +10,7 @@ using DCCRailway.Utilities.Exceptions;
 namespace DCCRailway.Manufacturer.Virtual.Commands;
 
 [Command("CVRead", "Read a CV from a Loco")]
-public class VirtualCVRead : VirtualCommand, ICmdCVRead, ICommand {
+public class VirtualCVRead : VirtualCommand, ICmdCVRead {
     public VirtualCVRead(int cv = 0) => CV = cv;
 
     public DCCProgrammingMode ProgrammingMode { get; set; }
@@ -28,4 +28,5 @@ public class VirtualCVRead : VirtualCommand, ICmdCVRead, ICommand {
     }
 
     public override string ToString() => $"READ CV ({CV}/{ProgrammingMode})";
+    public          IDCCAddress? Address    { get; set; }
 }

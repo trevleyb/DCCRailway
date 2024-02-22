@@ -2,6 +2,5 @@
 
 namespace DCCRailway.Layout.Commands.Types;
 
-public interface ICmdSensorGetState : ICommand {
-    public IDCCAddress SensorAddress { get; set; }
+public interface ICmdSensorGetState : ICommand, IAccyCommand {
 }

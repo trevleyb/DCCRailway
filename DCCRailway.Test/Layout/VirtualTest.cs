@@ -20,9 +20,13 @@ public class VirtualTest {
         Assert.That(controller, Is.Not.Null);
         Assert.That(controller.AttributeInfo().Name.Equals("Virtual"));
     }
-    
-    [Test(ExpectedResult = typeof(IController))]
-    public IController CreateVirtualControllerAndAddVirtualAdapter() {
+
+    [Test]
+    public void CreateVirtualControllerAndAddVirtualAdapterTest() {
+        var res = CreateVirtualControllerAndAddVirtualAdapter();
+    }
+
+    private IController CreateVirtualControllerAndAddVirtualAdapter() {
         
         // Create an instance of a Controller using the Factory 
         // ------------------------------------------------------------
@@ -38,7 +42,6 @@ public class VirtualTest {
         // Check that we can do things with the controller
         // ------------------------------------------------------------
         var controller = virtualSystem.Create();
-        Assert.That(controller, Is.Not.Null);
         if (controller is null) throw new NullReferenceException("Should have a Controller object at this stage");
         
         _controllerEventFired = false;
@@ -53,26 +56,25 @@ public class VirtualTest {
         // Now that we have created a Controller, we need to create an ADAPTER that we can connect to the 
         // controller so that the controller can talk to the hardware.
         // ------------------------------------------------------------
-        var virtualAdapter = controller?.CreateAdapter("Virtual");
+        var virtualAdapter = controller!.CreateAdapter("Virtual");
         Assert.That(virtualAdapter, Is.Not.Null);
         if (virtualAdapter is null) throw new NullReferenceException("Should have a VirtualAdapter object at this stage");
         
         // Attach the Adapter to the Controller
         // ------------------------------------------------------------
-        controller!.Adapter = virtualAdapter;
+        controller.Adapter = virtualAdapter;
         Assert.That(controller.Adapter, Is.Not.Null);        
-        Assert.That(controller?.Commands!.Count > 0);  // After attaching Adapter, should have commands
+        Assert.That(controller.Commands!.Count > 0);  // After attaching Adapter, should have commands
 
         Assert.That(_controllerEventFired, Is.True, "ControllerEvent should have been fired");
-        controller!.ControllerEvent -= ControllerEventArgsHandler;
+        controller.ControllerEvent -= ControllerEventArgsHandler;
         
         // Should not ever get an error here or something else has seriously gone wrong
-        return controller ?? throw new InvalidOperationException();
+        return controller! ?? throw new InvalidOperationException();
         
         void ControllerEventArgsHandler(object? sender, ControllerEventArgs e) {
             _controllerEventFired = true;
         }
-
     }
 
     [Test]

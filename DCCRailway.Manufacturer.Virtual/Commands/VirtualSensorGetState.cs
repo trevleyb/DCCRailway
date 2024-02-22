@@ -15,7 +15,7 @@ using DCCRailway.Utilities;
 namespace DCCRailway.Manufacturer.Virtual.Commands;
 
 [Command("SensorGetState", "Get the state of a given Sensor")]
-public class VirtualSensorGetState : VirtualCommand, ICmdSensorGetState {
+public class VirtualSensorGetState : VirtualCommand, ICmdSensorGetState, IAccyCommand {
     private readonly SensorCache _sensorCache = new();
 
     public VirtualSensorGetState() { }
@@ -29,7 +29,11 @@ public class VirtualSensorGetState : VirtualCommand, ICmdSensorGetState {
         SensorAddress.AddressType = DCCAddressType.Accessory;
     }
 
-    public IDCCAddress Address       => SensorAddress;
+    public IDCCAddress Address {
+        get => SensorAddress;
+        set => SensorAddress = value;
+    }
+
     public IDCCAddress SensorAddress { get; set; }
 
     public override ICommandResult Execute(IAdapter adapter) {

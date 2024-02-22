@@ -10,7 +10,7 @@ using DCCRailway.Utilities;
 namespace DCCRailway.Manufacturer.Virtual.Commands;
 
 [Command("AccyOpsProg", "Accessory Ops Programming")]
-public class VirtualAccyOpsProg : VirtualCommand, ICmdAccyOpsProg, ICommand, IAccyCommand {
+public class VirtualAccyOpsProg : VirtualCommand, ICmdAccyOpsProg, ICommand, IAccyCommand{
     public VirtualAccyOpsProg() { }
 
     public VirtualAccyOpsProg(int locoAddress, DCCAddressType type, int cvAddress, byte value) {

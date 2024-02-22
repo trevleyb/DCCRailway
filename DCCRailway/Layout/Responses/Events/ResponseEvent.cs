@@ -1,5 +1,5 @@
 namespace DCCRailway.Layout.Responses.Events;
 
-public class ResponseEvent {
+public abstract class ResponseEvent {
     
 }

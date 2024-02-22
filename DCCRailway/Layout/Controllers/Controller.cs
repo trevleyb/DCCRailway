@@ -147,10 +147,14 @@ public abstract class Controller : IController {
 
      public TCommand? CreateCommand<TCommand>() where TCommand : ICommand {
         if (_adapter == null) throw new ApplicationException("Adapter cannot be null when creating commands");
-        var typeToCreate = _commands[typeof(TCommand)].Command ?? null;
-        if (typeToCreate == null) throw new ApplicationException("Should not have an instance where the command returned is NULL");
-        return CreateCommandInstance<TCommand>(typeToCreate);
-    }
+        if (_commands.Count == 0) RegisterCommands();
+        if (IsCommandSupported<TCommand>()) {
+            var typeToCreate = _commands[typeof(TCommand)].Command ?? null;
+            if (typeToCreate is null) throw new ApplicationException("Selected Command Type is not supported by this Adapter.");
+            return CreateCommandInstance<TCommand>(typeToCreate);
+        }
+        throw new ApplicationException("Selected Command Type is not supported by this Adapter.");
+     }
 
     private static TCommand? CreateCommandInstance<TCommand>(Type typeToCreate) where TCommand : ICommand {
         try {

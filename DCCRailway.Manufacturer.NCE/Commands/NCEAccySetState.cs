@@ -9,7 +9,7 @@ using DCCRailway.Utilities;
 namespace DCCRailway.Manufacturer.NCE.Commands;
 
 [Command("AccySetState", "Set the state of an Accessory")]
-public class NCEAccySetState : NCECommand, ICmdAccySetState, ICommand {
+public class NCEAccySetState : NCECommand, ICmdAccySetState, IAccyCommand {
     public NCEAccySetState() { }
 
     public NCEAccySetState(DCCAccessoryState state = DCCAccessoryState.Normal) => State = state;
