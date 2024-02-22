@@ -26,7 +26,6 @@
     <Folder Include="Manufacturers\Digitrax\" />
     <Folder Include="Manufacturers\Sprog\" />
     <Folder Include="Manufacturers\Virtual\" />
-    <Folder Include="Server\WiThrottleTest\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DCCRailway.API\DCCRailway.API.csproj" />
