@@ -16,21 +16,10 @@ public class VirtualCVWrite : VirtualCommand, ICmdCVWrite {
         Value = value;
     }
 
+    public IDCCAddress?       Address         { get; set; }
     public DCCProgrammingMode ProgrammingMode { get; set; }
     public int                CV              { get; set; }
     public byte               Value           { get; set; }
 
-    public override ICommandResult Execute(IAdapter adapter) {
-        byte command = ProgrammingMode switch {
-            DCCProgrammingMode.Direct   => 0xA8,
-            DCCProgrammingMode.Paged    => 0xA0,
-            DCCProgrammingMode.Register => 0xA6,
-            _                           => throw new UnsupportedCommandException("Invalid CV access type provided.")
-        };
-
-        return SendAndReceive(adapter, new VirtualDataReadValidation(), CV.ToByteArray().AddToArray(command).AddToArray(Value));
-    }
-
     public override string ToString() => $"WRITE CV ({CV}={Value}/{ProgrammingMode})";
-    public          IDCCAddress? Address    { get; set; }
 }

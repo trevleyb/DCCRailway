@@ -32,16 +32,5 @@ public class VirtualAccyOpsProg : VirtualCommand, ICmdAccyOpsProg, ICommand, IAc
     public IDCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }
 
-    public override ICommandResult Execute(IAdapter adapter) {
-        var cmd = new byte[] { 0xAF };
-        cmd = cmd.AddToArray(LocoAddress.AddressBytes);
-        cmd = cmd.AddToArray(CVAddress.AddressBytes);
-        cmd = cmd.AddToArray(Value);
-
-        return SendAndReceieve(adapter, new VirtualStandardValidation(), cmd);
-    }
-
-    private ICommandResult SendAndReceieve(IAdapter adapter, VirtualStandardValidation VirtualStandardValidation, byte[] cmd) => throw new NotImplementedException();
-
     public override string      ToString() => $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
 }

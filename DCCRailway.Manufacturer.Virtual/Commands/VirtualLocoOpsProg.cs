@@ -29,14 +29,5 @@ public class VirtualLocoOpsProg : VirtualCommand, ICmdLocoOpsProg, ICommand {
     public IDCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }
 
-    public override ICommandResult Execute(IAdapter adapter) {
-        var cmd = new byte[] { 0xAE };
-        cmd = cmd.AddToArray(LocoAddress.AddressBytes);
-        cmd = cmd.AddToArray(CVAddress.AddressBytes);
-        cmd = cmd.AddToArray(Value);
-
-        return SendAndReceive(adapter, new VirtualStandardValidation(), cmd);
-    }
-
     public override string ToString() => $"LOCO OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
 }

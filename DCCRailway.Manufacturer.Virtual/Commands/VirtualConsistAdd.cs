@@ -25,20 +25,6 @@ public class VirtualConsistAdd : VirtualCommand, ICmdConsistAdd, ICommand {
     public DCCDirection       Direction      { get; set; }
     public DCCAddress         Loco           { get; set; }
     public DCCConsistPosition Position       { get; set; }
-
-    public override ICommandResult Execute(IAdapter adapter) {
-        byte[] command = { 0xA2 };
-        command = command.AddToArray(Loco.AddressBytes);
-
-        command = Position switch {
-            DCCConsistPosition.Front => command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x0b : 0x0a)),
-            DCCConsistPosition.Rear  => command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x0d : 0x0c)),
-            _                        => command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x0f : 0x0e))
-        };
-        command = command.AddToArray(ConsistAddress);
-
-        return SendAndReceive(adapter, new VirtualStandardValidation(), command);
-    }
-
+    
     public override string ToString() => $"CONSIST ADD TO {ConsistAddress:D3} @ {Position} ({Loco.Address}={Direction})";
 }

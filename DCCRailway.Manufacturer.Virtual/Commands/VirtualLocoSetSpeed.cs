@@ -24,10 +24,5 @@ public class VirtualLocoSetSpeed : VirtualCommand, ICmdLocoSetSpeed, ICommand {
     public DCCDirection Direction  { get; set; }
     public byte         Speed      { get; set; }
 
-    public override ICommandResult Execute(IAdapter adapter) {
-        var command = $"LocoSetSpeed:{Address}={Direction}@{SpeedSteps}={Speed}";
-        return SendAndReceive(adapter, new VirtualStandardValidation(), command.ToByteArray());
-    }
-
     public override string ToString() => $"LOCO SPEED ({Address}={Direction}@{SpeedSteps}={Speed}";
 }

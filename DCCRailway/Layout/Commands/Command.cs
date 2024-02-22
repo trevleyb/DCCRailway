@@ -18,6 +18,7 @@ public abstract class Command : PropertyChangedBase, ICommand {
     
     protected ICommandResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceive(adapter, validator, new[] { sendData });
     protected ICommandResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte[] sendData) {
+
         // Send the command provided to the command station
         // -----------------------------------------------------------------------------------------------------------
         if (adapter == null) throw new ArgumentNullException(nameof(adapter), "The adapter cannot be null.");

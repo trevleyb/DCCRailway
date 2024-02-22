@@ -30,23 +30,6 @@ public class VirtualLocoSetFunctions : VirtualCommand, ICmdLocoSetFunctions, ICo
     public IDCCAddress        Address   { get; set; }
     public DCCFunctionBlocks  Functions { get; }
 
-    public override ICommandResult Execute(IAdapter adapter) {
-        Previous ??= new DCCFunctionBlocks();
-
-        // Loop through the 5 groups of functions and see if any have changed from last time
-        // If any have changed, then sent those new settings to the command station for the Loco Address
-        for (var block = 1; block <= 5; block++) {
-            if (Functions.GetBlock(block) != Previous.GetBlock(block)) {
-                var command = new byte[] { 0xA2, ((DCCAddress)Address).HighAddress, ((DCCAddress)Address).LowAddress, _opCodes[block - 1], Functions.GetBlock(block) };
-                var result  = SendAndReceive(adapter, new VirtualStandardValidation(), command);
-                if (!result.IsOK) return result;
-            }
-        }
-
-        Previous = new DCCFunctionBlocks(Functions); // save the last time we sent this 
-        return CommandResult.Success();
-    }
-
     public override string ToString() {
         StringBuilder sb = new();
 

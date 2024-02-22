@@ -44,25 +44,5 @@ public class VirtualSetClock : VirtualCommand, ICmdClockSet, ICommand {
         get => _ratio;
     }
 
-    public override ICommandResult Execute(IAdapter adapter) {
-        if (adapter == null) throw new ArgumentNullException("adapter", "The adapter connot be null.");
-
-        // Tell the Virtual Controller to set the Clock to 24 hours mode
-        // ; 0x85 xx xx    Set clock hr / min(1)
-        // ; 0x86 xx Set clock 12 / 24(1) 0 = 12 hr 1 = 24 hr
-        // ; 0x87 xx Set clock ratio(1) 
-        // -----------------------------------------------------------------------------------------
-        ICommandResult result;
-
-        if ((result = SendAndReceive(adapter, new VirtualStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).IsOK) {
-            if ((result = SendAndReceive(adapter, new VirtualStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).IsOK) {
-                if ((result = SendAndReceive(adapter, new VirtualStandardValidation(), new byte[] { 0x87, (byte)_ratio })).IsOK) {
-                    return VirtualCommandResultClock.Success(result.Data);
-                }
-            }
-        }
-        return result;
-    }
-
     public override string ToString() => $"SET CLOCK ({_hour:D2}:{_minute:D2}@{_ratio}:15";
 }

@@ -22,14 +22,5 @@ public class VirtualLocoSetMomentum : VirtualCommand, ICmdLocoSetMomentum, IComm
     public IDCCAddress Address  { get; set; }
     public byte        Momentum { get; set; }
 
-    public override ICommandResult Execute(IAdapter adapter) {
-        byte[] command = { 0xA2 };
-        command = command.AddToArray(((DCCAddress)Address).AddressBytes);
-        command = command.AddToArray(0x12);
-        command = command.AddToArray(Momentum);
-
-        return SendAndReceive(adapter, new VirtualStandardValidation(), command);
-    }
-
     public override string ToString() => $"LOCO MOMENTUM ({Address}={Momentum}";
 }

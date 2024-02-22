@@ -16,14 +16,5 @@ public class VirtualConsistKill : VirtualCommand, ICmdConsistKill, ICommand {
 
     public IDCCAddress Address { get; set; }
 
-    public override ICommandResult Execute(IAdapter adapter) {
-        byte[] command = { 0xA2 };
-        command = command.AddToArray(Address.AddressBytes);
-        command = command.AddToArray(0x11);
-        command = command.AddToArray(0);
-
-        return SendAndReceive(adapter, new VirtualStandardValidation(), command);
-    }
-
     public override string ToString() => $"CONSIST KILL ({Address})";
 }
