@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DCCRailway.Layout.Commands.Types.BaseTypes;
 
 namespace DCCRailway.Layout.Commands.Types;
 
 /// <summary>
 ///     Allows you to Turn the FAST Clock on or Off and Set the Fast Clock
 /// </summary>
-public interface ICmdClockSet : ICommand {
+public interface ICmdClockSet : ICommand, ISystemCmd {
     /// <summary>
     ///     Sets the Hour for the Clock in either 24 or 12 hour mode
     /// </summary>

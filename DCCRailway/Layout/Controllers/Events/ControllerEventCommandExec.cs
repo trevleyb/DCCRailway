@@ -1,7 +1,6 @@
 using DCCRailway.Layout.Adapters;
 using DCCRailway.Layout.Commands;
 using DCCRailway.Layout.Commands.Results;
-using DCCRailway.Utilities.Results;
 
 namespace DCCRailway.Layout.Controllers.Events;
 

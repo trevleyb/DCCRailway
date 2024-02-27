@@ -1,6 +1,8 @@
-﻿namespace DCCRailway.Layout.Commands.Types;
+﻿using DCCRailway.Layout.Commands.Types.BaseTypes;
 
-public interface ICmdSignalSetAspect : ICommand,IAccyCommand {
+namespace DCCRailway.Layout.Commands.Types;
+
+public interface ICmdSignalSetAspect : ICommand,ISignalCmd {
     public byte        Aspect  { get; set; }
     public bool        Off     { set; }
 }

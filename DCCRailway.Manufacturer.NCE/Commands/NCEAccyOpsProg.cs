@@ -3,6 +3,7 @@ using DCCRailway.Layout.Adapters;
 using DCCRailway.Layout.Commands;
 using DCCRailway.Layout.Commands.Results;
 using DCCRailway.Layout.Commands.Types;
+using DCCRailway.Layout.Commands.Types.BaseTypes;
 using DCCRailway.Layout.Types;
 using DCCRailway.Manufacturer.NCE.Commands.Validators;
 using DCCRailway.Utilities;
@@ -10,7 +11,7 @@ using DCCRailway.Utilities;
 namespace DCCRailway.Manufacturer.NCE.Commands;
 
 [Command("AccyOpsProg", "Accessory Ops Programming")]
-public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand, IAccyCommand {
+public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand, IAccyCmd {
     public NCEAccyOpsProg() { }
 
     public NCEAccyOpsProg(int locoAddress, DCCAddressType type, int cvAddress, byte value) {

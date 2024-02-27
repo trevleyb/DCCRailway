@@ -1,5 +1,7 @@
-﻿namespace DCCRailway.Layout.Commands.Types;
+﻿using DCCRailway.Layout.Commands.Types.BaseTypes;
 
-public interface ICmdAccyOpsProg : ICommand, IAccyCommand  {
+namespace DCCRailway.Layout.Commands.Types;
+
+public interface ICmdAccyOpsProg : ICommand, IAccyCmd  {
     public byte        Value       { get; set; }
 }

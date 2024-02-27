@@ -1,4 +1,6 @@
-﻿namespace DCCRailway.Configuration;
+﻿using DCCRailway.Configuration.Entities.Base;
 
-public class Adapter : Base.ConfigBase {
+namespace DCCRailway.Configuration;
+
+public class Adapter : ConfigBase {
 }

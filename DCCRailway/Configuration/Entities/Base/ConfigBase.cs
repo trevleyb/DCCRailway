@@ -1,4 +1,4 @@
-namespace DCCRailway.Configuration.Base;
+namespace DCCRailway.Configuration.Entities.Base;
 
 public abstract class ConfigBase {
     public string     Name        { get; set; }

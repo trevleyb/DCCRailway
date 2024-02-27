@@ -113,7 +113,6 @@ public class VirtualTest {
                     break;
                 default:
                     throw new Exception("Unexpected type of command executed.");
-                    break;
                 }
                 break;
             case ControllerEventAdapterAdd:
@@ -127,7 +126,6 @@ public class VirtualTest {
                 break;
             default:
                 throw new Exception("Unexpected type of event raised.");
-                break;
             }
         }
     }

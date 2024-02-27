@@ -1,4 +1,4 @@
-﻿using DCCRailway.Configuration.Base;
+﻿using DCCRailway.Configuration.Entities.Base;
 using DCCRailway.Layout.Types;
 
 namespace DCCRailway.Configuration;

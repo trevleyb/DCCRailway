@@ -1,5 +1,7 @@
-﻿namespace DCCRailway.Layout.Commands.Types;
+﻿using DCCRailway.Layout.Commands.Types.BaseTypes;
 
-public interface ICmdMacroRun : ICommand {
+namespace DCCRailway.Layout.Commands.Types;
+
+public interface ICmdMacroRun : ICommand, ISystemCmd {
     public byte Macro { get; set; }
 }

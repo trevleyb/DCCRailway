@@ -2,6 +2,7 @@
 using DCCRailway.Layout.Commands;
 using DCCRailway.Layout.Commands.Results;
 using DCCRailway.Layout.Commands.Types;
+using DCCRailway.Layout.Commands.Types.BaseTypes;
 using DCCRailway.Layout.Types;
 using DCCRailway.Manufacturer.NCE.Commands.Validators;
 using DCCRailway.Utilities;
@@ -9,7 +10,7 @@ using DCCRailway.Utilities;
 namespace DCCRailway.Manufacturer.NCE.Commands;
 
 [Command("AccySetState", "Set the state of an Accessory")]
-public class NCEAccySetState : NCECommand, ICmdAccySetState, IAccyCommand {
+public class NCEAccySetState : NCECommand, ICmdAccySetState, IAccyCmd {
     public NCEAccySetState() { }
 
     public NCEAccySetState(DCCAccessoryState state = DCCAccessoryState.Normal) => State = state;

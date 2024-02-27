@@ -5,6 +5,7 @@ using DCCRailway.Layout.Adapters;
 using DCCRailway.Layout.Commands;
 using DCCRailway.Layout.Commands.Results;
 using DCCRailway.Layout.Commands.Types;
+using DCCRailway.Layout.Commands.Types.BaseTypes;
 using DCCRailway.Layout.Types;
 using DCCRailway.Manufacturer.NCE.Commands.Results;
 using DCCRailway.Manufacturer.NCE.Commands.Validators;
@@ -15,7 +16,7 @@ using DCCRailway.Utilities;
 namespace DCCRailway.Manufacturer.NCE.Commands;
 
 [Command("SensorGetState", "Get the state of a given Sensor")]
-public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCommand {
+public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
     private readonly SensorCache _sensorCache = new();
 
     public NCESensorGetState() { }

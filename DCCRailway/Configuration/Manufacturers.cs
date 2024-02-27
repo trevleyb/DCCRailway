@@ -1,5 +1,7 @@
-﻿namespace DCCRailway.Configuration;
-public class Manufacturers : Base.ConfigCollectionBase<Manufacturer> {
+﻿using DCCRailway.Configuration.Entities.Base;
+
+namespace DCCRailway.Configuration;
+public class Manufacturers : ConfigCollectionBase<Manufacturer> {
     public Manufacturers() => BuildDefaults();
 
     // <decoder model ="LokSound Select direct / micro" family="ESU LokSound Select" comment=""/>

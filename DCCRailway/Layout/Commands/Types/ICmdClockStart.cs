@@ -1,3 +1,5 @@
-﻿namespace DCCRailway.Layout.Commands.Types;
+﻿using DCCRailway.Layout.Commands.Types.BaseTypes;
 
-public interface ICmdClockStart : ICommand { }
+namespace DCCRailway.Layout.Commands.Types;
+
+public interface ICmdClockStart : ICommand, ISystemCmd { }

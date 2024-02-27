@@ -1,6 +1,7 @@
 using DCCRailway.Layout.Commands;
 using DCCRailway.Layout.Commands.Results;
 using DCCRailway.Layout.Commands.Types;
+using DCCRailway.Layout.Commands.Types.BaseTypes;
 using DCCRailway.Layout.Types;
 using DCCRailway.Utilities;
 
@@ -15,16 +16,28 @@ public class SystemEventCommandArgs : SystemEventArgs {
         Description = command.AttributeInfo().Description;
         
         switch (command) {
-        case ICmdWithAddress locoCommand:
+        case ILocoCmd locoCommand:
             Address     = locoCommand.Address;
             Description = $"Executed command '{Name}' on Loco '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.ToString()}' - {Message}";
             break;
-        case IAccyCommand accyCommand:
+        case IAccyCmd accyCommand:
             Address     = accyCommand.Address;
             Description = $"Executed command '{Name}' on Accessory '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.ToString()}' - {Message}";
             break;
+        case ISensorCmd sensorCommand:
+            Address = new DCCAddress(0);
+            Description = $"Executed command '{Name}' on Sensor '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.ToString()}' - {Message}";
+            break;
+        case ISignalCmd signalCommand:
+            Address     = signalCommand.Address;
+            Description = $"Executed command '{Name}' on Signal '{Address}' with a resultOld of '{result.IsOK}' and a value of '{result.ToString()}' - {Message}";
+            break;
+        case ISystemCmd systemCommand:
+            Address     = new DCCAddress(0);
+            Description = $"Executed command '{Name}' on the System with a resultOld of '{result.IsOK}' and a value of '{result.ToString()}' - {Message}";
+            break;
         default:
-            Description = $"Executed command '{Name}' with a resultOld of '{result.IsOK}' and a value of '{result.ToString()}' - {{Message}}";
+            Description = $"Executed command '{Name}' with a result of '{result.IsOK}' and a value of '{result.ToString()}' - {{Message}}";
             break;
         }
     }

@@ -1,5 +1,7 @@
-﻿namespace DCCRailway.Layout.Commands.Types;
+﻿using DCCRailway.Layout.Commands.Types.BaseTypes;
 
-public interface ICmdLocoSetMomentum : ICommand,ICmdWithAddress {
+namespace DCCRailway.Layout.Commands.Types;
+
+public interface ICmdLocoSetMomentum : ICommand, ILocoCmd {
     public byte        Momentum { get; set; }
 }
