@@ -1,0 +1,31 @@
+﻿namespace DCCRailway.System.Manufacturer.Virtual.Simulator;
+
+public enum DCCSimulatorCommands {
+    SetPowerOn,
+    SetPowerOff,
+    GetPowerState,
+    SetMainTrack,
+    SetProgTrack,
+    CreateConsist,
+    KillConsist,
+    AddToConsist,
+    DeleteFromConsist,
+    SetClock,
+    ReadClock,
+    StartClock,
+    StopClock,
+    ReadCV,
+    WriteCV,
+    ProgramOnMain,
+    AccessoryOnMain,
+    SetSignalAspect,
+    SetAccessoryState,
+    GetStatus,
+    RunMacro,
+    StopLoco,
+    SetLocoFunctions,
+    SetLocoSpeed,
+    SetLocoSpeedSteps,
+    SetLocoMomentum,
+    DoNothing
+}
