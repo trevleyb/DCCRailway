@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using DCCRailway.Layout.Adapters;
-using DCCRailway.Layout.Commands;
-using DCCRailway.Layout.Commands.Results;
-using DCCRailway.Layout.Commands.Types;
-using DCCRailway.Layout.Commands.Types.BaseTypes;
-using DCCRailway.Layout.Types;
+using DCCRailway.DCCController.Commands;
+using DCCRailway.DCCController.Commands.Types;
+using DCCRailway.DCCController.Commands.Types.BaseTypes;
+using DCCRailway.DCCController.Types;
 using DCCRailway.Manufacturer.Virtual.Commands.Results;
 using DCCRailway.Manufacturer.Virtual.Commands.Validators;
 using DCCRailway.Utilities;

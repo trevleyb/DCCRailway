@@ -1,4 +1,4 @@
-﻿using DCCRailway.Layout.Adapters;
+﻿using DCCRailway.DCCController.Adapters;
 
 namespace DCCRailway.Utilities.Exceptions;
 

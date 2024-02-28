@@ -1,5 +1,5 @@
-﻿using DCCRailway.Layout.Controllers;
-using DCCRailway.Layout.Types;
+﻿using DCCRailway.DCCController.Controllers;
+using DCCRailway.DCCController.Types;
 
 namespace DCCRailway.Manufacturer.Sprog;
 

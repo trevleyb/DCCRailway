@@ -1,5 +1,5 @@
 using System.IO.Ports;
-using DCCRailway.Configuration;
+using DCCRailway.DCCLayout;
 using NUnit.Framework;
 
 namespace DCCRailway.Test.SystemTests;

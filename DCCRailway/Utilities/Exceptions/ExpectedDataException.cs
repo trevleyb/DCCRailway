@@ -1,5 +1,5 @@
-﻿using DCCRailway.Layout.Adapters;
-using DCCRailway.Layout.Commands;
+﻿using DCCRailway.DCCController.Adapters;
+using DCCRailway.DCCController.Commands;
 
 namespace DCCRailway.Utilities.Exceptions;
 

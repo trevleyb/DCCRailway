@@ -1,5 +1,5 @@
-using DCCRailway.Layout.Commands.Results;
-using DCCRailway.Layout.Types;
+using DCCRailway.DCCController.Commands.Results;
+using DCCRailway.DCCController.Types;
 
 namespace DCCRailway.Manufacturer.NCE.Commands.Results;
 

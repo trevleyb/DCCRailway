@@ -1,5 +1,5 @@
 ﻿using System;
-using DCCRailway.Layout.Types;
+using DCCRailway.DCCController.Types;
 using DCCRailway.Utilities;
 
 namespace DCCRailway.Manufacturer.Virtual.Simulator;

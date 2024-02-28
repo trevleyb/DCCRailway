@@ -1,9 +1,8 @@
 using System.Diagnostics;
-using DCCRailway.Layout.Adapters;
-using DCCRailway.Layout.Commands;
-using DCCRailway.Layout.Commands.Types;
-using DCCRailway.Layout.Controllers;
-using DCCRailway.Layout.Controllers.Events;
+using DCCRailway.DCCController.Commands;
+using DCCRailway.DCCController.Commands.Types;
+using DCCRailway.DCCController.Controllers;
+using DCCRailway.DCCController.Controllers.Events;
 using DCCRailway.Utilities;
 using NUnit.Framework;
 

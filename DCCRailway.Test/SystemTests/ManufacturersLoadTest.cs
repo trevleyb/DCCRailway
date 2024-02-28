@@ -7,7 +7,7 @@ public class ManufacturersLoadTest {
     
     [Test]
     public void LoadManufacturersList() {
-        var manufacturers = new Configuration.Manufacturers();
+        var manufacturers = new global::DCCRailway.DCCLayout.Manufacturers();
         Assert.That(manufacturers, Is.Not.Null, "Should have at least 1 manufacturer returned from the Manufacturers call");
         foreach (var manufacturer in manufacturers) {
             Assert.That(manufacturers.FindByIdentifier(manufacturer.Identifier) != null);
@@ -16,7 +16,7 @@ public class ManufacturersLoadTest {
     
     [Test]
     public void ManufacturersTest() {
-        var mnf = new Configuration.Manufacturers();
+        var mnf = new global::DCCRailway.DCCLayout.Manufacturers();
         Assert.That(mnf.Count == 169);
     }
 

@@ -1,4 +1,4 @@
-using DCCRailway.Layout.Commands.Results;
+using DCCRailway.DCCController.Commands.Results;
 
 namespace DCCRailway.Manufacturer.NCE.Commands.Results;
 

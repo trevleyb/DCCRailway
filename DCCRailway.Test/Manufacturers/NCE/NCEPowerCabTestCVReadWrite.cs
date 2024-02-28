@@ -1,6 +1,6 @@
-﻿using DCCRailway.Layout.Commands.Results;
-using DCCRailway.Layout.Commands.Types;
-using DCCRailway.Layout.Controllers;
+﻿using DCCRailway.DCCController.Commands.Results;
+using DCCRailway.DCCController.Commands.Types;
+using DCCRailway.DCCController.Controllers;
 using DCCRailway.Manufacturer.NCE;
 using DCCRailway.Manufacturer.NCE.Adapters;
 using NUnit.Framework;

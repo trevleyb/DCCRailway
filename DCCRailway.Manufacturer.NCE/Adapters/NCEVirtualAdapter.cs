@@ -1,6 +1,5 @@
 ﻿using System;
-using DCCRailway.Layout.Adapters;
-using DCCRailway.Layout.Commands;
+using DCCRailway.DCCController.Adapters;
 using DCCRailway.Utilities;
 
 namespace DCCRailway.Manufacturer.NCE.Adapters;

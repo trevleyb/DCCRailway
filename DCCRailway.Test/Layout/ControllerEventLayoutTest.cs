@@ -1,12 +1,11 @@
-using DCCRailway.Configuration;
-using DCCRailway.Configuration.Entities;
-using DCCRailway.Layout;
-using DCCRailway.Layout.Commands.Results;
-using DCCRailway.Layout.Commands.Types;
-using DCCRailway.Layout.Controllers;
-using DCCRailway.Layout.Controllers.Events;
-using DCCRailway.Layout.LayoutCmdUpdater;
-using DCCRailway.Layout.Types;
+using DCCRailway.DCCController.Commands.Results;
+using DCCRailway.DCCController.Commands.Types;
+using DCCRailway.DCCController.Controllers;
+using DCCRailway.DCCController.Controllers.Events;
+using DCCRailway.DCCController.LayoutCmdUpdater;
+using DCCRailway.DCCController.Types;
+using DCCRailway.DCCLayout;
+using DCCRailway.DCCLayout.Entities;
 using DCCRailway.Utilities.Results;
 
 namespace DCCRailway.Test.Layout;

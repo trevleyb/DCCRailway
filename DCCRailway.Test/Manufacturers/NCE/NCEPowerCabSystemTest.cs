@@ -1,5 +1,5 @@
-﻿using DCCRailway.Layout.Adapters;
-using DCCRailway.Layout.Types;
+﻿using DCCRailway.DCCController.Adapters;
+using DCCRailway.DCCController.Types;
 using NUnit.Framework;
 
 namespace DCCRailway.Test.Manufacturers.NCE;

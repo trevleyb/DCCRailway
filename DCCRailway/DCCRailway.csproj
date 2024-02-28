@@ -33,7 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Server\" />
+      <Folder Include="DCCServer\" />
     </ItemGroup>
 
 </Project>

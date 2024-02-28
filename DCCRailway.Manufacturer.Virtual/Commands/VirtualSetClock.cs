@@ -1,8 +1,6 @@
 ﻿using System;
-using DCCRailway.Layout.Adapters;
-using DCCRailway.Layout.Commands;
-using DCCRailway.Layout.Commands.Results;
-using DCCRailway.Layout.Commands.Types;
+using DCCRailway.DCCController.Commands;
+using DCCRailway.DCCController.Commands.Types;
 using DCCRailway.Manufacturer.Virtual.Commands.Results;
 using DCCRailway.Manufacturer.Virtual.Commands.Validators;
 using DCCRailway.Utilities.Exceptions;

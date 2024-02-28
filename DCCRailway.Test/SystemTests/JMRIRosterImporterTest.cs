@@ -1,4 +1,4 @@
-using DCCRailway.Configuration.Conversion.JMRI;
+using DCCRailway.DCCLayout.Conversion.JMRI;
 using NUnit.Framework;
 
 namespace DCCRailway.Test.SystemTests;

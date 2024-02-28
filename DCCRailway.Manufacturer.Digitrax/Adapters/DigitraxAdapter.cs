@@ -1,6 +1,6 @@
-﻿using DCCRailway.Layout.Adapters;
-using DCCRailway.Layout.Adapters.Events;
-using DCCRailway.Layout.Commands;
+﻿using DCCRailway.DCCController.Adapters;
+using DCCRailway.DCCController.Adapters.Events;
+using DCCRailway.DCCController.Commands;
 using DCCRailway.Utilities;
 
 namespace DCCRailway.Manufacturer.Digitrax.Adapters;

@@ -1,6 +1,6 @@
-﻿using DCCRailway.Layout.Commands.Types;
-using DCCRailway.Layout.Controllers;
-using DCCRailway.Layout.Types;
+﻿using DCCRailway.DCCController.Commands.Types;
+using DCCRailway.DCCController.Controllers;
+using DCCRailway.DCCController.Types;
 using DCCRailway.Manufacturer.NCE.Adapters;
 using DCCRailway.Manufacturer.NCE.Commands;
 using DCCRailway.Manufacturer.NCE.Commands.Results;
