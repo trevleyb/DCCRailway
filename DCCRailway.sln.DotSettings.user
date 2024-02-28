@@ -14,7 +14,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=NUnit3x/@EntryIndexedValue">db4927dd-2e12-48a7-9a84-2b7e3e31b9c8</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=07943bd8_002D3856_002D4cb6_002D8a33_002D991a78a9694c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestVirtualControllerCommands" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.Layout.VirtualTest.TestVirtualControllerCommands&lt;/TestId&gt;
+    &lt;TestId&gt;net8.0::NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::DCCRailway.Test.Layout.VirtualTest.TestVirtualControllerCommands&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6d67ba4d_002D5209_002D4305_002D87b8_002D7a91631691b6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
@@ -32,6 +32,19 @@
 	
 	
 	<s:String x:Key="/Default/Monitoring/StartMode/@EntryValue">Disabled</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

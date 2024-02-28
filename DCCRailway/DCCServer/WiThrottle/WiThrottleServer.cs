@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using DCCRailway.Common.Utilities;
 using DCCRailway.DCCServer.Utilities;
 using DCCRailway.DCCServer.WiThrottle.Commands;
-using DCCRailway.Utilities;
 
 namespace DCCRailway.DCCServer.WiThrottle;
 

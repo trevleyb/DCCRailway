@@ -1,7 +1,8 @@
-﻿using DCCRailway.DCCController.Adapters;
-using DCCRailway.DCCController.Adapters.Events;
-using DCCRailway.DCCController.Commands;
-using DCCRailway.Utilities;
+﻿using DCCRailway.Common.Utilities;
+using DCCRailway.System.Adapters;
+using DCCRailway.System.Adapters.Events;
+using DCCRailway.System.Attributes;
+using DCCRailway.System.Commands;
 
 namespace DCCRailway.Manufacturer.Digitrax.Adapters;
 
@@ -20,6 +21,8 @@ public class DigitraxAdapter : Adapter, IAdapter {
         Logger.Log.Debug("Disconnecting from the Virtual Adapter");
         IsConnected = false;
     }
+    
+    public void Dispose() { }
 
     public byte[]? RecvData(ICommand? command = null) {
         Logger.Log.Debug("Listening for data from the Adapter: '" + _lastCommand.FromByteArray() + "'");

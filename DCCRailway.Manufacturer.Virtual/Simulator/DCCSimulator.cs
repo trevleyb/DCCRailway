@@ -1,6 +1,6 @@
 ﻿using System;
-using DCCRailway.DCCController.Types;
-using DCCRailway.Utilities;
+using DCCRailway.Common.Types;
+using DCCRailway.Common.Utilities;
 
 namespace DCCRailway.Manufacturer.Virtual.Simulator;
 

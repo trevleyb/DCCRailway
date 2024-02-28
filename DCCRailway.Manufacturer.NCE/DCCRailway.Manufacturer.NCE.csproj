@@ -27,6 +27,7 @@
         <Folder Include="Adapters\"/>
     </ItemGroup>
     <ItemGroup>
+        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
         <ProjectReference Include="..\DCCRailway\DCCRailway.csproj" />
     </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
-using DCCRailway.DCCController.Commands.Results;
-using DCCRailway.DCCController.Types;
+using DCCRailway.Common.Types;
+using DCCRailway.System.Commands.Results;
 
 namespace DCCRailway.Manufacturer.Virtual.Commands.Results;
 

@@ -1,9 +1,7 @@
-﻿using DCCRailway.DCCController.Commands;
-using DCCRailway.DCCController.Commands.Types;
-using DCCRailway.DCCController.Types;
+﻿using DCCRailway.Common.Types;
+using DCCRailway.System.Attributes;
+using DCCRailway.System.Commands.Types;
 using DCCRailway.Manufacturer.Virtual.Commands.Validators;
-using DCCRailway.Utilities;
-using DCCRailway.Utilities.Exceptions;
 
 namespace DCCRailway.Manufacturer.Virtual.Commands;
 

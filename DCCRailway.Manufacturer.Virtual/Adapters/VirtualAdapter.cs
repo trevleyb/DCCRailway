@@ -1,7 +1,6 @@
-﻿using DCCRailway.DCCController.Adapters;
+﻿using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
 using DCCRailway.Manufacturer.Virtual.Simulator;
-using DCCRailway.Utilities;
-using DCCRailway.Utilities.Exceptions;
 
 namespace DCCRailway.Manufacturer.Virtual.Adapters;
 

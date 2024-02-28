@@ -1,9 +1,9 @@
 ﻿using System;
-using DCCRailway.DCCController.Adapters;
-using DCCRailway.DCCController.Commands;
-using DCCRailway.DCCController.Commands.Results;
+using DCCRailway.Common.Utilities;
+using DCCRailway.System.Adapters;
+using DCCRailway.System.Commands;
+using DCCRailway.System.Commands.Results;
 using DCCRailway.Manufacturer.Virtual.Commands.Validators;
-using DCCRailway.Utilities;
 
 namespace DCCRailway.Manufacturer.Virtual.Commands;
 

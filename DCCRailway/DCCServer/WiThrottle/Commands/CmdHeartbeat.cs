@@ -1,4 +1,4 @@
-﻿using DCCRailway.Utilities;
+﻿using DCCRailway.Common.Utilities;
 
 namespace DCCRailway.DCCServer.WiThrottle.Commands;
 

@@ -1,10 +1,11 @@
-﻿using DCCRailway.DCCController.Adapters;
-using DCCRailway.DCCController.Commands;
-using DCCRailway.DCCController.Commands.Results;
-using DCCRailway.DCCController.Commands.Types;
-using DCCRailway.DCCController.Types;
+﻿using DCCRailway.Common.Types;
+using DCCRailway.Common.Utilities;
+using DCCRailway.System.Adapters;
+using DCCRailway.System.Attributes;
+using DCCRailway.System.Commands;
+using DCCRailway.System.Commands.Results;
+using DCCRailway.System.Commands.Types;
 using DCCRailway.Manufacturer.NCE.Commands.Validators;
-using DCCRailway.Utilities;
 
 namespace DCCRailway.Manufacturer.NCE.Commands;
 

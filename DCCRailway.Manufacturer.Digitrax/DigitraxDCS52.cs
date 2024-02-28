@@ -1,5 +1,6 @@
-﻿using DCCRailway.DCCController.Controllers;
-using DCCRailway.DCCController.Types;
+﻿using DCCRailway.Common.Types;
+using DCCRailway.System.Attributes;
+using DCCRailway.System.Controllers;
 
 namespace DCCRailway.Manufacturer.Digitrax;
 

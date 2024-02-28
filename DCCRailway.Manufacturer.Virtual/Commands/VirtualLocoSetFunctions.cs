@@ -1,7 +1,8 @@
 ﻿using System.Text;
-using DCCRailway.DCCController.Commands;
-using DCCRailway.DCCController.Commands.Types;
-using DCCRailway.DCCController.Types;
+using DCCRailway.Common.Types;
+using DCCRailway.System.Attributes;
+using DCCRailway.System.Commands;
+using DCCRailway.System.Commands.Types;
 using DCCRailway.Manufacturer.Virtual.Commands.Validators;
 
 namespace DCCRailway.Manufacturer.Virtual.Commands;
