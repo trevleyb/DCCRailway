@@ -12,15 +12,14 @@ public class JsonSerializerHelper<T> {
     /// <returns>An instance of an XML class </returns>
     /// <exception cref="ApplicationException">If it is unable to load the file</exception>
     public static T? Load(string fileName) {
-        try {
             if (!File.Exists(fileName)) throw new FileNotFoundException($"Unable to access file '{fileName}'");
-            
-            var serializedStr = File.ReadAllText(fileName);
-            return JsonSerializer.Deserialize<T>(serializedStr)!;
-
-        } catch (Exception ex) {
-            throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'", ex);
-        }
+            try {
+                var serializedStr = File.ReadAllText(fileName);
+                return JsonSerializer.Deserialize<T>(serializedStr)!;
+            }
+            catch (Exception ex) {
+                throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'", ex);
+            }
     }
 
     /// <summary>

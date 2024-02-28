@@ -22,20 +22,17 @@ public static class ExtensionMethods {
         {
             bits = (byte)(bits & ~(1 << pos));
         }
-
         return bits;
     }
 
     public static string FormatBits(this byte bits) {
         StringBuilder sb = new();
 
-        for (var i = 1; i < 8; i++) {
+        for (var i = 7; i > 0; i--) {
             sb.Append(bits.GetBit(i) ? "1" : "0");
             sb.Append('-');
         }
-
-        sb.Append(bits.GetBit(8) ? "1" : "0");
-
+        sb.Append(bits.GetBit(0) ? "1" : "0");
         return sb.ToString();
     }
 
@@ -43,7 +40,7 @@ public static class ExtensionMethods {
     ///     Gets f a bit is set in a byte based on a position
     /// </summary>
     public static bool GetBit(this byte bits, int pos) {
-        if (pos < 0 || pos > 7) throw new IndexOutOfRangeException("Bit position should be 1..8");
+        if (pos < 0 || pos > 7) throw new IndexOutOfRangeException("Bit position should be 0..7");
 
         //left-shift 1, then bitwise AND, then check for non-zero
         return (bits & (1 << pos)) != 0;
@@ -116,7 +113,7 @@ public static class ExtensionMethods {
     public static string FromByteArray(this byte[]? bytes) => bytes == null ? "" : Encoding.Default.GetString(bytes);
 
     public static string? FromByteArray(this byte[] bytes, int length) {
-        if (bytes != null && bytes.Length >= length) return Encoding.Default.GetString(bytes, 0, length);
+        if (bytes.Length >= length) return Encoding.Default.GetString(bytes, 0, length);
         return null;
     }
 
