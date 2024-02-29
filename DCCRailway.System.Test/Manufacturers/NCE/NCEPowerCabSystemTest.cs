@@ -146,7 +146,7 @@ public class NCEPowerCab {
         setTime.Hour     = 9;
         setTime.Minute   = 30;
         setTime.Is24Hour = false;
-        setTime.Ratio    = 15; // Fast, 1 minute = 15 seconds 
+        setTime.Ratio    = 15; // Fast, 1 minute = 15 seconds
         var setTimeRes = controller.Execute(setTime);
         Assert.IsInstanceOfType(setTimeRes, typeof(ResultOldOk));
 

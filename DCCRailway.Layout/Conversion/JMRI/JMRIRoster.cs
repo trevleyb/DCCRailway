@@ -179,5 +179,3 @@ public class JMRIRoster : XmlSerializerHelper<JMRIRoster> {
     [XmlAttribute(AttributeName = "noNamespaceSchemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
     public string NoNamespaceSchemaLocation { get; set; }
 }
-
-

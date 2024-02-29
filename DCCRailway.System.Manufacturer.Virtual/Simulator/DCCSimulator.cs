@@ -281,11 +281,10 @@ public class DCCSimulator {
     public object? SetLocoSpeedSteps(DCCAddress address, DCCProtocol steps) {
         var entry = _locoList.GetLoco(address);
 
-        if (steps == DCCProtocol.DCC14) {
+        if (steps == DCCProtocol.DCC14)
             entry[29] = entry[29].SetBit(2, false);
-        } else {
+        else
             entry[29] = entry[29].SetBit(2, true);
-        }
 
         return null;
     }

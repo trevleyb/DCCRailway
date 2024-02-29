@@ -21,6 +21,7 @@ public class DigitraxVirtualAdapter : Adapter, IAdapter {
         Logger.Log.Debug("Disconnecting from the Virtual Adapter");
         IsConnected = false;
     }
+
     public void Dispose() { }
 
     public byte[]? RecvData(ICommand? command = null) {

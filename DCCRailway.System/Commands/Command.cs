@@ -8,18 +8,17 @@ using DCCRailway.System.Exceptions;
 namespace DCCRailway.System.Commands;
 
 public abstract class Command : PropertyChangedBase, ICommand {
-    
-    public  string Name        => this.AttributeInfo().Name        ?? "Unknown";
-    public  string Version     => this.AttributeInfo().Version     ?? "Unknown";
-    public  string Description => this.AttributeInfo().Description ?? "Unknown";
-    
-    public abstract ICommandResult Execute(IAdapter adapter);
-    
-    public async Task<ICommandResult> ExecuteAsync(IAdapter adapter) => await Task.FromResult(Execute(adapter));
-    
-    protected ICommandResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceive(adapter, validator, new[] { sendData });
-    protected ICommandResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte[] sendData) {
+    public string Name        => this.AttributeInfo().Name ?? "Unknown";
+    public string Version     => this.AttributeInfo().Version ?? "Unknown";
+    public string Description => this.AttributeInfo().Description ?? "Unknown";
 
+    public abstract ICommandResult Execute(IAdapter adapter);
+
+    public async Task<ICommandResult> ExecuteAsync(IAdapter adapter) => await Task.FromResult(Execute(adapter));
+
+    protected ICommandResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceive(adapter, validator, new[] { sendData });
+
+    protected ICommandResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte[] sendData) {
         // Send the command provided to the command station
         // -----------------------------------------------------------------------------------------------------------
         if (adapter == null) throw new ArgumentNullException(nameof(adapter), "The adapter cannot be null.");

@@ -30,13 +30,12 @@ public class WiThrottleConnectionEntry {
     public int HeartbeatSeconds {
         get => _heartbeatSeconds;
         set {
-            if (value <= 0) {
+            if (value <= 0)
                 _heartbeatSeconds = 0;
-            } else if (value >= 99) {
+            else if (value >= 99)
                 _heartbeatSeconds = 99;
-            } else {
+            else
                 _heartbeatSeconds = value;
-            }
         }
     }
 

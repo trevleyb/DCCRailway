@@ -27,11 +27,10 @@ public class VirtualSignalSetAspect : VirtualCommand, ICmdSignalSetAspect, IComm
 
     public bool Off {
         set {
-            if (value) {
+            if (value)
                 _aspect = 31;
-            } else {
+            else
                 _aspect = 15;
-            }
         }
     }
 

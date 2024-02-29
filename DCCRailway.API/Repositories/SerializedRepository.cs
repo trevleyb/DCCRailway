@@ -82,7 +82,8 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
             }
 
             throw new ApplicationException($"Unable to load the configuration file '{name}' due to issues with the XML serializer.");
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ApplicationException($"Unable to load the configuration file '{name}' due to '{ex.Message}'", ex);
         }
     }
@@ -113,11 +114,11 @@ public class SerializedRepository<TEntity, TID> : IRepository<TEntity, TID> wher
                 xmlSerializer.Serialize(xmlWriter, new XmlEntity { EntityList = entityList });
                 xmlWriter.Close();
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ApplicationException($"Unable to save configuration data to '{name}' due to '{ex.Message}'");
         }
     }
-
 
     [XmlRoot]
     public class XmlEntity {

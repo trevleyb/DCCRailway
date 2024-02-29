@@ -12,16 +12,15 @@ namespace DCCRailway.System.Controllers;
 /// attributes and information about the controller.
 /// </summary>
 [DebuggerDisplay("Name: {Name}, Manufacturer: {Manufacturer}, Model: {Model}, Version: {Version}")]
-public class ControllerInfo(ControllerAttribute attributes, string assemblyPath, Type assemblyType)
-{
+public class ControllerInfo(ControllerAttribute attributes, string assemblyPath, Type assemblyType) {
     private ControllerAttribute Attributes   { get; } = attributes;
     private Type                AssemblyType { get; } = assemblyType;
     private string              AssemblyPath { get; } = assemblyPath;
 
-    public string Name         => Attributes?.Name          ?? "Unknown";
-    public string Manufacturer => Attributes?.Manufacturer  ?? "Unknown";
-    public string Model        => Attributes?.Model         ?? "Unknown";
-    public string Version      => Attributes?.Version       ?? "Unknown";
+    public string Name         => Attributes?.Name ?? "Unknown";
+    public string Manufacturer => Attributes?.Manufacturer ?? "Unknown";
+    public string Model        => Attributes?.Model ?? "Unknown";
+    public string Version      => Attributes?.Version ?? "Unknown";
 
     /// <summary>
     ///     Helper function to create an instance of a SYSTEM with an appropriate
@@ -34,6 +33,7 @@ public class ControllerInfo(ControllerAttribute attributes, string assemblyPath,
     public IController Create(IAdapter adapter) {
         var controller = Create();
         controller.Adapter = adapter;
+
         return controller;
     }
 
@@ -44,18 +44,18 @@ public class ControllerInfo(ControllerAttribute attributes, string assemblyPath,
     /// <exception cref="ApplicationException">If it cannot create an instance dynamically</exception>
     public IController Create() {
         try {
-            if (!File.Exists(AssemblyPath)) throw new SystemInstantiateException(Name, $"The Assembly '{AssemblyPath}' does not exist."); 
+            if (!File.Exists(AssemblyPath)) throw new SystemInstantiateException(Name, $"The Assembly '{AssemblyPath}' does not exist.");
             if (AssemblyType is null) throw new SystemInstantiateException(Name, "Unable to determine the object type as the type is 'Undefined'.");
 
             var assembly = Assembly.LoadFrom(AssemblyPath);
+
             if (assembly is null) throw new SystemInstantiateException(Name, $"Unable to get the Assembly from the Path '{AssemblyPath}'.");
             if (Activator.CreateInstance(AssemblyType) is not IController instance) throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the controller.");
 
             return instance;
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ApplicationException($"Unable to instantiate a new '{Name}' from {AssemblyPath}", ex);
         }
     }
-    
-    
 }

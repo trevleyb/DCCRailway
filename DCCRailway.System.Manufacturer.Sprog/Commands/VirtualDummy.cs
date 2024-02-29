@@ -10,7 +10,5 @@ namespace DCCRailway.System.Manufacturer.Sprog.Commands;
 
 [Command("Dummy", "Dummy Command")]
 public class VirtualDummy : Command, IDummyCmd {
-    public override ICommandResult Execute(IAdapter adapter) {
-        return SendAndReceive(adapter, new SimpleResultValidation(2), "DUMMY_COMMAND".ToByteArray());
-    }
+    public override ICommandResult Execute(IAdapter adapter) => SendAndReceive(adapter, new SimpleResultValidation(2), "DUMMY_COMMAND".ToByteArray());
 }

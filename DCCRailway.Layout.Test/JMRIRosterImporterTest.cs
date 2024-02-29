@@ -5,7 +5,6 @@ namespace DCCRailway.Test.SystemTests;
 
 [TestFixture]
 public class JMRIRosterImporterTest {
-
     [Test]
     public void ImportJMRIRoster() {
         var imported = JMRIRosterImporter.Import("roster.xml");

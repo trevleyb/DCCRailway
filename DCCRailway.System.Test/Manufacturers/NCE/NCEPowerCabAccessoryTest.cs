@@ -18,7 +18,7 @@ public class NCEPowerCabAccessoryTest {
         Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab controller created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
-        if (system != null && system.Adapter != null) {
+        if (system != null && system.Adapter != null)
             if (system.CreateCommand<ICmdAccySetState>() is ICmdAccySetState accyCmd) {
                 accyCmd.Address = new DCCAddress(0x01, DCCAddressType.Accessory);
                 accyCmd.State   = DCCAccessoryState.On;
@@ -45,6 +45,5 @@ public class NCEPowerCabAccessoryTest {
                 system.Execute(accyCmd);
                 Thread.Sleep(1000);
             }
-        }
     }
 }

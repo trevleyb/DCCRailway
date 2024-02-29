@@ -31,13 +31,16 @@ public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
         // Add each loco to the consist
         // -----------------------------------------------------------------------------
         result = AddLocoToConsist(adapter, ConsistAddress, LeadLoco, LeadDirection, DCCConsistPosition.Front);
+
         if (!result.IsOK) return result;
 
         result = AddLocoToConsist(adapter, ConsistAddress, RearLoco, RearDirection, DCCConsistPosition.Rear);
+
         if (!result.IsOK) return result;
 
         foreach (var extraLoco in AddLoco) {
             result = AddLocoToConsist(adapter, ConsistAddress, extraLoco, DCCDirection.Forward, DCCConsistPosition.Middle);
+
             if (!result.IsOK) return result;
         }
 

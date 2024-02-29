@@ -2,7 +2,6 @@ namespace DCCRailway.System.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class CommandAttribute : Attribute {
-    
     public CommandAttribute(string name, string? description = null, string? version = null) {
         Name        = name;
         Version     = version ?? "";

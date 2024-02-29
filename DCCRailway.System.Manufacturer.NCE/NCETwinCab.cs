@@ -20,5 +20,4 @@ public class NceTwinCab : Controller, IController {
     }
 
     protected override void RegisterCommands() => throw new NotImplementedException();
-
 }

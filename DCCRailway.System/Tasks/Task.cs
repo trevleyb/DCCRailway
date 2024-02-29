@@ -1,5 +1,3 @@
-namespace DCCRailway.System.Tasks; 
+namespace DCCRailway.System.Tasks;
 
-public class Task {
-    
-}
+public class Task { }

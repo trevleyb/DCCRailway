@@ -11,7 +11,9 @@ namespace DCCRailway.System.Manufacturer.NCE.Commands;
 public class NCEStatusCmd : NCECommand, ICmdStatus {
     public override ICommandResult Execute(IAdapter adapter) {
         var result = SendAndReceive(adapter, new SimpleResultValidation(3), new byte[] { 0xAA });
+
         return result.IsOK ? new NCECommandResultVersion(result.Data) : CommandResult.Fail("Failed to get NCE Status", result.Data);
     }
+
     public override string ToString() => "GET STATUS";
 }

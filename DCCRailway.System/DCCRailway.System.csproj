@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
+        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.IO.Ports" Version="8.0.0" />
+        <PackageReference Include="System.IO.Ports" Version="8.0.0"/>
     </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
-        <ProjectReference Include="..\DCCRailway\DCCRailway.csproj" />
+        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+        <ProjectReference Include="..\DCCRailway\DCCRailway.csproj"/>
     </ItemGroup>
 </Project>

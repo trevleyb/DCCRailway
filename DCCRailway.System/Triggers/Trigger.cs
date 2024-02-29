@@ -1,5 +1,3 @@
-namespace DCCRailway.System.Triggers; 
+namespace DCCRailway.System.Triggers;
 
-public abstract class Trigger {
-    
-}
+public abstract class Trigger { }

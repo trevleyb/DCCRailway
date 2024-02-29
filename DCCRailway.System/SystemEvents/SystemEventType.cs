@@ -2,7 +2,7 @@ namespace DCCRailway.System.SystemEvents;
 
 public enum SystemEventType {
     Command,
-    Adapter,
+    Adapter
 }
 
 public enum SystemEventAction {

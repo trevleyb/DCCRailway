@@ -3,9 +3,9 @@
 namespace DCCRailway.System.Adapters;
 
 public abstract class Adapter {
-    public event EventHandler<DataRecvArgs>     DataReceived;
-    public event EventHandler<DataSentArgs>     DataSent;
-    public event EventHandler<ErrorArgs>        ErrorOccurred;
+    public event EventHandler<DataRecvArgs> DataReceived;
+    public event EventHandler<DataSentArgs> DataSent;
+    public event EventHandler<ErrorArgs>    ErrorOccurred;
 
     #region Events Delegates
     /// <summary>

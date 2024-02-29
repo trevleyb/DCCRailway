@@ -6,9 +6,8 @@ using DCCRailway.Layout;
 
 namespace DCCRailway.DCCController.LayoutCmdUpdater.LayoutCmdUpdaters;
 
-public class LayoutConsistCmdUpdaterUpdater (DCCRailwayConfig config) : LayoutGenericCmdUpdater(config) {
+public class LayoutConsistCmdUpdaterUpdater(DCCRailwayConfig config) : LayoutGenericCmdUpdater(config) {
     public new bool Process(ICommand command) {
-  
         switch (command) {
         case ICmdConsistCreate cmd:
             // TODO: Implement the command processing
@@ -24,8 +23,10 @@ public class LayoutConsistCmdUpdaterUpdater (DCCRailwayConfig config) : LayoutGe
             break;
         default:
             Logger.Log.Error($"Command {command.AttributeInfo().Name} not supported.");
+
             throw new Exception("Unexpected type of command executed.");
         }
+
         return true;
     }
 }

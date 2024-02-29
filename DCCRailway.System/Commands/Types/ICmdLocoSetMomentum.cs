@@ -3,5 +3,5 @@
 namespace DCCRailway.System.Commands.Types;
 
 public interface ICmdLocoSetMomentum : ICommand, ILocoCmd {
-    public byte        Momentum { get; set; }
+    public byte Momentum { get; set; }
 }

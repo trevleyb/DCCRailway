@@ -35,6 +35,7 @@ public class VirtualLocoSetFunctions : VirtualCommand, ICmdLocoSetFunctions, ICo
         for (var i = 0; i < 28; i++) {
             sb.Append($"F{i:D2}={(Functions[i] ? "1" : "0")},");
         }
+
         sb.Append($"F28={(Functions[28] ? "1" : "0")}");
 
         return $"LOCO FUNCTIONS ({Address} / {sb}";

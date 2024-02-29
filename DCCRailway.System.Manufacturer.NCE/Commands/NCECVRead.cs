@@ -28,6 +28,6 @@ public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
         return SendAndReceive(adapter, new NCEDataReadValidation(), CV.ToByteArray().AddToArray(command));
     }
 
-    public override string ToString() => $"READ CV ({CV}/{ProgrammingMode})";
+    public override string       ToString() => $"READ CV ({CV}/{ProgrammingMode})";
     public          IDCCAddress? Address    { get; set; }
 }

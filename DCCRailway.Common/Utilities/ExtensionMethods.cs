@@ -16,12 +16,10 @@ public static class ExtensionMethods {
         if (pos < 0 || pos > 7) throw new IndexOutOfRangeException("Bit position should be 0..7");
 
         if (value) //left-shift 1, then bitwise OR
-        {
             bits = (byte)(bits | (1 << pos));
-        } else //left-shift 1, then take complement, then bitwise AND
-        {
+        else //left-shift 1, then take complement, then bitwise AND
             bits = (byte)(bits & ~(1 << pos));
-        }
+
         return bits;
     }
 
@@ -32,7 +30,9 @@ public static class ExtensionMethods {
             sb.Append(bits.GetBit(i) ? "1" : "0");
             sb.Append('-');
         }
+
         sb.Append(bits.GetBit(0) ? "1" : "0");
+
         return sb.ToString();
     }
 
@@ -87,6 +87,7 @@ public static class ExtensionMethods {
             sb.Append(Convert.ToHexString(bytes, i, 1));
             if (i < bytes.Length - 1) sb.Append('-');
         }
+
         return sb.ToString();
     }
 
@@ -98,6 +99,7 @@ public static class ExtensionMethods {
             sb.Append(Convert.ToChar(bytes[i]));
             if (i < bytes.Length - 1) sb.Append('-');
         }
+
         return sb.ToString();
     }
 
@@ -107,6 +109,7 @@ public static class ExtensionMethods {
         sb.Append(" (");
         sb.Append(bytes.ToDisplayChars());
         sb.Append(')');
+
         return sb.ToString();
     }
 
@@ -114,6 +117,7 @@ public static class ExtensionMethods {
 
     public static string? FromByteArray(this byte[] bytes, int length) {
         if (bytes.Length >= length) return Encoding.Default.GetString(bytes, 0, length);
+
         return null;
     }
 
@@ -126,6 +130,7 @@ public static class ExtensionMethods {
     public static bool Compare(this byte[]? array1, byte[]? array2) {
         if (array1 == null || array2 == null) return false;
         if (array1.Length != array2.Length) return false;
+
         return !array1.Where((t, i) => t != array2[i]).Any();
     }
 }

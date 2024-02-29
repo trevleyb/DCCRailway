@@ -21,9 +21,8 @@ public class SprogVirtualAdapter : Adapter, IAdapter {
         Logger.Log.Debug("Disconnecting from the Virtual Adapter");
         IsConnected = false;
     }
-    
-    public void Dispose() { }
 
+    public void Dispose() { }
 
     public byte[]? RecvData(ICommand? command = null) {
         Logger.Log.Debug("Listening for data from the Adapter: '" + _lastCommand.FromByteArray() + "'");

@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 namespace DCCRailway.Common.Utilities;
 
 public class XmlSerializerHelper<T> {
-
     /// <summary>
     ///     Load an instance of class T from a provided filename and throw an exception if the
     ///     file name does not exist.
@@ -15,10 +14,12 @@ public class XmlSerializerHelper<T> {
     public static T? Load(string fileName) {
         try {
             if (!File.Exists(fileName)) throw new FileNotFoundException($"Unable to access file '{fileName}'");
-            var xmlSerializer = new XmlSerializer(typeof(T));
-            using var reader = new StreamReader(fileName);
+            var       xmlSerializer = new XmlSerializer(typeof(T));
+            using var reader        = new StreamReader(fileName);
+
             return (T?)xmlSerializer.Deserialize(reader);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'", ex);
         }
     }
@@ -35,11 +36,12 @@ public class XmlSerializerHelper<T> {
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------
         try {
-            var xmlWriterSettings = new XmlWriterSettings { Indent = true };
-            using var xmlWriter = XmlWriter.Create(fileName, xmlWriterSettings);
-            var xmlSerializer = new XmlSerializer(typeof(T));
+            var       xmlWriterSettings = new XmlWriterSettings { Indent = true };
+            using var xmlWriter         = XmlWriter.Create(fileName, xmlWriterSettings);
+            var       xmlSerializer     = new XmlSerializer(typeof(T));
             xmlSerializer.Serialize(xmlWriter, collection);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ApplicationException($"Unable to save configuration data to '{fileName}' due to '{ex.Message}'");
         }
     }

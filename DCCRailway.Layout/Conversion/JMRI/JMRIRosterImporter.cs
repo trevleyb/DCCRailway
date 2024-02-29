@@ -4,7 +4,7 @@ using DCCRailway.Layout.Entities;
 
 namespace DCCRailway.Layout.Conversion.JMRI;
 
-public static class JMRIRosterImporter  {
+public static class JMRIRosterImporter {
     public static Locomotives Import(string rosterName) {
         if (!File.Exists(rosterName)) throw new ApplicationException($"Could not find the file '{rosterName}' in '{Directory.GetCurrentDirectory()}'");
 
@@ -12,9 +12,12 @@ public static class JMRIRosterImporter  {
         // ---------------------------------------------------------
         try {
             var jmriRoster = JMRIRoster.Load(rosterName);
+
             if (jmriRoster == null) return new Locomotives();
+
             return MapJMRItoDCCTrain(jmriRoster);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new Exception($"Unable to load the current JMRI Roster file '{rosterName}' due to '{ex.Message}'");
         }
     }
@@ -25,12 +28,12 @@ public static class JMRIRosterImporter  {
     /// <param name="locoList">Collection of Locomotives</param>
     /// <param name="jMRIRoster">The JMRI Roster File</param>
     private static Locomotives MapJMRItoDCCTrain(JMRIRoster jmriRoster) {
-        Locomotives locoList = new();
-        var manufacturers = new Manufacturers();
+        Locomotives locoList      = new();
+        var         manufacturers = new Manufacturers();
 
         foreach (var jmri in jmriRoster.Roster.JMRILocos) {
             try {
-                var loco = new Entities.Locomotive {
+                var loco = new Locomotive {
                     Name         = (jmri.RoadName + ' ' + jmri.RoadNumber).Trim(),
                     Description  = jmri.Comment,
                     Type         = "unknown",
@@ -60,6 +63,7 @@ public static class JMRIRosterImporter  {
                 Logger.Log.Error("Unable to map the JMRI Locomotive to the DCCRailway.Delete format due to '{0}'", ex.Message);
             }
         }
+
         return locoList;
     }
 }

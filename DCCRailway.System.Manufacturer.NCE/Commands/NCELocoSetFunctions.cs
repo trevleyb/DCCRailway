@@ -40,11 +40,13 @@ public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
             if (Functions.GetBlock(block) != Previous.GetBlock(block)) {
                 var command = new byte[] { 0xA2, ((DCCAddress)Address).HighAddress, ((DCCAddress)Address).LowAddress, _opCodes[block - 1], Functions.GetBlock(block) };
                 var result  = SendAndReceive(adapter, new NCEStandardValidation(), command);
+
                 if (!result.IsOK) return result;
             }
         }
 
         Previous = new DCCFunctionBlocks(Functions); // save the last time we sent this 
+
         return CommandResult.Success();
     }
 
@@ -54,6 +56,7 @@ public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
         for (var i = 0; i < 28; i++) {
             sb.Append($"F{i:D2}={(Functions[i] ? "1" : "0")},");
         }
+
         sb.Append($"F28={(Functions[28] ? "1" : "0")}");
 
         return $"LOCO FUNCTIONS ({Address} / {sb}";

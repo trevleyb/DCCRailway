@@ -2,5 +2,4 @@
 
 namespace DCCRailway.Layout;
 
-public class Adapter : ConfigBase {
-}
+public class Adapter : ConfigBase { }

@@ -72,7 +72,8 @@ public class WiThrottleServer {
 
             Logger.Log.Debug("Server Shutting Down on {0}", server.LocalEndpoint);
             server.Stop();
-        } catch (SocketException e) {
+        }
+        catch (SocketException e) {
             Logger.Log.Debug("SocketException: {0}", e);
             server.Stop();
         }
@@ -138,7 +139,8 @@ public class WiThrottleServer {
 
             Logger.Log.Debug("Connection: Client '{0}' has closed.", connectionEntry?.ConnectionID);
             client.Close();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             Logger.Log.Error("Exception: {0}", e);
             client.Close();
         }

@@ -11,5 +11,4 @@ public class NullAdapter : Adapter, IAdapter {
     public void    SendData(byte[]   data, ICommand command) { }
     public byte[]? RecvData(ICommand command) => [];
     public void    Dispose()                  { }
-
 }

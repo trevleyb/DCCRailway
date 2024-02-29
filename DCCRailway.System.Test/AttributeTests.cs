@@ -10,6 +10,6 @@ public class AttributeTests {
     public void TestICommand() {
         var cmd  = new NCEDummyCmd();
         var attr = cmd.AttributeInfo();
-        Assert.That(attr, Is.Not.Null,"Does the command include the appropriate AttributeInfo?");
+        Assert.That(attr, Is.Not.Null, "Does the command include the appropriate AttributeInfo?");
     }
 }

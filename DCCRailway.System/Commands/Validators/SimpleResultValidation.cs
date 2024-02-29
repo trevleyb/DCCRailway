@@ -13,6 +13,7 @@ public class SimpleResultValidation : IResultValidation {
         if (dataReceived?.Length == 0 && LengthExpected > 0) return CommandResult.Fail($"No data was recieved but {LengthExpected} was expected.");
         if (dataReceived?.Length > LengthExpected) return CommandResult.Fail($"Too much data was recieved. Expected {LengthExpected} but recieved {dataReceived?.Length}", new CommandResultData(dataReceived!));
         if (dataReceived?.Length < LengthExpected) return CommandResult.Fail($"Not enough data was recieved. Expected {LengthExpected} but only recieved {dataReceived?.Length}", new CommandResultData(dataReceived)!);
+
         return CommandResult.Success(new CommandResultData(dataReceived!));
     }
 }

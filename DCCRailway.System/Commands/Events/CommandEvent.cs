@@ -1,6 +1,4 @@
-namespace DCCRailway.System.Commands.Events; 
+namespace DCCRailway.System.Commands.Events;
 
 [Obsolete]
-public class CommandEvent : ICommandEvent {
-    
-}
+public class CommandEvent : ICommandEvent { }

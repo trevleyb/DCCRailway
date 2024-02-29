@@ -8,29 +8,29 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Makaretu.Dns.Multicast" Version="0.27.0" />
+        <PackageReference Include="Makaretu.Dns.Multicast" Version="0.27.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="obj\**" />
+        <Compile Remove="obj\**"/>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Remove="obj\**" />
+        <EmbeddedResource Remove="obj\**"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="obj\**" />
+        <None Remove="obj\**"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DCCServer\" />
+        <Folder Include="DCCServer\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
-      <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj" />
-      <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj" />
+        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
     </ItemGroup>
 
 </Project>

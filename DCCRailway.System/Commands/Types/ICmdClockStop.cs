@@ -2,4 +2,4 @@
 
 namespace DCCRailway.System.Commands.Types;
 
-public interface ICmdClockStop : ICommand,ISystemCmd { }
+public interface ICmdClockStop : ICommand, ISystemCmd { }

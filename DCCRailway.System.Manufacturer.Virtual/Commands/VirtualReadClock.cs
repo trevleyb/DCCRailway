@@ -7,5 +7,5 @@ namespace DCCRailway.System.Manufacturer.Virtual.Commands;
 
 [Command("ReadClock", "Read the Clock from the Virtual Controller")]
 public class VirtualReadClock : VirtualCommand, ICmdClockRead, ICommand {
-    public override string  ToString() => "READ CLOCK";
+    public override string ToString() => "READ CLOCK";
 }

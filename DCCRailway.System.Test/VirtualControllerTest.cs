@@ -11,13 +11,15 @@ public class VirtualControllerTest {
     [Test]
     public void TestRegisteredCommands() {
         var systems = new ControllerFactory().Controllers;
+
         //var systems = SystemFactory.SupportedSystems();
-        Assert.That(systems,Is.Not.Null);
+        Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
         var virtualSystem = new ControllerFactory().Find("Virtual")?.Create(new ConsoleAdapter());
+
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
-        Assert.That(virtualSystem,Is.Not.Null);
+        Assert.That(virtualSystem, Is.Not.Null);
 
         var supportedAdapters = virtualSystem?.Adapters;
         Assert.That(supportedAdapters!.Count == 1);
@@ -38,13 +40,15 @@ public class VirtualControllerTest {
     [Test]
     public void TestRegisteredAndAttach1() {
         var systems = new ControllerFactory().Controllers;
+
         //var systems = SystemFactory.SupportedSystems();
-        Assert.That(systems,Is.Not.Null);
+        Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
         var virtualSystem = new ControllerFactory().Find("Virtual")?.Create(new ConsoleAdapter());
+
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
-        Assert.That(virtualSystem,Is.Not.Null);
+        Assert.That(virtualSystem, Is.Not.Null);
 
         var supportedAdapters = virtualSystem?.Adapters;
         Assert.That(supportedAdapters!.Count == 1);
@@ -58,13 +62,15 @@ public class VirtualControllerTest {
     [Test]
     public void TestRegisteredAndAttach2() {
         var systems = new ControllerFactory().Controllers;
+
         //var systems = SystemFactory.SupportedSystems();
-        Assert.That(systems,Is.Not.Null);
+        Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
-        var virtualSystem = new ControllerFactory().Find("Virtual")?.Create(new ConsoleAdapter()); 
+        var virtualSystem = new ControllerFactory().Find("Virtual")?.Create(new ConsoleAdapter());
+
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
-        Assert.That(virtualSystem,Is.Not.Null);
+        Assert.That(virtualSystem, Is.Not.Null);
 
         var supportedAdapters = virtualSystem?.Adapters;
         Assert.That(supportedAdapters!.Count == 1);
@@ -78,13 +84,15 @@ public class VirtualControllerTest {
     [Test]
     public void TestCommandSupported() {
         var systems = new ControllerFactory().Controllers;
+
         //var systems = SystemFactory.SupportedSystems();
-        Assert.That(systems,Is.Not.Null);
+        Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
-        var virtualSystem = new ControllerFactory().Find("Virtual")?.Create(new ConsoleAdapter()); 
+        var virtualSystem = new ControllerFactory().Find("Virtual")?.Create(new ConsoleAdapter());
+
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
-        Assert.That(virtualSystem,Is.Not.Null);
+        Assert.That(virtualSystem, Is.Not.Null);
         if (virtualSystem != null) {
             virtualSystem.Adapter = virtualSystem.CreateAdapter("Virtual");
             Assert.That(virtualSystem.Adapter, Is.Not.Null);

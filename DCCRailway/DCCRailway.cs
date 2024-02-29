@@ -1,5 +1,3 @@
 namespace DCCRailway;
 
-public class DCCRailway {
-
-}
+public class DCCRailway { }

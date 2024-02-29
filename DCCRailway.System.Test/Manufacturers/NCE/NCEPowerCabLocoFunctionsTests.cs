@@ -22,29 +22,31 @@ public class NCEPowerCabLocoFunctionsTests {
 
     protected IAdapter?    Adapter;
     protected IController? System;
-    
+
     [SetUp]
     public void TestSetup() {
         var _system = new ControllerFactory().Find("NCEPowerCab")?.Create(new ConsoleAdapter());
+
         //_system = SystemFactory.Create("NCE", "NCEPowerCab");
 
         if (_system != null) {
-            Assert.That(_system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
+            Assert.That(_system, Is.Not.Null, "Should have an NCE PowerCab controller created.");
             Assert.That(_system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
             Adapter = new NCEUSBSerial("COM3", 19200);
-            Assert.That(Adapter,Is.Not.Null, "Should have a Serial Adapter created");
-            Adapter.DataReceived            += Adapter_DataReceived;
-            Adapter.DataSent                += Adapter_DataSent;
-            Adapter.ErrorOccurred           += Adapter_ErrorOccurred;
-            _system.Adapter                  =  Adapter;
-        } else {
+            Assert.That(Adapter, Is.Not.Null, "Should have a Serial Adapter created");
+            Adapter.DataReceived  += Adapter_DataReceived;
+            Adapter.DataSent      += Adapter_DataSent;
+            Adapter.ErrorOccurred += Adapter_ErrorOccurred;
+            _system.Adapter       =  Adapter;
+        }
+        else {
             Assert.Fail("Could not create a Controller Object");
         }
     }
 
     private void Adapter_ErrorOccurred(object? sender, ErrorArgs e) => Console.WriteLine(e.ToString());
-    
+
     private void Adapter_DataSent(object? sender, DataSentArgs e) => Console.WriteLine(e.ToString());
 
     private void Adapter_DataReceived(object? sender, DataRecvArgs e) => Console.WriteLine(e.ToString());
@@ -57,6 +59,7 @@ public class NCEPowerCabLocoFunctionsTests {
             Adapter.ErrorOccurred -= Adapter_ErrorOccurred;
             Adapter.Disconnect();
         }
+
         if (System != null) {
             System.Adapter = null;
             if (Adapter is not null) {
@@ -64,12 +67,13 @@ public class NCEPowerCabLocoFunctionsTests {
                 Adapter = null;
             }
         }
+
         System = null;
     }
 
     [Test]
     public void TurnOnOffLightsTest() {
-        if (System != null && System.Adapter != null) {
+        if (System != null && System.Adapter != null)
             if (System.CreateCommand<ICmdLocoSetFunctions>() is ICmdLocoSetFunctions functionCmd) {
                 functionCmd.Address = new DCCAddress(3, DCCAddressType.Short);
 
@@ -82,7 +86,6 @@ public class NCEPowerCabLocoFunctionsTests {
                     //Thread.Sleep(1500);
                 }
             }
-        }
     }
 
     [Test]
@@ -126,7 +129,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
     [Test]
     public void SetSpeedStepsTest() {
-        if (System != null && System.Adapter != null) {
+        if (System != null && System.Adapter != null)
             if (System.CreateCommand<ICmdLocoSetSpeedSteps>() is ICmdLocoSetSpeedSteps cmd) {
                 cmd.Address = new DCCAddress(3, DCCAddressType.Short);
 
@@ -146,12 +149,11 @@ public class NCEPowerCabLocoFunctionsTests {
                 System.Execute(cmd);
                 Thread.Sleep(1500);
             }
-        }
     }
 
     [Test]
     public void SetMomentumTest() {
-        if (System != null && System.Adapter != null) {
+        if (System != null && System.Adapter != null)
             if (System.CreateCommand<ICmdLocoSetMomentum>() is ICmdLocoSetMomentum cmd) {
                 cmd.Address = new DCCAddress(3, DCCAddressType.Short);
 
@@ -164,12 +166,11 @@ public class NCEPowerCabLocoFunctionsTests {
                 cmd.Momentum = 0;
                 System.Execute(cmd);
             }
-        }
     }
 
     [Test]
     public void SetSpeedTest() {
-        if (System != null && System.Adapter != null) {
+        if (System != null && System.Adapter != null)
             if (System.CreateCommand<ICmdLocoSetSpeed>() is ICmdLocoSetSpeed cmd) {
                 cmd.Address    = new DCCAddress(3, DCCAddressType.Short);
                 cmd.Direction  = DCCDirection.Forward;
@@ -196,12 +197,11 @@ public class NCEPowerCabLocoFunctionsTests {
                 System.Execute(cmd);
                 Thread.Sleep(1500);
             }
-        }
     }
 
     [Test]
     public void SetStopTest() {
-        if (System != null && System.Adapter != null) {
+        if (System != null && System.Adapter != null)
             if (System.CreateCommand<ICmdLocoSetSpeed>() is ICmdLocoSetSpeed cmd) {
                 cmd.Address    = new DCCAddress(3, DCCAddressType.Short);
                 cmd.Direction  = DCCDirection.Forward;
@@ -215,6 +215,5 @@ public class NCEPowerCabLocoFunctionsTests {
                 System.Execute(cmdStop);
                 Thread.Sleep(1500);
             }
-        }
     }
 }

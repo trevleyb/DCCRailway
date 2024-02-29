@@ -30,11 +30,10 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
 
     public bool Off {
         set {
-            if (value) {
+            if (value)
                 _aspect = 31;
-            } else {
+            else
                 _aspect = 15;
-            }
         }
     }
 

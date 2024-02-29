@@ -1,8 +1,8 @@
 ﻿namespace DCCRailway.Common.Types;
 
 public enum DCCAccessoryState {
-    On       = 01,
-    Off      = 00,
+    On       = 0x1,
+    Off      = 0x0,
     Normal   = On,
     Reversed = Off,
     Thrown   = On,

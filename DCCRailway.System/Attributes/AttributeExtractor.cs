@@ -10,8 +10,10 @@ public static class AttributeExtractor {
         try {
             var attrs = type.GetCustomAttributes(typeof(T), true);
             var attr  = type.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T;
+
             return attr;
-        } catch {
+        }
+        catch {
             return default(T?) ?? null;
         }
     }

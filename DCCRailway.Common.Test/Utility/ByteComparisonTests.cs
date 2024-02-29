@@ -15,10 +15,10 @@ public class ByteComparison {
 
         Assert.That(expected.Compare(new byte[] { (byte)'!', 0x0D, 0x0A }), "Arrays should Match");
         Assert.That(expected?.Compare(null), Is.False, "Empty Array2 should not match");
-        Assert.That(expected?.Compare(tooSmall),Is.False);
-        Assert.That(expected?.Compare(tooLarge),Is.False);
-        Assert.That(expected?.Compare(noMatch1),Is.False);
-        Assert.That(expected?.Compare(noMatch2),Is.False);
+        Assert.That(expected?.Compare(tooSmall), Is.False);
+        Assert.That(expected?.Compare(tooLarge), Is.False);
+        Assert.That(expected?.Compare(noMatch1), Is.False);
+        Assert.That(expected?.Compare(noMatch2), Is.False);
     }
 
     [Test]

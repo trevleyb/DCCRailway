@@ -1,7 +1,7 @@
-namespace DCCRailway.System.Triggers; 
+namespace DCCRailway.System.Triggers;
 
 public interface ITrigger {
-    DateTime? LastTriggered { get; set; }
-    int TriggerInterval { get; set; }
-    bool IsTriggered { get; set; }
+    DateTime? LastTriggered   { get; set; }
+    int       TriggerInterval { get; set; }
+    bool      IsTriggered     { get; set; }
 }

@@ -24,14 +24,13 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     /// </summary>
     public void Connect() {
         Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} - Connecting");
-
         if (IsConnected) Disconnect();
 
         if (string.IsNullOrEmpty(_serialAdapterSettings.PortName)) throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
 
         try {
             _connection = new SerialPort(_serialAdapterSettings.PortName, _serialAdapterSettings.BaudRate, _serialAdapterSettings.Parity, _serialAdapterSettings.DataBits, _serialAdapterSettings.StopBits) { WriteTimeout = _serialAdapterSettings.Timeout, ReadTimeout = _serialAdapterSettings.Timeout };
-            
+
             //_connection.DataReceived += delegate (object sender, SerialDataReceivedEventArgs args) {
             //    Console.WriteLine($"{Name}: Received message: {0}", args.ToString());
             //    OnDataRecieved(new DataRecvArgs(args.ToString()!.ToByteArray(), this));
@@ -43,7 +42,8 @@ public abstract class SerialAdapter : Adapter, IAdapter {
             };
 
             _connection.Open();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not connect to the device: " + _serialAdapterSettings.PortName, ex);
         }
     }
@@ -90,7 +90,8 @@ public abstract class SerialAdapter : Adapter, IAdapter {
             OnDataRecieved(new DataRecvArgs(returnData.ToArray(), this, command));
 
             return returnData.ToArray();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not read from the Command Station", ex);
         }
     }
@@ -108,7 +109,8 @@ public abstract class SerialAdapter : Adapter, IAdapter {
         try {
             if (_connection!.BytesToRead > 0) _connection.ReadExisting();
             _connection!.Write(data, 0, data.Length);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not read/write to Command Station", ex);
         }
 
@@ -132,13 +134,12 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     }
 
     protected virtual void Dispose(bool disposing) {
-        if (disposing) {
+        if (disposing)
             if (_connection != null) {
                 Disconnect();
                 _connection.Dispose();
                 _connection = null;
             }
-        }
     }
     #endregion
 }

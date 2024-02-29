@@ -2,5 +2,4 @@
 
 namespace DCCRailway.System.Commands.Types;
 
-public interface ICmdLocoStop : ICommand, ILocoCmd {
-}
+public interface ICmdLocoStop : ICommand, ILocoCmd { }

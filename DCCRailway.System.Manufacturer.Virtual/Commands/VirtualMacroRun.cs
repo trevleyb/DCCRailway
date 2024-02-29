@@ -6,6 +6,6 @@ namespace DCCRailway.System.Manufacturer.Virtual.Commands;
 
 [Command("MacroRun", "Execute a Macro")]
 public class VirtualMacroRun : VirtualCommand, ICmdMacroRun {
-    public byte Macro { get; set; }
+    public          byte   Macro      { get; set; }
     public override string ToString() => $"RUN MACRO ({Macro})";
 }

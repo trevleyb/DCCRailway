@@ -12,11 +12,12 @@ public class NCEPowerCabTestCVReadWrite {
     [Test]
     public void SwitchMainandProg() {
         var adapter = new NCEUSBSerial("COM3", 19200);
-        Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
-        
+        Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
+
         var system = new ControllerFactory().Find("NCEPowerCab")?.Create(adapter);
+
         //var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
-        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
+        Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab controller created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
         if (system != null && system.Adapter != null) {
@@ -35,16 +36,17 @@ public class NCEPowerCabTestCVReadWrite {
     [Test]
     public void ReadCV() {
         var adapter = new NCEUSBSerial("COM3", 19200);
-        Assert.That(adapter, Is.Not.Null,"Should have a Serial Adapter created");
+        Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
         var system = new ControllerFactory().Find("NCEPowerCab")?.Create(adapter);
+
         //var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
-        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
+        Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab controller created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
         if (system != null && system.Adapter != null) {
             var progTrk   = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
             var mainTrk   = system.CreateCommand<ICmdTrackMain>(); // new NCESetMainTrk(adapter);
-            var readCVCmd = system.CreateCommand<ICmdCVRead>();  // new NCECVRead(01);
+            var readCVCmd = system.CreateCommand<ICmdCVRead>();    // new NCECVRead(01);
 
             //Should fail because we are not in programming mode
             //var result0 = readCVCmd.Execute(adapter);
@@ -58,6 +60,7 @@ public class NCEPowerCabTestCVReadWrite {
             var result2 = system.Execute(readCVCmd!);
             Assert.That(result2, Is.TypeOf(typeof(ICommandResult)));
             Assert.That(result2!.IsOK);
+
             //Assert.IsTrue(((ICommandResult)result2).Value == 3);
 
             var result3 = system.Execute(mainTrk!);
@@ -71,8 +74,9 @@ public class NCEPowerCabTestCVReadWrite {
         var adapter = new NCEUSBSerial("COM3", 19200);
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
         var system = new ControllerFactory().Find("NCEPowerCab")?.Create(adapter);
+
         //var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
-        Assert.That(system, Is.Not.Null,"Should have an NCE PowerCab controller created.");
+        Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab controller created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab Controller Created");
 
         if (system != null && system.Adapter != null) {
@@ -117,7 +121,7 @@ public class NCEPowerCabTestCVReadWrite {
 
             var result7 = system.Execute(mainTrk!);
             Assert.That(result7, Is.TypeOf(typeof(ICommandResult)));
-            Assert.That(result7!.IsOK,Is.True);
+            Assert.That(result7!.IsOK, Is.True);
         }
     }
 }

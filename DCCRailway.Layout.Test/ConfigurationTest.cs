@@ -8,8 +8,6 @@ namespace DCCRailway.Test.SystemTests;
 
 [TestFixture]
 public class ConfigurationTest {
-
-
     [Test]
     public void SimpleSaveWithoutnameTest() {
         var system = new DCCRailwayConfig {
@@ -24,23 +22,21 @@ public class ConfigurationTest {
 
     [Test]
     public void SaveSystemConfigTestSimple() {
-
         var system = new DCCRailwayConfig {
             Name        = "TestSystem",
             Description = "Test System Description"
         };
 
         system.Save("SaveSystemConfigTestSimple.json");
-        
+
         var restore = DCCRailwayConfig.Load("SaveSystemConfigTestSimple.json");
         Assert.That(restore is not null);
         Assert.That(restore!.Name, Is.EqualTo(system.Name));
         Assert.That(restore!.Description, Is.EqualTo(system.Description));
     }
-    
+
     [Test]
     public void SaveSystemConfigWithParameters() {
-
         var system = new DCCRailwayConfig {
             Name        = "TestSystem",
             Description = "Test System Description"
@@ -50,9 +46,9 @@ public class ConfigurationTest {
         system.Parameters.Set("length", 27);
         system.Parameters.Set("cv", 127);
         system.Parameters.Set("parity", Parity.Odd);
-        
+
         system.Save("SaveSystemConfigWithParameters.json");
-        
+
         var restore = DCCRailwayConfig.Load("SaveSystemConfigWithParameters.json");
         Assert.That(restore is not null);
         Assert.That(restore!.Name, Is.EqualTo(system.Name));
@@ -66,7 +62,6 @@ public class ConfigurationTest {
 
     [Test]
     public void SaveConfigFileWithAllOptionsIncluded() {
-
         var system = new DCCRailwayConfig {
             Name        = "TestSystemWithAll",
             Description = "Test System With All"
@@ -81,7 +76,7 @@ public class ConfigurationTest {
 
         system.Save("TestSystemWithAll.json");
         var restore = DCCRailwayConfig.Load("TestSystemWithAll.json");
-        
+
         Assert.That(restore is not null);
         Assert.That(restore!.Name, Is.EqualTo(system.Name));
         Assert.That(restore!.Description, Is.EqualTo(system.Description));

@@ -12,6 +12,6 @@ public class VirtualCVRead : VirtualCommand, ICmdCVRead {
     public DCCProgrammingMode ProgrammingMode { get; set; }
     public int                CV              { get; set; }
 
-    public override string ToString() => $"READ CV ({CV}/{ProgrammingMode})";
+    public override string       ToString() => $"READ CV ({CV}/{ProgrammingMode})";
     public          IDCCAddress? Address    { get; set; }
 }

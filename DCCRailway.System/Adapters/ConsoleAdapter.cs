@@ -6,10 +6,9 @@ namespace DCCRailway.System.Adapters;
 
 [Adapter("Console", AdapterType.Virtual, "Adapter that writes to the Console", "1.0")]
 public class ConsoleAdapter : Adapter, IAdapter {
-    
     private bool _connected = false;
     public  bool IsConnected => _connected;
-    
+
     public void Connect() {
         Console.WriteLine("Connected to console.");
         _connected = true;
@@ -28,6 +27,7 @@ public class ConsoleAdapter : Adapter, IAdapter {
 
     public byte[]? RecvData(ICommand command) {
         Console.WriteLine("Receiving Data <= {0}", command.AttributeInfo().Name);
+
         return [];
     }
 }

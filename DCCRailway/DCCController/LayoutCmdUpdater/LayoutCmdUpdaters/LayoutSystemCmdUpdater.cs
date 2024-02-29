@@ -8,7 +8,6 @@ namespace DCCRailway.DCCController.LayoutCmdUpdater.LayoutCmdUpdaters;
 
 public class LayoutSystemCmdUpdater(DCCRailwayConfig config) : LayoutGenericCmdUpdater(config) {
     public new bool Process(ICommand command) {
-
         switch (command) {
         case ICmdStatus cmd:
             // TODO: Implement the command processing
@@ -46,11 +45,13 @@ public class LayoutSystemCmdUpdater(DCCRailwayConfig config) : LayoutGenericCmdU
         case IDummyCmd cmd:
             // TODO: Implement the command processing
             break;
-        
+
         default:
             Logger.Log.Error($"Command {command.AttributeInfo().Name} not supported.");
+
             throw new Exception("Unexpected type of command executed.");
         }
+
         return true;
     }
 }

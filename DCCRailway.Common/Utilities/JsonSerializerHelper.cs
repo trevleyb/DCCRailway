@@ -3,7 +3,6 @@
 namespace DCCRailway.Common.Utilities;
 
 public class JsonSerializerHelper<T> {
-
     /// <summary>
     ///     Load an instance of class T from a provided filename and throw an exception if the
     ///     file name does not exist.
@@ -12,14 +11,15 @@ public class JsonSerializerHelper<T> {
     /// <returns>An instance of an XML class </returns>
     /// <exception cref="ApplicationException">If it is unable to load the file</exception>
     public static T? Load(string fileName) {
-            if (!File.Exists(fileName)) throw new FileNotFoundException($"Unable to access file '{fileName}'");
-            try {
-                var serializedStr = File.ReadAllText(fileName);
-                return JsonSerializer.Deserialize<T>(serializedStr)!;
-            }
-            catch (Exception ex) {
-                throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'", ex);
-            }
+        if (!File.Exists(fileName)) throw new FileNotFoundException($"Unable to access file '{fileName}'");
+        try {
+            var serializedStr = File.ReadAllText(fileName);
+
+            return JsonSerializer.Deserialize<T>(serializedStr)!;
+        }
+        catch (Exception ex) {
+            throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'", ex);
+        }
     }
 
     /// <summary>
@@ -34,10 +34,11 @@ public class JsonSerializerHelper<T> {
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------
         try {
-            var serializerOptions = new JsonSerializerOptions { WriteIndented = true};
-            var serializedStr = JsonSerializer.Serialize(collection, serializerOptions);
+            var serializerOptions = new JsonSerializerOptions { WriteIndented = true };
+            var serializedStr     = JsonSerializer.Serialize(collection, serializerOptions);
             File.WriteAllText(fileName, serializedStr);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ApplicationException($"Unable to save configuration data to '{fileName}' due to '{ex.Message}'");
         }
     }

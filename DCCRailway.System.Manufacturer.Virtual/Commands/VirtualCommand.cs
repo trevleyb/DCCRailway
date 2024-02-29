@@ -8,7 +8,5 @@ using DCCRailway.System.Manufacturer.Virtual.Commands.Validators;
 namespace DCCRailway.System.Manufacturer.Virtual.Commands;
 
 public abstract class VirtualCommand : Command {
-    public override ICommandResult Execute(IAdapter adapter) {
-        return SendAndReceive(adapter, new VirtualStandardValidation(), ToString()?.ToByteArray() ?? Array.Empty<byte>());
-    }
+    public override ICommandResult Execute(IAdapter adapter) => SendAndReceive(adapter, new VirtualStandardValidation(), ToString()?.ToByteArray() ?? Array.Empty<byte>());
 }

@@ -31,5 +31,5 @@ public class VirtualAccyOpsProg : VirtualCommand, ICmdAccyOpsProg, ICommand, IAc
     public IDCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }
 
-    public override string      ToString() => $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
+    public override string ToString() => $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
 }

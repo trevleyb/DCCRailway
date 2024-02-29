@@ -1,43 +1,43 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <RootNamespace>DCCRailway.Test</RootNamespace>
-    <LangVersion>default</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <DefineConstants>TRACE;DYLD_PRINT_LIBRARIES;DEBUG;NET;NET6_0;NETCOREAPP</DefineConstants>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="NUnit" Version="4.0.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="SystemTests\" />
-    <None Remove="Utility\" />
-    <None Remove="SystemTests\NCESystem\" />
-    <None Remove="ServerTest\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DCCRailway.API\DCCRailway.API.csproj" />
-    <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj" />
-    <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj" />
-    <ProjectReference Include="..\DCCRailway.System.Manufacturer.Digitrax\DCCRailway.System.Manufacturer.Digitrax.csproj" />
-    <ProjectReference Include="..\DCCRailway.System.Manufacturer.NCE\DCCRailway.System.Manufacturer.NCE.csproj" />
-    <ProjectReference Include="..\DCCRailway.System.Manufacturer.Sprog\DCCRailway.System.Manufacturer.Sprog.csproj" />
-    <ProjectReference Include="..\DCCRailway.System.Manufacturer.Virtual\DCCRailway.System.Manufacturer.Virtual.csproj" />
-    <ProjectReference Include="..\DCCRailway\DCCRailway.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="SystemTests\roster.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="roster.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AdditionalFiles>
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>DCCRailway.Test</RootNamespace>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugType>full</DebugType>
+        <DefineConstants>TRACE;DYLD_PRINT_LIBRARIES;DEBUG;NET;NET6_0;NETCOREAPP</DefineConstants>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Include="NUnit" Version="4.0.1"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="SystemTests\"/>
+        <None Remove="Utility\"/>
+        <None Remove="SystemTests\NCESystem\"/>
+        <None Remove="ServerTest\"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\DCCRailway.API\DCCRailway.API.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.Manufacturer.Digitrax\DCCRailway.System.Manufacturer.Digitrax.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.Manufacturer.NCE\DCCRailway.System.Manufacturer.NCE.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.Manufacturer.Sprog\DCCRailway.System.Manufacturer.Sprog.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System.Manufacturer.Virtual\DCCRailway.System.Manufacturer.Virtual.csproj"/>
+        <ProjectReference Include="..\DCCRailway\DCCRailway.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="SystemTests\roster.xml"/>
+    </ItemGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="roster.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+    </ItemGroup>
 </Project>

@@ -17,6 +17,7 @@ public static class SerialAdapterFinder {
                         foreach (var stopBits in new[] { StopBits.None, StopBits.One, StopBits.OnePointFive, StopBits.Two }) {
                             var settings = new SerialAdapterSettings(port, baudRate, dataBits, parity, stopBits, 1000);
                             var result   = await TestSerialPort(settings, data);
+
                             yield return (result, settings);
                         }
                     }
@@ -44,20 +45,21 @@ public static class SerialAdapterFinder {
                 if (connection.BytesToRead > 0) {
                     readData = new byte[connection.BytesToRead];
                     await connection.BaseStream.ReadAsync(readData, 0, readData.Length);
-                } else {
+                }
+                else {
                     Console.WriteLine("stop here");
                 }
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             Logger.Log.Debug($"ERROR Connecting to port: {ex.Message}");
         }
 
         return readData;
     }
-    
-    
+
     /* Old NON-AWAITable version
-    
+
     public static async Task<byte[]?> TestSerialPort(SerialAdapterSettings settings, byte[] data) {
         var readBytes = 0;
         var readData  = Array.Empty<byte>();

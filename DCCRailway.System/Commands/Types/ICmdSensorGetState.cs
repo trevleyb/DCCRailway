@@ -2,5 +2,4 @@
 
 namespace DCCRailway.System.Commands.Types;
 
-public interface ICmdSensorGetState : ICommand, ISensorCmd {
-}
+public interface ICmdSensorGetState : ICommand, ISensorCmd { }

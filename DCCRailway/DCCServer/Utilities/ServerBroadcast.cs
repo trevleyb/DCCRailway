@@ -10,7 +10,6 @@ public class ServerBroadcast {
 
         if (host is not null && host.AddressList.Length > 0) // Start service discovery for this service.
             // -------------------------------------------------------------
-        {
             try {
                 var sd = new ServiceDiscovery();
                 sd.AnswersContainsAdditionalRecords = true;
@@ -25,12 +24,12 @@ public class ServerBroadcast {
                 //sp.AddProperty ("Server", "DCCRailway.Delete");
                 sd.AnswersContainsAdditionalRecords = true;
                 sd.Advertise(sp);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 throw new ApplicationException("Could not start Broadcast", ex);
             }
-        } else {
+        else
             throw new ApplicationException("Could not Broadcast since cannot determine local IP Addresses.");
-        }
     }
 
     private void Sd_ServiceInstanceShutdown(object? sender, ServiceInstanceShutdownEventArgs e) => Logger.Log.Debug($"SD: Shutdown=>{e.Message}");

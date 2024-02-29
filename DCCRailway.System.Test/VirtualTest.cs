@@ -10,9 +10,8 @@ namespace DCCRailway.Test.Layout;
 
 [TestFixture]
 public class VirtualTest {
-
     private bool _controllerEventFired = false;
-    
+
     [Test]
     public void TestControllerCreation() {
         var controller = new ControllerFactory().CreateController("Virtual");
@@ -26,10 +25,9 @@ public class VirtualTest {
     }
 
     private IController CreateVirtualControllerAndAddVirtualAdapter() {
-        
         // Create an instance of a Controller using the Factory 
         // ------------------------------------------------------------
-        var factory = new ControllerFactory();
+        var factory       = new ControllerFactory();
         var virtualSystem = factory.Find("Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
 
@@ -37,40 +35,42 @@ public class VirtualTest {
         // ------------------------------------------------------------
         if (virtualSystem is null) throw new NullReferenceException("Should have a ControllerInfo object at this stage");
         Assert.That(virtualSystem!.Name.Equals("Virtual"));
-        
+
         // Check that we can do things with the controller
         // ------------------------------------------------------------
         var controller = virtualSystem.Create();
+
         if (controller is null) throw new NullReferenceException("Should have a Controller object at this stage");
-        
-        _controllerEventFired = false;
+
+        _controllerEventFired      =  false;
         controller.ControllerEvent += ControllerEventArgsHandler;
-        
+
         Assert.That(controller.AttributeInfo().Name.Equals("Virtual"));
         var supportedAdapters = controller.Adapters;
         Assert.That(supportedAdapters!.Count >= 1);
         var supportedCommands = controller?.Commands;
-        Assert.That(supportedCommands!.Count >= 1);  // There are no available commands till we attach an adapter
-        
+        Assert.That(supportedCommands!.Count >= 1); // There are no available commands till we attach an adapter
+
         // Now that we have created a Controller, we need to create an ADAPTER that we can connect to the 
         // controller so that the controller can talk to the hardware.
         // ------------------------------------------------------------
         var virtualAdapter = controller!.CreateAdapter("Virtual");
         Assert.That(virtualAdapter, Is.Not.Null);
+
         if (virtualAdapter is null) throw new NullReferenceException("Should have a VirtualAdapter object at this stage");
-        
+
         // Attach the Adapter to the Controller
         // ------------------------------------------------------------
         controller.Adapter = virtualAdapter;
-        Assert.That(controller.Adapter, Is.Not.Null);        
-        Assert.That(controller.Commands!.Count > 0);  // After attaching Adapter, should have commands
+        Assert.That(controller.Adapter, Is.Not.Null);
+        Assert.That(controller.Commands!.Count > 0); // After attaching Adapter, should have commands
 
         Assert.That(_controllerEventFired, Is.True, "ControllerEvent should have been fired");
         controller.ControllerEvent -= ControllerEventArgsHandler;
-        
+
         // Should not ever get an error here or something else has seriously gone wrong
         return controller! ?? throw new InvalidOperationException();
-        
+
         void ControllerEventArgsHandler(object? sender, ControllerEventArgs e) {
             _controllerEventFired = true;
         }
@@ -90,10 +90,10 @@ public class VirtualTest {
         }
 
         return;
-        
+
         // Execute the command and add it to a list that we have executed it, but that its event is false
         // -------------------------------------------------------------------------------------------
-        void ExecuteCommandAndMonitor<T>(IController controllerToCall) where T : ICommand{
+        void ExecuteCommandAndMonitor<T>(IController controllerToCall) where T : ICommand {
             var execCommand = controllerToCall.CreateCommand<T>();
             Assert.That(execCommand, Is.Not.Null);
             if (execCommand != null) {
@@ -101,7 +101,7 @@ public class VirtualTest {
                 controllerToCall.Execute(execCommand);
             }
         }
-        
+
         // Manage the events coming back from the controller and indicate that we received the event  
         void ControllerOnControllerEvent(object? sender, IControllerEventArgs e) {
             switch (e) {
@@ -109,10 +109,12 @@ public class VirtualTest {
                 switch (exec.Command) {
                 case IDummyCmd:
                     commandsExecuted[typeof(IDummyCmd)] = true;
+
                     break;
                 default:
                     throw new Exception("Unexpected type of command executed.");
                 }
+
                 break;
             case ControllerEventAdapterAdd:
                 // For testing we don't care about this one
@@ -128,5 +130,4 @@ public class VirtualTest {
             }
         }
     }
-    
 }

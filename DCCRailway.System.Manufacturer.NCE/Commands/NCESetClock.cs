@@ -55,13 +55,11 @@ public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
         // -----------------------------------------------------------------------------------------
         ICommandResult result;
 
-        if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).IsOK) {
-            if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).IsOK) {
-                if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).IsOK) {
-                    return NCECommandResultClock.Success(result.Data);
-                }
-            }
-        }
+        if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).IsOK)
+            if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).IsOK)
+                if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).IsOK)
+                    return CommandResult.Success(result.Data);
+
         return result;
     }
 

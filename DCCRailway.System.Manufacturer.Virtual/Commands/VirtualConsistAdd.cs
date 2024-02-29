@@ -23,6 +23,6 @@ public class VirtualConsistAdd : VirtualCommand, ICmdConsistAdd, ICommand {
     public DCCDirection       Direction      { get; set; }
     public DCCAddress         Loco           { get; set; }
     public DCCConsistPosition Position       { get; set; }
-    
+
     public override string ToString() => $"CONSIST ADD TO {ConsistAddress:D3} @ {Position} ({Loco.Address}={Direction})";
 }

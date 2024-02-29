@@ -12,6 +12,7 @@ namespace DCCRailway.System.Manufacturer.NCE.Commands;
 public class NCEReadClock : Command, ICmdClockRead, ICommand {
     public override ICommandResult Execute(IAdapter adapter) {
         var result = SendAndReceive(adapter, new SimpleResultValidation(2), new byte[] { 0x82 });
+
         return result.IsFailure ? result : new NCECommandResultClock(result.Data);
     }
 

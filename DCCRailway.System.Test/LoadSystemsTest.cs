@@ -27,7 +27,7 @@ public class LoadSystemsTest {
         Assert.That(controller,Is.Not.Null);
         Assert.That(controller, Is.TypeOf(typeof(VirtualController)), "Should be a :Virtual Controller Created");
     }
-    
+
     [Test]
     public void CheckVirtualCommands() {
         var systems = SystemFactory.SupportedSystems();

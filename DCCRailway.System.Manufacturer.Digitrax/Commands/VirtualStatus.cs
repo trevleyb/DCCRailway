@@ -12,7 +12,5 @@ namespace DCCRailway.System.Manufacturer.Digitrax.Commands;
 public class VirtualStatus : Command, ICmdStatus {
     private readonly byte[] CommandData = "STATUS_COMMAND".ToByteArray();
 
-    public override ICommandResult Execute(IAdapter adapter) {
-        return SendAndReceive(adapter, new SimpleResultValidation(2), "STATUS_COMMAND".ToByteArray());
-    }
+    public override ICommandResult Execute(IAdapter adapter) => SendAndReceive(adapter, new SimpleResultValidation(2), "STATUS_COMMAND".ToByteArray());
 }
