@@ -3,7 +3,10 @@ using DCCRailway.Layout.Entities.Base;
 
 namespace DCCRailway.Layout.Entities;
 
-public class Signal : ConfigWithDecoder {
-    public Signal() : base(DCCAddressType.Signal) { }
-    public Controller Controller { get; set; }
-}
+public class Signal() : ConfigWithDecoder(DCCAddressType.Signal) {
+    private Controller _controller;
+
+    public Controller Controller {
+        get => _controller;
+        set => SetField(ref _controller, value);
+    }}

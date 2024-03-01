@@ -13,21 +13,21 @@ namespace DCCRailway.System.Manufacturer.NCE.Commands;
 public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
     public NCELocoSetMomentum() { }
 
-    public NCELocoSetMomentum(int address, byte momentum) : this(new DCCAddress(address), momentum) { }
+    public NCELocoSetMomentum(int address, byte momentum) : this(new DCCAddress(address), new DCCMomentum(momentum)) { }
 
-    public NCELocoSetMomentum(IDCCAddress address, byte momentum) {
+    public NCELocoSetMomentum(IDCCAddress address, DCCMomentum momentum) {
         Address  = address;
         Momentum = momentum;
     }
 
     public IDCCAddress Address  { get; set; }
-    public byte        Momentum { get; set; }
+    public DCCMomentum Momentum { get; set; }
 
     public override ICommandResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
         command = command.AddToArray(((DCCAddress)Address).AddressBytes);
         command = command.AddToArray(0x12);
-        command = command.AddToArray(Momentum);
+        command = command.AddToArray(Momentum.Value);
 
         return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }

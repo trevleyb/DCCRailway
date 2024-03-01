@@ -103,7 +103,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
                 speedCmd.Direction  = DCCDirection.Forward;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;
-                speedCmd.Speed      = 5;
+                speedCmd.Speed      = new DCCSpeed(5);
                 System.Execute(speedCmd);
 
                 functionCmd.Functions[0] = false;
@@ -112,7 +112,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
                 speedCmd.Direction  = DCCDirection.Forward;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;
-                speedCmd.Speed      = 5;
+                speedCmd.Speed      = new DCCSpeed(5);
                 System.Execute(speedCmd);
 
                 functionCmd.Functions[0] = true;
@@ -121,7 +121,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
                 speedCmd.Direction  = DCCDirection.Stop;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;
-                speedCmd.Speed      = 0;
+                speedCmd.Speed      = new DCCSpeed(0);
                 System.Execute(speedCmd);
             }
         }
@@ -158,12 +158,12 @@ public class NCEPowerCabLocoFunctionsTests {
                 cmd.Address = new DCCAddress(3, DCCAddressType.Short);
 
                 for (byte i = 0; i < 10; i++) {
-                    cmd.Momentum = i;
+                    cmd.Momentum = new DCCMomentum(i);
                     System.Execute(cmd);
                     Thread.Sleep(1500);
                 }
 
-                cmd.Momentum = 0;
+                cmd.Momentum = new DCCMomentum(0);
                 System.Execute(cmd);
             }
     }
@@ -175,25 +175,25 @@ public class NCEPowerCabLocoFunctionsTests {
                 cmd.Address    = new DCCAddress(3, DCCAddressType.Short);
                 cmd.Direction  = DCCDirection.Forward;
                 cmd.SpeedSteps = DCCProtocol.DCC28;
-                cmd.Speed      = 8;
+                cmd.Speed      = new DCCSpeed(8);
                 System.Execute(cmd);
                 Thread.Sleep(1500);
 
                 cmd.Direction  = DCCDirection.Forward;
                 cmd.SpeedSteps = DCCProtocol.DCC28;
-                cmd.Speed      = 0;
+                cmd.Speed      = new DCCSpeed(0);
                 System.Execute(cmd);
                 Thread.Sleep(1500);
 
                 cmd.Direction  = DCCDirection.Reverse;
                 cmd.SpeedSteps = DCCProtocol.DCC28;
-                cmd.Speed      = 8;
+                cmd.Speed      = new DCCSpeed(8);
                 System.Execute(cmd);
                 Thread.Sleep(1500);
 
                 cmd.Direction  = DCCDirection.Reverse;
                 cmd.SpeedSteps = DCCProtocol.DCC28;
-                cmd.Speed      = 0;
+                cmd.Speed      = new DCCSpeed(0);
                 System.Execute(cmd);
                 Thread.Sleep(1500);
             }
@@ -206,7 +206,7 @@ public class NCEPowerCabLocoFunctionsTests {
                 cmd.Address    = new DCCAddress(3, DCCAddressType.Short);
                 cmd.Direction  = DCCDirection.Forward;
                 cmd.SpeedSteps = DCCProtocol.DCC28;
-                cmd.Speed      = 8;
+                cmd.Speed      = new DCCSpeed(8);
                 System.Execute(cmd);
                 Thread.Sleep(1500);
 

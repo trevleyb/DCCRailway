@@ -3,7 +3,6 @@ using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Commands.Types;
 using DCCRailway.System.Controllers;
 using DCCRailway.System.Controllers.Events;
-using DCCRailway.DCCController.LayoutCmdUpdater;
 using DCCRailway.Layout;
 using DCCRailway.Layout.Entities;
 
@@ -16,7 +15,7 @@ public class ControllerEventLayoutTest {
     [Test]
     public void TestLayoutCmdProcessorForALoco() {
         var layoutConfig       = new DCCRailwayConfig();
-        var layoutCmdProcessor = new LayoutCmdUpdater(layoutConfig);
+        var layoutCmdProcessor = new LayoutCmdUpdater.LayoutCmdUpdater(layoutConfig);
         Assert.That(layoutConfig, Is.Not.Null);
         Assert.That(layoutCmdProcessor, Is.Not.Null);
 
@@ -30,12 +29,12 @@ public class ControllerEventLayoutTest {
         var setLocoSpeed = controller.CreateCommand<ICmdLocoSetSpeed>();
         Assert.That(setLocoSpeed, Is.Not.Null);
         setLocoSpeed!.Address = new DCCAddress(3);
-        setLocoSpeed.Speed    = 50;
-        Assert.That(loco?.Speed?.Speed, Is.EqualTo(0));
+        setLocoSpeed.Speed    = new DCCSpeed(50);
+        Assert.That(loco?.Speed?.Value, Is.EqualTo(0));
 
         var controllerEvent = new ControllerEventCommandExec(setLocoSpeed, CommandResult.Success(), controller.Adapter!);
         layoutCmdProcessor.ProcessCommandEvent(controllerEvent);
-        Assert.That(loco?.Speed?.Speed, Is.EqualTo(50));
+        Assert.That(loco?.Speed?.Value, Is.EqualTo(50));
     }
 
     private IController CreateVirtualControllerWithAdapter() {
