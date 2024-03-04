@@ -5,17 +5,17 @@ using DCCRailway.Layout.Entities.Base;
 namespace DCCRailway.Layout.Entities;
 
 public class Locomotive() : ConfigWithDecoder(DCCAddressType.Long) {
-    private string                 _type;
-    private string                 _roadName;
-    private string                 _roadNumber;
-    private string                 _manufacturer;
-    private string                 _model;
-    private DCCMomentum            _momentum;
-    private DCCSpeed               _speed     = new(0);
-    private DCCDirection           _direction = DCCDirection.Stop;
-    private DCCSpeed               _lastSpeed;
-    private DCCDirection           _lastDirection;
-    private DCCFunctionBlocks      _functionBlocks = new();
+    private string            _type             = "";
+    private string            _roadName         = "";
+    private string            _roadNumber       = "";
+    private string            _manufacturer     = "";
+    private string            _model;
+    private DCCMomentum       _momentum         = new DCCMomentum(0);
+    private DCCSpeed          _speed            = new(0);
+    private DCCDirection      _direction        = DCCDirection.Stop;
+    private DCCSpeed          _lastSpeed        = new (0);
+    private DCCDirection      _lastDirection    = DCCDirection.Stop;
+    private DCCFunctionBlocks _functionBlocks   = new();
 
     /// <summary>
     /// Represents a locomotive entity with DCC address, direction, and speed.
