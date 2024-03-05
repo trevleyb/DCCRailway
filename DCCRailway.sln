@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Test", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Layout.Test", "DCCRailway.Layout.Test\DCCRailway.Layout.Test.csproj", "{ECB148C2-8B76-46FB-B05B-10E0DFF70C31}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E0D75749-0E2A-4DB3-A7C2-E3414C3D870E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,5 +111,9 @@ Global
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2AB280A0-ACB1-4A27-AEB3-C83CBA30A65F} = {E0D75749-0E2A-4DB3-A7C2-E3414C3D870E}
+		{ECB148C2-8B76-46FB-B05B-10E0DFF70C31} = {E0D75749-0E2A-4DB3-A7C2-E3414C3D870E}
+		{9F7826B2-569F-47F1-9FAF-1862E7BFB396} = {E0D75749-0E2A-4DB3-A7C2-E3414C3D870E}
+		{5489776D-7885-48FE-AC7F-D92DC35EC324} = {E0D75749-0E2A-4DB3-A7C2-E3414C3D870E}
 	EndGlobalSection
 EndGlobal
