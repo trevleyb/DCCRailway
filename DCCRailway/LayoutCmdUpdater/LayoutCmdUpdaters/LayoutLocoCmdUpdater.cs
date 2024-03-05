@@ -27,6 +27,8 @@ public class LayoutLocoCmdUpdater(DCCRailwayConfig config) : LayoutGenericCmdUpd
             break;
         case ICmdLocoSetFunctions cmd:
             break;
+        case ICmdLocoSetFunction cmd:
+            break;
         case ICmdLocoSetMomentum cmd:
             loco.Momentum = cmd.Momentum;
             break;
