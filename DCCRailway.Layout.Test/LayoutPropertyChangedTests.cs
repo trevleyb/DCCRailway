@@ -10,10 +10,9 @@ namespace DCCRailway.Test.SystemTests;
 
 [TestFixture]
 public class LayoutPropertyChangedTests {
-
-    public bool   triggeredChanging = false;
-    public bool   triggeredChanged  = false;
-    public string activeField       = "";
+    private bool   _triggeredChanging = false;
+    private bool   _triggeredChanged  = false;
+    private string _activeField       = "";
 
 
     [Test]
@@ -50,42 +49,40 @@ public class LayoutPropertyChangedTests {
 
         loco.PropertyChanged  -= LocoOnPropertyChanged;
         loco.PropertyChanging -= LocoOnPropertyChanging;
-
     }
 
     private void LocoOnPropertyChanging(object? sender, PropertyChangingEventArgs e) {
-        Assert.That(e.PropertyName, Is.EqualTo(activeField));
-        triggeredChanging = true;
+        Assert.That(e.PropertyName, Is.EqualTo(_activeField));
+        _triggeredChanging = true;
     }
 
     private void LocoOnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
-        Assert.That(e.PropertyName, Is.EqualTo(activeField));
-        triggeredChanged = true;
+        Assert.That(e.PropertyName, Is.EqualTo(_activeField));
+        _triggeredChanged = true;
     }
 
-    void TestField<T>(ConfigBase entity, string field, T value) {
-        triggeredChanging = false;
-        triggeredChanged = false;
-        activeField      = field;
+    private void TestField<T>(ConfigBase entity, string field, T value) {
+        _triggeredChanging = false;
+        _triggeredChanged = false;
+        _activeField      = field;
         var oldValue = GetPropertyValue<T>(entity, field);
         SetPropertyValue(entity, field, value);
         var getValue = GetPropertyValue<T>(entity, field);
         Assert.That(getValue, Is.EqualTo(value));
         Assert.That(getValue, Is.Not.EqualTo(oldValue));
-        Assert.That(triggeredChanging, Is.True);
-        Assert.That(triggeredChanged, Is.True);
-        activeField = "";
+        Assert.That(_triggeredChanging, Is.True);
+        Assert.That(_triggeredChanged, Is.True);
+        _activeField = "";
     }
 
-
-    static void SetPropertyValue<T>(object obj, string propertyName, T value) {
+    private static void SetPropertyValue<T>(object obj, string propertyName, T value) {
         var propertyInfo = obj.GetType().GetProperty(propertyName);
         if (propertyInfo != null && propertyInfo.CanWrite) {
             propertyInfo.SetValue(obj, value);
         }
     }
 
-    static T? GetPropertyValue<T>(object obj, string propertyName) {
+    private static T? GetPropertyValue<T>(object obj, string propertyName) {
         var propertyInfo = obj.GetType().GetProperty(propertyName);
         if (propertyInfo != null && propertyInfo.CanRead) {
             return (T?)propertyInfo.GetValue(obj);
