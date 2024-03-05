@@ -31,6 +31,6 @@ public class PropertyChangeBaseTest {
 
         // Assert
         Assert.IsTrue(propertyChangedEventRaised);
-        Assert.AreEqual("Name", propertyName);
+        Assert.That(propertyName, Is.EqualTo("Name"));
     }
 }

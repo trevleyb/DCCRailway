@@ -14,7 +14,7 @@ public class ExtensionMethodsTest {
         var result = input.Invert();
 
         // Assert
-        Assert.AreEqual(0b01010101, result);
+        Assert.That(result, Is.EqualTo(0b01010101));
     }
 
     [Test]
@@ -27,8 +27,8 @@ public class ExtensionMethodsTest {
         var result2 = input.SetBit(5, true);
 
         // Assert
-        Assert.AreEqual(0b00001000, result1);
-        Assert.AreEqual(0b00100000, result2);
+        Assert.That(result1, Is.EqualTo(0b00001000));
+        Assert.That(result2, Is.EqualTo(0b00100000));
     }
 
     [Test]
@@ -44,7 +44,7 @@ public class ExtensionMethodsTest {
         }
 
         // Assert
-        Assert.AreEqual(0b11111111, input);
+        Assert.That(input, Is.EqualTo(0b11111111));
     }
 
     [Test]
@@ -56,7 +56,7 @@ public class ExtensionMethodsTest {
         var result = input.FormatBits();
 
         // Assert
-        Assert.AreEqual("1-0-1-0-1-0-1-0", result);
+        Assert.That(result, Is.EqualTo("1-0-1-0-1-0-1-0"));
     }
 
     [Test]
@@ -97,8 +97,8 @@ public class ExtensionMethodsTest {
         var result2 = input.AddToArray(new byte[] { 0x05, 0x06 });
 
         // Assert
-        Assert.AreEqual(new byte[] { 0x01, 0x02, 0x03, 0x04 }, result1);
-        Assert.AreEqual(new byte[] { 0x01, 0x02, 0x03, 0x05, 0x06 }, result2);
+        Assert.That(result1, Is.EqualTo(new byte[] { 0x01, 0x02, 0x03, 0x04 }));
+        Assert.That(result2, Is.EqualTo(new byte[] { 0x01, 0x02, 0x03, 0x05, 0x06 }));
     }
 
     [Test]
@@ -110,7 +110,7 @@ public class ExtensionMethodsTest {
         var result = input.ToByteArray();
 
         // Assert
-        Assert.AreEqual(new byte[] { 0x01, 0x00 }, result);
+        Assert.That(result, Is.EqualTo(new byte[] { 0x01, 0x00 }));
     }
 
     [Test]
@@ -122,7 +122,7 @@ public class ExtensionMethodsTest {
         var result = input.ToByteArray();
 
         // Assert
-        Assert.AreEqual(new byte[] { 0x48, 0x65, 0x6C, 0x6C, 0x6F }, result);
+        Assert.That(result, Is.EqualTo(new byte[] { 0x48, 0x65, 0x6C, 0x6C, 0x6F }));
     }
 
     [Test]
@@ -134,7 +134,7 @@ public class ExtensionMethodsTest {
         var result = input.ToDisplayValues();
 
         // Assert
-        Assert.AreEqual("01-02-03", result);
+        Assert.That(result, Is.EqualTo("01-02-03"));
     }
 
     [Test]
@@ -146,7 +146,7 @@ public class ExtensionMethodsTest {
         var result = input.ToDisplayChars();
 
         // Assert
-        Assert.AreEqual("H-e-l-l-o", result);
+        Assert.That(result, Is.EqualTo("H-e-l-l-o"));
     }
 
     [Test]
@@ -158,7 +158,7 @@ public class ExtensionMethodsTest {
         var result = input.ToDisplayValueChars();
 
         // Assert
-        Assert.AreEqual("48-65-6C-6C-6F (H-e-l-l-o)", result);
+        Assert.That(result, Is.EqualTo("48-65-6C-6C-6F (H-e-l-l-o)"));
     }
 
     [Test]
@@ -170,7 +170,7 @@ public class ExtensionMethodsTest {
         var result = input.FromByteArray();
 
         // Assert
-        Assert.AreEqual("Hello", result);
+        Assert.That(result, Is.EqualTo("Hello"));
     }
 
     [Test]

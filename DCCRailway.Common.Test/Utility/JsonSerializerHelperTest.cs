@@ -1,18 +1,17 @@
-using NUnit.Framework;
-using System;
-using System.IO;
+using System.Diagnostics;
 using System.Text.Json;
+using DCCRailway.Common.Utilities;
 
-namespace DCCRailway.Common.Utilities.Tests;
+namespace DCCRailway.Common.Test.Utility;
 
 [TestFixture]
 public class JsonSerializerHelperTest {
-    private const string TestFileName = "test.json";
+    private const string? TestFileName = "test.json";
 
     [SetUp]
     public void SetUp() {
         // Clean up the test file before each test
-        if (File.Exists(TestFileName)) File.Delete(TestFileName);
+        if (File.Exists(TestFileName)) File.Delete(TestFileName?? "test.json");
     }
 
     [Test]
@@ -20,14 +19,14 @@ public class JsonSerializerHelperTest {
         // Arrange
         var expectedObject = new TestObject { Name = "Test" };
         var serializedStr  = JsonSerializer.Serialize(expectedObject);
-        File.WriteAllText(TestFileName, serializedStr);
+        File.WriteAllText(TestFileName ?? "test.json", serializedStr);
 
         // Act
         var loadedObject = JsonSerializerHelper<TestObject>.Load(TestFileName);
 
         // Assert
         Assert.IsNotNull(loadedObject);
-        Assert.AreEqual(expectedObject.Name, loadedObject.Name);
+        Assert.That(loadedObject?.Name, Is.EqualTo(expectedObject.Name));
     }
 
     [Test]
@@ -42,7 +41,8 @@ public class JsonSerializerHelperTest {
     [Test]
     public void Load_ShouldThrowException_WhenDeserializationFails() {
         // Arrange
-        File.WriteAllText(TestFileName, "invalid json");
+        Debug.Assert(TestFileName != null, nameof(TestFileName) + " != null");
+        File.WriteAllText(TestFileName ?? "test.json", "invalid json");
 
         // Act & Assert
         Assert.Throws<ApplicationException>(() => JsonSerializerHelper<TestObject>.Load(TestFileName));
@@ -58,10 +58,10 @@ public class JsonSerializerHelperTest {
 
         // Assert
         Assert.IsTrue(File.Exists(TestFileName));
-        var serializedStr      = File.ReadAllText(TestFileName);
+        var serializedStr      = File.ReadAllText(TestFileName ?? "test.json");
         var deserializedObject = JsonSerializer.Deserialize<TestObject>(serializedStr);
         Assert.IsNotNull(deserializedObject);
-        Assert.AreEqual(objectToSave.Name, deserializedObject.Name);
+        Assert.That(deserializedObject?.Name, Is.EqualTo(objectToSave.Name));
     }
 
     [Test]
@@ -75,6 +75,6 @@ public class JsonSerializerHelperTest {
     }
 
     private class TestObject {
-        public string Name { get; set; }
+        public string Name { get; init; }
     }
 }

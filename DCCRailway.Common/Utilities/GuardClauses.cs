@@ -5,7 +5,7 @@ public static class GuardClauses {
         if (argumentValue == null) throw new ArgumentNullException(argumentName);
     }
 
-    public static void IsNotNullOrEmpty(string argumentValue, string argumentName) {
+    public static void IsNotNullOrEmpty(string? argumentValue, string argumentName) {
         if (string.IsNullOrEmpty(argumentValue)) throw new ArgumentNullException(argumentName);
     }
 

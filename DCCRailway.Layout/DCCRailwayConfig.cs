@@ -24,10 +24,10 @@ public class DCCRailwayConfig {
     public Blocks      Blocks      { get; set; } = [];
 
     #region Load and Save Functions
-    public static DCCRailwayConfig? Load(string name) => JsonSerializerHelper<DCCRailwayConfig>.Load(name);
-    public        void              Save(string name) => JsonSerializerHelper<DCCRailwayConfig>.Save(this, name);
+    public static DCCRailwayConfig? Load(string? name) => JsonSerializerHelper<DCCRailwayConfig>.Load(name);
+    public        void              Save(string? name) => JsonSerializerHelper<DCCRailwayConfig>.Save(this, name);
 
-    public string Save() {
+    public string? Save() {
         var fileName = Path.ChangeExtension(Name, ".json");
         JsonSerializerHelper<DCCRailwayConfig>.Save(this, fileName);
 

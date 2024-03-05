@@ -18,7 +18,7 @@ public class GuardClausesTest {
     [Test]
     public void IsNotNull_ShouldThrowArgumentNullException_WhenArgumentIsNull() {
         // Arrange
-        object argumentValue = null;
+        object? argumentValue = null;
         var    argumentName  = "argument";
 
         // Act & Assert
@@ -38,7 +38,7 @@ public class GuardClausesTest {
     [Test]
     public void IsNotNullOrEmpty_ShouldThrowArgumentNullException_WhenArgumentIsNull() {
         // Arrange
-        string argumentValue = null;
+        string? argumentValue = null;
         var    argumentName  = "argument";
 
         // Act & Assert
