@@ -15,7 +15,6 @@ public class LayoutLocoCmdUpdater(DCCRailwayConfig config) : LayoutGenericCmdUpd
         var loco = Config.Locomotives[((ILocoCmd)command).Address];
         if (loco is null) {
             Logger.Log.Error($"Command {command.AttributeInfo().Name} - no matching Accessory {((IAccyCmd)command).Address.Address}.");
-
             return false;
         }
 

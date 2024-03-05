@@ -60,7 +60,7 @@ public static class JMRIRosterImporter {
                 locoList.Add(loco);
             }
             catch (Exception ex) {
-                Logger.Log.Error("Unable to map the JMRI Locomotive to the DCCRailway.Delete format due to '{0}'", ex.Message);
+                Logger.Log.Error("Unable to map the JMRI Locomotive to the DCCRailway format due to '{0}'", ex.Message);
             }
         }
 

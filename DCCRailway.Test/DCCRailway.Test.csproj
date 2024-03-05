@@ -35,9 +35,4 @@
     <ItemGroup>
         <None Remove="SystemTests\roster.xml"/>
     </ItemGroup>
-    <ItemGroup>
-        <AdditionalFiles Include="roster.xml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </AdditionalFiles>
-    </ItemGroup>
 </Project>

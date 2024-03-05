@@ -8,7 +8,7 @@ using DCCRailway.System.Commands.Types.BaseTypes;
 using DCCRailway.System.Manufacturer.Virtual.Commands.Results;
 using DCCRailway.System.Manufacturer.Virtual.Commands.Validators;
 
-[assembly: InternalsVisibleTo("DCCRailway.Delete.Test.VirtualPowerCabSensorTests")]
+[assembly: InternalsVisibleTo(" DCCRailway.Test.Manufacturers.NCE.VirtualPowerCabSensorTests")]
 
 namespace DCCRailway.System.Manufacturer.Virtual.Commands;
 

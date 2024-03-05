@@ -26,4 +26,10 @@
         <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="roster.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
 </Project>

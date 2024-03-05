@@ -11,7 +11,7 @@ using DCCRailway.System.Commands.Types.BaseTypes;
 using DCCRailway.System.Manufacturer.NCE.Commands.Results;
 using DCCRailway.System.Manufacturer.NCE.Commands.Validators;
 
-[assembly: InternalsVisibleTo("DCCRailway.Delete.Test.NCEPowerCabSensorTests")]
+[assembly: InternalsVisibleTo("DCCRailway.Test.Manufacturers.NCE.NCEPowerCabSensorTests")]
 
 namespace DCCRailway.System.Manufacturer.NCE.Commands;
 

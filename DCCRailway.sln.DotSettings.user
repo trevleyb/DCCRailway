@@ -23,6 +23,9 @@
       &lt;TestId&gt;net8.0::NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::DCCRailway.Test.SystemTests.LayoutPropertyChangedTests.LocoPropertyChangedEvent&lt;/TestId&gt;
       &lt;TestId&gt;net8.0::NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::DCCRailway.Test.SystemTests.LayoutPropertyChangedTests.QuickTest&lt;/TestId&gt;
     &lt;/TestAncestor&gt;
+    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Test" Presentation="&amp;lt;DCCRailway.Test&amp;gt;" /&gt;
+    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Test" Presentation="&amp;lt;DCCRailway.System.Test&amp;gt;" /&gt;
+    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Layout.Test" Presentation="&amp;lt;DCCRailway.Layout.Test&amp;gt;" /&gt;
   &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
 

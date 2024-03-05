@@ -14,10 +14,8 @@ public class LayoutCmdUpdater(DCCRailwayConfig config) {
 
             // If the command failed, log the error and return.
             // -------------------------------------------------
-            if (!exec.Result.IsFailure) {
-                Logger.Log.Information(
-                                       $"Command {exec.Command.AttributeInfo().Name} failed with error {exec.Result.Error}");
-
+            if (exec.Result.IsFailure) {
+                Logger.Log.Information($"Command {exec.Command.AttributeInfo().Name} failed with error {exec.Result.Error}");
                 return;
             }
 

@@ -21,7 +21,7 @@ public class ServerBroadcast {
                 sp.AddProperty("version", "4.2.1");
 
                 //sp.AddProperty ("Version", "0.0.0.1");
-                //sp.AddProperty ("Server", "DCCRailway.Delete");
+                //sp.AddProperty ("Server", "DCCRailway");
                 sd.AnswersContainsAdditionalRecords = true;
                 sd.Advertise(sp);
             }
