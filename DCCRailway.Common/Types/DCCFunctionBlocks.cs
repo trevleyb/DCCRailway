@@ -76,13 +76,32 @@ public class DCCFunctionBlocks {
 
 
     [RangeValidation(0,28, "Function number must be between 0..28")]
-    public void SetFunction(byte function, bool state) {
+    public void SetFunction(string functionName, bool state) {
+        this[GetFunctionFromName(functionName)] = state;
+    }
+
+    [RangeValidation(0,28, "Function number must be between 0..28")]
+    public void SetFunction(int function, bool state) {
         this[function] = state;
     }
 
     [RangeValidation(0,28, "Function number must be between 0..28")]
-    public bool GetFunction(byte function) {
+    public bool GetFunction(string functionName) {
+        return this[GetFunctionFromName(functionName)];
+    }
+    
+    [RangeValidation(0,28, "Function number must be between 0..28")]
+    public bool GetFunction(int function) {
         return this[function];
+    }
+
+    private int GetFunctionFromName(string functionName) {
+        if (functionName.StartsWith("F")) {
+            if (int.TryParse(functionName[1..], out var function)) {
+                return function;
+            }
+        }
+        throw new IndexOutOfRangeException("Function number must be between 0..28");
     }
     
     /// <summary>
