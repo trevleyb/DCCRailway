@@ -6,7 +6,7 @@ using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Results;
 using DCCRailway.System.Commands.Types;
-using DCCRailway.System.Commands.Types.BaseTypes;
+using DCCRailway.System.Commands.Types.Base;
 using DCCRailway.System.Manufacturer.NCE.Commands.Validators;
 
 namespace DCCRailway.System.Manufacturer.NCE.Commands;

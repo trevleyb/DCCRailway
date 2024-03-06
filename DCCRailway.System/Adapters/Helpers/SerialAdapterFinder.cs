@@ -1,9 +1,12 @@
 using System.IO.Ports;
 using DCCRailway.Common.Utilities;
 
-namespace DCCRailway.System.Adapters;
+namespace DCCRailway.System.Adapters.Helpers;
 
 public static class SerialAdapterFinder {
+
+    const int MillisecondsDelay = 10;
+
     /// <summary>
     ///     Static function that will SEARCH for a Port that returns some valid data
     /// </summary>
@@ -17,7 +20,6 @@ public static class SerialAdapterFinder {
                         foreach (var stopBits in new[] { StopBits.None, StopBits.One, StopBits.OnePointFive, StopBits.Two }) {
                             var settings = new SerialAdapterSettings(port, baudRate, dataBits, parity, stopBits, 1000);
                             var result   = await TestSerialPort(settings, data);
-
                             yield return (result, settings);
                         }
                     }
@@ -39,22 +41,18 @@ public static class SerialAdapterFinder {
 
                 var timeoutTime = DateTime.Now.AddMilliseconds(settings.Timeout);
                 while (DateTime.Now <= timeoutTime && connection.BytesToRead == 0) {
-                    await Task.Delay(10); // Adjust as needed
+                    await Task.Delay(MillisecondsDelay); // Adjust as needed
                 }
 
                 if (connection.BytesToRead > 0) {
                     readData = new byte[connection.BytesToRead];
-                    await connection.BaseStream.ReadAsync(readData, 0, readData.Length);
-                }
-                else {
-                    Console.WriteLine("stop here");
+                    _ = await connection.BaseStream.ReadAsync(readData, 0, readData.Length);
                 }
             }
         }
         catch (Exception ex) {
             Logger.Log.Debug($"ERROR Connecting to port: {ex.Message}");
         }
-
         return readData;
     }
 

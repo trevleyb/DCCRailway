@@ -2,7 +2,7 @@ using DCCRailway.Common.Utilities;
 using DCCRailway.Layout;
 using DCCRailway.LayoutCmdUpdater.LayoutCmdUpdaters;
 using DCCRailway.System.Attributes;
-using DCCRailway.System.Commands.Types.BaseTypes;
+using DCCRailway.System.Commands.Types.Base;
 using DCCRailway.System.Controllers.Events;
 
 namespace DCCRailway.LayoutCmdUpdater;

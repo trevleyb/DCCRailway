@@ -3,7 +3,7 @@ using DCCRailway.Common.Types;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Types;
-using DCCRailway.System.Commands.Types.BaseTypes;
+using DCCRailway.System.Commands.Types.Base;
 using DCCRailway.System.Manufacturer.Virtual.Commands.Validators;
 
 namespace DCCRailway.System.Manufacturer.Virtual.Commands;

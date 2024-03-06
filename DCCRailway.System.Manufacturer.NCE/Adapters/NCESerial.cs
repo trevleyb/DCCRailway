@@ -1,5 +1,6 @@
 ﻿using System.IO.Ports;
 using DCCRailway.System.Adapters;
+using DCCRailway.System.Adapters.Helpers;
 using DCCRailway.System.Attributes;
 
 namespace DCCRailway.System.Manufacturer.NCE.Adapters;
