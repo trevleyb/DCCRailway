@@ -1,4 +1,4 @@
-﻿using System.IO.Ports;
+﻿using SysIO = System.IO.Ports;
 using DCCRailway.Common.Utilities;
 using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Adapters.Helpers;
@@ -10,12 +10,12 @@ namespace DCCRailway.System.Adapters;
 
 public abstract class SerialAdapter : Adapter, IAdapter {
     private readonly SerialAdapterSettings _serialAdapterSettings;
-    private SerialPort? _connection;
+    private SysIO.SerialPort? _connection;
 
     /// <summary>
     ///     Return a list of available port names that can be used by the adapter
     /// </summary>
-    public static List<string> PortNames => SerialPort.GetPortNames().ToList();
+    public static List<string> PortNames => SysIO.SerialPort.GetPortNames().ToList();
 
     public bool IsConnected => _connection?.IsOpen ?? false;
 
@@ -28,11 +28,11 @@ public abstract class SerialAdapter : Adapter, IAdapter {
 
         if (string.IsNullOrEmpty(_serialAdapterSettings.PortName)) throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
         try {
-            _connection = new SerialPort(_serialAdapterSettings.PortName,
-                                         _serialAdapterSettings.BaudRate,
-                                         _serialAdapterSettings.Parity,
-                                         _serialAdapterSettings.DataBits,
-                                         _serialAdapterSettings.StopBits)
+            _connection = new SysIO.SerialPort(_serialAdapterSettings.PortName,
+                                               _serialAdapterSettings.BaudRate,
+                                               _serialAdapterSettings.Parity,
+                                               _serialAdapterSettings.DataBits,
+                                               _serialAdapterSettings.StopBits)
                                         { WriteTimeout = _serialAdapterSettings.Timeout, ReadTimeout = _serialAdapterSettings.Timeout };
 
             //_connection.DataReceived += delegate (object sender, SerialDataReceivedEventArgs args) {
@@ -40,7 +40,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
             //    OnDataRecieved(new DataRecvArgs(args.ToString()!.ToByteArray(), this));
             //};
 
-            _connection.ErrorReceived += delegate(object sender, SerialErrorReceivedEventArgs args) {
+            _connection.ErrorReceived += delegate(object sender, SysIO.SerialErrorReceivedEventArgs args) {
                 Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} - SerialConnection Error Occurred: {0}", args);
                 OnErrorOccurred(new ErrorArgs(args.EventType.ToString(), this));
             };
@@ -82,7 +82,6 @@ public abstract class SerialAdapter : Adapter, IAdapter {
                     readBytes = false;
                     var readData = new byte[_connection.BytesToRead];
                     _connection.Read(readData, 0, _connection.BytesToRead);
-
                     Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
                     returnData.AddRange(readData);
                 }
@@ -114,7 +113,6 @@ public abstract class SerialAdapter : Adapter, IAdapter {
         catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not read/write to Command Station", ex);
         }
-
         OnDataSent(new DataSentArgs(data, this, commandReference));
     }
 
@@ -125,7 +123,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     public override string ToString() => $"Adapter '{this.AttributeInfo().Name}' = {_serialAdapterSettings.PortName} @ {_serialAdapterSettings.BaudRate},{_serialAdapterSettings.DataBits},{_serialAdapterSettings.StopBits},{_serialAdapterSettings.Parity}";
 
     #region Constructor and Destructor
-    protected SerialAdapter(string portName = "dev/ttyUSB0", int baudRate = 9600, int dataBits = 8, Parity parity = Parity.None, StopBits stopBits = StopBits.One, int timeout = 2000) => _serialAdapterSettings = new SerialAdapterSettings(portName, baudRate, dataBits, parity, stopBits, timeout);
+    protected SerialAdapter(string portName = "dev/ttyUSB0", int baudRate = 9600, int dataBits = 8, SysIO.Parity parity = SysIO.Parity.None, SysIO.StopBits stopBits = SysIO.StopBits.One, int timeout = 2000) => _serialAdapterSettings = new SerialAdapterSettings(portName, baudRate, dataBits, parity, stopBits, timeout);
 
     protected SerialAdapter(SerialAdapterSettings settings) => _serialAdapterSettings = settings;
 

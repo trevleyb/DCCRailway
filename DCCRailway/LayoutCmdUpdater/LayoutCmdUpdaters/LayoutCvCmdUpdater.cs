@@ -17,7 +17,6 @@ public class LayoutCvCmdUpdater(DCCRailwayConfig config) : LayoutGenericCmdUpdat
             break;
         default:
             Logger.Log.Error($"Command {command.AttributeInfo().Name} not supported.");
-
             throw new Exception("Unexpected type of command executed.");
         }
 

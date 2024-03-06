@@ -9,7 +9,7 @@ public interface IAdapter {
     void Disconnect();
     void Dispose();
 
-    void    SendData(byte[]   data, ICommand command);
+    void    SendData(byte[]  data, ICommand command);
     byte[]? RecvData(ICommand command);
 
     event EventHandler<DataRecvArgs> DataReceived;
