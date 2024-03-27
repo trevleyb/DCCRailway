@@ -2,7 +2,7 @@
 using DCCRailway.System.Commands.Types;
 using DCCRailway.System.Controllers;
 using NUnit.Framework;
-using VirtualAdapter = DCCRailway.System.Manufacturer.Virtual.Adapters.VirtualAdapter;
+using VirtualAdapter = DCCRailway.System.Virtual.Adapters.VirtualAdapter;
 
 namespace DCCRailway.Test.SystemTests;
 

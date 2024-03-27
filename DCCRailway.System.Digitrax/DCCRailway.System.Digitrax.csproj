@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>false</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>default</LangVersion>
+        <PackageId>DCCRailway.System.Digitrax</PackageId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+        <ProjectReference Include="..\DCCRailway\DCCRailway.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="obj\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Remove="obj\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="obj\**"/>
+    </ItemGroup>
+</Project>

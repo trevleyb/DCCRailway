@@ -1,8 +1,8 @@
 ﻿using DCCRailway.Common.Types;
 using DCCRailway.System.Commands.Types;
 using DCCRailway.System.Controllers;
-using DCCRailway.System.Manufacturer.NCE;
-using DCCRailway.System.Manufacturer.NCE.Adapters;
+using DCCRailway.System.NCE;
+using DCCRailway.System.NCE.Adapters;
 using NUnit.Framework;
 
 namespace DCCRailway.Test.Manufacturers.NCE;

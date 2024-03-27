@@ -3,8 +3,8 @@ using DCCRailway.System.Adapters;
 using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Commands.Types;
 using DCCRailway.System.Controllers;
-using DCCRailway.System.Manufacturer.NCE;
-using DCCRailway.System.Manufacturer.NCE.Adapters;
+using DCCRailway.System.NCE;
+using DCCRailway.System.NCE.Adapters;
 using NUnit.Framework;
 using NUnit.Framework.Internal.Commands;
 
