@@ -6,23 +6,17 @@ using DCCRailway.System.Commands.Types;
 
 namespace DCCRailway.LayoutCmdUpdater.LayoutCmdUpdaters;
 
-public class LayoutSensorCmdUpdater(DCCRailwayConfig config) : LayoutGenericCmdUpdater(config) {
+public class LayoutCvCmdUpdater(IDCCRailwayConfig config) : LayoutGenericCmdUpdater(config) {
     public new bool Process(ICommand command) {
-        // Get the Accessory from the configuration so that we can update its state
-        // -----------------------------------------------------------------------------
-        //var Sensor = config.Sensors[((ISensorCmd)command). .Address];
-        //if (loco is null) {
-        //    Logger.Log.Error($"Command {command.AttributeInfo().Name} - no matching Accessory {((IAccyCmd)command).Address.Address}.");
-        //    return false;
-        //}
-
         switch (command) {
-        case ICmdSensorGetState cmd:
+        case ICmdCVRead cmd:
+            // TODO: Implement the command processing
+            break;
+        case ICmdCVWrite cmd:
             // TODO: Implement the command processing
             break;
         default:
             Logger.Log.Error($"Command {command.AttributeInfo().Name} not supported.");
-
             throw new Exception("Unexpected type of command executed.");
         }
 

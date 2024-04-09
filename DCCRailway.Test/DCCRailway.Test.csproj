@@ -23,7 +23,7 @@
         <None Remove="ServerTest\"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.API\DCCRailway.API.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Service\DCCRailway.Service.csproj" />
         <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj"/>
         <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
         <ProjectReference Include="..\DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj" />

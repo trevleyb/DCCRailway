@@ -27,6 +27,7 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+        <ProjectReference Include="..\DCCRailway.System\DCCRailway.System.csproj" />
         <ProjectReference Include="..\DCCRailway\DCCRailway.csproj"/>
     </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@ using DCCRailway.System.Commands.Types.Base;
 
 namespace DCCRailway.LayoutCmdUpdater.LayoutCmdUpdaters;
 
-public class LayoutLocoCmdUpdater(DCCRailwayConfig config) : LayoutGenericCmdUpdater(config) {
+public class LayoutLocoCmdUpdater(IDCCRailwayConfig config) : LayoutGenericCmdUpdater(config) {
     public new bool Process(ICommand command) {
         // Get the Accessory from the configuration so that we can update its state
         // -----------------------------------------------------------------------------

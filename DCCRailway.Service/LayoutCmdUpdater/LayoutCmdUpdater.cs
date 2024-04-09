@@ -6,9 +6,19 @@ using DCCRailway.System.Commands.Types.Base;
 using DCCRailway.System.Controllers.Events;
 
 namespace DCCRailway.LayoutCmdUpdater;
-
+/// <summary>
+/// The LayoutCmdUpdated class is a bridge between an Event being recieved from a system,
+/// and the Layout Configuration itself.This is because, while the layout might issue a command
+/// to the command statin and it will be executed, other systems might issue a command also
+/// and so if these are detected (for example if we have a DC packet analyser listening to commands)
+/// then we need to update the Layout data with these changes.
+///
+/// So this is a bridge between the two systems. It takes a DCCRailwayConfig instance whcih is
+/// the collection of all data related to the current executing layout.
+/// </summary>
+/// <param name="config"></param>
 public class LayoutCmdUpdater(DCCRailwayConfig config) {
-    public void ProcessCommandEvent(ControllerEventArgs eventArgs) {
+    public void ProcessCommandEvent(IControllerEventArgs eventArgs) {
         switch (eventArgs) {
         case ControllerEventCommandExec exec:
 
@@ -22,12 +32,12 @@ public class LayoutCmdUpdater(DCCRailwayConfig config) {
             // If the command was successful, process the command.
             // ---------------------------------------------------
             _ = exec.Command switch {
-                IAccyCmd cmd    => new LayoutAccyCmdUpdaterUpdater(config).Process(exec.Command),
+                IAccyCmd cmd    => new LayoutAccyCmdUpdater(config).Process(exec.Command),
                 ILocoCmd cmd    => new LayoutLocoCmdUpdater(config).Process(exec.Command),
                 ISensorCmd cmd  => new LayoutSensorCmdUpdater(config).Process(exec.Command),
                 ISignalCmd cmd  => new LayoutSignalCmdUpdater(config).Process(exec.Command),
                 ISystemCmd cmd  => new LayoutSystemCmdUpdater(config).Process(exec.Command),
-                IConsistCmd cmd => new LayoutConsistCmdUpdaterUpdater(config).Process(exec.Command),
+                IConsistCmd cmd => new LayoutConsistCmdUpdater(config).Process(exec.Command),
                 ICVCmd cmd      => new LayoutCvCmdUpdater(config).Process(exec.Command),
                 _               => new LayoutGenericCmdUpdater(config).Process(exec.Command)
             };
