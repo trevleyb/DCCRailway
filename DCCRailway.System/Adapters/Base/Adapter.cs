@@ -5,7 +5,7 @@ namespace DCCRailway.System.Adapters;
 public abstract class Adapter {
     public event EventHandler<DataRecvArgs> DataReceived;
     public event EventHandler<DataSentArgs> DataSent;
-    public event EventHandler<ErrorArgs>    ErrorOccurred;
+    public event EventHandler<DataErrorArgs>    ErrorOccurred;
 
     #region Events Delegates
     /// <summary>
@@ -28,6 +28,6 @@ public abstract class Adapter {
     ///     that there was an error and what the error was.
     /// </summary>
     /// <param name="e">Args containing information on the error</param>
-    protected virtual void OnErrorOccurred(ErrorArgs e) => ErrorOccurred?.Invoke(this, e);
+    protected virtual void OnErrorOccurred(DataErrorArgs e) => ErrorOccurred?.Invoke(this, e);
     #endregion
 }

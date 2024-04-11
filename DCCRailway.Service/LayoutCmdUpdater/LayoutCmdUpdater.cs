@@ -18,9 +18,10 @@ namespace DCCRailway.LayoutCmdUpdater;
 /// </summary>
 /// <param name="config"></param>
 public class LayoutCmdUpdater(DCCRailwayConfig config) {
-    public void ProcessCommandEvent(IControllerEventArgs eventArgs) {
+
+    public void ProcessCommandEvent(ControllerEventArgs eventArgs) {
         switch (eventArgs) {
-        case ControllerEventCommandExec exec:
+        case CommandEventArgs exec:
 
             // If the command failed, log the error and return.
             // -------------------------------------------------
@@ -44,23 +45,13 @@ public class LayoutCmdUpdater(DCCRailwayConfig config) {
 
             break;
 
-        case ControllerEventAdapterAdd exec:
-            Logger.Log.Error($"Command {exec.Adapter.AttributeInfo().Name} added to the controller.");
-
-            break;
-
-        case ControllerEventAdapterDel exec:
-            Logger.Log.Error($"Command {exec.Adapter.AttributeInfo().Name} removed from the controller.");
-
-            break;
-
-        case ControllerEventAdapter exec:
-            Logger.Log.Error($"Command {exec.Adapter.AttributeInfo().Name} executed {exec.AdapterEvent?.Command?.AttributeInfo().Name}");
-
+        case AdapterEventArgs exec:
+            Logger.Log.Error($"Command {exec.Adapter.AttributeInfo().Name} {exec.AdapterEvent} the controller.");
             break;
 
         default:
-            throw new Exception("Unexpected type of event raised.");
+            Logger.Log.Error($"Controller Evenet Raise: {eventArgs.Message}");
+            break;
         }
     }
 }

@@ -33,7 +33,7 @@ public class ControllerEventLayoutTest {
         Assert.That(loco?.Speed?.Value, Is.EqualTo(0));
 
         // todo: fix this test
-        //var controllerEvent = new ControllerEventCommandExec(setLocoSpeed, CommandResult.Success(), controller.Adapter!);
+        //var controllerEvent = new CommandEventArgs(setLocoSpeed, CommandResult.Success(), controller.Adapter!);
         //layoutCmdProcessor.ProcessCommandEvent(controllerEvent);
         //Assert.That(loco?.Speed?.Value, Is.EqualTo(50));
     }

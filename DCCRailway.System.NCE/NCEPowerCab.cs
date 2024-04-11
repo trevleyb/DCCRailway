@@ -15,6 +15,7 @@ public class NcePowerCab : Controller, IController {
 
     public override IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);
 
+    /*
     protected override void RegisterAdapters() {
         ClearAdapters();
         RegisterAdapter<NCESerial>();
@@ -91,4 +92,5 @@ public class NcePowerCab : Controller, IController {
             }
         }
     }
+    */
 }

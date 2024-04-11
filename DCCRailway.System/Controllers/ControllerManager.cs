@@ -12,7 +12,7 @@ namespace DCCRailway.System.Controllers;
 /// attributes and information about the controller.
 /// </summary>
 [DebuggerDisplay("Name: {Name}, Manufacturer: {Manufacturer}, Model: {Model}, Version: {Version}")]
-public class ControllerInfo(ControllerAttribute attributes, string assemblyPath, Type assemblyType) {
+public class ControllerManager(ControllerAttribute attributes, string assemblyPath, Type assemblyType) {
     private ControllerAttribute Attributes   { get; } = attributes;
     private Type                AssemblyType { get; } = assemblyType;
     private string              AssemblyPath { get; } = assemblyPath;

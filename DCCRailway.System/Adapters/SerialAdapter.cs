@@ -42,7 +42,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
 
             _connection.ErrorReceived += delegate(object sender, SysIO.SerialErrorReceivedEventArgs args) {
                 Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} - SerialConnection Error Occurred: {0}", args);
-                OnErrorOccurred(new ErrorArgs(args.EventType.ToString(), this));
+                OnErrorOccurred(new DataErrorArgs(args.EventType.ToString(), this));
             };
             _connection.Open();
         }

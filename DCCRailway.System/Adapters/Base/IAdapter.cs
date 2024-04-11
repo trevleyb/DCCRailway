@@ -12,7 +12,7 @@ public interface IAdapter {
     void    SendData(byte[]  data, ICommand command);
     byte[]? RecvData(ICommand command);
 
-    event EventHandler<DataRecvArgs> DataReceived;
-    event EventHandler<DataSentArgs> DataSent;
-    event EventHandler<ErrorArgs>    ErrorOccurred;
+    event EventHandler<DataRecvArgs>  DataReceived;
+    event EventHandler<DataSentArgs>  DataSent;
+    event EventHandler<DataErrorArgs>  ErrorOccurred;
 }

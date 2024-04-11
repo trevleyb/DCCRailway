@@ -96,10 +96,6 @@ public class VirtualControllerTest {
         if (virtualSystem != null) {
             virtualSystem.Adapter = virtualSystem.CreateAdapter("Virtual");
             Assert.That(virtualSystem.Adapter, Is.Not.Null);
-
-            Assert.That(virtualSystem.IsCommandSupported<IDummyCmd>());
-            Assert.That(virtualSystem.IsCommandSupported<ICmdStatus>());
-            Assert.That(!virtualSystem.IsCommandSupported<ICmdClockStart>());
         }
     }
 

@@ -7,8 +7,7 @@ public class CommandAttribute : Attribute {
         Version     = version ?? "";
         Description = description ?? Name;
     }
-
-    public string Description { get; set; }
-    public string Version     { get; set; }
-    public string Name        { get; set; }
+    public string Description   { get; set; }
+    public string Version       { get; set; }
+    public string Name          { get; set; }
 }

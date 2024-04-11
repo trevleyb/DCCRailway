@@ -45,7 +45,7 @@ public class NCEPowerCabLocoFunctionsTests {
         }
     }
 
-    private void Adapter_ErrorOccurred(object? sender, ErrorArgs e) => Console.WriteLine(e.ToString());
+    private void Adapter_ErrorOccurred(object? sender, DataErrorArgs e) => Console.WriteLine(e.ToString());
 
     private void Adapter_DataSent(object? sender, DataSentArgs e) => Console.WriteLine(e.ToString());
 

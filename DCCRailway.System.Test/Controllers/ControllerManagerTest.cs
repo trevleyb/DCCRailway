@@ -3,8 +3,8 @@ using NUnit.Framework;
 
 namespace DCCRailway.Test.System.Controllers;
 
-[TestFixture, TestOf(typeof(ControllerInfo))]
-public class ControllerInfoTest {
+[TestFixture, TestOf(typeof(ControllerManager))]
+public class ControllerManagerTest {
     [Test]
     public void METHOD() { }
 }
