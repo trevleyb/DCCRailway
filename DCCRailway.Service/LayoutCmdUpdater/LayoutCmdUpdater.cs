@@ -25,28 +25,29 @@ public class LayoutCmdUpdater(DCCRailwayConfig config) {
 
             // If the command failed, log the error and return.
             // -------------------------------------------------
-            if (exec.Result.IsFailure) {
-                Logger.Log.Information($"Command {exec.Command.AttributeInfo().Name} failed with error {exec.Result.Error}");
+            if (exec.Result is { IsFailure: true }) {
+                if (exec.Command != null) Logger.Log.Information($"Command {exec.Command.AttributeInfo().Name} failed with error {exec.Result.Error}");
                 return;
             }
 
             // If the command was successful, process the command.
             // ---------------------------------------------------
-            _ = exec.Command switch {
-                IAccyCmd cmd    => new LayoutAccyCmdUpdater(config).Process(exec.Command),
-                ILocoCmd cmd    => new LayoutLocoCmdUpdater(config).Process(exec.Command),
-                ISensorCmd cmd  => new LayoutSensorCmdUpdater(config).Process(exec.Command),
-                ISignalCmd cmd  => new LayoutSignalCmdUpdater(config).Process(exec.Command),
-                ISystemCmd cmd  => new LayoutSystemCmdUpdater(config).Process(exec.Command),
-                IConsistCmd cmd => new LayoutConsistCmdUpdater(config).Process(exec.Command),
-                ICVCmd cmd      => new LayoutCvCmdUpdater(config).Process(exec.Command),
-                _               => new LayoutGenericCmdUpdater(config).Process(exec.Command)
-            };
-
+            if (exec.Command != null) {
+                _ = exec.Command switch {
+                    IAccyCmd cmd    => new LayoutAccyCmdUpdater(config).Process(exec.Command),
+                    ILocoCmd cmd    => new LayoutLocoCmdUpdater(config).Process(exec.Command),
+                    ISensorCmd cmd  => new LayoutSensorCmdUpdater(config).Process(exec.Command),
+                    ISignalCmd cmd  => new LayoutSignalCmdUpdater(config).Process(exec.Command),
+                    ISystemCmd cmd  => new LayoutSystemCmdUpdater(config).Process(exec.Command),
+                    IConsistCmd cmd => new LayoutConsistCmdUpdater(config).Process(exec.Command),
+                    ICVCmd cmd      => new LayoutCvCmdUpdater(config).Process(exec.Command),
+                    _               => new LayoutGenericCmdUpdater(config).Process(exec.Command)
+                };
+            }
             break;
 
         case AdapterEventArgs exec:
-            Logger.Log.Error($"Command {exec.Adapter.AttributeInfo().Name} {exec.AdapterEvent} the controller.");
+            if (exec.Adapter != null) Logger.Log.Error($"Command {exec.Adapter.AttributeInfo().Name} {exec.AdapterEvent} the controller.");
             break;
 
         default:

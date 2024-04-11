@@ -23,8 +23,8 @@ namespace DCCRailway.System.Attributes
             }
         }
 
-        public static AdapterAttribute    AttributeInfo(this IAdapter    adapter)    => GetAttribute<AdapterAttribute>(adapter.GetType());
-        public static ControllerAttribute AttributeInfo(this IController controller) => GetAttribute<ControllerAttribute>(controller.GetType());
-        public static CommandAttribute    AttributeInfo(this ICommand    command)    => GetAttribute<CommandAttribute>(command.GetType());
+        public static AdapterAttribute    AttributeInfo(this IAdapter    adapter)    => GetAttribute<AdapterAttribute>(adapter.GetType()) ?? new AdapterAttribute("Unknown",AdapterType.Unknown);
+        public static ControllerAttribute AttributeInfo(this IController controller) => GetAttribute<ControllerAttribute>(controller.GetType()) ?? new ControllerAttribute("Unknown");
+        public static CommandAttribute    AttributeInfo(this ICommand    command)    => GetAttribute<CommandAttribute>(command.GetType()) ?? new CommandAttribute("Unknown","Unknown","Unknown", new[] { "!*" }, new[] { "!*" });
     }
 }

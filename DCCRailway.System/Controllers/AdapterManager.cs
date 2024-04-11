@@ -17,8 +17,10 @@ public class AdapterManager {
     public IAdapter? Adapter {
         get => _adapter;
         set {
-            if (_adapter != value) Detatch();
-            Attach(value);
+            if (value != null) {
+                if (_adapter != value) Detatch();
+                Attach(value);
+            }
         }
     }
 
