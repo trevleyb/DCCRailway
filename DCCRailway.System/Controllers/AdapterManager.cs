@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Reflection;
 using DCCRailway.System.Adapters;
 using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Attributes;
@@ -8,9 +9,10 @@ using DCCRailway.System.Exceptions;
 
 namespace DCCRailway.System.Controllers;
 
-public class AdapterManager {
+public class AdapterManager(Assembly assembly) {
 
     private IAdapter?                           _adapter;       // Stores the adapter to be used
+    private Assembly                            _assembly { get; set; } = assembly;
     private Dictionary<Type, AdapterAttribute>  _adapters = [];
     public event EventHandler<AdapterEventArgs> AdapterEvent;
 

@@ -1,4 +1,5 @@
-﻿using DCCRailway.Common.Types;
+﻿using System.Reflection;
+using DCCRailway.Common.Types;
 using DCCRailway.System.Adapters;
 using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Attributes;
@@ -13,8 +14,8 @@ public abstract class Controller : IController {
 
     public event EventHandler<ControllerEventArgs> ControllerEvent;
 
-    private CommandManager _commands { get; } = new();
-    private AdapterManager _adapters { get; } = new();
+    private CommandManager _commands { get; } = new(Assembly.GetCallingAssembly());
+    private AdapterManager _adapters { get; } = new(Assembly.GetCallingAssembly());
 
     protected Controller() {
         _commands.CommandEvent += CommandsOnCommandEvent;

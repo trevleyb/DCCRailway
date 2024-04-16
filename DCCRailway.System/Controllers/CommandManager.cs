@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Reflection;
 using DCCRailway.System.Adapters;
 using DCCRailway.System.Adapters.Events;
 using DCCRailway.System.Attributes;
@@ -7,22 +9,36 @@ using DCCRailway.System.Controllers.Events;
 
 namespace DCCRailway.System.Controllers;
 
-public class CommandManager {
-
-    private Dictionary<Type, (CommandAttribute Attributes, Type ConcreteType)>  _commands = [];
-    public event EventHandler<CommandEventArgs> CommandEvent;
+public class CommandManager(Assembly assembly) {
+    private Dictionary<Type, (CommandAttribute Attributes, Type ConcreteType)> _commands = [];
+    public event EventHandler<CommandEventArgs>                                CommandEvent;
+    private Assembly                                                           _assembly { get; set; } = assembly;
 
     public bool IsCommandSupported<T>() where T : ICommand => _commands.ContainsKey(typeof(T));
     public bool IsCommandSupported(Type command) => _commands.ContainsKey(command);
-    public bool                   IsCommandSupported(string name)            => _commands.Any(pair => pair.Value.Attributes.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+    public bool IsCommandSupported(string name)  => _commands.Any(pair => pair.Value.Attributes.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+
     public List<CommandAttribute> Commands {
         get {
             if (_commands.Any() is false) RegisterCommands();
+
+            // ToDo: Add in here if the command is supported.
             return _commands.Values.Select(x => x.Item1) .ToList();
         }
     }
 
-    private void RegisterCommands() {}
+    private void RegisterCommands() {
+        if (_assembly is null) throw new ApplicationException("No Assembly has been set for the Command Manager");
+        foreach (var command in _assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(ICommand)))) {
+            var attr = AttributeExtractor.GetAttribute<CommandAttribute>(command);
+            if (attr != null && !string.IsNullOrEmpty(attr.Name)) {
+                var commandInterface = command.ImplementedInterfaces.First(x => x.FullName != null && x.FullName.StartsWith("DCCRailway.System.Commands.Types.I", StringComparison.InvariantCultureIgnoreCase)) ?? null;
+                if (commandInterface is not null) {
+                    if (!_commands.ContainsKey(commandInterface)) _commands.TryAdd(commandInterface, (attr, command));
+                }
+            }
+        }
+    }
 
     protected void RegisterCommand<TInterface,TConcrete>() where TInterface : ICommand where TConcrete : ICommand {
         var attr = AttributeExtractor.GetAttribute<CommandAttribute>(typeof(TInterface));

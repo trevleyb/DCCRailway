@@ -33,7 +33,6 @@ public class ControllerManager(ControllerAttribute attributes, string assemblyPa
     public IController Create(IAdapter adapter) {
         var controller = Create();
         controller.Adapter = adapter;
-
         return controller;
     }
 

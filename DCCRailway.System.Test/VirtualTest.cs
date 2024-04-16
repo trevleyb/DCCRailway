@@ -20,6 +20,17 @@ public class VirtualTest {
     }
 
     [Test]
+    public void TestControllerCreationAndGetCommands() {
+        var controller = new ControllerFactory().CreateController("Virtual");
+        Assert.That(controller, Is.Not.Null);
+        Assert.That(controller.AttributeInfo().Name.Equals("Virtual"));
+        var supportedCommands = controller.Commands;
+        Assert.That(supportedCommands!.Count >= 1);
+        var command = controller.CreateCommand<IDummyCmd>();
+        Assert.That(command, Is.Not.Null);
+    }
+
+    [Test]
     public void CreateVirtualControllerAndAddVirtualAdapterTest() {
         var res = CreateVirtualControllerAndAddVirtualAdapter();
     }

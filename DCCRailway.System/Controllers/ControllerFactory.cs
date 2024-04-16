@@ -11,7 +11,7 @@ namespace DCCRailway.System.Controllers;
 /// </summary>
 public class ControllerFactory {
     private       Dictionary<string, ControllerManager>? _controllers           = new();
-    private const string                              DefaultAssemblyPattern = @"(.*)DCCRailway.System.Manufacturer\.(\D+)\.dll";
+    private const string                              DefaultAssemblyPattern = @"(.*)DCCRailway.System\.(\D+)\.dll";
     private const string                              DefaultPath            = ".";
 
     /// <summary>
