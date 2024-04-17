@@ -3,24 +3,28 @@ using DCCRailway.System.Adapters;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Controllers;
 
-namespace DCCRailway.System.Attributes;
-
-public static class AttributeExtractor {
-    public static T? GetAttribute<T>(ICustomAttributeProvider type) where T : class {
-        try {
-            var attrs = type.GetCustomAttributes(typeof(T), true);
-            var attr  = type.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T;
-
-            return attr;
+namespace DCCRailway.System.Attributes
+{
+    public static class AttributeExtractor
+    {
+        public static T? GetAttribute<T>(ICustomAttributeProvider provider) where T : class
+        {
+            var attribute = provider.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T;
+            return HandleException<T>(attribute);
         }
-        catch {
-            return default(T?) ?? null;
+
+        private static T? HandleException<T>(object? attr) where T : class
+        {
+            try {
+                return attr as T;
+            }
+            catch {
+                return default(T?) ?? null;
+            }
         }
+
+        public static AdapterAttribute    AttributeInfo(this IAdapter    adapter)    => GetAttribute<AdapterAttribute>(adapter.GetType()) ?? new AdapterAttribute("Unknown",AdapterType.Unknown);
+        public static ControllerAttribute AttributeInfo(this IController controller) => GetAttribute<ControllerAttribute>(controller.GetType()) ?? new ControllerAttribute("Unknown");
+        public static CommandAttribute    AttributeInfo(this ICommand    command)    => GetAttribute<CommandAttribute>(command.GetType()) ?? new CommandAttribute("Unknown","Unknown","Unknown", new[] { "!*" }, new[] { "!*" });
     }
-
-    public static AdapterAttribute AttributeInfo(this IAdapter adapter) => GetAttribute<AdapterAttribute>(adapter.GetType())!;
-
-    public static ControllerAttribute AttributeInfo(this IController controller) => GetAttribute<ControllerAttribute>(controller.GetType())!;
-
-    public static CommandAttribute AttributeInfo(this ICommand command) => GetAttribute<CommandAttribute>(command.GetType())!;
 }

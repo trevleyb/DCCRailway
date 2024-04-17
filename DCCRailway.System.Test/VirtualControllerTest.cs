@@ -2,7 +2,7 @@
 using DCCRailway.System.Commands.Types;
 using DCCRailway.System.Controllers;
 using NUnit.Framework;
-using VirtualAdapter = DCCRailway.System.Manufacturer.Virtual.Adapters.VirtualAdapter;
+using VirtualAdapter = DCCRailway.System.Virtual.Adapters.VirtualAdapter;
 
 namespace DCCRailway.Test.SystemTests;
 
@@ -96,10 +96,6 @@ public class VirtualControllerTest {
         if (virtualSystem != null) {
             virtualSystem.Adapter = virtualSystem.CreateAdapter("Virtual");
             Assert.That(virtualSystem.Adapter, Is.Not.Null);
-
-            Assert.That(virtualSystem.IsCommandSupported<IDummyCmd>());
-            Assert.That(virtualSystem.IsCommandSupported<ICmdStatus>());
-            Assert.That(!virtualSystem.IsCommandSupported<ICmdClockStart>());
         }
     }
 

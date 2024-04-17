@@ -10,8 +10,8 @@ namespace DCCRailway.System.Controllers;
 /// allows the caller to dynamically create a controller based on the name of the controller.
 /// </summary>
 public class ControllerFactory {
-    private       Dictionary<string, ControllerInfo>? _controllers           = new();
-    private const string                              DefaultAssemblyPattern = @"(.*)DCCRailway.System.Manufacturer\.(\D+)\.dll";
+    private       Dictionary<string, ControllerManager>? _controllers           = new();
+    private const string                              DefaultAssemblyPattern = @"(.*)DCCRailway.System\.(\D+)\.dll";
     private const string                              DefaultPath            = ".";
 
     /// <summary>
@@ -19,7 +19,7 @@ public class ControllerFactory {
     /// to read the current director and find all classes that are IController and then load them into the
     /// list to be returned.  
     /// </summary>
-    public List<ControllerInfo> Controllers {
+    public List<ControllerManager> Controllers {
         get {
             if (_controllers == null || _controllers.Any() == false) LoadControllers();
             return _controllers?.Values.ToList() ?? [];
@@ -46,7 +46,7 @@ public class ControllerFactory {
     /// <param name="defaultPath"></param>
     /// <returns>List of systems that have been found</returns>
     private void LoadControllers() {
-        _controllers = new Dictionary<string, ControllerInfo>();
+        _controllers = new Dictionary<string, ControllerManager>();
 
         var path    = DefaultPath;
         var pattern = DefaultAssemblyPattern;
@@ -75,7 +75,7 @@ public class ControllerFactory {
                         if (systemAttr is not null) {
                             if (_controllers.ContainsKey(systemAttr.Name))
                                 throw new ApplicationException($"Duplicate Controller Name found: {systemAttr.Name}");
-                            _controllers.Add(systemAttr.Name, new ControllerInfo(systemAttr, assemblyPath, controller));
+                            _controllers.Add(systemAttr.Name, new ControllerManager(systemAttr, assemblyPath, controller));
                         }
                     }
                     catch (Exception ex) {
@@ -89,7 +89,7 @@ public class ControllerFactory {
         }
     }
 
-    public List<ControllerInfo> FindByManufacturer(string manufacturer) => _controllers?.Where(key => key.Value.Manufacturer.Equals(manufacturer, StringComparison.InvariantCultureIgnoreCase)).Select(key => key.Value).ToList() ?? [];
-    public ControllerInfo? this[string                    name] => Find(name);
-    public ControllerInfo? Find(string                    name) => Controllers?.FirstOrDefault(key => key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
+    public List<ControllerManager> FindByManufacturer(string manufacturer) => _controllers?.Where(key => key.Value.Manufacturer.Equals(manufacturer, StringComparison.InvariantCultureIgnoreCase)).Select(key => key.Value).ToList() ?? [];
+    public ControllerManager? this[string                    name] => Find(name);
+    public ControllerManager? Find(string                    name) => Controllers?.FirstOrDefault(key => key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
 }

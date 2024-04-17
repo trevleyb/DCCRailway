@@ -1,5 +1,8 @@
+using System.Diagnostics;
+
 namespace DCCRailway.System.Attributes;
 
+[DebuggerDisplay("Name: {Name}, Description: {Description}, Version: {Version}, Type: {Type}")]
 [AttributeUsage(AttributeTargets.Class)]
 public class AdapterAttribute : Attribute {
     public AdapterAttribute(string name, AdapterType type = AdapterType.Unknown, string? description = null, string? version = null) {
