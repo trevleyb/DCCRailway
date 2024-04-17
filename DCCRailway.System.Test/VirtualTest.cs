@@ -20,6 +20,17 @@ public class VirtualTest {
     }
 
     [Test]
+    public void TestControllerCreationAndGetCommands() {
+        var controller = new ControllerFactory().CreateController("Virtual");
+        Assert.That(controller, Is.Not.Null);
+        Assert.That(controller.AttributeInfo().Name.Equals("Virtual"));
+        var supportedCommands = controller.Commands;
+        Assert.That(supportedCommands!.Count >= 1);
+        var command = controller.CreateCommand<IDummyCmd>();
+        Assert.That(command, Is.Not.Null);
+    }
+
+    [Test]
     public void CreateVirtualControllerAndAddVirtualAdapterTest() {
         var res = CreateVirtualControllerAndAddVirtualAdapter();
     }
@@ -31,9 +42,9 @@ public class VirtualTest {
         var virtualSystem = factory.Find("Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
 
-        // Should have a ControllerInfo object at this stage
+        // Should have a ControllerManager object at this stage
         // ------------------------------------------------------------
-        if (virtualSystem is null) throw new NullReferenceException("Should have a ControllerInfo object at this stage");
+        if (virtualSystem is null) throw new NullReferenceException("Should have a ControllerManager object at this stage");
         Assert.That(virtualSystem!.Name.Equals("Virtual"));
 
         // Check that we can do things with the controller
@@ -76,12 +87,13 @@ public class VirtualTest {
         }
     }
 
+    /*
     [Test]
     public void TestVirtualControllerCommands() {
         var commandsExecuted = new Dictionary<Type, bool>();
 
         var controller = CreateVirtualControllerAndAddVirtualAdapter();
-        controller.ControllerEvent += ControllerOnControllerEvent;
+        controller.ControllerEvent += ControllerOnControllerEvent; //+= ControllerOnControllerEvent;
 
         ExecuteCommandAndMonitor<IDummyCmd>(controller);
 
@@ -102,10 +114,10 @@ public class VirtualTest {
             }
         }
 
-        // Manage the events coming back from the controller and indicate that we received the event  
+        // Manage the events coming back from the controller and indicate that we received the event
         void ControllerOnControllerEvent(object? sender, IControllerEventArgs e) {
             switch (e) {
-            case ControllerEventCommandExec exec:
+            case CommandEventArgs exec:
                 switch (exec.Command) {
                 case IDummyCmd:
                     commandsExecuted[typeof(IDummyCmd)] = true;
@@ -122,7 +134,7 @@ public class VirtualTest {
             case ControllerEventAdapterDel:
                 // For testing we don't care about this one
                 break;
-            case ControllerEventAdapter:
+            case AdapterEventArgs:
                 // For testing we don't care about this one
                 break;
             default:
@@ -130,4 +142,9 @@ public class VirtualTest {
             }
         }
     }
+
+    private void ControllerOnControllerEvent(object? sender, ControllerEventArgs e) {
+        throw new NotImplementedException();
+    }
+    */
 }

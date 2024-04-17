@@ -3,8 +3,8 @@ using DCCRailway.System.Commands;
 
 namespace DCCRailway.System.Adapters.Events;
 
-public class ErrorArgs : EventArgs, IAdapterEvent {
-    public ErrorArgs(string error, IAdapter? adapter = null, ICommand? command = null) {
+public class DataErrorArgs : EventArgs, IAdapterEvent {
+    public DataErrorArgs(string error, IAdapter? adapter = null, ICommand? command = null) {
         Adapter = adapter;
         Command = command;
         Error   = error;
