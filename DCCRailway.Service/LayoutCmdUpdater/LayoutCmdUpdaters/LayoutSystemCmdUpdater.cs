@@ -6,7 +6,7 @@ using DCCRailway.System.Commands.Types;
 
 namespace DCCRailway.LayoutCmdUpdater.LayoutCmdUpdaters;
 
-public class LayoutSystemCmdUpdater(IDCCRailwayConfig config) : LayoutGenericCmdUpdater(config) {
+public class LayoutSystemCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command) {
         switch (command) {
         case ICmdStatus cmd:

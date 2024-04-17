@@ -1,98 +1,70 @@
 ﻿using System.IO.Ports;
 using DCCRailway.Layout;
-using DCCRailway.Layout.Entities;
+using DCCRailway.Layout.Configuration;
+using DCCRailway.Layout.Configuration.Entities.Layout;
 using NUnit.Framework;
-using Decoder = DCCRailway.Layout.Decoder;
+using Decoder = DCCRailway.Layout.Configuration.Entities.Layout.Decoder;
 
 namespace DCCRailway.Test.SystemTests;
 
 [TestFixture]
 public class ConfigurationTest {
-    [Test]
-    public void SimpleSaveWithoutnameTest() {
-        var system = new DCCRailwayConfig {
-            Name        = "SaveWithoutNameTest",
-            Description = "Test System Description"
-        };
-        var restore = DCCRailwayConfig.Load(system.Save());
-        Assert.That(restore is not null);
-        Assert.That(restore!.Name, Is.EqualTo(system.Name));
-        Assert.That(restore!.Description, Is.EqualTo(system.Description));
-    }
 
     [Test]
-    public void SaveSystemConfigTestSimple() {
-        var system = new DCCRailwayConfig {
-            Name        = "TestSystem",
-            Description = "Test System Description"
-        };
+    public void TestEntityRepositoryAddAndStore() {
 
-        system.Save("SaveSystemConfigTestSimple.json");
+        // This will either load the file, or will create a new one if it does not exist.
+        var config = RailwayConfig.New("TestFile","TestFile","TestSystemWithAll.json");
+        Assert.That(config is not null);
+        Assert.That(config!.Filename, Is.EqualTo("TestSystemWithAll.json"));
 
-        var restore = DCCRailwayConfig.Load("SaveSystemConfigTestSimple.json");
-        Assert.That(restore is not null);
-        Assert.That(restore!.Name, Is.EqualTo(system.Name));
-        Assert.That(restore!.Description, Is.EqualTo(system.Description));
-    }
+        var accessoryRepository = config.Accessories;
+        accessoryRepository.AddAsync(new Accessory { Name = "TestAccessory1", Description = "Test Accessory Description1" });
+        accessoryRepository.AddAsync(new Accessory { Name = "TestAccessory2", Description = "Test Accessory Description2" });
+        accessoryRepository.AddAsync(new Accessory { Name = "TestAccessory3", Description = "Test Accessory Description3" });
 
-    [Test]
-    public void SaveSystemConfigWithParameters() {
-        var system = new DCCRailwayConfig {
-            Name        = "TestSystem",
-            Description = "Test System Description"
-        };
-        system.Controllers.Add(new Controller { Name = "TestController", Description = "Test Controller Description" });
-        system.Parameters.Set("style", "steam");
-        system.Parameters.Set("length", 27);
-        system.Parameters.Set("cv", 127);
-        system.Parameters.Set("parity", Parity.Odd);
+        var blockRepository = config.Blocks;
+        blockRepository.AddAsync(new Block { Name = "TestBlock1", Description = "Test Block Description1" });
+        blockRepository.AddAsync(new Block { Name = "TestBlock2", Description = "Test Block Description2" });
+        blockRepository.AddAsync(new Block { Name = "TestBlock3", Description = "Test Block Description3" });
 
-        system.Save("SaveSystemConfigWithParameters.json");
+        var locomotiveRepository = config.Locomotives;
+        locomotiveRepository.AddAsync(new Locomotive { Name = "TestLocomotive1", Description = "Test Locomotive Description1" });
+        locomotiveRepository.AddAsync(new Locomotive { Name = "TestLocomotive2", Description = "Test Locomotive Description2" });
+        locomotiveRepository.AddAsync(new Locomotive { Name = "TestLocomotive3", Description = "Test Locomotive Description3" });
 
-        var restore = DCCRailwayConfig.Load("SaveSystemConfigWithParameters.json");
-        Assert.That(restore is not null);
-        Assert.That(restore!.Name, Is.EqualTo(system.Name));
-        Assert.That(restore!.Description, Is.EqualTo(system.Description));
-        Assert.That(restore!.Controllers.Count, Is.EqualTo(1));
-        Assert.That(restore!.Parameters.Get<string>("style"), Is.EqualTo("steam"));
-        Assert.That(restore!.Parameters.Get<long>("length"), Is.EqualTo(27));
-        Assert.That(restore!.Parameters.Get<byte>("cv"), Is.EqualTo(127));
-        Assert.That(restore!.Parameters.Get("parity"), Is.EqualTo(Parity.Odd));
-    }
+        var sensorRepository = config.Sensors;
+        sensorRepository.AddAsync(new Sensor { Name = "TestSensor1", Description = "Test Sensor Description1" });
+        sensorRepository.AddAsync(new Sensor { Name = "TestSensor2", Description = "Test Sensor Description2" });
+        sensorRepository.AddAsync(new Sensor { Name = "TestSensor3", Description = "Test Sensor Description3" });
 
-    [Test]
-    public void SaveConfigFileWithAllOptionsIncluded() {
-        var system = new DCCRailwayConfig {
-            Name        = "TestSystemWithAll",
-            Description = "Test System With All"
-        };
-        system.Controllers.Add(new Controller { Name = "TestController", Description = "Test Controller Description" });
-        system.Accessories.Add(new Accessory { Name  = "TestAccessory", Description  = "Test Accessory Description" });
-        system.Blocks.Add(new Block { Name           = "TestBlock", Description      = "Test Block Description" });
-        system.Locomotives.Add(new Locomotive { Name = "TestLocomotive", Description = "Test Locomotive Description" });
-        system.Sensors.Add(new Sensor { Name         = "TestSensor", Description     = "Test Sensor Description" });
-        system.Signals.Add(new Signal { Name         = "TestSignal", Description     = "Test Signal Description" });
-        system.Turnouts.Add(new Turnout { Name       = "TestTurnout", Description    = "Test Turnout Description" });
+        var signalRepository = config.Signals;
+        signalRepository.AddAsync(new Signal { Name = "TestSignal1", Description = "Test Signal Description1" });
+        signalRepository.AddAsync(new Signal { Name = "TestSignal2", Description = "Test Signal Description2" });
+        signalRepository.AddAsync(new Signal { Name = "TestSignal3", Description = "Test Signal Description3" });
 
-        system.Save("TestSystemWithAll.json");
-        var restore = DCCRailwayConfig.Load("TestSystemWithAll.json");
+        var turnoutRepository = config.Turnouts;
+        turnoutRepository.AddAsync(new Turnout { Name = "TestTurnout1", Description = "Test Turnout Description1" });
+        turnoutRepository.AddAsync(new Turnout { Name = "TestTurnout2", Description = "Test Turnout Description2" });
+        turnoutRepository.AddAsync(new Turnout { Name = "TestTurnout3", Description = "Test Turnout Description3" });
 
-        Assert.That(restore is not null);
-        Assert.That(restore!.Name, Is.EqualTo(system.Name));
-        Assert.That(restore!.Description, Is.EqualTo(system.Description));
-        Assert.That(restore!.Controllers.Count, Is.EqualTo(1));
-        Assert.That(restore!.Accessories.Count, Is.EqualTo(1));
-        Assert.That(restore!.Blocks.Count, Is.EqualTo(1));
-        Assert.That(restore!.Locomotives.Count, Is.EqualTo(1));
-        Assert.That(restore!.Sensors.Count, Is.EqualTo(1));
-        Assert.That(restore!.Signals.Count, Is.EqualTo(1));
-        Assert.That(restore!.Turnouts.Count, Is.EqualTo(1));
-        Assert.That(restore!.Accessories[0].Name, Is.EqualTo("TestAccessory"));
-        Assert.That(restore!.Blocks[0].Name, Is.EqualTo("TestBlock"));
-        Assert.That(restore!.Locomotives[0].Name, Is.EqualTo("TestLocomotive"));
-        Assert.That(restore!.Sensors[0].Name, Is.EqualTo("TestSensor"));
-        Assert.That(restore!.Signals[0].Name, Is.EqualTo("TestSignal"));
-        Assert.That(restore!.Turnouts[0].Name, Is.EqualTo("TestTurnout"));
+        config.Save("TestSystemWithAll.json");
+
+        // Reload the Data Store we just Saved and then check if it is the same
+        var config2 = RailwayConfig.Load("TestSystemWithAll.json");
+        Assert.That(config2 is not null);
+        Assert.That(config2!.Accessories.GetAllAsync().Result.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Blocks.GetAllAsync().Result.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Locomotives.GetAllAsync().Result.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Sensors.GetAllAsync().Result.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Signals.GetAllAsync().Result.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Turnouts.GetAllAsync().Result.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Accessories.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestAccessory1"));
+        Assert.That(config2!.Blocks.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestBlock1"));
+        Assert.That(config2!.Locomotives.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestLocomotive1"));
+        Assert.That(config2!.Sensors.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestSensor1"));
+        Assert.That(config2!.Signals.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestSignal1"));
+        Assert.That(config2!.Turnouts.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestTurnout1"));
     }
 
     [Test]

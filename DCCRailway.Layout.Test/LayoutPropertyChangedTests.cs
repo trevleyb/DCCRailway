@@ -1,10 +1,10 @@
 using System.ComponentModel;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
-using DCCRailway.Layout.Entities;
 using System.Reflection;
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Entities.Base;
+using DCCRailway.Layout.Configuration.Entities.Base;
+using DCCRailway.Layout.Configuration.Entities.Layout;
 
 namespace DCCRailway.Test.SystemTests;
 
@@ -61,13 +61,13 @@ public class LayoutPropertyChangedTests {
         _triggeredChanged = true;
     }
 
-    private void TestField<T>(ConfigBase entity, string field, T value) {
+    private void TestField<T>(BaseEntity baseEntity, string field, T value) {
         _triggeredChanging = false;
         _triggeredChanged = false;
         _activeField      = field;
-        var oldValue = GetPropertyValue<T>(entity, field);
-        SetPropertyValue(entity, field, value);
-        var getValue = GetPropertyValue<T>(entity, field);
+        var oldValue = GetPropertyValue<T>(baseEntity, field);
+        SetPropertyValue(baseEntity, field, value);
+        var getValue = GetPropertyValue<T>(baseEntity, field);
         Assert.That(getValue, Is.EqualTo(value));
         Assert.That(getValue, Is.Not.EqualTo(oldValue));
         Assert.That(_triggeredChanging, Is.True);

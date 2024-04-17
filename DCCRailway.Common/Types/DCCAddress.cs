@@ -23,12 +23,14 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
     private DCCAddressType _addressType;
     private byte           _highAddress;
     private byte           _lowAddress;
+    private DCCProtocol    _protocol;
 
     public DCCAddress() : this(3, DCCAddressType.Short) { }
 
-    public DCCAddress(int address, DCCAddressType addressType = DCCAddressType.Long) {
+    public DCCAddress(int address, DCCAddressType addressType = DCCAddressType.Long, DCCProtocol protocol = DCCProtocol.DCC28) {
         Address     = address;
         AddressType = addressType;
+        Protocol    = protocol;
     }
 
     /// <summary>
@@ -38,7 +40,6 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
     public byte LowAddress {
         get {
             CalculateHighLowAddress();
-
             return _lowAddress;
         }
     }
@@ -50,7 +51,6 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
     public byte HighAddress {
         get {
             CalculateHighLowAddress();
-
             return _highAddress;
         }
     }
@@ -73,6 +73,11 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
     public DCCAddressType AddressType {
         get => _addressType;
         set => SetPropertyField(ref _addressType, value);
+    }
+
+    public DCCProtocol Protocol {
+        get => _protocol;
+        set => SetPropertyField(ref _protocol, value);
     }
 
     public bool IsLong => AddressType == DCCAddressType.Long;

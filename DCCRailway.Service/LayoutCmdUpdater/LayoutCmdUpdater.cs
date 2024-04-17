@@ -17,7 +17,7 @@ namespace DCCRailway.LayoutCmdUpdater;
 /// the collection of all data related to the current executing layout.
 /// </summary>
 /// <param name="config"></param>
-public class LayoutCmdUpdater(DCCRailwayConfig config) {
+public class LayoutCmdUpdater() {
 
     public void ProcessCommandEvent(ControllerEventArgs eventArgs) {
         switch (eventArgs) {
@@ -34,14 +34,14 @@ public class LayoutCmdUpdater(DCCRailwayConfig config) {
             // ---------------------------------------------------
             if (exec.Command != null) {
                 _ = exec.Command switch {
-                    IAccyCmd cmd    => new LayoutAccyCmdUpdater(config).Process(exec.Command),
-                    ILocoCmd cmd    => new LayoutLocoCmdUpdater(config).Process(exec.Command),
-                    ISensorCmd cmd  => new LayoutSensorCmdUpdater(config).Process(exec.Command),
-                    ISignalCmd cmd  => new LayoutSignalCmdUpdater(config).Process(exec.Command),
-                    ISystemCmd cmd  => new LayoutSystemCmdUpdater(config).Process(exec.Command),
-                    IConsistCmd cmd => new LayoutConsistCmdUpdater(config).Process(exec.Command),
-                    ICVCmd cmd      => new LayoutCvCmdUpdater(config).Process(exec.Command),
-                    _               => new LayoutGenericCmdUpdater(config).Process(exec.Command)
+                    IAccyCmd cmd    => new LayoutAccyCmdUpdater().Process(exec.Command),
+                    ILocoCmd cmd    => new LayoutLocoCmdUpdater().Process(exec.Command),
+                    ISensorCmd cmd  => new LayoutSensorCmdUpdater().Process(exec.Command),
+                    ISignalCmd cmd  => new LayoutSignalCmdUpdater().Process(exec.Command),
+                    ISystemCmd cmd  => new LayoutSystemCmdUpdater().Process(exec.Command),
+                    IConsistCmd cmd => new LayoutConsistCmdUpdater().Process(exec.Command),
+                    ICVCmd cmd      => new LayoutCvCmdUpdater().Process(exec.Command),
+                    _               => new LayoutGenericCmdUpdater().Process(exec.Command)
                 };
             }
             break;

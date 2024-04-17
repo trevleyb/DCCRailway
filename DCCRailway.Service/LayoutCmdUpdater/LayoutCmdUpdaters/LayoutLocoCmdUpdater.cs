@@ -1,6 +1,7 @@
 using DCCRailway.Common.Types;
 using DCCRailway.Common.Utilities;
 using DCCRailway.Layout;
+using DCCRailway.Layout.Configuration;
 using DCCRailway.System.Attributes;
 using DCCRailway.System.Commands;
 using DCCRailway.System.Commands.Types;
@@ -8,12 +9,16 @@ using DCCRailway.System.Commands.Types.Base;
 
 namespace DCCRailway.LayoutCmdUpdater.LayoutCmdUpdaters;
 
-public class LayoutLocoCmdUpdater(IDCCRailwayConfig config) : LayoutGenericCmdUpdater(config) {
+public class LayoutLocoCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command) {
+
+
         // Get the Accessory from the configuration so that we can update its state
         // -----------------------------------------------------------------------------
         if (command is ILocoCmd locoCmd) {
-            var loco = Config.Locomotives[locoCmd.Address];
+            var locomotives = RailwayConfig.Instance.Locomotives;
+            var loco = locomotives.Find(x => x.Address == locoCmd.Address).Result;
+            //var loco = Config.Locomotives[locoCmd.Address];
             if (loco is null) {
                 Logger.Log.Error(
                     $"Command {command.AttributeInfo().Name} - no matching Accessory {((IAccyCmd)command).Address.Address}.");

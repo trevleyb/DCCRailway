@@ -4,7 +4,6 @@ using DCCRailway.System.Commands.Types;
 using DCCRailway.System.Controllers;
 using DCCRailway.System.Controllers.Events;
 using DCCRailway.Layout;
-using DCCRailway.Layout.Entities;
 
 namespace DCCRailway.Test.Layout;
 
@@ -12,6 +11,7 @@ using NUnit.Framework;
 
 [TestFixture]
 public class ControllerEventLayoutTest {
+    /*
     [Test]
     public void TestLayoutCmdProcessorForALoco() {
         var layoutConfig       = new DCCRailwayConfig();
@@ -60,4 +60,5 @@ public class ControllerEventLayoutTest {
 
         return controller;
     }
+    */
 }

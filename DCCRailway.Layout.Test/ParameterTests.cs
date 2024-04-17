@@ -1,5 +1,6 @@
 using System.IO.Ports;
 using DCCRailway.Layout;
+using DCCRailway.Layout.Configuration.Entities.System;
 using NUnit.Framework;
 
 namespace DCCRailway.Test.SystemTests;

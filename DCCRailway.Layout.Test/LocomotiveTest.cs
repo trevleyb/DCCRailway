@@ -1,4 +1,4 @@
-using DCCRailway.Layout.Entities;
+using DCCRailway.Layout.Configuration.Entities.Layout;
 using NUnit.Framework;
 
 namespace DCCRailway.Test.SystemTests;

@@ -6,7 +6,7 @@ using DCCRailway.System.Commands.Types;
 
 namespace DCCRailway.LayoutCmdUpdater.LayoutCmdUpdaters;
 
-public class LayoutCvCmdUpdater(IDCCRailwayConfig config) : LayoutGenericCmdUpdater(config) {
+public class LayoutCvCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command) {
         switch (command) {
         case ICmdCVRead cmd:

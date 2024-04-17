@@ -3,6 +3,7 @@
 public interface IDCCAddress {
     int            Address     { get; set; }
     DCCAddressType AddressType { get; set; }
+    DCCProtocol    Protocol    { get; set; }
     bool           IsLong      { get; }
     string         AddressName { get; }
 

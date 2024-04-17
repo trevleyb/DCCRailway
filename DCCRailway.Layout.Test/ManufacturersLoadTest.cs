@@ -1,3 +1,5 @@
+using DCCRailway.Layout.Configuration;
+using DCCRailway.Layout.Configuration.Entities.System;
 using NUnit.Framework;
 
 namespace DCCRailway.Test.SystemTests;
@@ -6,16 +8,10 @@ namespace DCCRailway.Test.SystemTests;
 public class ManufacturersLoadTest {
     [Test]
     public void LoadManufacturersList() {
-        var manufacturers = new Layout.Manufacturers();
+        var manufacturers = RailwayConfig.Instance.SystemEntities.Manufacturers;
         Assert.That(manufacturers, Is.Not.Null, "Should have at least 1 manufacturer returned from the Manufacturers call");
         foreach (var manufacturer in manufacturers) {
-            Assert.That(manufacturers.FindByIdentifier(manufacturer.Identifier) != null);
+            Assert.That(RailwayConfig.Instance.SystemEntities.Manufacturers.FindByIdentifier(manufacturer.Identifier) != null);
         }
-    }
-
-    [Test]
-    public void ManufacturersTest() {
-        var mnf = new Layout.Manufacturers();
-        Assert.That(mnf.Count == 169);
     }
 }

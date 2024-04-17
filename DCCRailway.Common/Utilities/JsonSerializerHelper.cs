@@ -1,8 +1,10 @@
-﻿using System.Text.Json;
+﻿using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace DCCRailway.Common.Utilities;
 
-public class JsonSerializerHelper<T> {
+public abstract class JsonSerializerHelper<T> {
     /// <summary>
     ///     Load an instance of class T from a provided filename and throw an exception if the
     ///     file name does not exist.
@@ -14,8 +16,10 @@ public class JsonSerializerHelper<T> {
         if (!File.Exists(fileName)) throw new FileNotFoundException($"Unable to access file '{fileName}'");
         try {
             var serializedStr = File.ReadAllText(fileName);
-
-            return JsonSerializer.Deserialize<T>(serializedStr)!;
+            var serializerOptions   = new JsonSerializerOptions {
+                WriteIndented = true
+            };
+            return JsonSerializer.Deserialize<T>(serializedStr, serializerOptions)!;
         }
         catch (Exception ex) {
             throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'", ex);
@@ -34,8 +38,10 @@ public class JsonSerializerHelper<T> {
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------
         try {
-            var serializerOptions = new JsonSerializerOptions { WriteIndented = true };
-            var serializedStr     = JsonSerializer.Serialize(collection, serializerOptions);
+            var serializerOptions   = new JsonSerializerOptions {
+                    WriteIndented = true
+            };
+            var serializedStr = JsonSerializer.Serialize(collection, serializerOptions);
             File.WriteAllText(fileName, serializedStr);
         }
         catch (Exception ex) {
