@@ -1,6 +1,51 @@
 @DCCRailway.Service_HostAddress = http://localhost:5044
 
-GET {{DCCRailway.Service_HostAddress}}/weatherforecast/
+# Accessory Endpoints
+GET {{DCCRailway.Service_HostAddress}}/accessorys
+GET {{DCCRailway.Service_HostAddress}}/accessorys/{id}
+POST {{DCCRailway.Service_HostAddress}}/accessorys
+PUT {{DCCRailway.Service_HostAddress}}/accessorys/{id}
+DELETE {{DCCRailway.Service_HostAddress}}/accessorys/{id}
+
+# Blocks Endpoints
+GET {{DCCRailway.Service_HostAddress}}/blocks
+GET {{DCCRailway.Service_HostAddress}}/blocks/{id}
+POST {{DCCRailway.Service_HostAddress}}/blocks
+PUT {{DCCRailway.Service_HostAddress}}/blocks/{id}
+DELETE {{DCCRailway.Service_HostAddress}}/blocks/{id}
+
+# Locomotive Endpoints
+GET {{DCCRailway.Service_HostAddress}}/locomotives
+GET {{DCCRailway.Service_HostAddress}}/locomotives/{id}
+POST {{DCCRailway.Service_HostAddress}}/locomotives
+PUT {{DCCRailway.Service_HostAddress}}/locomotives/{id}
+DELETE {{DCCRailway.Service_HostAddress}}/locomotives/{id}
+
+# Sensors Endpoints
+GET {{DCCRailway.Service_HostAddress}}/sensors
+GET {{DCCRailway.Service_HostAddress}}/sensors/{id}
+POST {{DCCRailway.Service_HostAddress}}/sensors
+PUT {{DCCRailway.Service_HostAddress}}/sensors/{id}
+DELETE {{DCCRailway.Service_HostAddress}}/sensors/{id}
+
+# Signal Endpoints
+GET {{DCCRailway.Service_HostAddress}}/signals
+GET {{DCCRailway.Service_HostAddress}}/signals/{id}
+POST {{DCCRailway.Service_HostAddress}}/signals
+PUT {{DCCRailway.Service_HostAddress}}/signals/{id}
+DELETE {{DCCRailway.Service_HostAddress}}/signals/{id}
+
+# Turnout Endpoints
+GET {{DCCRailway.Service_HostAddress}}/turnouts
+GET {{DCCRailway.Service_HostAddress}}/turnouts/{id}
+POST {{DCCRailway.Service_HostAddress}}/turnouts
+PUT {{DCCRailway.Service_HostAddress}}/turnouts/{id}
+DELETE {{DCCRailway.Service_HostAddress}}/turnouts/{id}
+
+# Manufacturers Endpoints
+GET{{DCCRailway.Service_HostAddress}}/manufacturers
+GET {{DCCRailway.Service_HostAddress}}/manufacturers/{id}
+
 Accept: application/json
 
 ###

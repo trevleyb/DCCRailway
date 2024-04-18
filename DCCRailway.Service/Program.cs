@@ -1,3 +1,6 @@
+using DCCRailway.Layout.Configuration;
+using DCCRailway.Service.APIEndPoints;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+app.ConfigureAPIs(RailwayConfig.Instance);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
@@ -14,5 +18,4 @@ if (app.Environment.IsDevelopment()) {
 }
 
 app.UseHttpsRedirection();
-
 app.Run();

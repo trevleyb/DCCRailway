@@ -16,7 +16,6 @@ namespace DCCRailway.LayoutCmdUpdater;
 /// So this is a bridge between the two systems. It takes a DCCRailwayConfig instance whcih is
 /// the collection of all data related to the current executing layout.
 /// </summary>
-/// <param name="config"></param>
 public class LayoutCmdUpdater() {
 
     public void ProcessCommandEvent(ControllerEventArgs eventArgs) {
