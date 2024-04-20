@@ -42,6 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Manufacturers", "Manufactur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.API", "DCCRailway.API\DCCRailway.API.csproj", "{8A72EA9E-E8A8-4950-B314-2DB9793EE673}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Bridge", "DCCRailway.Bridge\DCCRailway.Bridge.csproj", "{6BA8C23B-A53C-4568-A70B-972791919C65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,10 @@ Global
 		{8A72EA9E-E8A8-4950-B314-2DB9793EE673}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A72EA9E-E8A8-4950-B314-2DB9793EE673}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A72EA9E-E8A8-4950-B314-2DB9793EE673}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BA8C23B-A53C-4568-A70B-972791919C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BA8C23B-A53C-4568-A70B-972791919C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BA8C23B-A53C-4568-A70B-972791919C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BA8C23B-A53C-4568-A70B-972791919C65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
