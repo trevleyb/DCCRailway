@@ -1,6 +1,6 @@
+using DCCRailway.APIEndPoints;
 using DCCRailway.Components;
 using DCCRailway.Layout.Configuration;
-using DCCRailway.Service.APIEndPoints;
 
 var builder = WebApplication.CreateBuilder(args);
 

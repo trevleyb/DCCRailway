@@ -1,6 +1,6 @@
 using DCCRailway.Layout.Configuration;
 
-namespace DCCRailway.Service.APIEndPoints;
+namespace DCCRailway.APIEndPoints;
 
 public static class ConfigureAPIEndPoints {
     public static void ConfigureAPIs(this WebApplication app, IRailwayConfig config) {

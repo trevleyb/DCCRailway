@@ -1,9 +1,8 @@
 using DCCRailway.Layout.Configuration;
-using DCCRailway.Layout.Configuration.Entities.Layout;
 using DCCRailway.Layout.Configuration.Entities.System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DCCRailway.Service.APIEndPoints;
+namespace DCCRailway.APIEndPoints;
 
 public static class ManufacturersAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {

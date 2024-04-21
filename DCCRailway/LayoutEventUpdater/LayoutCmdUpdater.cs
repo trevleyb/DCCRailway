@@ -1,11 +1,10 @@
 using DCCRailway.Common.Utilities;
-using DCCRailway.Layout;
-using DCCRailway.LayoutCmdUpdater.LayoutCmdUpdaters;
-using DCCRailway.System.Attributes;
-using DCCRailway.System.Commands.Types.Base;
-using DCCRailway.System.Controllers.Events;
+using DCCRailway.LayoutEventUpdater.Updaters;
+using DCCRailway.Station.Attributes;
+using DCCRailway.Station.Commands.Types.Base;
+using DCCRailway.Station.Controllers.Events;
 
-namespace DCCRailway.LayoutCmdUpdater;
+namespace DCCRailway.LayoutEventUpdater;
 /// <summary>
 /// The LayoutCmdUpdated class is a bridge between an Event being recieved from a system,
 /// and the Layout Configuration itself.This is because, while the layout might issue a command

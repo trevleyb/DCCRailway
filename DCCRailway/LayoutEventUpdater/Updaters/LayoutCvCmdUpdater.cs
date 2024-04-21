@@ -1,10 +1,9 @@
 using DCCRailway.Common.Utilities;
-using DCCRailway.Layout;
-using DCCRailway.System.Attributes;
-using DCCRailway.System.Commands;
-using DCCRailway.System.Commands.Types;
+using DCCRailway.Station.Attributes;
+using DCCRailway.Station.Commands;
+using DCCRailway.Station.Commands.Types;
 
-namespace DCCRailway.LayoutCmdUpdater.LayoutCmdUpdaters;
+namespace DCCRailway.LayoutEventUpdater.Updaters;
 
 public class LayoutCvCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command) {

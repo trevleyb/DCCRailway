@@ -1,12 +1,11 @@
 using DCCRailway.Common.Utilities;
-using DCCRailway.Layout;
 using DCCRailway.Layout.Configuration;
-using DCCRailway.System.Attributes;
-using DCCRailway.System.Commands;
-using DCCRailway.System.Commands.Types;
-using DCCRailway.System.Commands.Types.Base;
+using DCCRailway.Station.Attributes;
+using DCCRailway.Station.Commands;
+using DCCRailway.Station.Commands.Types;
+using DCCRailway.Station.Commands.Types.Base;
 
-namespace DCCRailway.LayoutCmdUpdater.LayoutCmdUpdaters;
+namespace DCCRailway.LayoutEventUpdater.Updaters;
 
 public class LayoutAccyCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command) {

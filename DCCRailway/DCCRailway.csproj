@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
       <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj" />
+      <ProjectReference Include="..\DCCRailway.Station\DCCRailway.Station.csproj" />
     </ItemGroup>
 
 </Project>

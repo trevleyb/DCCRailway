@@ -1,7 +1,7 @@
 using DCCRailway.Layout.Configuration;
 using DCCRailway.Layout.Configuration.Entities.Layout;
 
-namespace DCCRailway.Service.APIEndPoints;
+namespace DCCRailway.APIEndPoints;
 
 public static class SensorAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {

@@ -14,29 +14,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		DCCRailway.sln.DotSettings.user = DCCRailway.sln.DotSettings.user
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Digitrax", "DCCRailway.System.Digitrax\DCCRailway.System.Digitrax.csproj", "{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station.Digitrax", "DCCRailway.Station.Digitrax\DCCRailway.Station.Digitrax.csproj", "{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.NCE", "DCCRailway.System.NCE\DCCRailway.System.NCE.csproj", "{814A4EEE-CDA5-4CE1-ACE8-AC64C8B68C86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station.NCE", "DCCRailway.Station.NCE\DCCRailway.Station.NCE.csproj", "{814A4EEE-CDA5-4CE1-ACE8-AC64C8B68C86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Sprog", "DCCRailway.System.Sprog\DCCRailway.System.Sprog.csproj", "{483C03E0-FDE2-44DA-B10B-69069513F76B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station.Sprog", "DCCRailway.Station.Sprog\DCCRailway.Station.Sprog.csproj", "{483C03E0-FDE2-44DA-B10B-69069513F76B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Virtual", "DCCRailway.System.Virtual\DCCRailway.System.Virtual.csproj", "{18A6D007-3A4B-4326-B98A-9240DD72652B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station.Virtual", "DCCRailway.Station.Virtual\DCCRailway.Station.Virtual.csproj", "{18A6D007-3A4B-4326-B98A-9240DD72652B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Layout", "DCCRailway.Layout\DCCRailway.Layout.csproj", "{730BCE2E-CABE-4D6F-8692-02BFB76EDB56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System", "DCCRailway.System\DCCRailway.System.csproj", "{DEB3B2F0-2A11-4060-872C-A0DA4018EAF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station", "DCCRailway.Station\DCCRailway.Station.csproj", "{DEB3B2F0-2A11-4060-872C-A0DA4018EAF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Common", "DCCRailway.Common\DCCRailway.Common.csproj", "{D554D553-153C-4964-A048-A1BA7E823433}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Common.Test", "DCCRailway.Common.Test\DCCRailway.Common.Test.csproj", "{2AB280A0-ACB1-4A27-AEB3-C83CBA30A65F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.System.Test", "DCCRailway.System.Test\DCCRailway.System.Test.csproj", "{9F7826B2-569F-47F1-9FAF-1862E7BFB396}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station.Test", "DCCRailway.Station.Test\DCCRailway.Station.Test.csproj", "{9F7826B2-569F-47F1-9FAF-1862E7BFB396}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Layout.Test", "DCCRailway.Layout.Test\DCCRailway.Layout.Test.csproj", "{ECB148C2-8B76-46FB-B05B-10E0DFF70C31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E0D75749-0E2A-4DB3-A7C2-E3414C3D870E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Manufacturers", "Manufacturers", "{3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommandStations", "CommandStations", "{3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway", "DCCRailway\DCCRailway.csproj", "{9447006C-0FE7-4ABF-8988-6A49B15E961B}"
 EndProject

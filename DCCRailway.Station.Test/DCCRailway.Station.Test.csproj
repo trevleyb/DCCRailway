@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <RootNamespace>DCCRailway.System.Test</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="coverlet.collector" Version="6.0.2"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Include="NUnit" Version="3.14.0"/>
+        <PackageReference Include="NUnit.Analyzers" Version="4.1.0"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="4.5.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="NUnit.Framework"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DCCRailway.Station.Digitrax\DCCRailway.Station.Digitrax.csproj" />
+        <ProjectReference Include="..\DCCRailway.Station.NCE\DCCRailway.Station.NCE.csproj" />
+        <ProjectReference Include="..\DCCRailway.Station.Sprog\DCCRailway.Station.Sprog.csproj" />
+        <ProjectReference Include="..\DCCRailway.Station.Virtual\DCCRailway.Station.Virtual.csproj" />
+        <ProjectReference Include="..\DCCRailway.Station\DCCRailway.Station.csproj" />
+    </ItemGroup>
+
+</Project>
