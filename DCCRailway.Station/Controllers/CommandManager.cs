@@ -18,7 +18,6 @@ public class CommandManager(Assembly assembly) {
     public List<CommandAttribute> Commands {
         get {
             if (_commands.Any() is false) RegisterCommands();
-
             // ToDo: Add in here if the command is supported.
             return _commands.Values.Select(x => x.Item1) .ToList();
         }

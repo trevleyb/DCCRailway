@@ -7,4 +7,5 @@ public interface IRepository<TKey,TEntity> {
     Task<TEntity?> UpdateAsync(TEntity entity);
     Task<Task> DeleteAsync(TKey id);
     Task<TEntity?> Find(Func<TEntity, bool> predicate);
+    Task<Task> DeleteAll();
 }

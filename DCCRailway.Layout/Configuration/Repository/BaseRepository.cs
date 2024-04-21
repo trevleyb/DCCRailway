@@ -33,6 +33,11 @@ public abstract class BaseRepository<TKey,TEntity>(IEntityCollection<TEntity> co
         return await Task.FromResult(Task.CompletedTask);
     }
 
+    public override async Task<Task> DeleteAll() {
+        entities.Clear();
+        return await Task.FromResult(Task.CompletedTask);
+    }
+
     public override async Task<TEntity?> Find(string name) {
         return await Task.FromResult(entities.FirstOrDefault(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? default(TEntity));
     }
@@ -44,12 +49,12 @@ public abstract class BaseRepository<TKey,TEntity>(IEntityCollection<TEntity> co
     /// </summary>
     /// <param name="id">the identifier to find in the collection</param>
     /// <returns></returns>
-    private async Task<int> FindIndexOf(TKey id) {
+    private Task<int> FindIndexOf(TKey id) {
         foreach (var item in entities) {
             if (item.Id.Equals(id)) {
-                return entities.IndexOf(item);
+                return Task.FromResult(entities.IndexOf(item));
             }
         }
-        return -1;
+        return Task.FromResult(-1);
     }
 }

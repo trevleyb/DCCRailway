@@ -36,10 +36,11 @@ public abstract class Controller : IController {
         return result;
     }
 
-    public List<AdapterAttribute> Adapters                                            => _adapters.Adapters;
+    public List<AdapterAttribute> Adapters => _adapters.Adapters;
+    public List<CommandAttribute> Commands => _commands.Commands;
+
     public IAdapter?              CreateAdapter(string name)                          => _adapters.Attach(name);
     public TCommand?              CreateCommand<TCommand>() where TCommand : ICommand => (TCommand?)_commands.Create<TCommand>();
-    public List<CommandAttribute> Commands                                            => _commands.Commands;
     public IAdapter? Adapter {
         get => _adapters.Adapter;
         set => _adapters.Adapter = value;

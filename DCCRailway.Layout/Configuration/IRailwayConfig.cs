@@ -24,9 +24,7 @@ public interface IRailwayConfig {
     public IRepository<Guid,Signal>         SignalRepository        { get; }
     public IRepository<Guid,Turnout>        TurnoutRepository       { get; }
     public IRepository<Guid,Controller>     ControllerRepository    { get; }
-    public IRepository<Guid,Manufacturer>   ManufacturerRepository  { get; }
-    public IRepository<Guid,Parameter>      ParameterRepository     { get; }
-    public IRepository<Guid,Adapter>        AdapterRepository       { get; }
+    public IRepository<byte,Manufacturer>   ManufacturerRepository  { get; }
 
     public void             Save();
     public void             Save(string? name);

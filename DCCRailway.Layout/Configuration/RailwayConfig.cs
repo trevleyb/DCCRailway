@@ -20,53 +20,6 @@ public sealed class RailwayConfig : IRailwayConfig {
         }
     }
 
-    [JsonConstructor]
-    private RailwayConfig() { }
-
-    /// <summary>
-    /// Public properites that
-    /// </summary>
-
-    public string         Name           { get; set; } = "My Layout";
-    public string         Description    { get; set; } = "";
-    public string         Filename       { get; set; } = "Railway.Config.json";
-
-    public Controllers  Controllers { get; set; } = [];
-    public Parameters   Parameters { get; set; } = [];
-
-    [JsonIgnore]  internal  Manufacturers Manufacturers { get; set; } = [];
-    [JsonInclude] internal  IEntityCollection<Accessory>     Accessories { get; set; } = new EntityCollection<Guid,Accessory>();
-    [JsonInclude] internal  IEntityCollection<Block>         Blocks      { get; set; } = new EntityCollection<Guid,Block>();
-    [JsonInclude] internal  IEntityCollection<Locomotive>    Locomotives { get; set; } = new EntityCollection<Guid,Locomotive>();
-    [JsonInclude] internal  IEntityCollection<Sensor>        Sensors     { get; set; } = new EntityCollection<Guid,Sensor>();
-    [JsonInclude] internal  IEntityCollection<Signal>        Signals     { get; set; } = new EntityCollection<Guid,Signal>();
-    [JsonInclude] internal  IEntityCollection<Turnout>       Turnouts    { get; set; } = new EntityCollection<Guid,Turnout>();
-
-    public IRepository<Guid,Accessory>      AccessoryRepository     => GetRepository<Guid,Accessory>()!;
-    public IRepository<Guid,Block>          BlockRepository         => GetRepository<Guid,Block>()!;
-    public IRepository<Guid,Locomotive>     LocomotiveRepository    => GetRepository<Guid,Locomotive>()!;
-    public IRepository<Guid,Sensor>         SensorRepository        => GetRepository<Guid,Sensor>()!;
-    public IRepository<Guid,Signal>         SignalRepository        => GetRepository<Guid,Signal>()!;
-    public IRepository<Guid,Turnout>        TurnoutRepository       => GetRepository<Guid,Turnout>()!;
-    public IRepository<Guid,Controller>     ControllerRepository    => GetRepository<Guid,Controller>()!;
-    public IRepository<Guid,Manufacturer>   ManufacturerRepository  => GetRepository<Guid,Manufacturer>()!;
-    public IRepository<Guid,Parameter>      ParameterRepository     => GetRepository<Guid,Parameter>()!;
-    public IRepository<Guid,Adapter>        AdapterRepository       => GetRepository<Guid,Adapter>()!;
-
-    public IRepository<TKey,TEntity>? GetRepository<TKey,TEntity>() {
-        return typeof(TEntity) switch {
-            { } t when t == typeof(Accessory)   => new AccessoryRepository(Accessories) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Block)       => new BlockRepository(Blocks) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Locomotive)  => new LocomotiveRepository(Locomotives) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Sensor)      => new SensorRepository(Sensors) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Signal)      => new SignalRepository(Signals) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Turnout)     => new TurnoutRepository(Turnouts) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Controller)  => new ControllerRepository(Controllers) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Manufacturer) => new ManufacturerRepository(Manufacturers) as IRepository<TKey,TEntity>,
-            _ => throw new ArgumentException($"Type {typeof(TEntity).Name} is not supported")
-        };
-    }
-
     /// <summary>
     /// Instantiates a new instance of the RailwayConfig class. This is a static class so that access can be anywhere
     /// </summary>
@@ -85,8 +38,53 @@ public sealed class RailwayConfig : IRailwayConfig {
         return Instance;
     }
 
-    public static IRailwayConfig   Load() => RailwayConfigJsonHelper<IRailwayConfig>.Load(DefaultConfigFilename);
-    public void                    Save() => RailwayConfigJsonHelper<IRailwayConfig>.Save(this, DefaultConfigFilename);
-    public static IRailwayConfig   Load(string? name) => RailwayConfigJsonHelper<IRailwayConfig>.Load(name);
-    public void                    Save(string? name) => RailwayConfigJsonHelper<IRailwayConfig>.Save(this, name);
+    [JsonConstructor]
+    private RailwayConfig() { }
+
+    /// <summary>
+    /// Public properites that
+    /// </summary>
+
+    public string         Name           { get; set; } = "My Layout";
+    public string         Description    { get; set; } = "";
+    public string         Filename       { get; set; } = "Railway.Config.json";
+
+    [JsonInclude] public    Controllers     Controllers { get; set; } = [];
+    [JsonInclude] public    Parameters      Parameters { get; set; } = [];
+    [JsonIgnore]  internal  Manufacturers   Manufacturers { get; set; } = [];
+
+    [JsonInclude] [JsonPropertyName("Accessories")] private Accessories Accessories   { get; set; } = [];
+    [JsonInclude] [JsonPropertyName("Blocks")]      private Blocks      Blocks        { get; set; } = [];
+    [JsonInclude] [JsonPropertyName("Locomotives")] private Locomotives Locomotives   { get; set; } = [];
+    [JsonInclude] [JsonPropertyName("Sensors")]     private Sensors     Sensors       { get; set; } = [];
+    [JsonInclude] [JsonPropertyName("Signals")]     private Signals     Signals       { get; set; } = [];
+    [JsonInclude] [JsonPropertyName("Turnouts")]    private Turnouts    Turnouts      { get; set; } = [];
+
+    [JsonIgnore] public IRepository<Guid,Accessory>     AccessoryRepository     => GetRepository<Guid,Accessory>()!;
+    [JsonIgnore] public IRepository<Guid,Block>         BlockRepository         => GetRepository<Guid,Block>()!;
+    [JsonIgnore] public IRepository<Guid,Locomotive>    LocomotiveRepository    => GetRepository<Guid,Locomotive>()!;
+    [JsonIgnore] public IRepository<Guid,Sensor>        SensorRepository        => GetRepository<Guid,Sensor>()!;
+    [JsonIgnore] public IRepository<Guid,Signal>        SignalRepository        => GetRepository<Guid,Signal>()!;
+    [JsonIgnore] public IRepository<Guid,Turnout>       TurnoutRepository       => GetRepository<Guid,Turnout>()!;
+    [JsonIgnore] public IRepository<Guid,Controller>    ControllerRepository    => GetRepository<Guid,Controller>()!;
+    [JsonIgnore] public IRepository<byte,Manufacturer>  ManufacturerRepository  => GetRepository<byte,Manufacturer>()!;
+
+    private IRepository<TKey,TEntity>? GetRepository<TKey,TEntity>() {
+        return typeof(TEntity) switch {
+            { } t when t == typeof(Accessory)   => new AccessoryRepository(Accessories) as IRepository<TKey,TEntity>,
+            { } t when t == typeof(Block)       => new BlockRepository(Blocks) as IRepository<TKey,TEntity>,
+            { } t when t == typeof(Locomotive)  => new LocomotiveRepository(Locomotives) as IRepository<TKey,TEntity>,
+            { } t when t == typeof(Sensor)      => new SensorRepository(Sensors) as IRepository<TKey,TEntity>,
+            { } t when t == typeof(Signal)      => new SignalRepository(Signals) as IRepository<TKey,TEntity>,
+            { } t when t == typeof(Turnout)     => new TurnoutRepository(Turnouts) as IRepository<TKey,TEntity>,
+            { } t when t == typeof(Controller)  => new ControllerRepository(Controllers) as IRepository<TKey,TEntity>,
+            { } t when t == typeof(Manufacturer) => new ManufacturerRepository(Manufacturers) as IRepository<TKey,TEntity>,
+            _ => throw new ArgumentException($"Type {typeof(TEntity).Name} is not supported")
+        };
+    }
+
+    public static IRailwayConfig   Load() => RailwayConfigJsonHelper<RailwayConfig>.Load(DefaultConfigFilename);
+    public void                    Save() => RailwayConfigJsonHelper<RailwayConfig>.Save(this, DefaultConfigFilename);
+    public static IRailwayConfig   Load(string? name) => RailwayConfigJsonHelper<RailwayConfig>.Load(name);
+    public void                    Save(string? name) => RailwayConfigJsonHelper<RailwayConfig>.Save(this, name);
 }

@@ -45,7 +45,6 @@ public class AdapterManager(Assembly assembly) {
     public IAdapter? Attach(string adapterName) {
         if (Adapters is not { Count: > 0 }) throw new AdapterException(adapterName, "Controller has no supported Adapters");
         try {
-            if (_adapters.Any() is false) RegisterAdapters();
             foreach (var adapters in _adapters!) {
                 if (adapters.Value.Name.Equals(adapterName, StringComparison.InvariantCultureIgnoreCase)) {
                     var adapterInstance = (IAdapter?)Activator.CreateInstance(adapters.Key);
@@ -78,7 +77,20 @@ public class AdapterManager(Assembly assembly) {
         }
     }
 
-    private void RegisterAdapters() {}
+    private void RegisterAdapters() {
+        if (_assembly is null) throw new ApplicationException("No Assembly has been set for the Adapter Manager");
+        var foundTypes = _assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(IAdapter)));
+
+        foreach (var adapter in foundTypes) {
+            var attr = AttributeExtractor.GetAttribute<AdapterAttribute>(adapter);
+            if (attr != null && !string.IsNullOrEmpty(attr.Name)) {
+                var adapterInterface = adapter.ImplementedInterfaces.First(x => x.FullName != null && x.FullName.StartsWith("DCCRailway.Station.Adapters.", StringComparison.InvariantCultureIgnoreCase)) ?? null;
+                if (adapterInterface is not null) {
+                    if (!_adapters.ContainsKey(adapterInterface)) _adapters.TryAdd(adapter, attr);
+                }
+            }
+        }
+    }
 
     protected void RegisterAdapter<T>() where T : IAdapter {
         var attr = AttributeExtractor.GetAttribute<AdapterAttribute>(typeof(T));

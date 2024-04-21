@@ -30,6 +30,8 @@ public static class JMRIRosterImporter {
     private static void MapJMRItoDCCTrain(JMRIRoster jmriRoster) {
 
         var locomotiveRepository = RailwayConfig.Instance.LocomotiveRepository;
+        locomotiveRepository.DeleteAll();
+
         foreach (var jmri in jmriRoster.Roster.JMRILocos) {
             try {
                 var loco = new Locomotive (new Guid()) {
@@ -41,11 +43,11 @@ public static class JMRIRosterImporter {
                     RoadNumber   = jmri.RoadNumber,
                     Manufacturer = jmri.Mfg,
                     Model        = jmri.Model,
-                    Decoder      = new Configuration.Entities.Layout.Decoder() {
-                        Manufacturer = RailwayConfig.Instance.ManufacturerRepository.Find(x => x.Name == jmri.Mfg),
-                        Model = jmri.Decoder.Model,
-                        Family = jmri.Decoder.Family
-                    }
+                    //Decoder      = new Configuration.Entities.Layout.Decoder() {
+                    //    Manufacturer = RailwayConfig.Instance.ManufacturerRepository.Find(x => x.Name == jmri.Mfg),
+                    //    Model = jmri.Decoder.Model,
+                    //    Family = jmri.Decoder.Family
+                    //}
                 };
 
                 if (jmri.Locoaddress != null && jmri.Locoaddress.Dcclocoaddress != null) {

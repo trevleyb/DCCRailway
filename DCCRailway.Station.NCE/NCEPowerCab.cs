@@ -1,6 +1,7 @@
 ﻿using DCCRailway.Common.Types;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Controllers;
+using DCCRailway.Station.NCE.Adapters;
 
 namespace DCCRailway.Station.NCE;
 

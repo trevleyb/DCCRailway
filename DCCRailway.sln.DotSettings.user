@@ -22,12 +22,15 @@
     <s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=E61F9487_002D50EC_002D4021_002DA612_002DC90C6A9DBC6D/@EntryIndexedValue">5489776D-7885-48FE-AC7F-D92DC35EC324</s:String>
     <s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=MSTest/@EntryIndexedValue">d6790ab7-33c2-4425-b2c9-51480cd1a852</s:String>
     <s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=NUnit3x/@EntryIndexedValue">db4927dd-2e12-48a7-9a84-2b7e3e31b9c8</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9d4f11dd_002D4f9b_002D433c_002Da479_002D27ffbe9783ef/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="LayoutPropertyChangedTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::net8.0::DCCRailway.Test.SystemTests.LayoutPropertyChangedTests&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::9F7826B2-569F-47F1-9FAF-1862E7BFB396::net8.0::CommandAttributeTests.FullTestWithComments&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::net8.0::DCCRailway.Test.SystemTests.ConfigurationTest.TestEntityRepositoryAddAndStore&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9d4f11dd_002D4f9b_002D433c_002Da479_002D27ffbe9783ef/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="LayoutPropertyChangedTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Or&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::net8.0::DCCRailway.Test.SystemTests.LayoutPropertyChangedTests&lt;/TestId&gt;
+      &lt;TestId&gt;NUnit3x::9F7826B2-569F-47F1-9FAF-1862E7BFB396::net8.0::CommandAttributeTests.FullTestWithComments&lt;/TestId&gt;
+      &lt;TestId&gt;NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::net8.0::DCCRailway.Test.SystemTests.ConfigurationTest.TestEntityRepositoryAddAndStore&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Common.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Common.Test&amp;gt;" /&gt;
+  &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a9b5cd6e_002Da0e9_002D4135_002D8ee9_002Dae4485d31738/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CommandAttributeTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Or&gt;
@@ -39,7 +42,7 @@
     &lt;ProjectFile&gt;ECB148C2-8B76-46FB-B05B-10E0DFF70C31/f:ConfigurationTest.cs&lt;/ProjectFile&gt;
   &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
-    <s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f4fad090_002Df3ee_002D4757_002Dbaa6_002D9496bd1f7c26/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;DCCRailway.Common.Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+    <s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f4fad090_002Df3ee_002D4757_002Dbaa6_002D9496bd1f7c26/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;DCCRailway.Common.Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Or&gt;
     &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Common.Test" Presentation="&amp;lt;DCCRailway.Common.Test&amp;gt;" /&gt;
     &lt;TestAncestor&gt;
@@ -51,6 +54,10 @@
     &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Test" Presentation="&amp;lt;DCCRailway.Test&amp;gt;" /&gt;
     &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.System.Test" Presentation="&amp;lt;DCCRailway.System.Test&amp;gt;" /&gt;
     &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Layout.Test" Presentation="&amp;lt;DCCRailway.Layout.Test&amp;gt;" /&gt;
+    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Common.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Common.Test&amp;gt;" /&gt;
+    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Layout.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Layout.Test&amp;gt;" /&gt;
+    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Station.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Station.Test&amp;gt;" /&gt;
+    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Test&amp;gt;" /&gt;
   &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
 
