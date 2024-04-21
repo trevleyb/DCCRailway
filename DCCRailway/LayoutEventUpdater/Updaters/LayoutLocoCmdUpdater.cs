@@ -16,7 +16,7 @@ public class LayoutLocoCmdUpdater() : LayoutGenericCmdUpdater() {
         // Get the Accessory from the configuration so that we can update its state
         // -----------------------------------------------------------------------------
         if (command is ILocoCmd locoCmd) {
-            var locomotives = RailwayConfig.Instance.Locomotives;
+            var locomotives = RailwayConfig.Instance.LocomotiveRepository;
             var loco = locomotives.Find(x => x.Address == locoCmd.Address).Result;
             //var loco = Config.Locomotives[locoCmd.Address];
             if (loco is null) {

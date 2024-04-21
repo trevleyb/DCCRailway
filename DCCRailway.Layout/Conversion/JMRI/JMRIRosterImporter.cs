@@ -29,7 +29,7 @@ public static class JMRIRosterImporter {
     /// <param name="jMRIRoster">The JMRI Roster File</param>
     private static void MapJMRItoDCCTrain(JMRIRoster jmriRoster) {
 
-        var locomotiveRepository = RailwayConfig.Instance.Locomotives;
+        var locomotiveRepository = RailwayConfig.Instance.LocomotiveRepository;
         foreach (var jmri in jmriRoster.Roster.JMRILocos) {
             try {
                 var loco = new Locomotive (new Guid()) {
@@ -42,7 +42,7 @@ public static class JMRIRosterImporter {
                     Manufacturer = jmri.Mfg,
                     Model        = jmri.Model,
                     Decoder      = new Configuration.Entities.Layout.Decoder() {
-                        Manufacturer = RailwayConfig.Instance.SystemEntities.Manufacturers.FindByName(jmri.Mfg),
+                        Manufacturer = RailwayConfig.Instance.ManufacturerRepository.Find(x => x.Name == jmri.Mfg),
                         Model = jmri.Decoder.Model,
                         Family = jmri.Decoder.Family
                     }
@@ -57,7 +57,7 @@ public static class JMRIRosterImporter {
                     if (jmri.Locoaddress.Protocol.Equals("dcc_short")) loco.Address.AddressType = DCCAddressType.Short;
                     loco.Address.Protocol = DCCProtocol.DCC28;
                 }
-                locomotiveRepository.AddAsync(loco);
+                if (locomotiveRepository != null) locomotiveRepository.AddAsync(loco);
             }
             catch (Exception ex) {
                 Logger.Log.Error("Unable to map the JMRI Locomotive to the DCCRailway format due to '{0}'", ex.Message);

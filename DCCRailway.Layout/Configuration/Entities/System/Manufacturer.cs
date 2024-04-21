@@ -2,12 +2,12 @@
 
 namespace DCCRailway.Layout.Configuration.Entities.System;
 
-public class Manufacturer : BaseEntity {
-    public byte Identifier { get; set; }
+public class Manufacturer : IEntity<byte> {
+    public byte Id { get; set; }
+    public string Name { get; set; }
 
     public Manufacturer(string name, byte identifier) {
+        Id          = identifier;
         Name        = name;
-        Description = name;
-        Identifier  = identifier;
     }
 }

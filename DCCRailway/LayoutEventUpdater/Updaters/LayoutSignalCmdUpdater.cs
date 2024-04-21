@@ -8,14 +8,16 @@ using DCCRailway.System.Commands.Types.Base;
 
 namespace DCCRailway.LayoutCmdUpdater.LayoutCmdUpdaters;
 
-public class LayoutSensorCmdUpdater() : LayoutGenericCmdUpdater() {
+public class LayoutSignalCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command) {
 
-        if (command is ISensorCmd sensorCmd) {
-            var sensors = RailwayConfig.Instance.Sensors;
-            var sensor = sensors.Find(x => x.Address == sensorCmd.Address).Result;
-            switch (sensorCmd) {
-            case ICmdSensorGetState cmd:
+        if (command is ISignalCmd signalCmd) {
+            var signals = RailwayConfig.Instance.SignalRepository;
+            var signal = signals.Find(x => x.Address == signalCmd.Address).Result;
+            switch (signalCmd) {
+
+            case ICmdSignalSetAspect cmd:
+                // TODO: Implement the command processing
                 break;
             default:
                 Logger.Log.Error($"Command {command.AttributeInfo().Name} not supported.");

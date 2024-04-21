@@ -1,16 +1,21 @@
 ﻿using System.Globalization;
 using System.IO.Ports;
 using System.Text.Json.Serialization;
+using DCCRailway.Layout.Configuration.Entities.Base;
 
 namespace DCCRailway.Layout.Configuration.Entities.System;
 
 [Serializable]
-public class Parameter {
-    public string  Name    { get; set; }
-    public string  Value   { get; set; }
-    public string? ObjType { get; set; }
+public class Parameter: IEntity<Guid> {
 
-    public Parameter() { }
+    public Guid     Id { get; set; }
+    public string   Name    { get; set; }
+    public string   Value   { get; set; }
+    public string?  ObjType { get; set; }
+
+    public Parameter() : this (Guid.NewGuid()) { }
+    public Parameter(Guid guid) => Id = guid;
+
     public Parameter(string name, object value) => Set(name, value);
 
     public void Set(string name, object value) {
