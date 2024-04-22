@@ -6,25 +6,22 @@ namespace DCCRailway.APIEndPoints;
 public static class SensorAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-            app.MapGet("/sensors", async () => {
-                // Code to fetch and return all sensors
-            });
+        app.MapGet("/sensors", async () => Results.Ok(await config.SensorRepository.GetAllAsync()));
 
-            app.MapGet("/sensors/{id}", async (int id) => {
-                // Code to fetch and return a specific sensor by id
-            });
+        app.MapGet("/sensors/{id}", async (Guid id) => {
+            var sensor = await config.SensorRepository.GetByIDAsync(id);
+            return sensor == null ? Results.NotFound() : Results.Ok(sensor);
+        });
 
-            app.MapPost("/sensors", async (Sensor sensor) => {
-                // Code to add a new sensor
-            });
+        app.MapPost("/sensors", async (Sensor sensor) => {
+            if (sensor.Id == Guid.Empty) sensor.Id = Guid.NewGuid();
+            return Results.Ok(await config.SensorRepository.AddAsync(sensor));
+        });
 
-            app.MapPut("/sensors/{id}", async (int id, Sensor sensor) => {
-                // Code to update a specific sensor
-            });
+        app.MapPut("/sensors/{id}", async (Guid id, Sensor sensor) => Results.Ok(await config.SensorRepository.UpdateAsync(sensor)));
 
-            app.MapDelete("/sensors/{id}", async (int id) => {
-                // Code to delete a specific sensor
-            });
+        app.MapDelete("/sensors/{id}", async (Guid id) => Results.Ok(await config.SensorRepository.DeleteAsync(id)));
+
     }
 
 }

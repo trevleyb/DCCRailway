@@ -6,25 +6,23 @@ namespace DCCRailway.APIEndPoints;
 public static class LocomotiveAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-        app.MapGet("/locomotives", async () => {
-            // Code to fetch and return all locomotives
-        });
+        app.MapGet("/locomotives", async () => Results.Ok(await config.LocomotiveRepository.GetAllAsync()));
 
-        app.MapGet("/locomotives/{id}", async (int id) => {
-            // Code to fetch and return a specific locomotive by id
+        app.MapGet("/locomotives/{id}", async (Guid id) => {
+            var locomotive = await config.LocomotiveRepository.GetByIDAsync(id);
+            return locomotive == null ? Results.NotFound() : Results.Ok(locomotive);
         });
 
         app.MapPost("/locomotives", async (Locomotive locomotive) => {
-            // Code to add a new locomotive
+            if (locomotive.Id == Guid.Empty) locomotive.Id = Guid.NewGuid();
+            return Results.Ok(await config.LocomotiveRepository.AddAsync(locomotive));
         });
 
-        app.MapPut("/locomotives/{id}", async (int id, Locomotive locomotive) => {
-            // Code to update a specific locomotive
-        });
+        app.MapPut("/locomotives/{id}", async(Guid id, Locomotive locomotive) => Results.Ok(await config.LocomotiveRepository.UpdateAsync(locomotive)));
 
-        app.MapDelete("/locomotives/{id}", async (int id) => {
-            // Code to delete a specific locomotive
-        });
+        app.MapDelete("/locomotives/{id}", async (Guid id) => Results.Ok(await config.LocomotiveRepository.DeleteAsync(id)));
+
+
     }
 }
 

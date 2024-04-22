@@ -2,10 +2,11 @@ namespace DCCRailway.Layout.Configuration.Repository;
 
 public interface IRepository<TKey,TEntity> {
     Task<IEnumerable<TEntity>> GetAllAsync();
-    Task<TEntity?> GetAsync(TKey id);
-    Task<TEntity?> AddAsync(TEntity entity);
-    Task<TEntity?> UpdateAsync(TEntity entity);
-    Task<Task> DeleteAsync(TKey id);
+    Task<IEnumerable<TEntity>> GetAllAsync(Func<TEntity, bool> predicate);
     Task<TEntity?> Find(Func<TEntity, bool> predicate);
-    Task<Task> DeleteAll();
+    Task<TEntity?> GetByIDAsync(TKey id);
+    Task<TEntity?> UpdateAsync(TEntity entity);
+    Task<Task>     AddAsync(TEntity entity);
+    Task<Task>     DeleteAsync(TKey id);
+    Task<Task>     DeleteAll();
 }

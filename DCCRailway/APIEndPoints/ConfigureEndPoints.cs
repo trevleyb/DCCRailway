@@ -7,7 +7,7 @@ public static class ConfigureAPIEndPoints {
         BlockAPI.Configure(app,config);
         SignalAPI.Configure(app,config);
         SensorAPI.Configure(app,config);
-        AccessoryAPI.Configure(app,config);
+        AccessoryApi.Configure(app,config);
         TurnoutAPI.Configure(app,config);
         LocomotiveAPI.Configure(app,config);
         ManufacturersAPI.Configure(app,config);

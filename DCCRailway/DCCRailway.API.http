@@ -1,11 +1,11 @@
 @DCCRailway.Service_HostAddress = http://localhost:5044
 
 # Accessory Endpoints
-GET {{DCCRailway.Service_HostAddress}}/accessorys
-GET {{DCCRailway.Service_HostAddress}}/accessorys/{id}
-POST {{DCCRailway.Service_HostAddress}}/accessorys
-PUT {{DCCRailway.Service_HostAddress}}/accessorys/{id}
-DELETE {{DCCRailway.Service_HostAddress}}/accessorys/{id}
+GET {{DCCRailway.Service_HostAddress}}/accessories
+GET {{DCCRailway.Service_HostAddress}}/accessories/{id}
+POST {{DCCRailway.Service_HostAddress}}/accessories
+PUT {{DCCRailway.Service_HostAddress}}/accessories/{id}
+DELETE {{DCCRailway.Service_HostAddress}}/accessories/{id}
 
 # Blocks Endpoints
 GET {{DCCRailway.Service_HostAddress}}/blocks

@@ -8,10 +8,11 @@ public abstract class Repository<TKey,TEntity>(IEntityCollection<TEntity> collec
     protected readonly IEntityCollection<TEntity> entities = collection;
 
     public abstract Task<IEnumerable<TEntity>> GetAllAsync();
-    public abstract Task<TEntity?> GetAsync(TKey id);
-    public abstract Task<TEntity?> AddAsync(TEntity entity);
+    public abstract Task<IEnumerable<TEntity>> GetAllAsync(Func<TEntity, bool> predicate);
+    public abstract Task<TEntity?> GetByIDAsync(TKey id);
     public abstract Task<TEntity?> UpdateAsync(TEntity entity);
     public abstract Task<TEntity?> Find(string name);
+    public abstract Task<Task> AddAsync(TEntity entity);
     public abstract Task<Task> DeleteAsync(TKey id);
     public abstract Task<Task> DeleteAll();
 
