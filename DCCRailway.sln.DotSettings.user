@@ -39,6 +39,7 @@
       &lt;TestId&gt;NUnit3x::9F7826B2-569F-47F1-9FAF-1862E7BFB396::net8.0::DCCRailway.Test.Layout.VirtualTest.TestControllerCreationAndGetCommands&lt;/TestId&gt;
       &lt;TestId&gt;NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::net8.0::DCCRailway.Test.SystemTests.ConfigurationTest.SaveConfigFileWithAllOptionsIncluded&lt;/TestId&gt;
       &lt;TestId&gt;NUnit3x::9F7826B2-569F-47F1-9FAF-1862E7BFB396::net8.0::AdapterMappingTest&lt;/TestId&gt;
+      &lt;TestId&gt;NUnit3x::9F7826B2-569F-47F1-9FAF-1862E7BFB396::net8.0::DCCRailway.System.Test.Adapters.SerialAdapterParameterTest.TestThatASerialAdapterParametersCanBeRead&lt;/TestId&gt;
     &lt;/TestAncestor&gt;
     &lt;ProjectFile&gt;ECB148C2-8B76-46FB-B05B-10E0DFF70C31/f:ConfigurationTest.cs&lt;/ProjectFile&gt;
   &lt;/Or&gt;
