@@ -6,16 +6,18 @@ using DCCRailway.Station.Commands.Types;
 namespace DCCRailway.LayoutEventUpdater.Updaters;
 
 public class LayoutCvCmdUpdater() : LayoutGenericCmdUpdater() {
-    public new bool Process(ICommand command) {
+    public new bool Process(ICommand command, LayoutEventLogger logger) {
         switch (command) {
         case ICmdCVRead cmd:
             // TODO: Implement the command processing
+            logger.Event(cmd.GetType(), "Read a CV");
             break;
         case ICmdCVWrite cmd:
             // TODO: Implement the command processing
+            logger.Event(cmd.GetType(), "Write a CV");
             break;
         default:
-            Logger.Log.Error($"Command {command.AttributeInfo().Name} not supported.");
+            logger.Error(command.GetType(), $"Command {command.AttributeInfo().Name} not supported.");
             throw new Exception("Unexpected type of command executed.");
         }
 

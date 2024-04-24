@@ -8,18 +8,19 @@ using DCCRailway.Station.Commands.Types.Base;
 namespace DCCRailway.LayoutEventUpdater.Updaters;
 
 public class LayoutSignalCmdUpdater() : LayoutGenericCmdUpdater() {
-    public new bool Process(ICommand command) {
+    public new bool Process(ICommand command, LayoutEventLogger logger) {
 
         if (command is ISignalCmd signalCmd) {
             var signals = RailwayConfig.Instance.SignalRepository;
             var signal = signals.Find(x => x.Address == signalCmd.Address).Result;
-            switch (signalCmd) {
 
+            switch (signalCmd) {
             case ICmdSignalSetAspect cmd:
                 // TODO: Implement the command processing
+                logger.Event(cmd.GetType(), "Setting Signal Aspect.");
                 break;
             default:
-                Logger.Log.Error($"Command {command.AttributeInfo().Name} not supported.");
+                logger.Error(command.GetType(), $"Command {command.AttributeInfo().Name} not supported.");
                 throw new Exception("Unexpected type of command executed.");
             }
         }

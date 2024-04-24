@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.JavaScript;
 using DCCRailway.Station.Adapters.Helpers;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands;
+using DCCRailway.Station.Helpers;
 
 [TestFixture]
 public class AdapterMappingTest {

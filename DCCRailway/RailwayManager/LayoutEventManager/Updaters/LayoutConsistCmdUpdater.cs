@@ -6,23 +6,26 @@ using DCCRailway.Station.Commands.Types;
 namespace DCCRailway.LayoutEventUpdater.Updaters;
 
 public class LayoutConsistCmdUpdater() : LayoutGenericCmdUpdater() {
-    public new bool Process(ICommand command) {
+    public new bool Process(ICommand command, LayoutEventLogger logger) {
         switch (command) {
         case ICmdConsistCreate cmd:
             // TODO: Implement the command processing
+            logger.Event(cmd.GetType(), "Create a Consist");
             break;
         case ICmdConsistKill cmd:
             // TODO: Implement the command processing
+            logger.Event(cmd.GetType(), "Kill a Consist");
             break;
         case ICmdConsistDelete cmd:
             // TODO: Implement the command processing
+            logger.Event(cmd.GetType(), "Delete a Consist");
             break;
         case ICmdConsistAdd cmd:
             // TODO: Implement the command processing
+            logger.Event(cmd.GetType(), "Add a Consist");
             break;
         default:
-            Logger.Log.Error($"Command {command.AttributeInfo().Name} not supported.");
-
+            logger.Error(command.GetType(),$"Command {command.AttributeInfo().Name} not supported.");
             throw new Exception("Unexpected type of command executed.");
         }
 

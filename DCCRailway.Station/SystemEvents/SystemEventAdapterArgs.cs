@@ -13,7 +13,7 @@ public class SystemEventAdapterArgs : SystemEventArgs {
     }
 
     public string Message     { get; set; }
-    public string Name        { get; set; }
+    public string? Name        { get; set; }
     public string Description { get; set; }
 
     public override string ToString() => $"Adapter: {Name} - {Description} - {Message}";

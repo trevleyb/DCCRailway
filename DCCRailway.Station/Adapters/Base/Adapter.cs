@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using DCCRailway.Station.Adapters.Events;
+using DCCRailway.Station.Helpers;
 
 namespace DCCRailway.Station.Adapters.Base;
 
-public abstract class Adapter  {
+public abstract class Adapter : IParameterMappable {
     public event EventHandler<DataRecvArgs> DataReceived;
     public event EventHandler<DataSentArgs> DataSent;
     public event EventHandler<DataErrorArgs>    ErrorOccurred;

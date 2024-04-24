@@ -4,10 +4,11 @@ using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands.Results;
 using DCCRailway.Station.Commands.Validators;
 using DCCRailway.Station.Exceptions;
+using DCCRailway.Station.Helpers;
 
 namespace DCCRailway.Station.Commands;
 
-public abstract class Command : PropertyChangedBase, ICommand {
+public abstract class Command : PropertyChangedBase, ICommand, IParameterMappable {
     public string Name        => this.AttributeInfo().Name ?? "Unknown";
     public string Version     => this.AttributeInfo().Version ?? "Unknown";
     public string Description => this.AttributeInfo().Description ?? "Unknown";

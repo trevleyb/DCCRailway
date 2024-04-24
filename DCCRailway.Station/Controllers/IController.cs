@@ -4,10 +4,11 @@ using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands;
 using DCCRailway.Station.Commands.Results;
 using DCCRailway.Station.Controllers.Events;
+using DCCRailway.Station.Helpers;
 
 namespace DCCRailway.Station.Controllers;
 
-public interface IController {
+public interface IController : IParameterMappable {
     public event EventHandler<ControllerEventArgs> ControllerEvent;
 
     public void Start();
@@ -22,7 +23,7 @@ public interface IController {
     // Attach or detect an Adapter to a Command Station
     // ----------------------------------------------------------------------------
     public IAdapter?      Adapter { get; set; }
-    public IAdapter?      CreateAdapter(string name);
+    public IAdapter?      CreateAdapter(string? name);
     public List<AdapterAttribute> Adapters { get; }
 
     // Create and Execute commands that are associated with this command station

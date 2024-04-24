@@ -3,6 +3,8 @@ using DCCRailway.LayoutEventUpdater.Updaters;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands.Types.Base;
 using DCCRailway.Station.Controllers.Events;
+using Serilog;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace DCCRailway.LayoutEventUpdater;
 /// <summary>
@@ -15,7 +17,9 @@ namespace DCCRailway.LayoutEventUpdater;
 /// So this is a bridge between the two systems. It takes a DCCRailwayConfig instance whcih is
 /// the collection of all data related to the current executing layout.
 /// </summary>
-public class LayoutCmdUpdater() {
+public class LayoutEventManager {
+
+    private LayoutEventLogger _eventLogger = new LayoutEventLogger();
 
     public void ProcessCommandEvent(ControllerEventArgs eventArgs) {
         switch (eventArgs) {
@@ -32,14 +36,14 @@ public class LayoutCmdUpdater() {
             // ---------------------------------------------------
             if (exec.Command != null) {
                 _ = exec.Command switch {
-                    IAccyCmd cmd    => new LayoutAccyCmdUpdater().Process(exec.Command),
-                    ILocoCmd cmd    => new LayoutLocoCmdUpdater().Process(exec.Command),
-                    ISensorCmd cmd  => new LayoutSensorCmdUpdater().Process(exec.Command),
-                    ISignalCmd cmd  => new LayoutSignalCmdUpdater().Process(exec.Command),
-                    ISystemCmd cmd  => new LayoutSystemCmdUpdater().Process(exec.Command),
-                    IConsistCmd cmd => new LayoutConsistCmdUpdater().Process(exec.Command),
-                    ICVCmd cmd      => new LayoutCvCmdUpdater().Process(exec.Command),
-                    _               => new LayoutGenericCmdUpdater().Process(exec.Command)
+                    IAccyCmd cmd    => new LayoutAccyCmdUpdater().Process(exec.Command,_eventLogger),
+                    ILocoCmd cmd    => new LayoutLocoCmdUpdater().Process(exec.Command,_eventLogger),
+                    ISensorCmd cmd  => new LayoutSensorCmdUpdater().Process(exec.Command,_eventLogger),
+                    ISignalCmd cmd  => new LayoutSignalCmdUpdater().Process(exec.Command,_eventLogger),
+                    ISystemCmd cmd  => new LayoutSystemCmdUpdater().Process(exec.Command,_eventLogger),
+                    IConsistCmd cmd => new LayoutConsistCmdUpdater().Process(exec.Command,_eventLogger),
+                    ICVCmd cmd      => new LayoutCvCmdUpdater().Process(exec.Command,_eventLogger),
+                    _               => new LayoutGenericCmdUpdater().Process(exec.Command,_eventLogger)
                 };
             }
             break;

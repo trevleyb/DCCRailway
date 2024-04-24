@@ -7,11 +7,12 @@ using DCCRailway.Station.Commands;
 using DCCRailway.Station.Commands.Results;
 using DCCRailway.Station.Controllers.Events;
 using DCCRailway.Station.Exceptions;
+using DCCRailway.Station.Helpers;
 using Serilog;
 
 namespace DCCRailway.Station.Controllers;
 
-public abstract class Controller : IController {
+public abstract class Controller : IController, IParameterMappable {
 
     public event EventHandler<ControllerEventArgs> ControllerEvent;
 
@@ -49,7 +50,7 @@ public abstract class Controller : IController {
     public List<AdapterAttribute> Adapters => _adapters.Adapters;
     public List<CommandAttribute> Commands => _commands.Commands;
 
-    public IAdapter?              CreateAdapter(string name)                          => _adapters.Attach(name);
+    public IAdapter?              CreateAdapter(string? name)                          => _adapters.Attach(name);
     public TCommand?              CreateCommand<TCommand>() where TCommand : ICommand => (TCommand?)_commands.Create<TCommand>();
     public IAdapter? Adapter {
         get => _adapters.Adapter;

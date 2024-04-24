@@ -1,8 +1,10 @@
 using System.ComponentModel;
-using System.Reflection;
+using DCCRailway.Station.Adapters.Base;
 using DCCRailway.Station.Attributes;
+using DCCRailway.Station.Commands;
+using DCCRailway.Station.Controllers;
 
-namespace DCCRailway.Station.Adapters.Helpers;
+namespace DCCRailway.Station.Helpers;
 
 public static class ParameterMapper {
     /// <summary>
@@ -13,7 +15,7 @@ public static class ParameterMapper {
     /// <param name="input">The object that supports Property Mapping</param>
     /// <param name="parameterName">The Name of the Property to change</param>
     /// <param name="parameterValue">The value (as a string) to set the property to</param>
-    public static void SetMappableParameter<T>(this T input, string parameterName, string parameterValue) {
+    public static void SetMappableParameter<T>(this T input, string parameterName, string parameterValue) where T : IParameterMappable {
 
         var type = input?.GetType();                  // Get the type of the current object
         if (type is not null) {
@@ -40,7 +42,7 @@ public static class ParameterMapper {
         }
     }
 
-    public static bool IsMappableParameter<T>(this T input, string propertyName)
+    public static bool IsMappableParameter<T>(this T input, string propertyName) where T : IParameterMappable
     {
         var type = input?.GetType(); // Get the type of the current object
         if (type is null) return false;
@@ -52,7 +54,7 @@ public static class ParameterMapper {
         return attr?.Length >= 0;
     }
 
-    public static Dictionary<string, string?> GetMappableGetParameters<T>(this T input) {
+    public static Dictionary<string, string?> GetMappableGetParameters<T>(this T input) where T : IParameterMappable {
         var parameters = new Dictionary<string, string?>();
         var type = input?.GetType();
         if (type is not null) {

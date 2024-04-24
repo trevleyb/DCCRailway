@@ -42,7 +42,7 @@ public class AdapterManager(Assembly assembly) {
     /// </summary>
     /// <param name="adapterName">The name of the Adapter to instantiate and connect.</param>
     /// <exception cref="AdapterException">Throws an exception if it cannot find or instantiate the adapter</exception>
-    public IAdapter? Attach(string adapterName) {
+    public IAdapter? Attach(string? adapterName) {
         if (Adapters is not { Count: > 0 }) throw new AdapterException(adapterName, "Controller has no supported Adapters");
         try {
             foreach (var adapters in _adapters!) {

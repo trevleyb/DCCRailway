@@ -1,11 +1,14 @@
 using System.ComponentModel.Design.Serialization;
 using DCCRailway.Common.Utilities;
 using DCCRailway.Layout.Configuration;
+using DCCRailway.LayoutEventUpdater;
 using DCCRailway.Station;
 using DCCRailway.Station.Adapters.Base;
 using DCCRailway.Station.Controllers;
 using DCCRailway.Station.Exceptions;
 using DCCRailway.Station.Adapters.Helpers;
+using DCCRailway.Station.Controllers.Events;
+using DCCRailway.Station.Helpers;
 
 namespace DCCRailway.RailwayManager;
 
@@ -15,15 +18,42 @@ namespace DCCRailway.RailwayManager;
 /// </summary>
 public class RailwayManager() {
 
-    private List<IController> _controllers;
+    private LayoutEventManager _layoutEventManager;
+    private List<IController> _activeControllers;
 
     public void Startup() {
-
-        // Load up the configuration from the file
         // ToDo: Make the file a parameter on the command line or config file.
         RailwayConfig.Load();
-        _controllers = new List<IController>();
+        _layoutEventManager = new LayoutEventManager();
+        _activeControllers  = InstantiateControllers();
+    }
 
+    public void Restart() {
+        Shutdown();
+        Startup();
+    }
+
+    public void Shutdown() {
+        foreach (var controller in _activeControllers) {
+            controller.Stop();
+            if (controller.Adapter is not null) controller.Adapter.Disconnect();
+            controller.ControllerEvent -= ControllerInstanceOnControllerEvent;
+        }
+        _activeControllers = [];
+        RailwayConfig.Instance.Save();
+    }
+
+    /// <summary>
+    /// Looks at the configuration and instantiates the controllers for the Layout. This includes adding appropriate
+    /// adapters to the controller and pushing any parameters into the Controllers and Adapaters as defined in the
+    /// configuration.
+    /// </summary>
+    /// <param name="eventManager">An instance the the layout event manager that will manage events between command stations and configuration</param>
+    /// <returns>A list of instantiated controllers</returns>
+    /// <exception cref="ControllerException">Throw exception on an error instantiating a controller </exception>
+    /// <exception cref="AdapterException"></exception>
+    private List<IController> InstantiateControllers() {
+        var controllers = new List<IController>();
         var controllerManager = new ControllerFactory();
         foreach (var controller in RailwayConfig.Instance.ControllerRepository.GetAllAsync().Result) {
 
@@ -39,20 +69,19 @@ public class RailwayManager() {
                 }
 
             } catch (Exception ex) {
-                Logger.Log.Error("Unable to instantiate an instance of the specified controller: {0}", controller);
+                Logger.Log.Error("Unable to instantiate an instance of the specified controller: {0} => {1}", controller, ex.Message);
                 throw;
             }
 
             // Now that we have a controller, attach the Adapter to the controller and
             // configure the Adapter using the provided Parameters.
             // -----------------------------------------------------------------------------
-            IAdapter adapterInstance;
             try {
-                if (controller?.Adapter?.AdapterName != null) {
-                    adapterInstance = controllerInstance.CreateAdapter(controller?.Adapter?.AdapterName);
-                    if (adapterInstance is null) throw new AdapterException("Unable to create an Adapter of type: {0}", controller.Adapter.AdapterName);
+                if (controller?.Adapter is {} controllerAdapter) {
+                    var adapterInstance = controllerInstance.CreateAdapter(controllerAdapter.AdapterName);
+                    if (adapterInstance is null) throw new AdapterException("Unable to create an Adapter of type: {0}", controllerAdapter.AdapterName);
 
-                    foreach (var parameter in controller.Adapter.Parameters) {
+                    foreach (var parameter in controllerAdapter.Parameters) {
                         if (adapterInstance.IsMappableParameter(parameter.Name)) {
                             adapterInstance.SetMappableParameter(parameter.Name, parameter.Value);
                         }
@@ -61,34 +90,21 @@ public class RailwayManager() {
                 }
             }
             catch (Exception ex) {
-                Logger.Log.Error("Unable to instantiate an instance of the specified adapter: {0}", controller?.Adapter?.AdapterName);
+                Logger.Log.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapter?.AdapterName, ex.Message);
                 throw;
-
             }
+
+            // Wire up the events from the Command Station so we can track Layout Property Changes
+            // --------------------------------------------------------------------------------------------
+            controllerInstance.ControllerEvent += ControllerInstanceOnControllerEvent;
+
+            controllerInstance.Start();
+            controllers.Add(controllerInstance);
         }
-
-
+        return controllers;
     }
 
-    /// <summary>
-    /// Restart te Railway Manager. Used if the configuration has changed.
-    /// </summary>
-    public void Restart() {
-        Shutdown();
-        Startup();
+    private void ControllerInstanceOnControllerEvent(object? sender, ControllerEventArgs e) {
+        _layoutEventManager.ProcessCommandEvent(e);
     }
-
-    /// <summary>
-    /// Shutdown the Railway System cleanly and ensure configuration is saved.
-    /// </summary>
-    public void Shutdown() {
-        foreach (var controller in _controllers) {
-            controller.Adapter?.Disconnect();
-        }
-        _controllers = new List<IController>();
-
-        // Save the Configuration
-        RailwayConfig.Instance.Save();
-    }
-
 }
