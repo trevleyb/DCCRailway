@@ -10,7 +10,14 @@ using DCCRailway.Station.Exceptions;
 namespace DCCRailway.Station.Adapters;
 
 public abstract class SerialAdapter : Adapter, IAdapter {
-    private readonly SerialAdapterSettings _serialAdapterSettings;
+
+    [ParameterMappable] public string   PortName { get; set; }
+    [ParameterMappable] public int      Timeout  { get; set; } = 30;
+    [ParameterMappable] public int      BaudRate { get; set; } = 9600;
+    [ParameterMappable] public int      DataBits { get; set; } = 0;
+    [ParameterMappable] public Parity   Parity   { get; set; } = Parity.None;
+    [ParameterMappable] public StopBits StopBits { get; set; } = StopBits.None;
+
     private SerialPort? _connection;
 
     /// <summary>
@@ -27,14 +34,10 @@ public abstract class SerialAdapter : Adapter, IAdapter {
         Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} - Connecting");
         if (IsConnected) Disconnect();
 
-        if (string.IsNullOrEmpty(_serialAdapterSettings.PortName)) throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
+        if (string.IsNullOrEmpty(PortName)) throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
         try {
-            _connection = new SerialPort(_serialAdapterSettings.PortName,
-                                               _serialAdapterSettings.BaudRate,
-                                               _serialAdapterSettings.Parity,
-                                               _serialAdapterSettings.DataBits,
-                                               _serialAdapterSettings.StopBits)
-                                        { WriteTimeout = _serialAdapterSettings.Timeout, ReadTimeout = _serialAdapterSettings.Timeout };
+            _connection = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits)
+                                        { WriteTimeout = Timeout, ReadTimeout = Timeout };
 
             //_connection.DataReceived += delegate (object sender, SerialDataReceivedEventArgs args) {
             //    Console.WriteLine($"{Name}: Received message: {0}", args.ToString());
@@ -48,7 +51,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
             _connection.Open();
         }
         catch (Exception ex) {
-            throw new AdapterException(this.AttributeInfo().Name, "Could not connect to the device: " + _serialAdapterSettings.PortName, ex);
+            throw new AdapterException(this.AttributeInfo().Name, "Could not connect to the device: " + PortName, ex);
         }
     }
 
@@ -74,7 +77,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
         GuardClauses.IsNotNull(_connection, "_connection");
 
         try {
-            var timeoutTime = DateTime.Now.AddMilliseconds(_serialAdapterSettings.Timeout);
+            var timeoutTime = DateTime.Now.AddMilliseconds(Timeout);
             var returnData  = new List<byte>();
             var readBytes   = true;
 
@@ -121,12 +124,19 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     ///     Override the ToString to display "Serial = tty @ 9600,8,1,N"
     /// </summary>
     /// <returns>String representation of the connection string</returns>
-    public override string ToString() => $"Adapter '{this.AttributeInfo().Name}' = {_serialAdapterSettings.PortName} @ {_serialAdapterSettings.BaudRate},{_serialAdapterSettings.DataBits},{_serialAdapterSettings.StopBits},{_serialAdapterSettings.Parity}";
+    public override string ToString() => $"Adapter '{this.AttributeInfo().Name}' = {PortName} @ {BaudRate},{DataBits},{StopBits},{Parity}";
 
     #region Constructor and Destructor
-    protected SerialAdapter(string portName = "dev/ttyUSB0", int baudRate = 9600, int dataBits = 8, Parity parity = Parity.None, StopBits stopBits = StopBits.One, int timeout = 2000) => _serialAdapterSettings = new SerialAdapterSettings(portName, baudRate, dataBits, parity, stopBits, timeout);
+    protected SerialAdapter() { }
 
-    protected SerialAdapter(SerialAdapterSettings settings) => _serialAdapterSettings = settings;
+    protected SerialAdapter(string portName, int baudRate, int dataBits, Parity parity, StopBits stopBits, int timeout) {
+        PortName = portName;
+        Timeout = timeout;
+        BaudRate = baudRate;
+        DataBits = dataBits;
+        Parity = parity;
+        StopBits = stopBits;
+    }
 
     /// <summary>
     /// Dispose of the SerialAdapter and release any resources used.
