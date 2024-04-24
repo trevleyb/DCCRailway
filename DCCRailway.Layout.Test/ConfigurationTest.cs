@@ -55,12 +55,12 @@ public class ConfigurationTest {
         Assert.That(config2!.SensorRepository.GetAllAsync().Result.Count(), Is.EqualTo(3));
         Assert.That(config2!.SignalRepository.GetAllAsync().Result.Count(), Is.EqualTo(3));
         Assert.That(config2!.TurnoutRepository.GetAllAsync().Result.Count(), Is.EqualTo(3));
-        Assert.That(config2!.AccessoryRepository.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestAccessory1"));
-        Assert.That(config2!.BlockRepository.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestBlock1"));
-        Assert.That(config2!.LocomotiveRepository.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestLocomotive1"));
-        Assert.That(config2!.SensorRepository.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestSensor1"));
-        Assert.That(config2!.SignalRepository.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestSignal1"));
-        Assert.That(config2!.TurnoutRepository.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestTurnout1"));
+        Assert.That(config2?.AccessoryRepository?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestAccessory1"));
+        Assert.That(config2?.BlockRepository?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestBlock1"));
+        Assert.That(config2?.LocomotiveRepository?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestLocomotive1"));
+        Assert.That(config2?.SensorRepository?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestSensor1"));
+        Assert.That(config2?.SignalRepository?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestSignal1"));
+        Assert.That(config2?.TurnoutRepository?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestTurnout1"));
     }
 
     [Test]
