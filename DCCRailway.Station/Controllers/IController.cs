@@ -10,6 +10,9 @@ namespace DCCRailway.Station.Controllers;
 public interface IController {
     public event EventHandler<ControllerEventArgs> ControllerEvent;
 
+    public void Start();
+    public void Stop();
+
     // Execute a Command. Must be executed via here
     // ----------------------------------------------------------------------------
     public ICommandResult         Execute(ICommand command);

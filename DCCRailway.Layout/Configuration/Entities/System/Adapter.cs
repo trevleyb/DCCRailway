@@ -2,4 +2,10 @@
 
 namespace DCCRailway.Layout.Configuration.Entities.System;
 
-public class Adapter : BaseEntity { }
+public class Adapter : BaseEntity {
+
+    public string AdapterName;
+    public Parameters Parameters = new();
+    public Adapter() : base() { }
+
+}

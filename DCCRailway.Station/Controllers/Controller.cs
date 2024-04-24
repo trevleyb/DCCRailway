@@ -1,11 +1,13 @@
 ﻿using System.Reflection;
 using DCCRailway.Common.Types;
+using DCCRailway.Common.Utilities;
 using DCCRailway.Station.Adapters.Base;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands;
 using DCCRailway.Station.Commands.Results;
 using DCCRailway.Station.Controllers.Events;
 using DCCRailway.Station.Exceptions;
+using Serilog;
 
 namespace DCCRailway.Station.Controllers;
 
@@ -19,6 +21,14 @@ public abstract class Controller : IController {
     protected Controller() {
         _commands.CommandEvent += CommandsOnCommandEvent;
         _adapters.AdapterEvent += AdaptersOnAdapterEvent;
+    }
+
+    public void Start() {
+        Logger.Log.Information("Starting Up the Controller. {0}", this.AttributeInfo()?.Name);
+    }
+
+    public void Stop() {
+        Logger.Log.Information("Shutting Down the Controller. {0}", this.AttributeInfo()?.Name);
     }
 
     /// <summary>

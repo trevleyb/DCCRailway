@@ -32,17 +32,18 @@
     &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Common.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Common.Test&amp;gt;" /&gt;
   &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a9b5cd6e_002Da0e9_002D4135_002D8ee9_002Dae4485d31738/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CommandAttributeTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a9b5cd6e_002Da0e9_002D4135_002D8ee9_002Dae4485d31738/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CommandAttributeTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Or&gt;
     &lt;TestAncestor&gt;
       &lt;TestId&gt;NUnit3x::9F7826B2-569F-47F1-9FAF-1862E7BFB396::net8.0::DCCRailway.Test.Layout.VirtualTest.TestControllerCreation&lt;/TestId&gt;
       &lt;TestId&gt;NUnit3x::9F7826B2-569F-47F1-9FAF-1862E7BFB396::net8.0::DCCRailway.Test.Layout.VirtualTest.TestControllerCreationAndGetCommands&lt;/TestId&gt;
       &lt;TestId&gt;NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::net8.0::DCCRailway.Test.SystemTests.ConfigurationTest.SaveConfigFileWithAllOptionsIncluded&lt;/TestId&gt;
+      &lt;TestId&gt;NUnit3x::9F7826B2-569F-47F1-9FAF-1862E7BFB396::net8.0::AdapterMappingTest&lt;/TestId&gt;
     &lt;/TestAncestor&gt;
     &lt;ProjectFile&gt;ECB148C2-8B76-46FB-B05B-10E0DFF70C31/f:ConfigurationTest.cs&lt;/ProjectFile&gt;
   &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
-    <s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f4fad090_002Df3ee_002D4757_002Dbaa6_002D9496bd1f7c26/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;DCCRailway.Common.Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+    <s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f4fad090_002Df3ee_002D4757_002Dbaa6_002D9496bd1f7c26/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;DCCRailway.Common.Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Or&gt;
     &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Common.Test" Presentation="&amp;lt;DCCRailway.Common.Test&amp;gt;" /&gt;
     &lt;TestAncestor&gt;

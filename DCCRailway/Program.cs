@@ -1,6 +1,8 @@
 using DCCRailway.APIEndPoints;
 using DCCRailway.Components;
 using DCCRailway.Layout.Configuration;
+using DCCRailway.RailwayManager;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,11 +22,13 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseSerilogRequestLogging();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+var railwayNanager = new RailwayManager();
 
 app.Run();

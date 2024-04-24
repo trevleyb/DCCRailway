@@ -1,8 +1,9 @@
-﻿using DCCRailway.Station.Adapters.Events;
+﻿using System.ComponentModel;
+using DCCRailway.Station.Adapters.Events;
 
 namespace DCCRailway.Station.Adapters.Base;
 
-public abstract class Adapter {
+public abstract class Adapter  {
     public event EventHandler<DataRecvArgs> DataReceived;
     public event EventHandler<DataSentArgs> DataSent;
     public event EventHandler<DataErrorArgs>    ErrorOccurred;
