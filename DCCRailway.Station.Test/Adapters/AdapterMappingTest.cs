@@ -1,12 +1,9 @@
-using NUnit.Framework;
-using DCCRailway.Station.Adapters.Base;
-using System;
 using System.IO.Ports;
-using System.Runtime.InteropServices.JavaScript;
-using DCCRailway.Station.Adapters.Helpers;
+using DCCRailway.Station.Adapters.Base;
 using DCCRailway.Station.Attributes;
-using DCCRailway.Station.Commands;
 using DCCRailway.Station.Helpers;
+
+namespace DCCRailway.System.Test.Adapters;
 
 [TestFixture]
 public class AdapterMappingTest {

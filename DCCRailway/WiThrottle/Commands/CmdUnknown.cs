@@ -1,6 +1,6 @@
 ﻿using DCCRailway.Common.Utilities;
 
-namespace DCCRailway.Station.WiThrottle.Commands;
+namespace DCCRailway.WiThrottle.Commands;
 
 public class CmdUnknown : ThrottleCmdBase, IThrottleCmd {
     public CmdUnknown(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) => connectionEntry.LastCommand = this;

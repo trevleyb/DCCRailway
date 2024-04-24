@@ -1,7 +1,6 @@
 using DCCRailway.Layout.Conversion.JMRI;
-using NUnit.Framework;
 
-namespace DCCRailway.Test.SystemTests;
+namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class JMRIRosterImporterTest {

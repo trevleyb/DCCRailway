@@ -1,8 +1,6 @@
 using DCCRailway.Layout.Configuration;
-using DCCRailway.Layout.Configuration.Entities.System;
-using NUnit.Framework;
 
-namespace DCCRailway.Test.SystemTests;
+namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class ManufacturersLoadTest {

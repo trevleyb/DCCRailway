@@ -1,7 +1,6 @@
 using DCCRailway.Station.Controllers;
-using NUnit.Framework;
 
-namespace DCCRailway.Test.System.Controllers;
+namespace DCCRailway.System.Test.Controllers;
 
 [TestFixture, TestOf(typeof(ControllerFactory))]
 public class ControllerFactoryTest {

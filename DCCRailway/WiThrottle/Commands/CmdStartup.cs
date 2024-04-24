@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace DCCRailway.Station.WiThrottle.Commands;
+namespace DCCRailway.WiThrottle.Commands;
 
 /// <summary>
 ///     Startup command used to setup a new connection for a Throttle

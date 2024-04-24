@@ -1,12 +1,9 @@
 using System.ComponentModel;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
-using System.Reflection;
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Configuration.Entities.Base;
 using DCCRailway.Layout.Configuration.Entities.Layout;
 
-namespace DCCRailway.Test.SystemTests;
+namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class LayoutPropertyChangedTests {

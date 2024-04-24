@@ -1,11 +1,9 @@
-using System.Diagnostics;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands.Types;
 using DCCRailway.Station.Controllers;
 using DCCRailway.Station.Controllers.Events;
-using NUnit.Framework;
 
-namespace DCCRailway.Test.Layout;
+namespace DCCRailway.System.Test;
 
 [TestFixture]
 public class VirtualTest {

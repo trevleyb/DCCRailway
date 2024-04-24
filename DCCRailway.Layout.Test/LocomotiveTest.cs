@@ -1,7 +1,6 @@
 using DCCRailway.Layout.Configuration.Entities.Layout;
-using NUnit.Framework;
 
-namespace DCCRailway.Test.SystemTests;
+namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class LocomotiveTest {

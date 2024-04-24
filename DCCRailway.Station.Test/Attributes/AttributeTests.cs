@@ -1,8 +1,7 @@
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.NCE.Commands;
-using NUnit.Framework;
 
-namespace DCCRailway.Test.System.Utility;
+namespace DCCRailway.System.Test.Attributes;
 
 [TestFixture]
 public class AttributeTests {

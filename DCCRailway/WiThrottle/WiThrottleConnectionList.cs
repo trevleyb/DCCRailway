@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Station.WiThrottle;
+﻿namespace DCCRailway.WiThrottle;
 
 /// <summary>
 ///     ConnectionInfo stores the details of each connected throttle to the controller

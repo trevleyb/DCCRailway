@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Station.WiThrottle.Commands;
+﻿namespace DCCRailway.WiThrottle.Commands;
 
 public class CmdThrottle : ThrottleCmdBase, IThrottleCmd {
     public CmdThrottle(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) => connectionEntry.LastCommand = this;

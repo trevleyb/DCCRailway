@@ -1,11 +1,11 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using DCCRailway.Common.NetworkUtilities;
 using DCCRailway.Common.Utilities;
-using DCCRailway.DCCServer.NetworkUtilities;
-using DCCRailway.Station.WiThrottle.Commands;
+using DCCRailway.WiThrottle.Commands;
 
-namespace DCCRailway.Station.WiThrottle;
+namespace DCCRailway.WiThrottle;
 
 public class WiThrottleServer {
     private const    ushort                   DEFAULT_PORT           = 12090;

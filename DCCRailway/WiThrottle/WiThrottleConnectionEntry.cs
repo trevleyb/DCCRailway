@@ -1,6 +1,6 @@
-﻿using DCCRailway.Station.WiThrottle.Commands;
+﻿using DCCRailway.WiThrottle.Commands;
 
-namespace DCCRailway.Station.WiThrottle;
+namespace DCCRailway.WiThrottle;
 
 public class WiThrottleConnectionEntry {
     private int _heartbeatSeconds = 15;

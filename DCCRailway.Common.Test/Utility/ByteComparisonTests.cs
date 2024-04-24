@@ -1,7 +1,6 @@
 ﻿using DCCRailway.Common.Utilities;
-using NUnit.Framework;
 
-namespace DCCRailway.Test.System.Utility;
+namespace DCCRailway.Common.Test.Utility;
 
 [TestFixture]
 public class ByteComparison {

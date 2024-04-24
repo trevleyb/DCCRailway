@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 
-namespace DCCRailway.DCCServer.NetworkUtilities;
+namespace DCCRailway.Common.NetworkUtilities;
 
 public static class Network {
     /// <summary>

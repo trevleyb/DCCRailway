@@ -1,8 +1,7 @@
 ﻿using DCCRailway.Common.Types;
 using DCCRailway.Station.Adapters;
-using NUnit.Framework;
 
-namespace DCCRailway.Test.Manufacturers.NCE;
+namespace DCCRailway.System.Test.Manufacturers.NCE;
 
 [TestFixture, Ignore("This is a hardware test")]
 public class NCEPowerCab {

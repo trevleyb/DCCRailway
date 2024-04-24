@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.Station.WiThrottle.Commands;
+﻿namespace DCCRailway.WiThrottle.Commands;
 
 public abstract class ThrottleCmdBase {
     protected readonly string                    CmdString;

@@ -1,9 +1,7 @@
 ﻿using DCCRailway.Station.Adapters;
 using DCCRailway.Station.Controllers;
-using NUnit.Framework;
-using VirtualAdapter = DCCRailway.Station.Virtual.Adapters.VirtualAdapter;
 
-namespace DCCRailway.Test.SystemTests;
+namespace DCCRailway.System.Test;
 
 [TestFixture, Ignore("Re-writing this")]
 public class VirtualControllerTest {

@@ -3,9 +3,8 @@ using DCCRailway.Station.Commands.Types;
 using DCCRailway.Station.Controllers;
 using DCCRailway.Station.NCE;
 using DCCRailway.Station.NCE.Adapters;
-using NUnit.Framework;
 
-namespace DCCRailway.Test.Manufacturers.NCE;
+namespace DCCRailway.System.Test.Manufacturers.NCE;
 
 [TestFixture, Ignore("This is a hardware test")]
 public class NCEPowerCabAccessoryTest {

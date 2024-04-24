@@ -1,11 +1,7 @@
-﻿using System.IO.Ports;
-using DCCRailway.Layout;
-using DCCRailway.Layout.Configuration;
+﻿using DCCRailway.Layout.Configuration;
 using DCCRailway.Layout.Configuration.Entities.Layout;
-using NUnit.Framework;
-using Decoder = DCCRailway.Layout.Configuration.Entities.Layout.Decoder;
 
-namespace DCCRailway.Test.SystemTests;
+namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class ConfigurationTest {

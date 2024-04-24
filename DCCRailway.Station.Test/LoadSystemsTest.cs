@@ -1,7 +1,6 @@
 ﻿using DCCRailway.Station.Controllers;
-using NUnit.Framework;
 
-namespace DCCRailway.Test.SystemTests;
+namespace DCCRailway.System.Test;
 
 [TestFixture]
 public class LoadSystemsTest {

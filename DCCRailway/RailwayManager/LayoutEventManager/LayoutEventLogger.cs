@@ -1,4 +1,4 @@
-namespace DCCRailway.LayoutEventUpdater;
+namespace DCCRailway.RailwayManager.LayoutEventManager;
 
 public class LayoutEventLogger {
 

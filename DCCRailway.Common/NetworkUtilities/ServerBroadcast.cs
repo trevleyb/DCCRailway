@@ -2,7 +2,7 @@
 using DCCRailway.Common.Utilities;
 using Makaretu.Dns;
 
-namespace DCCRailway.DCCServer.NetworkUtilities;
+namespace DCCRailway.Common.NetworkUtilities;
 
 public class ServerBroadcast {
     public static void Start(string instance, string service, IPAddress ipAddress, ushort port, Dictionary<string, string>? properties = null) {

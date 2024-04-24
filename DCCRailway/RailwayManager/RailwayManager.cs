@@ -1,7 +1,6 @@
 using System.ComponentModel.Design.Serialization;
 using DCCRailway.Common.Utilities;
 using DCCRailway.Layout.Configuration;
-using DCCRailway.LayoutEventUpdater;
 using DCCRailway.Station;
 using DCCRailway.Station.Adapters.Base;
 using DCCRailway.Station.Controllers;
@@ -16,15 +15,19 @@ namespace DCCRailway.RailwayManager;
 /// Railway Manager loads config, starts controllers, supports restarting and shutting down
 /// and acts as the meditor between the Layout and the Controllers.
 /// </summary>
-public class RailwayManager() {
+public class RailwayManager {
 
-    private LayoutEventManager _layoutEventManager;
+    private IRailwayConfig _config;
+    private LayoutEventManager.LayoutEventManager _layoutEventManager;
     private List<IController> _activeControllers;
+
+    public RailwayManager(IRailwayConfig? config = null) {
+        _config = config ?? RailwayConfig.Load();
+    }
 
     public void Startup() {
         // ToDo: Make the file a parameter on the command line or config file.
-        RailwayConfig.Load();
-        _layoutEventManager = new LayoutEventManager();
+        _layoutEventManager = new LayoutEventManager.LayoutEventManager();
         _activeControllers  = InstantiateControllers();
     }
 
@@ -40,7 +43,7 @@ public class RailwayManager() {
             controller.ControllerEvent -= ControllerInstanceOnControllerEvent;
         }
         _activeControllers = [];
-        RailwayConfig.Instance.Save();
+        //_config.Save();
     }
 
     /// <summary>
@@ -55,7 +58,7 @@ public class RailwayManager() {
     private List<IController> InstantiateControllers() {
         var controllers = new List<IController>();
         var controllerManager = new ControllerFactory();
-        foreach (var controller in RailwayConfig.Instance.ControllerRepository.GetAllAsync().Result) {
+        foreach (var controller in _config.ControllerRepository.GetAllAsync().Result) {
 
             IController controllerInstance;
             try {

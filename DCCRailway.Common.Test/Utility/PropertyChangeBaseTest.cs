@@ -1,7 +1,6 @@
-using NUnit.Framework;
-using System.ComponentModel;
+using DCCRailway.Common.Utilities;
 
-namespace DCCRailway.Common.Utilities.Tests;
+namespace DCCRailway.Common.Test.Utility;
 
 [TestFixture]
 public class PropertyChangeBaseTest {

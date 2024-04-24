@@ -1,14 +1,6 @@
-using DCCRailway.Common.Types;
-using DCCRailway.Layout;
-using DCCRailway.Layout.Configuration.Entities.Layout;
-
-namespace DCCRailway.Test.Layout;
-
 using NUnit.Framework;
 
-
-
-
+namespace DCCRailway.Test;
 
 [TestFixture]
 public class ControllerEventLayoutTest {

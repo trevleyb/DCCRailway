@@ -1,9 +1,8 @@
-using DCCRailway.Common.Utilities;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands;
 using DCCRailway.Station.Commands.Types;
 
-namespace DCCRailway.LayoutEventUpdater.Updaters;
+namespace DCCRailway.RailwayManager.LayoutEventManager.Updaters;
 
 public class LayoutCvCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command, LayoutEventLogger logger) {

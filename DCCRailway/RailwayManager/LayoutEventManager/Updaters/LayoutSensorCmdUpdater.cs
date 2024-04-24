@@ -1,11 +1,10 @@
-using DCCRailway.Common.Utilities;
 using DCCRailway.Layout.Configuration;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands;
 using DCCRailway.Station.Commands.Types;
 using DCCRailway.Station.Commands.Types.Base;
 
-namespace DCCRailway.LayoutEventUpdater.Updaters;
+namespace DCCRailway.RailwayManager.LayoutEventManager.Updaters;
 
 public class LayoutSensorCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command, LayoutEventLogger logger) {
