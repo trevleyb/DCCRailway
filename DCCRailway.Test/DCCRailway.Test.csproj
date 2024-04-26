@@ -29,6 +29,7 @@
         <ProjectReference Include="..\DCCRailway.Station.NCE\DCCRailway.Station.NCE.csproj" />
         <ProjectReference Include="..\DCCRailway.Station.Sprog\DCCRailway.Station.Sprog.csproj" />
         <ProjectReference Include="..\DCCRailway.Station.Virtual\DCCRailway.Station.Virtual.csproj" />
+        <ProjectReference Include="..\DCCRailway\DCCRailway.csproj" />
     </ItemGroup>
     <ItemGroup>
         <None Remove="SystemTests\roster.xml"/>

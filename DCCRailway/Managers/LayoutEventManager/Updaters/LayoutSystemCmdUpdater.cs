@@ -2,7 +2,7 @@ using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands;
 using DCCRailway.Station.Commands.Types;
 
-namespace DCCRailway.RailwayManager.LayoutEventManager.Updaters;
+namespace DCCRailway.Managers.LayoutEventManager.Updaters;
 
 public class LayoutSystemCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command, LayoutEventLogger logger) {

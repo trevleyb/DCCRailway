@@ -18,6 +18,8 @@ public class AdapterMappingTest {
         [ParameterMappable] public Parity AParityValue { get; set; }
         [ParameterMappable] public StopBits AStopValue { get; set; }
         [ParameterMappable] public ColorEnum AEnumValue { get; set; }
+        [ParameterMappable] public bool ABoolean { get; set; }
+
     }
 
     private class NotMappableAdapter : Adapter {
@@ -29,12 +31,13 @@ public class AdapterMappingTest {
         public Parity AParityValue { get; set; }
         public StopBits AStopValue { get; set; }
         public ColorEnum AEnumValue { get; set; }
+        public bool ABoolean { get; set; }
     }
 
     [TestCase]
     public void Test_GetMappablePropertiesOnMappableClass() {
         var adapter = new TestAdapter();
-        Assert.That(adapter.GetMappableGetParameters().Count, Is.EqualTo(8));
+        Assert.That(adapter.GetMappableGetParameters().Count, Is.EqualTo(9));
 
         adapter.SetMappableParameter("AStringValue", "string");
         adapter.SetMappableParameter("ALongValue", "12345671234567");
@@ -44,6 +47,7 @@ public class AdapterMappingTest {
         adapter.SetMappableParameter("AParityValue", "Even");
         adapter.SetMappableParameter("AStopValue", "Two");
         adapter.SetMappableParameter("AEnumValue", "Green");
+        adapter.SetMappableParameter("ABoolean", "True");
 
         var parameters = adapter.GetMappableGetParameters();
 
@@ -54,13 +58,24 @@ public class AdapterMappingTest {
         Assert.That(parameters["AParityValue"], Is.EqualTo("Even"));
         Assert.That(parameters["AStopValue"], Is.EqualTo("Two"));
         Assert.That(parameters["AEnumValue"], Is.EqualTo("Green"));
+        Assert.That(parameters["ABoolean"], Is.EqualTo("True"));
     }
-
 
     [TestCase]
     public void Test_GetMappablePropertiesOnNotMappableClass() {
         var adapter = new NotMappableAdapter();
         Assert.That(adapter.GetMappableGetParameters().Count, Is.EqualTo(0));
+    }
+
+    [TestCase]
+    public void Test_MapConfigValueIsCaseInsensitive() {
+        var adapter = new TestAdapter();
+
+        adapter.SetMappableParameter("AStringValue", "string");
+        Assert.That(adapter.AStringValue, Is.EqualTo("string"));
+
+        adapter.SetMappableParameter("astringValue", "something new");
+        Assert.That(adapter.AStringValue, Is.EqualTo("something new"));
     }
 
     [TestCase]
@@ -90,6 +105,18 @@ public class AdapterMappingTest {
 
         adapter.SetMappableParameter("AEnumValue", "Green");
         Assert.That(adapter.AEnumValue, Is.EqualTo(ColorEnum.Green));
+
+        adapter.SetMappableParameter("ABoolean", "True");
+        Assert.That(adapter.ABoolean, Is.EqualTo(true));
+
+        adapter.SetMappableParameter("ABoolean", "False");
+        Assert.That(adapter.ABoolean, Is.EqualTo(false));
+
+        adapter.SetMappableParameter("ABoolean", "true");
+        Assert.That(adapter.ABoolean, Is.EqualTo(true));
+
+        adapter.SetMappableParameter("ABoolean", "false");
+        Assert.That(adapter.ABoolean, Is.EqualTo(false));
     }
 
 }

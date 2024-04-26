@@ -4,6 +4,6 @@ using DCCRailway.Layout.Configuration.Entities.System;
 
 namespace DCCRailway.Layout.Configuration.Repository;
 
-public class ControllerRepository(IEntityCollection<Controller> collection) : BaseRepository<Guid,Controller>(collection) {
+public class ControllerRepository(IEntityCollection<Controller> collection) : Repository<Guid,Controller>(collection) {
 
 }

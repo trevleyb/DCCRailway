@@ -1,29 +1,21 @@
-using System.ComponentModel.Design.Serialization;
 using DCCRailway.Common.Utilities;
 using DCCRailway.Layout.Configuration;
-using DCCRailway.Station;
-using DCCRailway.Station.Adapters.Base;
 using DCCRailway.Station.Controllers;
-using DCCRailway.Station.Exceptions;
-using DCCRailway.Station.Adapters.Helpers;
 using DCCRailway.Station.Controllers.Events;
+using DCCRailway.Station.Exceptions;
 using DCCRailway.Station.Helpers;
 
-namespace DCCRailway.RailwayManager;
+namespace DCCRailway.Managers;
 
 /// <summary>
 /// Railway Manager loads config, starts controllers, supports restarting and shutting down
 /// and acts as the meditor between the Layout and the Controllers.
 /// </summary>
-public class RailwayManager {
+public class RailwayManager(IRailwayConfig? config = null) {
 
-    private IRailwayConfig _config;
+    private readonly IRailwayConfig _config = config ?? RailwayConfig.Load();
     private LayoutEventManager.LayoutEventManager _layoutEventManager;
     private List<IController> _activeControllers;
-
-    public RailwayManager(IRailwayConfig? config = null) {
-        _config = config ?? RailwayConfig.Load();
-    }
 
     public void Startup() {
         // ToDo: Make the file a parameter on the command line or config file.
@@ -62,7 +54,7 @@ public class RailwayManager {
 
             IController controllerInstance;
             try {
-                controllerInstance = controllerManager.CreateController(controller.ControllerName);
+                controllerInstance = controllerManager.CreateController(controller.Name);
                 if (controllerInstance is null) throw new ControllerException($"Invalid Controller Name specified {controller}");
 
                 foreach (var parameter in controller.Parameters) {

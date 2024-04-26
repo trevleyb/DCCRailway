@@ -1,7 +1,7 @@
 using DCCRailway.APIEndPoints;
 using DCCRailway.Components;
 using DCCRailway.Layout.Configuration;
-using DCCRailway.RailwayManager;
+using DCCRailway.Managers;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

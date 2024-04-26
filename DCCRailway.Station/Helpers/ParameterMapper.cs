@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Reflection;
 using DCCRailway.Station.Adapters.Base;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands;
@@ -7,6 +8,10 @@ using DCCRailway.Station.Controllers;
 namespace DCCRailway.Station.Helpers;
 
 public static class ParameterMapper {
+
+    private static BindingFlags LookupPropertyBindingFlags =
+        BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
+
     /// <summary>
     /// This function take a Name/Value pair and looks in the Adapter for those
     /// properties and if they exist, and if the object data can be converted to
@@ -19,7 +24,7 @@ public static class ParameterMapper {
 
         var type = input?.GetType();                  // Get the type of the current object
         if (type is not null) {
-            var prop = type.GetProperty(parameterName); // Try get the property from the given parameterName
+            var prop = type.GetProperty(parameterName,LookupPropertyBindingFlags); // Try get the property from the given parameterName
             if (prop is null) throw new ArgumentException("Provided Property name is not valid: {0}", parameterName);
             var attr = prop.GetCustomAttributes(typeof(ParameterMappableAttribute), false);
             if (attr.Length <= 0) throw new ArgumentException("Provided Property is not supported: {0}", parameterName);
@@ -47,7 +52,7 @@ public static class ParameterMapper {
         var type = input?.GetType(); // Get the type of the current object
         if (type is null) return false;
 
-        var prop = type.GetProperty(propertyName); // Try get the property from the given parameterName
+        var prop = type.GetProperty(propertyName,LookupPropertyBindingFlags); // Try get the property from the given parameterName
         if (prop is null) return false;
 
         var attr = prop.GetCustomAttributes(typeof(ParameterMappableAttribute), false);

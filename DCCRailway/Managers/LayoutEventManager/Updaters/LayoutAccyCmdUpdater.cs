@@ -4,7 +4,7 @@ using DCCRailway.Station.Commands;
 using DCCRailway.Station.Commands.Types;
 using DCCRailway.Station.Commands.Types.Base;
 
-namespace DCCRailway.RailwayManager.LayoutEventManager.Updaters;
+namespace DCCRailway.Managers.LayoutEventManager.Updaters;
 
 public class LayoutAccyCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command, LayoutEventLogger logger) {

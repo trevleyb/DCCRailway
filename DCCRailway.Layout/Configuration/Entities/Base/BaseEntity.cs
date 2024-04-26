@@ -5,7 +5,7 @@ using DCCRailway.Layout.Configuration.Entities.System;
 namespace DCCRailway.Layout.Configuration.Entities.Base;
 
 [Serializable]
-public abstract class BaseEntity : IEntity<Guid>, INotifyPropertyChanged, INotifyPropertyChanging {
+public abstract class BaseEntity : PropertyChangeBase, IEntity<Guid>, INotifyPropertyChanged, INotifyPropertyChanging {
     private Guid       _id              = Guid.NewGuid();
     private string     _name            = "";
     private string     _description     = "";
@@ -19,28 +19,5 @@ public abstract class BaseEntity : IEntity<Guid>, INotifyPropertyChanged, INotif
     protected BaseEntity() { }
     protected BaseEntity(Guid id) {
         Id = id;
-    }
-
-    /// <summary>
-    /// Represents a base class for configuration objects that implements the INotifyPropertyChanged and INotifyPropertyChanging interfaces.
-    /// </summary>
-    public event PropertyChangedEventHandler?  PropertyChanged;
-    public event PropertyChangingEventHandler? PropertyChanging;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null) {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-    protected virtual void OnPropertyChanging([CallerMemberName] string? propertyName = null) {
-        PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
-    }
-
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null) {
-        if (ReferenceEquals(field, null)) {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-        }
-        OnPropertyChanging(propertyName);
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
     }
 }
