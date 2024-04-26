@@ -24,19 +24,14 @@ public class TestEntityCollection {
 
         // These will not raise individual events for the collection. Only when changed.
         // -----------------------------------------------------------------------------
-        collection.Add(new TestEntity { Id = "1", Name = "Entity 1" });
-        collection.Add(new TestEntity { Id = "2", Name = "Entity 2" });
-        collection.Add(new TestEntity { Id = "3", Name = "Entity 3" });
+        collection.Add(new TestEntity { Name = "Entity 1" });
+        collection.Add(new TestEntity { Name = "Entity 2" });
+        collection.Add(new TestEntity { Name = "Entity 3" });
 
         var entity = collection[0];
         entity.Name = "Updated Entity";
         Assert.That(propertyChanging,Is.EqualTo(1));
         Assert.That(propertyChanged,Is.EqualTo(1));
-
-        entity.Id = "4";
-        Assert.That(propertyChanging,Is.EqualTo(2));
-        Assert.That(propertyChanged,Is.EqualTo(2));
-
     }
 
     private void CollectionOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) {
@@ -60,7 +55,7 @@ public class TestEntityCollectionWithChanges {
 
 
     [TestCase]
-    public void TestCastToEntityChangingProeprties() {
+    public void TestCastToEntityChangingProperties() {
 
         var collection = new TestEntities();
         Assert.That(collection, Is.Not.Null);
@@ -71,16 +66,18 @@ public class TestEntityCollectionWithChanges {
 
         // These will not raise individual events for the collection. Only when changed.
         // -----------------------------------------------------------------------------
-        collection.Add(new TestEntity { Id = "1", Name = "Entity 1" });
+        var guid = Guid.NewGuid();
+        collection.Add(new TestEntity { Id = guid, Name = "Entity 1" });
 
         var entity = collection[0];
         entity.Name = "Updated Entity";
         Assert.That(propertyChangingValue, Is.EqualTo("Entity 1"));
         Assert.That(propertyChangedValue, Is.EqualTo("Updated Entity"));
 
-        entity.Id = "4";
-        Assert.That(propertyChangingValue, Is.EqualTo("1"));
-        Assert.That(propertyChangedValue, Is.EqualTo("4"));
+        var newGuid = Guid.NewGuid();
+        entity.Id = newGuid;
+        Assert.That(propertyChangingValue, Is.EqualTo(guid));
+        Assert.That(propertyChangedValue, Is.EqualTo(newGuid));
 
     }
 
@@ -102,13 +99,13 @@ public class TestEntityCollectionWithChanges {
 }
 
 
-public class TestEntities : EntityCollection<string, TestEntity> { }
+public class TestEntities : EntityCollection<TestEntity> { }
 
-public class TestEntity : PropertyChangeBase, IEntity<string> {
+public class TestEntity : PropertyChangeBase, IEntity {
 
-    private string _id;
+    private Guid _id;
     private string _name;
-    public string Id    { get => _id;    set => SetField(ref _id, value); }
+    public Guid Id    { get => _id;    set => SetField(ref _id, value); }
     public string Name  { get => _name;  set => SetField(ref _name, value); }
 
 }

@@ -6,7 +6,7 @@ using DCCRailway.Layout.Configuration.Entities.Layout;
 
 namespace DCCRailway.Layout.Configuration.Repository;
 
-public abstract class Repository<TKey, TEntity> : IRepository<TKey, TEntity> where TEntity : IEntity<TKey> where TKey : notnull {
+public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : IEntity  {
 
     protected readonly IEntityCollection<TEntity> entities;
     public event PropertyChangedEventHandler?  PropertyChanged;
@@ -41,7 +41,7 @@ public abstract class Repository<TKey, TEntity> : IRepository<TKey, TEntity> whe
         }
     }
 
-    public async Task<TEntity?> GetByIDAsync(TKey id) {
+    public async Task<TEntity?> GetByIDAsync(Guid id) {
         try {
             return await Task.FromResult(entities.FirstOrDefault(x => x.Id.Equals(id)) ?? default(TEntity));
         } catch (Exception ex) {
@@ -79,7 +79,7 @@ public abstract class Repository<TKey, TEntity> : IRepository<TKey, TEntity> whe
         }
     }
 
-    public async Task<Task> DeleteAsync(TKey id) {
+    public async Task<Task> DeleteAsync(Guid id) {
         try {
             var index = FindIndexOf(id).Result;
             if (index != -1) entities.RemoveAt(index);
@@ -109,7 +109,7 @@ public abstract class Repository<TKey, TEntity> : IRepository<TKey, TEntity> whe
     /// </summary>
     /// <param name="id">the identifier to find in the collection</param>
     /// <returns></returns>
-    private Task<int> FindIndexOf(TKey id) {
+    private Task<int> FindIndexOf(Guid id) {
         foreach (var item in entities) {
             if (item.Id.Equals(id)) {
                 return Task.FromResult(entities.IndexOf(item));

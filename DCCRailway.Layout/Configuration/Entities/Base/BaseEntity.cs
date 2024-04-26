@@ -5,7 +5,7 @@ using DCCRailway.Layout.Configuration.Entities.System;
 namespace DCCRailway.Layout.Configuration.Entities.Base;
 
 [Serializable]
-public abstract class BaseEntity : PropertyChangeBase, IEntity<Guid>, INotifyPropertyChanged, INotifyPropertyChanging {
+public abstract class BaseEntity : PropertyChangeBase, IEntity, INotifyPropertyChanged, INotifyPropertyChanging {
     private Guid       _id              = Guid.NewGuid();
     private string     _name            = "";
     private string     _description     = "";

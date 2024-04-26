@@ -1,6 +1,6 @@
 namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
-public class Signals : EntityCollection<Guid, Signal> {
+public class Signals : EntityCollection<Signal> {
 
 }

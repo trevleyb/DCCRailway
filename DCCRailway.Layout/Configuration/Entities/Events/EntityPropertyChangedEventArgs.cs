@@ -3,9 +3,13 @@ using System.ComponentModel;
 namespace DCCRailway.Layout.Configuration.Entities.Base;
 
 public class EntityPropertyChangedEventArgs : PropertyChangedEventArgs {
-    public object? Value;
+
+    public IEntity? Entity;
+    public readonly object? Value;
+
     public EntityPropertyChangedEventArgs(string? propertyName) : base(propertyName) { }
-    public EntityPropertyChangedEventArgs(string? propertyName, object? propertyValue) : base(propertyName) {
+    public EntityPropertyChangedEventArgs(IEntity? entity, string? propertyName, object? propertyValue) : base(propertyName) {
+        Entity = entity;
         Value = propertyValue;
     }
 

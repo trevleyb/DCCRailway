@@ -48,9 +48,9 @@ public sealed class RailwayConfig : IRailwayConfig {
     public string         Description    { get; set; } = "";
     public string         Filename       { get; set; } = "Railway.Config.json";
 
-    [JsonInclude] public    Controllers     Controllers { get; set; } = [];
-    [JsonInclude] public    Parameters      Parameters { get; set; } = [];
-    [JsonIgnore]  internal  Manufacturers   Manufacturers { get; set; } = [];
+    [JsonInclude] public Controllers     Controllers { get; set; } = [];
+    [JsonInclude] public Parameters      Parameters { get; set; } = [];
+    [JsonIgnore]  public Manufacturers   Manufacturers { get; } = new Manufacturers();
 
     [JsonInclude] [JsonPropertyName("Accessories")] private Accessories Accessories   { get; set; } = [];
     [JsonInclude] [JsonPropertyName("Blocks")]      private Blocks      Blocks        { get; set; } = [];
@@ -59,25 +59,23 @@ public sealed class RailwayConfig : IRailwayConfig {
     [JsonInclude] [JsonPropertyName("Signals")]     private Signals     Signals       { get; set; } = [];
     [JsonInclude] [JsonPropertyName("Turnouts")]    private Turnouts    Turnouts      { get; set; } = [];
 
-    [JsonIgnore] public IRepository<Guid,Accessory>     AccessoryRepository     => GetRepository<Guid,Accessory>()!;
-    [JsonIgnore] public IRepository<Guid,Block>         BlockRepository         => GetRepository<Guid,Block>()!;
-    [JsonIgnore] public IRepository<Guid,Locomotive>    LocomotiveRepository    => GetRepository<Guid,Locomotive>()!;
-    [JsonIgnore] public IRepository<Guid,Sensor>        SensorRepository        => GetRepository<Guid,Sensor>()!;
-    [JsonIgnore] public IRepository<Guid,Signal>        SignalRepository        => GetRepository<Guid,Signal>()!;
-    [JsonIgnore] public IRepository<Guid,Turnout>       TurnoutRepository       => GetRepository<Guid,Turnout>()!;
-    [JsonIgnore] public IRepository<Guid,Controller>    ControllerRepository    => GetRepository<Guid,Controller>()!;
-    [JsonIgnore] public IRepository<byte,Manufacturer>  ManufacturerRepository  => GetRepository<byte,Manufacturer>()!;
+    [JsonIgnore] public IRepository<Controller>    ControllerRepository    => GetRepository<Controller>()!;
+    [JsonIgnore] public IRepository<Accessory>     AccessoryRepository     => GetRepository<Accessory>()!;
+    [JsonIgnore] public IRepository<Block>         BlockRepository         => GetRepository<Block>()!;
+    [JsonIgnore] public IRepository<Locomotive>    LocomotiveRepository    => GetRepository<Locomotive>()!;
+    [JsonIgnore] public IRepository<Sensor>        SensorRepository        => GetRepository<Sensor>()!;
+    [JsonIgnore] public IRepository<Signal>        SignalRepository        => GetRepository<Signal>()!;
+    [JsonIgnore] public IRepository<Turnout>       TurnoutRepository       => GetRepository<Turnout>()!;
 
-    private IRepository<TKey,TEntity>? GetRepository<TKey,TEntity>() {
+    private IRepository<TEntity>? GetRepository<TEntity>() {
         return typeof(TEntity) switch {
-            { } t when t == typeof(Accessory)   => new AccessoryRepository(Accessories) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Block)       => new BlockRepository(Blocks) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Locomotive)  => new LocomotiveRepository(Locomotives) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Sensor)      => new SensorRepository(Sensors) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Signal)      => new SignalRepository(Signals) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Turnout)     => new TurnoutRepository(Turnouts) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Controller)  => new ControllerRepository(Controllers) as IRepository<TKey,TEntity>,
-            { } t when t == typeof(Manufacturer) => new ManufacturerRepository(Manufacturers) as IRepository<TKey,TEntity>,
+            { } t when t == typeof(Accessory)   => new AccessoryRepository(Accessories) as IRepository<TEntity>,
+            { } t when t == typeof(Block)       => new BlockRepository(Blocks) as IRepository<TEntity>,
+            { } t when t == typeof(Locomotive)  => new LocomotiveRepository(Locomotives) as IRepository<TEntity>,
+            { } t when t == typeof(Sensor)      => new SensorRepository(Sensors) as IRepository<TEntity>,
+            { } t when t == typeof(Signal)      => new SignalRepository(Signals) as IRepository<TEntity>,
+            { } t when t == typeof(Turnout)     => new TurnoutRepository(Turnouts) as IRepository<TEntity>,
+            { } t when t == typeof(Controller)  => new ControllerRepository(Controllers) as IRepository<TEntity>,
             _ => throw new ArgumentException($"Type {typeof(TEntity).Name} is not supported")
         };
     }

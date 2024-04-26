@@ -13,18 +13,18 @@ namespace DCCRailway.Layout.Configuration;
 /// formats or styles (default is a .json file).
 /// </summary>
 public interface IRailwayConfig {
-    public string           Name        { get; set;  }
-    public string           Description { get; set; }
-    public string           Filename    { get; set; }
+    public string           Name            { get; set;  }
+    public string           Description     { get; set; }
+    public string           Filename        { get; set; }
+    public Manufacturers    Manufacturers   { get; }
 
-    public IRepository<Guid,Accessory>      AccessoryRepository     { get; }
-    public IRepository<Guid,Block>          BlockRepository         { get; }
-    public IRepository<Guid,Locomotive>     LocomotiveRepository    { get; }
-    public IRepository<Guid,Sensor>         SensorRepository        { get; }
-    public IRepository<Guid,Signal>         SignalRepository        { get; }
-    public IRepository<Guid,Turnout>        TurnoutRepository       { get; }
-    public IRepository<Guid,Controller>     ControllerRepository    { get; }
-    public IRepository<byte,Manufacturer>   ManufacturerRepository  { get; }
+    public IRepository<Controller>     ControllerRepository    { get; }
+    public IRepository<Accessory>      AccessoryRepository     { get; }
+    public IRepository<Block>          BlockRepository         { get; }
+    public IRepository<Locomotive>     LocomotiveRepository    { get; }
+    public IRepository<Sensor>         SensorRepository        { get; }
+    public IRepository<Signal>         SignalRepository        { get; }
+    public IRepository<Turnout>        TurnoutRepository       { get; }
 
     public void             Save();
     public void             Save(string? name);

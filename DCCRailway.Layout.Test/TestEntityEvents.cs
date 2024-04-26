@@ -9,7 +9,7 @@ namespace DCCRailway.Layout.Test;
 public class TestEntityEvents {
 
     [TestCase]
-    public void TestThatEntityRepositoryIsEbentingChanges() {
+    public void TestThatEntityRepositoryIsEventingChanges() {
 
         var propertyChanged = false;
         var propertyChanging = false;

@@ -6,7 +6,7 @@ using DCCRailway.Layout.Configuration.Entities.Base;
 namespace DCCRailway.Layout.Configuration.Entities.System;
 
 [Serializable]
-public class Parameter: PropertyChangeBase, IEntity<Guid> {
+public class Parameter: PropertyChangeBase, IEntity {
 
     public Guid     Id { get; set; }
     public string   Name    { get; set; }

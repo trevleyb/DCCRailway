@@ -5,7 +5,7 @@ using DCCRailway.Layout.Configuration.Entities.Base;
 namespace DCCRailway.Layout.Configuration.Entities;
 
 [Serializable]
-public class EntityCollection<TKey, TEntity> : ObservableCollection<TEntity>, IEntityCollection<TEntity> where TEntity : IEntity<TKey> where TKey : notnull {
+public class EntityCollection<TEntity> : ObservableCollection<TEntity>, IEntityCollection<TEntity> where TEntity : IEntity {
 
     public event PropertyChangedEventHandler? PropertyChanged;
     public event PropertyChangingEventHandler? PropertyChanging;

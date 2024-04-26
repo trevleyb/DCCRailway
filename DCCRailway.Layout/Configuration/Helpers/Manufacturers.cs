@@ -3,25 +3,33 @@ using System.Runtime.CompilerServices;
 namespace DCCRailway.Layout.Configuration.Entities.System;
 
 [Serializable]
-public class Manufacturers : EntityCollection<byte, Manufacturer> {
+public class Manufacturers : Dictionary<byte, Manufacturer>  {
 
     public Manufacturers() {
-        this.Clear();
+        Clear();
         BuildManufacturersList();
     }
 
+    public new Manufacturer? this[byte id] => Find(id);
+
     public Manufacturer? Find(byte identifier) {
-        return this.FirstOrDefault(m => m.Id.Equals(identifier)) ?? new Manufacturer("Unknown", 0);
+        return this[identifier] ?? new Manufacturer(0,"Unknown");
     }
 
     public Manufacturer? Find(string name) {
-        return this.FirstOrDefault(m => m.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? new Manufacturer("Unknown", 0);
+        return this.Values.FirstOrDefault(m => m.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? new Manufacturer(0,"Unknown");
+    }
+
+    public Manufacturer? Find(Func<Manufacturer, bool> predicate) {
+        return Values.Where(predicate).FirstOrDefault();
+    }
+
+    public IEnumerable<Manufacturer>? FindAll(Func<Manufacturer, bool> predicate) {
+        return Values.Where(predicate);
     }
 
     private void AddManufacturer(string name, byte id) {
-        if (this.FirstOrDefault(m => m.Id.Equals(id)) == null) {
-            this.Add(new Manufacturer(name, id));
-        }
+        if (!this.ContainsKey(id)) Add(id,new Manufacturer(id,name));
     }
 
     private void BuildManufacturersList() {
