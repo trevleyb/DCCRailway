@@ -3,6 +3,8 @@ using DCCRailway.Layout.Configuration;
 using DCCRailway.Layout.Configuration.Entities.Layout;
 using DCCRailway.Layout.Configuration.Entities.System;
 using DCCRailway.Managers;
+using DCCRailway.Station.Commands.Types;
+using DCCRailway.Station.Virtual.Commands;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
@@ -17,15 +19,15 @@ public class RailwayManagerTests {
         var railwayManager = new RailwayManager(config);
         Assert.That(railwayManager, Is.Not.Null);
 
-        // Link some Property Events to the config so we know when properties are or have changed
-        // --------------------------------------------------------------------------------------
-
-
-
         // Start Up the Railway Manager
         railwayManager.Startup();
+        var locoCmd = railwayManager.ActiveController.CreateCommand<ICmdLocoSetSpeed>();
 
+        var currentSpeed = locoCmd.Speed;
+        locoCmd.Speed = new DCCSpeed(50);
 
+        railwayManager.ActiveController.Execute(locoCmd);
+        Assert.That(config.LocomotiveRepository.GetByNameAsync("Train01")?.Result?.Speed.Value, Is.EqualTo(50));
 
     }
 

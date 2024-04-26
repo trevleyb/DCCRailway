@@ -1,5 +1,7 @@
 using DCCRailway.Common.Utilities;
 using DCCRailway.Layout.Configuration;
+using DCCRailway.Station.Attributes;
+using DCCRailway.Station.Commands;
 using DCCRailway.Station.Controllers;
 using DCCRailway.Station.Controllers.Events;
 using DCCRailway.Station.Exceptions;
@@ -14,12 +16,12 @@ namespace DCCRailway.Managers;
 public class RailwayManager(IRailwayConfig? config = null) {
 
     private readonly IRailwayConfig _config = config ?? RailwayConfig.Load();
-    private LayoutEventManager.LayoutEventManager _layoutEventManager;
+    private LayoutEventManager.LayoutUpdater _layoutUpdater;
     private List<IController> _activeControllers;
 
     public void Startup() {
         // ToDo: Make the file a parameter on the command line or config file.
-        _layoutEventManager = new LayoutEventManager.LayoutEventManager();
+        _layoutUpdater = new LayoutEventManager.LayoutUpdater();
         _activeControllers  = InstantiateControllers();
     }
 
@@ -37,6 +39,9 @@ public class RailwayManager(IRailwayConfig? config = null) {
         _activeControllers = [];
         //_config.Save();
     }
+
+    public IController? ActiveController => _activeControllers[0];
+    public IController? Controller(string name) => _activeControllers.Find(x => x.AttributeInfo().Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
 
     /// <summary>
     /// Looks at the configuration and instantiates the controllers for the Layout. This includes adding appropriate
@@ -91,7 +96,6 @@ public class RailwayManager(IRailwayConfig? config = null) {
             // Wire up the events from the Command Station so we can track Layout Property Changes
             // --------------------------------------------------------------------------------------------
             controllerInstance.ControllerEvent += ControllerInstanceOnControllerEvent;
-
             controllerInstance.Start();
             controllers.Add(controllerInstance);
         }
@@ -99,6 +103,6 @@ public class RailwayManager(IRailwayConfig? config = null) {
     }
 
     private void ControllerInstanceOnControllerEvent(object? sender, ControllerEventArgs e) {
-        _layoutEventManager.ProcessCommandEvent(e);
+        _layoutUpdater.ProcessCommandEvent(e);
     }
 }

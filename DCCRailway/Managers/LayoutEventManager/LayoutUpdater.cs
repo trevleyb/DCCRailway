@@ -15,7 +15,7 @@ namespace DCCRailway.Managers.LayoutEventManager;
 /// So this is a bridge between the two systems. It takes a DCCRailwayConfig instance whcih is
 /// the collection of all data related to the current executing layout.
 /// </summary>
-public class LayoutEventManager {
+public class LayoutUpdater {
 
     private readonly LayoutEventLogger _eventLogger = new LayoutEventLogger();
 
