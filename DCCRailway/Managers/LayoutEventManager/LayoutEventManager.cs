@@ -17,7 +17,7 @@ namespace DCCRailway.Managers.LayoutEventManager;
 /// </summary>
 public class LayoutEventManager {
 
-    private LayoutEventLogger _eventLogger = new LayoutEventLogger();
+    private readonly LayoutEventLogger _eventLogger = new LayoutEventLogger();
 
     public void ProcessCommandEvent(ControllerEventArgs eventArgs) {
         switch (eventArgs) {
@@ -34,14 +34,14 @@ public class LayoutEventManager {
             // ---------------------------------------------------
             if (exec.Command != null) {
                 _ = exec.Command switch {
-                    IAccyCmd cmd    => new LayoutAccyCmdUpdater().Process(exec.Command,_eventLogger),
-                    ILocoCmd cmd    => new LayoutLocoCmdUpdater().Process(exec.Command,_eventLogger),
-                    ISensorCmd cmd  => new LayoutSensorCmdUpdater().Process(exec.Command,_eventLogger),
-                    ISignalCmd cmd  => new LayoutSignalCmdUpdater().Process(exec.Command,_eventLogger),
-                    ISystemCmd cmd  => new LayoutSystemCmdUpdater().Process(exec.Command,_eventLogger),
-                    IConsistCmd cmd => new LayoutConsistCmdUpdater().Process(exec.Command,_eventLogger),
-                    ICVCmd cmd      => new LayoutCvCmdUpdater().Process(exec.Command,_eventLogger),
-                    _               => new LayoutGenericCmdUpdater().Process(exec.Command,_eventLogger)
+                    IAccyCmd     => new LayoutAccyCmdUpdater().Process(exec.Command,_eventLogger),
+                    ILocoCmd     => new LayoutLocoCmdUpdater().Process(exec.Command,_eventLogger),
+                    ISensorCmd   => new LayoutSensorCmdUpdater().Process(exec.Command,_eventLogger),
+                    ISignalCmd   => new LayoutSignalCmdUpdater().Process(exec.Command,_eventLogger),
+                    ISystemCmd   => new LayoutSystemCmdUpdater().Process(exec.Command,_eventLogger),
+                    IConsistCmd  => new LayoutConsistCmdUpdater().Process(exec.Command,_eventLogger),
+                    ICVCmd       => new LayoutCvCmdUpdater().Process(exec.Command,_eventLogger),
+                    _            => new LayoutGenericCmdUpdater().Process(exec.Command,_eventLogger)
                 };
             }
             break;

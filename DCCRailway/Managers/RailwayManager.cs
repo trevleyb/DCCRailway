@@ -31,7 +31,7 @@ public class RailwayManager(IRailwayConfig? config = null) {
     public void Shutdown() {
         foreach (var controller in _activeControllers) {
             controller.Stop();
-            if (controller.Adapter is not null) controller.Adapter.Disconnect();
+            controller.Adapter?.Disconnect();
             controller.ControllerEvent -= ControllerInstanceOnControllerEvent;
         }
         _activeControllers = [];
@@ -43,7 +43,6 @@ public class RailwayManager(IRailwayConfig? config = null) {
     /// adapters to the controller and pushing any parameters into the Controllers and Adapaters as defined in the
     /// configuration.
     /// </summary>
-    /// <param name="eventManager">An instance the the layout event manager that will manage events between command stations and configuration</param>
     /// <returns>A list of instantiated controllers</returns>
     /// <exception cref="ControllerException">Throw exception on an error instantiating a controller </exception>
     /// <exception cref="AdapterException"></exception>
