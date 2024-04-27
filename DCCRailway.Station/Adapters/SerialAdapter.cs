@@ -11,12 +11,12 @@ namespace DCCRailway.Station.Adapters;
 
 public abstract class SerialAdapter : Adapter, IAdapter {
 
-    [ParameterMappable] public string   PortName { get; set; }
-    [ParameterMappable] public int      Timeout  { get; set; } = 30;
-    [ParameterMappable] public int      BaudRate { get; set; } = 9600;
-    [ParameterMappable] public int      DataBits { get; set; } = 0;
-    [ParameterMappable] public Parity   Parity   { get; set; } = Parity.None;
-    [ParameterMappable] public StopBits StopBits { get; set; } = StopBits.None;
+    public string   PortName { get; set; }
+    public int      Timeout  { get; set; } = 30;
+    public int      BaudRate { get; set; } = 9600;
+    public int      DataBits { get; set; } = 0;
+    public Parity   Parity   { get; set; } = Parity.None;
+    public StopBits StopBits { get; set; } = StopBits.None;
 
     private SerialPort? _connection;
 

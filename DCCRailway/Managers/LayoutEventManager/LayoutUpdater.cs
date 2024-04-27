@@ -51,7 +51,7 @@ public class LayoutUpdater {
             break;
 
         default:
-            Logger.Log.Error($"Controller Evenet Raise: {eventArgs.Message}");
+            Logger.Log.Error($"Controller Event Raise: {eventArgs.Message}");
             break;
         }
     }

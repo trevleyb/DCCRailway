@@ -21,14 +21,14 @@ public class RailwayManagerTests {
 
         // Start Up the Railway Manager
         railwayManager.Startup();
-        var locoCmd = railwayManager.ActiveController.CreateCommand<ICmdLocoSetSpeed>();
+        var locoCmd = railwayManager.ActiveController?.CreateCommand<ICmdLocoSetSpeed>();
+        Assert.That(locoCmd, Is.Not.Null);
 
-        var currentSpeed = locoCmd.Speed;
-        locoCmd.Speed = new DCCSpeed(50);
+        locoCmd!.Address = new DCCAddress(201);
+        locoCmd!.Speed = new DCCSpeed(50);
 
-        railwayManager.ActiveController.Execute(locoCmd);
+        railwayManager.ActiveController!.Execute(locoCmd);
         Assert.That(config.LocomotiveRepository.GetByNameAsync("Train01")?.Result?.Speed.Value, Is.EqualTo(50));
-
     }
 
     [TestCase]

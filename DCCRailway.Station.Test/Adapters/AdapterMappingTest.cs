@@ -10,19 +10,6 @@ public class AdapterMappingTest {
 
     // For these tests we use a subclass of Adapter because it is abstract
     private class TestAdapter : Adapter {
-        [ParameterMappable] public string AStringValue { get; set; }
-        [ParameterMappable] public long ALongValue { get; set; }
-        [ParameterMappable] public DateOnly ADateValue { get; set; }
-        [ParameterMappable] public byte AByteValue { get; set; }
-        [ParameterMappable] public int AIntValue { get; set; }
-        [ParameterMappable] public Parity AParityValue { get; set; }
-        [ParameterMappable] public StopBits AStopValue { get; set; }
-        [ParameterMappable] public ColorEnum AEnumValue { get; set; }
-        [ParameterMappable] public bool ABoolean { get; set; }
-
-    }
-
-    private class NotMappableAdapter : Adapter {
         public string AStringValue { get; set; }
         public long ALongValue { get; set; }
         public DateOnly ADateValue { get; set; }
@@ -37,7 +24,7 @@ public class AdapterMappingTest {
     [TestCase]
     public void Test_GetMappablePropertiesOnMappableClass() {
         var adapter = new TestAdapter();
-        Assert.That(adapter.GetMappableGetParameters().Count, Is.EqualTo(9));
+        Assert.That(adapter.GetMappableParameters().Count, Is.EqualTo(9));
 
         adapter.SetMappableParameter("AStringValue", "string");
         adapter.SetMappableParameter("ALongValue", "12345671234567");
@@ -49,7 +36,7 @@ public class AdapterMappingTest {
         adapter.SetMappableParameter("AEnumValue", "Green");
         adapter.SetMappableParameter("ABoolean", "True");
 
-        var parameters = adapter.GetMappableGetParameters();
+        var parameters = adapter.GetMappableParameters();
 
         Assert.That(parameters["AStringValue"], Is.EqualTo("string"));
         Assert.That(parameters["ALongValue"], Is.EqualTo("12345671234567"));
@@ -59,12 +46,6 @@ public class AdapterMappingTest {
         Assert.That(parameters["AStopValue"], Is.EqualTo("Two"));
         Assert.That(parameters["AEnumValue"], Is.EqualTo("Green"));
         Assert.That(parameters["ABoolean"], Is.EqualTo("True"));
-    }
-
-    [TestCase]
-    public void Test_GetMappablePropertiesOnNotMappableClass() {
-        var adapter = new NotMappableAdapter();
-        Assert.That(adapter.GetMappableGetParameters().Count, Is.EqualTo(0));
     }
 
     [TestCase]

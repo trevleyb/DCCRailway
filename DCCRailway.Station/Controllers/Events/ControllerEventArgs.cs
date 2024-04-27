@@ -6,7 +6,7 @@ namespace DCCRailway.Station.Controllers.Events;
 
 public class ControllerEventArgs : EventArgs {
 
-    public ControllerEventArgs (ICommand? command, IAdapter? adapter, ICommandResult? result, EventArgs? e, string message ="") {
+    public ControllerEventArgs (ICommand? command, IAdapter? adapter, ICommandResult? result, EventArgs? e, string? message ="") {
         Command = command;
         Adapter = adapter;
         Result  = result;

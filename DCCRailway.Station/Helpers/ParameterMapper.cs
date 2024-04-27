@@ -1,5 +1,7 @@
 using System.ComponentModel;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text;
 using DCCRailway.Station.Adapters.Base;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands;
@@ -9,8 +11,8 @@ namespace DCCRailway.Station.Helpers;
 
 public static class ParameterMapper {
 
-    private static BindingFlags LookupPropertyBindingFlags =
-        BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
+    private const BindingFlags LookupPropertyBindingFlags =
+        BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Public;
 
     /// <summary>
     /// This function take a Name/Value pair and looks in the Adapter for those
@@ -25,12 +27,7 @@ public static class ParameterMapper {
         var type = input?.GetType();                  // Get the type of the current object
         if (type is not null) {
             var prop = type.GetProperty(parameterName,LookupPropertyBindingFlags); // Try get the property from the given parameterName
-            if (prop is null) throw new ArgumentException("Provided Property name is not valid: {0}", parameterName);
-            var attr = prop.GetCustomAttributes(typeof(ParameterMappableAttribute), false);
-            if (attr.Length <= 0) throw new ArgumentException("Provided Property is not supported: {0}", parameterName);
-
-            // Make sure the property exists and it can be written
-            if (prop.CanWrite && attr.Length > 0) {
+            if (prop is not null && prop.CanWrite) {
                 var converter = TypeDescriptor.GetConverter(prop.PropertyType); // Get the type converter for the property
                 if (converter.IsValid(parameterValue)) {
                     // Make sure we can convert the parameterValue to the type of the property
@@ -47,32 +44,73 @@ public static class ParameterMapper {
         }
     }
 
-    public static bool IsMappableParameter<T>(this T input, string propertyName) where T : IParameterMappable
-    {
+    public static bool IsMappableParameter<T>(this T input, string propertyName) where T : IParameterMappable  {
         var type = input?.GetType(); // Get the type of the current object
         if (type is null) return false;
 
         var prop = type.GetProperty(propertyName,LookupPropertyBindingFlags); // Try get the property from the given parameterName
         if (prop is null) return false;
 
-        var attr = prop.GetCustomAttributes(typeof(ParameterMappableAttribute), false);
-        return attr?.Length >= 0;
+        return true;
     }
 
-    public static Dictionary<string, string?> GetMappableGetParameters<T>(this T input) where T : IParameterMappable {
+    public static Dictionary<string, string?> GetMappableParameters<T>(this T input) where T : IParameterMappable {
         var parameters = new Dictionary<string, string?>();
         var type = input?.GetType();
         if (type is not null) {
-            var props = type.GetProperties();
+            var props = type.GetProperties(LookupPropertyBindingFlags);
             foreach (var prop in props) {
-                var attr = prop.GetCustomAttributes(typeof(ParameterMappableAttribute), false);
-                if (attr.Length > 0) {
-                    var parameterName = prop.Name;
-                    var parameterValue = prop.GetValue(input)?.ToString();
-                    parameters.Add(parameterName, parameterValue);
-                }
+                var parameterName = prop.Name;
+                var parameterValue = prop.GetValue(input)?.ToString();
+                parameters.Add(parameterName, parameterValue);
             }
         }
         return parameters;
+    }
+
+    /// <summary>
+    /// This class builds a collection of what Properties are Valid within an object including the type of data
+    /// and if it is an ENUM or other, then what the valid options or ranges are. We should build this up with
+    /// the parametermappableatttribute.
+    /// </summary>
+    public static List<ParameterInfo> GetMappableParameterInfo<T>(this T input) where T : IParameterMappable {
+
+        var parameters = new List<ParameterInfo>();
+        var type = input?.GetType();
+        if (type is not null) {
+            var props = type.GetProperties(LookupPropertyBindingFlags);
+            foreach (var prop in props) {
+                var pInfo = new ParameterInfo();
+                pInfo.Name    = prop.Name;
+                pInfo.Type    = prop.PropertyType.ToString();
+                pInfo.Value   = prop.GetValue(input)?.ToString();
+
+                if (prop.PropertyType.BaseType?.Name.ToLower() == "enum") {
+                    pInfo.Options = GetEnumOptions(prop.PropertyType);
+                }
+                else {
+                    pInfo.Options = prop.PropertyType.Name.ToLower() switch {
+                        "byte"   => "0...255",
+                        "string" => "String Value",
+                        "int32"  => "0...99,999",
+                        "bool"   => "true | false",
+                        _        => ""
+                    };
+                }
+                parameters.Add(pInfo);
+            }
+        }
+        return parameters;
+    }
+
+    private static string? GetEnumOptions(Type prop) {
+        var builder = new StringBuilder();
+        foreach (var field in prop.GetFields()) {
+            if (field.FieldType.BaseType != null && field.FieldType.BaseType.Name.Equals("enum",StringComparison.InvariantCultureIgnoreCase)) {
+                if (builder.Length > 0) builder.Append(" | ");
+                builder.Append(field.Name);
+            }
+        }
+        return builder.ToString();
     }
 }

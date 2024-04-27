@@ -25,10 +25,12 @@ public abstract class Controller : IController, IParameterMappable {
     }
 
     public void Start() {
+        OnControllerEvent(this, "Starting up the Controller");
         Logger.Log.Information("Starting Up the Controller. {0}", this.AttributeInfo()?.Name);
     }
 
     public void Stop() {
+        OnControllerEvent(this,"Shutting Down the Controller");
         Logger.Log.Information("Shutting Down the Controller. {0}", this.AttributeInfo()?.Name);
     }
 
@@ -66,15 +68,19 @@ public abstract class Controller : IController, IParameterMappable {
     }
 
     private void AdaptersOnAdapterEvent(object? sender, AdapterEventArgs e) {
-        ControllerEvent?.Invoke(sender, new ControllerEventArgs(null, e.Adapter, null, e, $"Adapater action={e.AdapterEvent}"));
+        if (e.Adapter != null) {
+            ControllerEvent?.Invoke(sender, new AdapterEventArgs(e.Adapter, e.AdapterEvent, e.Data, e.Message ?? ""));
+        }
     }
 
     private void CommandsOnCommandEvent(object? sender, CommandEventArgs e) {
-        ControllerEvent?.Invoke(sender, new ControllerEventArgs(e.Command, e.Adapter, e.Result, e, $"Command={e.Command}"));
+        if (e.Command != null) {
+            ControllerEvent?.Invoke(sender, new CommandEventArgs(e.Command, e.Result, e.Message ?? ""));
+        }
     }
 
     private void OnCommandExecute(Controller controller, ICommand command, ICommandResult result) {
-        ControllerEvent?.Invoke(this, new ControllerEventArgs(command, _adapters.Adapter, result, null, "Command Executed"));
+        ControllerEvent?.Invoke(this, new CommandEventArgs(command,result, $"Command Executed on {controller.AttributeInfo().Name}"));
     }
 
 }

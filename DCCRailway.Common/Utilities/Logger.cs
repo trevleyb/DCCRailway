@@ -3,10 +3,10 @@ using Serilog;
 namespace DCCRailway.Common.Utilities;
 
 public static class Logger {
-    private static          ILogger _logger;
+    private static ILogger _logger = CreateLogger();
     private static readonly object? _lock = new();
 
-    public static ILogger Instance => _logger ?? CreateLogger();
+    public static ILogger Instance => _logger;
     public static ILogger Log      => Instance;
 
     public static ILogger CreateLogger() {

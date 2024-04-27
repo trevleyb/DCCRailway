@@ -3,6 +3,6 @@ using DCCRailway.Station.Commands.Results;
 
 namespace DCCRailway.Station.Controllers.Events;
 
-public class CommandEventArgs(ICommand command, ICommandResult result,  string message = "") : ControllerEventArgs(command,null,result,null,message) {
+public class CommandEventArgs(ICommand command, ICommandResult? result,  string? message = "") : ControllerEventArgs(command,null,result,null,message) {
 
 }

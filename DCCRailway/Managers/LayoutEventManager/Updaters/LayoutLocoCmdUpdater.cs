@@ -14,7 +14,7 @@ public class LayoutLocoCmdUpdater() : LayoutGenericCmdUpdater() {
         // -----------------------------------------------------------------------------
         if (command is ILocoCmd locoCmd) {
             var locomotives = RailwayConfig.Instance.LocomotiveRepository;
-            var loco = locomotives.Find(x => x.Address == locoCmd.Address).Result;
+            var loco = locomotives.Find(x => x.Address.Address == locoCmd.Address.Address).Result;
             //var loco = Config.Locomotives[locoCmd.Address];
             if (loco is null) {
                 logger.Error(locoCmd.GetType(), $"Command {command.AttributeInfo().Name} - no matching Accessory {((IAccyCmd)command).Address.Address}.");

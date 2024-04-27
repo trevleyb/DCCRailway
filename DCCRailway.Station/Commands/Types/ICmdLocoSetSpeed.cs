@@ -1,4 +1,5 @@
 ﻿using DCCRailway.Common.Types;
+using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands.Types.Base;
 
 namespace DCCRailway.Station.Commands.Types;

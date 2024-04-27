@@ -19,7 +19,7 @@ public class SerialAdapterParameterTest {
         adapter.DataBits = 0;
         adapter.StopBits = StopBits.OnePointFive;
 
-        var parameters = adapter.GetMappableGetParameters();
+        var parameters = adapter.GetMappableParameters();
         Assert.That(parameters["PortName"],Is.EqualTo("\\Dev\\Com1"));
         Assert.That(parameters["Timeout"], Is.EqualTo("2000"));
         Assert.That(parameters["Parity"], Is.EqualTo("Even"));
@@ -45,6 +45,15 @@ public class SerialAdapterParameterTest {
         Assert.That(adapter.BaudRate, Is.EqualTo(9600));
         Assert.That(adapter.DataBits, Is.EqualTo(0));
         Assert.That(adapter.StopBits, Is.EqualTo(StopBits.OnePointFive));
+
+    }
+
+    [TestCase]
+    public void LoadParameterInfoAndMatch() {
+
+        var adapter = new NCESerial();
+        var info = adapter.GetMappableParameterInfo();
+        Assert.That(info.Count, Is.GreaterThan(0));
 
     }
 
