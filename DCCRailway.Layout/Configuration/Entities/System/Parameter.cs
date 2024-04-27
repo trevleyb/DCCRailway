@@ -2,6 +2,7 @@
 using System.IO.Ports;
 using System.Text.Json.Serialization;
 using DCCRailway.Layout.Configuration.Entities.Base;
+using DCCRailway.Layout.Configuration.Entities.Events;
 
 namespace DCCRailway.Layout.Configuration.Entities.System;
 

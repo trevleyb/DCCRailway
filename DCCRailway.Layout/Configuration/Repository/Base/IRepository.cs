@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace DCCRailway.Layout.Configuration.Repository;
+namespace DCCRailway.Layout.Configuration.Repository.Base;
 
 public interface IRepository<TEntity> {
 

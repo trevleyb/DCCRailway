@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using DCCRailway.Layout.Configuration.Entities.Events;
 using DCCRailway.Layout.Configuration.Entities.System;
 
 namespace DCCRailway.Layout.Configuration.Entities.Base;

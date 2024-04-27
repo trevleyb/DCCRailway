@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
-
-namespace DCCRailway.Layout.Configuration.Entities.System;
+namespace DCCRailway.Layout.Configuration.Helpers;
 
 [Serializable]
 public class Manufacturers : Dictionary<byte, Manufacturer>  {

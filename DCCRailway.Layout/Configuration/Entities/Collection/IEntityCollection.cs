@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using DCCRailway.Layout.Configuration.Entities.Base;
 
-namespace DCCRailway.Layout.Configuration.Entities;
+namespace DCCRailway.Layout.Configuration.Entities.Collection;
 
 public interface IEntityCollection<TEntity> : IList<TEntity> {
     event PropertyChangedEventHandler?  PropertyChanged;

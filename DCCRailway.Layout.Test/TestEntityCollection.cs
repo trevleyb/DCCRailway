@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using DCCRailway.Layout.Configuration.Entities;
 using DCCRailway.Layout.Configuration.Entities.Base;
+using DCCRailway.Layout.Configuration.Entities.Collection;
+using DCCRailway.Layout.Configuration.Entities.Events;
 
 namespace DCCRailway.Layout.Test;
 

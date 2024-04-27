@@ -1,5 +1,5 @@
 using System.IO.Ports;
-using DCCRailway.Common.Utilities;
+using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Station.Adapters.Helpers;
 

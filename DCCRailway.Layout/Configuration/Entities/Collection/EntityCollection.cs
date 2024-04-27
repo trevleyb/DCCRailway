@@ -1,8 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using DCCRailway.Layout.Configuration.Entities.Base;
 
-namespace DCCRailway.Layout.Configuration.Entities;
+namespace DCCRailway.Layout.Configuration.Entities.Collection;
 
 [Serializable]
 public class EntityCollection<TEntity> : ObservableCollection<TEntity>, IEntityCollection<TEntity> where TEntity : IEntity {

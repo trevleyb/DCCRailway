@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DCCRailway.Layout.Configuration.Entities.Base;
+namespace DCCRailway.Layout.Configuration.Entities.Events;
 
 public abstract class PropertyChangeBase : INotifyPropertyChanged, INotifyPropertyChanging {
 

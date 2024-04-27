@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using DCCRailway.Common.Utilities;
+using DCCRailway.Common.Helpers;
 using Makaretu.Dns;
 
 namespace DCCRailway.Common.NetworkUtilities;

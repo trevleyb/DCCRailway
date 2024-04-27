@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace DCCRailway.Layout.Configuration.Entities.Base;
+namespace DCCRailway.Layout.Configuration.Entities.Events;
 
 public class EntityPropertyChangingEventArgs : PropertyChangingEventArgs {
 

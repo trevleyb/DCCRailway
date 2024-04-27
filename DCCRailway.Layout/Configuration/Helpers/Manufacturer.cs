@@ -1,8 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using DCCRailway.Layout.Configuration.Entities.Base;
-
-namespace DCCRailway.Layout.Configuration.Entities.System;
+﻿namespace DCCRailway.Layout.Configuration.Helpers;
 
 public class Manufacturer  {
     public byte Id { get; set; }

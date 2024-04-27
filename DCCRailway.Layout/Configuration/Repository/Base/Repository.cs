@@ -1,10 +1,8 @@
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using DCCRailway.Layout.Configuration.Entities;
-using DCCRailway.Layout.Configuration.Entities.Base;
-using DCCRailway.Layout.Configuration.Entities.Layout;
+using DCCRailway.Layout.Configuration.Entities.Collection;
 
-namespace DCCRailway.Layout.Configuration.Repository;
+namespace DCCRailway.Layout.Configuration.Repository.Base;
 
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : IEntity  {
 
