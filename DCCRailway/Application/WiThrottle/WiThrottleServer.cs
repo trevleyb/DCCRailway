@@ -114,20 +114,27 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
                 if (buffer.ToString().Contains(options.Terminator)) {
                     foreach (var command in buffer.ToString().Split(options.Terminator)) {
                         if (!string.IsNullOrEmpty(command)) {
-                            var cmd = cmdFactory.Interpret(CommandType.Client, command!);
-                            log.Debug($"{connectionEntry?.ConnectionID:D4}<=={cmd}");
 
-                            var resData = cmd!.Execute();
+                            // Get a command from the WiThrottle Handheld device
+                            // Process that command and determine what to do with it
+                            // The result will be a command or result set to return to the Throttle
+                            // --------------------------------------------------------------------
+                            var cmdToExecute = cmdFactory.Interpret(CommandType.Client, command!);
+                            log.Debug($"{connectionEntry?.ConnectionID:D4}<=={cmdToExecute}");
+                            var replyStr = cmdToExecute.Execute();
+                            log.Debug($"{connectionEntry?.ConnectionID:D4}==>{replyStr}");
 
-                            if (cmd is CmdQuit) {
+                            if (cmdToExecute is CmdQuit) {
                                 if (connectionEntry != null) _wiThrottleConnections.Delete(connectionEntry);
                                 break;
                             }
 
-                            if (!string.IsNullOrEmpty(resData)) {
-                                var reply = Encoding.ASCII.GetBytes(resData + options.Terminator);
+                            // If we have some data to reply with (returned from EXECUTE()) then
+                            // send this data back to the Client.
+                            // -----------------------------------------------------------------
+                            if (!string.IsNullOrEmpty(replyStr)) {
+                                var reply = Encoding.ASCII.GetBytes(replyStr + options.Terminator);
                                 stream.Write(reply, 0, reply.Length);
-                                Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}==>{resData}");
                             }
                         }
                     }

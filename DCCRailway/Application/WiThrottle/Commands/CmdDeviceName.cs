@@ -15,7 +15,6 @@ public class CmdDeviceName : ThrottleCmd, IThrottleCmd {
         // Get all the Startup Data needed and return that as a response to a Throttle name
         // ---------------------------------------------------------------------------------
         var startup = new CmdStartup(ConnectionEntry, "", ref Options);
-
         return startup.Execute();
     }
 
