@@ -6,6 +6,4 @@ using DCCRailway.Layout.Configuration.Entities.System;
 namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
-public class Sensor(Guid id) : BaseEntityDecoder(id, DCCAddressType.Sensor) {
-    public Sensor() : this(Guid.NewGuid()) { }
-}
+public class Sensor(string id = "") : BaseEntityDecoder(id, DCCAddressType.Sensor) { }

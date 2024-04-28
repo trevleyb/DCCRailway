@@ -8,19 +8,16 @@ public static class LocomotiveAPI {
 
         app.MapGet("/locomotives", async () => Results.Ok(await config.LocomotiveRepository.GetAllAsync()));
 
-        app.MapGet("/locomotives/{id}", async (Guid id) => {
+        app.MapGet("/locomotives/{id}", async (string id) => {
             var locomotive = await config.LocomotiveRepository.GetByIDAsync(id);
             return locomotive == null ? Results.NotFound() : Results.Ok(locomotive);
         });
 
-        app.MapPost("/locomotives", async (Locomotive locomotive) => {
-            if (locomotive.Id == Guid.Empty) locomotive.Id = Guid.NewGuid();
-            return Results.Ok(await config.LocomotiveRepository.AddAsync(locomotive));
-        });
+        app.MapPost("/locomotives", async (Locomotive locomotive) => Results.Ok(await config.LocomotiveRepository.AddAsync(locomotive)));
 
-        app.MapPut("/locomotives/{id}", async(Guid id, Locomotive locomotive) => Results.Ok(await config.LocomotiveRepository.UpdateAsync(locomotive)));
+        app.MapPut("/locomotives/{id}", async(string id, Locomotive locomotive) => Results.Ok(await config.LocomotiveRepository.UpdateAsync(locomotive)));
 
-        app.MapDelete("/locomotives/{id}", async (Guid id) => Results.Ok(await config.LocomotiveRepository.DeleteAsync(id)));
+        app.MapDelete("/locomotives/{id}", async (string id) => Results.Ok(await config.LocomotiveRepository.DeleteAsync(id)));
 
 
     }

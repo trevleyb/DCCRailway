@@ -25,6 +25,7 @@ public class TestEntityEvents {
         Assert.That(propertyChanging,Is.False); // Property Is not changed on Add/Remove
 
         var locomotive = locomotives.GetByNameAsync("Train01").Result;
+        Assert.That(locomotive,Is.Not.Null);
 
         propertyChanged = false;
         propertyChanging = false;

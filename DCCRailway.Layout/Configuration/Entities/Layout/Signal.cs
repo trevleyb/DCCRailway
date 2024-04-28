@@ -6,6 +6,4 @@ using DCCRailway.Layout.Configuration.Entities.System;
 namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
-public class Signal(Guid id) : BaseEntityDecoder(id, DCCAddressType.Signal) {
-    public Signal() : this(Guid.NewGuid()) { }
-}
+public class Signal(string id = "") : BaseEntityDecoder(id, DCCAddressType.Signal) { }

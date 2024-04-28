@@ -5,4 +5,4 @@ using DCCRailway.Layout.Configuration.Entities.Layout;
 namespace DCCRailway.Layout.Configuration.Entities.System;
 
 [Serializable]
-public class Controllers : EntityCollection<Controller> { }
+public class Controllers(string prefix = "CMD") : EntityCollection<Controller>(prefix) { }

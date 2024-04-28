@@ -7,9 +7,9 @@ using DCCRailway.Layout.Configuration.Entities.Events;
 namespace DCCRailway.Layout.Configuration.Entities.System;
 
 [Serializable]
-public class Parameter: PropertyChangeBase, IEntity {
+public class Parameter: PropertyChangeBase {
 
-    public Guid     Id { get; set; }
+    public Guid     Id      { get; set; }
     public string   Name    { get; set; }
     public string   Value   { get; set; }
     public string?  ObjType { get; set; }

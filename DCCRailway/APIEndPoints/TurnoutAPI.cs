@@ -8,19 +8,16 @@ public static class TurnoutAPI {
 
         app.MapGet("/turnouts", async () => Results.Ok(await config.TurnoutRepository.GetAllAsync()));
 
-        app.MapGet("/turnouts/{id}", async (Guid id) => {
+        app.MapGet("/turnouts/{id}", async (string id) => {
             var turnout = await config.TurnoutRepository.GetByIDAsync(id);
             return turnout == null ? Results.NotFound() : Results.Ok(turnout);
         });
 
-        app.MapPost("/turnouts", async (Turnout turnout) => {
-            if (turnout.Id == Guid.Empty) turnout.Id = Guid.NewGuid();
-            return Results.Ok(await config.TurnoutRepository.AddAsync(turnout));
-        });
+        app.MapPost("/turnouts", async (Turnout turnout) => Results.Ok(await config.TurnoutRepository.AddAsync(turnout)));
 
-        app.MapPut("/turnouts/{id}", async (Guid id, Turnout turnout) => Results.Ok(await config.TurnoutRepository.UpdateAsync(turnout)));
+        app.MapPut("/turnouts/{id}", async (string id, Turnout turnout) => Results.Ok(await config.TurnoutRepository.UpdateAsync(turnout)));
 
-        app.MapDelete("/turnouts/{id}", async (Guid id) => Results.Ok(await config.TurnoutRepository.DeleteAsync(id)));
+        app.MapDelete("/turnouts/{id}", async (string id) => Results.Ok(await config.TurnoutRepository.DeleteAsync(id)));
 
     }
 

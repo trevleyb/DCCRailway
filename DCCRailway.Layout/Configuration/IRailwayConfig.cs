@@ -27,6 +27,7 @@ public interface IRailwayConfig {
     public IRepository<Sensor>         SensorRepository        { get; }
     public IRepository<Signal>         SignalRepository        { get; }
     public IRepository<Turnout>        TurnoutRepository       { get; }
+    public IRepository<Route>          RouteRepository         { get; }
 
     public void             Save();
     public void             Save(string? name);

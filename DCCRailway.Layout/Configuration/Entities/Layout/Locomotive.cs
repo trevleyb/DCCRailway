@@ -5,8 +5,7 @@ using DCCRailway.Layout.Configuration.Entities.Base;
 namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
-public class Locomotive(Guid id) : BaseEntityDecoder(id, DCCAddressType.Long) {
-    public Locomotive() : this(Guid.NewGuid()) { }
+public class Locomotive(string id = "") : BaseEntityDecoder(id, DCCAddressType.Long) {
 
     private string            _type             = "";
     private string            _roadName         = "";
@@ -23,7 +22,7 @@ public class Locomotive(Guid id) : BaseEntityDecoder(id, DCCAddressType.Long) {
     /// <summary>
     /// Represents a locomotive baseEntity with DCC address, direction, and speed.
     /// </summary>
-    public Locomotive(IDCCAddress address, DCCDirection direction = DCCDirection.Forward) : this(new Guid()) {
+    public Locomotive(string id, IDCCAddress address, DCCDirection direction = DCCDirection.Forward) : this(id) {
         Address     = address;
         Direction   = direction;
         Speed.Value = 0;
@@ -32,7 +31,7 @@ public class Locomotive(Guid id) : BaseEntityDecoder(id, DCCAddressType.Long) {
     /// <summary>
     /// Represents a locomotive baseEntity with DCC address, direction, and speed.
     /// </summary>
-    public Locomotive(int address, DCCAddressType type = DCCAddressType.Long, DCCDirection direction = DCCDirection.Stop) : this(new Guid()) {
+    public Locomotive(string id, int address, DCCAddressType type = DCCAddressType.Long, DCCDirection direction = DCCDirection.Stop) : this(id) {
         Address     = new DCCAddress(address, type);
         Direction   = direction;
         Speed.Value = 0;

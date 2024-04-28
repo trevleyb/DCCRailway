@@ -10,7 +10,7 @@ public class WiThrottleServerOptions : BackgroundWorkerOptions {
     private const ushort DefaultPort = 12090;
     private const string DefaultTerminator  = "\x0A";
     private const string DefaultServiceName = "_withrottle._tcp";
-    public RailwayConfig? Config;
+    public readonly IRailwayConfig? Config;
 
     public ushort Port { get; set; } = DefaultPort;
     public string Terminator { get; set; } = DefaultTerminator;
@@ -35,5 +35,6 @@ public class WiThrottleServerOptions : BackgroundWorkerOptions {
     public WiThrottleServerOptions(IRailwayConfig config, string name = "DCCRailway WiThrottle Service") {
         Name = name;
         FrequencyInSeconds = 0;
+        Config = config;
     }
 }

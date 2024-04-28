@@ -59,6 +59,7 @@ public sealed class RailwayConfig : IRailwayConfig {
     [JsonInclude] [JsonPropertyName("Sensors")]     private Sensors     Sensors       { get; set; } = [];
     [JsonInclude] [JsonPropertyName("Signals")]     private Signals     Signals       { get; set; } = [];
     [JsonInclude] [JsonPropertyName("Turnouts")]    private Turnouts    Turnouts      { get; set; } = [];
+    [JsonInclude] [JsonPropertyName("Routes")]      private Routes      Routes        { get; set; } = [];
 
     [JsonIgnore] public IRepository<Controller>    ControllerRepository    => GetRepository<Controller>()!;
     [JsonIgnore] public IRepository<Accessory>     AccessoryRepository     => GetRepository<Accessory>()!;
@@ -67,6 +68,7 @@ public sealed class RailwayConfig : IRailwayConfig {
     [JsonIgnore] public IRepository<Sensor>        SensorRepository        => GetRepository<Sensor>()!;
     [JsonIgnore] public IRepository<Signal>        SignalRepository        => GetRepository<Signal>()!;
     [JsonIgnore] public IRepository<Turnout>       TurnoutRepository       => GetRepository<Turnout>()!;
+    [JsonIgnore] public IRepository<Route>         RouteRepository         => GetRepository<Route>()!;
 
     private IRepository<TEntity>? GetRepository<TEntity>() {
         return typeof(TEntity) switch {
@@ -76,6 +78,7 @@ public sealed class RailwayConfig : IRailwayConfig {
             { } t when t == typeof(Sensor)      => new SensorRepository(Sensors) as IRepository<TEntity>,
             { } t when t == typeof(Signal)      => new SignalRepository(Signals) as IRepository<TEntity>,
             { } t when t == typeof(Turnout)     => new TurnoutRepository(Turnouts) as IRepository<TEntity>,
+            { } t when t == typeof(Route)       => new RouteRepository(Routes) as IRepository<TEntity>,
             { } t when t == typeof(Controller)  => new ControllerRepository(Controllers) as IRepository<TEntity>,
             _ => throw new ArgumentException($"Type {typeof(TEntity).Name} is not supported")
         };

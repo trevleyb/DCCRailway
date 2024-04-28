@@ -46,6 +46,7 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
         }
         catch (Exception ex) {
             log.Error("Server Crashed: {0}", ex);
+            throw;
         }
         finally {
             Stop();

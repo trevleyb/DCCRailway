@@ -5,6 +5,7 @@ using DCCRailway.Layout.Configuration.Entities;
 using DCCRailway.Layout.Configuration.Entities.Base;
 using DCCRailway.Layout.Configuration.Entities.Collection;
 using DCCRailway.Layout.Configuration.Entities.Events;
+using Tmds.Linux;
 
 namespace DCCRailway.Layout.Test;
 
@@ -69,17 +70,18 @@ public class TestEntityCollectionWithChanges {
         // These will not raise individual events for the collection. Only when changed.
         // -----------------------------------------------------------------------------
         var guid = Guid.NewGuid();
-        collection.Add(new TestEntity { Id = guid, Name = "Entity 1" });
+        collection.Add(new TestEntity { Id = "TEST1", Name = "Entity 1" });
 
         var entity = collection[0];
         entity.Name = "Updated Entity";
         Assert.That(propertyChangingValue, Is.EqualTo("Entity 1"));
         Assert.That(propertyChangedValue, Is.EqualTo("Updated Entity"));
 
-        var newGuid = Guid.NewGuid();
-        entity.Id = newGuid;
-        Assert.That(propertyChangingValue, Is.EqualTo(guid));
-        Assert.That(propertyChangedValue, Is.EqualTo(newGuid));
+        var oldID = entity.Id;
+        var newId = collection.NextID;
+        entity.Id = newId;
+        Assert.That(propertyChangingValue, Is.EqualTo(oldID));
+        Assert.That(propertyChangedValue, Is.EqualTo(newId));
 
     }
 
@@ -101,13 +103,13 @@ public class TestEntityCollectionWithChanges {
 }
 
 
-public class TestEntities : EntityCollection<TestEntity> { }
+public class TestEntities(string prefix = "TEST") : EntityCollection<TestEntity>(prefix);
 
 public class TestEntity : PropertyChangeBase, IEntity {
 
-    private Guid _id;
+    private string _id;
     private string _name;
-    public Guid Id    { get => _id;    set => SetField(ref _id, value); }
-    public string Name  { get => _name;  set => SetField(ref _name, value); }
+    public  string Id    { get => _id;    set => SetField(ref _id, value); }
+    public  string Name  { get => _name;  set => SetField(ref _name, value); }
 
 }

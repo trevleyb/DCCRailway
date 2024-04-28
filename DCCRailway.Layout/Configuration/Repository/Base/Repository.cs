@@ -39,7 +39,7 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         }
     }
 
-    public async Task<TEntity?> GetByIDAsync(Guid id) {
+    public async Task<TEntity?> GetByIDAsync(string id) {
         try {
             return await Task.FromResult(entities.FirstOrDefault(x => x.Id.Equals(id)) ?? default(TEntity));
         } catch (Exception ex) {
@@ -57,11 +57,11 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
 
     public async Task<Task> AddAsync(TEntity entity) {
         try {
+            if (string.IsNullOrEmpty(entity.Id)) entity.Id = await GetNextID();
             var index = FindIndexOf(entity.Id).Result;
             if (index == -1) entities.Add(entity);
             return Task.CompletedTask;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return Task.FromException(ex);
         }
     }
@@ -77,9 +77,9 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         }
     }
 
-    public async Task<Task> DeleteAsync(Guid id) {
+    public async Task<Task> DeleteAsync(string id) {
         try {
-            var index = FindIndexOf(id).Result;
+            var index = await FindIndexOf(id);
             if (index != -1) entities.RemoveAt(index);
             return Task.CompletedTask;
         } catch (Exception ex) {
@@ -100,14 +100,7 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         }
     }
 
-    /// <summary>
-    /// We should rewrite this. There must be an easier way that searching for the key in the collection.
-    /// It should not matter as the collections will not get huge, and will be in memory, but this is
-    /// not a great way to find this.
-    /// </summary>
-    /// <param name="id">the identifier to find in the collection</param>
-    /// <returns></returns>
-    private Task<int> FindIndexOf(Guid id) {
+    private Task<int> FindIndexOf(string id) {
         foreach (var item in entities) {
             if (item.Id.Equals(id)) {
                 return Task.FromResult(entities.IndexOf(item));
@@ -119,6 +112,10 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
     public Task<TEntity?> this[string name] => Find(x => x.Name.Equals(name,StringComparison.OrdinalIgnoreCase));
     public async Task<TEntity?> Find(Func<TEntity, bool> predicate) {
         return await Task.FromResult(entities.FirstOrDefault<TEntity>(predicate));
+    }
+
+    public async Task<string> GetNextID() {
+        return await Task.FromResult(entities.NextID);
     }
 
 }

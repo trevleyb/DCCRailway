@@ -10,6 +10,7 @@ public static class ConfigureAPIEndPoints {
         AccessoryApi.Configure(app,config);
         TurnoutAPI.Configure(app,config);
         LocomotiveAPI.Configure(app,config);
+        RouteAPI.Configure(app,config);
         ManufacturersAPI.Configure(app,config);
     }
 }

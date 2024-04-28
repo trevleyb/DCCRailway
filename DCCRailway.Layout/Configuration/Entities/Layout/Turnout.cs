@@ -6,8 +6,7 @@ using DCCRailway.Layout.Configuration.Entities.System;
 namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
-public class Turnout(Guid id) : BaseEntityDecoder(id, DCCAddressType.Turnout) {
-    public Turnout() : this(Guid.NewGuid()) { }
+public class Turnout(string id = "") : BaseEntityDecoder(id, DCCAddressType.Turnout) {
 
     private bool            _isManual;
     private bool            _isReversed;

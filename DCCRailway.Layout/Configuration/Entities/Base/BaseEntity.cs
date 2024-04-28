@@ -7,18 +7,19 @@ namespace DCCRailway.Layout.Configuration.Entities.Base;
 
 [Serializable]
 public abstract class BaseEntity : PropertyChangeBase, IEntity, INotifyPropertyChanged, INotifyPropertyChanging {
-    private Guid       _id              = Guid.NewGuid();
+    private string     _id              = "";
     private string     _name            = "";
     private string     _description     = "";
     private Parameters _parameters      = [];
 
-    public Guid Id               { get => _id;          set => SetField(ref _id, value); }
+    public string Id             { get => _id;          set => SetField(ref _id, value); }
     public string Name           { get => _name;        set => SetField(ref _name, value); }
     public string Description    { get => _description; set => SetField(ref _description, value); }
     public Parameters Parameters { get => _parameters;  set => SetField(ref _parameters, value); }
 
     protected BaseEntity() { }
-    protected BaseEntity(Guid id) {
+    protected BaseEntity(string id) {
+        if (string.IsNullOrEmpty(id)) throw new ArgumentException("All entities must have a unique ID");
         Id = id;
     }
 }

@@ -34,8 +34,8 @@ public static class JMRIRosterImporter {
 
         foreach (var jmri in jmriRoster.Roster.JMRILocos) {
             try {
-                var loco = new Locomotive (new Guid()) {
-                    Id           = Guid.NewGuid(),
+                var loco = new Locomotive() {
+                    Id           = locomotiveRepository!.GetNextID().Result,
                     Name         = (jmri.RoadName + ' ' + jmri.RoadNumber).Trim(),
                     Description  = jmri.Comment,
                     Type         = "unknown",

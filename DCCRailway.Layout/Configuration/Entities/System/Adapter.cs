@@ -6,6 +6,5 @@ public class Adapter : BaseEntity {
 
     public Adapter() : base() { }
     public string? AdapterName;
-    public Parameters Parameters = new();
 
 }
