@@ -2,79 +2,79 @@
 using System.Net.Sockets;
 using System.Text;
 using DCCRailway.Application.WiThrottle.Commands;
+using DCCRailway.Application.WiThrottle.Helpers;
 using DCCRailway.Common.Helpers;
-using DCCRailway.Common.NetworkUtilities;
+using ILogger = Serilog.ILogger;
 
 namespace DCCRailway.Application.WiThrottle;
 
-public class WiThrottleServer {
-    private const    ushort                   DEFAULT_PORT           = 12090;
-    private const    string                   _terminator            = "\x0A";
+public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
+
+    private readonly ILogger log = Logger.LogContext<WiThrottleServer>();
     private readonly WiThrottleConnectionList _wiThrottleConnections = new();
-
-    /// <summary>
-    ///     Default constructor which loads IP/Port from Config to
-    ///     start the server.
-    /// </summary>
-    public WiThrottleServer() => Start(Network.GetLocalIPAddress(), DEFAULT_PORT);
-
-    /// <summary>
-    ///     Constructor and start up of the Server listener
-    /// </summary>
-    /// <param name="ip">The IP that we will listen on (default to this IP) </param>
-    /// <param name="port">The port that we will listen on</param>
-    public WiThrottleServer(IPAddress ip, ushort port) => Start(ip, port);
 
     /// <summary>
     ///     Indicator that the server is currently active.
     ///     Set to FALSE to exit the while loop
     /// </summary>
-    public bool ServerActive { get; set; } = true;
+    public bool ServerActive { get; set; } = false;
 
     /// <summary>
     ///     Start up the Listener Service using the provided Port and IPAddress
     /// </summary>
-    /// <param name="ip">IPAddress to listen on</param>
-    /// <param name="port">Port to Listen on</param>
-    private void Start(IPAddress ipAddress, ushort port) {
-        //
+    public void Start() {
+
+        // Make sure that the Service is not already running
+        // -------------------------------------------------------
+        if (ServiceHelper.IsServiceRunningOnPort(options.Port)) {
+            log.Error("Service is already running. ");
+            return;
+        }
+
         // Setup the Server to Broadcast its presence on the network
         // ----------------------------------------------------------
-        // TODO: This needs to come via parameters as we start up multiple instances
-        Dictionary<string, string> properties = new() { { "node", "jmri-C4910CB13C68-3F39938d" }, { "jmri", "4.21.4" }, { "version", "4.2.1" } };
+        ServerBroadcast.Start(options);
 
-        // TODO: The name should come from parameters 
-        ServerBroadcast.Start("JMRI WiThrottle Railway", "_withrottle._tcp", ipAddress, port, properties);
-
-        //
         // Start up the TCP Server to listen for incoming connections and process
         // ----------------------------------------------------------
-        var tcpServer = new TcpListener(ipAddress, port);
-        tcpServer.Start();
-        StartListener(tcpServer);
+        try {
+            log.Information("Starting the WiThrottle Server Listener.");
+            using (var tcpServer = new TcpListener(options.Address, options.Port)) {
+                tcpServer.Start();
+                StartListener(tcpServer);
+            }
+        }
+        catch (Exception ex) {
+            log.Error("Server Crashed: {0}", ex);
+        }
+        finally {
+            Stop();
+        }
     }
 
     /// <summary>
     ///     Causes the Server to stop listening and to shut down all threads that
     ///     have connections.
     /// </summary>
-    public void Stop() => ServerActive = false;
+    public void Stop() {
+        // Set the ServerActive flag to false which should terminate the Server
+        ServerActive = false;
+    }
 
     private void StartListener(TcpListener server) {
+        ServerActive = true;
         try {
-            Logger.Log.Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
-
+            log.Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
             while (ServerActive) {
                 var    client = server.AcceptTcpClient();
                 Thread t      = new(HandleConnection);
                 t.Start(client);
             }
-
-            Logger.Log.Debug("Server Shutting Down on {0}", server.LocalEndpoint);
+            log.Debug("Server Shutting Down on {0}", server.LocalEndpoint);
             server.Stop();
         }
         catch (SocketException e) {
-            Logger.Log.Debug("SocketException: {0}", e);
+            log.Error("SocketException: {0}", e);
             server.Stop();
         }
     }
@@ -84,22 +84,23 @@ public class WiThrottleServer {
     /// </summary>
     /// <param name="obj"></param>
     private void HandleConnection(object? obj) {
+
         // This should not be possible but best to ensure and check for this edge case.
         // -----------------------------------------------------------------------------
         if (obj is not TcpClient client) {
-            Logger.Log.Warning("Started thread but provided a NULL or NON-TCP Client Object.");
+            log.Warning("Started thread but provided a NON-TCP Client Object.");
             return;
         }
 
+        log.Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
         var stream = client.GetStream();
-        Logger.Log.Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
         var connectionEntry = _wiThrottleConnections.Add((ulong)client.Client.Handle);
-        var cmdFactory      = new WiThrottleCmdFactory(connectionEntry!);
+        var cmdFactory      = new WiThrottleCmdFactory(connectionEntry!, ref options);
 
         try {
-            var           bytesRead = 0;
-            var           bytes     = new byte[256];
-            StringBuilder buffer    = new();
+            var bytesRead = 0;
+            var bytes = new byte[256];
+            StringBuilder buffer = new();
 
             while ((bytesRead = stream.Read(bytes, 0, bytes.Length)) != 0) {
                 // Read the data and append it to a String Builder in-case there is more data to read.
@@ -107,40 +108,40 @@ public class WiThrottleServer {
                 // we get a terminator at the end of the data stream.
                 // -------------------------------------------------------------------------------------
                 var data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
-                Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}>>>>>{data.Trim()}");
+                log.Debug($"{connectionEntry?.ConnectionID:D4}>>>>>{data.Trim()}");
                 buffer.Append(data);
 
-                if (buffer.ToString().Contains(_terminator)) {
-                    foreach (var command in buffer.ToString().Split(_terminator)) {
+                if (buffer.ToString().Contains(options.Terminator)) {
+                    foreach (var command in buffer.ToString().Split(options.Terminator)) {
                         if (!string.IsNullOrEmpty(command)) {
                             var cmd = cmdFactory.Interpret(CommandType.Client, command!);
-                            Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}<=={cmd}");
+                            log.Debug($"{connectionEntry?.ConnectionID:D4}<=={cmd}");
 
                             var resData = cmd!.Execute();
 
                             if (cmd is CmdQuit) {
-                                _wiThrottleConnections.Disconnect(connectionEntry!);
+                                if (connectionEntry != null) _wiThrottleConnections.Delete(connectionEntry);
                                 break;
                             }
 
                             if (!string.IsNullOrEmpty(resData)) {
-                                var reply = Encoding.ASCII.GetBytes(resData + _terminator);
+                                var reply = Encoding.ASCII.GetBytes(resData + options.Terminator);
                                 stream.Write(reply, 0, reply.Length);
                                 Logger.Log.Debug($"{connectionEntry?.ConnectionID:D4}==>{resData}");
                             }
                         }
                     }
-
                     buffer.Clear();
                 }
             }
-
-            Logger.Log.Debug("Connection: Client '{0}' has closed.", connectionEntry?.ConnectionID);
-            client.Close();
+            log.Debug("Connection: Client '{0}' has closed.", connectionEntry?.ConnectionID);
         }
         catch (Exception e) {
-            Logger.Log.Error("Exception: {0}", e);
-            client.Close();
+            log.Error("Exception: {0}", e);
         }
+    }
+
+    public void Dispose() {
+        Stop();
     }
 }

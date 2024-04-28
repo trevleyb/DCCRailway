@@ -5,12 +5,12 @@ namespace DCCRailway.Application.WiThrottle.Commands;
 /// <summary>
 ///     Startup command used to setup a new connection for a Throttle
 /// </summary>
-public class CmdStartup : ThrottleCmdBase, IThrottleCmd {
-    public CmdStartup(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) { }
+public class CmdStartup : ThrottleCmd, IThrottleCmd {
+    public CmdStartup(WiThrottleConnectionEntry connectionEntry, string cmdString, ref WiThrottleServerOptions options) : base(connectionEntry, cmdString, ref options) { }
 
     public string? Execute() {
         StringBuilder response = new();
-        response.AppendLine("VN2.0");
+        response.AppendLine("VN2.0");           // Version 2.0 of the WiThrottle Protocol
         response.AppendLine("RL0");  // TODO: Add roster entries
         response.AppendLine("PPA0"); // TODO: Add Power Support
 

@@ -1,10 +1,13 @@
 ﻿namespace DCCRailway.Application.WiThrottle.Commands;
 
-public abstract class ThrottleCmdBase {
+public abstract class ThrottleCmd {
+
     protected readonly string                    CmdString;
     protected readonly WiThrottleConnectionEntry ConnectionEntry;
+    protected WiThrottleServerOptions            Options;
 
-    protected ThrottleCmdBase(WiThrottleConnectionEntry connectionEntry, string cmdString) {
+    protected ThrottleCmd(WiThrottleConnectionEntry connectionEntry, string cmdString, ref WiThrottleServerOptions options) {
+        Options         = options;
         ConnectionEntry = connectionEntry;
         CmdString       = cmdString;
         ConnectionEntry.UpdateHeartbeat();

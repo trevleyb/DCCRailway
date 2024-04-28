@@ -1,4 +1,5 @@
-﻿using DCCRailway.Application.WiThrottle.Commands;
+﻿using System.Net.Sockets;
+using DCCRailway.Application.WiThrottle.Commands;
 
 namespace DCCRailway.Application.WiThrottle;
 
@@ -53,7 +54,6 @@ public class WiThrottleConnectionEntry {
         get {
             if (HeartbeatState == HeartbeatStateEnum.Off) return true;
             if ((DateTime.Now - LastHeartbeat).TotalSeconds < HeartbeatSeconds) return true;
-
             return false;
         }
     }

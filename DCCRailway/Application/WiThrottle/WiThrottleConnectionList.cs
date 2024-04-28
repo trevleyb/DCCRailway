@@ -1,4 +1,6 @@
-﻿namespace DCCRailway.Application.WiThrottle;
+﻿using System.Net.Sockets;
+
+namespace DCCRailway.Application.WiThrottle;
 
 /// <summary>
 ///     ConnectionInfo stores the details of each connected throttle to the controller
@@ -6,7 +8,7 @@
 ///     have been sent on behalf of the throttle.
 /// </summary>
 public class WiThrottleConnectionList {
-    private readonly List<WiThrottleConnectionEntry> Entries = new();
+    public readonly List<WiThrottleConnectionEntry> Entries = new();
 
     /// <summary>
     ///     Add a new entry into the list of connected Throttles
@@ -21,10 +23,8 @@ public class WiThrottleConnectionList {
             entry.HardwareID   = hardwareID;
             entry.ThrottleName = throttleName;
             Entries.Add(entry);
-
             return entry;
         }
-
         return Find(connectionID);
     }
 
@@ -34,9 +34,8 @@ public class WiThrottleConnectionList {
     /// <param name="connectionID"></param>
     public void Disconnect(ulong connectionID) {
         foreach (var entry in Entries.FindAll(x => x.ConnectionID == connectionID)) {
-            // Close the connections to the Command Station and/or stop the current loco
+            // Is there anything we need to do to close this?
         }
-
         Entries.RemoveAll(x => x.ConnectionID == connectionID);
     }
 
@@ -44,10 +43,10 @@ public class WiThrottleConnectionList {
     ///     Remove an Entry from the entries list
     /// </summary>
     /// <param name="connectionID"></param>
-    public void Disconnect(WiThrottleConnectionEntry entry) =>
-
-        // Close the connections to the Command Station and/or stop the current loco
+    public void Disconnect(WiThrottleConnectionEntry entry) {
+        // Is there anything we need to do to close this?
         Entries.Remove(entry);
+    }
 
     /// <summary>
     ///     Remove an entry from the entries list
@@ -55,9 +54,8 @@ public class WiThrottleConnectionList {
     /// <param name="hardwareID"></param>
     public void Disconnect(string hardwareID) {
         foreach (var entry in Entries.FindAll(x => x.HardwareID.Equals(hardwareID, StringComparison.InvariantCultureIgnoreCase))) {
-            // Close the connections to the Command Station and/or stop the current loco
+            // Is there anything we need to do to close this?
         }
-
         Entries.RemoveAll(x => x.HardwareID.Equals(hardwareID, StringComparison.InvariantCultureIgnoreCase));
     }
 
@@ -65,7 +63,9 @@ public class WiThrottleConnectionList {
     ///     Remove an entry from the entries list
     /// </summary>
     /// <param name="hardwareID"></param>
-    public void Delete(WiThrottleConnectionEntry entry) => Entries.Remove(entry);
+    public void Delete(WiThrottleConnectionEntry entry) {
+        Disconnect(entry);
+    }
 
     /// <summary>
     ///     Find an entry in the list by the UniqueID of the Throttle

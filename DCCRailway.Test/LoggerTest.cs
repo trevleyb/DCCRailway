@@ -40,7 +40,7 @@ public class LoggerTest {
     [TestCase]
     public void TestWeHaveALoggerOfAType() {
 
-        var logger = Logger.Context<LoggerTest>();
+        var logger = Logger.LogContext<LoggerTest>();
         Assert.That(logger,Is.Not.Null, "Should always have a logger instance via the singleton.");
 
         Logger.Log.Debug("Debug information");

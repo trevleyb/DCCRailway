@@ -2,8 +2,8 @@
 
 namespace DCCRailway.Application.WiThrottle.Commands;
 
-public class CmdDeviceID : ThrottleCmdBase, IThrottleCmd {
-    public CmdDeviceID(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) => connectionEntry.LastCommand = this;
+public class CmdDeviceID : ThrottleCmd, IThrottleCmd {
+    public CmdDeviceID(WiThrottleConnectionEntry connectionEntry, string cmdString, ref WiThrottleServerOptions options) : base(connectionEntry, cmdString, ref options) => connectionEntry.LastCommand = this;
 
     // If we get a HardwareID just store it against the entry and retun a null
     // as we will not respond to the client

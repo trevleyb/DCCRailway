@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 
-namespace DCCRailway.Common.NetworkUtilities;
+namespace DCCRailway.Application.WiThrottle.Helpers;
 
 public static class Network {
     /// <summary>

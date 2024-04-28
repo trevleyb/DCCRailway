@@ -1,7 +1,7 @@
 ﻿namespace DCCRailway.Application.WiThrottle.Commands;
 
-public class CmdRosterCmd : ThrottleCmdBase, IThrottleCmd {
-    public CmdRosterCmd(WiThrottleConnectionEntry connectionEntry, string cmdString) : base(connectionEntry, cmdString) => connectionEntry.LastCommand = this;
+public class CmdRosterCmd : ThrottleCmd, IThrottleCmd {
+    public CmdRosterCmd(WiThrottleConnectionEntry connectionEntry, string cmdString, ref WiThrottleServerOptions options) : base(connectionEntry, cmdString, ref options) => connectionEntry.LastCommand = this;
 
     public string? Execute() => null;
 

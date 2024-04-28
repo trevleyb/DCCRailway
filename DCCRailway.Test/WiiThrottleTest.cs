@@ -1,4 +1,5 @@
 using DCCRailway.Application.WiThrottle;
+using DCCRailway.Layout.Configuration;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
@@ -9,10 +10,25 @@ public class WiThrottleTest {
     [TestCase]
     public void TestIfWiThrottleLoads() {
 
-        var wii = new WiThrottleServer();
+        var config = RailwayConfig.New();
+        var options = new WiThrottleServerOptions(config);
+        var wii = new WiThrottleServer(options);
         Assert.That(wii,Is.Not.Null);
+        Assert.That(wii.ServerActive, Is.False);
+        wii.Stop();
+    }
+
+    [TestCase]
+    public void TestIfWiThrottleLoadsAndRuns() {
+
+        var config = RailwayConfig.New();
+        var options = new WiThrottleServerOptions(config);
+        var wii = new WiThrottleServer(options);
+        Assert.That(wii,Is.Not.Null);
+        Assert.That(wii.ServerActive, Is.False);
+        wii.Start();
         Assert.That(wii.ServerActive, Is.True);
 
-
+        Console.ReadLine();
     }
 }
