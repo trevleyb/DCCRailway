@@ -13,7 +13,6 @@ public class WiThrottleServerOptions : BackgroundWorkerOptions {
 
     public ushort Port { get; set; } = DefaultPort;
     public string ServiceName { get; set; } = DefaultServiceName;
-    public int HeartBeatSeconds { get; set; } = 10;
     public IPAddress Address { get; set; } = Network.GetLocalIPAddress();
     public Dictionary<string, string> Properties => new() {
         { "node", $"dccrailway-{Guid.NewGuid()}" },

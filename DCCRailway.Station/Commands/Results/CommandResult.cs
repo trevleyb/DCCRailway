@@ -1,5 +1,5 @@
 using DCCRailway.Common.Helpers;
-using DCCRailway.Common.Helpers.Results;
+using DCCRailway.Common.Results;
 
 namespace DCCRailway.Station.Commands.Results;
 

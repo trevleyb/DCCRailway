@@ -1,10 +1,7 @@
 using System.Text.Json.Serialization;
-using DCCRailway.Layout.Configuration.Entities;
 using DCCRailway.Layout.Configuration.Entities.Layout;
 using DCCRailway.Layout.Configuration.Entities.System;
 using DCCRailway.Layout.Configuration.Helpers;
-using DCCRailway.Layout.Configuration.Repository;
-using DCCRailway.Layout.Configuration.Repository.Base;
 
 namespace DCCRailway.Layout.Configuration;
 
@@ -49,40 +46,17 @@ public sealed class RailwayConfig : IRailwayConfig {
     public string         Description    { get; set; } = "";
     public string         Filename       { get; set; } = "Railway.Config.json";
 
-    [JsonInclude] public Controllers     Controllers { get; set; } = [];
-    [JsonInclude] public Parameters      Parameters { get; set; } = [];
-    [JsonIgnore]  public Manufacturers   Manufacturers { get; } = new Manufacturers();
+    [JsonInclude] public Controllers    Controllers { get; set; } = [];
+    [JsonInclude] public Parameters     Parameters { get; set; } = [];
+    [JsonIgnore]  public Manufacturers  Manufacturers { get; } = new Manufacturers();
 
-    [JsonInclude] [JsonPropertyName("Accessories")] private Accessories Accessories   { get; set; } = [];
-    [JsonInclude] [JsonPropertyName("Blocks")]      private Blocks      Blocks        { get; set; } = [];
-    [JsonInclude] [JsonPropertyName("Locomotives")] private Locomotives Locomotives   { get; set; } = [];
-    [JsonInclude] [JsonPropertyName("Sensors")]     private Sensors     Sensors       { get; set; } = [];
-    [JsonInclude] [JsonPropertyName("Signals")]     private Signals     Signals       { get; set; } = [];
-    [JsonInclude] [JsonPropertyName("Turnouts")]    private Turnouts    Turnouts      { get; set; } = [];
-    [JsonInclude] [JsonPropertyName("Routes")]      private Routes      Routes        { get; set; } = [];
-
-    [JsonIgnore] public IRepository<Controller>    ControllerRepository    => GetRepository<Controller>()!;
-    [JsonIgnore] public IRepository<Accessory>     AccessoryRepository     => GetRepository<Accessory>()!;
-    [JsonIgnore] public IRepository<Block>         BlockRepository         => GetRepository<Block>()!;
-    [JsonIgnore] public IRepository<Locomotive>    LocomotiveRepository    => GetRepository<Locomotive>()!;
-    [JsonIgnore] public IRepository<Sensor>        SensorRepository        => GetRepository<Sensor>()!;
-    [JsonIgnore] public IRepository<Signal>        SignalRepository        => GetRepository<Signal>()!;
-    [JsonIgnore] public IRepository<Turnout>       TurnoutRepository       => GetRepository<Turnout>()!;
-    [JsonIgnore] public IRepository<Route>         RouteRepository         => GetRepository<Route>()!;
-
-    private IRepository<TEntity>? GetRepository<TEntity>() {
-        return typeof(TEntity) switch {
-            { } t when t == typeof(Accessory)   => new AccessoryRepository(Accessories) as IRepository<TEntity>,
-            { } t when t == typeof(Block)       => new BlockRepository(Blocks) as IRepository<TEntity>,
-            { } t when t == typeof(Locomotive)  => new LocomotiveRepository(Locomotives) as IRepository<TEntity>,
-            { } t when t == typeof(Sensor)      => new SensorRepository(Sensors) as IRepository<TEntity>,
-            { } t when t == typeof(Signal)      => new SignalRepository(Signals) as IRepository<TEntity>,
-            { } t when t == typeof(Turnout)     => new TurnoutRepository(Turnouts) as IRepository<TEntity>,
-            { } t when t == typeof(Route)       => new RouteRepository(Routes) as IRepository<TEntity>,
-            { } t when t == typeof(Controller)  => new ControllerRepository(Controllers) as IRepository<TEntity>,
-            _ => throw new ArgumentException($"Type {typeof(TEntity).Name} is not supported")
-        };
-    }
+    [JsonInclude] public Accessories    Accessories   { get; set; } = [];
+    [JsonInclude] public Blocks         Blocks        { get; set; } = [];
+    [JsonInclude] public Locomotives    Locomotives   { get; set; } = [];
+    [JsonInclude] public Sensors        Sensors       { get; set; } = [];
+    [JsonInclude] public Signals        Signals       { get; set; } = [];
+    [JsonInclude] public Turnouts       Turnouts      { get; set; } = [];
+    [JsonInclude] public Routes         Routes        { get; set; } = [];
 
     public static IRailwayConfig   Load() => RailwayConfigJsonHelper<RailwayConfig>.Load(DefaultConfigFilename);
     public void                    Save() => RailwayConfigJsonHelper<RailwayConfig>.Save(this, DefaultConfigFilename);

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Diagnostics;
+using System.Text.Json.Serialization;
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Configuration.Entities.Base;
 using DCCRailway.Layout.Configuration.Entities.System;
@@ -6,6 +7,7 @@ using DCCRailway.Layout.Configuration.Entities.System;
 namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
+[DebuggerDisplay("TURNOUT={Id}, Name: {Name}")]
 public class Turnout(string id = "") : BaseEntityDecoder(id, DCCAddressType.Turnout) {
 
     private bool            _isManual;

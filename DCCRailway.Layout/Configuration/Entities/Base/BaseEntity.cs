@@ -19,7 +19,9 @@ public abstract class BaseEntity : PropertyChangeBase, IEntity, INotifyPropertyC
 
     protected BaseEntity() { }
     protected BaseEntity(string id) {
-        if (string.IsNullOrEmpty(id)) throw new ArgumentException("All entities must have a unique ID");
+        // This is correct, but the ID is only needed once it is added to a collection/repository
+        // As part of that Add function, if there is no ID, then one is generated automatically.
+        // if (string.IsNullOrEmpty(id)) throw new ArgumentException("All entities must have a unique ID");
         Id = id;
     }
 }

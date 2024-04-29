@@ -10,7 +10,7 @@ public class LayoutSignalCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command, LayoutEventLogger logger) {
 
         if (command is ISignalCmd signalCmd) {
-            var signals = RailwayConfig.Instance.SignalRepository;
+            var signals = RailwayConfig.Instance.Signals;
             var signal = signals.Find(x => x.Address == signalCmd.Address).Result;
 
             switch (signalCmd) {

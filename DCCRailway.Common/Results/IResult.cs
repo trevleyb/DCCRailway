@@ -1,4 +1,4 @@
-namespace DCCRailway.Common.Helpers.Results;
+namespace DCCRailway.Common.Results;
 
 public interface IResult {
     public bool    IsSuccess { get; }

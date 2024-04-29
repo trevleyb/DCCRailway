@@ -10,7 +10,7 @@ using Tmds.Linux;
 namespace DCCRailway.Layout.Test;
 
 [TestFixture]
-public class TestEntityCollection {
+public class TestRepository {
 
     private int propertyChanged = 0;
     private int propertyChanging = 0;
@@ -102,7 +102,7 @@ public class TestEntityCollectionWithChanges {
 }
 
 
-public class TestEntities(string prefix = "TEST") : EntityCollection<TestEntity>(prefix);
+public class TestEntities(string prefix = "TEST") : Repository<TestEntity>(prefix);
 
 public class TestEntity : PropertyChangeBase, IEntity {
 

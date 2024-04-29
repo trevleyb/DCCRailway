@@ -46,7 +46,7 @@ public class AdapterManager(Assembly assembly) {
         if (Adapters is not { Count: > 0 }) throw new AdapterException(adapterName, "Controller has no supported Adapters");
         try {
             foreach (var adapters in _adapters!) {
-                if (adapters.Value.Name.Equals(adapterName, StringComparison.InvariantCultureIgnoreCase)) {
+                if (adapters.Value.Name != null && adapters.Value.Name.Equals(adapterName, StringComparison.InvariantCultureIgnoreCase)) {
                     var adapterInstance = (IAdapter?)Activator.CreateInstance(adapters.Key);
                     if (adapterInstance != null) return Attach(adapterInstance);
                 }
@@ -69,7 +69,7 @@ public class AdapterManager(Assembly assembly) {
 
     public bool IsAdapterSupported<T>() where T : IAdapter => _adapters.ContainsKey(typeof(T));
     public bool IsAdapterSupported(Type adapter) => _adapters.ContainsKey(adapter);
-    public bool IsAdapterSupported(string name)  => _adapters.Any(pair => pair.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+    public bool IsAdapterSupported(string name)  => _adapters.Any(pair => pair.Value.Name != null && pair.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
     public List<AdapterAttribute> Adapters {
         get {
             if (_adapters.Any() is false) RegisterAdapters();

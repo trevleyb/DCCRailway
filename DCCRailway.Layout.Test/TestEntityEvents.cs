@@ -14,7 +14,7 @@ public class TestEntityEvents {
         var propertyChanged = false;
         var propertyChanging = false;
         var config = CreateTestConfig();
-        var locomotives = config.LocomotiveRepository;
+        var locomotives = config.Locomotives;
         locomotives.PropertyChanged += (sender, args) => propertyChanged = true;
         locomotives.PropertyChanging += (sender, args) => propertyChanging = true;
 
@@ -61,19 +61,19 @@ public class TestEntityEvents {
 
         var config = RailwayConfig.New("Test Layout", "Test Layout");
 
-        var locomotives = config.LocomotiveRepository;
-        locomotives.AddAsync(new Locomotive { Name = "Train01" } );
-        locomotives.AddAsync(new Locomotive { Name = "Train02" } );
-        locomotives.AddAsync(new Locomotive { Name = "Train03" } );
-        locomotives.AddAsync(new Locomotive { Name = "Train04" } );
-        locomotives.AddAsync(new Locomotive { Name = "Train05" } );
+        var locomotives = config.Locomotives;
+        locomotives.Add(new Locomotive { Name = "Train01" } );
+        locomotives.Add(new Locomotive { Name = "Train02" } );
+        locomotives.Add(new Locomotive { Name = "Train03" } );
+        locomotives.Add(new Locomotive { Name = "Train04" } );
+        locomotives.Add(new Locomotive { Name = "Train05" } );
 
-        var sensors = config.SensorRepository;
-        sensors.AddAsync(new Sensor { Name = "Sensor01", Address = new DCCAddress(501) });
-        sensors.AddAsync(new Sensor { Name = "Sensor02", Address = new DCCAddress(502) });
-        sensors.AddAsync(new Sensor { Name = "Sensor03", Address = new DCCAddress(503) });
-        sensors.AddAsync(new Sensor { Name = "Sensor04", Address = new DCCAddress(504) });
-        sensors.AddAsync(new Sensor { Name = "Sensor05", Address = new DCCAddress(505) });
+        var sensors = config.Sensors;
+        sensors.Add(new Sensor { Name = "Sensor01", Address = new DCCAddress(501) });
+        sensors.Add(new Sensor { Name = "Sensor02", Address = new DCCAddress(502) });
+        sensors.Add(new Sensor { Name = "Sensor03", Address = new DCCAddress(503) });
+        sensors.Add(new Sensor { Name = "Sensor04", Address = new DCCAddress(504) });
+        sensors.Add(new Sensor { Name = "Sensor05", Address = new DCCAddress(505) });
 
         return config;
     }

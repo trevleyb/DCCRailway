@@ -10,7 +10,7 @@ public class LayoutSensorCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command, LayoutEventLogger logger) {
 
         if (command is ISensorCmd sensorCmd) {
-            var sensors = RailwayConfig.Instance.SensorRepository;
+            var sensors = RailwayConfig.Instance.Sensors;
             var sensor = sensors.Find(x => x.Address == sensorCmd.Address).Result;
             switch (sensorCmd) {
             case ICmdSensorGetState cmd:

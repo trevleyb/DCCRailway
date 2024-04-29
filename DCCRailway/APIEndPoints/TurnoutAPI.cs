@@ -6,18 +6,18 @@ namespace DCCRailway.APIEndPoints;
 public static class TurnoutAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-        app.MapGet("/turnouts", async () => Results.Ok(await config.TurnoutRepository.GetAllAsync()));
+        app.MapGet("/turnouts", async () => Results.Ok(await config.Turnouts.GetAllAsync()));
 
         app.MapGet("/turnouts/{id}", async (string id) => {
-            var turnout = await config.TurnoutRepository.GetByIDAsync(id);
+            var turnout = await config.Turnouts.GetByIDAsync(id);
             return turnout == null ? Results.NotFound() : Results.Ok(turnout);
         });
 
-        app.MapPost("/turnouts", async (Turnout turnout) => Results.Ok(await config.TurnoutRepository.AddAsync(turnout)));
+        app.MapPost("/turnouts", async (Turnout turnout) => Results.Ok(await config.Turnouts.AddAsync(turnout)));
 
-        app.MapPut("/turnouts/{id}", async (string id, Turnout turnout) => Results.Ok(await config.TurnoutRepository.UpdateAsync(turnout)));
+        app.MapPut("/turnouts/{id}", async (string id, Turnout turnout) => Results.Ok(await config.Turnouts.UpdateAsync(turnout)));
 
-        app.MapDelete("/turnouts/{id}", async (string id) => Results.Ok(await config.TurnoutRepository.DeleteAsync(id)));
+        app.MapDelete("/turnouts/{id}", async (string id) => Results.Ok(await config.Turnouts.DeleteAsync(id)));
 
     }
 

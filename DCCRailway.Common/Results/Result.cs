@@ -1,4 +1,4 @@
-namespace DCCRailway.Common.Helpers.Results;
+namespace DCCRailway.Common.Results;
 
 public class Result : IResult {
     public bool    IsSuccess { get; protected set; }

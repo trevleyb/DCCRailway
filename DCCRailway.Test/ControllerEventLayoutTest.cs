@@ -1,22 +1,29 @@
+using DCCRailway.Application.LayoutEventManager;
+using DCCRailway.Common.Types;
+using DCCRailway.Layout.Configuration;
+using DCCRailway.Layout.Configuration.Entities.Layout;
+using DCCRailway.Station.Commands.Types;
+using DCCRailway.Station.Controllers;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
 [TestFixture]
 public class ControllerEventLayoutTest {
-    /*
+
     [Test]
     public void TestLayoutCmdProcessorForALoco() {
-        var layoutConfig       = new DCCRailwayConfig();
-        var layoutCmdProcessor = new LayoutCmdUpdater.LayoutCmdUpdater(layoutConfig);
+        var layoutConfig       = RailwayConfig.New();
+        var layoutCmdProcessor = new LayoutUpdater();
         Assert.That(layoutConfig, Is.Not.Null);
         Assert.That(layoutCmdProcessor, Is.Not.Null);
 
         // Add a Locomotive to the layout configuration
         // ------------------------------------------------
         layoutConfig.Locomotives.Add(new Locomotive { Name = "TestLoco", Address = new DCCAddress(3) });
-        var loco = layoutConfig.Locomotives["TestLoco"];
+        var loco = layoutConfig.Locomotives[0];
         Assert.That(loco, Is.Not.Null);
+        Assert.That(loco.Name, Is.EqualTo("TestLoco"));
 
         var controller   = CreateVirtualControllerWithAdapter();
         var setLocoSpeed = controller.CreateCommand<ICmdLocoSetSpeed>();
@@ -31,7 +38,7 @@ public class ControllerEventLayoutTest {
         //Assert.That(loco?.Speed?.Value, Is.EqualTo(50));
     }
 
-    private IController CreateVirtualControllerWithAdapter() {
+     IController CreateVirtualControllerWithAdapter() {
         // Create an instance of a Controller using the Factory 
         // ------------------------------------------------------------
         var factory       = new ControllerFactory();
@@ -53,5 +60,4 @@ public class ControllerEventLayoutTest {
 
         return controller;
     }
-    */
 }

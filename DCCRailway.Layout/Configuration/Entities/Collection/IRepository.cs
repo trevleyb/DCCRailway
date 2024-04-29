@@ -1,11 +1,9 @@
+using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace DCCRailway.Layout.Configuration.Repository.Base;
+namespace DCCRailway.Layout.Configuration.Entities.Collection;
 
-public interface IRepository<TEntity> {
-
-    event PropertyChangedEventHandler?  PropertyChanged;
-    event PropertyChangingEventHandler? PropertyChanging;
+public interface IRepository<TEntity> : IList<TEntity> {
 
     Task<IEnumerable<TEntity>> GetAllAsync();
     Task<IEnumerable<TEntity>> GetAllAsync(Func<TEntity, bool> predicate);
@@ -17,4 +15,8 @@ public interface IRepository<TEntity> {
     Task<Task>     DeleteAsync(string id);
     Task<Task>     DeleteAll();
     Task<string>   GetNextID();
+
+    event NotifyCollectionChangedEventHandler? CollectionChanged;
+    event PropertyChangedEventHandler?  PropertyChanged;
+    event PropertyChangingEventHandler? PropertyChanging;
 }

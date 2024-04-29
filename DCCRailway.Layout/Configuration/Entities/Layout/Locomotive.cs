@@ -1,10 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Diagnostics;
+using System.Text.Json.Serialization;
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Configuration.Entities.Base;
 
 namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
+[DebuggerDisplay("LOCOMOTIVE={Id}, Name: {Name}, Address: {Address.Address}")]
 public class Locomotive(string id = "") : BaseEntityDecoder(id, DCCAddressType.Long) {
 
     private string            _type             = "";

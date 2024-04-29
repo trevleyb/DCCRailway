@@ -10,7 +10,7 @@ public class LayoutAccyCmdUpdater() : LayoutGenericCmdUpdater() {
     public new bool Process(ICommand command, LayoutEventLogger logger) {
 
         if (command is IAccyCmd accyCmd) {
-            var accessories = RailwayConfig.Instance.AccessoryRepository;
+            var accessories = RailwayConfig.Instance.Accessories;
             var accessory = accessories.Find(x => x.Address == accyCmd.Address).Result;
             if (accessory is null) {
                 logger.Error(accyCmd.GetType(), $"Command {command.AttributeInfo().Name} - no matching Accessory {accyCmd.Address.Address}.");

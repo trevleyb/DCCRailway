@@ -7,4 +7,5 @@ namespace DCCRailway.Layout.Configuration.Entities.System;
 public class Controller : BaseEntity, IEntity {
     public Adapter Adapter              { get; set; }
     public bool    SendStopOnDisconnect { get; set; }
+    public bool    IsActive             { get; set; }
 }

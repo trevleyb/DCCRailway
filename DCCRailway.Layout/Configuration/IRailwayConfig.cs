@@ -1,11 +1,6 @@
-using System.Text.Json.Serialization;
-using DCCRailway.Layout.Configuration.Entities;
 using DCCRailway.Layout.Configuration.Entities.Layout;
 using DCCRailway.Layout.Configuration.Entities.System;
 using DCCRailway.Layout.Configuration.Helpers;
-using DCCRailway.Layout.Configuration.Repository;
-using DCCRailway.Layout.Configuration.Repository.Base;
-using Makaretu.Dns;
 
 namespace DCCRailway.Layout.Configuration;
 
@@ -18,16 +13,18 @@ public interface IRailwayConfig {
     public string           Name            { get; set;  }
     public string           Description     { get; set; }
     public string           Filename        { get; set; }
+
+    public Controllers      Controllers     { get; }
+    public Parameters       Parameters      { get; }
     public Manufacturers    Manufacturers   { get; }
 
-    public IRepository<Controller>     ControllerRepository    { get; }
-    public IRepository<Accessory>      AccessoryRepository     { get; }
-    public IRepository<Block>          BlockRepository         { get; }
-    public IRepository<Locomotive>     LocomotiveRepository    { get; }
-    public IRepository<Sensor>         SensorRepository        { get; }
-    public IRepository<Signal>         SignalRepository        { get; }
-    public IRepository<Turnout>        TurnoutRepository       { get; }
-    public IRepository<Route>          RouteRepository         { get; }
+    public Accessories      Accessories     { get; }
+    public Blocks           Blocks          { get; }
+    public Locomotives      Locomotives     { get; }
+    public Sensors          Sensors         { get; }
+    public Signals          Signals         { get; }
+    public Turnouts         Turnouts        { get; }
+    public Routes           Routes          { get; }
 
     public void             Save();
     public void             Save(string? name);

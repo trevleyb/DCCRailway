@@ -1,7 +1,5 @@
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Configuration.Entities.Layout;
-using DCCRailway.Layout.Configuration.Entities.System;
-using DCCRailway.Layout.Configuration.Repository;
 
 namespace DCCRailway.Layout.Configuration.Entities.Base;
 

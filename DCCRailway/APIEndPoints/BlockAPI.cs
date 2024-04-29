@@ -6,17 +6,17 @@ namespace DCCRailway.APIEndPoints;
 public static class BlockAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-        app.MapGet("/blocks", async () => Results.Ok(await config.BlockRepository.GetAllAsync()));
+        app.MapGet("/blocks", async () => Results.Ok(await config.Blocks.GetAllAsync()));
 
         app.MapGet("/blocks/{id}", async (string id) => {
-            var accessory = await config.BlockRepository.GetByIDAsync(id);
+            var accessory = await config.Blocks.GetByIDAsync(id);
             return accessory == null ? Results.NotFound() : Results.Ok(accessory);
         });
 
-        app.MapPost("/blocks", async (Block block) => Results.Ok(await config.BlockRepository.AddAsync(block)));
+        app.MapPost("/blocks", async (Block block) => Results.Ok(await config.Blocks.AddAsync(block)));
 
-        app.MapPut("/blocks/{id}", async (string id, Block block) => Results.Ok(await config.BlockRepository.UpdateAsync(block)));
+        app.MapPut("/blocks/{id}", async (string id, Block block) => Results.Ok(await config.Blocks.UpdateAsync(block)));
 
-        app.MapDelete("/blocks/{id}", async (string id) => Results.Ok(await config.BlockRepository.DeleteAsync(id)));
+        app.MapDelete("/blocks/{id}", async (string id) => Results.Ok(await config.Blocks.DeleteAsync(id)));
     }
 }

@@ -1,4 +1,4 @@
-namespace DCCRailway.Application.WiThrottle.Commands;
+namespace DCCRailway.Application.WiThrottle.Messages;
 
 public abstract class ThrottleMsg(WiThrottleConnection connection, WiThrottleServerOptions options) {
 

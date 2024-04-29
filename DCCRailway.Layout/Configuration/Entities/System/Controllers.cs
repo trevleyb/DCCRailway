@@ -1,8 +1,17 @@
-using System.Text.Json.Serialization;
 using DCCRailway.Layout.Configuration.Entities.Collection;
-using DCCRailway.Layout.Configuration.Entities.Layout;
 
 namespace DCCRailway.Layout.Configuration.Entities.System;
 
 [Serializable]
-public class Controllers(string prefix = "CMD") : EntityCollection<Controller>(prefix) { }
+public class Controllers(string prefix = "CMD") : Repository<Controller>(prefix) {
+    public Controller? DefaultController {
+        get {
+            if (this.Count == 1) return this[0];
+            foreach (var controller in this) {
+                if (controller.IsActive) return controller;
+            }
+            if (this.Count > 0) return this[0];
+            return null;
+        }
+    }
+}
