@@ -69,7 +69,6 @@ public class TestEntityCollectionWithChanges {
 
         // These will not raise individual events for the collection. Only when changed.
         // -----------------------------------------------------------------------------
-        var guid = Guid.NewGuid();
         collection.Add(new TestEntity { Id = "TEST1", Name = "Entity 1" });
 
         var entity = collection[0];
@@ -78,7 +77,7 @@ public class TestEntityCollectionWithChanges {
         Assert.That(propertyChangedValue, Is.EqualTo("Updated Entity"));
 
         var oldID = entity.Id;
-        var newId = collection.NextID;
+        var newId = collection.GetNextID().Result;
         entity.Id = newId;
         Assert.That(propertyChangingValue, Is.EqualTo(oldID));
         Assert.That(propertyChangedValue, Is.EqualTo(newId));

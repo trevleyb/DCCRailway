@@ -4,7 +4,7 @@ using Makaretu.Dns;
 
 namespace DCCRailway.Application.WiThrottle.Helpers;
 
-public class ServerBroadcast {
+public static class ServerBroadcast {
     public static void Start(WiThrottleServerOptions options) {
         var host = Dns.GetHostEntry(Dns.GetHostName());
 
@@ -12,14 +12,12 @@ public class ServerBroadcast {
             var addressList = new List<IPAddress>() { options.Address };
             try {
                 var sd = new ServiceDiscovery();
+                //sd.ServiceDiscovered         += Sd_ServiceDiscovered;
+                //sd.ServiceInstanceShutdown   += Sd_ServiceInstanceShutdown;
+                //sd.ServiceInstanceDiscovered += Sd_ServiceInstanceDiscovered;
                 sd.AnswersContainsAdditionalRecords = true;
-
-                //sd.ServiceInstanceShutdown += Sd_ServiceInstanceShutdown;
                 var sp = new ServiceProfile(options.Name, options.ServiceName, options.Port, host.AddressList);
                 foreach (var prop in options.Properties) sp.AddProperty(prop.Key,prop.Value);
-
-                //sp.AddProperty ("Version", "0.0.0.1");
-                //sp.AddProperty ("Server", "DCCRailway");
                 sd.AnswersContainsAdditionalRecords = true;
                 sd.Advertise(sp);
             }
@@ -32,9 +30,9 @@ public class ServerBroadcast {
         }
     }
 
-    private void Sd_ServiceInstanceShutdown(object? sender, ServiceInstanceShutdownEventArgs e) => Logger.Log.Debug($"SD: Shutdown=>{e.Message}");
+    private static void Sd_ServiceInstanceShutdown(object? sender, ServiceInstanceShutdownEventArgs e) => Logger.Log.Debug($"SD: Shutdown=>{e.Message}");
 
-    private void Sd_ServiceInstanceDiscovered(object? sender, ServiceInstanceDiscoveryEventArgs e) => Logger.Log.Debug($"SD: Instance Discovered=>{e.Message}");
+    private static void Sd_ServiceInstanceDiscovered(object? sender, ServiceInstanceDiscoveryEventArgs e) => Logger.Log.Debug($"SD: Instance Discovered=>{e.Message}");
 
-    private void Sd_ServiceDiscovered(object? sender, DomainName e) => Logger.Log.Debug($"SD: Service Discovered=>{e.Labels}");
+    private static void Sd_ServiceDiscovered(object? sender, DomainName e) => Logger.Log.Debug($"SD: Service Discovered=>{e.Labels}");
 }

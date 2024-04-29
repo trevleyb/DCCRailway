@@ -3,7 +3,9 @@ using System.Net.Sockets;
 using System.Text;
 using DCCRailway.Application.WiThrottle.Commands;
 using DCCRailway.Application.WiThrottle.Helpers;
+using DCCRailway.Application.WiThrottle.Messages;
 using DCCRailway.Common.Helpers;
+using Microsoft.AspNetCore.Http.Connections;
 using ILogger = Serilog.ILogger;
 
 namespace DCCRailway.Application.WiThrottle;
@@ -95,8 +97,8 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
 
         log.Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
         var stream = client.GetStream();
-        var connectionEntry = _wiThrottleConnections.Add((ulong)client.Client.Handle);
-        var cmdFactory      = new WiThrottleCmdFactory(connectionEntry!, ref options);
+        var connection = _wiThrottleConnections.Add((ulong)client.Client.Handle);
+        var cmdFactory = new WiThrottleCmdFactory(connection, ref options);
 
         try {
             var bytesRead = 0;
@@ -109,7 +111,7 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
                 // we get a terminator at the end of the data stream.
                 // -------------------------------------------------------------------------------------
                 var data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
-                log.Debug($"{connectionEntry?.ConnectionID:D4}>>>>>{data.Trim()}");
+                log.Debug($"{connection.ConnectionID:D4}: Received Data='{data.Trim()}'");
                 buffer.Append(data);
 
                 if (buffer.ToString().Contains(options.Terminator)) {
@@ -120,32 +122,46 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
                             // Process that command and determine what to do with it
                             // The result will be a command or result set to return to the Throttle
                             // --------------------------------------------------------------------
-                            var cmdToExecute = cmdFactory.Interpret(CommandType.Client, command!);
-                            log.Debug($"{connectionEntry?.ConnectionID:D4}<=={cmdToExecute}");
-                            var replyStr = cmdToExecute.Execute();
-                            log.Debug($"{connectionEntry?.ConnectionID:D4}==>{replyStr}");
+                            var cmdToExecute = cmdFactory.Interpret(CommandType.Client, command);
+                            log.Debug($"{connection.ConnectionID:D4}: Command to Execute='{cmdToExecute}'");
+
+                            var msgToSend = cmdToExecute.Execute();
+                            log.Debug($"{connection.ConnectionID:D4}: Response to send ='{msgToSend}'");
+                            msgToSend.Execute(stream);
 
                             if (cmdToExecute is CmdQuit) {
-                                if (connectionEntry != null) _wiThrottleConnections.Delete(connectionEntry);
+                                _wiThrottleConnections.Delete(connection);
                                 break;
-                            }
-
-                            // If we have some data to reply with (returned from EXECUTE()) then
-                            // send this data back to the Client.
-                            // -----------------------------------------------------------------
-                            if (!string.IsNullOrEmpty(replyStr)) {
-                                var reply = Encoding.ASCII.GetBytes(replyStr + options.Terminator);
-                                stream.Write(reply, 0, reply.Length);
                             }
                         }
                     }
                     buffer.Clear();
                 }
+                SendServerMessage(connection, stream);
             }
-            log.Debug("Connection: Client '{0}' has closed.", connectionEntry?.ConnectionID);
+            log.Debug("Connection: Client '{0}' has closed.", connection?.ConnectionID);
         }
         catch (Exception e) {
             log.Error("Exception: {0}", e);
+        }
+    }
+
+    /// <summary>
+    /// While processing messages from the client we might need to generate one or more responses.
+    /// Also, there may be an instance where changes need to be broadcast to the client and this allows
+    /// us to inject messages to be sent.
+    /// </summary>
+    /// <param name="connection"></param>
+    /// <param name="stream"></param>
+    private void SendServerMessage(WiThrottleConnection connection, NetworkStream stream) {
+        while (connection.ServerMessages.HasMessages) {
+            connection.ServerMessages.Next?.Execute(stream);
+        }
+    }
+
+    public void AddBroadcastMessageToAll(IServerMsg message) {
+        foreach (var connection in _wiThrottleConnections) {
+            connection.ServerMessages.Add(message);
         }
     }
 

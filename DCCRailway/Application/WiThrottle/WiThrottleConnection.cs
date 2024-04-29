@@ -1,19 +1,22 @@
 ﻿using System.Net.Sockets;
 using DCCRailway.Application.WiThrottle.Commands;
+using DCCRailway.Application.WiThrottle.Messages;
 
 namespace DCCRailway.Application.WiThrottle;
 
-public class WiThrottleConnectionEntry {
-    private int _heartbeatSeconds = 15;
+public class WiThrottleConnection {
 
-    internal WiThrottleConnectionList listReference;
+    private int _heartbeatSeconds = 15;
+    public WiThrottleMsgQueue ServerMessages = new WiThrottleMsgQueue();
+
+    internal readonly WiThrottleConnectionList ListReference;
 
     /// <summary>
     ///     A connection AttributeInfo Entry stores information about a particular entry in the throttle
     ///     roster and allows us to ensure we are tracking the connections and can
     ///     send "STOP" messages if we need to if we do not hear from the throttle.
     /// </summary>
-    public WiThrottleConnectionEntry(ulong connectionID, WiThrottleConnectionList connectionList, string throttleName = "", string hardwareID = "") {
+    public WiThrottleConnection(ulong connectionID, WiThrottleConnectionList connectionList, string throttleName = "", string hardwareID = "") {
         ConnectionID     = connectionID;
         ThrottleName     = throttleName;
         HardwareID       = hardwareID;
@@ -21,7 +24,7 @@ public class WiThrottleConnectionEntry {
         HeartbeatState   = HeartbeatStateEnum.Off;
         LastHeartbeat    = DateTime.Now;
         LastCommand      = null;
-        listReference    = connectionList;
+        ListReference    = connectionList;
     }
 
     public ulong  ConnectionID { get; set; }
@@ -30,14 +33,7 @@ public class WiThrottleConnectionEntry {
 
     public int HeartbeatSeconds {
         get => _heartbeatSeconds;
-        set {
-            if (value <= 0)
-                _heartbeatSeconds = 0;
-            else if (value >= 99)
-                _heartbeatSeconds = 99;
-            else
-                _heartbeatSeconds = value;
-        }
+        set => _heartbeatSeconds = value <= 0 ? 0 : value >= 60 ? 60 : value;
     }
 
     public DateTime           LastHeartbeat  { get; set; }
@@ -50,14 +46,13 @@ public class WiThrottleConnectionEntry {
     ///     every x seconds or it will issue a E-STOP command on the current Loco attached to
     ///     this controller.
     /// </summary>
-    public bool IsHeartbeatOK {
+    public bool IsHeartbeatOk {
         get {
             if (HeartbeatState == HeartbeatStateEnum.Off) return true;
             if ((DateTime.Now - LastHeartbeat).TotalSeconds < HeartbeatSeconds) return true;
             return false;
         }
     }
-
     public void UpdateHeartbeat() => LastHeartbeat = DateTime.Now;
 }
 
