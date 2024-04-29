@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Text;
 using DCCRailway.Application.WiThrottle.Commands;
 using DCCRailway.Application.WiThrottle.Helpers;
+using DCCRailway.Application.WiThrottle.Messages;
 using DCCRailway.Common.Helpers;
 using ILogger = Serilog.ILogger;
 
@@ -97,6 +98,7 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
         var stream = client.GetStream();
         var connection = _wiThrottleConnections.Add((ulong)client.Client.Handle);
         var cmdFactory = new WiThrottleCmdFactory(connection, options);
+        connection.AddResponseMsg(new MsgConfiguration(connection,options));
 
         try {
             var bytesRead = 0;
