@@ -8,22 +8,16 @@ namespace DCCRailway.Application.WiThrottle;
 public class WiThrottleServerOptions : BackgroundWorkerOptions {
 
     private const ushort DefaultPort = 12090;
-    private const string DefaultTerminator  = "\x0A";
     private const string DefaultServiceName = "_withrottle._tcp";
     public readonly IRailwayConfig? Config;
 
     public ushort Port { get; set; } = DefaultPort;
-    public string Terminator { get; set; } = DefaultTerminator;
     public string ServiceName { get; set; } = DefaultServiceName;
+    public int HeartBeatSeconds { get; set; } = 10;
     public IPAddress Address { get; set; } = Network.GetLocalIPAddress();
     public Dictionary<string, string> Properties => new() {
         { "node", $"dccrailway-{Guid.NewGuid()}" },
         { "version", "1.0.0"}
-
-        // This is what JMRI seems to broadcast
-        //{ "node", "jmri-C4910CB13C68-3F39938d" },
-        //{ "jmri", "4.21.4" },
-        //{ "version", "4.2.1" }
     };
 
     /// <summary>

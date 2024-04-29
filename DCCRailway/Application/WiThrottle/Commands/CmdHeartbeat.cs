@@ -1,18 +1,20 @@
-﻿using DCCRailway.Application.WiThrottle.Messages;
+using DCCRailway.Application.WiThrottle.Helpers;
+using DCCRailway.Application.WiThrottle.Messages;
 using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Application.WiThrottle.Commands;
 
-public class CmdHeartBeat : ThrottleCmd, IThrottleCmd {
-    public CmdHeartBeat(WiThrottleConnection connection, string cmdString, ref WiThrottleServerOptions options) : base(connection, cmdString, ref options) => connection.LastCommand = this;
-
-    public IServerMsg Execute() {
-        switch (CmdString) {
-        case "+":
+public class CmdHeartbeat (WiThrottleConnection connection, WiThrottleServerOptions options) : ThrottleCmd(connection, options), IThrottleCmd {
+    public void Execute(string commandStr) {
+        Logger.Log.Information("{0}=>'{1}'",ToString(),commandStr);
+        if (commandStr.Length <= 1) return;
+        switch (commandStr[1]) {
+        case '+':
             Logger.Log.Information($"Received a HEARTBEAT + (ON) command from '{Connection.ThrottleName}'");
             Connection.HeartbeatState = HeartbeatStateEnum.On;
+            Connection.AddResponseMsg(new MsgHeartbeat(Connection, Options));
             break;
-        case "-":
+        case '-':
             Logger.Log.Information($"Received a HEARTBEAT - (OFF) command from '{Connection.ThrottleName}'");
             Connection.HeartbeatState = HeartbeatStateEnum.Off;
             break;
@@ -20,8 +22,7 @@ public class CmdHeartBeat : ThrottleCmd, IThrottleCmd {
             Logger.Log.Information($"Received a HEARTBEAT from '{Connection.ThrottleName}'");
             break;
         }
-        return new MsgComplete();
-    }
 
-    public override string ToString() => "COMMAND: HEARTBEAT";
+    }
+    public override string ToString() => "CMD:Heartbeat";
 }

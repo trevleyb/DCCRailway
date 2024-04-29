@@ -1,14 +1,12 @@
 ﻿using System.Net.Sockets;
 using DCCRailway.Application.WiThrottle.Commands;
-using DCCRailway.Application.WiThrottle.Messages;
 
 namespace DCCRailway.Application.WiThrottle;
 
 public class WiThrottleConnection {
 
     private int _heartbeatSeconds = 15;
-    public WiThrottleMsgQueue ServerMessages = new WiThrottleMsgQueue();
-
+    public readonly WiThrottleMsgQueue ServerMessages = [];
     internal readonly WiThrottleConnectionList ListReference;
 
     /// <summary>
@@ -23,7 +21,6 @@ public class WiThrottleConnection {
         HeartbeatSeconds = 15;
         HeartbeatState   = HeartbeatStateEnum.Off;
         LastHeartbeat    = DateTime.Now;
-        LastCommand      = null;
         ListReference    = connectionList;
     }
 
@@ -32,13 +29,12 @@ public class WiThrottleConnection {
     public string HardwareID   { get; set; }
 
     public int HeartbeatSeconds {
-        get => _heartbeatSeconds;
-        set => _heartbeatSeconds = value <= 0 ? 0 : value >= 60 ? 60 : value;
+        get  => _heartbeatSeconds;
+        init => _heartbeatSeconds = value <= 0 ? 0 : value >= 60 ? 60 : value;
     }
 
     public DateTime           LastHeartbeat  { get; set; }
     public HeartbeatStateEnum HeartbeatState { get; set; }
-    public IThrottleCmd?      LastCommand    { get; set; }
 
     /// <summary>
     ///     Returns TRUE if we have recieved a HeartBeat command within the HeartBeat timeout
@@ -54,6 +50,21 @@ public class WiThrottleConnection {
         }
     }
     public void UpdateHeartbeat() => LastHeartbeat = DateTime.Now;
+
+    public void AddResponseMsg(IThrottleMsg message) => ServerMessages.Add(message);
+
+    public void RemoveDuplicateID(string hardwareID) {
+        for (var i = ListReference.Count - 1; i >= 0; i--) {
+            if (ListReference[i].HardwareID.Equals(hardwareID) &&
+                ListReference[i].ConnectionID != ConnectionID) {
+                ListReference.RemoveAt(i);
+            }
+        }
+    }
+
+    public bool HasDuplicateID(string hardwareID) {
+        return ListReference.Any(x => x.HardwareID.Equals(hardwareID) && x.ConnectionID != ConnectionID);
+    }
 }
 
 public enum HeartbeatStateEnum {

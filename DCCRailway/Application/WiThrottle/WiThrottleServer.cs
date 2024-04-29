@@ -3,9 +3,7 @@ using System.Net.Sockets;
 using System.Text;
 using DCCRailway.Application.WiThrottle.Commands;
 using DCCRailway.Application.WiThrottle.Helpers;
-using DCCRailway.Application.WiThrottle.Messages;
 using DCCRailway.Common.Helpers;
-using Microsoft.AspNetCore.Http.Connections;
 using ILogger = Serilog.ILogger;
 
 namespace DCCRailway.Application.WiThrottle;
@@ -98,7 +96,7 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
         log.Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
         var stream = client.GetStream();
         var connection = _wiThrottleConnections.Add((ulong)client.Client.Handle);
-        var cmdFactory = new WiThrottleCmdFactory(connection, ref options);
+        var cmdFactory = new WiThrottleCmdFactory(connection, options);
 
         try {
             var bytesRead = 0;
@@ -114,30 +112,15 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
                 log.Debug($"{connection.ConnectionID:D4}: Received Data='{data.Trim()}'");
                 buffer.Append(data);
 
-                if (buffer.ToString().Contains(options.Terminator)) {
-                    foreach (var command in buffer.ToString().Split(options.Terminator)) {
+                if (Terminators.HasTerminator(buffer)) {
+                    foreach (var command in Terminators.RemoveTerminators(buffer)) {
                         if (!string.IsNullOrEmpty(command)) {
-
-                            // Get a command from the WiThrottle Handheld device
-                            // Process that command and determine what to do with it
-                            // The result will be a command or result set to return to the Throttle
-                            // --------------------------------------------------------------------
-                            var cmdToExecute = cmdFactory.Interpret(CommandType.Client, command);
-                            log.Debug($"{connection.ConnectionID:D4}: Command to Execute='{cmdToExecute}'");
-
-                            var msgToSend = cmdToExecute.Execute();
-                            log.Debug($"{connection.ConnectionID:D4}: Response to send ='{msgToSend}'");
-                            msgToSend.Execute(stream);
-
-                            if (cmdToExecute is CmdQuit) {
-                                _wiThrottleConnections.Delete(connection);
-                                break;
-                            }
+                            if (cmdFactory.Interpret(command)) break;
+                            SendServerMessages(connection, stream);
                         }
                     }
                     buffer.Clear();
                 }
-                SendServerMessage(connection, stream);
             }
             log.Debug("Connection: Client '{0}' has closed.", connection?.ConnectionID);
         }
@@ -153,13 +136,24 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
     /// </summary>
     /// <param name="connection"></param>
     /// <param name="stream"></param>
-    private void SendServerMessage(WiThrottleConnection connection, NetworkStream stream) {
+    private void SendServerMessages(WiThrottleConnection connection, NetworkStream stream) {
         while (connection.ServerMessages.HasMessages) {
-            connection.ServerMessages.Next?.Execute(stream);
+            try {
+                var message = connection.ServerMessages.Next;
+                if (message is not null) {
+                    var serverMessage = Encoding.ASCII.GetBytes(message.Message);
+                    Logger.Log.Information("{0}",message.ToString());
+                    stream.Write(serverMessage, 0, serverMessage.Length);
+                }
+            }
+            catch (Exception ex) {
+                Logger.Log.Error("Unable to send message to the client : {0}", ex.Message);
+                throw;
+            }
         }
     }
 
-    public void AddBroadcastMessageToAll(IServerMsg message) {
+    public void AddBroadcastMessageToAll(IThrottleMsg message) {
         foreach (var connection in _wiThrottleConnections) {
             connection.ServerMessages.Add(message);
         }

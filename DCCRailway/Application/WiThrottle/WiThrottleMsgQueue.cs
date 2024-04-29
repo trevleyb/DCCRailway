@@ -1,10 +1,10 @@
 using System.Net.Sockets;
-using DCCRailway.Application.WiThrottle.Messages;
+using DCCRailway.Application.WiThrottle.Commands;
 
 namespace DCCRailway.Application.WiThrottle;
 
-public class WiThrottleMsgQueue : Queue<IServerMsg> {
+public class WiThrottleMsgQueue : Queue<IThrottleMsg> {
     public bool HasMessages => this.Any();
-    public void Add(IServerMsg message) => Enqueue(message);
-    public IServerMsg? Next => HasMessages ? Dequeue() : null;
+    public void Add(IThrottleMsg message) => Enqueue(message);
+    public IThrottleMsg? Next => HasMessages ? Dequeue() : null;
 }
