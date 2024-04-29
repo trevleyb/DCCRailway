@@ -115,7 +115,7 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
     }
 
     public async Task<string> GetNextID() {
-        return await Task.FromResult(entities.NextID);
+        return await Task.FromResult(await entities.GetNextID());
     }
 
 }

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using DCCRailway.Common.Helpers;
 
@@ -7,13 +8,19 @@ namespace DCCRailway.Layout.Configuration.Entities.Collection;
 [Serializable]
 public class EntityCollection<TEntity> : ObservableCollection<TEntity>, IEntityCollection<TEntity> where TEntity : IEntity {
 
-    public string Prefix { get; init; }
+    private static readonly SemaphoreSlim _mutex = new SemaphoreSlim(1, 1);
+    private string Prefix { get; init; }
+
     public new event PropertyChangedEventHandler?  PropertyChanged;
     public event PropertyChangingEventHandler? PropertyChanging;
 
+    public override event NotifyCollectionChangedEventHandler? CollectionChanged {
+        add => base.CollectionChanged += value;
+        remove => base.CollectionChanged -= value;
+    }
+
     public EntityCollection(string prefix) {
         Prefix = prefix;
-        Clear();
         CollectionChanged += (sender, e) => {
             if (e.NewItems != null) {
                 foreach (TEntity newItem in e.NewItems) {
@@ -39,24 +46,32 @@ public class EntityCollection<TEntity> : ObservableCollection<TEntity>, IEntityC
         PropertyChanged?.Invoke(this, e);
     }
 
-    public string NextID {
-        get {
+    /// <summary>
+    /// Each item in the collection must be UNIQUE and have a Unique ID. Originally this was a GUID but
+    /// that is not user friendly so changed it to be a sequential number with a prefix. This code looks
+    /// at the current collection and finds the next available ID.
+    /// </summary>
+    public async Task<string> GetNextID() {
+        await _mutex.WaitAsync();
+        try {
+            var nextID = 1;
+
             // sort the current collection and find the highest number in the collection and
             // calculate a new ID based on the entities.Prefix and the next sequential number.
-            if (!this.Any()) return $"{Prefix}001";
-
-            try {
+            if (this.Any()) {
                 var maxId = this
                            .Where(e => int.TryParse(e.Id.Replace(Prefix, ""), out _))
                            .Max(e => int.Parse(e.Id.Replace(Prefix, "")));
-
-                var nextId = maxId + 1;
-                return $"{Prefix}{nextId:D3}";
+                nextID = maxId + 1;
             }
-            catch (Exception ex) {
-                Logger.Log.Error("Unable to determine the next sequence: {0}", ex.Message);
-                throw;
-            }
+            return $"{Prefix}{nextID:D3}";
+        }
+        catch (Exception ex) {
+            Logger.Log.Error("Unable to determine the next sequence: {0}", ex.Message);
+            throw;
+        }
+        finally {
+            _mutex.Release();
         }
     }
 
