@@ -7,7 +7,7 @@ namespace DCCRailway.Test;
 [TestFixture]
 public class LoggerTest {
 
-    [TestCase]
+    [Test]
     public void TestWeHaveALoggerWithoutContext() {
 
         var logger = Logger.Instance;
@@ -22,7 +22,7 @@ public class LoggerTest {
         Logger.Log.Warning("Warning");
     }
 
-    [TestCase]
+    [Test]
     public void TestWeHaveALoggerWithContext() {
 
         var logger = Logger.Instance;
@@ -37,7 +37,7 @@ public class LoggerTest {
         Logger.Log.Warning("Warning");
     }
 
-    [TestCase]
+    [Test]
     public void TestWeHaveALoggerOfAType() {
 
         var logger = Logger.LogContext<LoggerTest>();

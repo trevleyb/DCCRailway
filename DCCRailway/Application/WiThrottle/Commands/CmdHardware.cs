@@ -3,7 +3,7 @@ using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Application.WiThrottle.Commands;
 
-public class CmdHardware (WiThrottleConnection connection, WiThrottleServerOptions options) : ThrottleCmd(connection, options), IThrottleCmd {
+public class CmdHardware (WiThrottleConnection connection, WiThrottleServerOptions options) : ThrottleCmd, IThrottleCmd {
 
     public void Execute(string commandStr) {
         Logger.Log.Information("{0}=>'{1}'",ToString(),commandStr);
@@ -11,13 +11,13 @@ public class CmdHardware (WiThrottleConnection connection, WiThrottleServerOptio
             switch (commandStr[1]) {
             case 'U':
                 var hardwareID = commandStr[2..];
-                if (Connection.HasDuplicateID(hardwareID)) {
-                    Logger.Log.Debug("CmdFactory [{0}]: Duplicate HardwareIDs found - removing old ones", Connection.ConnectionID);
-                    Connection.RemoveDuplicateID(hardwareID);
+                if (connection.HasDuplicateID(hardwareID)) {
+                    Logger.Log.Debug("CmdFactory [{0}]: Duplicate HardwareIDs found - removing old ones", connection.ConnectionID);
+                    connection.RemoveDuplicateID(hardwareID);
                 }
-                Connection.HardwareID = hardwareID;
-                Logger.Log.Debug("CmdFactory [{0}]: Set the hardwareID to '{1}'", Connection.ConnectionID, hardwareID);
-                Connection.AddResponseMsg(new MsgHardware(Connection,Options));
+                connection.HardwareID = hardwareID;
+                Logger.Log.Debug("CmdFactory [{0}]: Set the hardwareID to '{1}'", connection.ConnectionID, hardwareID);
+                connection.AddResponseMsg(new MsgHardware(options));
                 break;
             default:
                 break;

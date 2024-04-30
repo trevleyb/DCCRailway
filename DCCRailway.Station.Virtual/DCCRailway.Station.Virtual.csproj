@@ -11,6 +11,10 @@
     <ItemGroup>
         <Compile Remove="Common\**"/>
         <Compile Remove="Results\**"/>
+        <Compile Include="Results\VirtualCommandResultClock.cs" />
+        <Compile Include="Results\VirtualCommandResultSensorState.cs" />
+        <Compile Include="Results\VirtualCommandResultVersion.cs" />
+        <Compile Include="Results\VirtualCommandResultPowerState.cs" />
         <EmbeddedResource Remove="Common\**"/>
         <EmbeddedResource Remove="Results\**"/>
         <None Remove="Common\**"/>
@@ -21,9 +25,6 @@
     <ItemGroup>
         <None Remove="Commands\"/>
         <None Remove="Results\"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Folder Include="Commands\"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>

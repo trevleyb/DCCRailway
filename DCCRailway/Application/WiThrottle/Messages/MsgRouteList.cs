@@ -3,8 +3,7 @@ using DCCRailway.Application.WiThrottle.Helpers;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-
-public class MsgRouteList(WiThrottleConnection connection, WiThrottleServerOptions options) : ThrottleMsg(connection, options), IThrottleMsg {
+public class MsgRouteList(WiThrottleServerOptions options) : ThrottleMsg, IThrottleMsg {
     public string Message {
         get {
             var routes = options?.Config?.Routes.Values;

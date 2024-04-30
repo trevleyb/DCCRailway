@@ -5,7 +5,7 @@ namespace DCCRailway.Common.Test;
 [TestFixture]
 public class BackgroundWorkerTest {
 
-    [TestCase]
+    [Test]
     public void TestTheWorker() {
 
         bool itStarted = false;

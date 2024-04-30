@@ -9,7 +9,7 @@ namespace DCCRailway.System.Test;
 [TestFixture]
 public class CommandTypeTest {
 
-    [TestCase]
+    [Test]
     public void TestThatWeCangenerateAndAcceptTypes() {
 
         var commandStation = new VirtualController();

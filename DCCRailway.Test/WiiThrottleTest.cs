@@ -7,22 +7,22 @@ namespace DCCRailway.Test;
 [TestFixture]
 public class WiThrottleTest {
 
-    [TestCase]
+    [Test]
     public void TestIfWiThrottleLoads() {
 
         var config = RailwayConfig.New();
-        var options = new WiThrottleServerOptions(config);
+        var options = new WiThrottleServerOptions(config, null);
         var wii = new WiThrottleServer(options);
         Assert.That(wii,Is.Not.Null);
         Assert.That(wii.ServerActive, Is.False);
         wii.Stop();
     }
 
-    [Test]
+    [Test,Ignore("Ignore as runs continuously")]
     public void TestIfWiThrottleLoadsAndRuns() {
 
         var config = RailwayConfig.New();
-        var options = new WiThrottleServerOptions(config);
+        var options = new WiThrottleServerOptions(config, null);
         var wii = new WiThrottleServer(options);
         Assert.That(wii,Is.Not.Null);
         Assert.That(wii.ServerActive, Is.False);

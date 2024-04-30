@@ -15,7 +15,7 @@ public class TestEntityCollectionWithChanges {
     private string id;
     private RepositoryChangeAction action;
 
-    [TestCase]
+    [Test]
     public void TestCastToEntityChangingProperties() {
 
         var collection = new TestEntities();

@@ -1,12 +1,23 @@
 using System.Text;
+using Microsoft.Extensions.Primitives;
 
 namespace DCCRailway.Application.WiThrottle.Helpers;
 
 public static class Terminators {
-
+    public static readonly string[] PossibleTerminators = new[] {
+        new string([(char)0x0a]),
+        new string([(char)0x0d]),
+        new string([(char)0x0a, (char)0x0d]),
+        new string([(char)0x0d, (char)0x0a])
+    };
     public const char Terminator = (char)0x0a;
 
-    public static string AddTerminator(StringBuilder input) => AddTerminator(input.ToString());
+    public static StringBuilder AddTerminator(StringBuilder input) {
+        if (input.Length > 0) {
+            if (!HasTerminator(input)) input.Append(Terminator);
+        }
+        return input;
+    }
 
     public static string AddTerminator(string? input) {
         if (!string.IsNullOrEmpty(input)) {
@@ -16,19 +27,43 @@ public static class Terminators {
     }
 
     public static bool HasTerminator(StringBuilder input) => HasTerminator(input.ToString());
-
     public static bool HasTerminator(string input) {
-        if (input.Contains(new string([(char)0x0a, (char)0x0d])) ||
-            input.Contains(new string([(char)0x0d, (char)0x0a])) ||
-            input.Contains((char)0x0a) ||
-            input.Contains((char)0x0d)) {
-            return true;
+        foreach (var terminator in PossibleTerminators) {
+            if (input.Contains(terminator)) return true;
         }
         return false;
     }
 
-    public static string[] RemoveTerminators(StringBuilder input) => RemoveTerminators(input.ToString());
+    public static List<string> GetMessagesAndLeaveIncomplete(StringBuilder sb) {
+        var blocks = new List<string>();
+        var remaining = sb.ToString();
+        var currentBlock = "";
 
+        for (int i = 0; i < remaining.Length; i++) {
+            currentBlock += remaining[i];
+
+            if (PossibleTerminators.Any(t => currentBlock.EndsWith(t))) {
+                currentBlock = RemoveTerminators(currentBlock);
+                if (!string.IsNullOrEmpty(currentBlock)) blocks.Add(currentBlock);
+                currentBlock = "";
+            }
+        }
+
+        // Clear StringBuilder and append the remaining un-terminated block
+        sb.Clear();
+        sb.Append(currentBlock);
+        return blocks;
+    }
+
+    public static string RemoveTerminators(string input) {
+        foreach (var terminator in PossibleTerminators) {
+            input = input.Replace(terminator, "");
+        }
+        return input;
+    }
+
+    /*
+    public static string[] RemoveTerminators(StringBuilder input) => RemoveTerminators(input.ToString());
     public static string[] RemoveTerminators(string input) {
         var separators = new byte[][] {
             new byte[] { 0x0a },
@@ -69,5 +104,5 @@ public static class Terminators {
         splitStrings.Add(Encoding.Default.GetString(inputBytes, startIndex, inputBytes.Length - startIndex));
         return splitStrings.ToArray();
     }
-
+    */
 }

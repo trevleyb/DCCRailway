@@ -95,7 +95,7 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
         var stream = client.GetStream();
         var connection = _wiThrottleConnections.Add((ulong)client.Client.Handle);
         var cmdFactory = new WiThrottleCmdFactory(connection, options);
-        connection.AddResponseMsg(new MsgConfiguration(connection,options));
+        connection.AddResponseMsg(new MsgConfiguration(options));
 
         try {
             var bytesRead = 0;
@@ -112,7 +112,7 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
                 buffer.Append(data);
 
                 if (Terminators.HasTerminator(buffer)) {
-                    foreach (var command in Terminators.RemoveTerminators(buffer)) {
+                    foreach (var command in Terminators.GetMessagesAndLeaveIncomplete(buffer)) {
                         if (!string.IsNullOrEmpty(command)) {
                             if (cmdFactory.Interpret(command)) break;
                             SendServerMessages(connection, stream);

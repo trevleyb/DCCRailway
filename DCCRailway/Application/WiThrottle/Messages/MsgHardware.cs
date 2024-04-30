@@ -6,7 +6,7 @@ using Microsoft.Extensions.Primitives;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-public class MsgHardware(WiThrottleConnection connection, WiThrottleServerOptions options) : ThrottleMsg(connection, options), IThrottleMsg {
+public class MsgHardware(WiThrottleServerOptions options) : ThrottleMsg, IThrottleMsg {
     public string Message {
         get {
             var message = new StringBuilder();

@@ -12,7 +12,7 @@ namespace DCCRailway.Test;
 [TestFixture]
 public class RailwayManagerTests {
 
-    [TestCase]
+    [Test]
     public async Task TestInstantiatingTheRailwayManager() {
 
         var config = await CreateTestConfig();
@@ -31,7 +31,7 @@ public class RailwayManagerTests {
         Assert.That((await config.Locomotives.GetByNameAsync("Train01"))?.Speed.Value, Is.EqualTo(50));
     }
 
-    [TestCase]
+    [Test]
     public async Task TestThatTheTestConfigIsCorrect() {
         var config = await CreateTestConfig();
 

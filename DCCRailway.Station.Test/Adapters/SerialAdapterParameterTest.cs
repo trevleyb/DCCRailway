@@ -8,7 +8,7 @@ namespace DCCRailway.System.Test.Adapters;
 [TestFixture]
 public class SerialAdapterParameterTest {
 
-    [TestCase]
+    [Test]
     public void TestThatASerialAdapterParametersCanBeRead() {
 
         var adapter = new NCESerial();
@@ -28,7 +28,7 @@ public class SerialAdapterParameterTest {
         Assert.That(parameters["StopBits"], Is.EqualTo("OnePointFive"));
 
     }
-    [TestCase]
+    [Test]
     public void TestThatASerialAdapterCanBeInjectedWithParameters() {
 
         var adapter = new NCESerial();
@@ -48,7 +48,7 @@ public class SerialAdapterParameterTest {
 
     }
 
-    [TestCase]
+    [Test]
     public void LoadParameterInfoAndMatch() {
 
         var adapter = new NCESerial();

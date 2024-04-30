@@ -14,13 +14,14 @@ public class WiThrottleCmdFactory(WiThrottleConnection connection, WiThrottleSer
     /// <returns></returns>
     public bool Interpret(string commandStr) {
 
+        // When we get here, there will only ever be a single message as
+        // we filter out in the server when we read each line.
+        // ------------------------------------------------------------------
         if (!string.IsNullOrEmpty(commandStr) && commandStr.Length >= 1) {
-            foreach (var command in Terminators.RemoveTerminators(commandStr)) {
-                var cmdProcessor = DetermineCommandType(command);
-                Logger.Log.Debug("CmdFactory [{0}]: Recieved a command of {1}", connection.ConnectionID, cmdProcessor.ToString());
-                cmdProcessor.Execute(command);
-                if (cmdProcessor is CmdQuit) return true;
-            }
+            var cmdProcessor = DetermineCommandType(commandStr);
+            Logger.Log.Debug("CmdFactory [{0}]: Recieved a command of {1}", connection.ConnectionID, cmdProcessor.ToString());
+            cmdProcessor.Execute(commandStr);
+            if (cmdProcessor is CmdQuit) return true;
         }
         return false;
     }

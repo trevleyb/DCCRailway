@@ -6,8 +6,8 @@ using Microsoft.Extensions.Primitives;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-public class MsgHeartbeat(WiThrottleConnection connection, WiThrottleServerOptions options) : ThrottleMsg(connection, options), IThrottleMsg {
-    public string Message => Terminators.AddTerminator($"*{Connection.HeartbeatSeconds:D2}");
+public class MsgHeartbeat(WiThrottleServerOptions options) : ThrottleMsg, IThrottleMsg {
+    public string Message => Terminators.AddTerminator($"*{options.HeartbeatSeconds:D2}");
     public override string ToString() => $"MSG:Heartbeat=>{NoTerminators(Message)}";
 
 }

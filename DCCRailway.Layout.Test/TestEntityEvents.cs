@@ -8,7 +8,7 @@ namespace DCCRailway.Layout.Test;
 [TestFixture]
 public class TestEntityEvents {
 
-    [TestCase]
+    [Test]
     public void TestThatEntityRepositoryIsEventingChanges() {
 
         var propertyChanged = false;

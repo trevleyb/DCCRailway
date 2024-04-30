@@ -21,7 +21,7 @@ public class AdapterMappingTest {
         public bool ABoolean { get; set; }
     }
 
-    [TestCase]
+    [Test]
     public void Test_GetMappablePropertiesOnMappableClass() {
         var adapter = new TestAdapter();
         Assert.That(adapter.GetMappableParameters().Count, Is.EqualTo(9));
@@ -48,7 +48,7 @@ public class AdapterMappingTest {
         Assert.That(parameters["ABoolean"], Is.EqualTo("True"));
     }
 
-    [TestCase]
+    [Test]
     public void Test_MapConfigValueIsCaseInsensitive() {
         var adapter = new TestAdapter();
 
@@ -59,7 +59,7 @@ public class AdapterMappingTest {
         Assert.That(adapter.AStringValue, Is.EqualTo("something new"));
     }
 
-    [TestCase]
+    [Test]
     public void Test_MapConfigValue() {
         var adapter = new TestAdapter();
 

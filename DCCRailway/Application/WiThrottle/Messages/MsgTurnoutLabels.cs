@@ -7,7 +7,7 @@ using Microsoft.Extensions.Primitives;
 namespace DCCRailway.Application.WiThrottle.Messages;
 
 
-public class MsgTurnoutLabels(WiThrottleConnection connection, WiThrottleServerOptions options) : ThrottleMsg(connection, options), IThrottleMsg {
+public class MsgTurnoutLabels(WiThrottleServerOptions options) : ThrottleMsg, IThrottleMsg {
     public string Message {
         get {
             var turnouts = options?.Config?.Turnouts.Values;
