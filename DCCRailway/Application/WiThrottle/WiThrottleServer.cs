@@ -9,7 +9,7 @@ using ILogger = Serilog.ILogger;
 
 namespace DCCRailway.Application.WiThrottle;
 
-public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
+public class WiThrottleServer(WiThrottleServerOptions options) {
 
     private readonly ILogger log = Logger.LogContext<WiThrottleServer>();
     private readonly WiThrottleConnectionList _wiThrottleConnections = new();
@@ -59,7 +59,6 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
     ///     have connections.
     /// </summary>
     public void Stop() {
-        // Set the ServerActive flag to false which should terminate the Server
         ServerActive = false;
     }
 
@@ -68,16 +67,14 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
         try {
             log.Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
             while (ServerActive) {
-                var    client = server.AcceptTcpClient();
-                Thread t      = new(HandleConnection);
+                var client = server.AcceptTcpClient();
+                Thread t = new(HandleConnection);
                 t.Start(client);
             }
             log.Debug("Server Shutting Down on {0}", server.LocalEndpoint);
-            server.Stop();
         }
         catch (SocketException e) {
             log.Error("SocketException: {0}", e);
-            server.Stop();
         }
     }
 
@@ -144,8 +141,10 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
                 var message = connection.ServerMessages.Next;
                 if (message is not null) {
                     var serverMessage = Encoding.ASCII.GetBytes(message.Message);
-                    Logger.Log.Information("{0}",message.ToString());
-                    stream.Write(serverMessage, 0, serverMessage.Length);
+                    if (stream is { CanWrite: true }) {
+                        Logger.Log.Information("{0}",message.ToString());
+                        stream.Write(serverMessage, 0, serverMessage.Length);
+                    }
                 }
             }
             catch (Exception ex) {
@@ -159,9 +158,5 @@ public class WiThrottleServer(WiThrottleServerOptions options) : IDisposable {
         foreach (var connection in _wiThrottleConnections) {
             connection.ServerMessages.Add(message);
         }
-    }
-
-    public void Dispose() {
-        Stop();
     }
 }

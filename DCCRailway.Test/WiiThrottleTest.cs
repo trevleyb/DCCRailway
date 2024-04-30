@@ -18,7 +18,7 @@ public class WiThrottleTest {
         wii.Stop();
     }
 
-    [TestCase,Ignore("Only run manually")]
+    [Test]
     public void TestIfWiThrottleLoadsAndRuns() {
 
         var config = RailwayConfig.New();

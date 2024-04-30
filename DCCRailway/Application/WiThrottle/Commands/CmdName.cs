@@ -15,6 +15,11 @@ public class CmdName(WiThrottleConnection connection, WiThrottleServerOptions op
             Connection.ThrottleName = deviceName;
             Logger.Log.Debug("CmdFactory [{0}]: Set the connection device name to '{1}'",Connection.ConnectionID, deviceName);
             Connection.AddResponseMsg(new MsgServerID(Connection,Options));
+            Connection.AddResponseMsg(new MsgRosterList(Connection, Options));
+            Connection.AddResponseMsg(new MsgTurnoutLabels(Connection, Options));
+            Connection.AddResponseMsg(new MsgTurnoutList(Connection, Options));
+            Connection.AddResponseMsg(new MsgRouteLabels(Connection, Options));
+            Connection.AddResponseMsg(new MsgRouteList(Connection, Options));
             Connection.AddResponseMsg(new MsgHeartbeat(Connection,Options));
         }
     }
