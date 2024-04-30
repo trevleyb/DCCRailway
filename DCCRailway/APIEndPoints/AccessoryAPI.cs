@@ -6,7 +6,7 @@ namespace DCCRailway.APIEndPoints;
 public static class AccessoryApi {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-        app.MapGet("/accessories", async () => Results.Ok(await config.Accessories.GetAllAsync()));
+        app.MapGet("/accessories", async () => await Task.FromResult(Results.Ok(config.Accessories.GetAllAsync())));
 
         app.MapGet("/accessories/{id}", async (string id) => {
             var accessory = await config.Accessories.GetByIDAsync(id);

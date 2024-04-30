@@ -12,47 +12,37 @@ public class TestEntityEvents {
     public void TestThatEntityRepositoryIsEventingChanges() {
 
         var propertyChanged = false;
-        var propertyChanging = false;
+        var repositoryChanged = false;
         var config = CreateTestConfig();
         var locomotives = config.Locomotives;
-        locomotives.PropertyChanged += (sender, args) => propertyChanged = true;
-        locomotives.PropertyChanging += (sender, args) => propertyChanging = true;
+        locomotives.RepositoryChanged += (sender, args) => repositoryChanged= true;
 
         propertyChanged = false;
-        propertyChanging = false;
-        locomotives.AddAsync(new Locomotive { Name = "Train06" });
+        var addedLoco = locomotives.AddAsync(new Locomotive { Name = "Train06" }).Result;
+        Assert.That(repositoryChanged,Is.True);  // Property Is not changed on Add/Remove
         Assert.That(propertyChanged,Is.False);  // Property Is not changed on Add/Remove
-        Assert.That(propertyChanging,Is.False); // Property Is not changed on Add/Remove
 
         var locomotive = locomotives.GetByNameAsync("Train01").Result;
         Assert.That(locomotive,Is.Not.Null);
+        locomotive.PropertyChanged += (sender, args) => propertyChanged = true;
 
         propertyChanged = false;
-        propertyChanging = false;
         locomotive.Name = "Train09";
         Assert.That(propertyChanged,Is.True);
-        Assert.That(propertyChanging,Is.True);
 
         propertyChanged = false;
-        propertyChanging = false;
         locomotive.Address = new DCCAddress(345);
         Assert.That(propertyChanged,Is.True);
-        Assert.That(propertyChanging,Is.True);
 
         propertyChanged = false;
-        propertyChanging = false;
         locomotive.Direction = DCCDirection.Reverse;
         Assert.That(propertyChanged,Is.True);
-        Assert.That(propertyChanging,Is.True);
 
         propertyChanged = false;
-        propertyChanging = false;
         locomotive.Direction = DCCDirection.Stop;
         Assert.That(propertyChanged,Is.True);
-        Assert.That(propertyChanging,Is.True);
 
         propertyChanged = false;
-        propertyChanging = false;
         locomotives.DeleteAsync(locomotive.Id);
 
     }

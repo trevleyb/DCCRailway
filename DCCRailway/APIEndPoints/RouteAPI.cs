@@ -7,7 +7,7 @@ namespace DCCRailway.APIEndPoints;
 public static class RouteAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-        app.MapGet("/routes", async () => Results.Ok(await config.Routes.GetAllAsync()));
+        app.MapGet("/routes", async () => await Task.FromResult(Results.Ok(config.Routes.GetAllAsync())));
 
         app.MapGet("/routes/{id}", async (string id) => {
             var route = await config.Routes.GetByIDAsync(id);

@@ -28,7 +28,7 @@ public class RailwayManagerTests {
         locoCmd!.Speed = new DCCSpeed(50);
 
         railwayManager.ActiveController!.Execute(locoCmd);
-        Assert.That(config.Locomotives.GetByNameAsync("Train01")?.Result?.Speed.Value, Is.EqualTo(50));
+        Assert.That((await config.Locomotives.GetByNameAsync("Train01"))?.Speed.Value, Is.EqualTo(50));
     }
 
     [TestCase]
@@ -38,6 +38,8 @@ public class RailwayManagerTests {
         Assert.That((await config.Controllers.GetByNameAsync("Virtual"))?.Name, Is.EqualTo("Virtual"));
         Assert.That((await config.Locomotives.GetByNameAsync("Train01"))?.Name, Is.EqualTo("Train01"));
         Assert.That((await config.Locomotives.GetByNameAsync("Train01"))?.Address?.Address, Is.EqualTo(201));
+        Assert.That((await config.Locomotives.GetByNameAsync("Train01"))?.Address?.AddressType, Is.EqualTo(DCCAddressType.Short));
+
     }
 
     private async Task<IRailwayConfig> CreateTestConfig() {

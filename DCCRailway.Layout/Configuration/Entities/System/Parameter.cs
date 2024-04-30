@@ -7,7 +7,7 @@ using DCCRailway.Layout.Configuration.Entities.Events;
 namespace DCCRailway.Layout.Configuration.Entities.System;
 
 [Serializable]
-public class Parameter: PropertyChangeBase {
+public class Parameter {
 
     public Guid     Id      { get; set; }
     public string   Name    { get; set; }
@@ -16,7 +16,6 @@ public class Parameter: PropertyChangeBase {
 
     public Parameter() : this (Guid.NewGuid()) { }
     public Parameter(Guid guid) => Id = guid;
-
     public Parameter(string name, object value) => Set(name, value);
 
     public void Set(string name, object value) {
@@ -47,7 +46,6 @@ public class Parameter: PropertyChangeBase {
         catch {
             return Convert.ChangeType(Value, typeof(string), CultureInfo.InvariantCulture);
         }
-
         return Value;
     }
 

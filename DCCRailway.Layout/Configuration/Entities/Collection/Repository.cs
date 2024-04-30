@@ -1,49 +1,80 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.Tracing;
 using DCCRailway.Common.Helpers;
+using DCCRailway.Layout.Configuration.Entities.Events;
 
 namespace DCCRailway.Layout.Configuration.Entities.Collection;
 
 [Serializable]
-public class Repository<TEntity> : ObservableCollection<TEntity>, IRepository<TEntity> where TEntity : IEntity {
+public class Repository<TEntity>(string prefix = "***") : Dictionary<string, TEntity>, IRepository<TEntity>
+    where TEntity : IEntity {
 
+    public event RepositoryChangedEventHandler? RepositoryChanged;
     private static readonly SemaphoreSlim _mutex = new SemaphoreSlim(1, 1);
-    private string Prefix { get; init; }
+    public string Prefix { get; init; } = prefix;
 
-    public new event PropertyChangedEventHandler?  PropertyChanged;
-    public event PropertyChangingEventHandler? PropertyChanging;
-
-    public override event NotifyCollectionChangedEventHandler? CollectionChanged {
-        add => base.CollectionChanged += value;
-        remove => base.CollectionChanged -= value;
+    public TEntity Add(TEntity item) {
+        if (string.IsNullOrEmpty(item.Id)) item.Id = GetNextID().Result;
+        if (TryAdd(item.Id, item)) {
+            OnItemChanged(item.Id, RepositoryChangeAction.Add);
+            return item;
+        }
+        return this[item.Id];
     }
 
-    public Repository(string prefix) {
-        Prefix = prefix;
-        CollectionChanged += (sender, e) => {
-            if (e.NewItems != null) {
-                foreach (TEntity newItem in e.NewItems) {
-                    newItem.PropertyChanged  += OnPropertyChanged;
-                    newItem.PropertyChanging += OnPropertyChanging;
-                }
+    public bool Contains(string id) => this.ContainsKey(id);
+    public bool Contains(TEntity item) => this.ContainsKey(item.Id);
+
+    public IAsyncEnumerable<TEntity> GetAllAsync() => Values.ToAsyncEnumerable();
+    public IAsyncEnumerable<TEntity> GetAllAsync(Func<TEntity, bool> predicate) => Values.Select( x=> x).Where(predicate).ToAsyncEnumerable();
+    public async Task<TEntity?> Find(Func<TEntity, bool> predicate) => await Task.FromResult(Values.FirstOrDefault(predicate));
+    public async Task<TEntity?> GetByIDAsync(string id) => await Task.FromResult(this[id]);
+    public async Task<TEntity?> GetByNameAsync(string name) => await Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+    public async Task<TEntity?> IndexOf(int index) => await Task.FromResult(this.ElementAtOrDefault(index).Value);
+
+    public async Task<TEntity?> UpdateAsync(TEntity entity) {
+        if (ContainsKey(entity.Id)) {
+            this[entity.Id] = entity;
+            OnItemChanged(entity.Id, RepositoryChangeAction.Update);
+            return await Task.FromResult(entity);
+        }
+        else return await Task.FromException<TEntity?>(new KeyNotFoundException("Provided key in the Entity does not exist."));
+    }
+
+    public async Task<TEntity?> AddAsync(TEntity entity) {
+        Add(entity);
+        return await Task.FromResult(entity);
+    }
+
+    public async Task<Task> DeleteAsync(string id) {
+        try {
+            if (ContainsKey(id)) {
+                Remove(id);
+                OnItemChanged(id, RepositoryChangeAction.Delete);
+                return await Task.FromResult(Task.CompletedTask);
+            } else {
+                return Task.FromException(new KeyNotFoundException("The provided ID does not exist in the repository."));
             }
+        } catch (Exception ex) {
+            return Task.FromException(ex);
+        }
+    }
 
-            if (e.OldItems != null) {
-                foreach (TEntity oldItem in e.OldItems) {
-                    oldItem.PropertyChanged  -= OnPropertyChanged;
-                    oldItem.PropertyChanging -= OnPropertyChanging;
-                }
+    public async Task<Task> DeleteAll() {
+        await _mutex.WaitAsync();
+        try {
+            var keys = new List<string>(Keys);
+            foreach (var key in keys) {
+                OnItemChanged(key, RepositoryChangeAction.Delete);
+                Remove(key);
             }
-        };
-    }
-
-    private void OnPropertyChanging(object? sender, PropertyChangingEventArgs e) {
-        PropertyChanging?.Invoke(this, e);
-    }
-
-    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
-        PropertyChanged?.Invoke(this, e);
+        }
+        finally {
+            _mutex.Release();
+        }
+        return await Task.FromResult(Task.CompletedTask);
     }
 
     /// <summary>
@@ -60,117 +91,29 @@ public class Repository<TEntity> : ObservableCollection<TEntity>, IRepository<TE
             // calculate a new ID based on the entities.Prefix and the next sequential number.
             if (this.Any()) {
                 var maxId = this
-                           .Where(e => int.TryParse(e.Id.Replace(Prefix, ""), out _))
-                           .Max(e => int.Parse(e.Id.Replace(Prefix, "")));
+                           .Keys
+                           .Where(e => int.TryParse(e.Replace(Prefix, ""), out _))
+                           .Max(e => int.Parse(e.Replace(Prefix, "")));
                 nextID = maxId + 1;
             }
-            return $"{Prefix}{nextID:D3}";
+            return $"{Prefix}{nextID:D4}";
         }
         catch (Exception ex) {
             Logger.Log.Error("Unable to determine the next sequence: {0}", ex.Message);
             throw;
-        }
-        finally {
+        } finally {
             _mutex.Release();
         }
     }
 
-    public IAsyncEnumerator<TEntity> GetAsyncEnumerator(CancellationToken cancellationToken = new CancellationToken()) {
-        //return this.Select(x => Task.FromResult(x)).ToAsyncEnumerable<TEntity>().GetAsyncEnumerator(cancellationToken);
-        return this.ToAsyncEnumerable<TEntity>().GetAsyncEnumerator(cancellationToken);
+    private void OnItemChanged(string id, RepositoryChangeAction action) {
+        RepositoryChanged?.Invoke(this, new RepositoryChangedEventArgs(this.GetType().Name, id, action));
     }
 
-    public async Task<TEntity?> Find(string name) {
-        try {
-            return await Task.FromResult(this.FirstOrDefault(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? default(TEntity));
-        } catch (Exception ex) {
-            return await Task.FromException<TEntity?>(ex);
-        }
+    private void OnItemChanged(RepositoryChangedEventArgs e) {
+        RepositoryChanged?.Invoke(this, e);
     }
 
-    public Task<TEntity?> this[string id] => Find(x => x.Id.Equals(id,StringComparison.OrdinalIgnoreCase));
-
-    public async Task<TEntity?> Find(Func<TEntity, bool> predicate) {
-        return await Task.FromResult(this.FirstOrDefault<TEntity>(predicate));
-    }
-
-    public async Task<IEnumerable<TEntity>> GetAllAsync() {
-        try {
-            return await Task.FromResult(this.ToList());
-        } catch (Exception ex) {
-            return await Task.FromException<IEnumerable<TEntity>>(ex);
-        }
-    }
-
-    public async Task<IEnumerable<TEntity>> GetAllAsync(Func<TEntity,bool> predicate) {
-        try {
-            return await Task.FromResult(this.Select(x => x).Where(predicate).ToList());
-        } catch (Exception ex) {
-            return await Task.FromException<IEnumerable<TEntity>>(ex);
-        }
-    }
-
-    public async Task<TEntity?> GetByIDAsync(string id) {
-        try {
-            return await Task.FromResult(this.FirstOrDefault(x => x.Id.Equals(id)) ?? default(TEntity));
-        } catch (Exception ex) {
-            return await Task.FromException<TEntity?>(ex);
-        }
-    }
-
-    public async Task<TEntity?> GetByNameAsync(string name) {
-        try {
-            return await Task.FromResult(this.FirstOrDefault(x => x.Name.Equals(name,StringComparison.InvariantCultureIgnoreCase)) ?? default(TEntity));
-        } catch (Exception ex) {
-            return await Task.FromException<TEntity?>(ex);
-        }
-    }
-
-    public new void Add(TEntity entity) {
-        try {
-            if (string.IsNullOrEmpty(entity.Id)) entity.Id = GetNextID().Result;
-            var index = FindIndexOf(entity.Id).Result;
-            if (index == -1) this.Add(entity);
-            return;
-        } catch (Exception ex) {
-            throw new ApplicationException($"Could not add {entity.GetType()} to Collection: {ex.Message}",ex);
-        }
-    }
-
-    public async Task<Task> AddAsync(TEntity entity) {
-        try {
-            if (string.IsNullOrEmpty(entity.Id)) entity.Id = await GetNextID();
-            var index = FindIndexOf(entity.Id).Result;
-            if (index == -1) this.Add(entity);
-            return Task.CompletedTask;
-        } catch (Exception ex) {
-            return Task.FromException(ex);
-        }
-    }
-
-    public async Task<TEntity?> UpdateAsync(TEntity entity) {
-        try {
-            var index = await FindIndexOf(entity.Id);
-            if (index != -1) this.RemoveAt(index);
-            await AddAsync(entity);
-            return await Task.FromResult(entity);
-        } catch (Exception ex) {
-            return await Task.FromException<TEntity?>(ex);
-        }
-    }
-
-    public async Task<Task> DeleteAsync(string id) {
-        try {
-            var index = await FindIndexOf(id);
-            if (index != -1) this.RemoveAt(index);
-            return Task.CompletedTask;
-        } catch (Exception ex) {
-            return Task.FromException(ex);
-        }
-    }
-
-    public async Task<Task> DeleteAll() {
-        this.Clear();
-        return await Task.FromResult(Task.CompletedTask);
-    }
 }
+
+public delegate void RepositoryChangedEventHandler(object sender, RepositoryChangedEventArgs args);

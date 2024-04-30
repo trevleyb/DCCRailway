@@ -2,9 +2,8 @@
 
 namespace DCCRailway.Layout.Configuration.Entities.System;
 
-public class Adapter : BaseEntity {
-
-    public Adapter() : base() { }
+[Serializable]
+public class Adapter {
     public string? AdapterName;
-
+    public Parameters Parameters { get; set; } = [];
 }

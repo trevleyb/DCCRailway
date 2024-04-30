@@ -49,6 +49,14 @@ public abstract class Controller : IController, IParameterMappable {
         return result;
     }
 
+    public bool IsCommandSupported<T>() where T : ICommand => _commands.IsCommandSupported<T>();
+    public bool IsCommandSupported(Type command) => _commands.IsCommandSupported(command);
+    public bool IsCommandSupported(string name) => _commands.IsCommandSupported(name);
+
+    public bool IsAdapterSupported<T>() where T : IAdapter => _adapters.IsAdapterSupported<T>();
+    public bool IsAdapterSupported(Type adapter) => _adapters.IsAdapterSupported(adapter);
+    public bool IsAdapterSupported(string name) => _adapters.IsAdapterSupported(name);
+
     public List<AdapterAttribute> Adapters => _adapters.Adapters;
     public List<CommandAttribute> Commands => _commands.Commands;
 

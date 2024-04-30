@@ -6,7 +6,7 @@ namespace DCCRailway.APIEndPoints;
 public static class LocomotiveAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-        app.MapGet("/locomotives", async () => Results.Ok(await config.Locomotives.GetAllAsync()));
+        app.MapGet("/locomotives", async () => await Task.FromResult(Results.Ok(config.Locomotives.GetAllAsync())));
 
         app.MapGet("/locomotives/{id}", async (string id) => {
             var locomotive = await config.Locomotives.GetByIDAsync(id);

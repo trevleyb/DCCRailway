@@ -6,7 +6,7 @@ namespace DCCRailway.APIEndPoints;
 public static class SensorAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-        app.MapGet("/sensors", async () => Results.Ok(await config.Sensors.GetAllAsync()));
+        app.MapGet("/sensors", async () => await Task.FromResult(Results.Ok(config.Sensors.GetAllAsync())));
 
         app.MapGet("/sensors/{id}", async (string id) => {
             var sensor = await config.Sensors.GetByIDAsync(id);

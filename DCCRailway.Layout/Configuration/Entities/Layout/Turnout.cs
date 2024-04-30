@@ -8,7 +8,11 @@ namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
 [DebuggerDisplay("TURNOUT={Id}, Name: {Name}")]
-public class Turnout(string id = "") : BaseEntityDecoder(id, DCCAddressType.Turnout) {
+public class Turnout : BaseEntityDecoder {
+
+    public Turnout(string id = "") : base(id) {
+        AddressType = DCCAddressType.Turnout;
+    }
 
     private bool            _isManual;
     private bool            _isReversed;

@@ -49,18 +49,18 @@ public class ConfigurationTest {
         // Reload the Data Store we just Saved and then check if it is the same
         var config2 = RailwayConfig.Load("TestSystemWithAll.json");
         Assert.That(config2 is not null);
-        Assert.That(config2!.Accessories?.GetAllAsync().Result.Count(), Is.EqualTo(3));
-        Assert.That(config2!.Blocks.GetAllAsync().Result.Count(), Is.EqualTo(3));
-        Assert.That(config2!.Locomotives.GetAllAsync().Result.Count(), Is.EqualTo(3));
-        Assert.That(config2!.Sensors.GetAllAsync().Result.Count(), Is.EqualTo(3));
-        Assert.That(config2!.Signals.GetAllAsync().Result.Count(), Is.EqualTo(3));
-        Assert.That(config2!.Turnouts.GetAllAsync().Result.Count(), Is.EqualTo(3));
-        Assert.That(config2?.Accessories?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestAccessory1"));
-        Assert.That(config2?.Blocks?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestBlock1"));
-        Assert.That(config2?.Locomotives?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestLocomotive1"));
-        Assert.That(config2?.Sensors?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestSensor1"));
-        Assert.That(config2?.Signals?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestSignal1"));
-        Assert.That(config2?.Turnouts?.GetAllAsync().Result.ToArray()[0].Name, Is.EqualTo("TestTurnout1"));
+        Assert.That(config2!.Accessories.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Blocks.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Locomotives.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Sensors.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Signals.Count(), Is.EqualTo(3));
+        Assert.That(config2!.Turnouts.Count(), Is.EqualTo(3));
+        Assert.That(config2?.Accessories.First().Value.Name, Is.EqualTo("TestAccessory1"));
+        Assert.That(config2?.Blocks.First().Value.Name, Is.EqualTo("TestBlock1"));
+        Assert.That(config2?.Locomotives.First().Value.Name, Is.EqualTo("TestLocomotive1"));
+        Assert.That(config2?.Sensors.First().Value.Name, Is.EqualTo("TestSensor1"));
+        Assert.That(config2?.Signals.First().Value.Name, Is.EqualTo("TestSignal1"));
+        Assert.That(config2?.Turnouts.First().Value.Name, Is.EqualTo("TestTurnout1"));
     }
 
     [Test]

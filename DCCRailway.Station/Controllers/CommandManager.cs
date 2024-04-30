@@ -11,11 +11,6 @@ public class CommandManager(Assembly assembly) {
     public event EventHandler<CommandEventArgs>                                CommandEvent;
     private Assembly                                                           _assembly { get; set; } = assembly;
 
-    public bool IsCommandSupported<T>() where T : ICommand => _commands.ContainsKey(typeof(T));
-    //public bool IsCommandSupported(Type command) => _commands.ContainsKey(command);
-    public bool IsCommandSupported(Type command) => _commands.Any(pair => pair.Value.ConcreteType == command);
-    public bool IsCommandSupported(string name)  => _commands.Any(pair => pair.Value.Attributes.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
-
     public List<CommandAttribute> Commands {
         get {
             if (_commands.Any() is false) RegisterCommands();
@@ -78,6 +73,13 @@ public class CommandManager(Assembly assembly) {
             throw new ApplicationException("Could not create an instance of the command.", ex);
         }
     }
+
+    public bool IsCommandSupported<T>() where T : ICommand => _commands.ContainsKey(typeof(T));
+    public bool IsCommandSupported(Type command) => command.GetInterfaces().Any(iface => _commands.ContainsKey(iface));
+    public bool IsCommandSupported(string name) => _commands.Any(item =>
+            item.Key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase) ||
+            item.Value.ConcreteType.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
+            );
 
     #region Raise Events
     // Raise when this Controller executes a command

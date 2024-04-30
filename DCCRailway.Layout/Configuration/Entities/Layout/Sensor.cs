@@ -8,4 +8,8 @@ namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
 [DebuggerDisplay("SENSOR={Id}, Name: {Name}")]
-public class Sensor(string id = "") : BaseEntityDecoder(id, DCCAddressType.Sensor) { }
+public class Sensor : BaseEntityDecoder {
+    public Sensor(string id = "") : base(id) {
+        AddressType = DCCAddressType.Sensor;
+    }
+}

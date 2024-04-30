@@ -6,7 +6,7 @@ namespace DCCRailway.APIEndPoints;
 public static class TurnoutAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-        app.MapGet("/turnouts", async () => Results.Ok(await config.Turnouts.GetAllAsync()));
+        app.MapGet("/turnouts", async () => await Task.FromResult(Results.Ok(config.Turnouts.GetAllAsync())));
 
         app.MapGet("/turnouts/{id}", async (string id) => {
             var turnout = await config.Turnouts.GetByIDAsync(id);

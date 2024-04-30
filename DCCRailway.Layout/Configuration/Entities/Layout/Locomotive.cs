@@ -7,7 +7,7 @@ namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
 [DebuggerDisplay("LOCOMOTIVE={Id}, Name: {Name}, Address: {Address.Address}")]
-public class Locomotive(string id = "") : BaseEntityDecoder(id, DCCAddressType.Long) {
+public class Locomotive : BaseEntityDecoder {
 
     private string            _type             = "";
     private string            _roadName         = "";
@@ -37,6 +37,13 @@ public class Locomotive(string id = "") : BaseEntityDecoder(id, DCCAddressType.L
         Address     = new DCCAddress(address, type);
         Direction   = direction;
         Speed.Value = 0;
+    }
+
+    [JsonConstructor]
+    protected Locomotive() : this("") { }
+
+    public Locomotive(string id = "") : base(id) {
+        AddressType = DCCAddressType.Long;
     }
 
     // Hate backing fields but need them for INotifyPropertyChanged Events

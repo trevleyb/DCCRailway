@@ -6,7 +6,7 @@ namespace DCCRailway.APIEndPoints;
 public static class SignalAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-        app.MapGet("/signals", async () => Results.Ok(await config.Signals.GetAllAsync()));
+        app.MapGet("/signals", async () => await Task.FromResult(Results.Ok(config.Signals.GetAllAsync())));
 
         app.MapGet("/signals/{id}", async (string id) => {
             var signal = await config.Signals.GetByIDAsync(id);

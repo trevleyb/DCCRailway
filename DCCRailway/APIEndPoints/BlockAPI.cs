@@ -6,7 +6,7 @@ namespace DCCRailway.APIEndPoints;
 public static class BlockAPI {
     public static void Configure(WebApplication app, IRailwayConfig config) {
 
-        app.MapGet("/blocks", async () => Results.Ok(await config.Blocks.GetAllAsync()));
+        app.MapGet("/blocks", async () => await Task.FromResult(Results.Ok(config.Blocks.GetAllAsync())));
 
         app.MapGet("/blocks/{id}", async (string id) => {
             var accessory = await config.Blocks.GetByIDAsync(id);

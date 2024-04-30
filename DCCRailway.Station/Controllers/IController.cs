@@ -30,4 +30,15 @@ public interface IController : IParameterMappable {
     // --------------------------------------------------------------------------
     public IDCCAddress CreateAddress();
     public IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
+
+    // Helpers to ensure that we can check if Commands and Adapters are supported.
+    // ---------------------------------------------------------------------------
+    public bool IsCommandSupported<T>() where T : ICommand;
+    public bool IsCommandSupported(Type command);
+    public bool IsCommandSupported(string name);
+
+    public bool IsAdapterSupported<T>() where T : IAdapter;
+    public bool IsAdapterSupported(Type adapter);
+    public bool IsAdapterSupported(string name);
+
 }

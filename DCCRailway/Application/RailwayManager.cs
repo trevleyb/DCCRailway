@@ -56,7 +56,7 @@ public class RailwayManager(IRailwayConfig? config = null) {
         // provided in the parameter.
         // ---------------------------------------------------------------------------------
         try {
-            controller = (controllerID is null) ? Config.Controllers.DefaultController : Config.Controllers[controllerID].Result;
+            controller = (controllerID is null) ? Config.Controllers.DefaultController : Config.Controllers[controllerID];
             if (controller is null) throw new ApplicationException("Cannot start the Layout Manager as no Controllers are defined.");
         }
         catch (Exception ex) {

@@ -10,97 +10,41 @@ using Tmds.Linux;
 namespace DCCRailway.Layout.Test;
 
 [TestFixture]
-public class TestRepository {
-
-    private int propertyChanged = 0;
-    private int propertyChanging = 0;
-
-    [TestCase]
-    public void TestEntityCollectionBasics() {
-
-        var collection = new TestEntities();
-        Assert.That(collection,Is.Not.Null);
-
-        collection.CollectionChanged += CollectionOnCollectionChanged;
-        collection.PropertyChanged += CollectionOnPropertyChanged;
-        collection.PropertyChanging += CollectionOnPropertyChanging;
-
-        // These will not raise individual events for the collection. Only when changed.
-        // -----------------------------------------------------------------------------
-        collection.Add(new TestEntity { Name = "Entity 1" });
-        collection.Add(new TestEntity { Name = "Entity 2" });
-        collection.Add(new TestEntity { Name = "Entity 3" });
-
-        var entity = collection[0];
-        entity.Name = "Updated Entity";
-        Assert.That(propertyChanging,Is.EqualTo(1));
-        Assert.That(propertyChanged,Is.EqualTo(1));
-    }
-
-    private void CollectionOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) {
-        // Do nothing but this advised if the collection has changed.
-    }
-
-    private void CollectionOnPropertyChanging(object? sender, PropertyChangingEventArgs e) {
-        propertyChanging++;
-    }
-
-    private void CollectionOnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
-        propertyChanged++;
-    }
-}
-
-[TestFixture]
 public class TestEntityCollectionWithChanges {
-
-    object? propertyChangedValue;
-    object? propertyChangingValue;
-
+    private string repository;
+    private string id;
+    private RepositoryChangeAction action;
 
     [TestCase]
     public void TestCastToEntityChangingProperties() {
 
         var collection = new TestEntities();
         Assert.That(collection, Is.Not.Null);
-
-        collection.CollectionChanged += CollectionOnCollectionChanged;
-        collection.PropertyChanged += CollectionOnPropertyChanged;
-        collection.PropertyChanging += CollectionOnPropertyChanging;
+        collection.RepositoryChanged += CollectionOnRepositoryChanged;
 
         // These will not raise individual events for the collection. Only when changed.
         // -----------------------------------------------------------------------------
-        collection.Add(new TestEntity { Id = "TEST1", Name = "Entity 1" });
+        var newEntity = new TestEntity { Name = "Entity 1" };
+        var addEntity = collection.Add(newEntity);
+        Assert.That(action,Is.EqualTo(RepositoryChangeAction.Add));
+        Assert.That(repository,Is.EqualTo("TestEntities"));
+        Assert.That(id,Is.EqualTo(addEntity.Id));
 
-        var entity = collection[0];
+        var entity = collection.IndexOf(0).Result;
+        Assert.That(entity,Is.Not.Null);
         entity.Name = "Updated Entity";
-        Assert.That(propertyChangingValue, Is.EqualTo("Entity 1"));
-        Assert.That(propertyChangedValue, Is.EqualTo("Updated Entity"));
-
-        var oldID = entity.Id;
-        var newId = collection.GetNextID().Result;
-        entity.Id = newId;
-        Assert.That(propertyChangingValue, Is.EqualTo(oldID));
-        Assert.That(propertyChangedValue, Is.EqualTo(newId));
-
+        collection.UpdateAsync(entity);
+        Assert.That(action,Is.EqualTo(RepositoryChangeAction.Update));
+        Assert.That(repository,Is.EqualTo("TestEntities"));
+        Assert.That(id,Is.EqualTo(collection.IndexOf(0).Result?.Id));
     }
 
-    private void CollectionOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) {
-        // Do nothing but this advised if the collection has changed.
-    }
-
-    private void CollectionOnPropertyChanging(object? sender, PropertyChangingEventArgs e) {
-        if (e is EntityPropertyChangingEventArgs args) {
-            propertyChangingValue = args.Value;
-        }
-    }
-
-    private void CollectionOnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
-        if (e is EntityPropertyChangedEventArgs args) {
-            propertyChangedValue = args.Value;
-        }
+    private void CollectionOnRepositoryChanged(object sender, RepositoryChangedEventArgs args) {
+        action = args.Action;
+        id = args.Id;
+        repository = args.Repository;
     }
 }
-
 
 public class TestEntities(string prefix = "TEST") : Repository<TestEntity>(prefix);
 

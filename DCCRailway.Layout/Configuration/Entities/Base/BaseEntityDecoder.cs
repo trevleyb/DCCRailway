@@ -4,9 +4,9 @@ using DCCRailway.Layout.Configuration.Entities.Layout;
 namespace DCCRailway.Layout.Configuration.Entities.Base;
 
 [Serializable]
-public class BaseEntityDecoder(string id, DCCAddressType addressType) : BaseEntity(id) {
+public class BaseEntityDecoder(string id = "") : BaseEntity(id) {
 
-    private DCCAddressType _addressType = addressType;
+    private DCCAddressType _addressType;
     private IDCCAddress    _address;
     private Decoder        _decoder;
 

@@ -21,7 +21,7 @@ public class ControllerEventLayoutTest {
         // Add a Locomotive to the layout configuration
         // ------------------------------------------------
         layoutConfig.Locomotives.Add(new Locomotive { Name = "TestLoco", Address = new DCCAddress(3) });
-        var loco = layoutConfig.Locomotives[0];
+        var loco = layoutConfig.Locomotives.IndexOf(0).Result;
         Assert.That(loco, Is.Not.Null);
         Assert.That(loco.Name, Is.EqualTo("TestLoco"));
 

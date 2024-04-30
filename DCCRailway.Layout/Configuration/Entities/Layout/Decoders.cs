@@ -4,5 +4,5 @@ namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
 public class Decoders(string prefix = "DCR") : Repository<Decoder>(prefix) {
-
+    public Decoders() : this("DCR") { }
 }
