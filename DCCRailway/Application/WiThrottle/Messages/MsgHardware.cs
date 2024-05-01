@@ -7,22 +7,22 @@ using Microsoft.Extensions.Primitives;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-public class MsgHardware(WiThrottleServerOptions options) : ThrottleMsg, IThrottleMsg {
-    public string Message {
+public class MsgHardware(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
         get {
             var message = new StringBuilder();
             message.Append("HT");
-            message.Append(options.Controller?.AttributeInfo().Name);
+            message.Append(connection.ActiveController.AttributeInfo().Name);
             message.Append(Terminators.Terminator);
             message.Append("Ht");
-            message.Append(options.Controller?.Adapter?.AttributeInfo().Name);
+            message.Append(connection.ActiveController.Adapter?.AttributeInfo().Name);
             message.Append(" ");
-            message.Append(options.Config?.Name);
-            message.Append(Terminators.Terminator);
+            message.Append(connection.RailwayConfig.Name);
+            message.AppendLine();
             return message.ToString();
         }
     }
-    public override string ToString() => $"MSG:Hardware=>{NoTerminators(Message)}";
+    public override string ToString() => $"MSG:Hardware=>{DisplayTerminators(Message)}";
 }
 
 /*

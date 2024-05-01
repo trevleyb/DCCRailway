@@ -6,8 +6,8 @@ using DCCRailway.Station.Commands.Types;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-public class MsgPowerState(WiThrottleServerOptions options) : ThrottleMsg, IThrottleMsg {
-    public string Message {
+public class MsgPowerState(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
         get {
             var sb = new StringBuilder();
             var powerStateMsg = GetPowerStateMsg();
@@ -18,10 +18,10 @@ public class MsgPowerState(WiThrottleServerOptions options) : ThrottleMsg, IThro
 
     private string? GetPowerStateMsg() {
         try {
-            if (options.Controller != null && options.Controller.IsCommandSupported<ICmdPowerGetState>()) {
-                var powerCmd = options.Controller.CreateCommand<ICmdPowerGetState>();
+            if (connection.ActiveController.IsCommandSupported<ICmdPowerGetState>()) {
+                var powerCmd = connection.ActiveController.CreateCommand<ICmdPowerGetState>();
                 if (powerCmd != null) {
-                    var powerState = options.Controller.Execute(powerCmd) as IResultPowerState;
+                    var powerState = connection.ActiveController.Execute(powerCmd) as IResultPowerState;
                     var powerMsg = powerState?.State switch {
                         DCCPowerState.On      => "PPA1",
                         DCCPowerState.Off     => "PPA0",
@@ -38,5 +38,5 @@ public class MsgPowerState(WiThrottleServerOptions options) : ThrottleMsg, IThro
         }
     }
 
-    public override string ToString() => $"MSG:PowerState=>{NoTerminators(Message)}";
+    public override string ToString() => $"MSG:PowerState=>{DisplayTerminators(Message)}";
 }

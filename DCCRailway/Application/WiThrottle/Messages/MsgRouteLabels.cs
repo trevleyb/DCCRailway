@@ -4,11 +4,11 @@ using DCCRailway.Application.WiThrottle.Helpers;
 namespace DCCRailway.Application.WiThrottle.Messages;
 
 
-public class MsgRouteLabels(WiThrottleServerOptions options) : ThrottleMsg, IThrottleMsg {
-    public string Message {
+public class MsgRouteLabels(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
         get {
-            var routes = options?.Config?.Routes.Values;
-            if (routes == null || !routes.Any()) return "";
+            var routes = connection.RailwayConfig.Routes.Values;
+            if (!routes.Any()) return "";
 
             var message = new StringBuilder();
             message.Append($"PRT");
@@ -24,10 +24,10 @@ public class MsgRouteLabels(WiThrottleServerOptions options) : ThrottleMsg, IThr
             message.Append("Inactive");
             message.Append("}|{");
             message.Append("4");
-            message.Append(Terminators.Terminator);
+            message.AppendLine();
             return message.ToString();
         }
-    }    public override string ToString() => $"MSG:RouteLabels=>{NoTerminators(Message)}";
+    }    public override string ToString() => $"MSG:RouteLabels=>{DisplayTerminators(Message)}";
 }
 
 /*

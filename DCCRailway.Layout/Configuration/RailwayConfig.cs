@@ -42,12 +42,12 @@ public sealed class RailwayConfig : IRailwayConfig {
     /// Public properites that
     /// </summary>
 
-    public string         Name           { get; set; } = "My Layout";
-    public string         Description    { get; set; } = "";
-    public string         Filename       { get; set; } = "Railway.Config.json";
+    public string         Name                  { get; set; } = "My Layout";
+    public string         Description           { get; set; } = "";
+    public string         Filename              { get; set; } = "Railway.Config.json";
 
-    [JsonInclude] public Controllers    Controllers { get; set; } = [];
-    [JsonInclude] public Parameters     Parameters { get; set; } = [];
+    [JsonInclude] public Controllers    Controllers   { get; set; } = [];
+    [JsonInclude] public Parameters     Parameters    { get; set; } = [];
     [JsonIgnore]  public Manufacturers  Manufacturers { get; } = new Manufacturers();
 
     [JsonInclude] public Accessories    Accessories   { get; set; } = [];

@@ -5,7 +5,7 @@ using Makaretu.Dns;
 namespace DCCRailway.Application.WiThrottle.Helpers;
 
 public static class ServerBroadcast {
-    public static void Start(WiThrottleServerOptions options) {
+    public static void Start(WiThrottlePreferences options) {
         var host = Dns.GetHostEntry(Dns.GetHostName());
 
         if (host.AddressList.Length > 0) {

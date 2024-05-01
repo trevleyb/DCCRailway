@@ -1,3 +1,4 @@
+using DCCRailway.Common.Types;
 using DCCRailway.Layout.Configuration;
 using DCCRailway.Layout.Configuration.Entities.Layout;
 
@@ -10,7 +11,11 @@ public static class TestConfig {
         var config = RailwayConfig.New(name,desc,file);
 
         var locomotives = config.Locomotives;
-        locomotives.Add(new Locomotive { Id = "", Name = "TestLocomotive1", Description = "Test Locomotive Description1" });
+        locomotives.Add(new Locomotive { Address = new DCCAddress(1029,DCCAddressType.Long), Name = "CN-1029", Description = "Canadian National (1029)" });
+        locomotives.Add(new Locomotive { Address = new DCCAddress(6502,DCCAddressType.Long), Name = "UP-6502", Description = "Union Pacific (6502)" });
+        locomotives.Add(new Locomotive { Address = new DCCAddress(98,DCCAddressType.Short),  Name = "NS-98", Description = "Norfolk Southern (98)" });
+        locomotives.Add(new Locomotive { Address = new DCCAddress(97,DCCAddressType.Short),  Name = "NS-97", Description = "Norfolk Southern (97)" });
+        locomotives.Add(new Locomotive { Address = new DCCAddress(1020,DCCAddressType.Long), Name = "CN-1020", Description = "Canadian National (1020)" });
 
         var sensors = config.Sensors;
         sensors.Add(new Sensor { Id = "SEN01", Name="Yard-Occupied" });
@@ -29,7 +34,9 @@ public static class TestConfig {
         signals.Add(new Signal { Id = "SIG03", Name = "Station-to-Mainline"});
 
         var routes = config.Routes;
-        routes.Add(new Route { Name = "TestTurnout1", Description = "Test Turnout Description1" });
+        routes.Add(new Route { Id = "RTE01", Name = "Route1", Description = "Station to Mainline" });
+        routes.Add(new Route { Id = "RTE02", Name = "Route2", Description = "Station to Yard" });
+        routes.Add(new Route { Id = "RTE03", Name = "Route3", Description = "Mainline to Yard" });
 
         var accessories = config.Accessories;
         accessories.Add(new Accessory { Name = "TestAccessory1", Description = "Test Accessory Description1" });

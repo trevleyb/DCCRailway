@@ -6,8 +6,8 @@ using DCCRailway.Station.Commands.Types;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-public class MsgConfiguration(WiThrottleServerOptions options) : ThrottleMsg, IThrottleMsg {
-    public string Message {
+public class MsgConfiguration(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
         get {
             var sb = new StringBuilder();
             sb.AppendLine ("VN2.0"); // Support for version 2.0 of the Protocol
@@ -16,5 +16,5 @@ public class MsgConfiguration(WiThrottleServerOptions options) : ThrottleMsg, IT
         }
     }
 
-    public override string ToString() => $"MSG:Configuration=>{NoTerminators(Message)}";
+    public override string ToString() => $"MSG:Configuration=>{DisplayTerminators(Message)}";
 }

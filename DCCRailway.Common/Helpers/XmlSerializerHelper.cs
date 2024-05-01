@@ -5,7 +5,7 @@ namespace DCCRailway.Common.Helpers;
 
 public class XmlSerializerHelper<T> {
     /// <summary>
-    ///     Load an instance of class T from a provided filename and throw an exception if the
+    ///     LoadFile an instance of class T from a provided filename and throw an exception if the
     ///     file name does not exist.
     /// </summary>
     /// <param name="fileName">The name of the file to load</param>

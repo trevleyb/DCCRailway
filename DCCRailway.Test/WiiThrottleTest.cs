@@ -1,5 +1,8 @@
 using DCCRailway.Application.WiThrottle;
 using DCCRailway.Layout.Configuration;
+using DCCRailway.Station.Controllers;
+using DCCRailway.Station.Virtual;
+using DCCRailway.Station.Virtual.Adapters;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
@@ -10,20 +13,26 @@ public class WiThrottleTest {
     [Test]
     public void TestIfWiThrottleLoads() {
 
-        var config = RailwayConfig.New();
-        var options = new WiThrottleServerOptions(config, null);
-        var wii = new WiThrottleServer(options);
+        var config = TestConfig.CreateTestConfig();
+        IController controller = new VirtualController {
+            Adapter = new VirtualAdapter()
+        };
+
+        var wii = new WiThrottleServer(config, controller);
         Assert.That(wii,Is.Not.Null);
         Assert.That(wii.ServerActive, Is.False);
         wii.Stop();
     }
 
-    [Test,Ignore("Ignore as runs continuously")]
+    [Test]
+    //[Ignore("Ignore this test")]
     public void TestIfWiThrottleLoadsAndRuns() {
 
-        var config = RailwayConfig.New();
-        var options = new WiThrottleServerOptions(config, null);
-        var wii = new WiThrottleServer(options);
+        IRailwayConfig config = TestConfig.CreateTestConfig();
+        IController controller = new VirtualController {
+            Adapter = new VirtualAdapter()
+        };
+        var wii = new WiThrottleServer(config,controller);
         Assert.That(wii,Is.Not.Null);
         Assert.That(wii.ServerActive, Is.False);
         wii.Start();

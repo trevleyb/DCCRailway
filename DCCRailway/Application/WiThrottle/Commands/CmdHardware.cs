@@ -3,7 +3,7 @@ using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Application.WiThrottle.Commands;
 
-public class CmdHardware (WiThrottleConnection connection, WiThrottleServerOptions options) : ThrottleCmd, IThrottleCmd {
+public class CmdHardware (WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
 
     public void Execute(string commandStr) {
         Logger.Log.Information("{0}=>'{1}'",ToString(),commandStr);
@@ -17,7 +17,7 @@ public class CmdHardware (WiThrottleConnection connection, WiThrottleServerOptio
                 }
                 connection.HardwareID = hardwareID;
                 Logger.Log.Debug("CmdFactory [{0}]: Set the hardwareID to '{1}'", connection.ConnectionID, hardwareID);
-                connection.AddResponseMsg(new MsgHardware(options));
+                connection.QueueMsg(new MsgHardware(connection));
                 break;
             default:
                 break;

@@ -3,7 +3,7 @@ using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Application.WiThrottle.Commands;
 
-public class CmdName(WiThrottleConnection connection, WiThrottleServerOptions options) : ThrottleCmd, IThrottleCmd {
+public class CmdName(WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
 
     // Recieved a "NAME" [N] command from a Client and so we need to process it.
     // ------------------------------------------------------------------------
@@ -13,14 +13,14 @@ public class CmdName(WiThrottleConnection connection, WiThrottleServerOptions op
             var deviceName = commandStr[1..].Replace("???", "'");
             connection.ThrottleName = deviceName;
             Logger.Log.Debug("CmdFactory [{0}]: Set the connection device name to '{1}'",connection.ConnectionID, deviceName);
-            connection.AddResponseMsg(new MsgServerID(options));
-            connection.AddResponseMsg(new MsgPowerState(options));
-            connection.AddResponseMsg(new MsgRosterList(options));
-            connection.AddResponseMsg(new MsgTurnoutLabels(options));
-            connection.AddResponseMsg(new MsgTurnoutList(options));
-            connection.AddResponseMsg(new MsgRouteLabels(options));
-            connection.AddResponseMsg(new MsgRouteList(options));
-            connection.AddResponseMsg(new MsgHeartbeat(options));
+            connection.QueueMsg(new MsgServerID(connection));
+            connection.QueueMsg(new MsgPowerState(connection));
+            connection.QueueMsg(new MsgRosterList(connection));
+            connection.QueueMsg(new MsgTurnoutLabels(connection));
+            connection.QueueMsg(new MsgTurnoutList(connection));
+            connection.QueueMsg(new MsgRouteLabels(connection));
+            connection.QueueMsg(new MsgRouteList(connection));
+            connection.QueueMsg(new MsgHeartbeat(connection));
         }
     }
     public override string ToString() => "CMD:Name";

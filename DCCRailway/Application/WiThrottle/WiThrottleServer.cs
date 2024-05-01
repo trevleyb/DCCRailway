@@ -1,12 +1,30 @@
-﻿using System.Net.Sockets;
+﻿using System.Collections.ObjectModel;
+using System.Net.Sockets;
 using System.Text;
+using System.Timers;
 using DCCRailway.Application.WiThrottle.Helpers;
 using DCCRailway.Application.WiThrottle.Messages;
 using DCCRailway.Common.Helpers;
+using DCCRailway.Layout.Configuration;
+using DCCRailway.Station.Controllers;
 
 namespace DCCRailway.Application.WiThrottle;
 
-public class WiThrottleServer(WiThrottleServerOptions options) {
+/// <summary>
+/// This is the main server for the WiThrottleController. It manages incomming connections, tracks them in a
+/// WiThrottleConnection and manages messages. It takes as parameters a RailwayConfig reference to allow it
+/// to get information about the Layout (Locos, Turnouts etc) as well as a reference to the active DCC
+/// controller so it can send messages to that controller.
+///
+/// Note that it does not need to track what messages it has sent as the LayoutConfig uses events to
+/// track what commands have been sent and automatically update the Layout with state changes.
+/// </summary>
+/// <param name="railwayConfig"></param>The main layout collection of objects and settings
+/// <param name="activeController"></param>An active IController instance
+public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeController) {
+
+    private System.Timers.Timer   _heartbeatCheckTimer;
+    private WiThrottlePreferences _preferences;
 
     /// <summary>
     ///     Indicator that the server is currently active.
@@ -19,22 +37,27 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
     /// </summary>
     public void Start() {
 
+        // Load a set of preferences from a file but if it does not exit, just create
+        // a default set (as normally we do not need to overwrite any of the settings)
+        // ----------------------------------------------------------------------------
+        _preferences = WiThrottlePreferences.Load() ?? new WiThrottlePreferences();
+
         // Make sure that the Service is not already running
         // -------------------------------------------------------
-        if (ServiceHelper.IsServiceRunningOnPort(options.Port)) {
+        if (ServiceHelper.IsServiceRunningOnPort(_preferences.Port)) {
             Logger.LogContext<WiThrottleServer>().Error("Service is already running. ");
             return;
         }
 
         // Setup the Server to Broadcast its presence on the network
         // ----------------------------------------------------------
-        ServerBroadcast.Start(options);
+        ServerBroadcast.Start(_preferences);
 
         // Start up the TCP Server to listen for incoming connections and process
         // ----------------------------------------------------------
         try {
             Logger.LogContext<WiThrottleServer>().Information("Starting the WiThrottle Server Listener.");
-            using (var tcpServer = new TcpListener(options.Address, options.Port)) {
+            using (var tcpServer = new TcpListener(_preferences.Address, _preferences.Port)) {
                 tcpServer.Start();
                 StartListener(tcpServer);
             }
@@ -42,9 +65,6 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
         catch (Exception ex) {
             Logger.LogContext<WiThrottleServer>().Error("Server Crashed: {0}", ex);
             throw;
-        }
-        finally {
-            Stop();
         }
     }
 
@@ -58,7 +78,13 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
 
     private void StartListener(TcpListener server) {
         ServerActive = true;
+
         try {
+            _heartbeatCheckTimer = new System.Timers.Timer(_preferences.HeartbeatCheckTime);
+            _heartbeatCheckTimer.Elapsed += HeartbeatCheckHandler;
+            _heartbeatCheckTimer.AutoReset = true;
+            _heartbeatCheckTimer.Start();
+
             Logger.LogContext<WiThrottleServer>().Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
             while (ServerActive) {
                 var client = server.AcceptTcpClient();
@@ -69,6 +95,11 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
         }
         catch (SocketException e) {
             Logger.LogContext<WiThrottleServer>().Error("SocketException: {0}", e);
+        }
+        finally {
+            _heartbeatCheckTimer.Stop();
+            ForceCloseAllConnections();
+            Logger.LogContext<WiThrottleServer>().Information("Server Stopped.");
         }
     }
 
@@ -87,8 +118,8 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
 
         Logger.LogContext<WiThrottleServer>().Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
         var stream = client.GetStream();
-        var connection = options.Connections.Add((ulong)client.Client.Handle);
-        connection.AddResponseMsg(new MsgConfiguration(options));
+        var connection = _preferences.Connections.Add((ulong)client.Client.Handle,_preferences,railwayConfig,activeController);
+        connection.QueueMsg(new MsgConfiguration(connection));
 
         try {
             var bytesRead = 0;
@@ -107,7 +138,7 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
                 if (Terminators.HasTerminator(buffer)) {
                     foreach (var command in Terminators.GetMessagesAndLeaveIncomplete(buffer)) {
                         if (!string.IsNullOrEmpty(command)) {
-                            if (WiThrottleCmdFactory.Interpret(connection,options,command)) break;
+                            if (WiThrottleCmdFactory.Interpret(connection, command)) break;
                             SendServerMessages(connection, stream);
                         }
                     }
@@ -129,13 +160,12 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
     /// <param name="connection"></param>
     /// <param name="stream"></param>
     private void SendServerMessages(WiThrottleConnection connection, NetworkStream stream) {
-        while (connection.ServerMessages.HasMessages) {
+        while (connection.HasMsg) {
             try {
-                var message = connection.ServerMessages.Next;
-                if (message is not null) {
+                if (connection.NextMsg is { IsValid: true } message) {
                     var serverMessage = Encoding.ASCII.GetBytes(message.Message);
                     if (stream is { CanWrite: true }) {
-                        Logger.Log.Information("{0}",message.ToString());
+                        Logger.Log.Information("{0}", message.ToString());
                         stream.Write(serverMessage, 0, serverMessage.Length);
                     }
                 }
@@ -146,4 +176,25 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
             }
         }
     }
+
+    /// <summary>
+    /// Heartbeat management - ensure that we get heartbeats from each connection
+    /// and if we don't then force that connection to close but ensure we execute a
+    /// stop all for any locos under that Throttles control.
+    /// </summary>
+    private void HeartbeatCheckHandler(object? sender, ElapsedEventArgs args) {
+        CloseConnectionsWithCondition( connection => !connection.IsHeartbeatOk,
+                                      "Did not get a Heartbeat from Client - terminating: {0}");
+    }
+
+    private void CloseConnectionsWithCondition(Func<WiThrottleConnection, bool> conditionToClose, string logMessage) {
+        var connectionsToClose = _preferences.Connections.Where(conditionToClose).ToList();
+        foreach (var connection in connectionsToClose) {
+            Logger.Log.Information(logMessage, connection.ConnectionID);
+            connection.Close();
+        }
+    }
+
+    private void ForceCloseAllConnections() => CloseConnectionsWithCondition(connection => true, "Force Closing Connection: {0}");
+
 }

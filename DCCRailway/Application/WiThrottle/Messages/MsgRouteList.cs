@@ -3,11 +3,11 @@ using DCCRailway.Application.WiThrottle.Helpers;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-public class MsgRouteList(WiThrottleServerOptions options) : ThrottleMsg, IThrottleMsg {
-    public string Message {
+public class MsgRouteList(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
         get {
-            var routes = options?.Config?.Routes.Values;
-            if (routes == null || !routes.Any()) return "";
+            var routes = connection.RailwayConfig.Routes.Values;
+            if (!routes.Any()) return "";
 
             var message = new StringBuilder();
             message.Append($"PRL");
@@ -22,10 +22,10 @@ public class MsgRouteList(WiThrottleServerOptions options) : ThrottleMsg, IThrot
                 //route.CurrentState == DCCTurnoutState.Closed ? "2" :
                 //route.CurrentState == DCCTurnoutState.Thrown ? "4" : "1");
             }
-            message.Append(Terminators.Terminator);
+            message.AppendLine();
             return message.ToString();
         }
-    }    public override string ToString() => $"MSG:RouteList=>{NoTerminators(Message)}";
+    }    public override string ToString() => $"MSG:RouteList=>{DisplayTerminators(Message)}";
 }
 
 /*

@@ -5,7 +5,7 @@ using DCCRailway.Station.Commands.Types;
 
 namespace DCCRailway.Application.WiThrottle.Commands;
 
-public class CmdPanel (WiThrottleConnection connection, WiThrottleServerOptions options) : ThrottleCmd, IThrottleCmd {
+public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
 
         Logger.Log.Information("{0}=>'{1}'",ToString(),commandStr);
@@ -42,7 +42,7 @@ public class CmdPanel (WiThrottleConnection connection, WiThrottleServerOptions 
     /// </summary>
     private void ThrowTurnout(string commandStr) {
         var turnoutID = commandStr[1..];
-        var turnout = options.Config?.Turnouts[turnoutID];
+        var turnout = connection.RailwayConfig.Turnouts?[turnoutID];
         if (turnout != null) {
             switch (commandStr[0]) {
             case '2':
@@ -53,7 +53,7 @@ public class CmdPanel (WiThrottleConnection connection, WiThrottleServerOptions 
                 break;
             }
         }
-        connection.AddResponseMsg(new MsgTurnoutState(options,turnout));
+        connection.QueueMsg(new MsgTurnoutState(connection,turnout));
     }
 
     /// <summary>
@@ -62,14 +62,14 @@ public class CmdPanel (WiThrottleConnection connection, WiThrottleServerOptions 
     /// </summary>
     private void SetRoute(string commandStr) {
         var routeID = commandStr[1..];
-        var route = options.Config?.Routes[routeID];
+        var route = connection.RailwayConfig.Routes?[routeID];
         if (route != null) {
             switch (commandStr[0]) {
             case '2':
                 break;
             }
         }
-        connection.AddResponseMsg(new MsgRouteState(options,route));
+        connection.QueueMsg(new MsgRouteState(connection,route));
     }
 
     /// <summary>
@@ -82,19 +82,19 @@ public class CmdPanel (WiThrottleConnection connection, WiThrottleServerOptions 
 
         switch (state) {
         case '0':
-            if (options.Controller != null && options.Controller.IsCommandSupported<ICmdPowerSetOff>()) {
-                var powerCmd = options.Controller.CreateCommand<ICmdPowerSetOff>();
-                if (powerCmd != null) options.Controller.Execute(powerCmd);
+            if (connection.ActiveController.IsCommandSupported<ICmdPowerSetOff>()) {
+                var powerCmd = connection.ActiveController.CreateCommand<ICmdPowerSetOff>();
+                if (powerCmd != null) connection.ActiveController.Execute(powerCmd);
             }
             break;
         case '1':
-            if (options.Controller != null && options.Controller.IsCommandSupported<ICmdPowerSetOn>()) {
-                var powerCmd = options.Controller.CreateCommand<ICmdPowerSetOn>();
-                if (powerCmd != null) options.Controller.Execute(powerCmd);
+            if (connection.ActiveController.IsCommandSupported<ICmdPowerSetOn>()) {
+                var powerCmd = connection.ActiveController.CreateCommand<ICmdPowerSetOn>();
+                if (powerCmd != null) connection.ActiveController.Execute(powerCmd);
             }
             break;
         }
-        connection.AddResponseMsg(new MsgPowerState(options));
+        connection.QueueMsg(new MsgPowerState(connection));
     }
 
     public override string ToString() => "CMD:Panel";

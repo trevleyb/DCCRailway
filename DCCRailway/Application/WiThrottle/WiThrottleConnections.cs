@@ -1,4 +1,7 @@
 ﻿using System.Net.Sockets;
+using DCCRailway.Common.Types;
+using DCCRailway.Layout.Configuration;
+using DCCRailway.Station.Controllers;
 
 namespace DCCRailway.Application.WiThrottle;
 
@@ -16,11 +19,11 @@ public class WiThrottleConnections : List<WiThrottleConnection> {
     /// <param name="throttleName">The name of the Throttle</param>
     /// <param name="hardwareID">The unique ID for the throttle</param>
     /// <returns></returns>
-    public WiThrottleConnection Add(ulong connectionID, string throttleName = "", string hardwareID = "") {
+    public WiThrottleConnection Add(ulong connectionID, WiThrottlePreferences preferences, IRailwayConfig railwayConfig, IController commandStation, string throttleName = "", string hardwareID = "") {
         var connection = Find(connectionID);
         if (connection is null) {
-            connection = new(connectionID, this, throttleName, hardwareID) {
-                HardwareID = hardwareID,
+            connection = new WiThrottleConnection(connectionID, preferences, this, railwayConfig, commandStation, throttleName, hardwareID) {
+                HardwareID   = hardwareID,
                 ThrottleName = throttleName
             };
             Add(connection);
@@ -28,42 +31,25 @@ public class WiThrottleConnections : List<WiThrottleConnection> {
         return connection;
     }
 
-    /// <summary>
-    ///     Remove an Entry from the entries list
-    /// </summary>
-    /// <param name="connectionID"></param>
-    public void Disconnect(ulong connectionID) {
-        foreach (var entry in FindAll(x => x.ConnectionID == connectionID)) {
-            // Is there anything we need to do to close this?
+    public bool IsAddressInUse(DCCAddress address) {
+        foreach (var connection in this) {
+            if (connection.IsLocoAssigned(address)) return true;
         }
-        RemoveAll(x => x.ConnectionID == connectionID);
+        return false;
+    }
+
+    public void Release(DCCAddress address) {
+        foreach (var connection in this) {
+            if (connection.IsLocoAssigned(address)) connection.Release(address);
+        }
     }
 
     /// <summary>
     ///     Remove an Entry from the entries list
     /// </summary>
-    /// <param name="connectionID"></param>
     public void Disconnect(WiThrottleConnection entry) {
         // Is there anything we need to do to close this?
         Remove(entry);
-    }
-
-    /// <summary>
-    ///     Remove an entry from the entries list
-    /// </summary>
-    /// <param name="hardwareID"></param>
-    public void Disconnect(string hardwareID) {
-        foreach (var entry in FindAll(x => x.HardwareID.Equals(hardwareID, StringComparison.InvariantCultureIgnoreCase))) {
-            // Is there anything we need to do to close this?
-        }
-        RemoveAll(x => x.HardwareID.Equals(hardwareID, StringComparison.InvariantCultureIgnoreCase));
-    }
-
-    /// <summary>
-    ///     Remove an entry from the entries list
-    /// </summary>
-    public void Delete(WiThrottleConnection entry) {
-        Disconnect(entry);
     }
 
     /// <summary>

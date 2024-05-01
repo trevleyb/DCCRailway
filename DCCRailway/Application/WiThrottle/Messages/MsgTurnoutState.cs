@@ -5,8 +5,8 @@ using DCCRailway.Layout.Configuration.Entities.Layout;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-public class MsgTurnoutState(WiThrottleServerOptions options, Layout.Configuration.Entities.Layout.Turnout? turnout) : ThrottleMsg, IThrottleMsg {
-    public string Message {
+public class MsgTurnoutState(WiThrottleConnection connection, Layout.Configuration.Entities.Layout.Turnout? turnout) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
         get {
             var sb = new StringBuilder();
             if (turnout != null) {
@@ -20,6 +20,6 @@ public class MsgTurnoutState(WiThrottleServerOptions options, Layout.Configurati
             return sb.ToString();
         }
     }
-    public override string ToString() => $"MSG:TurnoutState=>{NoTerminators(Message)}";
+    public override string ToString() => $"MSG:TurnoutState=>{DisplayTerminators(Message)}";
 
 }

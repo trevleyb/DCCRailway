@@ -7,11 +7,11 @@ using Microsoft.Extensions.Primitives;
 namespace DCCRailway.Application.WiThrottle.Messages;
 
 
-public class MsgTurnoutLabels(WiThrottleServerOptions options) : ThrottleMsg, IThrottleMsg {
-    public string Message {
+public class MsgTurnoutLabels(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
         get {
-            var turnouts = options?.Config?.Turnouts.Values;
-            if (turnouts is null || !turnouts.Any()) return "";
+            var turnouts = connection.RailwayConfig.Turnouts.Values;
+            if (!turnouts.Any()) return "";
 
             // This block should be re-written in the future to support the Names of the States
             // of the Turnouts to come from Condfiguration. 
@@ -28,11 +28,11 @@ public class MsgTurnoutLabels(WiThrottleServerOptions options) : ThrottleMsg, IT
             message.Append("]\\[");
             message.Append("Thrown");
             message.Append("}|{");
-            message.Append("4");            
-            message.Append(Terminators.Terminator);
+            message.Append("4");
+            message.AppendLine();
             return message.ToString();
         }
-    }    public override string ToString() => $"MSG:TurnoutLabels=>{NoTerminators(Message)}";
+    }    public override string ToString() => $"MSG:TurnoutLabels=>{DisplayTerminators(Message)}";
 }
 
 /*

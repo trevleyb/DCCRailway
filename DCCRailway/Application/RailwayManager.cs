@@ -36,7 +36,7 @@ public class RailwayManager(IRailwayConfig? config = null) {
             _activeController = null;
         }
 
-        //_config.Save();
+        //_config.SaveFile();
     }
 
     public IRailwayConfig Config { get; } = config ?? RailwayConfig.Load();

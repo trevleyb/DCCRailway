@@ -4,8 +4,8 @@ using DCCRailway.Layout.Configuration.Entities.Layout;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-public class MsgRouteState(WiThrottleServerOptions options, Layout.Configuration.Entities.Layout.Route? route) : ThrottleMsg, IThrottleMsg {
-    public string Message {
+public class MsgRouteState(WiThrottleConnection connection, Layout.Configuration.Entities.Layout.Route? route) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
         get {
             var sb = new StringBuilder();
             if (route != null) {
@@ -19,6 +19,6 @@ public class MsgRouteState(WiThrottleServerOptions options, Layout.Configuration
             return sb.ToString();
         }
     }
-    public override string ToString() => $"MSG:RouteState=>{NoTerminators(Message)}";
+    public override string ToString() => $"MSG:RouteState=>{DisplayTerminators(Message)}";
 
 }
