@@ -23,5 +23,5 @@ public class CmdName(WiThrottleConnection connection) : ThrottleCmd, IThrottleCm
             connection.QueueMsg(new MsgHeartbeat(connection));
         }
     }
-    public override string ToString() => "CMD:Name";
+    public override string ToString() => $"CMD:Name [{connection?.ConnectionID ?? 0}]";
 }

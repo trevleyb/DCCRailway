@@ -6,5 +6,5 @@ public class CmdIgnore (WiThrottleConnection connection) : ThrottleCmd, IThrottl
     public void Execute(string commandStr) {
         Logger.Log.Information("{0}=>'{1}'",ToString(),commandStr);
     }
-    public override string ToString() => "CMD:Ignore";
+    public override string ToString() => $"CMD:Ignore [{connection?.ConnectionID ?? 0}]";
 }

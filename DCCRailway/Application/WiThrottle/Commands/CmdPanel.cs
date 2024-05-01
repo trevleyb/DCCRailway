@@ -97,5 +97,5 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
         connection.QueueMsg(new MsgPowerState(connection));
     }
 
-    public override string ToString() => "CMD:Panel";
+    public override string ToString() => $"CMD:Panel [{connection?.ConnectionID ?? 0}]";
 }

@@ -30,5 +30,5 @@ public class CmdRoster (WiThrottleConnection connection) : ThrottleCmd, IThrottl
         }
     }
 
-    public override string ToString() => "CMD:Roster";
+    public override string ToString() => $"CMD:Roster [{connection?.ConnectionID ?? 0}]";
 }

@@ -27,7 +27,7 @@ public class MsgRouteLabels(WiThrottleConnection connection) : ThrottleMsg, IThr
             message.AppendLine();
             return message.ToString();
         }
-    }    public override string ToString() => $"MSG:RouteLabels=>{DisplayTerminators(Message)}";
+    }    public override string ToString() => $"MSG:RouteLabels [{connection?.ConnectionID ?? 0}]=>{DisplayTerminators(Message)}";
 }
 
 /*

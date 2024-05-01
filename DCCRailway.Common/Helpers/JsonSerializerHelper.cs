@@ -11,7 +11,7 @@ public abstract class JsonSerializerHelper<T> {
     /// <returns>An instance of an XML class </returns>
     /// <exception cref="ApplicationException">If it is unable to load the file</exception>
     public static T? LoadFile(string? fileName) {
-        if (!File.Exists(fileName)) throw new FileNotFoundException($"Unable to access file '{fileName}'");
+        if (!File.Exists(fileName)) return default(T);
         try {
             var serializedStr = File.ReadAllText(fileName);
             var serializerOptions   = new JsonSerializerOptions {

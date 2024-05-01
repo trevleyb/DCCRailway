@@ -146,6 +146,7 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
                 }
             }
             Logger.LogContext<WiThrottleServer>().Debug("Connection: Client '{0}' has closed.", connection?.ConnectionID);
+            connection?.Close();
         }
         catch (Exception e) {
             Logger.LogContext<WiThrottleServer>().Error("Exception: {0}", e);
@@ -183,8 +184,10 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
     /// stop all for any locos under that Throttles control.
     /// </summary>
     private void HeartbeatCheckHandler(object? sender, ElapsedEventArgs args) {
+        Logger.Log.Information($"Heartbeat Checker: {args.SignalTime}");
+
         CloseConnectionsWithCondition( connection => !connection.IsHeartbeatOk,
-                                      "Did not get a Heartbeat from Client - terminating: {0}");
+                                       "Did not get a Heartbeat from Client - terminating: {0}");
     }
 
     private void CloseConnectionsWithCondition(Func<WiThrottleConnection, bool> conditionToClose, string logMessage) {

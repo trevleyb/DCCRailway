@@ -53,7 +53,6 @@ public class WiThrottleConnection {
     ///     this controller.
     /// </summary>
     public bool IsHeartbeatOk => HeartbeatState == HeartbeatStateEnum.Off || ((DateTime.Now - LastHeartbeat).TotalSeconds < HeartbeatSeconds);
-
     public void UpdateHeartbeat() => LastHeartbeat = DateTime.Now;
 
     public bool IsLocoAssigned(DCCAddress address) => _assignedLocos.IsAssigned(address);
@@ -63,6 +62,10 @@ public class WiThrottleConnection {
     public IThrottleMsg? NextMsg => _serverMessages.HasMessages ? _serverMessages.Dequeue() : null;
     public void QueueMsg(IThrottleMsg message) => _serverMessages.Add(message);
     public bool HasMsg => _serverMessages.HasMessages;
+
+    public WiThrottleConnection? GetByHardwareID(string hardwareID) {
+        return _listReference.FirstOrDefault(x => x.HardwareID.Equals(hardwareID) && x.ConnectionID != ConnectionID);
+    }
 
     public void RemoveDuplicateID(string hardwareID) {
         for (var i = _listReference.Count - 1; i >= 0; i--) {
@@ -91,6 +94,9 @@ public class WiThrottleConnection {
                 layoutCmd.Stop();
             }
         }
+
+        // Turn off the Heartbeat so we don't check this connection.
+        HeartbeatState = HeartbeatStateEnum.Off;
         _assignedLocos.Clear();
     }
 }

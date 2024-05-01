@@ -20,5 +20,5 @@ public class MsgAddress(WiThrottleConnection connection, MultiThrottleMessage da
         }
     }
 
-    public override string ToString() => $"MSG:MSGAddress=>{DisplayTerminators(Message)}";
+    public override string ToString() => $"MSG:MSGAddress [{connection?.ConnectionID ?? 0}]=>{DisplayTerminators(Message)}";
 }

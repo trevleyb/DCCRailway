@@ -32,7 +32,8 @@ public class MsgTurnoutLabels(WiThrottleConnection connection) : ThrottleMsg, IT
             message.AppendLine();
             return message.ToString();
         }
-    }    public override string ToString() => $"MSG:TurnoutLabels=>{DisplayTerminators(Message)}";
+    }
+    public override string ToString() => $"MSG:TurnoutLabels [{connection?.ConnectionID ?? 0}]=>{DisplayTerminators(Message)}";
 }
 
 /*

@@ -38,5 +38,5 @@ public class MsgPowerState(WiThrottleConnection connection) : ThrottleMsg, IThro
         }
     }
 
-    public override string ToString() => $"MSG:PowerState=>{DisplayTerminators(Message)}";
+    public override string ToString() => $"MSG:PowerState [{connection?.ConnectionID ?? 0}]=>{DisplayTerminators(Message)}";
 }

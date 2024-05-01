@@ -20,7 +20,7 @@ public class WiThrottlePreferences () : JsonSerializerHelper<WiThrottlePreferenc
     public string Name { get; init; } = "DCCRailway WiThrottle Service";
 
     public int HeartbeatSeconds { get; set; } = 15;
-    public int HeartbeatCheckTime => (int)(HeartbeatSeconds / 5 * 100);
+    public int HeartbeatCheckTime => (int)((HeartbeatSeconds / 5) * 1000);
 
     /// <summary>
     /// This collection tracks a list of connections from different WiThrottles

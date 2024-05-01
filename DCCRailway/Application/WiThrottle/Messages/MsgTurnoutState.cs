@@ -20,6 +20,6 @@ public class MsgTurnoutState(WiThrottleConnection connection, Layout.Configurati
             return sb.ToString();
         }
     }
-    public override string ToString() => $"MSG:TurnoutState=>{DisplayTerminators(Message)}";
+    public override string ToString() => $"MSG:TurnoutState [{connection?.ConnectionID ?? 0}]=>{DisplayTerminators(Message)}";
 
 }

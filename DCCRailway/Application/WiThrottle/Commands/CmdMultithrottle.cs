@@ -55,6 +55,6 @@ public class CmdMultiThrottle(WiThrottleConnection connection) : ThrottleCmd, IT
         return new MsgAddress(connection,data);
     }
 
-    public override string ToString() => "CMD:MultiThrottle";
+    public override string ToString() => $"CMD:MultiThrottle [{connection?.ConnectionID ?? 0}]";
 
 }
