@@ -1,18 +1,12 @@
-﻿using System.Net;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Text;
-using DCCRailway.Application.WiThrottle.Commands;
 using DCCRailway.Application.WiThrottle.Helpers;
 using DCCRailway.Application.WiThrottle.Messages;
 using DCCRailway.Common.Helpers;
-using ILogger = Serilog.ILogger;
 
 namespace DCCRailway.Application.WiThrottle;
 
 public class WiThrottleServer(WiThrottleServerOptions options) {
-
-    private readonly ILogger log = Logger.LogContext<WiThrottleServer>();
-    private readonly WiThrottleConnectionList _wiThrottleConnections = new();
 
     /// <summary>
     ///     Indicator that the server is currently active.
@@ -28,7 +22,7 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
         // Make sure that the Service is not already running
         // -------------------------------------------------------
         if (ServiceHelper.IsServiceRunningOnPort(options.Port)) {
-            log.Error("Service is already running. ");
+            Logger.LogContext<WiThrottleServer>().Error("Service is already running. ");
             return;
         }
 
@@ -39,14 +33,14 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
         // Start up the TCP Server to listen for incoming connections and process
         // ----------------------------------------------------------
         try {
-            log.Information("Starting the WiThrottle Server Listener.");
+            Logger.LogContext<WiThrottleServer>().Information("Starting the WiThrottle Server Listener.");
             using (var tcpServer = new TcpListener(options.Address, options.Port)) {
                 tcpServer.Start();
                 StartListener(tcpServer);
             }
         }
         catch (Exception ex) {
-            log.Error("Server Crashed: {0}", ex);
+            Logger.LogContext<WiThrottleServer>().Error("Server Crashed: {0}", ex);
             throw;
         }
         finally {
@@ -65,16 +59,16 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
     private void StartListener(TcpListener server) {
         ServerActive = true;
         try {
-            log.Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
+            Logger.LogContext<WiThrottleServer>().Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
             while (ServerActive) {
                 var client = server.AcceptTcpClient();
                 Thread t = new(HandleConnection);
                 t.Start(client);
             }
-            log.Debug("Server Shutting Down on {0}", server.LocalEndpoint);
+            Logger.LogContext<WiThrottleServer>().Debug("Server Shutting Down on {0}", server.LocalEndpoint);
         }
         catch (SocketException e) {
-            log.Error("SocketException: {0}", e);
+            Logger.LogContext<WiThrottleServer>().Error("SocketException: {0}", e);
         }
     }
 
@@ -87,14 +81,13 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
         // This should not be possible but best to ensure and check for this edge case.
         // -----------------------------------------------------------------------------
         if (obj is not TcpClient client) {
-            log.Warning("Started thread but provided a NON-TCP Client Object.");
+            Logger.LogContext<WiThrottleServer>().Warning("Started thread but provided a NON-TCP Client Object.");
             return;
         }
 
-        log.Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
+        Logger.LogContext<WiThrottleServer>().Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
         var stream = client.GetStream();
-        var connection = _wiThrottleConnections.Add((ulong)client.Client.Handle);
-        var cmdFactory = new WiThrottleCmdFactory(connection, options);
+        var connection = options.Connections.Add((ulong)client.Client.Handle);
         connection.AddResponseMsg(new MsgConfiguration(options));
 
         try {
@@ -108,23 +101,23 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
                 // we get a terminator at the end of the data stream.
                 // -------------------------------------------------------------------------------------
                 var data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
-                log.Debug($"{connection.ConnectionID:D4}: Received Data='{data.Trim()}'");
+                Logger.LogContext<WiThrottleServer>().Debug($"{connection.ConnectionID:D4}: Received Data='{data.Trim()}'");
                 buffer.Append(data);
 
                 if (Terminators.HasTerminator(buffer)) {
                     foreach (var command in Terminators.GetMessagesAndLeaveIncomplete(buffer)) {
                         if (!string.IsNullOrEmpty(command)) {
-                            if (cmdFactory.Interpret(command)) break;
+                            if (WiThrottleCmdFactory.Interpret(connection,options,command)) break;
                             SendServerMessages(connection, stream);
                         }
                     }
                     buffer.Clear();
                 }
             }
-            log.Debug("Connection: Client '{0}' has closed.", connection?.ConnectionID);
+            Logger.LogContext<WiThrottleServer>().Debug("Connection: Client '{0}' has closed.", connection?.ConnectionID);
         }
         catch (Exception e) {
-            log.Error("Exception: {0}", e);
+            Logger.LogContext<WiThrottleServer>().Error("Exception: {0}", e);
         }
     }
 
@@ -151,12 +144,6 @@ public class WiThrottleServer(WiThrottleServerOptions options) {
                 Logger.Log.Error("Unable to send message to the client : {0}", ex.Message);
                 throw;
             }
-        }
-    }
-
-    public void AddBroadcastMessageToAll(IThrottleMsg message) {
-        foreach (var connection in _wiThrottleConnections) {
-            connection.ServerMessages.Add(message);
         }
     }
 }

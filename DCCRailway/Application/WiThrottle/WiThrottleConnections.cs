@@ -7,7 +7,7 @@ namespace DCCRailway.Application.WiThrottle;
 ///     and will track a connection to a Command Station and what commands are or
 ///     have been sent on behalf of the throttle.
 /// </summary>
-public class WiThrottleConnectionList : List<WiThrottleConnection> {
+public class WiThrottleConnections : List<WiThrottleConnection> {
 
     /// <summary>
     ///     Add a new entry into the list of connected Throttles

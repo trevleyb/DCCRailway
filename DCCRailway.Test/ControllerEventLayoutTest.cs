@@ -23,7 +23,7 @@ public class ControllerEventLayoutTest {
         layoutConfig.Locomotives.Add(new Locomotive { Name = "TestLoco", Address = new DCCAddress(3) });
         var loco = layoutConfig.Locomotives.IndexOf(0).Result;
         Assert.That(loco, Is.Not.Null);
-        Assert.That(loco.Name, Is.EqualTo("TestLoco"));
+        Assert.That(loco!.Name, Is.EqualTo("TestLoco"));
 
         var controller   = CreateVirtualControllerWithAdapter();
         var setLocoSpeed = controller.CreateCommand<ICmdLocoSetSpeed>();

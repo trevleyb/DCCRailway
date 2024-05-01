@@ -2,17 +2,6 @@
 
 namespace DCCRailway.Common.Types;
 
-public enum DCCAddressType {
-    Short,
-    Long,
-    Accessory,
-    Signal,
-    Sensor,
-    Turnout,
-    CV,
-    Consist
-}
-
 /// <summary>
 ///     Represents the storage of an ADDRESS for a DCC Loco or Accessory
 /// </summary>
@@ -20,9 +9,9 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
     private const int MAX_ADDRESS = 10000;
 
     private int            _address;
-    private DCCAddressType _addressType;
     private byte           _highAddress;
     private byte           _lowAddress;
+    private DCCAddressType _addressType;
     private DCCProtocol    _protocol;
 
     public DCCAddress() : this(3, DCCAddressType.Short) { }
@@ -64,9 +53,10 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
     public int Address {
         get => _address;
         set {
-            if (value <= 0 || value >= MAX_ADDRESS) throw new ArgumentOutOfRangeException($"Address must be in the range of 1..{MAX_ADDRESS}");
+            if (value < 0 || value >= MAX_ADDRESS) throw new ArgumentOutOfRangeException($"Address must be in the range of 1..{MAX_ADDRESS}");
             SetPropertyField(ref _address, value);
             if (value >= 128) AddressType = DCCAddressType.Long;
+            if (value == 0) AddressType = DCCAddressType.Broadcast;
         }
     }
 
@@ -93,9 +83,9 @@ public class DCCAddress : PropertyChangedBase, IDCCAddress {
                 DCCAddressType.Turnout   => "T",
                 DCCAddressType.CV        => "CV",
                 DCCAddressType.Consist   => "CON",
+                DCCAddressType.Broadcast => "BRC",
                 _                        => "S"
             };
-
             return $"{Address:D4}({shortOrLong})";
         }
     }

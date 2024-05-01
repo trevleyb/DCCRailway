@@ -15,8 +15,10 @@ public class WiThrottleServerOptions (IRailwayConfig config, IController? contro
     public IPAddress Address { get; set; } = Network.GetLocalIPAddress();
     public int HeartbeatSeconds { get; set; } = 15;
     public string Name { get; init; } = name;
+
     public readonly IRailwayConfig? Config = config;
     public readonly IController? Controller = controller;
+    public WiThrottleConnections Connections { get; } = [];
 
     public Dictionary<string, string> Properties => new() {
         { "node", $"dccrailway-{Guid.NewGuid()}" },

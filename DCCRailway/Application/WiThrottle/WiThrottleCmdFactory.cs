@@ -4,7 +4,7 @@ using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Application.WiThrottle;
 
-public class WiThrottleCmdFactory(WiThrottleConnection connection, WiThrottleServerOptions options) {
+public class WiThrottleCmdFactory() {
 
     /// <summary>
     ///     Simply, given an input string, this will return a Command Object that
@@ -12,7 +12,7 @@ public class WiThrottleCmdFactory(WiThrottleConnection connection, WiThrottleSer
     /// </summary>
     /// <param name="commandStr">A string of data, in raw BYTE form that has been received</param>
     /// <returns></returns>
-    public bool Interpret(string commandStr) {
+    public static bool Interpret(WiThrottleConnection connection, WiThrottleServerOptions options, string commandStr) {
 
         // When we get here, there will only ever be a single message as
         // we filter out in the server when we read each line.
@@ -24,22 +24,23 @@ public class WiThrottleCmdFactory(WiThrottleConnection connection, WiThrottleSer
             if (cmdProcessor is CmdQuit) return true;
         }
         return false;
-    }
 
-    private IThrottleCmd DetermineCommandType(string commandStr) {
-        if (string.IsNullOrEmpty(commandStr)) return new CmdIgnore(connection, options);
-        var commandChar = (int)commandStr[0];
-        var commandType = Enum.IsDefined(typeof(CommandType), commandChar) ? (CommandType)commandChar : CommandType.Ignore;
-        return commandType switch {
-            CommandType.Name          => new CmdName(connection, options),
-            CommandType.Hardware      => new CmdHardware(connection, options),
-            CommandType.MultiThrottle => new CmdMultiThrottle(connection, options),
-            CommandType.Panel         => new CmdPanel(connection, options),
-            CommandType.Roster        => new CmdRoster(connection, options),
-            CommandType.Heartbeat     => new CmdHeartbeat(connection, options),
-            CommandType.Quit          => new CmdQuit(connection, options),
-            _                         => new CmdIgnore(connection, options)
-        };
+
+        IThrottleCmd DetermineCommandType(string commandStr) {
+            if (string.IsNullOrEmpty(commandStr)) return new CmdIgnore(connection, options);
+            var commandChar = (int)commandStr[0];
+            var commandType = Enum.IsDefined(typeof(CommandType), commandChar) ? (CommandType)commandChar : CommandType.Ignore;
+            return commandType switch {
+                CommandType.Name          => new CmdName(connection, options),
+                CommandType.Hardware      => new CmdHardware(connection, options),
+                CommandType.MultiThrottle => new CmdMultiThrottle(connection, options),
+                CommandType.Panel         => new CmdPanel(connection, options),
+                CommandType.Roster        => new CmdRoster(connection, options),
+                CommandType.Heartbeat     => new CmdHeartbeat(connection, options),
+                CommandType.Quit          => new CmdQuit(connection, options),
+                _                         => new CmdIgnore(connection, options)
+            };
+        }
     }
 }
 

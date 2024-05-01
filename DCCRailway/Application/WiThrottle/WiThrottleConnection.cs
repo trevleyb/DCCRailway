@@ -8,21 +8,21 @@ public class WiThrottleConnection {
 
     private int _heartbeatSeconds = 15;
     public readonly WiThrottleMsgQueue ServerMessages = [];
-    internal readonly WiThrottleConnectionList ListReference;
+    internal readonly WiThrottleConnections ListReference;
 
     /// <summary>
     ///     A connection AttributeInfo Entry stores information about a particular entry in the throttle
     ///     roster and allows us to ensure we are tracking the connections and can
     ///     send "STOP" messages if we need to if we do not hear from the throttle.
     /// </summary>
-    public WiThrottleConnection(ulong connectionID, WiThrottleConnectionList connectionList, string throttleName = "", string hardwareID = "") {
+    public WiThrottleConnection(ulong connectionID, WiThrottleConnections connections, string throttleName = "", string hardwareID = "") {
         ConnectionID     = connectionID;
         ThrottleName     = throttleName;
         HardwareID       = hardwareID;
         HeartbeatSeconds = 15;
         HeartbeatState   = HeartbeatStateEnum.Off;
         LastHeartbeat    = DateTime.Now;
-        ListReference    = connectionList;
+        ListReference    = connections;
     }
 
     public ulong  ConnectionID { get; set; }

@@ -31,7 +31,6 @@ public class CmdPanel (WiThrottleConnection connection, WiThrottleServerOptions 
         }
         catch {
             Logger.Log.Error("{0}: Unable to Process the command =>'{1}'",ToString(),commandStr);
-
         }
     }
 
