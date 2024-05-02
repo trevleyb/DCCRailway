@@ -1,4 +1,5 @@
 using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 // Lazy initialization of logger.
 namespace DCCRailway.Common.Helpers;
@@ -17,7 +18,7 @@ public static class Logger {
                .Enrich.WithProcessId()
                .Enrich.WithThreadName()
                .WriteTo.Debug()
-               .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}|{AssemblyName}.{SourceContext}] {Message:lj}|{Properties:lj}|{Exception}{NewLine}")
+               .WriteTo.Console(theme: AnsiConsoleTheme.Literate ,outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}|{AssemblyName}.{SourceContext}] {Message:lj}|{Properties:lj}|{Exception}{NewLine}")
                .WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Day)
                .CreateLogger();
 

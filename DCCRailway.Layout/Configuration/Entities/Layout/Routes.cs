@@ -4,5 +4,5 @@ namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
 public class Routes(string prefix) : Repository<Route>(prefix) {
-    public Routes() : this("RTE") { }
+    public Routes() : this("R") { }
 }

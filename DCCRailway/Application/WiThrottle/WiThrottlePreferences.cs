@@ -17,7 +17,8 @@ public class WiThrottlePreferences () : JsonSerializerHelper<WiThrottlePreferenc
     public IPAddress Address { get; set; } = Network.GetLocalIPAddress();
     public ushort Port { get; set; } = DefaultPort;
     public string ServiceName { get; set; } = DefaultServiceName;
-    public string Name { get; init; } = "DCCRailway WiThrottle Service";
+    public string Name { get; set; } = "DCCRailway WiThrottle Service";
+    public bool UseFastClock { get; set; }
 
     public int HeartbeatSeconds { get; set; } = 15;
     public int HeartbeatCheckTime => (int)((HeartbeatSeconds / 5) * 1000);

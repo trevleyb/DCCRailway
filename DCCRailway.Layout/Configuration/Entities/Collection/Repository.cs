@@ -33,7 +33,6 @@ public class Repository<TEntity>(string prefix = "***") : Dictionary<string, TEn
     public async Task<TEntity?> GetByIDAsync(string id) => await Task.FromResult(this[id]);
     public async Task<TEntity?> GetByNameAsync(string name) => await Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
     public async Task<TEntity?> IndexOf(int index) => await Task.FromResult(this.ElementAtOrDefault(index).Value);
-
     public async Task<TEntity?> UpdateAsync(TEntity entity) {
         if (ContainsKey(entity.Id)) {
             this[entity.Id] = entity;

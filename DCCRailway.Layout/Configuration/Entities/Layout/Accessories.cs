@@ -5,5 +5,5 @@ namespace DCCRailway.Layout.Configuration.Entities.Layout;
 
 [Serializable]
 public class Accessories(string prefix) : Repository<Accessory>(prefix) {
-    public Accessories() : this("ACCY") { }
+    public Accessories() : this("A") { }
 }

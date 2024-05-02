@@ -10,7 +10,7 @@ using DCCRailway.Station.NCE.Commands.Validators;
 namespace DCCRailway.Station.NCE.Commands;
 
 [Command("SetClock", "Set the Clock on a NCE controller")]
-public class NCESetClock : NCECommand, ICmdClockSet, ICommand {
+public class NCEClockSet : NCECommand, ICmdClockSet, ICommand {
     private int  _hour = 12;
     private bool _is24Hour;
     private int  _minute;

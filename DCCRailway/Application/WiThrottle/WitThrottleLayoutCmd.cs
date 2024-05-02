@@ -1,10 +1,11 @@
 using DCCRailway.Common.Types;
+using DCCRailway.Station.Commands.Results;
 using DCCRailway.Station.Commands.Types;
 using DCCRailway.Station.Controllers;
 
 namespace DCCRailway.Application.WiThrottle;
 
-public class WitThrottleLayoutCmd(IController controller, DCCAddress address) {
+public class WitThrottleLayoutCmd(IController controller, IDCCAddress? address = null) {
 
     public void Stop() { }
     public void Release() { }
@@ -15,25 +16,24 @@ public class WitThrottleLayoutCmd(IController controller, DCCAddress address) {
     public bool IsAcquireSupported() => controller.IsCommandSupported<ICmdLocoAcquire>();
     public bool IsPowerSupported() => controller.IsCommandSupported<ICmdPowerSetOn>();
 
-    public void SetPowerState(DCCPowerState state) {
-        //_ = state switch {
-        //    DCCPowerState.On => controller.CreateCommand<ICmdPowerSetOn>().Execute(null);
-        //
-        //}
-
-        /*
-        if (connection.ActiveController.IsCommandSupported<ICmdPowerSetOff>()) {
-            var powerCmd = connection.ActiveController.CreateCommand<ICmdPowerSetOff>();
-            if (powerCmd != null) connection.ActiveController.Execute(powerCmd);
+    public void SetTurnoutState(DCCTurnoutState state) {
+        if (controller.IsCommandSupported<ICmdTurnoutSet>()) {
+            var command = controller.CreateCommand<ICmdTurnoutSet>();
+            if (command != null) {
+                command.State = state;
+                command.Execute();
+            }
         }
-        break;
-        case '1':
-        if (connection.ActiveController.IsCommandSupported<ICmdPowerSetOn>()) {
-            var powerCmd = connection.ActiveController.CreateCommand<ICmdPowerSetOn>();
-            if (powerCmd != null) connection.ActiveController.Execute(powerCmd);
-        }
-        break;
-*/
-
     }
+
+    public void SetPowerState(DCCPowerState state) {
+        _ = state switch {
+            DCCPowerState.On  => controller.CreateCommand<ICmdPowerSetOn>()?.Execute(),
+            DCCPowerState.Off => controller.CreateCommand<ICmdPowerSetOff>()?.Execute(),
+            _                 => null
+        };
+    }
+
+    public DCCPowerState PowerState => ((IResultPowerState)controller.CreateCommand<ICmdPowerGetState>()?.Execute()!).State;
+
 }

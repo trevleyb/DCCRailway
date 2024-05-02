@@ -68,8 +68,8 @@ public class NcePowerCab : Controller, IController {
             RegisterCommand<ICmdMacroRun>(typeof(NCEMacroRun));
 
             if (Adapter is NCESerial) {
-                RegisterCommand<ICmdClockSet>(typeof(NCESetClock));
-                RegisterCommand<ICmdClockRead>(typeof(NCEReadClock));
+                RegisterCommand<ICmdClockSet>(typeof(NCEClockSet));
+                RegisterCommand<ICmdClockRead>(typeof(NCEClockRead));
                 RegisterCommand<ICmdClockStart>(typeof(NCEStartClock));
                 RegisterCommand<ICmdClockStop>(typeof(NCEStopClock));
             }

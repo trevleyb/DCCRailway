@@ -7,7 +7,7 @@ public class CmdRoster (WiThrottleConnection connection) : ThrottleCmd, IThrottl
 
         Logger.Log.Information("{0}=>'{1}'", ToString(), commandStr);
         try {
-            var cmd = commandStr[0..2];
+            var cmd = commandStr[0..3];
             switch (cmd.ToUpper()) {
             case "RCP": // RE-ORDER positions
                 break;

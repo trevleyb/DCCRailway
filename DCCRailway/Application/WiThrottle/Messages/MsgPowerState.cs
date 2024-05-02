@@ -18,20 +18,14 @@ public class MsgPowerState(WiThrottleConnection connection) : ThrottleMsg, IThro
 
     private string? GetPowerStateMsg() {
         try {
-            if (connection.ActiveController.IsCommandSupported<ICmdPowerGetState>()) {
-                var powerCmd = connection.ActiveController.CreateCommand<ICmdPowerGetState>();
-                if (powerCmd != null) {
-                    var powerState = connection.ActiveController.Execute(powerCmd) as IResultPowerState;
-                    var powerMsg = powerState?.State switch {
-                        DCCPowerState.On      => "PPA1",
-                        DCCPowerState.Off     => "PPA0",
-                        DCCPowerState.Unknown => "PPA2",
-                        _                     => null
-                    };
-                    if (!string.IsNullOrEmpty(powerMsg)) return powerMsg;
-                }
-            }
-            return null;
+            var layoutCmd = new WitThrottleLayoutCmd(connection.ActiveController);
+            var powerMsg = layoutCmd.PowerState switch {
+                DCCPowerState.On      => "PPA1",
+                DCCPowerState.Off     => "PPA0",
+                DCCPowerState.Unknown => "PPA2",
+                _                     => null
+            };
+            return powerMsg;
         }
         catch {
             return null;

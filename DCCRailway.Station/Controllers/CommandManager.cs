@@ -1,4 +1,5 @@
 using System.Reflection;
+using DCCRailway.Station.Adapters.Base;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands;
 using DCCRailway.Station.Commands.Results;
@@ -7,6 +8,7 @@ using DCCRailway.Station.Controllers.Events;
 namespace DCCRailway.Station.Controllers;
 
 public class CommandManager(Assembly assembly) {
+
     private Dictionary<Type, (CommandAttribute Attributes, Type ConcreteType)> _commands = [];
     public event EventHandler<CommandEventArgs>                                CommandEvent;
     private Assembly                                                           _assembly { get; set; } = assembly;
@@ -41,6 +43,18 @@ public class CommandManager(Assembly assembly) {
 
     protected void ClearCommands() {
         _commands = [];
+    }
+
+    public ICommand? Create(string name, IAdapter adapter) {
+        var command = Create(name);
+        if (command != null) command.Adapter = adapter;
+        return command;
+    }
+
+    public ICommand? Create<TCommand>(IAdapter adapter)  where TCommand : ICommand {
+        var command = Create<TCommand>();
+        if (command != null) command.Adapter = adapter;
+        return command;
     }
 
     public ICommand? Create(string name) {

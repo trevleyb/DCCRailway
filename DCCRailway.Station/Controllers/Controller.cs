@@ -16,8 +16,8 @@ public abstract class Controller : IController, IParameterMappable {
 
     public event EventHandler<ControllerEventArgs> ControllerEvent;
 
-    private CommandManager _commands { get; } = new(Assembly.GetCallingAssembly());
-    private AdapterManager _adapters { get; } = new(Assembly.GetCallingAssembly());
+    private CommandManager  _commands { get; } = new(Assembly.GetCallingAssembly());
+    private AdapterManager  _adapters { get; } = new(Assembly.GetCallingAssembly());
 
     protected Controller() {
         _commands.CommandEvent += CommandsOnCommandEvent;
@@ -49,6 +49,11 @@ public abstract class Controller : IController, IParameterMappable {
         return result;
     }
 
+    public IAdapter? Adapter {
+        get => _adapters.Adapter;
+        set => _adapters.Adapter = value;
+    }
+
     public bool IsCommandSupported<T>() where T : ICommand => _commands.IsCommandSupported<T>();
     public bool IsCommandSupported(Type command) => _commands.IsCommandSupported(command);
     public bool IsCommandSupported(string name) => _commands.IsCommandSupported(name);
@@ -60,12 +65,8 @@ public abstract class Controller : IController, IParameterMappable {
     public List<AdapterAttribute> Adapters => _adapters.Adapters;
     public List<CommandAttribute> Commands => _commands.Commands;
 
-    public IAdapter?              CreateAdapter(string? name)                          => _adapters.Attach(name);
-    public TCommand?              CreateCommand<TCommand>() where TCommand : ICommand => (TCommand?)_commands.Create<TCommand>();
-    public IAdapter? Adapter {
-        get => _adapters.Adapter;
-        set => _adapters.Adapter = value;
-    }
+    public IAdapter? CreateAdapter(string? name) => _adapters.Attach(name);
+    public TCommand? CreateCommand<TCommand>() where TCommand : ICommand => (TCommand?)_commands.Create<TCommand>(Adapter!);
 
     public abstract IDCCAddress CreateAddress();
     public abstract IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);

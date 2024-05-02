@@ -3,6 +3,7 @@ using DCCRailway.Station.Adapters.Base;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands.Results;
 using DCCRailway.Station.Commands.Validators;
+using DCCRailway.Station.Controllers;
 using DCCRailway.Station.Exceptions;
 using DCCRailway.Station.Helpers;
 
@@ -13,12 +14,14 @@ public abstract class Command : PropertyChangedBase, ICommand, IParameterMappabl
     public string Version     => this.AttributeInfo().Version ?? "Unknown";
     public string Description => this.AttributeInfo().Description ?? "Unknown";
 
-    public abstract ICommandResult Execute(IAdapter adapter);
+    public IAdapter? Adapter { get; set; }
 
+    public ICommandResult Execute() => Adapter != null ? Execute(Adapter) : throw new UnsupportedCommandException("No adapter is configured on this command.");
+    public abstract ICommandResult Execute(IAdapter adapter);
+    public async Task<ICommandResult> ExecuteAsync() => Adapter != null ? await Task.FromResult(Execute(Adapter)) : throw new UnsupportedCommandException("No adapter is configured on this command.");
     public async Task<ICommandResult> ExecuteAsync(IAdapter adapter) => await Task.FromResult(Execute(adapter));
 
     protected ICommandResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceive(adapter, validator, new[] { sendData });
-
     protected ICommandResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte[] sendData) {
         // Send the command provided to the command station
         // -----------------------------------------------------------------------------------------------------------

@@ -10,9 +10,9 @@ namespace DCCRailway.Station.Controllers;
 /// allows the caller to dynamically create a controller based on the name of the controller.
 /// </summary>
 public class ControllerFactory {
-    private       Dictionary<string, ControllerManager>? _controllers           = new();
-    private const string                              DefaultAssemblyPattern = @"(.*)DCCRailway.Station\.(\D+)\.dll";
-    private const string                              DefaultPath            = ".";
+    private Dictionary<string, ControllerManager>? _controllers           = new();
+    private const string DefaultAssemblyPattern = @"(.*)DCCRailway.Station\.(\D+)\.dll";
+    private const string DefaultPath = ".";
 
     /// <summary>
     /// Get a list of all available controllers. If the current list is empty, then call the load function

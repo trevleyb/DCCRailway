@@ -13,6 +13,7 @@ namespace DCCRailway.Station.Controllers;
 /// </summary>
 [DebuggerDisplay("Name: {Name}, Manufacturer: {Manufacturer}, Model: {Model}, Version: {Version}")]
 public class ControllerManager(ControllerAttribute attributes, string assemblyPath, Type assemblyType) {
+
     private ControllerAttribute Attributes   { get; } = attributes;
     private Type                AssemblyType { get; } = assemblyType;
     private string              AssemblyPath { get; } = assemblyPath;

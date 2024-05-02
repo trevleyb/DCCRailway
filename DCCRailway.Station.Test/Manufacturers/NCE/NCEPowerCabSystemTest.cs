@@ -140,7 +140,7 @@ public class NCEPowerCab {
 
         // Set the time on the NCE PowerCab
         // --------------------------------------------------------------------------
-        var setTime = controller.CreateCommand<ICmdClockSet>() as NCESetClock;
+        var setTime = controller.CreateCommand<ICmdClockSet>() as NCEClockSet;
         Assert.IsNotNull(setTime);
         setTime.Hour     = 9;
         setTime.Minute   = 30;
@@ -151,7 +151,7 @@ public class NCEPowerCab {
 
         // Read the time on the NCE PowerCab
         // --------------------------------------------------------------------------
-        var getTime = controller.CreateCommand<ICmdClockRead>() as NCEReadClock;
+        var getTime = controller.CreateCommand<ICmdClockRead>() as NCEClockRead;
         Assert.IsNotNull(getTime);
         var getTimeRes = controller.Execute(getTime) as NCEClockReadResultOld;
         Assert.IsInstanceOfType(getTimeRes, typeof(IResultOld));
@@ -168,7 +168,7 @@ public class NCEPowerCab {
         for (var i = 0; i < 30; i++) {
             // Read the time on the NCE PowerCab
             // --------------------------------------------------------------------------
-            var getTimeLoop = controller.CreateCommand<ICmdClockRead>() as NCEReadClock;
+            var getTimeLoop = controller.CreateCommand<ICmdClockRead>() as NCEClockRead;
             Assert.IsNotNull(getTimeLoop);
             getTimeRes = controller.Execute(getTime) as NCEClockReadResultOld;
 

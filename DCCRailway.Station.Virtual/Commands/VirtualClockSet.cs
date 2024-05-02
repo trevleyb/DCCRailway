@@ -1,12 +1,26 @@
-﻿using DCCRailway.Station.Attributes;
+﻿using DCCRailway.Station.Adapters.Base;
+using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Commands;
+using DCCRailway.Station.Commands.Results;
 using DCCRailway.Station.Commands.Types;
 using DCCRailway.Station.Exceptions;
+using DCCRailway.Station.Virtual.Adapters;
+using DCCRailway.Station.Virtual.Commands.Results;
 
 namespace DCCRailway.Station.Virtual.Commands;
 
 [Command("SetClock", "Set the Clock on a Virtual controller")]
-public class VirtualSetClock : VirtualCommand, ICmdClockSet, ICommand {
+public class VirtualClockSet : VirtualCommand, ICmdClockSet, ICommand {
+    public override ICommandResult Execute(IAdapter adapter) {
+        var result = new VirtualCommandResultClock(Hour, Minute, Ratio);
+        if (adapter is VirtualAdapter virtualAdapter) {
+            virtualAdapter.FastClockSetTime = result.SetTime;
+            virtualAdapter.FastClockRatio   = result.Ratio;
+            virtualAdapter.FastClockState   = true;
+        }
+        return new VirtualCommandResultClock(Hour, Minute, Ratio);
+    }
+
     private int  _hour = 12;
     private bool _is24Hour;
     private int  _minute;
