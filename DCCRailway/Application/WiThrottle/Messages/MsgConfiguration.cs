@@ -1,5 +1,6 @@
 using System.Text;
 using DCCRailway.Application.WiThrottle.Commands;
+using DCCRailway.Application.WiThrottle.Helpers;
 using DCCRailway.Common.Types;
 using DCCRailway.Station.Commands.Results;
 using DCCRailway.Station.Commands.Types;
@@ -16,5 +17,5 @@ public class MsgConfiguration(WiThrottleConnection connection) : ThrottleMsg, IT
         }
     }
 
-    public override string ToString() => $"MSG:Configuration [{connection?.ConnectionID ?? 0}]=>{DisplayTerminators(Message)}";
+    public override string ToString() => $"MSG:Configuration [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 }

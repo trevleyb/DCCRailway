@@ -4,7 +4,7 @@ using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Application.WiThrottle;
 
-public class WiThrottleCmdFactory() {
+public class WiThrottleCmdProcessor() {
     /// <summary>
     ///     Simply, given an input string, this will return a Command Object that
     ///     needs to be managed and processed based on the commandStr provided.
@@ -20,15 +20,15 @@ public class WiThrottleCmdFactory() {
         // we filter out in the server when we read each line.
         // ------------------------------------------------------------------
         if (!string.IsNullOrEmpty(commandStr) && commandStr.Length >= 1) {
-            var cmdProcessor = DetermineCommandType(commandStr);
-            Logger.Log.Debug("CmdFactory [{0}]: Recieved a command of {1}", connection.ConnectionID, cmdProcessor.ToString());
+            var cmdProcessor = DetermineCommandType();
+            Logger.Log.Debug("CMD:Processor [{0}]: Recieved a command of {1}", connection.ToString(), cmdProcessor.ToString());
             cmdProcessor.Execute(commandStr);
             if (cmdProcessor is CmdQuit) return true;
         }
         return false;
 
 
-        IThrottleCmd DetermineCommandType(string commandStr) {
+        IThrottleCmd DetermineCommandType() {
             if (string.IsNullOrEmpty(commandStr)) return new CmdIgnore(connection);
             var commandChar = (int)commandStr[0];
             var commandType = Enum.IsDefined(typeof(CommandType), commandChar) ? (CommandType)commandChar : CommandType.Ignore;

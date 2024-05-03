@@ -23,14 +23,11 @@ namespace DCCRailway.Application.WiThrottle;
 /// <param name="activeController"></param>An active IController instance
 public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeController) {
 
+    private CancellationTokenSource cts = new CancellationTokenSource();
     private System.Timers.Timer   _heartbeatCheckTimer;
     private WiThrottlePreferences _preferences;
 
-    /// <summary>
-    ///     Indicator that the server is currently active.
-    ///     Set to FALSE to exit the while loop
-    /// </summary>
-    public bool ServerActive { get; set; } = false;
+    public int ActiveClients { get; set; } = 0;
 
     /// <summary>
     ///     Start up the Listener Service using the provided Port and IPAddress
@@ -49,18 +46,13 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
             return;
         }
 
-        // Setup the Server to Broadcast its presence on the network
-        // ----------------------------------------------------------
-        ServerBroadcast.Start(_preferences);
-
         // Start up the TCP Server to listen for incoming connections and process
         // ----------------------------------------------------------
         try {
             Logger.LogContext<WiThrottleServer>().Information("Starting the WiThrottle Server Listener.");
-            using (var tcpServer = new TcpListener(_preferences.Address, _preferences.Port)) {
-                tcpServer.Start();
-                StartListener(tcpServer);
-            }
+            var tcpServer = new TcpListener(_preferences.Address, _preferences.Port);
+            tcpServer.Start();
+            Task.Run(() => { StartListener(tcpServer); });
         }
         catch (Exception ex) {
             Logger.LogContext<WiThrottleServer>().Error("Server Crashed: {0}", ex);
@@ -73,11 +65,14 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
     ///     have connections.
     /// </summary>
     public void Stop() {
-        ServerActive = false;
+        cts.Cancel();
     }
 
     private void StartListener(TcpListener server) {
-        ServerActive = true;
+
+        // Setup the Server to Broadcast its presence on the network
+        // ----------------------------------------------------------
+        ServerBroadcast.Start(_preferences);
 
         try {
             _heartbeatCheckTimer = new System.Timers.Timer(_preferences.HeartbeatCheckTime);
@@ -86,7 +81,7 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
             _heartbeatCheckTimer.Start();
 
             Logger.LogContext<WiThrottleServer>().Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
-            while (ServerActive) {
+            while (!cts.IsCancellationRequested) {
                 var client = server.AcceptTcpClient();
                 Thread t = new(HandleConnection);
                 t.Start(client);
@@ -99,6 +94,7 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
         finally {
             _heartbeatCheckTimer.Stop();
             ForceCloseAllConnections();
+            server.Stop();
             Logger.LogContext<WiThrottleServer>().Information("Server Stopped.");
         }
     }
@@ -109,6 +105,8 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
     /// <param name="obj"></param>
     private void HandleConnection(object? obj) {
 
+        ActiveClients++;
+
         // This should not be possible but best to ensure and check for this edge case.
         // -----------------------------------------------------------------------------
         if (obj is not TcpClient client) {
@@ -118,7 +116,7 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
 
         Logger.LogContext<WiThrottleServer>().Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
         var stream = client.GetStream();
-        var connection = _preferences.Connections.Add((ulong)client.Client.Handle,_preferences,railwayConfig,activeController);
+        var connection = _preferences.Connections.Add(client,_preferences,railwayConfig,activeController);
         connection.QueueMsg(new MsgConfiguration(connection));
 
         try {
@@ -132,25 +130,29 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
                 // we get a terminator at the end of the data stream.
                 // -------------------------------------------------------------------------------------
                 var data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
-                Logger.LogContext<WiThrottleServer>().Debug($"{connection.ConnectionID:D4}: Received Data='{data.Trim()}'");
+
+                //Logger.LogContext<WiThrottleServer>().Debug($"CMD:RcvBuffer [{connection.ToString()}] => {Terminators.ForDisplay(data.Trim())}");
                 buffer.Append(data);
 
                 if (Terminators.HasTerminator(buffer)) {
                     foreach (var command in Terminators.GetMessagesAndLeaveIncomplete(buffer)) {
                         if (!string.IsNullOrEmpty(command)) {
-                            if (WiThrottleCmdFactory.Interpret(connection, command)) break;
+                            if (WiThrottleCmdProcessor.Interpret(connection, command)) break;
                             SendServerMessages(connection, stream);
                         }
                     }
                     buffer.Clear();
                 }
             }
-            Logger.LogContext<WiThrottleServer>().Debug("Connection: Client '{0}' has closed.", connection?.ConnectionID);
-            connection?.Close();
+            Logger.LogContext<WiThrottleServer>().Debug("Connection: Client '{0}' has closed.", connection?.ConnectionHandle);
         }
         catch (Exception e) {
             Logger.LogContext<WiThrottleServer>().Error("Exception: {0}", e);
         }
+        finally {
+            connection?.Close();
+        }
+        ActiveClients--;
     }
 
     /// <summary>
@@ -184,8 +186,7 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
     /// stop all for any locos under that Throttles control.
     /// </summary>
     private void HeartbeatCheckHandler(object? sender, ElapsedEventArgs args) {
-        Logger.Log.Information($"Heartbeat Checker: {args.SignalTime}");
-
+        //Logger.Log.Information($"Heartbeat Checker: {args.SignalTime}");
         CloseConnectionsWithCondition( connection => !connection.IsHeartbeatOk,
                                        "Did not get a Heartbeat from Client - terminating: {0}");
     }
@@ -193,7 +194,7 @@ public class WiThrottleServer(IRailwayConfig railwayConfig, IController activeCo
     private void CloseConnectionsWithCondition(Func<WiThrottleConnection, bool> conditionToClose, string logMessage) {
         var connectionsToClose = _preferences.Connections.Where(conditionToClose).ToList();
         foreach (var connection in connectionsToClose) {
-            Logger.Log.Information(logMessage, connection.ConnectionID);
+            Logger.Log.Information(logMessage, connection.ConnectionHandle);
             connection.Close();
         }
     }

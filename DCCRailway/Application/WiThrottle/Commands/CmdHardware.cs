@@ -18,19 +18,19 @@ public class CmdHardware (WiThrottleConnection connection) : ThrottleCmd, IThrot
                 var hardwareID = commandStr[2..];
                 connection.HardwareID = hardwareID;
                 if (connection.HasDuplicateID(hardwareID)) {
-                    Logger.Log.Debug("CmdFactory [{0}]: Duplicate HardwareIDs found - re-using previous connection.", connection.ConnectionID);
+                    Logger.Log.Debug("{0}:{1} Duplicate HardwareIDs found - re-using previous connection.", ToString(),connection.ToString());
 
                     // Get the other connection (first one that has the same hardwareID but a different connectionID)
                     // ----------------------------------------------------------------------------------------------
                     var newConnection = connection.GetByHardwareID(hardwareID);
                     if (newConnection is not null) {
-                        var connectionID = connection.ConnectionID;
+                        var client  = connection.Client;
                         connection = newConnection;
                         connection.RemoveDuplicateID(hardwareID);
-                        connection.ConnectionID = connectionID;
+                        connection.Client = client;
                     }
                 }
-                Logger.Log.Debug("CmdFactory [{0}]: Set the hardwareID to '{1}'", connection.ConnectionID, hardwareID);
+                Logger.Log.Debug("{0}:{2} Set the hardwareID to '{1}'", ToString(), hardwareID,connection.ToString());
                 connection.QueueMsg(new MsgHardware(connection));
                 break;
             default:
@@ -38,5 +38,5 @@ public class CmdHardware (WiThrottleConnection connection) : ThrottleCmd, IThrot
             }
         }
     }
-    public override string ToString() => $"CMD:Hardware [{connection?.ConnectionID ?? 0}]";
+    public override string ToString() => $"CMD:Hardware";
 }

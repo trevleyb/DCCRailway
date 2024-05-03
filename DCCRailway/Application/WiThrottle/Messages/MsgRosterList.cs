@@ -16,7 +16,7 @@ public class MsgRosterList(WiThrottleConnection connection) : ThrottleMsg, IThro
                 message.Append("]\\["); // Separator
                 message.Append(loco.Name.RemoveWiThrottleSeparators());
                 message.Append("}|{");
-                message.Append(loco.Address);
+                message.Append(loco.Address.Address);
                 message.Append("}|{");
                 message.Append(loco.Address.IsLong ? "L" : "S");
             }
@@ -24,7 +24,7 @@ public class MsgRosterList(WiThrottleConnection connection) : ThrottleMsg, IThro
             return message.ToString();
         }
     }
-    public override string ToString() => $"MSG:RosterList [{connection?.ConnectionID ?? 0}]=>{DisplayTerminators(Message)}";
+    public override string ToString() => $"MSG:RosterList [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 }
 
 /*

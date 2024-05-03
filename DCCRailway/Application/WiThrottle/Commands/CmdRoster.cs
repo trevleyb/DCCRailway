@@ -20,15 +20,15 @@ public class CmdRoster (WiThrottleConnection connection) : ThrottleCmd, IThrottl
             case "RCF": // Functions
                 break;
             default:
-                Logger.Log.Information("{0}: Unknown Panel Command recieved=>'{1}'", ToString(), commandStr);
+                Logger.Log.Information("{0}:{2}=>Unknown Panel Command recieved=>'{1}'", ToString(), commandStr, connection.ToString());
                 break;
             }
         }
         catch {
-            Logger.Log.Error("{0}: Unable to Process the command =>'{1}'", ToString(), commandStr);
+            Logger.Log.Error("{0}:{2}=>Unable to Process the command =>'{1}'", ToString(), commandStr, connection.ToString());
 
         }
     }
 
-    public override string ToString() => $"CMD:Roster [{connection?.ConnectionID ?? 0}]";
+    public override string ToString() => $"CMD:Roster";
 }

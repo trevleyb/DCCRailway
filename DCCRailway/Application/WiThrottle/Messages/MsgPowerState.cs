@@ -1,5 +1,6 @@
 using System.Text;
 using DCCRailway.Application.WiThrottle.Commands;
+using DCCRailway.Application.WiThrottle.Helpers;
 using DCCRailway.Common.Types;
 using DCCRailway.Station.Commands.Results;
 using DCCRailway.Station.Commands.Types;
@@ -32,5 +33,5 @@ public class MsgPowerState(WiThrottleConnection connection) : ThrottleMsg, IThro
         }
     }
 
-    public override string ToString() => $"MSG:PowerState [{connection?.ConnectionID ?? 0}]=>{DisplayTerminators(Message)}";
+    public override string ToString() => $"MSG:PowerState [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 }

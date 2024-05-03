@@ -19,6 +19,6 @@ public class MsgRouteState(WiThrottleConnection connection, Layout.Configuration
             return sb.ToString();
         }
     }
-    public override string ToString() => $"MSG:RouteState [{connection?.ConnectionID ?? 0}]=>{DisplayTerminators(Message)}";
+    public override string ToString() => $"MSG:RouteState [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 
 }

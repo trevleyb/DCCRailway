@@ -4,6 +4,9 @@ using Microsoft.Extensions.Primitives;
 namespace DCCRailway.Application.WiThrottle.Helpers;
 
 public static class Terminators {
+
+    public static string ForDisplay(string message) => message.Replace((char)0x0A, '•').Replace((char)0x0d, '•');
+
     public static readonly string[] PossibleTerminators = new[] {
         new string([(char)0x0a]),
         new string([(char)0x0d]),

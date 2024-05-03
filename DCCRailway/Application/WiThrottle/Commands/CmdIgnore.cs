@@ -4,7 +4,7 @@ namespace DCCRailway.Application.WiThrottle.Commands;
 
 public class CmdIgnore (WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        Logger.Log.Information("{0}=>'{1}'",ToString(),commandStr);
+        Logger.Log.Information("{0}:{2}=>'{1}'",ToString(),commandStr,connection.ToString());
     }
-    public override string ToString() => $"CMD:Ignore [{connection?.ConnectionID ?? 0}]";
+    public override string ToString() => $"CMD:Ignore";
 }

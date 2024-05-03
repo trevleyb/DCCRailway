@@ -10,7 +10,7 @@ namespace DCCRailway.Application.WiThrottle.Commands;
 
 public class CmdMultiThrottle(WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        Logger.Log.Information("{0}=>'{1}'", ToString(), commandStr);
+        Logger.Log.Information("{0}:{2}=>'{1}'", ToString(), commandStr,connection.ToString());
         try {
             IThrottleMsg? response = null;
             var data = new MultiThrottleMessage(commandStr);
@@ -18,7 +18,7 @@ public class CmdMultiThrottle(WiThrottleConnection connection) : ThrottleCmd, IT
 
             // Process the data based on the Command Function (first 3 characters)
             // ------------------------------------------------------------------------------------------------------
-            Logger.Log.Information("{0}=>'{1}' Split into: '{2}'.'{3}' => '{4}'", ToString(), commandStr, data.Function, data.Address, data.Action);
+            // Logger.Log.Information("{0}=>'{1}' Split into: '{2}'.'{3}' => '{4}'", ToString(), commandStr, data.Function, data.Address, data.Action);
 
             response = data.Function switch {
                 '+' => RequestLocoAccess(data),
@@ -31,7 +31,7 @@ public class CmdMultiThrottle(WiThrottleConnection connection) : ThrottleCmd, IT
             if (response is not null) connection.QueueMsg(response);
         }
         catch {
-            Logger.Log.Error("{0}: Unable to Process the command =>'{1}'", ToString(), commandStr);
+            Logger.Log.Error("{0}:{2}=> Unable to Process the command =>'{1}'", ToString(), commandStr,connection.ToString());
         }
     }
 
@@ -55,6 +55,6 @@ public class CmdMultiThrottle(WiThrottleConnection connection) : ThrottleCmd, IT
         return new MsgAddress(connection,data);
     }
 
-    public override string ToString() => $"CMD:MultiThrottle [{connection?.ConnectionID ?? 0}]";
+    public override string ToString() => $"CMD:MultiThrottle";
 
 }

@@ -12,8 +12,10 @@ public class CmdName(WiThrottleConnection connection) : ThrottleCmd, IThrottleCm
         if (commandStr.Length > 1) {
             var deviceName = commandStr[1..].Replace("???", "'");
             connection.ThrottleName = deviceName;
-            Logger.Log.Debug("CmdFactory [{0}]: Set the connection device name to '{1}'",connection.ConnectionID, deviceName);
+            Logger.Log.Debug("{0}:{2}=> Set the connection device name to '{1}'",connection.ConnectionHandle, deviceName,connection.ToString());
+
             connection.QueueMsg(new MsgServerID(connection));
+            connection.QueueMsg(new MsgHeartbeat(connection));
             connection.QueueMsg(new MsgPowerState(connection));
             connection.QueueMsg(new MsgRosterList(connection));
             connection.QueueMsg(new MsgTurnoutLabels(connection));
@@ -23,5 +25,5 @@ public class CmdName(WiThrottleConnection connection) : ThrottleCmd, IThrottleCm
             connection.QueueMsg(new MsgHeartbeat(connection));
         }
     }
-    public override string ToString() => $"CMD:Name [{connection?.ConnectionID ?? 0}]";
+    public override string ToString() => $"CMD:Name";
 }

@@ -10,7 +10,7 @@ namespace DCCRailway.Application.WiThrottle.Commands;
 public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
 
-        Logger.Log.Information("{0}=>'{1}'",ToString(),commandStr);
+        Logger.Log.Information("{0:{2}=>'{1}'",ToString(),commandStr,connection.ToString());
         try {
             switch (commandStr[0..3].ToUpper()) {
                 case "PPA": SetPowerState(commandStr[3]); break;
@@ -102,7 +102,7 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
         }
         connection.QueueMsg(new MsgPowerState(connection));
     }
-    public override string ToString() => $"CMD:Panel [{connection?.ConnectionID ?? 0}]";
+    public override string ToString() => $"CMD:Panel";
 
     private enum TurnoutCommand {
         ToggleTurnout = '2',

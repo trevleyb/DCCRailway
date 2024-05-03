@@ -19,8 +19,8 @@ public class WiThrottleTest {
         };
 
         var wii = new WiThrottleServer(config, controller);
+        wii.Start();
         Assert.That(wii,Is.Not.Null);
-        Assert.That(wii.ServerActive, Is.False);
         wii.Stop();
     }
 
@@ -34,10 +34,9 @@ public class WiThrottleTest {
         };
         var wii = new WiThrottleServer(config,controller);
         Assert.That(wii,Is.Not.Null);
-        Assert.That(wii.ServerActive, Is.False);
+        Assert.That(wii.ActiveClients, Is.EqualTo(0));
         wii.Start();
-        Assert.That(wii.ServerActive, Is.True);
-
         Console.ReadLine();
+        wii.Stop();
     }
 }
