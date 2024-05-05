@@ -22,6 +22,19 @@ public class RailwayManager(IRailwayConfig? config = null) {
     private LayoutUpdater           _layoutUpdater;
     private IController?            _activeController;
 
+    public IRailwayConfig Config {
+        get {
+            try {
+                config ??= RailwayConfig.Load();
+            }
+            catch (Exception ex) {
+                throw new Exception("Unable to load the Railway Configuration.", ex);
+            }
+            return config;
+        }
+    }
+    public IController? ActiveController => _activeController;
+
     public void Startup() {
         // ToDo: Make the file a parameter on the command line or config file.
         _layoutState        = new LayoutStateService();
@@ -47,12 +60,8 @@ public class RailwayManager(IRailwayConfig? config = null) {
         }
         _layoutRepository.Stop();
         _layoutState.Stop();
-
-        //_config.SaveFile();
+        config?.Save();
     }
-
-    public IRailwayConfig Config { get; } = config ?? RailwayConfig.Load();
-    public IController? ActiveController => _activeController;
 
     /// <summary>
     /// Looks at the configuration and instantiates the controller for the Entities. This includes adding appropriate
