@@ -38,7 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommandStations", "CommandS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway", "DCCRailway\DCCRailway.csproj", "{9447006C-0FE7-4ABF-8988-6A49B15E961B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.LayoutService", "DCCRailway.LayoutService\DCCRailway.LayoutService.csproj", "{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Layout", "DCCRailway.Layout\DCCRailway.Layout.csproj", "{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.LayoutService.Test", "DCCRailway.LayoutService.Test\DCCRailway.LayoutService.Test.csproj", "{9A7FEFAE-7D10-4FE1-B553-00ADB508F02C}"
 EndProject

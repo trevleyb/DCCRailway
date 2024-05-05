@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DCCRailway.LayoutService\DCCRailway.LayoutService.csproj" />
+      <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj" />
     </ItemGroup>
 
 </Project>
