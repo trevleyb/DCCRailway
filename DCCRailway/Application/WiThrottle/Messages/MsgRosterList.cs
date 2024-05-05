@@ -1,5 +1,8 @@
+using System.Collections;
 using System.Text;
 using DCCRailway.Application.WiThrottle.Helpers;
+using DCCRailway.Common.Helpers;
+using DCCRailway.LayoutService.Layout.Entities;
 using Microsoft.Extensions.Primitives;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
@@ -7,7 +10,7 @@ namespace DCCRailway.Application.WiThrottle.Messages;
 public class MsgRosterList(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
-            var locos = Task.Run(() => connection.RailwayConfig.Locomotives.GetAllAsync());
+            var locos = Task.Run(() => connection.RailwayConfig.Locomotives.GetAllAsync().GetListFromAsyncEnumerable()).Result;
             if (!locos.Any()) return "RL0";
 
             var message = new StringBuilder();
@@ -25,6 +28,7 @@ public class MsgRosterList(WiThrottleConnection connection) : ThrottleMsg, IThro
         }
     }
     public override string ToString() => $"MSG:RosterList [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
+
 }
 
 /*

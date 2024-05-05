@@ -1,7 +1,5 @@
 using System.Text;
 using DCCRailway.Application.WiThrottle.Helpers;
-using DCCRailway.Layout.LayoutRepository.Entities;
-using Route = DCCRailway.Layout.LayoutRepository.Entities.Route;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
@@ -10,12 +8,13 @@ public class MsgRouteState(WiThrottleConnection connection, Route? route) : Thro
         get {
             var sb = new StringBuilder();
             if (route != null) {
-                var stateCode = route.State switch {
-                    RouteState.Active   => '2',
-                    RouteState.Inactive => '4',
-                    _                   => '1'
-                };
-                sb.AppendLine($"PRA{stateCode}{route.Id}");
+                // TODO: Needs to come from the STATE service
+                //var stateCode = route.State switch {
+                //    RouteState.Active   => '2',
+                //    RouteState.Inactive => '4',
+                //    _                   => '1'
+                //};
+                //sb.AppendLine($"PRA{stateCode}{route.Id}");
             }
             return sb.ToString();
         }

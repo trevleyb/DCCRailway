@@ -14,11 +14,19 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         _entityType = entityType;
     }
 
-    public async Task<TEntity?> GetByIdAsync(int id) {
+    public TEntity? GetById(string id) {
+        return GetByIdAsync(id).GetAwaiter().GetResult();
+    }
+
+    public async Task<TEntity?> GetByIdAsync(string id) {
         var response = await _httpClient.GetAsync($"/{_entityType}/{id}");
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<TEntity>(content);
+    }
+
+    public TEntity? GetByName(string id) {
+        return GetByNameAsync(id).GetAwaiter().GetResult();
     }
 
     public async Task<TEntity?> GetByNameAsync(string name) {
@@ -26,6 +34,10 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<TEntity>(content);
+    }
+
+    public IEnumerable<TEntity> GetAll() {
+        return GetAllAsync().GetListFromAsyncEnumerable().GetAwaiter().GetResult();
     }
 
     public async IAsyncEnumerable<TEntity> GetAllAsync() {
@@ -38,7 +50,11 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         }
     }
 
-    public async Task<TEntity?> Find(Func<TEntity, bool> predicate) {
+    public TEntity? Find(Func<TEntity, bool> predicate) {
+        return FindAsync(predicate).GetAwaiter().GetResult();
+    }
+
+    public async Task<TEntity?> FindAsync(Func<TEntity, bool> predicate) {
         var response = await _httpClient.GetAsync($"/{_entityType}");
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
@@ -46,6 +62,9 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         return entities.FirstOrDefault(predicate) ?? default(TEntity?);
     }
 
+    public IEnumerable<TEntity> GetAll(Func<TEntity, bool> predicate) {
+        return GetAllAsync(predicate).GetListFromAsyncEnumerable().GetAwaiter().GetResult();
+    }
 
     public async IAsyncEnumerable<TEntity> GetAllAsync(Func<TEntity, bool> predicate) {
         var response = await _httpClient.GetAsync($"/{_entityType}");
@@ -55,6 +74,10 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         foreach (var entity in entities.Where(predicate)) {
             yield return await Task.Run(()=>entity);
         }
+    }
+
+    public TEntity Add(TEntity entity) {
+        return AddAsync(entity).GetAwaiter().GetResult();
     }
 
     public async Task<TEntity> AddAsync(TEntity entity) {
@@ -67,6 +90,10 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         throw new Exception($"Failed to add entity: {response.ReasonPhrase}");
     }
 
+    public TEntity Update(TEntity entity) {
+        return UpdateAsync(entity).GetAwaiter().GetResult();
+    }
+
     public async Task<TEntity> UpdateAsync(TEntity entity) {
         var content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
         var response = await _httpClient.PutAsync($"/{_entityType}", content);
@@ -77,8 +104,11 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         throw new Exception($"Failed to add entity: {response.ReasonPhrase}");
     }
 
-    // Delete
-    public async Task DeleteAsync(int id) {
+    public void Delete(string id) {
+        DeleteAsync(id).GetAwaiter().GetResult();
+    }
+
+    public async Task DeleteAsync(string id) {
         var response = await _httpClient.DeleteAsync($"/{_entityType}/{id}");
         if (response.IsSuccessStatusCode) {
             return;

@@ -19,7 +19,7 @@ public class LayoutUpdater {
 
     private readonly LayoutEventLogger _eventLogger = new LayoutEventLogger();
 
-    public async void ProcessCommandEvent(ControllerEventArgs eventArgs) {
+    public void ProcessCommandEvent(ControllerEventArgs eventArgs) {
         switch (eventArgs) {
         case CommandEventArgs exec:
 

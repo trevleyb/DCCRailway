@@ -7,7 +7,7 @@ namespace DCCRailway.Application.WiThrottle.Messages;
 public class MsgRouteLabels(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
-            var routes = connection.RailwayConfig.Routes.Values;
+            var routes = connection.RailwayConfig.Routes.GetAll();
             if (!routes.Any()) return "";
 
             var message = new StringBuilder();

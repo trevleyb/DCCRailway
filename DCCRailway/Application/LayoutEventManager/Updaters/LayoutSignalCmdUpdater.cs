@@ -7,11 +7,10 @@ using DCCRailway.Station.Commands.Types.Base;
 namespace DCCRailway.Application.LayoutEventManager.Updaters;
 
 public class LayoutSignalCmdUpdater() : LayoutGenericCmdUpdater() {
-    public new async Task<bool> Process(ICommand command, LayoutEventLogger logger) {
+    public new bool Process(ICommand command, LayoutEventLogger logger) {
 
         if (command is ISignalCmd signalCmd) {
-            var signals = RailwayConfig.Instance.Signals;
-            var signal = signals.Find(x => x.Address == signalCmd.Address).Result;
+            var signal = RailwayConfig.Instance.Signals.Find(x => x.Address == signalCmd.Address);
 
             switch (signalCmd) {
             case ICmdSignalSetAspect cmd:

@@ -5,7 +5,7 @@ using DCCRailway.Station.Commands.Types;
 namespace DCCRailway.Application.LayoutEventManager.Updaters;
 
 public class LayoutConsistCmdUpdater() : LayoutGenericCmdUpdater() {
-    public new async Task<bool> Process(ICommand command, LayoutEventLogger logger) {
+    public new bool Process(ICommand command, LayoutEventLogger logger) {
         switch (command) {
         case ICmdConsistCreate cmd:
             // TODO: Implement the command processing
