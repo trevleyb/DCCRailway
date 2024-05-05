@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Configuration.Entities.Base;
-using DCCRailway.Layout.Configuration.Entities.Layout;
+using DCCRailway.Layout.LayoutRepository.Base;
+using DCCRailway.Layout.LayoutRepository.Entities;
 
 namespace DCCRailway.Layout.Test;
 
@@ -58,13 +58,13 @@ public class LayoutPropertyChangedTests {
         _triggeredChanged = true;
     }
 
-    private void TestField<T>(BaseEntity baseEntity, string field, T value) {
+    private void TestField<T>(LayoutEntity layoutEntity, string field, T value) {
         _triggeredChanging = false;
         _triggeredChanged = false;
         _activeField      = field;
-        var oldValue = GetPropertyValue<T>(baseEntity, field);
-        SetPropertyValue(baseEntity, field, value);
-        var getValue = GetPropertyValue<T>(baseEntity, field);
+        var oldValue = GetPropertyValue<T>(layoutEntity, field);
+        SetPropertyValue(layoutEntity, field, value);
+        var getValue = GetPropertyValue<T>(layoutEntity, field);
         Assert.That(getValue, Is.EqualTo(value));
         Assert.That(getValue, Is.Not.EqualTo(oldValue));
         Assert.That(_triggeredChanging, Is.True);

@@ -1,8 +1,8 @@
 using DCCRailway.Application;
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Configuration;
-using DCCRailway.Layout.Configuration.Entities.Layout;
 using DCCRailway.Layout.Configuration.Entities.System;
+using DCCRailway.Layout.LayoutRepository.Entities;
 using DCCRailway.Station.Commands.Types;
 using DCCRailway.Station.Virtual.Commands;
 using NUnit.Framework;
@@ -19,7 +19,7 @@ public class RailwayManagerTests {
         var railwayManager = new RailwayManager(config);
         Assert.That(railwayManager, Is.Not.Null);
 
-        // Start Up the Railway Manager
+        // Start Up the Railway Layout
         railwayManager.Startup();
         var locoCmd = railwayManager.ActiveController?.CreateCommand<ICmdLocoSetSpeed>();
         Assert.That(locoCmd, Is.Not.Null);
@@ -44,7 +44,7 @@ public class RailwayManagerTests {
 
     private async Task<IRailwayConfig> CreateTestConfig() {
 
-        var config = RailwayConfig.New("Test Layout", "Test Layout");
+        var config = RailwayConfig.New("Test Entities", "Test Entities");
 
         var controllers = config.Controllers;
         var controller = new Controller {

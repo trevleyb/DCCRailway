@@ -7,7 +7,7 @@ using DCCRailway.Station.Commands.Types.Base;
 namespace DCCRailway.Application.LayoutEventManager.Updaters;
 
 public class LayoutSensorCmdUpdater() : LayoutGenericCmdUpdater() {
-    public new bool Process(ICommand command, LayoutEventLogger logger) {
+    public new async Task<bool> Process(ICommand command, LayoutEventLogger logger) {
 
         if (command is ISensorCmd sensorCmd) {
             var sensors = RailwayConfig.Instance.Sensors;

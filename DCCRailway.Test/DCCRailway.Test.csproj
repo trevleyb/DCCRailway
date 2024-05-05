@@ -24,7 +24,6 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\DCCRailway.Station\DCCRailway.Station.csproj" />
-        <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
         <ProjectReference Include="..\DCCRailway.Station.Digitrax\DCCRailway.Station.Digitrax.csproj" />
         <ProjectReference Include="..\DCCRailway.Station.NCE\DCCRailway.Station.NCE.csproj" />
         <ProjectReference Include="..\DCCRailway.Station.Sprog\DCCRailway.Station.Sprog.csproj" />

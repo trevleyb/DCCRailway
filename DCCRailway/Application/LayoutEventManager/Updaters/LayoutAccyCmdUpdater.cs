@@ -7,11 +7,11 @@ using DCCRailway.Station.Commands.Types.Base;
 namespace DCCRailway.Application.LayoutEventManager.Updaters;
 
 public class LayoutAccyCmdUpdater() : LayoutGenericCmdUpdater() {
-    public new bool Process(ICommand command, LayoutEventLogger logger) {
+    public async new Task<bool> Process(ICommand command, LayoutEventLogger logger) {
 
         if (command is IAccyCmd accyCmd) {
-            var accessories = RailwayConfig.Instance.Accessories;
-            var accessory = accessories.Find(x => x.Address == accyCmd.Address).Result;
+            var accessory = await RailwayConfig.Instance.Accessories.Find(x => x.Address == accyCmd.Address);
+
             if (accessory is null) {
                 logger.Error(accyCmd.GetType(), $"Command {command.AttributeInfo().Name} - no matching Accessory {accyCmd.Address.Address}.");
                 return false;

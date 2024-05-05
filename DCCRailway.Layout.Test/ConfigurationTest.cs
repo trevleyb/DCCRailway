@@ -1,5 +1,5 @@
 ﻿using DCCRailway.Layout.Configuration;
-using DCCRailway.Layout.Configuration.Entities.Layout;
+using DCCRailway.Layout.LayoutRepository.Entities;
 
 namespace DCCRailway.Layout.Test;
 

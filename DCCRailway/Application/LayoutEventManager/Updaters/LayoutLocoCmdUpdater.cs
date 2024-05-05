@@ -8,14 +8,16 @@ using DCCRailway.Station.Commands.Types.Base;
 namespace DCCRailway.Application.LayoutEventManager.Updaters;
 
 public class LayoutLocoCmdUpdater() : LayoutGenericCmdUpdater() {
-    public new bool Process(ICommand command, LayoutEventLogger logger) {
+    public new async Task<bool> Process(ICommand command, LayoutEventLogger logger) {
 
         // Get the Accessory from the configuration so that we can update its state
         // -----------------------------------------------------------------------------
         if (command is ILocoCmd locoCmd) {
-            var locomotives = RailwayConfig.Instance.Locomotives;
-            var loco = locomotives.Find(x => x.Address.Address == locoCmd.Address.Address).Result;
+            //var locomotives = RailwayConfig.Instance.Locomotives;
+            //var loco = locomotives.Find(x => x.Address.Address == locoCmd.Address.Address).Result;
             //var loco = Config.Locomotives[locoCmd.Address];
+            var loco = await RailwayConfig.Instance.Locomotives.Find(x => x.Address.Address == locoCmd.Address.Address);
+
             if (loco is null) {
                 logger.Error(locoCmd.GetType(), $"Command {command.AttributeInfo().Name} - no matching Accessory {((IAccyCmd)command).Address.Address}.");
                 return false;

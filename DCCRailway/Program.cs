@@ -1,4 +1,3 @@
-using DCCRailway.APIEndPoints;
 using DCCRailway.Application;
 using DCCRailway.Components;
 using DCCRailway.Layout.Configuration;
@@ -11,7 +10,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 var app = builder.Build();
-app.ConfigureAPIs(RailwayConfig.Instance);
+//app.ConfigureAPIs(RailwayConfig.Instance);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -2,9 +2,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using DCCRailway.Layout.Configuration.Entities;
-using DCCRailway.Layout.Configuration.Entities.Base;
-using DCCRailway.Layout.Configuration.Entities.Collection;
-using DCCRailway.Layout.Configuration.Entities.Events;
+using DCCRailway.Layout.LayoutRepository.Collection;
+using DCCRailway.Layout.LayoutRepository.Events;
 using Tmds.Linux;
 
 namespace DCCRailway.Layout.Test;
@@ -46,7 +45,7 @@ public class TestEntityCollectionWithChanges {
     }
 }
 
-public class TestEntities(string prefix = "TEST") : Repository<TestEntity>(prefix);
+public class TestEntities(string prefix = "TEST") : LayoutRepository<TestEntity>(prefix);
 
 public class TestEntity : PropertyChangeBase, IEntity {
 

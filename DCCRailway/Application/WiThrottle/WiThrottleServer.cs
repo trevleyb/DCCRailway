@@ -13,11 +13,11 @@ namespace DCCRailway.Application.WiThrottle;
 /// <summary>
 /// This is the main server for the WiThrottleController. It manages incomming connections, tracks them in a
 /// WiThrottleConnection and manages messages. It takes as parameters a RailwayConfig reference to allow it
-/// to get information about the Layout (Locos, Turnouts etc) as well as a reference to the active DCC
+/// to get information about the Entities (Locos, Turnouts etc) as well as a reference to the active DCC
 /// controller so it can send messages to that controller.
 ///
 /// Note that it does not need to track what messages it has sent as the LayoutConfig uses events to
-/// track what commands have been sent and automatically update the Layout with state changes.
+/// track what commands have been sent and automatically update the Entities with state changes.
 /// </summary>
 /// <param name="railwayConfig"></param>The main layout collection of objects and settings
 /// <param name="activeController"></param>An active IController instance

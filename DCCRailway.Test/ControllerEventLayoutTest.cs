@@ -1,7 +1,7 @@
 using DCCRailway.Application.LayoutEventManager;
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Configuration;
-using DCCRailway.Layout.Configuration.Entities.Layout;
+using DCCRailway.Layout.LayoutRepository.Entities;
 using DCCRailway.Station.Commands.Types;
 using DCCRailway.Station.Controllers;
 using NUnit.Framework;

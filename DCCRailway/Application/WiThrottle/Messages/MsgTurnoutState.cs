@@ -1,11 +1,11 @@
 using System.Text;
 using DCCRailway.Application.WiThrottle.Helpers;
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Configuration.Entities.Layout;
+using DCCRailway.Layout.LayoutRepository.Entities;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-public class MsgTurnoutState(WiThrottleConnection connection, Layout.Configuration.Entities.Layout.Turnout? turnout) : ThrottleMsg, IThrottleMsg {
+public class MsgTurnoutState(WiThrottleConnection connection, Turnout? turnout) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
             var sb = new StringBuilder();

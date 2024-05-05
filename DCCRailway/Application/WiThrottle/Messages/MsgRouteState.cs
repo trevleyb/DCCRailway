@@ -1,10 +1,11 @@
 using System.Text;
 using DCCRailway.Application.WiThrottle.Helpers;
-using DCCRailway.Layout.Configuration.Entities.Layout;
+using DCCRailway.Layout.LayoutRepository.Entities;
+using Route = DCCRailway.Layout.LayoutRepository.Entities.Route;
 
 namespace DCCRailway.Application.WiThrottle.Messages;
 
-public class MsgRouteState(WiThrottleConnection connection, Layout.Configuration.Entities.Layout.Route? route) : ThrottleMsg, IThrottleMsg {
+public class MsgRouteState(WiThrottleConnection connection, Route? route) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
             var sb = new StringBuilder();

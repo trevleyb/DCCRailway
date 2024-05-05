@@ -24,7 +24,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
-        <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

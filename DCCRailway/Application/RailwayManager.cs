@@ -1,6 +1,8 @@
 using DCCRailway.Application.LayoutEventManager;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout.Configuration;
+using DCCRailway.LayoutService.Layout;
+using DCCRailway.LayoutService.StateManager;
 using DCCRailway.Station.Attributes;
 using DCCRailway.Station.Controllers;
 using DCCRailway.Station.Controllers.Events;
@@ -10,17 +12,25 @@ using DCCRailway.Station.Helpers;
 namespace DCCRailway.Application;
 
 /// <summary>
-/// Railway Manager loads config, starts controllers, supports restarting and shutting down
-/// and acts as the meditor between the Layout and the Controllers.
+/// Railway Layout loads config, starts controllers, supports restarting and shutting down
+/// and acts as the meditor between the Entities and the Controllers.
 /// </summary>
 public class RailwayManager(IRailwayConfig? config = null) {
-    private LayoutUpdater _layoutUpdater;
-    private IController?  _activeController;
+
+    private LayoutStateService      _layoutState;
+    private LayoutRepositoryService _layoutRepository;
+    private LayoutUpdater           _layoutUpdater;
+    private IController?            _activeController;
 
     public void Startup() {
         // ToDo: Make the file a parameter on the command line or config file.
-        _layoutUpdater = new LayoutEventManager.LayoutUpdater();
-        _activeController = InstantiateController();
+        _layoutState        = new LayoutStateService();
+        _layoutRepository   = new LayoutRepositoryService("");
+        _layoutUpdater      = new LayoutUpdater();
+
+        _activeController   = InstantiateController();
+        _layoutRepository.Start();
+        _layoutState.Start("",0);       // <== TODO: Fix
     }
 
     public void Restart() {
@@ -35,6 +45,8 @@ public class RailwayManager(IRailwayConfig? config = null) {
             _activeController.ControllerEvent -= ControllerInstanceOnControllerEvent;
             _activeController = null;
         }
+        _layoutRepository.Stop();
+        _layoutState.Stop();
 
         //_config.SaveFile();
     }
@@ -43,11 +55,11 @@ public class RailwayManager(IRailwayConfig? config = null) {
     public IController? ActiveController => _activeController;
 
     /// <summary>
-    /// Looks at the configuration and instantiates the controller for the Layout. This includes adding appropriate
+    /// Looks at the configuration and instantiates the controller for the Entities. This includes adding appropriate
     /// adapters to the controller and pushing any parameters into the Controllers and Adapaters as defined in the
     /// configuration.
     /// </summary>
-    private IController InstantiateController(string? controllerID = null) {
+    private IController InstantiateController() {
 
         Layout.Configuration.Entities.System.Controller? controller;
 
@@ -56,11 +68,11 @@ public class RailwayManager(IRailwayConfig? config = null) {
         // provided in the parameter.
         // ---------------------------------------------------------------------------------
         try {
-            controller = (controllerID is null) ? Config.Controllers.DefaultController : Config.Controllers[controllerID];
-            if (controller is null) throw new ApplicationException("Cannot start the Layout Manager as no Controllers are defined.");
+            controller = Config.Controller ?? null;
+            if (controller is null) throw new ApplicationException("Cannot start the Entities Layout as no Controllers are defined.");
         }
         catch (Exception ex) {
-            throw new ApplicationException("Cannot start the Layout Manager as no Controllers are defined.",ex);
+            throw new ApplicationException("Cannot start the Entities Layout as no Controllers are defined.",ex);
         }
 
         // Insantiate the Controller and return it
@@ -103,7 +115,7 @@ public class RailwayManager(IRailwayConfig? config = null) {
             throw;
         }
 
-        // Wire up the events from the Command Station so we can track Layout Property Changes
+        // Wire up the events from the Command Station so we can track Entities Property Changes
         // --------------------------------------------------------------------------------------------
         controllerInstance.ControllerEvent += ControllerInstanceOnControllerEvent;
         controllerInstance.Start();

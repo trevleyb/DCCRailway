@@ -1,7 +1,7 @@
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Configuration;
-using DCCRailway.Layout.Configuration.Entities.Layout;
 using DCCRailway.Layout.Configuration.Entities.System;
+using DCCRailway.Layout.LayoutRepository.Entities;
 
 namespace DCCRailway.Layout.Test;
 
@@ -49,7 +49,7 @@ public class TestEntityEvents {
 
     private IRailwayConfig CreateTestConfig() {
 
-        var config = RailwayConfig.New("Test Layout", "Test Layout");
+        var config = RailwayConfig.New("Test Entities", "Test Entities");
 
         var locomotives = config.Locomotives;
         locomotives.Add(new Locomotive { Name = "Train01" } );

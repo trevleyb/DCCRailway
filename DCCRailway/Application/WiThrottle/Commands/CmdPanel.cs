@@ -1,9 +1,6 @@
 using DCCRailway.Application.WiThrottle.Messages;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Configuration.Entities.Layout;
-using DCCRailway.Station.Commands.Results;
-using DCCRailway.Station.Commands.Types;
 
 namespace DCCRailway.Application.WiThrottle.Commands;
 
@@ -31,6 +28,8 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
     /// of its current state.
     /// </summary>
     private async void ThrowTurnout(string commandStr) {
+
+        /*
         var turnoutID = commandStr[1..];
         if (connection.RailwayConfig.Turnouts is { } turnouts) {
             var turnout = await turnouts.GetByIDAsync(turnoutID);
@@ -47,6 +46,7 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
                 connection.QueueMsg(new MsgTurnoutState(connection, turnout));
             }
         }
+        */
     }
 
     /// <summary>
@@ -54,6 +54,7 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
     /// option is command 2 - activate it.
     /// </summary>
     private async void SetRoute(string commandStr) {
+        /*
         var routeID = commandStr[1..];
         if (connection.RailwayConfig?.Routes is { } routes) {
             var route = await routes.GetByIDAsync(routeID);
@@ -73,24 +74,27 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
                 connection.QueueMsg(new MsgRouteState(connection, route));
             }
         }
+        */
     }
 
     // Force all routes to be deactivated. However, could be more cleaver and could
     // only deactivate routes where there is a clash in the Turnouts.
     // ----------------------------------------------------------------------------
     private void DeactiveRoutes() {
+        /*
         if (connection.RailwayConfig.Routes.Values is { } routes) {
             foreach (var route in routes) {
                 route.State = RouteState.Inactive;
                 connection.QueueMsg(new MsgRouteState(connection, route));
             }
         }
+        */
     }
 
 
     /// <summary>
     /// Looks at the 4th charater of the message and uses it to
-    /// turn on or off the Power to the Layout. It then sends a PowerMsg
+    /// turn on or off the Power to the Entities. It then sends a PowerMsg
     /// update back to the client.
     /// </summary>
     /// <param name="state"></param>
