@@ -1,7 +1,7 @@
-using DCCRailway.LayoutService.Layout.Collection;
-using DCCRailway.LayoutService.Layout.Entities;
+using DCCRailway.Layout.Layout.Collection;
+using DCCRailway.Layout.Layout.Entities;
 
-namespace DCCRailway.LayoutService.Layout.EndPoints;
+namespace DCCRailway.Layout.Layout.EndPoints;
 
 public static class AccessoryApi {
     public static void Configure(WebApplication app, ILayoutRepository<Accessory> entities) {

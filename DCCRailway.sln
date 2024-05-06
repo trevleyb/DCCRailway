@@ -14,15 +14,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		DCCRailway.sln.DotSettings.user = DCCRailway.sln.DotSettings.user
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station.Digitrax", "DCCRailway.Station.Digitrax\DCCRailway.Station.Digitrax.csproj", "{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.CmdStation.Digitrax", "DCCRailway.CmdStation.Digitrax\DCCRailway.CmdStation.Digitrax.csproj", "{6CFEFF44-9DFA-4381-B640-AB9BF663ABBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station.NCE", "DCCRailway.Station.NCE\DCCRailway.Station.NCE.csproj", "{814A4EEE-CDA5-4CE1-ACE8-AC64C8B68C86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.CmdStation.NCE", "DCCRailway.CmdStation.NCE\DCCRailway.CmdStation.NCE.csproj", "{814A4EEE-CDA5-4CE1-ACE8-AC64C8B68C86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station.Sprog", "DCCRailway.Station.Sprog\DCCRailway.Station.Sprog.csproj", "{483C03E0-FDE2-44DA-B10B-69069513F76B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.CmdStation.Sprog", "DCCRailway.CmdStation.Sprog\DCCRailway.CmdStation.Sprog.csproj", "{483C03E0-FDE2-44DA-B10B-69069513F76B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station.Virtual", "DCCRailway.Station.Virtual\DCCRailway.Station.Virtual.csproj", "{18A6D007-3A4B-4326-B98A-9240DD72652B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.CmdStation.Virtual", "DCCRailway.CmdStation.Virtual\DCCRailway.CmdStation.Virtual.csproj", "{18A6D007-3A4B-4326-B98A-9240DD72652B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station", "DCCRailway.Station\DCCRailway.Station.csproj", "{DEB3B2F0-2A11-4060-872C-A0DA4018EAF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.CmdStation", "DCCRailway.CmdStation\DCCRailway.CmdStation.csproj", "{DEB3B2F0-2A11-4060-872C-A0DA4018EAF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Common", "DCCRailway.Common\DCCRailway.Common.csproj", "{D554D553-153C-4964-A048-A1BA7E823433}"
 EndProject
@@ -40,7 +40,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway", "DCCRailway\DC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Layout", "DCCRailway.Layout\DCCRailway.Layout.csproj", "{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.LayoutService.Test", "DCCRailway.LayoutService.Test\DCCRailway.LayoutService.Test.csproj", "{9A7FEFAE-7D10-4FE1-B553-00ADB508F02C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.WebApp", "DCCRailway.WebApp\DCCRailway.WebApp.csproj", "{BE24B80F-0CC0-47A4-9E2F-BD744DFFB4B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,10 +96,10 @@ Global
 		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A7FEFAE-7D10-4FE1-B553-00ADB508F02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A7FEFAE-7D10-4FE1-B553-00ADB508F02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A7FEFAE-7D10-4FE1-B553-00ADB508F02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A7FEFAE-7D10-4FE1-B553-00ADB508F02C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE24B80F-0CC0-47A4-9E2F-BD744DFFB4B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE24B80F-0CC0-47A4-9E2F-BD744DFFB4B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE24B80F-0CC0-47A4-9E2F-BD744DFFB4B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE24B80F-0CC0-47A4-9E2F-BD744DFFB4B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +121,5 @@ Global
 		{814A4EEE-CDA5-4CE1-ACE8-AC64C8B68C86} = {3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}
 		{483C03E0-FDE2-44DA-B10B-69069513F76B} = {3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}
 		{18A6D007-3A4B-4326-B98A-9240DD72652B} = {3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}
-		{9A7FEFAE-7D10-4FE1-B553-00ADB508F02C} = {E0D75749-0E2A-4DB3-A7C2-E3414C3D870E}
 	EndGlobalSection
 EndGlobal

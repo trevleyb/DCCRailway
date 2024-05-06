@@ -1,6 +1,5 @@
-using DCCRailway.LayoutService.Layout.Entities;
-using Route = DCCRailway.LayoutService.Layout.Entities.Route;
+using Entities_Route = DCCRailway.Layout.Layout.Entities.Route;
 
-namespace DCCRailway.LayoutService.Layout.LayoutSDK;
+namespace DCCRailway.Layout.Layout.LayoutSDK;
 
-public class Routes(string serviceUrl) : Entity<Route>(serviceUrl, "routes");
+public class Routes(string serviceUrl) : Entity<Entities_Route>(serviceUrl, "routes");

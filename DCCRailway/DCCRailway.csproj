@@ -9,7 +9,8 @@
     <ItemGroup>
       <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
       <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj" />
-      <ProjectReference Include="..\DCCRailway.Station\DCCRailway.Station.csproj" />
+      <ProjectReference Include="..\DCCRailway.CmdStation\DCCRailway.CmdStation.csproj" />
+      <ProjectReference Include="..\DCCRailway.WebApp\DCCRailway.WebApp.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -17,6 +18,26 @@
       <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
       <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
       <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Throttles\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Components\App.razor" />
+      <_ContentIncludedByDefault Remove="Components\Layout\MainLayout.razor" />
+      <_ContentIncludedByDefault Remove="Components\Layout\NavMenu.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Counter.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Error.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Home.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Weather.razor" />
+      <_ContentIncludedByDefault Remove="Components\Routes.razor" />
+      <_ContentIncludedByDefault Remove="Components\_Imports.razor" />
+      <_ContentIncludedByDefault Remove="wwwroot\app.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\favicon.png" />
     </ItemGroup>
 
 </Project>

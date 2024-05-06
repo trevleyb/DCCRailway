@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using DCCRailway.Common.Types;
-using DCCRailway.LayoutService.Layout.Base;
+using DCCRailway.Layout.Layout.Base;
 
-namespace DCCRailway.LayoutService.Layout.Entities;
+namespace DCCRailway.Layout.Layout.Entities;
 
 [Serializable]
 [DebuggerDisplay("SIGNAL={Id}, Name: {Name}")]

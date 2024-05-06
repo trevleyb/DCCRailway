@@ -1,7 +1,7 @@
 using DCCRailway.Common.Types;
-using DCCRailway.LayoutService.Layout.Entities;
+using DCCRailway.Layout.Layout.Entities;
 
-namespace DCCRailway.LayoutService.Layout.Base;
+namespace DCCRailway.Layout.Layout.Base;
 
 [Serializable]
 public class LayoutEntityDecoder(string id = "") : LayoutEntity(id) {

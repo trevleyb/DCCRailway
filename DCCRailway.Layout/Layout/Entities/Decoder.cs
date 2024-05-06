@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using DCCRailway.LayoutService.Layout.Base;
+using DCCRailway.Layout.Layout.Base;
 
-namespace DCCRailway.LayoutService.Layout.Entities;
+namespace DCCRailway.Layout.Layout.Entities;
 
 [Serializable]
 [DebuggerDisplay("DECODER={Id}, Name: {Name}, Manufacturers: {Manufacturer}")]

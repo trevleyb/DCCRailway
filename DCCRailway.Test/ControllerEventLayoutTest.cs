@@ -1,9 +1,9 @@
-using DCCRailway.Application.LayoutEventManager;
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Configuration;
-using DCCRailway.Layout.LayoutRepository.Entities;
-using DCCRailway.Station.Commands.Types;
-using DCCRailway.Station.Controllers;
+using DCCRailway.CmdStation.Commands.Types;
+using DCCRailway.CmdStation.Controllers;
+using DCCRailway.Configuration;
+using DCCRailway.Layout;
+using DCCRailway.Layout.Layout.Entities;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
@@ -21,7 +21,7 @@ public class ControllerEventLayoutTest {
         // Add a Locomotive to the layout configuration
         // ------------------------------------------------
         layoutConfig.Locomotives.Add(new Locomotive { Name = "TestLoco", Address = new DCCAddress(3) });
-        var loco = layoutConfig.Locomotives.IndexOf(0).Result;
+        var loco = layoutConfig.Locomotives.GetAll().First();
         Assert.That(loco, Is.Not.Null);
         Assert.That(loco!.Name, Is.EqualTo("TestLoco"));
 

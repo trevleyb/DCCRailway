@@ -1,4 +1,4 @@
-using DCCRailway.Layout.Configuration;
+using DCCRailway.Configuration;
 
 namespace DCCRailway.Layout.Test;
 

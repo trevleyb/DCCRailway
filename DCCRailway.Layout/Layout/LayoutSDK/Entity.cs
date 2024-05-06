@@ -2,7 +2,7 @@ using System.Text;
 using DCCRailway.Common.Helpers;
 using Newtonsoft.Json;
 
-namespace DCCRailway.LayoutService.Layout.LayoutSDK;
+namespace DCCRailway.Layout.Layout.LayoutSDK;
 
 public abstract class Entity<TEntity> : IEntity<TEntity> {
 

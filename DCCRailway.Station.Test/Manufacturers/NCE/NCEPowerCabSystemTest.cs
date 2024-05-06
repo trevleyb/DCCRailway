@@ -1,5 +1,5 @@
 ﻿using DCCRailway.Common.Types;
-using DCCRailway.Station.Adapters;
+using DCCRailway.CmdStation.Adapters;
 
 namespace DCCRailway.System.Test.Manufacturers.NCE;
 

@@ -1,4 +1,4 @@
-using DCCRailway.Station.Controllers;
+using DCCRailway.CmdStation.Controllers;
 
 namespace DCCRailway.System.Test;
 

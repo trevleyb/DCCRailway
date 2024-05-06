@@ -1,9 +1,9 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using DCCRailway.Layout.Configuration.Entities;
-using DCCRailway.Layout.LayoutRepository.Collection;
-using DCCRailway.Layout.LayoutRepository.Events;
+using DCCRailway.Layout.Layout.Base;
+using DCCRailway.Layout.Layout.Collection;
+using DCCRailway.Layout.Layout.Events;
 using Tmds.Linux;
 
 namespace DCCRailway.Layout.Test;
@@ -45,13 +45,15 @@ public class TestEntityCollectionWithChanges {
     }
 }
 
-public class TestEntities(string prefix = "TEST") : LayoutRepository<TestEntity>(prefix);
+public class TestEntities(string prefix = "TEST") : LayoutRepository<TestEntity>(prefix) {
 
-public class TestEntity : PropertyChangeBase, IEntity {
+}
+
+public class TestEntity : LayoutEntity {
 
     private string _id;
     private string _name;
-    public  string Id    { get => _id;    set => SetField(ref _id, value); }
-    public  string Name  { get => _name;  set => SetField(ref _name, value); }
+    public new string Id    { get => _id;    set => SetField(ref _id, value); }
+    public new string Name  { get => _name;  set => SetField(ref _name, value); }
 
 }

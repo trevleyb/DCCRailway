@@ -1,12 +1,13 @@
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Configuration;
-using DCCRailway.Layout.Configuration.Entities.System;
-using DCCRailway.Layout.LayoutRepository.Entities;
+using DCCRailway.Configuration;
+using DCCRailway.Layout.Layout.Entities;
 
 namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class TestEntityEvents {
+
+    // TODO: Add Web Events to support getting events from a repository
 
     [Test]
     public void TestThatEntityRepositoryIsEventingChanges() {
@@ -15,7 +16,7 @@ public class TestEntityEvents {
         var repositoryChanged = false;
         var config = CreateTestConfig();
         var locomotives = config.Locomotives;
-        locomotives.RepositoryChanged += (sender, args) => repositoryChanged= true;
+        //locomotives.RepositoryChanged += (sender, args) => repositoryChanged= true;
 
         propertyChanged = false;
         var addedLoco = locomotives.AddAsync(new Locomotive { Name = "Train06" }).Result;

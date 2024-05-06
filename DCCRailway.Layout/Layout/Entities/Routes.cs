@@ -1,6 +1,6 @@
-using DCCRailway.LayoutService.Layout.Collection;
+using DCCRailway.Layout.Layout.Collection;
 
-namespace DCCRailway.LayoutService.Layout.Entities;
+namespace DCCRailway.Layout.Layout.Entities;
 
 [Serializable]
 public class Routes(string prefix) : LayoutRepository<Route>(prefix) {

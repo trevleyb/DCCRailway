@@ -1,4 +1,4 @@
-using DCCRailway.Station.Attributes;
+using DCCRailway.CmdStation.Attributes;
 using NUnit.Framework;
 
 namespace DCCRailway.System.Test;

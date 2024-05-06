@@ -5,7 +5,6 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <OutputType>Library</OutputType>
-        <RootNamespace>DCCRailway.LayoutService</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

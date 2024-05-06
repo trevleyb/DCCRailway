@@ -1,5 +1,5 @@
-using DCCRailway.LayoutService.Layout.Entities;
+using DCCRailway.Layout.Layout.Entities;
 
-namespace DCCRailway.LayoutService.Layout.LayoutSDK;
+namespace DCCRailway.Layout.Layout.LayoutSDK;
 
 public class Signals(string serviceUrl) : Entity<Signal>(serviceUrl, "signals");

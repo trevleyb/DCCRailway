@@ -1,4 +1,4 @@
-namespace DCCRailway.LayoutService.Layout.LayoutSDK;
+namespace DCCRailway.Layout.Layout.LayoutSDK;
 
 public interface IEntity<TEntity> {
     Task<TEntity?> FindAsync(Func<TEntity, bool> predicate);

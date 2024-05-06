@@ -1,7 +1,7 @@
 using System.IO.Ports;
-using DCCRailway.Station.Adapters.Helpers;
-using DCCRailway.Station.Helpers;
-using DCCRailway.Station.NCE.Adapters;
+using DCCRailway.CmdStation.Adapters.Helpers;
+using DCCRailway.CmdStation.Helpers;
+using DCCRailway.CmdStation.NCE.Adapters;
 
 namespace DCCRailway.System.Test.Adapters;
 

@@ -1,4 +1,4 @@
-namespace DCCRailway.LayoutService.Layout.Events;
+namespace DCCRailway.Layout.Layout.Events;
 
 public class RepositoryChangedEventArgs(string repository, string id, RepositoryChangeAction action)
     : EventArgs {

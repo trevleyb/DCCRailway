@@ -1,6 +1,6 @@
 using Serilog;
 
-namespace DCCRailway.LayoutService.StateManager;
+namespace DCCRailway.Layout.StateManager;
 
 public class LayoutStateService() {
 

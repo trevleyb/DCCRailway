@@ -1,5 +1,5 @@
 using System.Text;
-using DCCRailway.Application.WiThrottle.Helpers;
+using DCCRailway.Throttles.WiThrottle.Helpers;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;

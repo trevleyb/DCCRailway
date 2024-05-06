@@ -1,13 +1,12 @@
 using System.ComponentModel;
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.LayoutRepository.Base;
-using DCCRailway.Layout.LayoutRepository.Entities;
+using DCCRailway.Layout.Layout.Base;
+using DCCRailway.Layout.Layout.Entities;
 
 namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class LayoutPropertyChangedTests {
-    private bool   _triggeredChanging = false;
     private bool   _triggeredChanged  = false;
     private string _activeField       = "";
 
@@ -17,7 +16,6 @@ public class LayoutPropertyChangedTests {
 
         var loco = new Locomotive();
         loco.PropertyChanged += LocoOnPropertyChanged;
-        loco.PropertyChanging += LocoOnPropertyChanging;
 
         TestField(loco, nameof(loco.Name), "LOCO1");
         TestField(loco, nameof(loco.Name), "LOCO2");
@@ -45,12 +43,6 @@ public class LayoutPropertyChangedTests {
         TestField(loco, nameof(loco.RoadNumber), "UP9999");
 
         loco.PropertyChanged  -= LocoOnPropertyChanged;
-        loco.PropertyChanging -= LocoOnPropertyChanging;
-    }
-
-    private void LocoOnPropertyChanging(object? sender, PropertyChangingEventArgs e) {
-        Assert.That(e.PropertyName, Is.EqualTo(_activeField));
-        _triggeredChanging = true;
     }
 
     private void LocoOnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
@@ -59,7 +51,6 @@ public class LayoutPropertyChangedTests {
     }
 
     private void TestField<T>(LayoutEntity layoutEntity, string field, T value) {
-        _triggeredChanging = false;
         _triggeredChanged = false;
         _activeField      = field;
         var oldValue = GetPropertyValue<T>(layoutEntity, field);
@@ -67,7 +58,6 @@ public class LayoutPropertyChangedTests {
         var getValue = GetPropertyValue<T>(layoutEntity, field);
         Assert.That(getValue, Is.EqualTo(value));
         Assert.That(getValue, Is.Not.EqualTo(oldValue));
-        Assert.That(_triggeredChanging, Is.True);
         Assert.That(_triggeredChanged, Is.True);
         _activeField = "";
     }
