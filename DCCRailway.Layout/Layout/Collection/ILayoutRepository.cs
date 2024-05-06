@@ -1,6 +1,6 @@
-using DCCRailway.LayoutService.Layout.Base;
+using DCCRailway.Layout.Layout.Base;
 
-namespace DCCRailway.LayoutService.Layout.Collection;
+namespace DCCRailway.Layout.Layout.Collection;
 
 public interface ILayoutRepository<TEntity> : IDictionary<string, TEntity>
     where TEntity : LayoutEntity {

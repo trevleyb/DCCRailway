@@ -1,5 +1,5 @@
-﻿using DCCRailway.Station.Adapters;
-using DCCRailway.Station.Controllers;
+﻿using DCCRailway.CmdStation.Adapters;
+using DCCRailway.CmdStation.Controllers;
 
 namespace DCCRailway.System.Test;
 

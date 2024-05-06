@@ -1,5 +1,5 @@
-﻿using DCCRailway.Layout.Configuration;
-using DCCRailway.Layout.LayoutRepository.Entities;
+﻿using DCCRailway.Configuration;
+using DCCRailway.Layout.Layout.Entities;
 
 namespace DCCRailway.Layout.Test;
 
@@ -49,18 +49,18 @@ public class ConfigurationTest {
         // Reload the Data Store we just Saved and then check if it is the same
         var config2 = RailwayConfig.Load("TestSystemWithAll.json");
         Assert.That(config2 is not null);
-        Assert.That(config2!.Accessories.Count(), Is.EqualTo(3));
-        Assert.That(config2!.Blocks.Count(), Is.EqualTo(3));
-        Assert.That(config2!.Locomotives.Count(), Is.EqualTo(3));
-        Assert.That(config2!.Sensors.Count(), Is.EqualTo(3));
-        Assert.That(config2!.Signals.Count(), Is.EqualTo(3));
-        Assert.That(config2!.Turnouts.Count(), Is.EqualTo(3));
-        Assert.That(config2?.Accessories.First().Value.Name, Is.EqualTo("TestAccessory1"));
-        Assert.That(config2?.Blocks.First().Value.Name, Is.EqualTo("TestBlock1"));
-        Assert.That(config2?.Locomotives.First().Value.Name, Is.EqualTo("TestLocomotive1"));
-        Assert.That(config2?.Sensors.First().Value.Name, Is.EqualTo("TestSensor1"));
-        Assert.That(config2?.Signals.First().Value.Name, Is.EqualTo("TestSignal1"));
-        Assert.That(config2?.Turnouts.First().Value.Name, Is.EqualTo("TestTurnout1"));
+        Assert.That(config2!.Accessories.GetAll().Count(), Is.EqualTo(3));
+        Assert.That(config2!.Blocks.GetAll().Count(), Is.EqualTo(3));
+        Assert.That(config2!.Locomotives.GetAll().Count(), Is.EqualTo(3));
+        Assert.That(config2!.Sensors.GetAll().Count(), Is.EqualTo(3));
+        Assert.That(config2!.Signals.GetAll().Count(), Is.EqualTo(3));
+        Assert.That(config2!.Turnouts.GetAll().Count(), Is.EqualTo(3));
+        Assert.That(config2?.Accessories.GetAll().First().Name, Is.EqualTo("TestAccessory1"));
+        Assert.That(config2?.Blocks.GetAll().First().Name, Is.EqualTo("TestBlock1"));
+        Assert.That(config2?.Locomotives.GetAll().First().Name, Is.EqualTo("TestLocomotive1"));
+        Assert.That(config2?.Sensors.GetAll().First().Name, Is.EqualTo("TestSensor1"));
+        Assert.That(config2?.Signals.GetAll().First().Name, Is.EqualTo("TestSignal1"));
+        Assert.That(config2?.Turnouts.GetAll().First().Name, Is.EqualTo("TestTurnout1"));
     }
 
     [Test]

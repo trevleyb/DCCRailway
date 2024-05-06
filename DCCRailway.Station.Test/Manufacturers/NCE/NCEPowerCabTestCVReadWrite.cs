@@ -1,8 +1,8 @@
-﻿using DCCRailway.Station.Commands.Results;
-using DCCRailway.Station.Commands.Types;
-using DCCRailway.Station.Controllers;
-using DCCRailway.Station.NCE;
-using DCCRailway.Station.NCE.Adapters;
+﻿using DCCRailway.CmdStation.Commands.Results;
+using DCCRailway.CmdStation.Commands.Types;
+using DCCRailway.CmdStation.Controllers;
+using DCCRailway.CmdStation.NCE;
+using DCCRailway.CmdStation.NCE.Adapters;
 
 namespace DCCRailway.System.Test.Manufacturers.NCE;
 

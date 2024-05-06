@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.LayoutService.Layout.Entities;
+﻿namespace DCCRailway.Layout.Layout.Entities;
 
 [Serializable]
 public class Parameters : List<Parameter> {

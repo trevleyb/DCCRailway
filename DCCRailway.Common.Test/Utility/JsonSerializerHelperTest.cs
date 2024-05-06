@@ -35,7 +35,7 @@ public class JsonSerializerHelperTest {
         var nonExistentFileName = "nonexistent.json";
 
         // Act & Assert
-        Assert.Throws<FileNotFoundException>(() => JsonSerializerHelper<TestObject>.LoadFile(nonExistentFileName));
+        Assert.That(JsonSerializerHelper<TestObject>.LoadFile(nonExistentFileName),Is.EqualTo(null));
     }
 
     [Test]

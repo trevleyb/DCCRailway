@@ -1,8 +1,8 @@
 using System.ComponentModel;
-using DCCRailway.LayoutService.Layout.Entities;
-using DCCRailway.LayoutService.Layout.Events;
+using DCCRailway.Layout.Layout.Entities;
+using DCCRailway.Layout.Layout.Events;
 
-namespace DCCRailway.LayoutService.Layout.Base;
+namespace DCCRailway.Layout.Layout.Base;
 
 [Serializable]
 public abstract class LayoutEntity : PropertyChangeBase, INotifyPropertyChanged {

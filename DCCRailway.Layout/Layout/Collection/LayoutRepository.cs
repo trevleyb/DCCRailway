@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using DCCRailway.Common.Helpers;
-using DCCRailway.LayoutService.Layout.Base;
-using DCCRailway.LayoutService.Layout.Events;
+using DCCRailway.Layout.Layout.Base;
+using DCCRailway.Layout.Layout.Events;
 
-namespace DCCRailway.LayoutService.Layout.Collection;
+namespace DCCRailway.Layout.Layout.Collection;
 
 [Serializable]
 public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictionary<string,TEntity>, ILayoutRepository<TEntity>

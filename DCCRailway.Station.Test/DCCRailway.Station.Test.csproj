@@ -23,11 +23,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.Station.Digitrax\DCCRailway.Station.Digitrax.csproj" />
-        <ProjectReference Include="..\DCCRailway.Station.NCE\DCCRailway.Station.NCE.csproj" />
-        <ProjectReference Include="..\DCCRailway.Station.Sprog\DCCRailway.Station.Sprog.csproj" />
-        <ProjectReference Include="..\DCCRailway.Station.Virtual\DCCRailway.Station.Virtual.csproj" />
-        <ProjectReference Include="..\DCCRailway.Station\DCCRailway.Station.csproj" />
+        <ProjectReference Include="..\DCCRailway.CmdStation.Digitrax\DCCRailway.CmdStation.Digitrax.csproj" />
+        <ProjectReference Include="..\DCCRailway.CmdStation.NCE\DCCRailway.CmdStation.NCE.csproj" />
+        <ProjectReference Include="..\DCCRailway.CmdStation.Sprog\DCCRailway.CmdStation.Sprog.csproj" />
+        <ProjectReference Include="..\DCCRailway.CmdStation.Virtual\DCCRailway.CmdStation.Virtual.csproj" />
+        <ProjectReference Include="..\DCCRailway.CmdStation\DCCRailway.CmdStation.csproj" />
     </ItemGroup>
 
 </Project>

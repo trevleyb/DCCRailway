@@ -1,4 +1,4 @@
-using DCCRailway.Station.Attributes;
+using DCCRailway.CmdStation.Attributes;
 
 namespace DCCRailway.System.Test.Attributes;
 

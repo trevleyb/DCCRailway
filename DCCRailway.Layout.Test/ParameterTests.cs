@@ -1,5 +1,5 @@
 using System.IO.Ports;
-using DCCRailway.Layout.Configuration.Entities.System;
+using DCCRailway.Configuration.Entities;
 
 namespace DCCRailway.Layout.Test;
 

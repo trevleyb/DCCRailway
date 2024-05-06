@@ -11,7 +11,6 @@ public class BackgroundWorkerOptions {
 
 public abstract class BackgroundWorker(BackgroundWorkerOptions options) {
 
-
     public event EventHandler WorkStarted;
     public event EventHandler WorkFinished;
     public event EventHandler WorkInProgress;

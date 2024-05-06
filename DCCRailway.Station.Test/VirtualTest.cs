@@ -1,7 +1,7 @@
-using DCCRailway.Station.Attributes;
-using DCCRailway.Station.Commands.Types;
-using DCCRailway.Station.Controllers;
-using DCCRailway.Station.Controllers.Events;
+using DCCRailway.CmdStation.Attributes;
+using DCCRailway.CmdStation.Commands.Types;
+using DCCRailway.CmdStation.Controllers;
+using DCCRailway.CmdStation.Controllers.Events;
 
 namespace DCCRailway.System.Test;
 

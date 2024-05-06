@@ -1,4 +1,4 @@
-namespace DCCRailway.LayoutService.StateManager;
+namespace DCCRailway.Layout.StateManager;
 
 public class LayoutStateManager {
     

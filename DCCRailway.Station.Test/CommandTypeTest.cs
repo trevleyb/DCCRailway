@@ -1,7 +1,7 @@
-using DCCRailway.Station.Commands.Types;
-using DCCRailway.Station.Digitrax.Commands;
-using DCCRailway.Station.Helpers;
-using DCCRailway.Station.Virtual;
+using DCCRailway.CmdStation.Commands.Types;
+using DCCRailway.CmdStation.Digitrax.Commands;
+using DCCRailway.CmdStation.Helpers;
+using DCCRailway.CmdStation.Virtual;
 using NUnit.Framework.Interfaces;
 
 namespace DCCRailway.System.Test;

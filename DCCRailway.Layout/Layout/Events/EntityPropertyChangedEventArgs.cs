@@ -1,7 +1,7 @@
 using System.ComponentModel;
-using DCCRailway.LayoutService.Layout.Base;
+using DCCRailway.Layout.Layout.Base;
 
-namespace DCCRailway.LayoutService.Layout.Events;
+namespace DCCRailway.Layout.Layout.Events;
 
 public class EntityPropertyChangedEventArgs : PropertyChangedEventArgs {
 

@@ -1,10 +1,10 @@
 using System.Text.Json.Serialization;
 using DCCRailway.Common.Helpers;
-using DCCRailway.LayoutService.Layout.Base;
-using DCCRailway.LayoutService.Layout.Collection;
-using DCCRailway.LayoutService.Layout.Entities;
+using DCCRailway.Layout.Layout.Base;
+using DCCRailway.Layout.Layout.Collection;
+using DCCRailway.Layout.Layout.Entities;
 
-namespace DCCRailway.LayoutService.Layout;
+namespace DCCRailway.Layout.Layout;
 
 public sealed class LayoutRepositoryManager : JsonSerializerHelper<LayoutRepositoryManager> {
     public const string DefaultConfigFilename = "DCCRailway.Layout.json";

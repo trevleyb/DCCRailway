@@ -1,11 +1,11 @@
 ﻿using DCCRailway.Common.Types;
-using DCCRailway.Station.Adapters;
-using DCCRailway.Station.Adapters.Base;
-using DCCRailway.Station.Adapters.Events;
-using DCCRailway.Station.Commands.Types;
-using DCCRailway.Station.Controllers;
-using DCCRailway.Station.NCE;
-using DCCRailway.Station.NCE.Adapters;
+using DCCRailway.CmdStation.Adapters;
+using DCCRailway.CmdStation.Adapters.Base;
+using DCCRailway.CmdStation.Adapters.Events;
+using DCCRailway.CmdStation.Commands.Types;
+using DCCRailway.CmdStation.Controllers;
+using DCCRailway.CmdStation.NCE;
+using DCCRailway.CmdStation.NCE.Adapters;
 
 namespace DCCRailway.System.Test.Manufacturers.NCE;
 

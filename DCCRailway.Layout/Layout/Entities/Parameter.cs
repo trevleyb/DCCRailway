@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.IO.Ports;
 
-namespace DCCRailway.LayoutService.Layout.Entities;
+namespace DCCRailway.Layout.Layout.Entities;
 
 [Serializable]
 public class Parameter {

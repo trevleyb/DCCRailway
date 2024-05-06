@@ -1,7 +1,7 @@
-using DCCRailway.LayoutService.Layout.Collection;
-using Route = DCCRailway.LayoutService.Layout.Entities.Route;
+using DCCRailway.Layout.Layout.Collection;
+using Route = DCCRailway.Layout.Layout.Entities.Route;
 
-namespace DCCRailway.LayoutService.Layout.EndPoints;
+namespace DCCRailway.Layout.Layout.EndPoints;
 
 public static class RouteAPI {
     public static void Configure(WebApplication app, ILayoutRepository<Route> entities) {
