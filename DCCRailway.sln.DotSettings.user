@@ -22,48 +22,18 @@
     <s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestProjectMapping/=E61F9487_002D50EC_002D4021_002DA612_002DC90C6A9DBC6D/@EntryIndexedValue">5489776D-7885-48FE-AC7F-D92DC35EC324</s:String>
     <s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=MSTest/@EntryIndexedValue">d6790ab7-33c2-4425-b2c9-51480cd1a852</s:String>
     <s:String x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=NUnit3x/@EntryIndexedValue">db4927dd-2e12-48a7-9a84-2b7e3e31b9c8</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=57b879c1_002Daf1b_002D41ec_002Db14f_002D7abaf64d497b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="LoggerTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a0db3981_002D877e_002D46eb_002Da492_002Dbadd2f1d56a3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ManualTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.LoggerTest&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::2AB280A0-ACB1-4A27-AEB3-C83CBA30A65F::net8.0::DCCRailway.Common.Test.BackgroundWorkerTest.TestTheWorker&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.WiThrottleTest.TestIfWiThrottleLoads&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.WiThrottleTest.TestIfWiThrottleLoadsAndRuns&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::net8.0::DCCRailway.Layout.Test.ManualLayoutManager.ManualTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ab9137c8_002D9265_002D45e2_002Db583_002D66f269022a06/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestIfWiThrottleLoadsAndRuns" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway" Presentation="&amp;lt;Tests&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b97ef054_002D8708_002D47e4_002D9941_002D67af2e9a8a48/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestIfWiThrottleLoadsAndRuns #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.WiThrottleTest.TestIfWiThrottleLoadsAndRuns&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d720eb4c_002Da959_002D4d37_002D9151_002D5109ed041667/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestEntityRepositoryAddAndStore" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway" Presentation="&amp;lt;Tests&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f16afdd0_002D3d0c_002D446f_002D97bb_002D7452bb42aea6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestIfWiThrottleLoadsAndRuns #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Or&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.WiThrottleTest.TestIfWiThrottleLoadsAndRuns&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Common.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Common.Test&amp;gt;" /&gt;
-    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Layout.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Layout.Test&amp;gt;" /&gt;
-    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Station.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Station.Test&amp;gt;" /&gt;
-  &lt;/Or&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f44fddeb_002Dfe59_002D4e20_002D8a7f_002D1513f21c2b04/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestEntityRepositoryAddAndStore #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Or&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::net8.0::DCCRailway.Layout.Test.ConfigurationTest.TestEntityRepositoryAddAndStore&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Station.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Station.Test&amp;gt;" /&gt;
-    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Common.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Common.Test&amp;gt;" /&gt;
-    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Test&amp;gt;" /&gt;
-  &lt;/Or&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f8c694da_002Dc021_002D43eb_002D81a0_002D4fb5f65329db/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestIfWiThrottleLoadsAndRuns #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Solution /&gt;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
 	
 	
     

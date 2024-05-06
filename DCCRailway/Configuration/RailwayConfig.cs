@@ -48,8 +48,8 @@ public sealed class RailwayConfig : IRailwayConfig {
     public string         Filename              { get; set; } = "Railway.Config.json";
 
     public ServiceSetting WiThrottleSettings    { get; set; } = new ServiceSetting("WiThrottle", 12090, "DCCRailway.Withrottle.json");
-    public ServiceSetting LayoutManagerSettings { get; set; } = new ServiceSetting("LayoutService", 13010, "DCCRailway.Layout.json");
-    public ServiceSetting WepAppManagerSettings { get; set; } = new ServiceSetting("WebApp", 13010, "DCCRailway.WebApp.json");
+    public ServiceSetting LayoutManagerSettings { get; set; } = new ServiceSetting("LayoutService", 5001, "DCCRailway.Layout.json");
+    public ServiceSetting WepAppManagerSettings { get; set; } = new ServiceSetting("WebApp", 5000, "DCCRailway.WebApp.json");
 
     public Controller     Controller            { get; set; } = new Controller();
     public Parameters     Parameters            { get; set; } = [];

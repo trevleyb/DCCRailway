@@ -12,11 +12,11 @@ public class LayoutWebApp {
 
     public void Stop() { }
 
-    public void Start(string filename) => Start(baseUrl, basePort, filename);
-    public void Start(string url, int port) => Start(url, port, defaultFile);
-    public void Start(string url, int port, string filename) => Start($"{url ?? "https://localhost"}:{port}", filename);
-    public void Start(ServiceSetting settings) => Start(settings.ServiceURL, settings.ConfigFile ?? defaultFile);
-    public void Start(string serviceUrl, string configFile) {
+    public Task Start(string filename) => Start(baseUrl, basePort, filename);
+    public Task Start(string url, int port) => Start(url, port, defaultFile);
+    public Task Start(string url, int port, string filename) => Start($"{url ?? "https://localhost"}:{port}", filename);
+    public Task Start(ServiceSetting settings) => Start(settings.ServiceURL, settings.ConfigFile ?? defaultFile);
+    public Task Start(string serviceUrl, string configFile) {
 
         var builder = WebApplication.CreateBuilder();
 
@@ -40,5 +40,6 @@ public class LayoutWebApp {
             .AddInteractiveServerRenderMode();
 
         _app.Run();
+        return Task.CompletedTask;
     }
 }
