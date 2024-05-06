@@ -30,12 +30,11 @@ public class JsonSerializerHelperTest {
     }
 
     [Test]
-    public void Load_ShouldThrowException_WhenFileDoesNotExist() {
+    public void LoadReturnNullWhenFileDoesNotExist() {
         // Arrange
         var nonExistentFileName = "nonexistent.json";
-
-        // Act & Assert
-        Assert.That(JsonSerializerHelper<TestObject>.LoadFile(nonExistentFileName),Is.EqualTo(null));
+        var loaded = JsonSerializerHelper<TestObject>.LoadFile(nonExistentFileName);
+        Assert.That(loaded,Is.EqualTo(null));
     }
 
     [Test]
@@ -68,7 +67,6 @@ public class JsonSerializerHelperTest {
     public void Save_ShouldThrowException_WhenFileNameIsNullOrEmpty() {
         // Arrange
         var objectToSave = new TestObject { Name = "Test" };
-
         // Act & Assert
         Assert.Throws<ApplicationException>(() => JsonSerializerHelper<TestObject>.SaveFile(objectToSave, null));
         Assert.Throws<ApplicationException>(() => JsonSerializerHelper<TestObject>.SaveFile(objectToSave, string.Empty));

@@ -19,9 +19,9 @@ public interface IRailwayConfig {
     public Parameters     Parameters            { get; }
     public Manufacturers  Manufacturers         { get; }
 
-    public ServiceSetting WiThrottleSettings    { get; }
-    public ServiceSetting LayoutManagerSettings { get; }
-    public ServiceSetting WepAppManagerSettings { get; }
+    public ServiceSetting WiThrottleSettings    { get; set; }
+    public ServiceSetting LayoutManagerSettings { get; set; }
+    public ServiceSetting WepAppManagerSettings { get; set; }
 
     public Accessories    Accessories           { get; }
     public Blocks         Blocks                { get; }

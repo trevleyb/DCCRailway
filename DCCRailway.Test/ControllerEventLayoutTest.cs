@@ -1,6 +1,9 @@
+using DCCRailway.CmdStation.Commands.Results;
 using DCCRailway.Common.Types;
 using DCCRailway.CmdStation.Commands.Types;
 using DCCRailway.CmdStation.Controllers;
+using DCCRailway.CmdStation.Controllers.Events;
+using DCCRailway.Common.Configuration;
 using DCCRailway.Configuration;
 using DCCRailway.Layout;
 using DCCRailway.Layout.Layout.Entities;
@@ -18,6 +21,10 @@ public class ControllerEventLayoutTest {
         Assert.That(layoutConfig, Is.Not.Null);
         Assert.That(layoutCmdProcessor, Is.Not.Null);
 
+        layoutConfig.LayoutManagerSettings = new ServiceSetting("Test", "https://localhost", 5001, "TestSystemWithAll.Layout.json");;
+        var layoutService = new LayoutService();
+        layoutService.Start(layoutConfig.LayoutManagerSettings);
+
         // Add a Locomotive to the layout configuration
         // ------------------------------------------------
         layoutConfig.Locomotives.Add(new Locomotive { Name = "TestLoco", Address = new DCCAddress(3) });
@@ -32,10 +39,12 @@ public class ControllerEventLayoutTest {
         setLocoSpeed.Speed    = new DCCSpeed(50);
         Assert.That(loco?.Speed?.Value, Is.EqualTo(0));
 
-        // todo: fix this test
-        //var controllerEvent = new CommandEventArgs(setLocoSpeed, CommandResult.Success(), controller.Adapter!);
-        //layoutCmdProcessor.ProcessCommandEvent(controllerEvent);
+        // TODO: fix this test
+        var controllerEvent = new CommandEventArgs(setLocoSpeed, CommandResult.Success());
+        layoutCmdProcessor.ProcessCommandEvent(controllerEvent);
         //Assert.That(loco?.Speed?.Value, Is.EqualTo(50));
+
+        layoutService.Stop();
     }
 
      IController CreateVirtualControllerWithAdapter() {

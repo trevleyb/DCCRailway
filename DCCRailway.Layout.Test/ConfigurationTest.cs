@@ -1,4 +1,5 @@
-﻿using DCCRailway.Configuration;
+﻿using DCCRailway.Common.Configuration;
+using DCCRailway.Configuration;
 using DCCRailway.Layout.Layout.Entities;
 
 namespace DCCRailway.Layout.Test;
@@ -11,8 +12,12 @@ public class ConfigurationTest {
 
         // This will either load the file, or will create a new one if it does not exist.
         var config = RailwayConfig.New("TestFile","TestFile","TestSystemWithAll.json");
+        config.LayoutManagerSettings = new ServiceSetting("Test", "https://localhost", 5001, "TestSystemWithAll.Layout.json");;
         Assert.That(config is not null);
         Assert.That(config!.Filename, Is.EqualTo("TestSystemWithAll.json"));
+
+        var layoutService = new LayoutService();
+        layoutService.Start(config.LayoutManagerSettings);
 
         var accessoryRepository = config.Accessories;
         await accessoryRepository.AddAsync(new Accessory { Name = "TestAccessory1", Description = "Test Accessory Description1" });
@@ -44,23 +49,39 @@ public class ConfigurationTest {
         await turnoutRepository.AddAsync(new Turnout { Name = "TestTurnout2", Description = "Test Turnout Description2" });
         await turnoutRepository.AddAsync(new Turnout { Name = "TestTurnout3", Description = "Test Turnout Description3" });
 
-        config.Save("TestSystemWithAll.json");
-
-        // Reload the Data Store we just Saved and then check if it is the same
-        var config2 = RailwayConfig.Load("TestSystemWithAll.json");
+        var config2 = RailwayConfig.New("TestFile","TestFile","TestSystemWithAll.json");
+        config2.LayoutManagerSettings = new ServiceSetting("Test", "https://localhost", 5001, "TestSystemWithAll.Layout.json");;
         Assert.That(config2 is not null);
-        Assert.That(config2!.Accessories.GetAll().Count(), Is.EqualTo(3));
-        Assert.That(config2!.Blocks.GetAll().Count(), Is.EqualTo(3));
-        Assert.That(config2!.Locomotives.GetAll().Count(), Is.EqualTo(3));
-        Assert.That(config2!.Sensors.GetAll().Count(), Is.EqualTo(3));
-        Assert.That(config2!.Signals.GetAll().Count(), Is.EqualTo(3));
-        Assert.That(config2!.Turnouts.GetAll().Count(), Is.EqualTo(3));
-        Assert.That(config2?.Accessories.GetAll().First().Name, Is.EqualTo("TestAccessory1"));
-        Assert.That(config2?.Blocks.GetAll().First().Name, Is.EqualTo("TestBlock1"));
-        Assert.That(config2?.Locomotives.GetAll().First().Name, Is.EqualTo("TestLocomotive1"));
-        Assert.That(config2?.Sensors.GetAll().First().Name, Is.EqualTo("TestSensor1"));
-        Assert.That(config2?.Signals.GetAll().First().Name, Is.EqualTo("TestSignal1"));
-        Assert.That(config2?.Turnouts.GetAll().First().Name, Is.EqualTo("TestTurnout1"));
+
+        var accs = config2.Accessories.GetAll();
+        var blks = config2.Blocks.GetAll();
+        var locs = config2.Locomotives.GetAll();
+        var sens = config2.Sensors.GetAll();
+        var sigs = config2.Signals.GetAll();
+        var turs = config2.Turnouts.GetAll();
+
+        Assert.That(accs.Count(), Is.EqualTo(3));
+        Assert.That(blks.Count(), Is.EqualTo(3));
+        Assert.That(locs.Count(), Is.EqualTo(3));
+        Assert.That(sens.Count(), Is.EqualTo(3));
+        Assert.That(sigs.Count(), Is.EqualTo(3));
+        Assert.That(turs.Count(), Is.EqualTo(3));
+
+        var acc = accs.First(x => x.Name.Contains("1")).Name;
+        var blk = blks.First(x => x.Name.Contains("1")).Name;
+        var loc = locs.First(x => x.Name.Contains("1")).Name;
+        var sen = sens.First(x => x.Name.Contains("1")).Name;
+        var sig = sigs.First(x => x.Name.Contains("1")).Name;
+        var tur = turs.First(x => x.Name.Contains("1")).Name;
+
+        Assert.That(acc, Is.EqualTo("TestAccessory1"));
+        Assert.That(blk, Is.EqualTo("TestBlock1"));
+        Assert.That(loc, Is.EqualTo("TestLocomotive1"));
+        Assert.That(sen, Is.EqualTo("TestSensor1"));
+        Assert.That(sig, Is.EqualTo("TestSignal1"));
+        Assert.That(tur, Is.EqualTo("TestTurnout1"));
+
+        layoutService.Stop();
     }
 
     [Test]

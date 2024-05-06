@@ -35,5 +35,5 @@ public class ServiceSetting {
     public string   HostURL     { get; set; }
     public int      HostPort    { get; set; }
     public string?  ConfigFile { get; set; }
-    public string   ServiceURL => $"{HostURL}/:{HostPort}";
+    public string   ServiceURL => $"{HostURL}:{HostPort}";
 }
