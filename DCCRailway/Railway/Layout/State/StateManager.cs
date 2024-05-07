@@ -16,7 +16,6 @@ public class StateManager {
     }
 
     public StateObject SetState(string id, string key, object value) {
-        var keyName = nameof(value);
         if (!_states.ContainsKey(id)) _states.TryAdd(id, new StateObject(id));
         var stateObject = _states[id];
         if (!stateObject.Data.ContainsKey(key)) stateObject.Data.TryAdd(key, value);
@@ -47,9 +46,21 @@ public class StateManager {
         return (T)idStates.Data[key];
     }
 
+    public T GetState<T>(string id, string key, T ifNotExist) {
+        if (!_states.TryGetValue(id, out var idStates)) return ifNotExist;
+        if (!idStates.Data.TryGetValue(key, out var keyValue)) return ifNotExist;
+        return (T)idStates.Data[key];
+    }
+
     public object? GetState(string id, string key) {
         if (!_states.TryGetValue(id, out var idStates)) return null;
         if (!idStates.Data.TryGetValue(key, out var keyValue)) return null;
+        return idStates.Data[key];
+    }
+
+    public object GetState(string id, string key, object ifNotExist) {
+        if (!_states.TryGetValue(id, out var idStates)) return ifNotExist;
+        if (!idStates.Data.TryGetValue(key, out var keyValue)) return ifNotExist;
         return idStates.Data[key];
     }
 
@@ -57,4 +68,9 @@ public class StateManager {
         _states.TryRemove(id, out var states);
     }
 
+    public void DeleteState(string id, string key) {
+        if (_states.TryGetValue(id, out var idStates)) {
+            if (idStates.Data.ContainsKey(key)) idStates.Data.Remove(key);
+        }
+    }
 }

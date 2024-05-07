@@ -33,21 +33,15 @@ public class TestStateManager {
         Assert.That((DCCActiveState)getState["Route"],Is.EqualTo(DCCActiveState.Active));
 
         stateManager.SetState("XX", "Turnout", DCCTurnoutState.Thrown);
+        Assert.That((DCCActiveState)stateManager.GetState<DCCActiveState>("XX","Route"),Is.EqualTo(DCCActiveState.Active));
 
+        var res1 = stateManager.GetState("XX", "Block01", "NOT");
+        Assert.That(res1,Is.EqualTo("NOT"));
 
+        var res2 = stateManager.GetState<DCCAddress>("XX", "Address1", new DCCAddress(0));
+        Assert.That(res2.Address,Is.EqualTo(0));
 
-
-        var lsm = new StateManager();
-        var so = new StateObject("T01");
-        so.Add("Turnout", DCCTurnoutState.Thrown);
-        lsm.SetState(so);
-        var rs = lsm.GetState("T01");
-        var sc = rs.Get<DCCTurnoutState>("Turnout");
-        Assert.That(rs, Is.Not.Null);
-        Assert.That(sc, Is.EqualTo(DCCTurnoutState.Thrown));
     }
-
-
 
     [Test]
     public void TestStatesAndDelete() {
