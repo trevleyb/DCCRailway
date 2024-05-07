@@ -1,6 +1,6 @@
 ﻿using DCCRailway.Common.Configuration;
-using DCCRailway.Configuration;
 using DCCRailway.Layout.Layout.Entities;
+using DCCRailway.Railway.Configuration;
 
 namespace DCCRailway.Layout.Test;
 
@@ -12,12 +12,6 @@ public class ConfigurationTest {
 
         // This will either load the file, or will create a new one if it does not exist.
         var config = RailwayConfig.New("TestFile","TestFile","TestSystemWithAll.json");
-        config.LayoutManagerSettings = new ServiceSetting("Test", "https://localhost", 5001, "TestSystemWithAll.Layout.json");;
-        Assert.That(config is not null);
-        Assert.That(config!.Filename, Is.EqualTo("TestSystemWithAll.json"));
-
-        var layoutService = new LayoutService();
-        layoutService.Start(config.LayoutManagerSettings);
 
         var accessoryRepository = config.Accessories;
         await accessoryRepository.AddAsync(new Accessory { Name = "TestAccessory1", Description = "Test Accessory Description1" });
@@ -50,7 +44,6 @@ public class ConfigurationTest {
         await turnoutRepository.AddAsync(new Turnout { Name = "TestTurnout3", Description = "Test Turnout Description3" });
 
         var config2 = RailwayConfig.New("TestFile","TestFile","TestSystemWithAll.json");
-        config2.LayoutManagerSettings = new ServiceSetting("Test", "https://localhost", 5001, "TestSystemWithAll.Layout.json");;
         Assert.That(config2 is not null);
 
         var accs = config2.Accessories.GetAll();
@@ -80,8 +73,6 @@ public class ConfigurationTest {
         Assert.That(sen, Is.EqualTo("TestSensor1"));
         Assert.That(sig, Is.EqualTo("TestSignal1"));
         Assert.That(tur, Is.EqualTo("TestTurnout1"));
-
-        layoutService.Stop();
     }
 
     [Test]

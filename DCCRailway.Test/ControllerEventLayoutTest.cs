@@ -3,10 +3,9 @@ using DCCRailway.Common.Types;
 using DCCRailway.CmdStation.Commands.Types;
 using DCCRailway.CmdStation.Controllers;
 using DCCRailway.CmdStation.Controllers.Events;
-using DCCRailway.Common.Configuration;
-using DCCRailway.Configuration;
-using DCCRailway.Layout;
 using DCCRailway.Layout.Layout.Entities;
+using DCCRailway.Railway.Configuration;
+using DCCRailway.Railway.Layout;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
@@ -20,10 +19,6 @@ public class ControllerEventLayoutTest {
         var layoutCmdProcessor = new LayoutUpdater();
         Assert.That(layoutConfig, Is.Not.Null);
         Assert.That(layoutCmdProcessor, Is.Not.Null);
-
-        layoutConfig.LayoutManagerSettings = new ServiceSetting("Test", "https://localhost", 5001, "TestSystemWithAll.Layout.json");;
-        var layoutService = new LayoutService();
-        layoutService.Start(layoutConfig.LayoutManagerSettings);
 
         // Add a Locomotive to the layout configuration
         // ------------------------------------------------
@@ -44,7 +39,6 @@ public class ControllerEventLayoutTest {
         layoutCmdProcessor.ProcessCommandEvent(controllerEvent);
         //Assert.That(loco?.Speed?.Value, Is.EqualTo(50));
 
-        layoutService.Stop();
     }
 
      IController CreateVirtualControllerWithAdapter() {

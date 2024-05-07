@@ -29,13 +29,13 @@ public class TestEntityCollectionWithChanges {
         Assert.That(repository,Is.EqualTo("TestEntities"));
         Assert.That(id,Is.EqualTo(addEntity.Id));
 
-        var entity = collection.IndexOf(0).Result;
+        var entity = collection.IndexOf(0);
         Assert.That(entity,Is.Not.Null);
         entity.Name = "Updated Entity";
         collection.UpdateAsync(entity);
         Assert.That(action,Is.EqualTo(RepositoryChangeAction.Update));
         Assert.That(repository,Is.EqualTo("TestEntities"));
-        Assert.That(id,Is.EqualTo(collection.IndexOf(0).Result?.Id));
+        Assert.That(id,Is.EqualTo(collection.IndexOf(0)?.Id));
     }
 
     private void CollectionOnRepositoryChanged(object sender, RepositoryChangedEventArgs args) {

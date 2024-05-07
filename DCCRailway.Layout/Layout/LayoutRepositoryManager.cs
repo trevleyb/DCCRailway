@@ -6,16 +6,16 @@ using DCCRailway.Layout.Layout.Entities;
 
 namespace DCCRailway.Layout.Layout;
 
-public sealed class LayoutRepositoryManager : JsonSerializerHelper<LayoutRepositoryManager> {
+public sealed class LayoutRepository : JsonSerializerHelper<LayoutRepository> {
     public const string DefaultConfigFilename = "DCCRailway.Layout.json";
 
     private  static readonly object _lockObject = new object();
-    private  static LayoutRepositoryManager? _instance = null;
-    internal static LayoutRepositoryManager Instance {
+    private  static LayoutRepository? _instance = null;
+    internal static LayoutRepository Instance {
         get {
             if (_instance == null) {
                 lock (_lockObject) {
-                    _instance ??= new LayoutRepositoryManager();
+                    _instance ??= new LayoutRepository();
                 }
             }
             return _instance;
@@ -27,9 +27,9 @@ public sealed class LayoutRepositoryManager : JsonSerializerHelper<LayoutReposit
     /// </summary>
     /// <param name="filename">The name of the file. Default will be used otherwise</param>
     /// <returns>The instance that has been created</returns>
-    internal static LayoutRepositoryManager New(string filename = DefaultConfigFilename) {
+    internal static LayoutRepository New(string filename = DefaultConfigFilename) {
         lock (_lockObject) {
-            _instance = new LayoutRepositoryManager {
+            _instance = new LayoutRepository {
                 Filename    = filename
             };
         }
@@ -37,7 +37,7 @@ public sealed class LayoutRepositoryManager : JsonSerializerHelper<LayoutReposit
     }
 
     [JsonConstructor]
-    internal LayoutRepositoryManager() { }
+    internal LayoutRepository() { }
 
     public string Filename { get; set; } = "Railway.Layout.json";
 
@@ -67,8 +67,8 @@ public sealed class LayoutRepositoryManager : JsonSerializerHelper<LayoutReposit
 
     // Access to save and load the configuration to JSON files
     // -------------------------------------------------------------------------------------------------------------
-    public static LayoutRepositoryManager? Load() => LoadFile(DefaultConfigFilename);
+    public static LayoutRepository? Load() => LoadFile(DefaultConfigFilename);
     public void                  Save() => SaveFile(this, DefaultConfigFilename);
-    public static LayoutRepositoryManager? Load(string? name) => LoadFile(name ?? DefaultConfigFilename);
+    public static LayoutRepository? Load(string? name) => LoadFile(name ?? DefaultConfigFilename);
     public void                  Save(string? name) => SaveFile(this, name ?? DefaultConfigFilename);
 }

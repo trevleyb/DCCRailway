@@ -6,7 +6,7 @@ using DCCRailway.Layout.Layout.Events;
 namespace DCCRailway.Layout.Layout.Collection;
 
 [Serializable]
-public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictionary<string,TEntity>, ILayoutRepository<TEntity>
+public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictionary<string, TEntity>, ILayoutRepository<TEntity>
     where TEntity : LayoutEntity {
 
     public event RepositoryChangedEventHandler? RepositoryChanged;
@@ -14,15 +14,24 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
     private readonly SemaphoreSlim _nextIDMutex = new SemaphoreSlim(1, 1);
     public string Prefix { get; init; } = prefix;
 
-    protected async Task<bool> Contains(string id)    => await Task.FromResult(ContainsKey(id));
+    protected async Task<bool> Contains(string id) => await Task.FromResult(ContainsKey(id));
     protected async Task<bool> Contains(TEntity item) => await Task.FromResult(ContainsKey(item.Id));
 
-    public IEnumerable<TEntity> GetAllAsync() => Values;
-    public IEnumerable<TEntity> GetAllAsync(Func<TEntity, bool> predicate) => Values.Select( x=> x).Where(predicate);
-    public async Task<TEntity?> Find(Func<TEntity, bool> predicate) => await Task.FromResult(Values.FirstOrDefault(predicate));
+    public async IAsyncEnumerable<TEntity> GetAllAsync() {
+        await foreach (var item in Values.ConvertToAsyncEnumerable()) {
+            yield return item;
+        }
+    }
+
+    public async IAsyncEnumerable<TEntity> GetAllAsync(Func<TEntity, bool> predicate) {
+        await foreach (var item in Values.Select( x=> x).Where(predicate).ConvertToAsyncEnumerable()) {
+            yield return item;
+        }
+    }
+    public async Task<TEntity?> FindAsync(Func<TEntity, bool> predicate) => await Task.FromResult(Values.FirstOrDefault(predicate));
     public async Task<TEntity?> GetByIDAsync(string id) => await Task.FromResult(this[id]);
-    public async Task<TEntity?> GetByNameAsync(string name) => await Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
-    public async Task<TEntity?> IndexOf(int index) => await Task.FromResult(this.ElementAtOrDefault(index).Value);
+    public async Task<TEntity?> GetByNameAsync(string name) => await FindAsync(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+    public async Task<TEntity?> IndexOfAsync(int index) => await Task.FromResult(this.ElementAtOrDefault(index).Value);
     public async Task<TEntity?> UpdateAsync(TEntity entity) {
         try {
             await _atomicMutex.WaitAsync();
@@ -38,19 +47,10 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
         }
     }
 
-    public TEntity Add(TEntity item) {
-        if (string.IsNullOrEmpty(item.Id)) item.Id = GetNextID().Result;
-        if (TryAdd(item.Id, item)) {
-            OnItemChanged(item.Id, RepositoryChangeAction.Add);
-            return item;
-        }
-        return this[item.Id];
-    }
-
     public async Task<TEntity?> AddAsync(TEntity entity) {
         try {
             await _atomicMutex.WaitAsync();
-            if (string.IsNullOrEmpty(entity.Id)) entity.Id = await GetNextID();
+            if (string.IsNullOrEmpty(entity.Id)) entity.Id = await GetNextIDAsync();
             if (TryAdd(entity.Id, entity)) {
                 OnItemChanged(entity.Id, RepositoryChangeAction.Add);
             }
@@ -83,7 +83,7 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
         }
     }
 
-    public async Task<Task> DeleteAll() {
+    public async Task<Task> DeleteAllAsync() {
         await _atomicMutex.WaitAsync();
         try {
             var keys = new List<string>(Keys);
@@ -104,7 +104,7 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
     /// that is not user friendly so changed it to be a sequential number with a prefix. This code looks
     /// at the current collection and finds the next available ID.
     /// </summary>
-    public async Task<string> GetNextID() {
+    public async Task<string> GetNextIDAsync() {
         await _nextIDMutex.WaitAsync();
         try {
             var nextID = 1;
@@ -128,6 +128,18 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
         }
     }
 
+    public IList<TEntity> GetAll() => GetAllAsync().GetListFromAsyncEnumerable().GetAwaiter().GetResult();
+    public IList<TEntity> GetAll(Func<TEntity, bool> predicate) => GetAllAsync(predicate).GetListFromAsyncEnumerable().GetAwaiter().GetResult();
+    public TEntity? Find(Func<TEntity, bool> predicate) => FindAsync(predicate).GetAwaiter().GetResult();
+    public TEntity? GetByID(string id) => GetByIDAsync(id).GetAwaiter().GetResult();
+    public TEntity? GetByName(string name) => GetByNameAsync(name).GetAwaiter().GetResult();
+    public TEntity? IndexOf(int index) => IndexOfAsync(index).GetAwaiter().GetResult();
+    public TEntity? Update(TEntity entity) => UpdateAsync(entity).GetAwaiter().GetResult();
+    public TEntity? Add(TEntity entity) => AddAsync(entity).GetAwaiter().GetResult();
+    public TEntity? Delete(string id) => DeleteAsync(id).GetAwaiter().GetResult();
+    public void DeleteAll() => DeleteAllAsync().GetAwaiter();
+    public string GetNextID() => GetNextIDAsync().GetAwaiter().GetResult();
+
     private void OnItemChanged(string id, RepositoryChangeAction action) {
         RepositoryChanged?.Invoke(this, new RepositoryChangedEventArgs(this.GetType().Name, id, action));
     }
@@ -135,7 +147,6 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
     private void OnItemChanged(RepositoryChangedEventArgs e) {
         RepositoryChanged?.Invoke(this, e);
     }
-
 }
 
 public delegate void RepositoryChangedEventHandler(object sender, RepositoryChangedEventArgs args);

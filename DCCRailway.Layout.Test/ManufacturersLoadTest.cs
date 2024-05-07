@@ -1,4 +1,4 @@
-using DCCRailway.Configuration;
+using DCCRailway.Railway.Configuration;
 
 namespace DCCRailway.Layout.Test;
 

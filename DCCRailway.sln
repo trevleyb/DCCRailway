@@ -28,19 +28,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Common", "DCCRai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Common.Test", "DCCRailway.Common.Test\DCCRailway.Common.Test.csproj", "{2AB280A0-ACB1-4A27-AEB3-C83CBA30A65F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Station.Test", "DCCRailway.Station.Test\DCCRailway.Station.Test.csproj", "{9F7826B2-569F-47F1-9FAF-1862E7BFB396}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.CmdStation.Test", "DCCRailway.CmdStation.Test\DCCRailway.CmdStation.Test.csproj", "{9F7826B2-569F-47F1-9FAF-1862E7BFB396}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Layout.Test", "DCCRailway.Layout.Test\DCCRailway.Layout.Test.csproj", "{ECB148C2-8B76-46FB-B05B-10E0DFF70C31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E0D75749-0E2A-4DB3-A7C2-E3414C3D870E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommandStations", "CommandStations", "{3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway", "DCCRailway\DCCRailway.csproj", "{9447006C-0FE7-4ABF-8988-6A49B15E961B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CmdStations", "CmdStations", "{3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Layout", "DCCRailway.Layout\DCCRailway.Layout.csproj", "{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.WebApp", "DCCRailway.WebApp\DCCRailway.WebApp.csproj", "{BE24B80F-0CC0-47A4-9E2F-BD744DFFB4B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway", "DCCRailway\DCCRailway.csproj", "{D8735967-A186-46C8-BE92-8090849FBF8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,18 +86,14 @@ Global
 		{ECB148C2-8B76-46FB-B05B-10E0DFF70C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECB148C2-8B76-46FB-B05B-10E0DFF70C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECB148C2-8B76-46FB-B05B-10E0DFF70C31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9447006C-0FE7-4ABF-8988-6A49B15E961B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9447006C-0FE7-4ABF-8988-6A49B15E961B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9447006C-0FE7-4ABF-8988-6A49B15E961B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9447006C-0FE7-4ABF-8988-6A49B15E961B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE24B80F-0CC0-47A4-9E2F-BD744DFFB4B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE24B80F-0CC0-47A4-9E2F-BD744DFFB4B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE24B80F-0CC0-47A4-9E2F-BD744DFFB4B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE24B80F-0CC0-47A4-9E2F-BD744DFFB4B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8735967-A186-46C8-BE92-8090849FBF8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8735967-A186-46C8-BE92-8090849FBF8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8735967-A186-46C8-BE92-8090849FBF8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8735967-A186-46C8-BE92-8090849FBF8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
