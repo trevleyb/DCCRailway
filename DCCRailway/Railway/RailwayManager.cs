@@ -15,7 +15,7 @@ public class RailwayManager(IRailwayConfig? config = null) {
                 config ??= RailwayConfig.Load();
             }
             catch (Exception ex) {
-                throw new Exception("Unable to load the Railway Configuration.", ex);
+                config ??= RailwayConfig.New();
             }
             return config;
         }
