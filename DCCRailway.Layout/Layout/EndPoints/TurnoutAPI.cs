@@ -17,5 +17,4 @@ public static class TurnoutAPI {
         app.MapDelete("/turnouts/{id}", async (string id) => Results.Ok(await entities.DeleteAsync(id)));
 
     }
-
 }

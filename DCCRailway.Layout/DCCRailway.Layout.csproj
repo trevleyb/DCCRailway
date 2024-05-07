@@ -16,11 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="StateManager\EndPoints\" />
-      <Folder Include="StateManager\StateSDK\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
     </ItemGroup>
 
