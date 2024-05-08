@@ -1,4 +1,4 @@
-namespace DCCRailway.CmdStation.Commands.Results.Abstract;
+namespace DCCRailway.CmdStation.Actions.Results.Abstract;
 
 public class CmdResult(bool success, ICommand? command, byte[]? data, string? errorMessage = null) : ICmdResult {
 

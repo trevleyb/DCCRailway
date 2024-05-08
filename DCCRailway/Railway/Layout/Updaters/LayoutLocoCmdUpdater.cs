@@ -1,7 +1,7 @@
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Commands.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Types;
-using DCCRailway.CmdStation.Commands.Types.Base;
 using DCCRailway.Common.Types;
 using DCCRailway.Railway.Configuration;
 

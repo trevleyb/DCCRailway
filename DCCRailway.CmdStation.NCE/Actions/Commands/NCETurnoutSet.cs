@@ -1,9 +1,9 @@
+using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Commands.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands.Types;
-using DCCRailway.CmdStation.Commands.Types.Base;
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.NCE.Commands;
+namespace DCCRailway.CmdStation.NCE.Actions.Commands;
 
 [Command("TurnoutSetState", "Set the state of a Turnout")]
 public class NCETurnoutSet : NCEAccySetState, ICmdTurnoutSet, IAccyCmd {

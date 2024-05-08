@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Commands;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Types;
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.Virtual.Commands;
+namespace DCCRailway.CmdStation.Virtual.Actions.Commands;
 
 [Command("ConsistCreate", "Create a Consist")]
 public class VirtualConsistCreate : VirtualCommand, ICmdConsistCreate, ICommand {

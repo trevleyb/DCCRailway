@@ -1,5 +1,5 @@
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.NCE.Commands;
+using DCCRailway.CmdStation.NCE.Actions.Commands;
 
 namespace DCCRailway.System.Test.Attributes;
 

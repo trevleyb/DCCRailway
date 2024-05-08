@@ -1,5 +1,4 @@
-using DCCRailway.CmdStation.Commands.Types;
-using DCCRailway.CmdStation.Digitrax.Commands;
+using DCCRailway.CmdStation.Actions.Commands;
 using DCCRailway.CmdStation.Helpers;
 using DCCRailway.CmdStation.Virtual;
 using NUnit.Framework.Interfaces;

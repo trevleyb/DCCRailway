@@ -1,9 +1,8 @@
-﻿using DCCRailway.CmdStation.Adapters.Base;
-using DCCRailway.CmdStation.Commands.Results;
+﻿using DCCRailway.CmdStation.Actions.Results;
+using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Helpers;
-using DCCRailway.CmdStation.Controllers;
 
-namespace DCCRailway.CmdStation.Commands;
+namespace DCCRailway.CmdStation.Actions;
 
 public interface ICommand : IParameterMappable {
     public ICmdResult       Execute();

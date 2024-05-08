@@ -1,6 +1,6 @@
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Results;
 using DCCRailway.CmdStation.Adapters.Base;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Results;
 
 namespace DCCRailway.CmdStation.Controllers.Events;
 

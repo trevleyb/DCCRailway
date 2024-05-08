@@ -1,6 +1,4 @@
 using DCCRailway.Common.Types;
-using DCCRailway.CmdStation.Commands.Types;
-using DCCRailway.CmdStation.Virtual.Commands;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;

@@ -1,12 +1,12 @@
-﻿using DCCRailway.CmdStation.Adapters.Base;
+﻿using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Results;
+using DCCRailway.CmdStation.Actions.Validators;
+using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Types;
-using DCCRailway.CmdStation.Commands.Validators;
 using DCCRailway.Common.Helpers;
 
-namespace DCCRailway.CmdStation.Digitrax.Commands;
+namespace DCCRailway.CmdStation.Digitrax.Actions;
 
 [Command("Status", "Status Command")]
 public class VirtualStatus : Command, ICmdStatus {

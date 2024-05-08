@@ -1,3 +1,3 @@
-namespace DCCRailway.CmdStation.Commands.Types.Base;
+namespace DCCRailway.CmdStation.Actions.Commands.Base;
 
 public interface ISystemCmd { }

@@ -1,5 +1,5 @@
-﻿using DCCRailway.CmdStation.Adapters.Base;
-using DCCRailway.CmdStation.Commands;
+﻿using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Adapters.Base;
 
 namespace DCCRailway.CmdStation.Adapters;
 

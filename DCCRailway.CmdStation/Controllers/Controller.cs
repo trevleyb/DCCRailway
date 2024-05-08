@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Results;
 using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Results;
 using DCCRailway.CmdStation.Controllers.Events;
 using DCCRailway.CmdStation.Exceptions;
 using DCCRailway.CmdStation.Helpers;

@@ -1,7 +1,7 @@
-﻿using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands.Types;
+﻿using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Attributes;
 
-namespace DCCRailway.CmdStation.Virtual.Commands;
+namespace DCCRailway.CmdStation.Virtual.Actions.Commands;
 
 [Command("MacroRun", "Execute a Macro")]
 public class VirtualMacroRun : VirtualCommand, ICmdMacroRun {

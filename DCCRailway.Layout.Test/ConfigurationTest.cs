@@ -43,7 +43,9 @@ public class ConfigurationTest {
         await turnoutRepository.AddAsync(new Turnout { Name = "TestTurnout2", Description = "Test Turnout Description2" });
         await turnoutRepository.AddAsync(new Turnout { Name = "TestTurnout3", Description = "Test Turnout Description3" });
 
-        var config2 = RailwayConfig.New("TestFile","TestFile","TestSystemWithAll.json");
+        config.Save();
+
+        var config2 = RailwayConfig.Load("TestSystemWithAll.json");
         Assert.That(config2 is not null);
 
         var accs = config2.Accessories.GetAll();

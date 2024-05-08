@@ -1,13 +1,13 @@
-﻿using DCCRailway.CmdStation.Adapters.Base;
+﻿using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Commands.Base;
+using DCCRailway.CmdStation.Actions.Results;
+using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Types;
-using DCCRailway.CmdStation.Commands.Types.Base;
-using DCCRailway.CmdStation.NCE.Commands.Validators;
+using DCCRailway.CmdStation.NCE.Actions.Validators;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.NCE.Commands;
+namespace DCCRailway.CmdStation.NCE.Actions.Commands;
 
 [Command("AccySetState", "Set the state of an Accessory")]
 public class NCEAccySetState : NCECommand, ICmdAccySetState, IAccyCmd {

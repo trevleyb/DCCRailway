@@ -1,5 +1,5 @@
-﻿using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Types;
+﻿using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Results;
 using DCCRailway.CmdStation.Controllers;
 using DCCRailway.CmdStation.NCE;
 using DCCRailway.CmdStation.NCE.Adapters;

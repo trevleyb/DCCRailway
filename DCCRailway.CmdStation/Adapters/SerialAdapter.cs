@@ -1,7 +1,7 @@
 ﻿using System.IO.Ports;
+using DCCRailway.CmdStation.Actions;
 using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Adapters.Events;
-using DCCRailway.CmdStation.Commands;
 using DCCRailway.CmdStation.Exceptions;
 using DCCRailway.Common.Helpers;
 using DCCRailway.CmdStation.Adapters.Helpers;

@@ -1,10 +1,10 @@
-﻿using DCCRailway.Common.Helpers;
-using DCCRailway.CmdStation.Commands.Types;
+﻿using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.Common.Helpers;
 using DCCRailway.CmdStation.Controllers;
 using DCCRailway.CmdStation.NCE;
+using DCCRailway.CmdStation.NCE.Actions.Commands;
+using DCCRailway.CmdStation.NCE.Actions.Results;
 using DCCRailway.CmdStation.NCE.Adapters;
-using DCCRailway.CmdStation.NCE.Commands;
-using DCCRailway.CmdStation.NCE.Commands.Results;
 using DCCRailway.Common.Types;
 
 namespace DCCRailway.System.Test.Manufacturers.NCE;

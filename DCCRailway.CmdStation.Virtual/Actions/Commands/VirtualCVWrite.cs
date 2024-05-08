@@ -1,8 +1,8 @@
-﻿using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands.Types;
+﻿using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Attributes;
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.Virtual.Commands;
+namespace DCCRailway.CmdStation.Virtual.Actions.Commands;
 
 [Command("CVWrite", "Write a value to a CV on a Loco")]
 public class VirtualCVWrite : VirtualCommand, ICmdCVWrite {

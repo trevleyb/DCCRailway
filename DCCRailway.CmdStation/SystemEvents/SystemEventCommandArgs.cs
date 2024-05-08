@@ -1,6 +1,6 @@
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Types.Base;
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Commands.Base;
+using DCCRailway.CmdStation.Actions.Results;
 using DCCRailway.Common.Types;
 using DCCRailway.CmdStation.Attributes;
 

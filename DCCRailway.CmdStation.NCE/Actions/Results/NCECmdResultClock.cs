@@ -1,7 +1,6 @@
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Results.Abstract;
+using DCCRailway.CmdStation.Actions.Results.Abstract;
 
-namespace DCCRailway.CmdStation.NCE.Commands.Results;
+namespace DCCRailway.CmdStation.NCE.Actions.Results;
 
 public class NCECmdResultClock : CmdResult {
     public NCECmdResultClock(byte[]? dataSet) : base(dataSet) {

@@ -1,6 +1,6 @@
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.Commands.Results.Abstract;
+namespace DCCRailway.CmdStation.Actions.Results.Abstract;
 
 public class CmdResultPowerState  : CmdResult, ICmdResultPowerState {
     public CmdResultPowerState(DCCPowerState state) : base() { State = state; }

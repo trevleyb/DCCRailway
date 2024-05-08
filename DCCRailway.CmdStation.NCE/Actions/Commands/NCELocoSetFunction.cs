@@ -1,14 +1,14 @@
 using System.Text;
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Results;
+using DCCRailway.CmdStation.Actions.Results.Abstract;
 using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Results.Abstract;
-using DCCRailway.CmdStation.Commands.Types;
-using DCCRailway.CmdStation.NCE.Commands.Validators;
+using DCCRailway.CmdStation.NCE.Actions.Validators;
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.NCE.Commands;
+namespace DCCRailway.CmdStation.NCE.Actions.Commands;
 
 [Command("LocoSetFunction", "Set a specific function on a Loco")]
 public class NCELocoSetFunction : NCECommand, ICmdLocoSetFunction, ICommand {

@@ -1,14 +1,13 @@
 ﻿using System;
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Results;
 using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Results.Abstract;
-using DCCRailway.CmdStation.Commands.Types;
 using DCCRailway.CmdStation.Exceptions;
-using DCCRailway.CmdStation.NCE.Commands.Validators;
+using DCCRailway.CmdStation.NCE.Actions.Validators;
 
-namespace DCCRailway.CmdStation.NCE.Commands;
+namespace DCCRailway.CmdStation.NCE.Actions.Commands;
 
 [Command("SetClock", "Set the Clock on a NCE controller")]
 public class NCEClockSet : NCECommand, ICmdClockSet, ICommand {

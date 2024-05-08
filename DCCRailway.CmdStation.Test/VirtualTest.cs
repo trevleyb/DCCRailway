@@ -1,5 +1,5 @@
+using DCCRailway.CmdStation.Actions.Commands;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands.Types;
 using DCCRailway.CmdStation.Controllers;
 using DCCRailway.CmdStation.Controllers.Events;
 

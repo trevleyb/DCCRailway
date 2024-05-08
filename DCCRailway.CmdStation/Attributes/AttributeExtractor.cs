@@ -1,6 +1,6 @@
 using System.Reflection;
+using DCCRailway.CmdStation.Actions;
 using DCCRailway.CmdStation.Adapters.Base;
-using DCCRailway.CmdStation.Commands;
 using DCCRailway.CmdStation.Controllers;
 
 namespace DCCRailway.CmdStation.Attributes

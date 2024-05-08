@@ -1,7 +1,7 @@
-﻿using DCCRailway.CmdStation.Commands.Types.Base;
+﻿using DCCRailway.CmdStation.Actions.Commands.Base;
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.Commands.Types;
+namespace DCCRailway.CmdStation.Actions.Commands;
 
 /// <summary>
 ///     Turn the power to the controller ON or OFF

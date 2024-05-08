@@ -1,10 +1,10 @@
 ﻿using System.Text;
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Commands;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Types;
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.Virtual.Commands;
+namespace DCCRailway.CmdStation.Virtual.Actions.Commands;
 
 [Command("LocoSetFunctions", "Set the Loco Functions")]
 public class VirtualLocoSetFunctions : VirtualCommand, ICmdLocoSetFunctions, ICommand {

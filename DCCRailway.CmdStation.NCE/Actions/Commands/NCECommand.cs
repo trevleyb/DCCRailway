@@ -1,5 +1,5 @@
-﻿using DCCRailway.CmdStation.Commands;
+﻿using DCCRailway.CmdStation.Actions;
 
-namespace DCCRailway.CmdStation.NCE.Commands;
+namespace DCCRailway.CmdStation.NCE.Actions.Commands;
 
 public abstract class NCECommand : Command { }

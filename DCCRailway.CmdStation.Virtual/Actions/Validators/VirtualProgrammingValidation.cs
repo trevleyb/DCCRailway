@@ -1,8 +1,8 @@
-﻿using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Results.Abstract;
-using DCCRailway.CmdStation.Commands.Validators;
+﻿using DCCRailway.CmdStation.Actions.Results;
+using DCCRailway.CmdStation.Actions.Results.Abstract;
+using DCCRailway.CmdStation.Actions.Validators;
 
-namespace DCCRailway.CmdStation.Virtual.Commands.Validators;
+namespace DCCRailway.CmdStation.Virtual.Actions.Validators;
 
 public class VirtualProgrammingValidation : IResultValidation {
     public ICmdResult Validate(byte[]? data) {

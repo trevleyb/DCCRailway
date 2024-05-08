@@ -1,13 +1,13 @@
 ﻿using System;
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Results;
+using DCCRailway.CmdStation.Actions.Results.Abstract;
 using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Results.Abstract;
-using DCCRailway.CmdStation.Commands.Types;
 using DCCRailway.CmdStation.Virtual.Adapters;
 
-namespace DCCRailway.CmdStation.Virtual.Commands;
+namespace DCCRailway.CmdStation.Virtual.Actions.Commands;
 
 [Command("ReadClock", "Read the Clock from the Virtual Controller")]
 public class VirtualClockRead : VirtualCommand, ICmdClockRead, ICommand {

@@ -1,8 +1,8 @@
-﻿using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Results.Abstract;
-using DCCRailway.CmdStation.Commands.Validators;
+﻿using DCCRailway.CmdStation.Actions.Results;
+using DCCRailway.CmdStation.Actions.Results.Abstract;
+using DCCRailway.CmdStation.Actions.Validators;
 
-namespace DCCRailway.CmdStation.Virtual.Commands.Validators;
+namespace DCCRailway.CmdStation.Virtual.Actions.Validators;
 
 /// <summary>
 ///     This is a special validation just for Sensors. It will either return 2 bytes for the sensors

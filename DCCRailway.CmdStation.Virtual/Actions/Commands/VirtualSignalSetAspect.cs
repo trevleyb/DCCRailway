@@ -1,10 +1,10 @@
 ﻿using System;
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Commands;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Types;
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.Virtual.Commands;
+namespace DCCRailway.CmdStation.Virtual.Actions.Commands;
 
 [Command("SetSignalAspect", "Set the Aspect of a defined Signal")]
 public class VirtualSignalSetAspect : VirtualCommand, ICmdSignalSetAspect, ICommand {

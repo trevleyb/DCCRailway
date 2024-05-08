@@ -32,7 +32,7 @@ public class TestEntityCollectionWithChanges {
         var entity = collection.IndexOf(0);
         Assert.That(entity,Is.Not.Null);
         entity.Name = "Updated Entity";
-        collection.UpdateAsync(entity);
+        collection.Update(entity);
         Assert.That(action,Is.EqualTo(RepositoryChangeAction.Update));
         Assert.That(repository,Is.EqualTo("TestEntities"));
         Assert.That(id,Is.EqualTo(collection.IndexOf(0)?.Id));
@@ -45,15 +45,6 @@ public class TestEntityCollectionWithChanges {
     }
 }
 
-public class TestEntities(string prefix = "TEST") : LayoutRepository<TestEntity>(prefix) {
+public class TestEntities(string prefix = "TEST") : LayoutRepository<TestEntity>(prefix) { }
 
-}
-
-public class TestEntity : LayoutEntity {
-
-    private string _id;
-    private string _name;
-    public new string Id    { get => _id;    set => SetField(ref _id, value); }
-    public new string Name  { get => _name;  set => SetField(ref _name, value); }
-
-}
+public class TestEntity : LayoutEntity { }

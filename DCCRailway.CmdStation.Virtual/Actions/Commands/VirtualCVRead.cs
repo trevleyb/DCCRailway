@@ -1,8 +1,8 @@
-﻿using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands.Types;
+﻿using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Attributes;
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.Virtual.Commands;
+namespace DCCRailway.CmdStation.Virtual.Actions.Commands;
 
 [Command("CVRead", "Read a CV from a Loco")]
 public class VirtualCVRead : VirtualCommand, ICmdCVRead {

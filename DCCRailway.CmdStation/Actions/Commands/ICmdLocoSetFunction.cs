@@ -1,6 +1,6 @@
-using DCCRailway.CmdStation.Commands.Types.Base;
+using DCCRailway.CmdStation.Actions.Commands.Base;
 
-namespace DCCRailway.CmdStation.Commands.Types;
+namespace DCCRailway.CmdStation.Actions.Commands;
 
 public interface ICmdLocoSetFunction : ICommand, ILocoCmd {
     public byte Function { get; set; }

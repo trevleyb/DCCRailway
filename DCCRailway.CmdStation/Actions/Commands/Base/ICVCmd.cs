@@ -1,6 +1,4 @@
-using DCCRailway.Common.Types;
-
-namespace DCCRailway.CmdStation.Commands.Types.Base;
+namespace DCCRailway.CmdStation.Actions.Commands.Base;
 
 public interface ICVCmd : ICmdAddress{
     public int          CV      { get; }

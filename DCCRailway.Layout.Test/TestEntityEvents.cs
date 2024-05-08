@@ -16,14 +16,14 @@ public class TestEntityEvents {
         var repositoryChanged = false;
         var config = CreateTestConfig();
         var locomotives = config.Locomotives;
-        //locomotives.RepositoryChanged += (sender, args) => repositoryChanged= true;
+        locomotives.RepositoryChanged += (sender, args) => repositoryChanged= true;
 
         propertyChanged = false;
-        var addedLoco = locomotives.AddAsync(new Locomotive { Name = "Train06" }).Result;
+        var addedLoco = locomotives.Add(new Locomotive { Name = "Train06" });
         Assert.That(repositoryChanged,Is.True);  // Property Is not changed on Add/Remove
         Assert.That(propertyChanged,Is.False);  // Property Is not changed on Add/Remove
 
-        var locomotive = locomotives.GetByNameAsync("Train01").Result;
+        var locomotive = locomotives.GetByName("Train01");
         Assert.That(locomotive,Is.Not.Null);
         locomotive.PropertyChanged += (sender, args) => propertyChanged = true;
 

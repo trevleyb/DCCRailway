@@ -1,6 +1,6 @@
-﻿using DCCRailway.CmdStation.Commands.Results;
+﻿using DCCRailway.CmdStation.Actions.Results;
 
-namespace DCCRailway.CmdStation.Commands.Validators;
+namespace DCCRailway.CmdStation.Actions.Validators;
 
 public interface IResultValidation {
     public ICmdResult Validate(byte[]? data);

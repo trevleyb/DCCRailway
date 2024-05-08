@@ -1,8 +1,7 @@
 using System;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Results.Abstract;
+using DCCRailway.CmdStation.Actions.Results.Abstract;
 
-namespace DCCRailway.CmdStation.Virtual.Results;
+namespace DCCRailway.CmdStation.Virtual.Actions.Results;
 
 public class VirtualCmdResultClock : CmdResult {
 

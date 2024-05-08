@@ -1,5 +1,5 @@
+using DCCRailway.CmdStation.Actions.Commands.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands.Types.Base;
 using DCCRailway.CmdStation.Controllers.Events;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Railway.Layout.Updaters;

@@ -1,7 +1,6 @@
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Results.Abstract;
+using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Results.Abstract;
 using DCCRailway.Common.Types;
-using DCCRailway.CmdStation.Commands.Types;
 using DCCRailway.CmdStation.Controllers;
 using DCCRailway.CmdStation.Controllers.Events;
 using DCCRailway.Layout.Layout.Entities;

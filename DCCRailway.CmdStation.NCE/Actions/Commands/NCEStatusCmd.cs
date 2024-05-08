@@ -1,12 +1,12 @@
-﻿using DCCRailway.CmdStation.Adapters.Base;
+﻿using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Results;
+using DCCRailway.CmdStation.Actions.Results.Abstract;
+using DCCRailway.CmdStation.Actions.Validators;
+using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Results.Abstract;
-using DCCRailway.CmdStation.Commands.Types;
-using DCCRailway.CmdStation.Commands.Validators;
-using DCCRailway.CmdStation.NCE.Commands.Results;
+using DCCRailway.CmdStation.NCE.Actions.Results;
 
-namespace DCCRailway.CmdStation.NCE.Commands;
+namespace DCCRailway.CmdStation.NCE.Actions.Commands;
 
 [Command("StatusCmd", "Get the NCE Status")]
 public class NCEStatusCmd : NCECommand, ICmdStatus {

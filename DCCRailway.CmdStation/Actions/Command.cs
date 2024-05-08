@@ -1,13 +1,12 @@
-﻿using DCCRailway.CmdStation.Adapters.Base;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Validators;
+﻿using DCCRailway.CmdStation.Actions.Results;
+using DCCRailway.CmdStation.Actions.Validators;
+using DCCRailway.CmdStation.Adapters.Base;
+using DCCRailway.CmdStation.Attributes;
 using DCCRailway.CmdStation.Exceptions;
 using DCCRailway.CmdStation.Helpers;
 using DCCRailway.Common.Helpers;
-using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Controllers;
 
-namespace DCCRailway.CmdStation.Commands;
+namespace DCCRailway.CmdStation.Actions;
 
 public abstract class Command : PropertyChangedBase, ICommand, IParameterMappable {
     public string Name        => this.AttributeInfo().Name ?? "Unknown";

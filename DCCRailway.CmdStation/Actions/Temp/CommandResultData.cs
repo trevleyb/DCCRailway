@@ -1,4 +1,4 @@
-namespace DCCRailway.CmdStation.Commands.Results;
+namespace DCCRailway.CmdStation.Actions.Temp;
 
 public class CommandResultData(byte[]? data = null) {
     public CommandResultData(byte? data = null) : this(data == null ? Array.Empty<byte>() : new[] { (byte)data }) { }

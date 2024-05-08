@@ -1,6 +1,6 @@
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.CmdStation.Commands.Results;
+namespace DCCRailway.CmdStation.Actions.Results;
 
 public interface ICmdResultPowerState : ICmdResult{
     DCCPowerState State { get; }

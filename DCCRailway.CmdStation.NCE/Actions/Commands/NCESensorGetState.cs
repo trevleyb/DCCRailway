@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using DCCRailway.CmdStation.Actions.Commands;
+using DCCRailway.CmdStation.Actions.Commands.Base;
+using DCCRailway.CmdStation.Actions.Results;
 using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Types;
-using DCCRailway.CmdStation.Commands.Types.Base;
-using DCCRailway.CmdStation.NCE.Commands.Results;
-using DCCRailway.CmdStation.NCE.Commands.Validators;
+using DCCRailway.CmdStation.NCE.Actions.Results;
+using DCCRailway.CmdStation.NCE.Actions.Validators;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
 
 [assembly: InternalsVisibleTo("DCCRailway.Test.Manufacturers.NCE.NCEPowerCabSensorTests")]
 
-namespace DCCRailway.CmdStation.NCE.Commands;
+namespace DCCRailway.CmdStation.NCE.Actions.Commands;
 
 [Command("SensorGetState", "Get the state of a given Sensor")]
 public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {

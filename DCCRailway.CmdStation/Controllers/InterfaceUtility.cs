@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using DCCRailway.CmdStation.Commands;
+using DCCRailway.CmdStation.Actions;
 
 namespace DCCRailway.CmdStation.Controllers;
 

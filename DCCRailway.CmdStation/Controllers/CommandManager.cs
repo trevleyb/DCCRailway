@@ -1,9 +1,9 @@
 using System.Reflection;
+using DCCRailway.CmdStation.Actions;
+using DCCRailway.CmdStation.Actions.Commands.Base;
+using DCCRailway.CmdStation.Actions.Results;
 using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Commands;
-using DCCRailway.CmdStation.Commands.Results;
-using DCCRailway.CmdStation.Commands.Types.Base;
 using DCCRailway.CmdStation.Controllers.Events;
 using DCCRailway.Common.Types;
 
@@ -12,8 +12,8 @@ namespace DCCRailway.CmdStation.Controllers;
 public class CommandManager(Assembly assembly) {
 
     private Dictionary<Type, (CommandAttribute Attributes, Type ConcreteType)> _commands = [];
-    public event EventHandler<CommandEventArgs>                                CommandEvent;
-    private Assembly                                                           _assembly { get; set; } = assembly;
+    public event EventHandler<CommandEventArgs>  CommandEvent;
+    private Assembly _assembly { get; set; } = assembly;
 
     public List<CommandAttribute> Commands {
         get {
