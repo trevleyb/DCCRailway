@@ -11,12 +11,8 @@ public class RailwayManager(IRailwayConfig? config = null) {
 
     public IRailwayConfig Config {
         get {
-            try {
-                config ??= RailwayConfig.Load();
-            }
-            catch (Exception ex) {
-                config ??= RailwayConfig.New();
-            }
+            try   { config ??= RailwayConfig.Load(); }
+            catch { config ??= RailwayConfig.New(); }
             return config;
         }
     }

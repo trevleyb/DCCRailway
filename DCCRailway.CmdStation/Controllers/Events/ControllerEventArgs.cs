@@ -6,7 +6,7 @@ namespace DCCRailway.CmdStation.Controllers.Events;
 
 public class ControllerEventArgs : EventArgs {
 
-    public ControllerEventArgs (ICommand? command, IAdapter? adapter, ICommandResult? result, EventArgs? e, string? message ="") {
+    public ControllerEventArgs (ICommand? command, IAdapter? adapter, ICmdResult? result, EventArgs? e, string? message ="") {
         Command = command;
         Adapter = adapter;
         Result  = result;
@@ -20,7 +20,7 @@ public class ControllerEventArgs : EventArgs {
 
     public ICommand?       Command { get; set; }
     public IAdapter?       Adapter { get; set; }
-    public ICommandResult? Result  { get; set; }
+    public ICmdResult? Result  { get; set; }
     public EventArgs?      Args    { get; set; }
     public string?         Message { get; set; }
 

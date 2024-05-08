@@ -12,11 +12,11 @@ namespace DCCRailway.System.Test.Manufacturers.NCE;
 [TestFixture, Ignore("This is a hardware test")]
 public class NCEPowerCabLocoFunctionsTests {
     /*
-            RegisterCommand<ICmdLocoSetFunctions>(typeof(NCE.Commands.NCELocoSetFunctions));
-            RegisterCommand<ICmdLocoSetSpeed>(typeof(NCE.Commands.NCELocoSetSpeed));
-            RegisterCommand<ICmdLocoSetSpeedSteps>(typeof(NCE.Commands.NCELocoSetSpeedSteps));
-            RegisterCommand<ICmdLocoSetMomentum>(typeof(NCE.Commands.NCELocoSetMomentum));
-            RegisterCommand<ICmdLocoStop>(typeof(NCE.Commands.NCELocoStop));
+            RegisterCommand<ICmdLocoSetFunctions>(typeof(NCE.Actions.NCELocoSetFunctions));
+            RegisterCommand<ICmdLocoSetSpeed>(typeof(NCE.Actions.NCELocoSetSpeed));
+            RegisterCommand<ICmdLocoSetSpeedSteps>(typeof(NCE.Actions.NCELocoSetSpeedSteps));
+            RegisterCommand<ICmdLocoSetMomentum>(typeof(NCE.Actions.NCELocoSetMomentum));
+            RegisterCommand<ICmdLocoStop>(typeof(NCE.Actions.NCELocoStop));
     */
 
     protected IAdapter?    Adapter;
@@ -80,7 +80,7 @@ public class NCEPowerCabLocoFunctionsTests {
                 for (var i = 0; i < 10; i++) {
                     functionCmd.Functions[0] = i % 2 == 0;
                     var result = System.Execute(functionCmd);
-                    if (!result!.IsOK) Console.WriteLine("Did Not Work." + (char)33);
+                    if (!result!.Success) Console.WriteLine("Did Not Work." + (char)33);
 
                     //Thread.Sleep(1500);
                 }
@@ -98,7 +98,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
                 functionCmd.Functions[0] = true;
                 var result = System.Execute(functionCmd);
-                if (!result!.IsOK) Console.WriteLine(result.ToString());
+                if (!result!.Success) Console.WriteLine(result.ToString());
 
                 speedCmd.Direction  = DCCDirection.Forward;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;
@@ -107,7 +107,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
                 functionCmd.Functions[0] = false;
                 result                   = System.Execute(functionCmd);
-                if (!result!.IsOK) Console.WriteLine(result!.ToString());
+                if (!result!.Success) Console.WriteLine(result!.ToString());
 
                 speedCmd.Direction  = DCCDirection.Forward;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;
@@ -116,7 +116,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
                 functionCmd.Functions[0] = true;
                 result                   = System.Execute(functionCmd);
-                if (!result!.IsOK) Console.WriteLine(result!.ToString());
+                if (!result!.Success) Console.WriteLine(result!.ToString());
 
                 speedCmd.Direction  = DCCDirection.Stop;
                 speedCmd.SpeedSteps = DCCProtocol.DCC28;

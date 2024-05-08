@@ -5,7 +5,7 @@ namespace DCCRailway.Common.Types;
 /// <summary>
 ///     Represents the storage of an ADDRESS for a DCC Loco or Accessory
 /// </summary>
-public class DCCAddress : PropertyChangedBase, IDCCAddress {
+public class DCCAddress : PropertyChangedBase {
     private const int MAX_ADDRESS = 10000;
 
     private int            _address;

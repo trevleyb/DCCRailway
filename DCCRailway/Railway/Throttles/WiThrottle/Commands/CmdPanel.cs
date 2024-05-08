@@ -99,7 +99,7 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
     /// </summary>
     /// <param name="state"></param>
     private void SetPowerState(char state) {
-        var layoutCmds = new WitThrottleLayoutCmd(connection.CmdStationMgr.Controller,null);
+        var layoutCmds = new WitThrottleLayoutCmd(connection.CmdStationMgr.Controller);
         switch (state) {
             case '0': if (layoutCmds.IsPowerSupported()) layoutCmds.SetPowerState(DCCPowerState.Off); break;
             case '1': if (layoutCmds.IsPowerSupported()) layoutCmds.SetPowerState(DCCPowerState.On);  break;

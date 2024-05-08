@@ -16,8 +16,9 @@ public interface IController : IParameterMappable {
 
     // Execute a Command. Must be executed via here
     // ----------------------------------------------------------------------------
-    public ICommandResult         Execute(ICommand command);
     public TCommand?              CreateCommand<TCommand>() where TCommand : ICommand;
+    public TCommand?              CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand;
+    public ICmdResult             Execute(ICommand command);
     public List<CommandAttribute> Commands { get; }
 
     // Attach or detect an Adapter to a Command Station
@@ -28,10 +29,10 @@ public interface IController : IParameterMappable {
 
     // Create and Execute commands that are associated with this command station
     // --------------------------------------------------------------------------
-    public IDCCAddress CreateAddress();
-    public IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
+    public DCCAddress CreateAddress();
+    public DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
 
-    // Helpers to ensure that we can check if Commands and Adapters are supported.
+    // Helpers to ensure that we can check if Actions and Adapters are supported.
     // ---------------------------------------------------------------------------
     public bool IsCommandSupported<T>() where T : ICommand;
     public bool IsCommandSupported(Type command);

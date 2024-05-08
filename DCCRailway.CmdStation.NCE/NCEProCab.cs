@@ -6,7 +6,7 @@ namespace DCCRailway.CmdStation.NCE;
 
 [Controller("NCEProCab", "North Coast Engineering (NCE)", "ProCab", "1.3")]
 public class NceProCab : Controller, IController {
-    public override IDCCAddress CreateAddress() => new DCCAddress();
-    public override IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);
+    public override DCCAddress CreateAddress() => new DCCAddress();
+    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);
 
 }

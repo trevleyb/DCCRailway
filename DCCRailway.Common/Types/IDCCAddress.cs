@@ -1,6 +1,6 @@
 ﻿namespace DCCRailway.Common.Types;
 
-public interface IDCCAddress {
+public interface xIDCCAddress {
     int            Address     { get; set; }
     DCCAddressType AddressType { get; set; }
     DCCProtocol    Protocol    { get; set; }

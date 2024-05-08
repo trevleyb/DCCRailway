@@ -5,6 +5,7 @@ using DCCRailway.CmdStation.NCE;
 using DCCRailway.CmdStation.NCE.Adapters;
 using DCCRailway.CmdStation.NCE.Commands;
 using DCCRailway.CmdStation.NCE.Commands.Results;
+using DCCRailway.Common.Types;
 
 namespace DCCRailway.System.Test.Manufacturers.NCE;
 
@@ -73,8 +74,8 @@ public class NCEPowerCabSensorTest {
                 for (byte part = 0; part < 2; part++) {
                     for (byte pin = 0; pin < 8; pin++) {
                         sensorCmd?.SetAddressByCabPin(4, (byte)(part * 8 + pin));
-                        var state = system.Execute(sensorCmd!) as NCECommandResultSensorState;
-                        states[part] = states[part].SetBit(pin, state?.State ?? false);
+                        var state = system.Execute(sensorCmd!) as NCECmdResultSensorState;
+                        states[part] = states[part].SetBit(pin, state?.State == DCCAccessoryState.Occupied ? true : false);
                     }
                 }
 

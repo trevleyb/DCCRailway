@@ -14,7 +14,7 @@ public class LayoutLocoCmdUpdater() : LayoutGenericCmdUpdater() {
         // -----------------------------------------------------------------------------
         if (command is ILocoCmd locoCmd) {
             //var locomotives = RailwayConfig.Instance.Locomotives;
-            //var loco = locomotives.Find(x => x.Address.Address == locoCmd.Address.Address).Result;
+            //var loco = locomotives.Find(x => x.Address.Address == locoCmd.Address.Address).Results;
             //var loco = Config.Locomotives[locoCmd.Address];
             var loco = RailwayConfig.Instance.Locomotives.Find(x => x.Address.Address == locoCmd.Address.Address);
 

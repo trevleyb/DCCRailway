@@ -6,9 +6,9 @@ namespace DCCRailway.CmdStation.NCE;
 
 [Controller("NCEPowerCab", "North Coast Engineering (NCE)", "PowerCab", "1.65")]
 public class NcePowerCab : Controller, IController {
-    public override IDCCAddress CreateAddress() => new DCCAddress();
+    public override DCCAddress CreateAddress() => new DCCAddress();
 
-    public override IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);
+    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);
 
     /*
     protected override void RegisterAdapters() {
@@ -73,7 +73,7 @@ public class NcePowerCab : Controller, IController {
                 RegisterCommand<ICmdClockStop>(typeof(NCEStopClock));
             }
             else if (Adapter is NCEUSBSerial) {
-                if (CreateCommand<ICmdStatus>() is NCEStatusCmd statusCmd && statusCmd.Execute(Adapter) is NCECommandResultVersion status) {
+                if (CreateCommand<ICmdStatus>() is NCEStatusCmd statusCmd && statusCmd.Execute(Adapter) is NCECmdResultVersion status) {
                     if (status.IsVersionMatch("6.x.x")) {
                         // Does not support AIU cards
                     }

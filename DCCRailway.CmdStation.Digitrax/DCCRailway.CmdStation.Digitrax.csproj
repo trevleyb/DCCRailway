@@ -28,4 +28,10 @@
     <ItemGroup>
         <None Remove="obj\**"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Actions\Commands\" />
+      <Folder Include="Actions\Results\" />
+      <Folder Include="Actions\Validators\" />
+    </ItemGroup>
 </Project>

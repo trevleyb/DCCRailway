@@ -3,7 +3,9 @@ using DCCRailway.CmdStation.Adapters.Base;
 using DCCRailway.CmdStation.Attributes;
 using DCCRailway.CmdStation.Commands;
 using DCCRailway.CmdStation.Commands.Results;
+using DCCRailway.CmdStation.Commands.Types.Base;
 using DCCRailway.CmdStation.Controllers.Events;
+using DCCRailway.Common.Types;
 
 namespace DCCRailway.CmdStation.Controllers;
 
@@ -26,7 +28,7 @@ public class CommandManager(Assembly assembly) {
         foreach (var command in _assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(ICommand)))) {
             var attr = AttributeExtractor.GetAttribute<CommandAttribute>(command);
             if (attr != null && !string.IsNullOrEmpty(attr.Name)) {
-                var commandInterface = command.ImplementedInterfaces.First(x => x.FullName != null && x.FullName.StartsWith("DCCRailway.CmdStation.Commands.Types.I", StringComparison.InvariantCultureIgnoreCase)) ?? null;
+                var commandInterface = command.ImplementedInterfaces.First(x => x.FullName != null && x.FullName.StartsWith("DCCRailway.CmdStation.Actions.Commands.I", StringComparison.InvariantCultureIgnoreCase)) ?? null;
                 if (commandInterface is not null) {
                     if (!_commands.ContainsKey(commandInterface)) _commands.TryAdd(commandInterface, (attr, command));
                 }
@@ -45,34 +47,49 @@ public class CommandManager(Assembly assembly) {
         _commands = [];
     }
 
-    public ICommand? Create(string name, IAdapter adapter) {
+    public ICommand? Create(string name, IAdapter adapter, DCCAddress? address = null) {
         var command = Create(name);
         if (command != null) command.Adapter = adapter;
+        if (address is not null && command is ICmdAddress cmdAddress) {
+            cmdAddress.Address = address;
+        }
         return command;
     }
 
-    public ICommand? Create<TCommand>(IAdapter adapter)  where TCommand : ICommand {
+    public ICommand? Create<TCommand>(IAdapter adapter, DCCAddress? address = null)  where TCommand : ICommand {
         var command = Create<TCommand>();
         if (command != null) command.Adapter = adapter;
+        if (address is not null && command is ICmdAddress cmdAddress) {
+            cmdAddress.Address = address;
+        }
         return command;
     }
 
-    public ICommand? Create(string name) {
+    public ICommand? Create(string name, DCCAddress? address = null) {
         if (_commands.Any() is false) RegisterCommands();
         var entry = _commands.FirstOrDefault(x => x.Value.Attributes.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
         if (entry.Equals(default(KeyValuePair<Type, (CommandAttribute, Type)>)) && entry.Key != null) {
-            return CreateInstance(entry.Value.ConcreteType);
+            var command = CreateInstance(entry.Value.ConcreteType);
+            if (address is not null && command is ICmdAddress cmdAddress) {
+                cmdAddress.Address = address;
+            }
+            return command;
+
         }
         throw new ApplicationException("Selected Command Type is not supported by this Adapter.");
     }
 
-    public ICommand? Create<TCommand>() where TCommand : ICommand {
+    public ICommand? Create<TCommand>(DCCAddress? address = null) where TCommand : ICommand {
         if (_commands.Any() is false) RegisterCommands();
         if (IsCommandSupported<TCommand>()) {
             var typeToCreate = _commands[typeof(TCommand)].ConcreteType ?? null;
             if (typeToCreate is null)
                 throw new ApplicationException("Selected Command Type is not supported by this Adapter.");
-            return CreateInstance(typeToCreate);
+            var command = CreateInstance(typeToCreate);
+            if (address is not null && command is ICmdAddress cmdAddress) {
+                cmdAddress.Address = address;
+            }
+            return command;
         }
         throw new ApplicationException("Selected Command Type is not supported by this Adapter.");
     }
@@ -97,7 +114,7 @@ public class CommandManager(Assembly assembly) {
 
     #region Raise Events
     // Raise when this Controller executes a command
-    private void OnCommandExecute(object sender, ICommand command, ICommandResult result) {
+    private void OnCommandExecute(object sender, ICommand command, ICmdResult result) {
         var e = new CommandEventArgs(command, result, $"Command {command.GetType().Name} executed with resultOld {result.GetType().Name}");
         CommandEvent?.Invoke(sender, e);
     }

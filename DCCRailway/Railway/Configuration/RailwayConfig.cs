@@ -9,7 +9,7 @@ using Parameters = DCCRailway.Railway.Configuration.Entities.Parameters;
 namespace DCCRailway.Railway.Configuration;
 
 public sealed class RailwayConfig : IRailwayConfig {
-    public const string DefaultConfigFilename = "Railway.Config.json";
+    public const string DefaultConfigFilename = "DCCRailway.Config.json";
 
     private static object _lockObject = new object();
     private static IRailwayConfig? _instance = null;

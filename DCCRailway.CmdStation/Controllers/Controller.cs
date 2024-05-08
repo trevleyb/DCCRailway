@@ -41,10 +41,11 @@ public abstract class Controller : IController, IParameterMappable {
     /// <param name="command">The command object to be executed</param>
     /// <returns>A resultOld object of type IResultOld which should be cast according to the command</returns>
     /// <exception cref="ApplicationException">Will throw an exception if no adapter specified</exception>
-    public ICommandResult Execute(ICommand command) {
+    public ICmdResult Execute(ICommand command) {
         if (!_commands.IsCommandSupported(command.GetType())) throw new ControllerException("Command is not supported.");
         if (_adapters.Adapter is null) throw new ControllerException("No Adapater has been attached. Cammand cannot execute");
         var result = command.Execute(_adapters.Adapter);
+        result.Command = command;
         OnCommandExecute(this, command, result);
         return result;
     }
@@ -67,9 +68,10 @@ public abstract class Controller : IController, IParameterMappable {
 
     public IAdapter? CreateAdapter(string? name) => _adapters.Attach(name);
     public TCommand? CreateCommand<TCommand>() where TCommand : ICommand => (TCommand?)_commands.Create<TCommand>(Adapter!);
+    public TCommand? CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand => (TCommand?)_commands.Create<TCommand>(Adapter!,address);
 
-    public abstract IDCCAddress CreateAddress();
-    public abstract IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
+    public abstract DCCAddress CreateAddress();
+    public abstract DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
 
     // Used for general Controller Events to be Raised
     private void OnControllerEvent(object? sender, string message ="") {
@@ -88,7 +90,7 @@ public abstract class Controller : IController, IParameterMappable {
         }
     }
 
-    private void OnCommandExecute(Controller controller, ICommand command, ICommandResult result) {
+    private void OnCommandExecute(Controller controller, ICommand command, ICmdResult result) {
         ControllerEvent?.Invoke(this, new CommandEventArgs(command,result, $"Command Executed on {controller.AttributeInfo().Name}"));
     }
 

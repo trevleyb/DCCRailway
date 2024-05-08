@@ -25,8 +25,8 @@ public class LayoutUpdater {
 
             // If the command failed, log the error and return.
             // -------------------------------------------------
-            if (exec.Result is { IsOK: false }) {
-                if (exec.Command != null) Logger.Log.Information($"Command {exec.Command.AttributeInfo().Name} failed with error {exec.Result.Error}");
+            if (exec.Result is { Success: false }) {
+                if (exec.Command != null) Logger.Log.Information($"Command {exec.Command.AttributeInfo().Name} failed with error {exec.Result.ErrorMessage}");
                 return;
             }
 

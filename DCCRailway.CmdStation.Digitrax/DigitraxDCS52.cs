@@ -6,6 +6,6 @@ namespace DCCRailway.CmdStation.Digitrax;
 
 [Controller("DCS52", "DigiTrax", "DCS52")]
 public class DCS52 : Controller, IController {
-    public override IDCCAddress CreateAddress() => new DCCAddress();
-    public override IDCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);
+    public override DCCAddress CreateAddress() => new DCCAddress();
+    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);
 }

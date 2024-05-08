@@ -26,7 +26,7 @@ public static class JMRIRosterImporter {
     /// </summary>
     /// <param name="locoList">Collection of Locomotives</param>
     /// <param name="jMRIRoster">The JMRI Roster File</param>
-    private static async void MapJMRItoDCCTrain(IRailwayConfig config, JMRIRoster jmriRoster) {
+    private static void MapJMRItoDCCTrain(IRailwayConfig config, JMRIRoster jmriRoster) {
 
         var locomotives = config.Locomotives;
         locomotives.Clear();

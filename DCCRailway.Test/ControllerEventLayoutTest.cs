@@ -1,4 +1,5 @@
 using DCCRailway.CmdStation.Commands.Results;
+using DCCRailway.CmdStation.Commands.Results.Abstract;
 using DCCRailway.Common.Types;
 using DCCRailway.CmdStation.Commands.Types;
 using DCCRailway.CmdStation.Controllers;
@@ -35,7 +36,7 @@ public class ControllerEventLayoutTest {
         Assert.That(loco?.Speed?.Value, Is.EqualTo(0));
 
         // TODO: fix this test
-        var controllerEvent = new CommandEventArgs(setLocoSpeed, CommandResult.Success());
+        var controllerEvent = new CommandEventArgs(setLocoSpeed, CmdResult.Ok());
         layoutCmdProcessor.ProcessCommandEvent(controllerEvent);
         //Assert.That(loco?.Speed?.Value, Is.EqualTo(50));
 
