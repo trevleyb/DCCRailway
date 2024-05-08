@@ -1,6 +1,3 @@
-using DCCRailway.CmdStation.Controllers;
-using DCCRailway.CmdStation.Virtual;
-using DCCRailway.CmdStation.Virtual.Adapters;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
@@ -13,11 +10,11 @@ public class WiThrottleTest {
 
         /*
         var config = TestConfig.CreateTestConfig();
-        IController controller = new VirtualController {
+        ICommandStation commandStation = new VirtualCommandStation {
             Adapter = new VirtualAdapter()
         };
 
-        var wii = new WiThrottleServer(config, controller);
+        var wii = new WiThrottleServer(config, commandStation);
         wii.Start();
         Assert.That(wii,Is.Not.Null);
         wii.Stop();
@@ -30,10 +27,10 @@ public class WiThrottleTest {
 
         /*
         IRailwayConfig config = TestConfig.CreateTestConfig();
-        IController controller = new VirtualController {
+        ICommandStation commandStation = new VirtualCommandStation {
             Adapter = new VirtualAdapter()
         };
-        var wii = new WiThrottleServer(config,controller);
+        var wii = new WiThrottleServer(config,commandStation);
         Assert.That(wii,Is.Not.Null);
         Assert.That(wii.ActiveClients, Is.EqualTo(0));
         wii.Start();

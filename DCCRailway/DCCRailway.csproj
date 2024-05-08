@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DCCRailway.CmdStation\DCCRailway.CmdStation.csproj" />
+      <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj" />
       <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj" />
     </ItemGroup>
 

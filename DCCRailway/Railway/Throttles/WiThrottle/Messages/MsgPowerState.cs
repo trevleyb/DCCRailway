@@ -16,7 +16,7 @@ public class MsgPowerState(WiThrottleConnection connection) : ThrottleMsg, IThro
 
     private string? GetPowerStateMsg() {
         try {
-            var layoutCmd = new WitThrottleLayoutCmd(connection.CmdStationMgr.Controller);
+            var layoutCmd = new WitThrottleLayoutCmd(connection.CommandStationManager.CommandStation);
             var powerMsg = layoutCmd.PowerState switch {
                 DCCPowerState.On      => "PPA1",
                 DCCPowerState.Off     => "PPA0",

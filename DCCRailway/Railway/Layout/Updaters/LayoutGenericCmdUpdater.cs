@@ -1,5 +1,5 @@
-using DCCRailway.CmdStation.Actions;
-using DCCRailway.CmdStation.Attributes;
+using DCCRailway.Controller.Actions;
+using DCCRailway.Controller.Attributes;
 
 namespace DCCRailway.Railway.Layout.Updaters;
 

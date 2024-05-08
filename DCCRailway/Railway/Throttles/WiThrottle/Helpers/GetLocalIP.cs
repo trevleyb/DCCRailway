@@ -16,6 +16,6 @@ public static class Network {
             if (ip.AddressFamily == AddressFamily.InterNetwork && !ip.ToString().Equals("127.0.0.1")) return ip;
         }
 
-        throw new Exception("No network adapters with an IPv4 address in the controller!");
+        throw new Exception("No network adapters with an IPv4 address in the commandStation!");
     }
 }

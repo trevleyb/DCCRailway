@@ -132,7 +132,7 @@ public class Manufacturers : Dictionary<byte, Manufacturer>  {
        AddManufacturer("NAC Services, Inc", 37);
        AddManufacturer("NMRA Reserved", 238);
        AddManufacturer("NYRS", 136);
-       AddManufacturer("Nagasue Controller Design Office", 103);
+       AddManufacturer("Nagasue CommandStation Design Office", 103);
        AddManufacturer("Nagoden", 108);
        AddManufacturer("AddNew(new York Byano Limited", 71);
        AddManufacturer("Ngineering", 43);

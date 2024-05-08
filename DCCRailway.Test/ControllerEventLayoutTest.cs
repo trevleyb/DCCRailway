@@ -1,11 +1,11 @@
-using DCCRailway.CmdStation.Actions.Commands;
-using DCCRailway.CmdStation.Actions.Results.Abstract;
 using DCCRailway.Common.Types;
-using DCCRailway.CmdStation.Controllers;
-using DCCRailway.CmdStation.Controllers.Events;
 using DCCRailway.Layout.Layout.Entities;
 using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Layout;
+using DCCRailway.Controller.Actions.Commands;
+using DCCRailway.Controller.Actions.Results.Abstract;
+using DCCRailway.Controller.Controllers;
+using DCCRailway.Controller.Controllers.Events;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
@@ -41,21 +41,21 @@ public class ControllerEventLayoutTest {
 
     }
 
-     IController CreateVirtualControllerWithAdapter() {
-        // Create an instance of a Controller using the Factory 
+     ICommandStation CreateVirtualControllerWithAdapter() {
+        // Create an instance of a CommandStation using the Factory
         // ------------------------------------------------------------
-        var factory       = new ControllerFactory();
+        var factory       = new CommandStationFactory();
         var virtualSystem = factory.Find("Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
 
-        // Check that we can do things with the controller
+        // Check that we can do things with the commandStation
         // ------------------------------------------------------------
         var controller = virtualSystem!.Create();
         Assert.That(controller, Is.Not.Null);
 
-        if (controller is null) throw new NullReferenceException("Should have a Controller object at this stage");
+        if (controller is null) throw new NullReferenceException("Should have a CommandStation object at this stage");
 
-        // Now that we have created a Controller, we need to create an ADAPTER that we can connect to the
+        // Now that we have created a CommandStation, we need to create an ADAPTER that we can connect to the
         // ------------------------------------------------------------
         var adapter = controller.CreateAdapter("Virtual");
         Assert.That(adapter, Is.Not.Null);

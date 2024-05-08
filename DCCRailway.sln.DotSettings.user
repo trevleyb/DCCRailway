@@ -32,15 +32,7 @@
   &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b5c8b469_002Df382_002D4e73_002D909c_002De46f934bfd98/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ManualTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Or&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.TestStateManager&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Common.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Common.Test&amp;gt;" /&gt;
-    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Test&amp;gt;" /&gt;
-    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.Layout.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Layout.Test&amp;gt;" /&gt;
-    &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.CmdStation.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.CmdStation.Test&amp;gt;" /&gt;
-  &lt;/Or&gt;
+  &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway" Presentation="&amp;lt;Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 
 

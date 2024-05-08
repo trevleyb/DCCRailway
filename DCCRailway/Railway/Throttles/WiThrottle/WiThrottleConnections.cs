@@ -1,12 +1,11 @@
 ﻿using System.Net.Sockets;
 using DCCRailway.Common.Types;
-using DCCRailway.Railway.CmdStation;
 using DCCRailway.Railway.Configuration;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle;
 
 /// <summary>
-///     ConnectionInfo stores the details of each connected throttle to the controller
+///     ConnectionInfo stores the details of each connected throttle to the commandStation
 ///     and will track a connection to a Command Station and what commands are or
 ///     have been sent on behalf of the throttle.
 /// </summary>
@@ -14,7 +13,7 @@ public class WiThrottleConnections : List<WiThrottleConnection> {
     /// <summary>
     ///     Add a new entry into the list of connected Throttles
     /// </summary>
-    public WiThrottleConnection Add(TcpClient client, WiThrottlePreferences preferences, IRailwayConfig railwayConfig, CmdStationManager cmdStationMgr) {
+    public WiThrottleConnection Add(TcpClient client, WiThrottlePreferences preferences, IRailwayConfig railwayConfig, CommandStationManager cmdStationMgr) {
         var connection = Find((ulong)client.Client.Handle);
         if (connection is null) {
             connection = new WiThrottleConnection(client, preferences, this, railwayConfig, cmdStationMgr);

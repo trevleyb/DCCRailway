@@ -23,11 +23,11 @@
         <None Remove="ServerTest\"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.CmdStation\DCCRailway.CmdStation.csproj" />
-        <ProjectReference Include="..\DCCRailway.CmdStation.Digitrax\DCCRailway.CmdStation.Digitrax.csproj" />
-        <ProjectReference Include="..\DCCRailway.CmdStation.NCE\DCCRailway.CmdStation.NCE.csproj" />
-        <ProjectReference Include="..\DCCRailway.CmdStation.Sprog\DCCRailway.CmdStation.Sprog.csproj" />
-        <ProjectReference Include="..\DCCRailway.CmdStation.Virtual\DCCRailway.CmdStation.Virtual.csproj" />
+        <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj" />
+        <ProjectReference Include="..\DCCRailway.Controller.Digitrax\DCCRailway.Controller.Digitrax.csproj" />
+        <ProjectReference Include="..\DCCRailway.Controller.NCE\DCCRailway.Controller.NCE.csproj" />
+        <ProjectReference Include="..\DCCRailway.Controller.Sprog\DCCRailway.Controller.Sprog.csproj" />
+        <ProjectReference Include="..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj" />
         <ProjectReference Include="..\DCCRailway\DCCRailway.csproj" />
     </ItemGroup>
     <ItemGroup>

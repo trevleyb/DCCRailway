@@ -1,10 +1,9 @@
 using System.Text.Json.Serialization;
 using DCCRailway.Layout.Layout.Entities;
-using DCCRailway.Railway.CmdStation;
 using DCCRailway.Railway.Configuration.Entities;
 using DCCRailway.Railway.Configuration.Helpers;
 using DCCRailway.Railway.Layout.State;
-using Parameters = DCCRailway.Railway.Configuration.Entities.Parameters;
+using Parameters = DCCRailway.Layout.Layout.Entities.Parameters;
 
 namespace DCCRailway.Railway.Configuration;
 
@@ -49,7 +48,7 @@ public sealed class RailwayConfig : IRailwayConfig {
     public string         Description           { get; set; } = "";
     public string         Filename              { get; set; } = "Railway.Config.json";
 
-    public Controller     Controller            { get; set; } = new Controller();
+    public CommandStation CommandStation        { get; set; } = new Entities.CommandStation();
     public Parameters     Parameters            { get; set; } = [];
     public Manufacturers  Manufacturers         { get; }      = new Manufacturers();
 
@@ -61,8 +60,8 @@ public sealed class RailwayConfig : IRailwayConfig {
     public Signals        Signals               { get; init; } = new();
     public Turnouts       Turnouts              { get; init; } = new();
 
-    [JsonIgnore] public CmdStationManager   CmdStation  { get; set; } = new();
-    [JsonIgnore] public StateManager        States { get; set; } = new();
+    [JsonIgnore] public CommandStationManager   CommandStationManager  { get; } = new();
+    [JsonIgnore] public StateManager            States { get; } = new();
 
     public static IRailwayConfig   Load() => RailwayConfigJsonHelper<RailwayConfig>.Load(DefaultConfigFilename);
     public void                    Save() => RailwayConfigJsonHelper<RailwayConfig>.Save(this, DefaultConfigFilename);

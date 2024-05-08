@@ -2,7 +2,6 @@
 using System.Net.Sockets;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
-using DCCRailway.Railway.CmdStation;
 using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Throttles.WiThrottle.Messages;
 
@@ -16,22 +15,22 @@ public class WiThrottleConnection {
     private readonly  WiThrottleAssignedLocos _assignedLocos = new();
     internal readonly WiThrottlePreferences   Preferences;
     internal readonly IRailwayConfig          RailwayConfig;
-    internal readonly CmdStationManager       CmdStationMgr;
+    internal readonly CommandStationManager   CommandStationManager;
 
     /// <summary>
     ///     A connection AttributeInfo Entry stores information about a particular entry in the throttle
     ///     roster and allows us to ensure we are tracking the connections and can
     ///     send "STOP" messages if we need to if we do not hear from the throttle.
     /// </summary>
-    public WiThrottleConnection(TcpClient client, WiThrottlePreferences preferences, WiThrottleConnections connections, IRailwayConfig railwayConfig, CmdStationManager cmdStationMgr) {
-        Client              = client;
-        Preferences         = preferences;
-        RailwayConfig       = railwayConfig;
-        CmdStationMgr       = cmdStationMgr;
-        HeartbeatSeconds    = Preferences.HeartbeatSeconds;
-        HeartbeatState      = HeartbeatStateEnum.Off;
-        LastHeartbeat       = DateTime.Now;
-        _listReference      = connections;
+    public WiThrottleConnection(TcpClient client, WiThrottlePreferences preferences, WiThrottleConnections connections, IRailwayConfig railwayConfig, CommandStationManager cmdStationMgr) {
+        Client                  = client;
+        Preferences             = preferences;
+        RailwayConfig           = railwayConfig;
+        CommandStationManager   = cmdStationMgr;
+        HeartbeatSeconds        = Preferences.HeartbeatSeconds;
+        HeartbeatState          = HeartbeatStateEnum.Off;
+        LastHeartbeat           = DateTime.Now;
+        _listReference          = connections;
     }
 
     public TcpClient    Client { get; set; }
@@ -52,9 +51,9 @@ public class WiThrottleConnection {
 
     /// <summary>
     ///     Returns TRUE if we have recieved a HeartBeat command within the HeartBeat timeout
-    ///     duration. Controller expected the 'LastHeartbeat' to be updated by a Heartbeat command
+    ///     duration. CommandStation expected the 'LastHeartbeat' to be updated by a Heartbeat command
     ///     every x seconds or it will issue a E-STOP command on the current Loco attached to
-    ///     this controller.
+    ///     this commandStation.
     /// </summary>
     public bool IsHeartbeatOk => HeartbeatState == HeartbeatStateEnum.Off || ((DateTime.Now - LastHeartbeat).TotalSeconds < HeartbeatSeconds);
     public void UpdateHeartbeat() => LastHeartbeat = DateTime.Now;
@@ -93,7 +92,7 @@ public class WiThrottleConnection {
         Logger.Log.Information("Closing the '{0}' connection.", ConnectionHandle);
         if (_assignedLocos.Count > 0) {
             foreach (var address in _assignedLocos.AssignedLocos) {
-                var layoutCmd = new WitThrottleLayoutCmd(CmdStationMgr.Controller!, address);
+                var layoutCmd = new WitThrottleLayoutCmd(CommandStationManager.CommandStation!, address);
                 layoutCmd.Release();
                 layoutCmd.Stop();
             }

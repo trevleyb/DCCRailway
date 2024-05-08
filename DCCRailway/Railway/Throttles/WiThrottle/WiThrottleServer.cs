@@ -2,7 +2,6 @@
 using System.Text;
 using System.Timers;
 using DCCRailway.Common.Helpers;
-using DCCRailway.Railway.CmdStation;
 using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 using DCCRailway.Railway.Throttles.WiThrottle.Messages;
@@ -13,7 +12,7 @@ namespace DCCRailway.Railway.Throttles.WiThrottle;
 /// This is the main server for the WiThrottleController. It manages incomming connections, tracks them in a
 /// WiThrottleConnection and manages messages. It takes as parameters a RailwayConfig reference to allow it
 /// to get information about the Entities (Locos, Turnouts etc) as well as a reference to the active DCC
-/// controller so it can send messages to that controller.
+/// commandStation so it can send messages to that commandStation.
 ///
 /// Note that it does not need to track what messages it has sent as the LayoutConfig uses events to
 /// track what commands have been sent and automatically update the Entities with state changes.
@@ -21,17 +20,17 @@ namespace DCCRailway.Railway.Throttles.WiThrottle;
 public class WiThrottleServer() {
 
     private CancellationTokenSource cts = new CancellationTokenSource();
-    private System.Timers.Timer     _heartbeatCheckTimer;
-    private WiThrottlePreferences   _preferences;
-    private IRailwayConfig          _railwayConfig;
-    private CmdStationManager       _cmdStationMgr;
+    private System.Timers.Timer         _heartbeatCheckTimer;
+    private WiThrottlePreferences       _preferences;
+    private IRailwayConfig              _railwayConfig;
+    private CommandStationManager       _cmdStationMgr;
 
     public int ActiveClients { get; set; } = 0;
 
     /// <summary>
     ///     Start up the Listener Service using the provided Port and IPAddress
     /// </summary>
-    public void Start(IRailwayConfig railwayConfig, CmdStationManager cmdStationMgr) {
+    public void Start(IRailwayConfig railwayConfig, CommandStationManager cmdStationMgr) {
 
         _railwayConfig = railwayConfig;
         _cmdStationMgr = cmdStationMgr;

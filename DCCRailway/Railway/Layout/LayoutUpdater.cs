@@ -1,8 +1,8 @@
-using DCCRailway.CmdStation.Actions.Commands.Base;
-using DCCRailway.CmdStation.Attributes;
-using DCCRailway.CmdStation.Controllers.Events;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Railway.Layout.Updaters;
+using DCCRailway.Controller.Actions.Commands.Base;
+using DCCRailway.Controller.Attributes;
+using DCCRailway.Controller.Controllers.Events;
 
 namespace DCCRailway.Railway.Layout;
 /// <summary>
@@ -47,11 +47,11 @@ public class LayoutUpdater {
             break;
 
         case AdapterEventArgs exec:
-            if (exec.Adapter != null) Logger.Log.Error($"Command {exec.Adapter.AttributeInfo().Name} {exec.AdapterEvent} the controller.");
+            if (exec.Adapter != null) Logger.Log.Error($"Command {exec.Adapter.AttributeInfo().Name} {exec.AdapterEvent} the commandStation.");
             break;
 
         default:
-            Logger.Log.Error($"Controller Event Raise: {eventArgs.Message}");
+            Logger.Log.Error($"CommandStation Event Raise: {eventArgs.Message}");
             break;
         }
     }
