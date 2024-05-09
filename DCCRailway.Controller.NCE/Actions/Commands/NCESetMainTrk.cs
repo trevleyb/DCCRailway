@@ -8,7 +8,7 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 
 [Command("SetMainTrk", "Switch Power to the MainLine")]
 public class NCESetMainTrk : NCECommand, ICmdTrackMain {
-    public override ICmdResult Execute(IAdapter adapter) => SendAndReceive(adapter, new NCEStandardValidation(), 0x9F);
+    protected override ICmdResult Execute(IAdapter adapter) => SendAndReceive(adapter, new NCEStandardValidation(), 0x9F);
 
     public override string ToString() => "MAIN TRACK";
 }

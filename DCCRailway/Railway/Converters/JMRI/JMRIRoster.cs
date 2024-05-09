@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 using DCCRailway.Common.Helpers;
 
-namespace DCCRailway.Railway.Layout.JMRI;
+namespace DCCRailway.Railway.Converters.JMRI;
 
 [XmlRoot(ElementName = "decoder")]
 public class Decoder {

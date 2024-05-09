@@ -37,7 +37,7 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
 
     public DCCAddress SensorAddress { get; set; }
 
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResult Execute(IAdapter adapter) {
         if (!_sensorCache.IsCurrent) {
             var result = SendAndReceive(adapter, new NCESensorValidator(), new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
             if (!result.Success) return result;

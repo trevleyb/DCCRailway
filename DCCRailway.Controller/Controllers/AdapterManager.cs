@@ -7,7 +7,7 @@ using DCCRailway.Controller.Exceptions;
 
 namespace DCCRailway.Controller.Controllers;
 
-public class AdapterManager(Assembly assembly) {
+public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
 
     private IAdapter?                           _adapter;       // Stores the adapter to be used
     private Assembly                            _assembly { get; set; } = assembly;

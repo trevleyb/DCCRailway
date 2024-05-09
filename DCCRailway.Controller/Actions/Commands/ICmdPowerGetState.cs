@@ -6,6 +6,4 @@ namespace DCCRailway.Controller.Actions.Commands;
 /// <summary>
 ///     Turn the power to the controller ON or OFF
 /// </summary>
-public interface ICmdPowerGetState : ICommand, ISystemCmd {
-    DCCPowerState State { get; set; }
-}
+public interface ICmdPowerGetState : ICommand, ISystemCmd { }

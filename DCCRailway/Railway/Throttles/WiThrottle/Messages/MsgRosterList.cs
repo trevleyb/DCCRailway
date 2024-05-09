@@ -7,7 +7,7 @@ public class MsgRosterList(WiThrottleConnection connection) : ThrottleMsg, IThro
     public override string Message {
         get {
             //var locos = Task.Run(() => connection.RailwayConfig.Locomotives.GetAllAsync().GetListFromAsyncEnumerable());
-            var locos = connection.RailwayConfig.Locomotives.GetAll();
+            var locos = connection.RailwayManager.Locomotives.GetAll();
             if (!locos.Any()) return "RL0";
 
             var message = new StringBuilder();

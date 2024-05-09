@@ -21,27 +21,27 @@ public class NCEPowerCabAccessoryTest {
             if (system.CreateCommand<ICmdAccySetState>() is ICmdAccySetState accyCmd) {
                 accyCmd.Address = new DCCAddress(0x01, DCCAddressType.Accessory);
                 accyCmd.State   = DCCAccessoryState.On;
-                system.Execute(accyCmd);
+                accyCmd.Execute();
                 Thread.Sleep(1000);
 
                 accyCmd.State = DCCAccessoryState.Off;
-                system.Execute(accyCmd);
+                accyCmd.Execute();
                 Thread.Sleep(1000);
 
                 accyCmd.State = DCCAccessoryState.Normal;
-                system.Execute(accyCmd);
+                accyCmd.Execute();
                 Thread.Sleep(1000);
 
                 accyCmd.State = DCCAccessoryState.Reversed;
-                system.Execute(accyCmd);
+                accyCmd.Execute();
                 Thread.Sleep(1000);
 
                 accyCmd.State = DCCAccessoryState.Thrown;
-                system.Execute(accyCmd);
+                accyCmd.Execute();
                 Thread.Sleep(1000);
 
                 accyCmd.State = DCCAccessoryState.Closed;
-                system.Execute(accyCmd);
+                accyCmd.Execute();
                 Thread.Sleep(1000);
             }
     }

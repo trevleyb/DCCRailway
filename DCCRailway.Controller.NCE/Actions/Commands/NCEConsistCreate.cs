@@ -18,13 +18,13 @@ public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
     public DCCDirection     RearDirection  { get; set; }
     public List<DCCAddress> AddLoco        { get; } = new();
 
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResult Execute(IAdapter adapter) {
         ICmdResult result;
 
         // Start by deleting the current Consist by killing the consist by the lead loco
         // -----------------------------------------------------------------------------
         var killCmd = new NCEConsistKill(LeadLoco);
-        result = killCmd.Execute(adapter);
+        result = killCmd.Execute();
         if (!result.Success) return result;
 
         // Add each loco to the consist
@@ -46,11 +46,11 @@ public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
         // First Delete the loco from any existing Consist
         // -----------------------------------------------
         var delCmd = new NCEConsistDelete(address);
-        var delRes = delCmd.Execute(adapter);
+        var delRes = delCmd.Execute();
         if (!delRes.Success) return delRes;
 
         var addCmd = new NCEConsistAdd(consistAddress, address, direction, position);
-        var addRes = addCmd.Execute(adapter);
+        var addRes = addCmd.Execute();
         if (!addRes.Success) return addRes;
 
         return delRes;

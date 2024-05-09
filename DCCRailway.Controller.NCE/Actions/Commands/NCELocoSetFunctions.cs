@@ -32,7 +32,7 @@ public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
     public DCCAddress        Address   { get; set; }
     public DCCFunctionBlocks  Functions { get; }
 
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResult Execute(IAdapter adapter) {
         Previous ??= new DCCFunctionBlocks();
 
         // Loop through the 5 groups of functions and see if any have changed from last time

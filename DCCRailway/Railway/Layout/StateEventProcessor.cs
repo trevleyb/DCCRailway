@@ -1,8 +1,10 @@
 using DCCRailway.Common.Helpers;
-using DCCRailway.Railway.Layout.Updaters;
+using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Actions.Commands.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
+using DCCRailway.Railway.Layout.Processors;
+using DCCRailway.Railway.Layout.State;
 
 namespace DCCRailway.Railway.Layout;
 /// <summary>
@@ -15,34 +17,34 @@ namespace DCCRailway.Railway.Layout;
 /// So this is a bridge between the two systems. It takes a DCCRailwayConfig instance whcih is
 /// the collection of all data related to the current executing layout.
 /// </summary>
-public class LayoutUpdater {
-
-    private readonly LayoutEventLogger _eventLogger = new LayoutEventLogger();
+public class StateEventProcessor (StateManager stateManager){
 
     public void ProcessCommandEvent(ControllerEventArgs eventArgs) {
         switch (eventArgs) {
-        case CommandEventArgs exec:
+
+        case CommandEventArgs args:
 
             // If the command failed, log the error and return.
             // -------------------------------------------------
-            if (exec.Result is { Success: false }) {
-                if (exec.Command != null) Logger.Log.Information($"Command {exec.Command.AttributeInfo().Name} failed with error {exec.Result.ErrorMessage}");
+            if (args.Result is { Success: false } failedResult) {
+                Logger.Log.Information(failedResult.Command != null ? $"Command {failedResult.Command.AttributeInfo().Name} failed with error {failedResult.ErrorMessage}" : $"Command 'unknown' failed with error {failedResult.ErrorMessage}");
                 return;
             }
 
             // If the command was successful, process the command.
             // ---------------------------------------------------
-            if (exec.Command != null) {
-                _ = exec.Command switch {
-                    IAccyCmd     => new LayoutAccyCmdUpdater().Process(exec.Command,_eventLogger),
-                    ILocoCmd     => new LayoutLocoCmdUpdater().Process(exec.Command,_eventLogger),
-                    ISensorCmd   => new LayoutSensorCmdUpdater().Process(exec.Command,_eventLogger),
-                    ISignalCmd   => new LayoutSignalCmdUpdater().Process(exec.Command,_eventLogger),
-                    ISystemCmd   => new LayoutSystemCmdUpdater().Process(exec.Command,_eventLogger),
-                    IConsistCmd  => new LayoutConsistCmdUpdater().Process(exec.Command,_eventLogger),
-                    ICVCmd       => new LayoutCvCmdUpdater().Process(exec.Command,_eventLogger),
-                    _            => new LayoutGenericCmdUpdater().Process(exec.Command,_eventLogger)
+            if (args.Result is { Success: true, Command: not null } result) {
+                IStateUpdaterProcess stateUpdater = result.Command switch {
+                    IAccyCmd    => new StateUpdaterAccyCmd(stateManager, result),
+                    ILocoCmd    => new StateUpdaterLocoCmd(stateManager, result),
+                    ISensorCmd  => new StateUpdaterSensorCmd(stateManager, result),
+                    ISignalCmd  => new StateUpdaterSignalCmd(stateManager, result),
+                    ISystemCmd  => new StateUpdaterSystemCmd(stateManager, result),
+                    IConsistCmd => new StateUpdaterConsistCmd(stateManager, result),
+                    ICVCmd      => new StateUpdaterCvCmd(stateManager, result),
+                    _           => new StateUpdaterGenericCmd(stateManager, result),
                 };
+                stateUpdater.Process();
             }
             break;
 

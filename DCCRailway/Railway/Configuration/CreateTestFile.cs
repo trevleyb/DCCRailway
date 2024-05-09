@@ -1,14 +1,13 @@
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Layout.Entities;
-using DCCRailway.Railway.Configuration;
 
-namespace DCCRailway.Railway.Layout;
+namespace DCCRailway.Railway.Configuration;
 
 public static class CreateTestFile {
 
     public static void Build(string filename) {
 
-        var manager = RailwayConfig.New();
+        var manager = RailwayManager.New();
 
         var locomotives = manager.Locomotives;
         locomotives.Add(new Locomotive { Id = "CN1029", Address = new DCCAddress(1029, DCCAddressType.Long), Name = "CN-1029", Description = "Canadian National (1029)" });

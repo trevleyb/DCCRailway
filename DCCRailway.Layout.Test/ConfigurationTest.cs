@@ -11,7 +11,7 @@ public class ConfigurationTest {
     public async Task  TestEntityRepositoryAddAndStore() {
 
         // This will either load the file, or will create a new one if it does not exist.
-        var config = RailwayConfig.New("TestFile","TestFile","TestSystemWithAll.json");
+        var config = RailwayManager.New("TestFile","TestFile","TestSystemWithAll.json");
 
         var accessoryRepository = config.Accessories;
         await accessoryRepository.AddAsync(new Accessory { Name = "TestAccessory1", Description = "Test Accessory Description1" });
@@ -45,7 +45,7 @@ public class ConfigurationTest {
 
         config.Save();
 
-        var config2 = RailwayConfig.Load("TestSystemWithAll.json");
+        var config2 = RailwayManager.Load("TestSystemWithAll.json");
         Assert.That(config2 is not null);
 
         var accs = config2.Accessories.GetAll();

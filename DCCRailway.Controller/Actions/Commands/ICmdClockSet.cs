@@ -7,6 +7,7 @@ namespace DCCRailway.Controller.Actions.Commands;
 ///     Allows you to Turn the FAST Clock on or Off and Set the Fast Clock
 /// </summary>
 public interface ICmdClockSet : ICommand, ISystemCmd {
+
     /// <summary>
     ///     Sets the Hour for the Clock in either 24 or 12 hour mode
     /// </summary>
@@ -19,6 +20,11 @@ public interface ICmdClockSet : ICommand, ISystemCmd {
 
     [Range(1, 60)]
     public int Minute { get; set; }
+
+    /// <summary>
+    /// The time of the clock
+    /// </summary>
+    public DateTime ClockTime { get; }
 
     /// <summary>
     ///     True if this is a 24 hour clock, false if it is a 12 hour clock

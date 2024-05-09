@@ -21,7 +21,7 @@ public class NCECVWrite : NCECommand, ICmdCVWrite, ICommand {
     public int                CV              { get; set; }
     public byte               Value           { get; set; }
 
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResult Execute(IAdapter adapter) {
         byte command = ProgrammingMode switch {
             DCCProgrammingMode.Direct   => 0xA8,
             DCCProgrammingMode.Paged    => 0xA0,

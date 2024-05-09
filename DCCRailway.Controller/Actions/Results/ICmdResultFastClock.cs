@@ -1,5 +1,5 @@
 namespace DCCRailway.Controller.Actions.Results;
 
-public interface ICmdResultFastClock {
-    public DateTime CurrentTime { get; }
+public interface ICmdResultFastClock : ICmdResult {
+    DateTime CurrentTime { get; }
 }

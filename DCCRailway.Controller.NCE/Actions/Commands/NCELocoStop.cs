@@ -21,7 +21,7 @@ public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
     public DCCDirection Direction { get; set; }
     public DCCAddress  Address   { get; set; }
 
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResult Execute(IAdapter adapter) {
         byte[] command = [0xA2];
         command = command.AddToArray(((DCCAddress)Address).AddressBytes);
         command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x06 : 0x05));

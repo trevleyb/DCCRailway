@@ -32,6 +32,12 @@ public class NCEClockSet : NCECommand, ICmdClockSet, ICommand {
         get => _minute;
     }
 
+    public DateTime ClockTime => new DateTime(DateTime.Now.Year,
+                                 DateTime.Now.Month,
+                                 DateTime.Now.Day,
+                                 Hour, Minute, 0);
+
+
     public bool Is24Hour {
         set => _is24Hour = value;
     }
@@ -44,7 +50,7 @@ public class NCEClockSet : NCECommand, ICmdClockSet, ICommand {
         get => _ratio;
     }
 
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResult Execute(IAdapter adapter) {
         if (adapter == null) throw new ArgumentNullException("adapter", "The adapter connot be null.");
 
         // Tell the NCE CommandStation to set the Clock to 24 hours mode

@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
        .AddInteractiveServerComponents();
 
-var railway = new RailwayManager();
+var railway = RailwayManager.Load() ?? RailwayManager.New();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,7 +22,7 @@ if (!app.Environment.IsDevelopment()) {
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
-app.AddEndPoints(railway.Config);
+app.AddEndPoints(railway);
 app.MapRazorComponents<App>()
    .AddInteractiveServerRenderMode();
 

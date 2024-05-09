@@ -1,7 +1,7 @@
 ﻿namespace DCCRailway.Railway.Configuration.Entities;
 
 [Serializable]
-public class Adapter {
-    public string? AdapterName;
+public class DCCAdapter {
+    public string? Name;
     public Parameters Parameters { get; set; } = [];
 }

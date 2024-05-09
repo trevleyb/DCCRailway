@@ -17,7 +17,7 @@ public class NCEConsistKill : NCECommand, ICmdConsistKill, ICommand {
 
     public DCCAddress Address { get; set; }
 
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
         command = command.AddToArray(Address.AddressBytes);
         command = command.AddToArray(0x11);

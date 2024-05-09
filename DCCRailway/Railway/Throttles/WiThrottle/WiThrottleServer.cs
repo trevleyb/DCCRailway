@@ -22,7 +22,7 @@ public class WiThrottleServer() {
     private CancellationTokenSource cts = new CancellationTokenSource();
     private System.Timers.Timer         _heartbeatCheckTimer;
     private WiThrottlePreferences       _preferences;
-    private IRailwayConfig              _railwayConfig;
+    private IRailwayManager              _railwayManager;
     private CommandStationManager       _cmdStationMgr;
 
     public int ActiveClients { get; set; } = 0;
@@ -30,9 +30,9 @@ public class WiThrottleServer() {
     /// <summary>
     ///     Start up the Listener Service using the provided Port and IPAddress
     /// </summary>
-    public void Start(IRailwayConfig railwayConfig, CommandStationManager cmdStationMgr) {
+    public void Start(IRailwayManager railwayManager, CommandStationManager cmdStationMgr) {
 
-        _railwayConfig = railwayConfig;
+        _railwayManager = railwayManager;
         _cmdStationMgr = cmdStationMgr;
 
         // Load a set of preferences from a file but if it does not exit, just create
@@ -117,7 +117,7 @@ public class WiThrottleServer() {
 
         Logger.LogContext<WiThrottleServer>().Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
         var stream = client.GetStream();
-        var connection = _preferences.Connections.Add(client,_preferences,_railwayConfig,_cmdStationMgr);
+        var connection = _preferences.Connections.Add(client,_preferences,_railwayManager,_cmdStationMgr);
         connection.QueueMsg(new MsgConfiguration(connection));
 
         try {

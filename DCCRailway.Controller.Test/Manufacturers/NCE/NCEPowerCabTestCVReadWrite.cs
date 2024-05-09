@@ -23,11 +23,11 @@ public class NCEPowerCabTestCVReadWrite {
             var progTrk = system.CreateCommand<ICmdTrackProg>(); //new NCESetProgTrk(adapter);
             var mainTrk = system.CreateCommand<ICmdTrackMain>(); // new NCESetMainTrk(adapter);
 
-            var result1 = system.Execute(progTrk!);
+            var result1 = progTrk!.Execute();
             Assert.That(result1!.Success);
             Thread.Sleep(1000);
 
-            var result2 = system.Execute(mainTrk!);
+            var result2 = mainTrk!.Execute();
             Assert.That(result2!.Success);
         }
     }
@@ -52,17 +52,17 @@ public class NCEPowerCabTestCVReadWrite {
             //Assert.IsInstanceOfType(result0, typeof(IResultOldError));
             //Assert.IsTrue(result0.OK == false);
 
-            var result1 = system.Execute(progTrk!);
+            var result1 = progTrk!.Execute();
             Assert.That(result1, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result1!.Success);
 
-            var result2 = system.Execute(readCVCmd!);
+            var result2 = readCVCmd!.Execute();
             Assert.That(result2, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result2!.Success);
 
             //Assert.IsTrue(((ICmdResult)result2).Value == 3);
 
-            var result3 = system.Execute(mainTrk!);
+            var result3 = mainTrk!.Execute();
             Assert.That(result3, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result3!.Success);
         }
@@ -85,40 +85,40 @@ public class NCEPowerCabTestCVReadWrite {
             var writeCVCmd = system.CreateCommand<ICmdCVWrite>();
 
             // Should fail because we are not in programming mode
-            var result0 = system.Execute(readCVCmd!);
+            var result0 = readCVCmd!.Execute();
             Assert.That(result0, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result0!.Success == false);
 
-            var result1 = system.Execute(progTrk!);
+            var result1 = progTrk!.Execute();
             Assert.That(result1, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result1!.Success);
 
-            var result2 = system.Execute(readCVCmd!);
+            var result2 = readCVCmd!.Execute();
             Assert.That(result2, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result2!.Success);
             Assert.That(result2.Byte == 3);
 
             writeCVCmd!.Value = 67;
-            var result3 = system.Execute(writeCVCmd);
+            var result3 = writeCVCmd.Execute();
             Assert.That(result3, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result3!.Success);
 
-            var result4 = system.Execute(readCVCmd!);
+            var result4 = readCVCmd!.Execute();
             Assert.That(result4, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result4!.Success);
             Assert.That(result4.Byte == 67);
 
             writeCVCmd!.Value = result2.Byte;
-            var result5 = system.Execute(writeCVCmd);
+            var result5 = writeCVCmd.Execute();
             Assert.That(result5, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result5!.Success);
 
-            var result6 = system.Execute(readCVCmd!);
+            var result6 = readCVCmd!.Execute();
             Assert.That(result6, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result6!.Success);
             Assert.That(result6.Byte == result2.Byte);
 
-            var result7 = system.Execute(mainTrk!);
+            var result7 = mainTrk!.Execute();
             Assert.That(result7, Is.TypeOf(typeof(ICmdResult)));
             Assert.That(result7!.Success, Is.True);
         }

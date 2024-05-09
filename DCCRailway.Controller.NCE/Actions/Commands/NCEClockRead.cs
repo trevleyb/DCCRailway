@@ -10,7 +10,7 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 
 [Command("ReadClock", "Read the Clock from the NCE CommandStation")]
 public class NCEClockRead : Command, ICmdClockRead, ICommand {
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResultFastClock Execute(IAdapter adapter) {
         var result = SendAndReceive(adapter, new SimpleResultValidation(2), new byte[] { 0x82 });
 
         // Convert the resulting data into a Clock Object or just return the result raw

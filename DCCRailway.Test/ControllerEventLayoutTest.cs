@@ -6,6 +6,7 @@ using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Results.Abstract;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Controllers.Events;
+using DCCRailway.Railway.Layout.State;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
@@ -15,10 +16,14 @@ public class ControllerEventLayoutTest {
 
     [Test]
     public void TestLayoutCmdProcessorForALoco() {
-        var layoutConfig       = RailwayConfig.New();
-        var layoutCmdProcessor = new LayoutUpdater();
+        var layoutConfig = RailwayManager.New();
         Assert.That(layoutConfig, Is.Not.Null);
-        Assert.That(layoutCmdProcessor, Is.Not.Null);
+
+        layoutConfig.Controller.Name = "Virtual";
+        layoutConfig.Controller.Adapter.Name = "Virtual";
+        layoutConfig.Start();
+        Assert.That(layoutConfig.StateManager, Is.Not.Null);
+        Assert.That(layoutConfig.CommandStationManager, Is.Not.Null);
 
         // Add a Locomotive to the layout configuration
         // ------------------------------------------------
@@ -27,16 +32,15 @@ public class ControllerEventLayoutTest {
         Assert.That(loco, Is.Not.Null);
         Assert.That(loco!.Name, Is.EqualTo("TestLoco"));
 
-        var controller   = CreateVirtualControllerWithAdapter();
-        var setLocoSpeed = controller.CreateCommand<ICmdLocoSetSpeed>();
+        var setLocoSpeed = layoutConfig.CommandStationManager.CommandStation.CreateCommand<ICmdLocoSetSpeed>();
         Assert.That(setLocoSpeed, Is.Not.Null);
         setLocoSpeed!.Address = new DCCAddress(3);
         setLocoSpeed.Speed    = new DCCSpeed(50);
         Assert.That(loco?.Speed?.Value, Is.EqualTo(0));
 
-        // TODO: fix this test
-        var controllerEvent = new CommandEventArgs(setLocoSpeed, CmdResult.Ok());
-        layoutCmdProcessor.ProcessCommandEvent(controllerEvent);
+        var result = setLocoSpeed.Execute();
+        var controllerEvent = new CommandEventArgs(result);
+        layoutConfig.StateProcessor.ProcessCommandEvent(controllerEvent);
         //Assert.That(loco?.Speed?.Value, Is.EqualTo(50));
 
     }

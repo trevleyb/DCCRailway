@@ -3,15 +3,13 @@ using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Railway.Configuration.Helpers;
 
-public abstract class RailwayConfigJsonHelper<T> where T : IRailwayConfig
-{
-    public static T Load(string? name = null) {
+public abstract class RailwayConfigJsonHelper {
+    protected static IRailwayManager LoadConfigFromFile(string name) {
         try {
-            var loadname = name ?? RailwayConfig.DefaultConfigFilename;
-            var configuration = JsonSerializerHelper<T>.LoadFile(loadname);
+            var configuration = JsonSerializerHelper<RailwayManager>.LoadFile(name);
             if (configuration is not null) {
-                configuration.Filename = loadname;
-                return configuration;
+                configuration.Filename = name;
+                return configuration as IRailwayManager;
             }
         } catch (Exception ex) {
             throw new ConfigurationException($"Unable to load the configuration file '{name}' due to '{ex.Message}'");
@@ -19,12 +17,10 @@ public abstract class RailwayConfigJsonHelper<T> where T : IRailwayConfig
         throw new ConfigurationException($"Unable to load the configuration file.");
     }
 
-    public static T Save(T configuration, string? name = null) {
+    protected void SaveConfigToFile(RailwayManager configuration, string name) {
         try {
-            var savename = name ?? RailwayConfig.DefaultConfigFilename;
-            JsonSerializerHelper<T>.SaveFile(configuration, savename);
-            configuration.Filename = savename;
-            return configuration;
+            JsonSerializerHelper<RailwayManager>.SaveFile(configuration, name);
+            configuration.Filename = name;
         } catch (Exception ex) {
             throw new ConfigurationException($"Unable to save the configuration file '{name}' due to '{ex.Message}'");
         }

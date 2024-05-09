@@ -6,10 +6,11 @@ using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
+using DCCRailway.Controller.Exceptions;
 
 namespace DCCRailway.Controller.Controllers;
 
-public class CommandManager(Assembly assembly) {
+public class CommandManager(ICommandStation commandStation, Assembly assembly) {
 
     private Dictionary<Type, (CommandAttribute Attributes, Type ConcreteType)> _commands = [];
     public event EventHandler<CommandEventArgs>  CommandEvent;
@@ -47,22 +48,25 @@ public class CommandManager(Assembly assembly) {
         _commands = [];
     }
 
-    public ICommand? Create(string name, IAdapter adapter, DCCAddress? address = null) {
-        var command = Create(name);
-        if (command != null) command.Adapter = adapter;
-        if (address is not null && command is ICmdAddress cmdAddress) {
-            cmdAddress.Address = address;
+    private ICommand? AttachProperties(ICommand? command, DCCAddress? address = null) {
+        if (command != null) {
+            if (address is not null && command is ICmdAddress cmdAddress) {
+                cmdAddress.Address = address;
+            }
+            command.Adapter = commandStation.Adapter ?? throw new ControllerException("Adapter is not defined.");
+            command.CommandStation = commandStation;
         }
         return command;
     }
 
+    public ICommand? Create(string name, IAdapter adapter, DCCAddress? address = null) {
+        var command = Create(name);
+        return AttachProperties(command, address);
+    }
+
     public ICommand? Create<TCommand>(IAdapter adapter, DCCAddress? address = null)  where TCommand : ICommand {
         var command = Create<TCommand>();
-        if (command != null) command.Adapter = adapter;
-        if (address is not null && command is ICmdAddress cmdAddress) {
-            cmdAddress.Address = address;
-        }
-        return command;
+        return AttachProperties(command, address);
     }
 
     public ICommand? Create(string name, DCCAddress? address = null) {
@@ -70,11 +74,7 @@ public class CommandManager(Assembly assembly) {
         var entry = _commands.FirstOrDefault(x => x.Value.Attributes.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
         if (entry.Equals(default(KeyValuePair<Type, (CommandAttribute, Type)>)) && entry.Key != null) {
             var command = CreateInstance(entry.Value.ConcreteType);
-            if (address is not null && command is ICmdAddress cmdAddress) {
-                cmdAddress.Address = address;
-            }
-            return command;
-
+            return AttachProperties(command, address);
         }
         throw new ApplicationException("Selected Command Type is not supported by this Adapter.");
     }
@@ -86,10 +86,7 @@ public class CommandManager(Assembly assembly) {
             if (typeToCreate is null)
                 throw new ApplicationException("Selected Command Type is not supported by this Adapter.");
             var command = CreateInstance(typeToCreate);
-            if (address is not null && command is ICmdAddress cmdAddress) {
-                cmdAddress.Address = address;
-            }
-            return command;
+            return AttachProperties(command, address);
         }
         throw new ApplicationException("Selected Command Type is not supported by this Adapter.");
     }

@@ -23,7 +23,7 @@ public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand 
     public DCCAddress Address    { get; set; }
     public DCCProtocol SpeedSteps { get; set; }
 
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResult Execute(IAdapter adapter) {
         byte[] command = { 0x8D };
         command = command.AddToArray(((DCCAddress)Address).AddressBytes);
         command = command.AddToArray((byte)SpeedSteps);

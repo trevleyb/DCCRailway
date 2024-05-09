@@ -40,7 +40,7 @@ public class NCELocoSetFunction : NCECommand, ICmdLocoSetFunction, ICommand {
     public DCCAddress        Address   { get; set; }
     public DCCFunctionBlocks  Functions { get; }
 
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResult Execute(IAdapter adapter) {
         Previous ??= new DCCFunctionBlocks();
 
         Functions[Function] = State;

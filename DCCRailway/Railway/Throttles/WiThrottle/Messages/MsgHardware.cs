@@ -14,7 +14,7 @@ public class MsgHardware(WiThrottleConnection connection) : ThrottleMsg, IThrott
             message.Append("Ht");
             message.Append(connection.CommandStationManager.CommandStation.Adapter?.AttributeInfo().Name);
             message.Append(" ");
-            message.Append(connection.RailwayConfig.Name);
+            message.Append(connection.RailwayManager.Name);
             message.AppendLine();
             return message.ToString();
         }

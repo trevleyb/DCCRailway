@@ -12,10 +12,10 @@ public class TestStateManager {
 
         var lsm = new StateManager();
         var so = new StateObject("T01");
-        so.Add("Turnout", DCCTurnoutState.Thrown);
+        so.Add(StateType.Turnout, DCCTurnoutState.Thrown);
         lsm.SetState(so);
         var rs = lsm.GetState("T01");
-        var sc = rs.Get<DCCTurnoutState>("Turnout");
+        var sc = rs.Get<DCCTurnoutState>(StateType.Turnout);
         Assert.That(rs, Is.Not.Null);
         Assert.That(sc, Is.EqualTo(DCCTurnoutState.Thrown));
     }
@@ -25,20 +25,20 @@ public class TestStateManager {
 
         var stateManager = new StateManager();
         var stateObject = new StateObject("XX");
-        stateObject.Add("Signal", (int)15);
-        stateObject.Add("Route", DCCActiveState.Active);
+        stateObject.Add(StateType.Signal, (int)15);
+        stateObject.Add(StateType.Route, DCCActiveState.Active);
         stateManager.SetState(stateObject);
         var getState = stateManager.GetState("XX");
-        Assert.That((int)getState["Signal"],Is.EqualTo((int)15));
-        Assert.That((DCCActiveState)getState["Route"],Is.EqualTo(DCCActiveState.Active));
+        Assert.That((int)getState[StateType.Signal],Is.EqualTo((int)15));
+        Assert.That((DCCActiveState)getState[StateType.Route],Is.EqualTo(DCCActiveState.Active));
 
-        stateManager.SetState("XX", "Turnout", DCCTurnoutState.Thrown);
-        Assert.That((DCCActiveState)stateManager.GetState<DCCActiveState>("XX","Route"),Is.EqualTo(DCCActiveState.Active));
+        stateManager.SetState("XX", StateType.Turnout, DCCTurnoutState.Thrown);
+        Assert.That((DCCActiveState)stateManager.GetState<DCCActiveState>("XX",StateType.Route),Is.EqualTo(DCCActiveState.Active));
 
-        var res1 = stateManager.GetState("XX", "Block01", "NOT");
+        var res1 = stateManager.GetState("XX", StateType.Block, "NOT");
         Assert.That(res1,Is.EqualTo("NOT"));
 
-        var res2 = stateManager.GetState<DCCAddress>("XX", "Address1", new DCCAddress(0));
+        var res2 = stateManager.GetState<DCCAddress>("XX", StateType.Aspect, new DCCAddress(0));
         Assert.That(res2.Address,Is.EqualTo(0));
 
     }
@@ -48,10 +48,10 @@ public class TestStateManager {
 
         var lsm = new StateManager();
         var so = new StateObject("T01");
-        so.Add("Turnout", DCCTurnoutState.Thrown);
+        so.Add(StateType.Turnout, DCCTurnoutState.Thrown);
         lsm.SetState(so);
         var rs = lsm.GetState("T01");
-        var sc = rs.Get<DCCTurnoutState>("Turnout");
+        var sc = rs.Get<DCCTurnoutState>(StateType.Turnout);
         Assert.That(rs, Is.Not.Null);
         Assert.That(sc, Is.EqualTo(DCCTurnoutState.Thrown));
 
@@ -65,20 +65,20 @@ public class TestStateManager {
 
         var lsm = new StateManager();
         var so = new StateObject("T01");
-        so.Add("Turnout", DCCTurnoutState.Thrown);
+        so.Add(StateType.Turnout, DCCTurnoutState.Thrown);
         lsm.SetState(so);
         var rs = lsm.GetState("T01");
-        var sc = rs.Get<DCCTurnoutState>("Turnout");
+        var sc = rs.Get<DCCTurnoutState>(StateType.Turnout);
         Assert.That(rs, Is.Not.Null);
         Assert.That(sc, Is.EqualTo(DCCTurnoutState.Thrown));
 
-        so.Add("Signal", (int) 15);
-        so.Add("Route", DCCActiveState.Active);
+        so.Add(StateType.Signal, (int) 15);
+        so.Add(StateType.Route, DCCActiveState.Active);
 
         lsm.SetState(so);
-        Assert.That(lsm.GetState("T01").Get<int>("Signal"),Is.EqualTo(15));
-        Assert.That(lsm.GetState("T01").Get<DCCActiveState>("Route"),Is.EqualTo(DCCActiveState.Active));
-        Assert.That(lsm.GetState("T01").Get<DCCTurnoutState>("Turnout"),Is.EqualTo(DCCTurnoutState.Thrown));
+        Assert.That(lsm.GetState("T01").Get<int>(StateType.Signal),Is.EqualTo(15));
+        Assert.That(lsm.GetState("T01").Get<DCCActiveState>(StateType.Route),Is.EqualTo(DCCActiveState.Active));
+        Assert.That(lsm.GetState("T01").Get<DCCTurnoutState>(StateType.Turnout),Is.EqualTo(DCCTurnoutState.Thrown));
 
     }
 

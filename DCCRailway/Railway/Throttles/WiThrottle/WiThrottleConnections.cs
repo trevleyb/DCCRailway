@@ -13,10 +13,10 @@ public class WiThrottleConnections : List<WiThrottleConnection> {
     /// <summary>
     ///     Add a new entry into the list of connected Throttles
     /// </summary>
-    public WiThrottleConnection Add(TcpClient client, WiThrottlePreferences preferences, IRailwayConfig railwayConfig, CommandStationManager cmdStationMgr) {
+    public WiThrottleConnection Add(TcpClient client, WiThrottlePreferences preferences, IRailwayManager railwayManager, CommandStationManager cmdStationMgr) {
         var connection = Find((ulong)client.Client.Handle);
         if (connection is null) {
-            connection = new WiThrottleConnection(client, preferences, this, railwayConfig, cmdStationMgr);
+            connection = new WiThrottleConnection(client, preferences, this, railwayManager, cmdStationMgr);
             Add(connection);
         }
         return connection;

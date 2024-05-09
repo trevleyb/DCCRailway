@@ -18,7 +18,6 @@ public interface ICommandStation : IParameterMappable {
     // ----------------------------------------------------------------------------
     public TCommand?              CreateCommand<TCommand>() where TCommand : ICommand;
     public TCommand?              CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand;
-    public ICmdResult             Execute(ICommand command);
     public List<CommandAttribute> Commands { get; }
 
     // Attach or detect an Adapter to a Command Station
@@ -41,5 +40,7 @@ public interface ICommandStation : IParameterMappable {
     public bool IsAdapterSupported<T>() where T : IAdapter;
     public bool IsAdapterSupported(Type adapter);
     public bool IsAdapterSupported(string name);
+
+    public void OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result);
 
 }

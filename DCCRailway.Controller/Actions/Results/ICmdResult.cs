@@ -6,8 +6,8 @@ public interface ICmdResult {
     ICommand? Command { get; set; }
 
     byte[] Data { get; }
-    public byte Byte { get; }
-    public byte this[int index] { get; }
-    public int  Length { get; }
-    public IEnumerable<byte> ToBytes();
+    byte Byte { get; }
+    byte this[int index] { get; }
+    int  Length { get; }
+    IEnumerable<byte> ToBytes();
 }

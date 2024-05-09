@@ -34,7 +34,7 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand, IAccyCmd {
     public DCCAddress CVAddress   { get; set; }
     public byte        Value       { get; set; }
 
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResult Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAF };
         cmd = cmd.AddToArray(LocoAddress.AddressBytes);
         cmd = cmd.AddToArray(CVAddress.AddressBytes);

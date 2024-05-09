@@ -14,7 +14,7 @@ public class WiThrottleConnection {
     private readonly  WiThrottleConnections   _listReference;
     private readonly  WiThrottleAssignedLocos _assignedLocos = new();
     internal readonly WiThrottlePreferences   Preferences;
-    internal readonly IRailwayConfig          RailwayConfig;
+    internal readonly IRailwayManager          RailwayManager;
     internal readonly CommandStationManager   CommandStationManager;
 
     /// <summary>
@@ -22,10 +22,10 @@ public class WiThrottleConnection {
     ///     roster and allows us to ensure we are tracking the connections and can
     ///     send "STOP" messages if we need to if we do not hear from the throttle.
     /// </summary>
-    public WiThrottleConnection(TcpClient client, WiThrottlePreferences preferences, WiThrottleConnections connections, IRailwayConfig railwayConfig, CommandStationManager cmdStationMgr) {
+    public WiThrottleConnection(TcpClient client, WiThrottlePreferences preferences, WiThrottleConnections connections, IRailwayManager railwayManager, CommandStationManager cmdStationMgr) {
         Client                  = client;
         Preferences             = preferences;
-        RailwayConfig           = railwayConfig;
+        RailwayManager           = railwayManager;
         CommandStationManager   = cmdStationMgr;
         HeartbeatSeconds        = Preferences.HeartbeatSeconds;
         HeartbeatState          = HeartbeatStateEnum.Off;

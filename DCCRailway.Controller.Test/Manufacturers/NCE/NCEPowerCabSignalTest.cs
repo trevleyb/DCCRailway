@@ -35,7 +35,7 @@ public class NCEPowerCabSignalTest {
                         foreach (var signal in signals) {
                             signalCmd.Address = new DCCAddress(signal, DCCAddressType.Signal);
                             signalCmd.Aspect  = aspect;
-                            system.Execute(signalCmd);
+                            signalCmd.Execute();
                             Thread.Sleep(500);
                         }
                     }

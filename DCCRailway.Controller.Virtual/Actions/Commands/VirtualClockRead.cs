@@ -11,7 +11,7 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 
 [Command("ReadClock", "Read the Clock from the Virtual CommandStation")]
 public class VirtualClockRead : VirtualCommand, ICmdClockRead, ICommand {
-    public override ICmdResult Execute(IAdapter adapter) {
+    protected override ICmdResultFastClock Execute(IAdapter adapter) {
 
         // How long has it been since the reference time?
         // ---------------------------------------------------------------

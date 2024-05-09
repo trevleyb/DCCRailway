@@ -3,10 +3,10 @@ using DCCRailway.Common.Types;
 using DCCRailway.Layout.Layout.Entities;
 using DCCRailway.Railway.Configuration;
 
-namespace DCCRailway.Railway.Layout.JMRI;
+namespace DCCRailway.Railway.Converters.JMRI;
 
 public static class JMRIRosterImporter {
-    public static void Import(IRailwayConfig config, string rosterName) {
+    public static void Import(IRailwayManager manager, string rosterName) {
         if (!File.Exists(rosterName)) throw new ApplicationException($"Could not find the file '{rosterName}' in '{Directory.GetCurrentDirectory()}'");
 
         // First attempt to load the existing roster file from JMRI
@@ -14,7 +14,7 @@ public static class JMRIRosterImporter {
         try {
             var jmriRoster = JMRIRoster.Load(rosterName);
             if (jmriRoster == null) return;
-            MapJMRItoDCCTrain(config, jmriRoster);
+            MapJMRItoDCCTrain(manager, jmriRoster);
         }
         catch (Exception ex) {
             throw new Exception($"Unable to load the current JMRI Roster file '{rosterName}' due to '{ex.Message}'");
@@ -26,9 +26,9 @@ public static class JMRIRosterImporter {
     /// </summary>
     /// <param name="locoList">Collection of Locomotives</param>
     /// <param name="jMRIRoster">The JMRI Roster File</param>
-    private static void MapJMRItoDCCTrain(IRailwayConfig config, JMRIRoster jmriRoster) {
+    private static void MapJMRItoDCCTrain(IRailwayManager manager, JMRIRoster jmriRoster) {
 
-        var locomotives = config.Locomotives;
+        var locomotives = manager.Locomotives;
         locomotives.Clear();
 
         foreach (var jmri in jmriRoster.Roster.JMRILocos) {
