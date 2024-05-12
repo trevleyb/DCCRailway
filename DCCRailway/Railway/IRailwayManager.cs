@@ -1,9 +1,9 @@
-using DCCRailway.Layout.Layout.Entities;
+using DCCRailway.Layout.Entities;
 using DCCRailway.Railway.Configuration.Entities;
 using DCCRailway.Railway.Configuration.Helpers;
 using DCCRailway.Railway.Layout;
 using DCCRailway.Railway.Layout.State;
-using Parameters = DCCRailway.Layout.Layout.Entities.Parameters;
+using Parameters = DCCRailway.Layout.Entities.Parameters;
 
 namespace DCCRailway.Railway.Configuration;
 
@@ -19,7 +19,6 @@ public interface IRailwayManager {
 
     public DCCController  Controller            { get; }
     public Parameters     Parameters            { get; }
-    public Manufacturers  Manufacturers         { get; }
 
     public Accessories    Accessories           { get; }
     public Blocks         Blocks                { get; }
@@ -29,6 +28,7 @@ public interface IRailwayManager {
     public Signals        Signals               { get; }
     public Turnouts       Turnouts              { get; }
 
+    public Manufacturers            Manufacturers         { get; }
     public CommandStationManager    CommandStationManager { get; }
     public StateManager             StateManager          { get; }
     public StateEventProcessor      StateProcessor        { get; }

@@ -1,5 +1,5 @@
-using DCCRailway.Layout.Layout.Collection;
-using DCCRailway.Layout.Layout.Entities;
+using DCCRailway.Layout.Collection;
+using DCCRailway.Layout.Entities;
 
 namespace DCCRailway.Railway.EndPoints;
 
@@ -11,7 +11,8 @@ public static class BlockAPI {
             return accessory == null ? Results.NotFound() : Results.Ok(accessory);
         });
 
-        app.MapGet("/layout/blocks", async () => await Task.FromResult(Results.Ok(entities.GetAllAsync())));
+        app.MapGet("/layout/blocks", async () => await Task.FromResult(entities));
+        //app.MapGet("/layout/blocks", async () => await Task.FromResult(entities.GetAllAsync()));
         app.MapPost("/layout/blocks", async (Block block) => Results.Ok(await entities.AddAsync(block)));
         app.MapPut("/layout/blocks/{id}", async (string id, Block block) => Results.Ok(await entities.UpdateAsync(block)));
         app.MapDelete("/layout/blocks/{id}", async (string id) => Results.Ok(await entities.DeleteAsync(id)));

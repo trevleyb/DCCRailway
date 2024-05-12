@@ -1,10 +1,16 @@
 using DCCRailway.Common.Types;
+using DCCRailway.Railway.Configuration;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
 [TestFixture]
 public class RailwayManagerTests {
+
+    [Test]
+    public void CreateTestFileForTesting() {
+        CreateTestFile.Build("DCCRailway.Test.Json");
+    }
 
     [Test]
     public async Task TestInstantiatingTheRailwayManager() {

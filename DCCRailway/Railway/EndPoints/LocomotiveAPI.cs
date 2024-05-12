@@ -1,5 +1,5 @@
-using DCCRailway.Layout.Layout.Collection;
-using DCCRailway.Layout.Layout.Entities;
+using DCCRailway.Layout.Collection;
+using DCCRailway.Layout.Entities;
 
 namespace DCCRailway.Railway.EndPoints;
 
@@ -11,7 +11,7 @@ public static class LocomotiveAPI {
             return locomotive == null ? Results.NotFound() : Results.Ok(locomotive);
         });
 
-        app.MapGet("/layout/locomotives", async () => await Task.FromResult(Results.Ok(entities.GetAllAsync())));
+        app.MapGet("/layout/locomotives", async () => await Task.FromResult(entities));
         app.MapPost("/layout/locomotives", async (Locomotive locomotive) => Results.Ok(await entities.AddAsync(locomotive)));
         app.MapPut("/layout/locomotives/{id}", async(string id, Locomotive locomotive) => Results.Ok(await entities.UpdateAsync(locomotive)));
         app.MapDelete("/layout/locomotives/{id}", async (string id) => Results.Ok(await entities.DeleteAsync(id)));

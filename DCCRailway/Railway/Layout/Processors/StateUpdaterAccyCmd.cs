@@ -19,14 +19,11 @@ public class StateUpdaterAccyCmd(StateManager stateManager, ICmdResult result) :
 
             switch (accyCmd) {
             case ICmdAccyOpsProg cmd: {
-                // TODO: Implement the command processing
                 Event("Accy Ops Prog");
-                //accessory.Parameters["opsMode"].Value = cmd.Value.ToString();
                 break;
             }
 
             case ICmdAccySetState cmd: {
-                // TODO: Implement the command processing
                 Event("Accy Set State");
                 //accessory.Parameters["state"].Value = cmd.State.ToString();
                 break;

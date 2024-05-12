@@ -1,9 +1,9 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using DCCRailway.Layout.Layout.Base;
-using DCCRailway.Layout.Layout.Collection;
-using DCCRailway.Layout.Layout.Events;
+using DCCRailway.Layout.Base;
+using DCCRailway.Layout.Collection;
+using DCCRailway.Layout.Events;
 using Tmds.Linux;
 
 namespace DCCRailway.Layout.Test;
@@ -29,7 +29,7 @@ public class TestEntityCollectionWithChanges {
         Assert.That(repository,Is.EqualTo("TestEntities"));
         Assert.That(id,Is.EqualTo(addEntity.Id));
 
-        var entity = collection.IndexOf(0);
+        TestEntity entity = collection.IndexOf(0);
         Assert.That(entity,Is.Not.Null);
         entity.Name = "Updated Entity";
         collection.Update(entity);

@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Layout", "DCCRai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway", "DCCRailway\DCCRailway.csproj", "{D8735967-A186-46C8-BE92-8090849FBF8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.WebApp", "DCCRailway.WebApp\DCCRailway.WebApp.csproj", "{9598441C-6AD6-48DA-9259-32B22B271CB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,10 @@ Global
 		{D8735967-A186-46C8-BE92-8090849FBF8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8735967-A186-46C8-BE92-8090849FBF8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8735967-A186-46C8-BE92-8090849FBF8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9598441C-6AD6-48DA-9259-32B22B271CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9598441C-6AD6-48DA-9259-32B22B271CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9598441C-6AD6-48DA-9259-32B22B271CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9598441C-6AD6-48DA-9259-32B22B271CB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

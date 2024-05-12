@@ -1,5 +1,6 @@
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Layout.Entities;
+using DCCRailway.Layout.Entities;
+using Route = DCCRailway.Layout.Entities.Route;
 
 namespace DCCRailway.Railway.Configuration;
 
@@ -33,22 +34,22 @@ public static class CreateTestFile {
         signals.Add(new Signal { Id = "SIG03", Name = "Station-to-Mainline" });
 
         var routes = manager.Routes;
-        var route = new DCCRailway.Layout.Layout.Entities.Route { Id = "R01", Name = "Route1", Description = "Station to Mainline" };
+        var route = new Route { Id = "R01", Name = "Route1", Description = "Station to Mainline" };
         route.AddRoute("T01", true);
         route.AddRoute("T02", true);
         routes.Add(route);
 
-        route = new DCCRailway.Layout.Layout.Entities.Route { Id = "R02", Name = "Route2", Description = "Yard to Mainline" };
+        route = new Route { Id = "R02", Name = "Route2", Description = "Yard to Mainline" };
         route.AddRoute("T01", false);
         route.AddRoute("T02", true);
         routes.Add(route);
 
-        route = new DCCRailway.Layout.Layout.Entities.Route { Id = "R03", Name = "Route3", Description = "Yard to Station" };
+        route = new Route { Id = "R03", Name = "Route3", Description = "Yard to Station" };
         route.AddRoute("T01", true);
         route.AddRoute("T02", false);
         routes.Add(route);
 
-        route = new DCCRailway.Layout.Layout.Entities.Route { Id = "R04", Name = "Route4", Description = "Mainline to Station" };
+        route = new Route { Id = "R04", Name = "Route4", Description = "Mainline to Station" };
         route.AddRoute("T01", false);
         route.AddRoute("T02", false);
         routes.Add(route);

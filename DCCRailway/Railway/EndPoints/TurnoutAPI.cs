@@ -1,5 +1,5 @@
-using DCCRailway.Layout.Layout.Collection;
-using DCCRailway.Layout.Layout.Entities;
+using DCCRailway.Layout.Collection;
+using DCCRailway.Layout.Entities;
 
 namespace DCCRailway.Railway.EndPoints;
 

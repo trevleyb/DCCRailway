@@ -1,10 +1,10 @@
 using System.Text.Json.Serialization;
-using DCCRailway.Layout.Layout.Entities;
+using DCCRailway.Layout.Entities;
 using DCCRailway.Railway.Configuration.Entities;
 using DCCRailway.Railway.Configuration.Helpers;
 using DCCRailway.Railway.Layout;
 using DCCRailway.Railway.Layout.State;
-using Parameters = DCCRailway.Layout.Layout.Entities.Parameters;
+using Parameters = DCCRailway.Layout.Entities.Parameters;
 
 namespace DCCRailway.Railway.Configuration;
 
@@ -71,7 +71,6 @@ public sealed class RailwayManager : RailwayConfigJsonHelper, IRailwayManager {
 
     public DCCController  Controller            { get; set; } = new Entities.DCCController();
     public Parameters     Parameters            { get; set; } = [];
-    public Manufacturers  Manufacturers         { get; }      = new Manufacturers();
 
     public Accessories    Accessories           { get; init; } = new();
     public Blocks         Blocks                { get; init; } = new();
@@ -81,9 +80,10 @@ public sealed class RailwayManager : RailwayConfigJsonHelper, IRailwayManager {
     public Signals        Signals               { get; init; } = new();
     public Turnouts       Turnouts              { get; init; } = new();
 
-    [JsonIgnore] public CommandStationManager   CommandStationManager  { get; protected set; }
-    [JsonIgnore] public StateManager            StateManager { get; protected set; }
-    [JsonIgnore] public StateEventProcessor     StateProcessor { get; set; }
+    [JsonIgnore] public Manufacturers           Manufacturers           { get; } = new Manufacturers();
+    [JsonIgnore] public CommandStationManager   CommandStationManager   { get; private set; }
+    [JsonIgnore] public StateManager            StateManager            { get; private set; }
+    [JsonIgnore] public StateEventProcessor     StateProcessor          { get; private set; }
 
     public void Save() => SaveConfigToFile(this,DefaultConfigFilename);
     public void Save(string name) => SaveConfigToFile(this,name);

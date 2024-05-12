@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Layout.Base;
-using DCCRailway.Layout.Layout.Entities;
+using DCCRailway.Layout.Base;
+using DCCRailway.Layout.Entities;
 
 namespace DCCRailway.Layout.Test;
 
