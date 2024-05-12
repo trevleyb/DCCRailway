@@ -1,21 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
       <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj" />
       <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\app.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\bootstrap\bootstrap.min.css.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\favicon.png" />
+      <ProjectReference Include="..\DCCRailway.WebApp\DCCRailway.WebApp.csproj" />
     </ItemGroup>
 
 </Project>
