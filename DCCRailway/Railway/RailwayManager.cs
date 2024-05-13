@@ -47,8 +47,8 @@ public sealed class RailwayManager : RailwayConfigJsonHelper, IRailwayManager {
         if (Controller is { Name: not null }) {
             StateManager = new StateManager();
             StateProcessor = new StateEventProcessor(StateManager);
-            CommandStationManager = new CommandStationManager(Controller, StateProcessor);
-            CommandStationManager.Start();
+            //CommandStationManager = new CommandStationManager(Controller, StateProcessor);
+            //CommandStationManager.Start();
         }
     }
 

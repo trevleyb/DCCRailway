@@ -24,7 +24,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
     [SetUp]
     public void TestSetup() {
-        var _system = new CommandStationFactory().Find("NCEPowerCab")?.Create(new ConsoleAdapter());
+        var _system = new CommandStationFactory().Find("NCEPowerCab")?.Create(new NCEVirtualAdapter());
 
         //_system = SystemFactory.Create("NCE", "NCEPowerCab");
 

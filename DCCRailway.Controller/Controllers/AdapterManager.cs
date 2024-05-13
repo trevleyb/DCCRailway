@@ -9,8 +9,7 @@ namespace DCCRailway.Controller.Controllers;
 
 public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
 
-    private IAdapter?                           _adapter;       // Stores the adapter to be used
-    private Assembly                            _assembly { get; set; } = assembly;
+    private IAdapter? _adapter;
     private Dictionary<Type, AdapterAttribute>  _adapters = [];
     public event EventHandler<AdapterEventArgs> AdapterEvent;
 
@@ -45,7 +44,7 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
     public IAdapter? Attach(string? adapterName) {
         if (Adapters is not { Count: > 0 }) throw new AdapterException(adapterName, "CommandStation has no supported Adapters");
         try {
-            foreach (var adapters in _adapters!) {
+            foreach (var adapters in _adapters) {
                 if (adapters.Value.Name != null && adapters.Value.Name.Equals(adapterName, StringComparison.InvariantCultureIgnoreCase)) {
                     var adapterInstance = (IAdapter?)Activator.CreateInstance(adapters.Key);
                     if (adapterInstance != null) return Attach(adapterInstance);
@@ -67,6 +66,7 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
         }
     }
 
+    public ICommandStation CommandStation => commandStation;
     public bool IsAdapterSupported<T>() where T : IAdapter => _adapters.ContainsKey(typeof(T));
     public bool IsAdapterSupported(Type adapter) => _adapters.ContainsKey(adapter);
     public bool IsAdapterSupported(string name)  => _adapters.Any(pair => pair.Value.Name != null && pair.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
@@ -78,16 +78,14 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
     }
 
     private void RegisterAdapters() {
-        if (_assembly is null) throw new ApplicationException("No Assembly has been set for the Adapter Manager");
-        var foundTypes = _assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(IAdapter)));
+        if (assembly is null) throw new ApplicationException("No Assembly has been set for the Adapter Manager");
+        var foundTypes = assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(IAdapter)));
 
         foreach (var adapter in foundTypes) {
             var attr = AttributeExtractor.GetAttribute<AdapterAttribute>(adapter);
             if (attr != null && !string.IsNullOrEmpty(attr.Name)) {
-                var adapterInterface = adapter.ImplementedInterfaces.First(x => x.FullName != null && x.FullName.StartsWith("DCCRailway.Controller.Adapters.", StringComparison.InvariantCultureIgnoreCase)) ?? null;
-                if (adapterInterface is not null) {
-                    if (!_adapters.ContainsKey(adapterInterface)) _adapters.TryAdd(adapter, attr);
-                }
+                var adapterInterface = adapter.ImplementedInterfaces.First(x => x.FullName != null && x.FullName.StartsWith("DCCRailway.Controller.Adapters.", StringComparison.InvariantCultureIgnoreCase));
+                if (!_adapters.ContainsKey(adapterInterface)) _adapters.TryAdd(adapter, attr);
             }
         }
     }
@@ -107,28 +105,28 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
     // Raise when we add an Adapter to this controller
     private void OnAdapterAdd(object sender, IAdapter adapter) {
         var e = new AdapterEventArgs(adapter, AdapterEventType.Attach,  null, $"Adapter {adapter.GetType().Name} added");
-        AdapterEvent?.Invoke(sender, e);
+        AdapterEvent(sender, e);
     }
 
     // Raise when we delete or remove an Adapter from this CommandStation
     private void OnAdapterRemoved(object sender, IAdapter adapter) {
         var e = new AdapterEventArgs(adapter, AdapterEventType.Detatch, null, $"Adapter {adapter.GetType().Name} removed");
-        AdapterEvent?.Invoke(sender, e);
+        AdapterEvent.Invoke(sender, e);
     }
 
     private void OnAdapterDataRecv(object sender, IAdapter adapter, DataRecvArgs dataRecvArgs) {
         var e = new AdapterEventArgs(adapter, AdapterEventType.DataRecv, dataRecvArgs.Data, $"Adapter {adapter.GetType().Name} recieved data.");
-        AdapterEvent?.Invoke(sender, e);
+        AdapterEvent.Invoke(sender, e);
     }
 
     private void OnAdapterDataSent(object sender, IAdapter adapter, DataSentArgs dataSentArgs) {
         var e = new AdapterEventArgs(adapter, AdapterEventType.DataRecv, dataSentArgs.Data, $"Adapter {adapter.GetType().Name} sent data");
-        AdapterEvent?.Invoke(sender, e);
+        AdapterEvent.Invoke(sender, e);
     }
 
     private void OnAdapterError(object sender, IAdapter adapter, DataErrorArgs dataErrorArgs) {
         var e = new AdapterEventArgs(adapter, AdapterEventType.DataRecv, null, $"Adapter {adapter.GetType().Name} recieved error: " + dataErrorArgs.Error);
-        AdapterEvent?.Invoke(sender, e);
+        AdapterEvent.Invoke(sender, e);
     }
     #endregion
 

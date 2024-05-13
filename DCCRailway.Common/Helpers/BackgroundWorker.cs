@@ -3,51 +3,49 @@ using Serilog;
 
 namespace DCCRailway.Common.Helpers;
 
-public class BackgroundWorkerOptions {
-    public string Name { get; set; }
-    public int FrequencyInSeconds { get; set; }
-    public int DelayinMilliSeconds => FrequencyInSeconds * 1000;
-}
-
-public abstract class BackgroundWorker(BackgroundWorkerOptions options) {
-
+public abstract class BackgroundWorker(string? name, TimeSpan? frequency = null) {
     public event EventHandler WorkStarted;
     public event EventHandler WorkFinished;
     public event EventHandler WorkInProgress;
 
-    protected readonly ILogger log = Logger.LogContext<BackgroundWorker>();
+    public string Name { get; set; } = name ?? "default";
+    public TimeSpan Frequency { get; set; } = frequency ?? new TimeSpan(0,0,0);
+    public decimal Seconds => (decimal)Frequency.TotalSeconds;
+    public int Milliseconds => (int)Frequency.TotalMilliseconds;
+
+    protected readonly ILogger Log = Logger.LogContext<BackgroundWorker>();
     private CancellationTokenSource? _cancellationTokenSource;
 
     protected abstract void DoWork();
 
-    public void Start() {
+    public virtual void Start() {
         _cancellationTokenSource = new CancellationTokenSource();
-        log.Information("Background Worker '{0}' starting up.", options.Name);
-        OnWorkStarted();
-        Task.Run(() => {
-            try {
-                while (true) {
-
-                    DoWork();
-                    OnWorkInProgress();
-
-                    // Throws if cancellation is pending, aborting the loop.
-                    _cancellationTokenSource.Token.ThrowIfCancellationRequested();
-
-                    // Simulate work.
-                    Thread.Sleep(options.DelayinMilliSeconds);
+        Log.Information("{0}: Background Worker starting up on a frequency of '{1}'.", Name, Frequency.ToString());
+        if (Milliseconds > 0) {
+            OnWorkStarted();
+            Task.Run(() => {
+                try {
+                    while (true) {
+                        DoWork();
+                        OnWorkInProgress();
+                        _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                        Thread.Sleep(Milliseconds);
+                    }
                 }
-            }
-            catch (OperationCanceledException) {
-                log.Information("Background Worker '{0}' was cancelled.", options.Name);
-            }
-        }, _cancellationTokenSource.Token);
-        OnWorkFinished();
-        log.Information("Background Worker '{0}' finished.", options.Name);
+                catch (OperationCanceledException) {
+                    Log.Information("{0}: Background Worker Cancelled.", Name);
+                }
+                OnWorkFinished();
+            }, _cancellationTokenSource.Token);
+        }
+        else {
+            Log.Information("{0}: Frequency not defined so task will conclude.", Name);
+        }
     }
 
-    public void Stop() {
+    public virtual void Stop() {
         _cancellationTokenSource?.Cancel();
+        Log.Information("{0}: Background Worker Finished.", Name);
     }
 
     protected virtual void OnWorkStarted() {

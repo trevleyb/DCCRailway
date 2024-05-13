@@ -16,5 +16,6 @@
     <ItemGroup>
       <Folder Include="Actions\Results\" />
       <Folder Include="Actions\Validators\" />
+      <Folder Include="Tasks\" />
     </ItemGroup>
 </Project>

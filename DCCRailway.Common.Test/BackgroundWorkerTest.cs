@@ -1,4 +1,5 @@
 using DCCRailway.Common.Helpers;
+using Tmds.Linux;
 
 namespace DCCRailway.Common.Test;
 
@@ -12,12 +13,7 @@ public class BackgroundWorkerTest {
         bool itStopped = false;
         int didWork = 0;
 
-        var options = new BackgroundWorkerOptions() {
-            Name = "MyTestWorker",
-            FrequencyInSeconds = 1
-        };
-
-        var bw = new BackgroundWorkerTestClass(options);
+        var bw = new BackgroundWorkerTestClass("test", new TimeSpan(0,0,1));
         bw.WorkStarted += (sender, args) => itStarted = true;
         bw.WorkFinished += (sender, args) => itStopped = true;
         bw.WorkInProgress += (sender, args) => didWork++;
@@ -34,7 +30,7 @@ public class BackgroundWorkerTest {
 
 }
 
-public class BackgroundWorkerTestClass(BackgroundWorkerOptions options) : BackgroundWorker(options) {
+public class BackgroundWorkerTestClass(string name, TimeSpan freq) : BackgroundWorker(name,freq) {
     private int counter = 0;
     private DateTime? lastTime = null;
 
@@ -43,7 +39,7 @@ public class BackgroundWorkerTestClass(BackgroundWorkerOptions options) : Backgr
         if (lastTime != null) {
             duration = DateTime.Now - lastTime;
         }
-        log.Information($"Doing some work: {++counter} and last execution was {duration?.ToString()}");
+        Log.Information($"Doing some work: {++counter} and last execution was {duration?.ToString()}");
         lastTime = DateTime.Now;
     }
 }

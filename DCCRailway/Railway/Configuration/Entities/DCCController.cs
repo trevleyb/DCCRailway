@@ -8,7 +8,8 @@ namespace DCCRailway.Railway.Configuration.Entities;
 public class DCCController() {
     public string       Name                 { get; set; }
     public DCCAdapter   Adapter              { get; set; } = new();
-    public Parameters   Parameters           { get; set; } = new();
+    public DCCTasks     Tasks                { get; set; } = [];
+    public Parameters   Parameters           { get; set; } = [];
 
     public bool         SendStopOnDisconnect { get; set; }
 }

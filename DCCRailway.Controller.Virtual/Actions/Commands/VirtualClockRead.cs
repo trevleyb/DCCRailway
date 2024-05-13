@@ -15,7 +15,9 @@ public class VirtualClockRead : VirtualCommand, ICmdClockRead, ICommand {
 
         // How long has it been since the reference time?
         // ---------------------------------------------------------------
-        var result = new CmdResultFastClock(DateTime.Now);
+        var result = new CmdResultFastClock {
+            CurrentTime = DateTime.Now
+        };
         if (adapter is VirtualAdapter virtualAdapter) {
             var timeSinceReference = DateTime.Now - virtualAdapter.FastClockSetTime;
             result.CurrentTime = virtualAdapter.FastClockSetTime.AddTicks(timeSinceReference.Ticks * virtualAdapter.FastClockRatio);

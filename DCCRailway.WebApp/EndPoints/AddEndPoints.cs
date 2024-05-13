@@ -1,4 +1,4 @@
-namespace DCCRailway.Railway.EndPoints;
+namespace DCCRailway.WebApp.EndPoints;
 
 public static class AddEndPointsHelper {
     //public static void AddEndPoints(this WebApplication app, IRailwayManager manager) {

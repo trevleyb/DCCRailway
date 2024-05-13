@@ -1,5 +1,6 @@
 ﻿using DCCRailway.Controller.Adapters;
 using DCCRailway.Controller.Controllers;
+using DCCRailway.Controller.Virtual.Adapters;
 
 namespace DCCRailway.System.Test;
 
@@ -13,7 +14,7 @@ public class VirtualCommandStationTest {
         Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
-        var virtualSystem = new CommandStationFactory().Find("Virtual")?.Create(new ConsoleAdapter());
+        var virtualSystem = new CommandStationFactory().Find("Virtual")?.Create(new VirtualConsoleAdapter());
 
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
@@ -42,7 +43,7 @@ public class VirtualCommandStationTest {
         Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
-        var virtualSystem = new CommandStationFactory().Find("Virtual")?.Create(new ConsoleAdapter());
+        var virtualSystem = new CommandStationFactory().Find("Virtual")?.Create(new VirtualConsoleAdapter());
 
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
@@ -64,7 +65,7 @@ public class VirtualCommandStationTest {
         Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
-        var virtualSystem = new CommandStationFactory().Find("Virtual")?.Create(new ConsoleAdapter());
+        var virtualSystem = new CommandStationFactory().Find("Virtual")?.Create(new VirtualConsoleAdapter());
 
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
@@ -86,7 +87,7 @@ public class VirtualCommandStationTest {
         Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
-        var virtualSystem = new CommandStationFactory().Find("Virtual")?.Create(new ConsoleAdapter());
+        var virtualSystem = new CommandStationFactory().Find("Virtual")?.Create(new VirtualConsoleAdapter());
 
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem, Is.Not.Null);

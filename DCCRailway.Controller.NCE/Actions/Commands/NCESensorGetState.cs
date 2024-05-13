@@ -20,16 +20,13 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
     private readonly SensorCache _sensorCache = new();
 
     public NCESensorGetState() { }
-
     public NCESensorGetState(byte cab, byte pin) => SetAddressByCabPin(cab, pin);
-
-    public NCESensorGetState(int address) => SensorAddress = new DCCAddress(address, DCCAddressType.Accessory);
+    public NCESensorGetState(int cab) => SensorAddress = new DCCAddress(cab, DCCAddressType.Accessory);
 
     public NCESensorGetState(DCCAddress address) {
         SensorAddress             = address;
         SensorAddress.AddressType = DCCAddressType.Accessory;
     }
-
     public DCCAddress Address {
         get => SensorAddress;
         set => SensorAddress = value;
@@ -43,14 +40,13 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
             if (!result.Success) return result;
             _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data);
         }
-
         return new NCECmdResultSensorState(Address,  _sensorCache.GetState(SensorAddress.Address));
     }
 
     public void SetAddressByCabPin(byte cab, byte pin) => SensorAddress = new DCCAddress(CalculateAddress(cab, pin), DCCAddressType.Accessory);
+    public void SetAddressByCab(byte cab) => SensorAddress = new DCCAddress(CalculateAddress(cab, 1), DCCAddressType.Accessory);
 
     protected internal static (byte cab, byte pin) CalculateCabPin(DCCAddress address) => CalculateCabPin(address.Address);
-
     protected internal static (byte cab, byte pin) CalculateCabPin(int address) {
         var pin = address % 16 + 1;
         var cab = (address - address % 16) / 16 + 1;

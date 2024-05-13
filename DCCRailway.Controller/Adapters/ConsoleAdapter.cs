@@ -6,7 +6,7 @@ using DCCRailway.Controller.Attributes;
 namespace DCCRailway.Controller.Adapters;
 
 [Adapter("Console", AdapterType.Virtual, "Adapter that writes to the Console", "1.0")]
-public class ConsoleAdapter : Adapter, IAdapter {
+public abstract class ConsoleAdapter : Adapter, IAdapter {
     private bool _connected = false;
     public  bool IsConnected => _connected;
 
