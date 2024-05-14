@@ -1,33 +1,20 @@
+using DCCRailway.Layout.Collection;
+using DCCRailway.Layout.Entities;
+
 namespace DCCRailway.Railway.Configuration.Helpers;
 
 [Serializable]
-public class Manufacturers : Dictionary<byte, Manufacturer>  {
+public class Manufacturers(string prefix, string? filename = null, string? pathname = null)
+    : LayoutRepository<Manufacturer>(prefix, filename, pathname) {
 
-    public Manufacturers() {
-        Clear();
-        BuildManufacturersList();
-    }
-
-    public new Manufacturer? this[byte id] => Find(id);
-
-    public Manufacturer? Find(byte identifier) {
-        return this[identifier] ?? new Manufacturer(0,"Unknown");
-    }
-
-    public Manufacturer? Find(string name) {
-        return this.Values.FirstOrDefault(m => m.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? new Manufacturer(0,"Unknown");
-    }
-
-    public Manufacturer? Find(Func<Manufacturer, bool> predicate) {
-        return Values.Where(predicate).FirstOrDefault();
-    }
-
-    public IEnumerable<Manufacturer>? FindAll(Func<Manufacturer, bool> predicate) {
-        return Values.Where(predicate);
+    public new void Load() {
+        base.Load();
+        if (Count == 0) BuildManufacturersList();
     }
 
     private void AddManufacturer(string name, byte id) {
-        if (!this.ContainsKey(id)) Add(id,new Manufacturer(id,name));
+        var idStr = id.ToString();
+        if (!ContainsKey(idStr)) Add(new Manufacturer(idStr,name));
     }
 
     private void BuildManufacturersList() {

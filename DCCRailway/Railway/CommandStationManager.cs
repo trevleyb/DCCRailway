@@ -1,14 +1,9 @@
-using System.Windows.Input;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Parameters;
-using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
-using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Layout;
-using DCCRailway.Railway.Configuration.Entities;
-using DCCRailway.Railway.Throttles.WiThrottle;
 
 namespace DCCRailway.Railway;
 
@@ -37,13 +32,13 @@ public class CommandStationManager {
     /// adapters to the commandStation and pushing any parameters into the Controllers and Adapaters as defined in the
     /// configuration.
     /// </summary>
-    public void Configure(DCCController dccController) {
-        if (dccController is null) throw new ApplicationException("Cannot start the Entities Layout as no Controllers are defined.");
+    public void Configure(Configuration.Entities.Controller controller) {
+        if (controller is null) throw new ApplicationException("Cannot start the Entities Layout as no Controllers are defined.");
 
-        var commandStation = CreateCommandStationController(dccController);
+        var commandStation = CreateCommandStationController(controller);
         if (commandStation != null) {
-            AttachCommandStationAdapter(dccController, commandStation);
-            AttachCommandStationTasks(dccController, commandStation);
+            AttachCommandStationAdapter(controller, commandStation);
+            AttachCommandStationTasks(controller, commandStation);
             CommandStation = commandStation;
         }
     }
@@ -52,16 +47,16 @@ public class CommandStationManager {
     /// Create an instance of the CommandStation Controller based on the name, and attach any
     /// additional properties to the controller as defined in the configuration.
     /// </summary>
-    /// <param name="dccController">Cionfiguration Collection for the controller to create</param>
+    /// <param name="controller">Configuration Collection for the controller to create</param>
     /// <returns>An instance of a Command Station Controller or NULL if it was unable to do so. </returns>
     /// <exception cref="ControllerException">Thrown if it cannot create the controller. </exception>
-    private ICommandStation? CreateCommandStationController(DCCController dccController) {
+    private ICommandStation? CreateCommandStationController(Configuration.Entities.Controller controller) {
         var controllerManager = new CommandStationFactory();
         try {
-            var commandStation = controllerManager.CreateController(dccController.Name) ??
-                             throw new ControllerException($"Invalid CommandStation Name specified {dccController.Name}");
+            var commandStation = controllerManager.CreateController(controller.Name) ??
+                             throw new ControllerException($"Invalid CommandStation Name specified {controller.Name}");
 
-            foreach (var parameter in dccController.Parameters) {
+            foreach (var parameter in controller.Parameters) {
                 if (commandStation.IsMappableParameter(parameter.Name)) {
                     commandStation.SetMappableParameter(parameter.Name, parameter.Value);
                 }
@@ -69,7 +64,7 @@ public class CommandStationManager {
             return commandStation;
         }
         catch (Exception ex) {
-            Logger.Log.Error("Unable to instantiate an instance of the specified commandStation: {0} => {1}", dccController, ex.Message);
+            Logger.Log.Error("Unable to instantiate an instance of the specified commandStation: {0} => {1}", controller, ex.Message);
             throw;
         }
     }
@@ -77,15 +72,16 @@ public class CommandStationManager {
     /// <summary>
     /// Attaches an adapter to the commandStation and configures it using the provided parameters.
     /// </summary>
-    /// <param name="dccController">The DCCController object representing the controller for the commandStation.</param>
+    /// <param name="controller">The DCCController object representing the controller for the commandStation.</param>
     /// <param name="commandStation">The ICommandStation object representing the commandStation.</param>
     /// <exception cref="AdapterException">Thrown when unable to create an Adapter.</exception>
-    private void AttachCommandStationAdapter(DCCController dccController, ICommandStation commandStation) {
+    private void AttachCommandStationAdapter(Configuration.Entities.Controller controller, ICommandStation commandStation) {
         // Now that we have a commandStation, attach the Adapter to the commandStation and
         // configure the Adapter using the provided Parameters.
         // -----------------------------------------------------------------------------
         try {
-            if (dccController?.Adapter is { } controllerAdapter) {
+            if (controller.Adapters.Count != 1) throw new ControllerException("Only a single Adapter can currently be configured for a Controller.");
+            if (controller.Adapters[0] is { } controllerAdapter) {
                 var adapterInstance = commandStation.CreateAdapter(controllerAdapter.Name) ??
                                       throw new AdapterException("Unable to create an Adapter of type: {0}", controllerAdapter.Name);
 
@@ -98,7 +94,7 @@ public class CommandStationManager {
             }
         }
         catch (Exception ex) {
-            Logger.Log.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", dccController?.Adapter?.Name, ex.Message);
+            Logger.Log.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapters, ex.Message);
             throw;
         }
     }
@@ -108,11 +104,11 @@ public class CommandStationManager {
     /// and sets their properties based on the configuration provided in the DCCController. The tasks are then
     /// attached to the ICommandStation.
     /// </summary>
-    /// <param name="dccController">The DCCController containing the tasks to be attached.</param>
+    /// <param name="controller">The DCCController containing the tasks to be attached.</param>
     /// <param name="commandStation">The ICommandStation to which the tasks will be attached.</param>
-    private void AttachCommandStationTasks(DCCController dccController, ICommandStation commandStation) {
+    private void AttachCommandStationTasks(Configuration.Entities.Controller controller, ICommandStation commandStation) {
         try {
-            foreach (var task in dccController.Tasks) {
+            foreach (var task in controller.Tasks) {
                 try {
                     var taskInstance = commandStation.CreateTask(task.Type);
                     if (taskInstance is not null) {
@@ -128,7 +124,7 @@ public class CommandStationManager {
                     }
                 }
                 catch (Exception ex) {
-                    Logger.Log.Error($"Unable to instantiate the task '{task.Name}' or type '{task.Type}'");
+                    Logger.Log.Error($"Unable to instantiate the task '{task.Name}' or type '{task.Type}'", ex);
                 }
             }
         }

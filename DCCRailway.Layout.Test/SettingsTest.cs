@@ -5,7 +5,7 @@ using DCCRailway.Railway.Configuration;
 namespace DCCRailway.Layout.Test;
 
 [TestFixture]
-public class ConfigurationTest {
+public class SettingsTest {
 
     [Test]
     public async Task  TestEntityRepositoryAddAndStore() {

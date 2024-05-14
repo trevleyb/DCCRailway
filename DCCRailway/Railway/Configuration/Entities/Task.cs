@@ -4,11 +4,11 @@ using System.IO.Ports;
 namespace DCCRailway.Railway.Configuration.Entities;
 
 [Serializable]
-public class DCCTask {
+public class Task {
 
-    public DCCTask() { }
+    public Task() { }
 
-    public DCCTask(string name, string taskType, TimeSpan frequency) {
+    public Task(string name, string taskType, TimeSpan frequency) {
         Name = name;
         Type = taskType;
         Frequency = frequency;

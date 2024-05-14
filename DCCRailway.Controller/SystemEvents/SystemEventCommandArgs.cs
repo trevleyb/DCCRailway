@@ -11,8 +11,8 @@ public class SystemEventCommandArgs : SystemEventArgs {
         Type        = SystemEventType.Command;
         Action      = SystemEventAction.Execute;
         Message     = message;
-        Name        = command.AttributeInfo().Name;
-        Description = command.AttributeInfo().Description;
+        Name        = command?.AttributeInfo()?.Name ?? "Unknown";
+        Description = command?.AttributeInfo()?.Description ?? "Unknown";
 
         switch (command) {
         case ILocoCmd locoCommand:

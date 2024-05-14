@@ -23,4 +23,9 @@ public abstract class LayoutEntity : PropertyChangeBase, INotifyPropertyChanged 
         // if (string.IsNullOrEmpty(id)) throw new ArgumentException("All entities must have a unique ID");
         Id = id;
     }
+    protected LayoutEntity(string id, string name, string description = "") {
+        Id = id;
+        Name = name;
+        Description = description;
+    }
 }

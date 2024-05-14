@@ -29,5 +29,5 @@ public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
     }
 
     public override string       ToString() => $"READ CV ({CV}/{ProgrammingMode})";
-    public          DCCAddress? Address    { get; set; }
+    public          DCCAddress Address    { get; set; }
 }

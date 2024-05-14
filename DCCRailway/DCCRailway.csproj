@@ -14,4 +14,8 @@
       <ProjectReference Include="..\DCCRailway.WebApp\DCCRailway.WebApp.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Railway\Throttles\WiThrottle\Settings\" />
+    </ItemGroup>
+
 </Project>

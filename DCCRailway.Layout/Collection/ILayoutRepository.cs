@@ -2,13 +2,10 @@ using DCCRailway.Layout.Base;
 
 namespace DCCRailway.Layout.Collection;
 
-public interface ILayoutRepository<TEntity> : IDictionary<string, TEntity>
+public interface ILayoutRepository<TEntity> : IDictionary<string, TEntity>, ILayoutSaveLoad
     where TEntity : LayoutEntity {
 
     event RepositoryChangedEventHandler? RepositoryChanged;
-
-    public void Save();
-    public void Load();
 
     IAsyncEnumerable<TEntity> GetAllAsync();
     IAsyncEnumerable<TEntity> GetAllAsync(Func<TEntity, bool> predicate);

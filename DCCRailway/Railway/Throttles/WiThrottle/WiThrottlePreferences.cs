@@ -30,10 +30,4 @@ public class WiThrottlePreferences () : JsonSerializerHelper<WiThrottlePreferenc
         { "node", $"dccrailway-{Guid.NewGuid()}" },
         { "version", "1.0.0"}
     };
-
-    public static WiThrottlePreferences? Load() => LoadFile(DefaultFileName);
-    public void                          Save() => SaveFile(this, DefaultFileName);
-    public static WiThrottlePreferences? Load(string name) => LoadFile(name);
-    public void                          Save(string name) => SaveFile(this, name);
-
 }

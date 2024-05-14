@@ -15,7 +15,7 @@ public abstract class LayoutRepository<TEntity>
     , IEnumerable<KeyValuePair<string, TEntity>>
     where TEntity : LayoutEntity {
 
-    protected LayoutRepository(string prefix = "***", string? filename = null, string? pathname = null) {
+    protected LayoutRepository(string prefix, string? filename = null, string? pathname = null) {
         Prefix = prefix;
         FileName = filename ?? $"DCCRailway.{GetType().Name}.json";
         Load();

@@ -6,6 +6,7 @@ using DCCRailway.Controller.Actions.Results.Abstract;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Layout.Entities;
+using DCCRailway.Railway.Configuration.Entities;
 using DCCRailway.Railway.Layout.State;
 using NUnit.Framework;
 
@@ -19,8 +20,8 @@ public class ControllerEventLayoutTest {
         var layoutConfig = RailwayManager.New();
         Assert.That(layoutConfig, Is.Not.Null);
 
-        layoutConfig.Controller.Name = "Virtual";
-        layoutConfig.Controller.Adapter.Name = "Virtual";
+        layoutConfig.Settings.Controller.Name = "Virtual";
+        layoutConfig.Settings.Controller.Adapters.Add(new Adapter() {Name = "Virtual"});
         layoutConfig.Start();
         Assert.That(layoutConfig.StateManager, Is.Not.Null);
         Assert.That(layoutConfig.CommandStationManager, Is.Not.Null);

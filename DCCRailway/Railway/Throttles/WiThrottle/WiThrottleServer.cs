@@ -21,8 +21,7 @@ public class WiThrottleServer() {
 
     private CancellationTokenSource cts = new CancellationTokenSource();
     private System.Timers.Timer         _heartbeatCheckTimer;
-    private WiThrottlePreferences       _preferences;
-    private IRailwayManager              _railwayManager;
+    private IRailwayManager             _railwayManager;
     private CommandStationManager       _cmdStationMgr;
 
     public int ActiveClients { get; set; } = 0;
@@ -35,14 +34,9 @@ public class WiThrottleServer() {
         _railwayManager = railwayManager;
         _cmdStationMgr = cmdStationMgr;
 
-        // Load a set of preferences from a file but if it does not exit, just create
-        // a default set (as normally we do not need to overwrite any of the settings)
-        // ----------------------------------------------------------------------------
-        _preferences = WiThrottlePreferences.Load() ?? new WiThrottlePreferences();
-
         // Make sure that the Service is not already running
         // -------------------------------------------------------
-        if (ServiceHelper.IsServiceRunningOnPort(_preferences.Port)) {
+        if (ServiceHelper.IsServiceRunningOnPort(_railwayManager.WiThrottlePreferences.Port)) {
             Logger.LogContext<WiThrottleServer>().Error("Service is already running. ");
             return;
         }
@@ -51,7 +45,7 @@ public class WiThrottleServer() {
         // ----------------------------------------------------------
         try {
             Logger.LogContext<WiThrottleServer>().Information("Starting the WiThrottle Server Listener.");
-            var tcpServer = new TcpListener(_preferences.Address, _preferences.Port);
+            var tcpServer = new TcpListener(_railwayManager.WiThrottlePreferences.Address, _railwayManager.WiThrottlePreferences.Port);
             tcpServer.Start();
             Task.Run(() => { StartListener(tcpServer); });
         }
@@ -73,10 +67,10 @@ public class WiThrottleServer() {
 
         // Setup the Server to Broadcast its presence on the network
         // ----------------------------------------------------------
-        ServerBroadcast.Start(_preferences);
+        ServerBroadcast.Start(_railwayManager.WiThrottlePreferences);
 
         try {
-            _heartbeatCheckTimer = new System.Timers.Timer(_preferences.HeartbeatCheckTime);
+            _heartbeatCheckTimer = new System.Timers.Timer(_railwayManager.WiThrottlePreferences.HeartbeatCheckTime);
             _heartbeatCheckTimer.Elapsed += HeartbeatCheckHandler;
             _heartbeatCheckTimer.AutoReset = true;
             _heartbeatCheckTimer.Start();
@@ -117,7 +111,7 @@ public class WiThrottleServer() {
 
         Logger.LogContext<WiThrottleServer>().Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
         var stream = client.GetStream();
-        var connection = _preferences.Connections.Add(client,_preferences,_railwayManager,_cmdStationMgr);
+        var connection = _railwayManager.WiThrottlePreferences.Connections.Add(client,_railwayManager.WiThrottlePreferences,_railwayManager,_cmdStationMgr);
         connection.QueueMsg(new MsgConfiguration(connection));
 
         try {
@@ -193,7 +187,7 @@ public class WiThrottleServer() {
     }
 
     private void CloseConnectionsWithCondition(Func<WiThrottleConnection, bool> conditionToClose, string logMessage) {
-        var connectionsToClose = _preferences.Connections.Where(conditionToClose).ToList();
+        var connectionsToClose = _railwayManager.WiThrottlePreferences.Connections.Where(conditionToClose).ToList();
         foreach (var connection in connectionsToClose) {
             Logger.Log.Information(logMessage, connection.ConnectionHandle);
             connection.Close();

@@ -18,8 +18,6 @@ public class Locomotive : LayoutEntityDecoder {
     private DCCMomentum       _momentum         = new DCCMomentum(0);
     private DCCSpeed          _speed            = new(0);
     private DCCDirection      _direction        = DCCDirection.Stop;
-    private DCCSpeed          _lastSpeed        = new (0);
-    private DCCDirection      _lastDirection    = DCCDirection.Stop;
     private DCCFunctionBlocks _functionBlocks   = new();
 
     /// <summary>

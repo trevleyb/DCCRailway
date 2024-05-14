@@ -1,9 +1,9 @@
 namespace DCCRailway.Railway.Configuration.Entities;
 
 [Serializable]
-public class DCCTasks : List<DCCTask> {
+public class Tasks : List<Task> {
 
-    public DCCTask? this[string name] => Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
+    public Task? this[string name] => Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
 
     public void Delete(string name) {
         ArgumentNullException.ThrowIfNull(name);
@@ -16,6 +16,6 @@ public class DCCTasks : List<DCCTask> {
         ArgumentNullException.ThrowIfNull(name);
 
         if (Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) != null) throw new ArgumentException($"Parameter '{name}' already exists");
-        Add(new DCCTask(name,taskType,frequency));
+        Add(new Task(name,taskType,frequency));
     }
 }

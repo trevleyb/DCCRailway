@@ -11,7 +11,7 @@ public class VirtualCVWrite : VirtualCommand, ICmdCVWrite {
         Value = value;
     }
 
-    public DCCAddress?       Address         { get; set; }
+    public DCCAddress       Address         { get; set; }
     public DCCProgrammingMode ProgrammingMode { get; set; }
     public int                CV              { get; set; }
     public byte               Value           { get; set; }

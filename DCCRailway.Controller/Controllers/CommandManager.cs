@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Reflection;
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions;
@@ -71,7 +72,10 @@ public class CommandManager(ICommandStation commandStation, Assembly assembly) {
 
     public ICommand? Create(string name, DCCAddress? address = null) {
         if (_commands.Any() is false) RegisterCommands();
-        var entry = _commands.FirstOrDefault(x => x.Value.Attributes.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+        var entry = _commands.FirstOrDefault(x => {
+            Debug.Assert(x.Value.Attributes.Name != null, "x.Value.Attributes.Name != null");
+            return x.Value.Attributes.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase);
+        });
         if (entry.Equals(default(KeyValuePair<Type, (CommandAttribute, Type)>)) && entry.Key != null) {
             var command = CreateInstance(entry.Value.ConcreteType);
             return AttachProperties(command, address);

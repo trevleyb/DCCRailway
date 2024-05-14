@@ -5,7 +5,7 @@ using DCCRailway.Layout.Collection;
 using DCCRailway.Layout.Entities;
 
 namespace DCCRailway.Layout;
-
+/*
 public sealed class LayoutRepository : JsonSerializerHelper<LayoutRepository> {
     public const string DefaultConfigFilename = "DCCRailway.Layout.json";
 
@@ -67,8 +67,9 @@ public sealed class LayoutRepository : JsonSerializerHelper<LayoutRepository> {
 
     // Access to save and load the configuration to JSON files
     // -------------------------------------------------------------------------------------------------------------
-    public static LayoutRepository? Load() => LoadFile(DefaultConfigFilename);
-    public void                  Save() => SaveFile(this, DefaultConfigFilename);
-    public static LayoutRepository? Load(string? name) => LoadFile(name ?? DefaultConfigFilename);
-    public void                  Save(string? name) => SaveFile(this, name ?? DefaultConfigFilename);
+    public static LayoutRepository? Load() => JsonSerializerHelper<>.Load(DefaultConfigFilename);
+    public void                  Save() => Save(this, DefaultConfigFilename);
+    public static LayoutRepository? Load(string? name) => JsonSerializerHelper<>.Load(name ?? DefaultConfigFilename);
+    public void                  Save(string? name) => Save(this, name ?? DefaultConfigFilename);
 }
+*/
