@@ -35,7 +35,6 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string,TEntity>
     /// <summary>
     ///    Provide a file name for the configuration and save to that file
     /// </summary>
-    /// <param name="collection">The collection to serialise</param>
     /// <param name="fileName">The name of the file to write the data to</param>
     /// <exception cref="ApplicationException">Returns an error if it cannot save</exception>
     protected void Save(string fileName) {

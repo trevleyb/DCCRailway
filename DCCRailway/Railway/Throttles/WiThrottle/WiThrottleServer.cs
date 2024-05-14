@@ -36,7 +36,7 @@ public class WiThrottleServer() {
 
         // Make sure that the Service is not already running
         // -------------------------------------------------------
-        if (ServiceHelper.IsServiceRunningOnPort(_railwayManager.WiThrottlePreferences.Port)) {
+        if (ServiceHelper.IsServiceRunningOnPort(_railwayManager.WiThrottlePreferences.HostPort)) {
             Logger.LogContext<WiThrottleServer>().Error("Service is already running. ");
             return;
         }
@@ -45,7 +45,7 @@ public class WiThrottleServer() {
         // ----------------------------------------------------------
         try {
             Logger.LogContext<WiThrottleServer>().Information("Starting the WiThrottle Server Listener.");
-            var tcpServer = new TcpListener(_railwayManager.WiThrottlePreferences.Address, _railwayManager.WiThrottlePreferences.Port);
+            var tcpServer = new TcpListener(_railwayManager.WiThrottlePreferences.HostAddress, _railwayManager.WiThrottlePreferences.HostPort);
             tcpServer.Start();
             Task.Run(() => { StartListener(tcpServer); });
         }

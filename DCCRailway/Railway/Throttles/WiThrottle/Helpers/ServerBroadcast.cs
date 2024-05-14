@@ -9,14 +9,14 @@ public static class ServerBroadcast {
         var host = Dns.GetHostEntry(Dns.GetHostName());
 
         if (host.AddressList.Length > 0) {
-            var addressList = new List<IPAddress>() { options.Address };
+            var addressList = new List<IPAddress>() { options.HostAddress };
             try {
                 var sd = new ServiceDiscovery();
                 //sd.ServiceDiscovered         += Sd_ServiceDiscovered;
                 //sd.ServiceInstanceShutdown   += Sd_ServiceInstanceShutdown;
                 //sd.ServiceInstanceDiscovered += Sd_ServiceInstanceDiscovered;
                 sd.AnswersContainsAdditionalRecords = true;
-                var sp = new ServiceProfile(options.Name, options.ServiceName, options.Port, host.AddressList);
+                var sp = new ServiceProfile(options.Name, options.ServiceName, (ushort)options.HostPort, host.AddressList);
                 foreach (var prop in options.Properties) sp.AddProperty(prop.Key,prop.Value);
                 sd.AnswersContainsAdditionalRecords = true;
                 sd.Advertise(sp);

@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using System.Text.Json.Serialization;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout.Base;
@@ -21,7 +22,7 @@ public sealed class RailwayManager : IRailwayManager {
     public string Description   => Settings.Description;
     public string Filename      => Settings.FullName;
 
-    public Settings                Settings                { get; init; }
+    public Settings Settings { get; init; } = new();
 
     public Accessories             Accessories             { get; set; }
     public Blocks                  Blocks                  { get; set; }
@@ -59,8 +60,8 @@ public sealed class RailwayManager : IRailwayManager {
     public static IRailwayManager New(string filename = DefaultConfigFilename, string? name = null, string? description = null) {
         lock (_lockObject) {
             _instance = new RailwayManager();
-            SetDefaults(_instance, filename, name, description);
             CreateRepositories(_instance);
+            SetDefaults(_instance, filename, name, description);
         }
         return Instance;
     }
@@ -116,11 +117,8 @@ public sealed class RailwayManager : IRailwayManager {
     /// </summary>
     public void Save() {
         Settings.Save(Settings,Settings.FullName);
-        foreach (var property in this.GetType().GetProperties()) {
-            if (property.PropertyType == typeof(ILayoutSaveLoad)) {
-                var repository = property.GetValue(this);
-                if (repository is ILayoutSaveLoad saveable) saveable.Save();
-            }
+        foreach (var property in this.GetType().GetProperties().Where(x => x.PropertyType == typeof(ILayoutSaveLoad) || typeof(ILayoutSaveLoad).IsAssignableFrom(x.PropertyType))) {
+            if (property.GetValue(this) is ILayoutSaveLoad saveable) saveable.Save();
         }
     }
 

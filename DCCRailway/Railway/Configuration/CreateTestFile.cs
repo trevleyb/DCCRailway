@@ -1,14 +1,24 @@
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Entities;
+using DCCRailway.Railway.Configuration.Entities;
+using Parameter = DCCRailway.Railway.Configuration.Entities.Parameter;
 using Route = DCCRailway.Layout.Entities.Route;
 
 namespace DCCRailway.Railway.Configuration;
 
 public static class CreateTestFile {
 
-    public static void Build(string filename) {
+    public static void Build(string? filename = null) {
 
         var manager = RailwayManager.New();
+
+        manager.Settings.Name = "Test Railway Layout";
+        manager.Settings.Description = "A Test configuration file for testing";
+        manager.Settings.FileName = filename ?? "DCCRailway.TestConfig.json";
+        manager.Settings.PathName = "./";
+        manager.Settings.Controller.Name = "Virtual";
+        manager.Settings.Controller.Adapters.Add("Virtual");
+        manager.Settings.Controller.Parameters.Add("Optional", "Value");
 
         var locomotives = manager.Locomotives;
         locomotives.Add(new Locomotive { Id = "CN1029", Address = new DCCAddress(1029, DCCAddressType.Long), Name = "CN-1029", Description = "Canadian National (1029)" });
@@ -61,7 +71,7 @@ public static class CreateTestFile {
         blocks.Add(new Block { Id = "B01", Name = "Mainline-West" });
         blocks.Add(new Block { Id = "B02", Name = "Mainline-East" });
 
-        manager.Save(filename);
+        manager.Save();
     }
 
 }

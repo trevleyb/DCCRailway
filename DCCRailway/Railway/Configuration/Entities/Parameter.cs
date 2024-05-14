@@ -6,13 +6,11 @@ namespace DCCRailway.Railway.Configuration.Entities;
 [Serializable]
 public class Parameter {
 
-    public Guid     Id      { get; set; }
     public string   Name    { get; set; }
     public string   Value   { get; set; }
     public string?  ObjType { get; set; }
 
-    public Parameter() : this (Guid.NewGuid()) { }
-    public Parameter(Guid guid) => Id = guid;
+    public Parameter() { }
     public Parameter(string name, object value) => Set(name, value);
 
     public void Set(string name, object value) {
