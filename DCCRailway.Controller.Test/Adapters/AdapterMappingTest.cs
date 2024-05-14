@@ -1,6 +1,6 @@
 using System.IO.Ports;
+using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Adapters.Base;
-using DCCRailway.Controller.Helpers;
 
 namespace DCCRailway.System.Test.Adapters;
 
@@ -37,14 +37,14 @@ public class AdapterMappingTest {
 
         var parameters = adapter.GetMappableParameters();
 
-        Assert.That(parameters["AStringValue"], Is.EqualTo("string"));
-        Assert.That(parameters["ALongValue"], Is.EqualTo("12345671234567"));
-        Assert.That(parameters["AByteValue"], Is.EqualTo("255"));
-        Assert.That(parameters["AIntValue"], Is.EqualTo("42"));
-        Assert.That(parameters["AParityValue"], Is.EqualTo("Even"));
-        Assert.That(parameters["AStopValue"], Is.EqualTo("Two"));
-        Assert.That(parameters["AEnumValue"], Is.EqualTo("Green"));
-        Assert.That(parameters["ABoolean"], Is.EqualTo("True"));
+        Assert.That(parameters["AStringValue"].Value, Is.EqualTo("string"));
+        Assert.That(parameters["ALongValue"].Value, Is.EqualTo("12345671234567"));
+        Assert.That(parameters["AByteValue"].Value, Is.EqualTo("255"));
+        Assert.That(parameters["AIntValue"].Value, Is.EqualTo("42"));
+        Assert.That(parameters["AParityValue"].Value, Is.EqualTo("Even"));
+        Assert.That(parameters["AStopValue"].Value, Is.EqualTo("Two"));
+        Assert.That(parameters["AEnumValue"].Value, Is.EqualTo("Green"));
+        Assert.That(parameters["ABoolean"].Value, Is.EqualTo("True"));
     }
 
     [Test]

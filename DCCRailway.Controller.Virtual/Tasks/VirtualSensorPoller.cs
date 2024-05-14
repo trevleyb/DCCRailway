@@ -7,17 +7,17 @@ using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Attributes;
-using DCCRailway.Controller.NCE.Actions.Commands;
-using DCCRailway.Controller.NCE.Actions.Results;
+
 using DCCRailway.Controller.Tasks;
+using DCCRailway.Controller.Virtual.Actions.Commands;
 
 namespace DCCRailway.Controller.Virtual.Tasks;
 
 [Task("AIUPoller","NCE AIU Poller")]
-public class NCEAIUPoller : ControllerTask, IParameterMappable {
+public class VirtualSensorPoller : ControllerTask, IParameterMappable {
 
     [Range(1,63)]
-    [Parameter("NCE Cab Address of this AIU interface","Should be between 1..63")]
+    [Parameter("Virtual Cab Address of this AIU interface","Should be between 1..63")]
     public byte CabAddress { get; set; }
 
     protected override void Setup() {
@@ -32,14 +32,11 @@ public class NCEAIUPoller : ControllerTask, IParameterMappable {
     protected override void DoWork() {
         var pinStr = new StringBuilder();
         var pins = new bool[14];
-        if (CommandStation.CreateCommand<ICmdSensorGetState>() is NCESensorGetState command) {
+        if (CommandStation.CreateCommand<ICmdSensorGetState>() is VirtualSensorGetState command) {
             pinStr.Append("|");
             for (byte pin = 1; pin <= 14; pin++) {
-                command.SetAddressByCabPin(CabAddress, pin);
-                if (command.Execute() is NCECmdResultSensorState result) {
-                    pins[pin - 1] = result.State == DCCAccessoryState.Occupied ? true : false;
-                    pinStr.Append(result.State == DCCAccessoryState.Occupied ? "X" : ".");
-                }
+                pins[pin - 1] = new Random().Next(1,100) < 10;
+                pinStr.Append(pins[pin-1] ? "X" : ".");
             }
             pinStr.Append("|");
             Logger.Log.Information($"Read AIU '{CabAddress}' => {pinStr.ToString()}");

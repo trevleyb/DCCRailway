@@ -10,6 +10,5 @@ public class DCCController() {
     public DCCAdapter   Adapter              { get; set; } = new();
     public DCCTasks     Tasks                { get; set; } = [];
     public Parameters   Parameters           { get; set; } = [];
-
     public bool         SendStopOnDisconnect { get; set; }
 }

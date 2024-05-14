@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using DCCRailway.Common.Helpers;
+using DCCRailway.Common.Parameters;
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Actions.Results;
@@ -7,7 +8,6 @@ using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
-using DCCRailway.Controller.Helpers;
 using DCCRailway.Controller.Tasks;
 
 namespace DCCRailway.Controller.Controllers;
@@ -29,12 +29,12 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
         AdapterManager.AdapterEvent += AdapterManagerOnAdapterManagerEvent;
     }
 
-    public void Start() {
+    public virtual void Start() {
         OnControllerEvent(this, "Starting up the CommandStation");
         Logger.Log.Information("Starting Up the CommandStation. {0}", this.AttributeInfo()?.Name);
     }
 
-    public void Stop() {
+    public virtual void Stop() {
         OnControllerEvent(this,"Shutting Down the CommandStation");
         Logger.Log.Information("Shutting Down the CommandStation. {0}", this.AttributeInfo()?.Name);
     }

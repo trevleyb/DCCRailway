@@ -17,6 +17,7 @@
     <ItemGroup>
       <Folder Include="Actions\Results\Base\" />
       <Folder Include="Actions\Commands\Abstract\" />
+      <Folder Include="Helpers\" />
     </ItemGroup>
 
 </Project>

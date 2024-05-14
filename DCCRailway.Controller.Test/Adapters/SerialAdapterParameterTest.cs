@@ -1,5 +1,5 @@
 using System.IO.Ports;
-using DCCRailway.Controller.Helpers;
+using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.NCE.Adapters;
 
 namespace DCCRailway.System.Test.Adapters;
@@ -19,12 +19,12 @@ public class SerialAdapterParameterTest {
         adapter.StopBits = StopBits.OnePointFive;
 
         var parameters = adapter.GetMappableParameters();
-        Assert.That(parameters["PortName"],Is.EqualTo("\\Dev\\Com1"));
-        Assert.That(parameters["Timeout"], Is.EqualTo("2000"));
-        Assert.That(parameters["Parity"], Is.EqualTo("Even"));
-        Assert.That(parameters["BaudRate"], Is.EqualTo("9600"));
-        Assert.That(parameters["DataBits"], Is.EqualTo("0"));
-        Assert.That(parameters["StopBits"], Is.EqualTo("OnePointFive"));
+        Assert.That(parameters["PortName"].Value,Is.EqualTo("\\Dev\\Com1"));
+        Assert.That(parameters["Timeout"].Value, Is.EqualTo("2000"));
+        Assert.That(parameters["Parity"].Value, Is.EqualTo("Even"));
+        Assert.That(parameters["BaudRate"].Value, Is.EqualTo("9600"));
+        Assert.That(parameters["DataBits"].Value, Is.EqualTo("0"));
+        Assert.That(parameters["StopBits"].Value, Is.EqualTo("OnePointFive"));
 
     }
     [Test]
@@ -51,7 +51,7 @@ public class SerialAdapterParameterTest {
     public void LoadParameterInfoAndMatch() {
 
         var adapter = new NCESerial();
-        var info = adapter.GetMappableParameterInfo();
+        var info = adapter.GetMappableParameters();
         Assert.That(info.Count, Is.GreaterThan(0));
 
     }
