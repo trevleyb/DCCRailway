@@ -4,10 +4,8 @@ using DCCRailway.Layout.Entities;
 namespace DCCRailway.Railway.Configuration.Helpers;
 
 [Serializable]
-public class Manufacturers(string prefix, string? filename = null, string? pathname = null)
-    : LayoutRepository<Manufacturer>(prefix, filename, pathname) {
-
-    public new void Load() {
+public class Manufacturers : LayoutRepository<Manufacturer>  {
+    public Manufacturers(string prefix, string? filename = null, string? pathname = null) : base(prefix, filename, pathname) {
         base.Load();
         if (Count == 0) BuildManufacturersList();
     }

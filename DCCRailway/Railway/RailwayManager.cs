@@ -60,7 +60,7 @@ public sealed class RailwayManager : IRailwayManager {
     public static IRailwayManager New(string filename = DefaultConfigFilename, string? name = null, string? description = null) {
         lock (_lockObject) {
             _instance = new RailwayManager();
-            CreateRepositories(_instance);
+            CreateRepositories(_instance, false);
             SetDefaults(_instance, filename, name, description);
         }
         return Instance;
@@ -79,7 +79,7 @@ public sealed class RailwayManager : IRailwayManager {
             _instance.Settings.FileName = filename;
             _instance.Settings.Load();
             SetDefaults(_instance, filename, name, description);
-            CreateRepositories(_instance);
+            CreateRepositories(_instance,true);
         }
         return Instance;
     }
@@ -101,15 +101,17 @@ public sealed class RailwayManager : IRailwayManager {
     /// Creates repository instances for each entity type in the RailwayManager.
     /// </summary>
     /// <param name="instance">The instance of the RailwayManager.</param>
-    private static void CreateRepositories(IRailwayManager instance) {
-        instance.Accessories    = CreateRepository<Accessories>(instance.Settings, "Accessories");
-        instance.Blocks         = CreateRepository<Blocks>(instance.Settings, "Blocks");
-        instance.Locomotives    = CreateRepository<Locomotives>(instance.Settings, "Locomotives");
-        instance.Routes         = CreateRepository<Routes>(instance.Settings, "Routes");
-        instance.Sensors        = CreateRepository<Sensors>(instance.Settings, "Sensors");
-        instance.Signals        = CreateRepository<Signals>(instance.Settings, "Signals");
-        instance.Turnouts       = CreateRepository<Turnouts>(instance.Settings, "Turnouts");
-        instance.Manufacturers  = CreateRepository<Manufacturers>(instance.Settings, "Manufacturers");
+    private static void CreateRepositories(IRailwayManager instance, bool load = false) {
+        // TODO: Should add that the name of the system is incorporated into the file names
+        // eg: MyTestRailway.Settings.Json, MyTestRailway.Accessories.Json etc.
+        instance.Accessories    = CreateRepository<Accessories>(instance.Settings, "Accessories", load);
+        instance.Blocks         = CreateRepository<Blocks>(instance.Settings, "Blocks", load);
+        instance.Locomotives    = CreateRepository<Locomotives>(instance.Settings, "Locomotives", load);
+        instance.Routes         = CreateRepository<Routes>(instance.Settings, "Routes", load);
+        instance.Sensors        = CreateRepository<Sensors>(instance.Settings, "Sensors", load);
+        instance.Signals        = CreateRepository<Signals>(instance.Settings, "Signals", load);
+        instance.Turnouts       = CreateRepository<Turnouts>(instance.Settings, "Turnouts", load);
+        instance.Manufacturers  = CreateRepository<Manufacturers>(instance.Settings, "Manufacturers", load);
     }
 
     /// <summary>
@@ -123,15 +125,6 @@ public sealed class RailwayManager : IRailwayManager {
     }
 
     /// <summary>
-    /// Saves the configuration of the railway manager to a file with the provided filename.
-    /// </summary>
-    /// <param name="filename">The filename of the configuration file.</param>
-    public void Save(string filename) {
-        Settings.FileName = filename;
-        Save();
-    }
-
-    /// <summary>
     /// Creates a repository of type T based on the provided settings and entity key.
     /// This is to alolow the filename, the prefix and path location to be overridden in the
     /// settings structure for each of the repository types.
@@ -140,11 +133,12 @@ public sealed class RailwayManager : IRailwayManager {
     /// <param name="settings">The settings object containing the entity information.</param>
     /// <param name="entityKey">The key of the entity in the settings object.</param>
     /// <returns>A repository of type T.</returns>
-    public static T CreateRepository<T>(Settings settings, string entityKey) {
+    public static T CreateRepository<T>(Settings settings, string entityKey, bool load = false) {
         var prefix = settings?.Entities[entityKey]?.Prefix ?? "A";
         var fileName = settings?.Entities[entityKey]?.FileName;
         var pathName = settings?.PathName;
         var entity = (T)Activator.CreateInstance(typeof(T), prefix, fileName, pathName)!;
+        if (entity is ILayoutSaveLoad loadable) if (load) loadable.Load();
         return entity;
     }
 

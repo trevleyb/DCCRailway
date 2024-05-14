@@ -18,11 +18,10 @@ public abstract class LayoutRepository<TEntity>
     protected LayoutRepository(string prefix, string? filename = null, string? pathname = null) {
         Prefix = prefix;
         FileName = filename ?? $"DCCRailway.{GetType().Name}.json";
-        Load();
     }
 
     public void Save() => Save(FullName);
-    public void Load() => Load(FullName);
+    public virtual void Load() => Load(FullName);
 
     public event RepositoryChangedEventHandler? RepositoryChanged;
     private readonly SemaphoreSlim _atomicMutex = new SemaphoreSlim(1, 1);

@@ -38,5 +38,4 @@ public interface IRailwayManager {
     public void Start();
     public void Stop();
     public void Save();
-    public void Save(string name);
 }
