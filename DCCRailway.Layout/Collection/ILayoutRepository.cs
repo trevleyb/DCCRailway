@@ -7,6 +7,9 @@ public interface ILayoutRepository<TEntity> : IDictionary<string, TEntity>
 
     event RepositoryChangedEventHandler? RepositoryChanged;
 
+    public void Save();
+    public void Load();
+
     IAsyncEnumerable<TEntity> GetAllAsync();
     IAsyncEnumerable<TEntity> GetAllAsync(Func<TEntity, bool> predicate);
     Task<TEntity?> FindAsync(Func<TEntity, bool> predicate);

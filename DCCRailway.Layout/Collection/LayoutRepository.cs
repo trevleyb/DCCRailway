@@ -1,18 +1,37 @@
 using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout.Base;
 using DCCRailway.Layout.Events;
 
 namespace DCCRailway.Layout.Collection;
 
+public delegate void RepositoryChangedEventHandler(object sender, RepositoryChangedEventArgs args);
+
 [Serializable]
-public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictionary<string, TEntity>, ILayoutRepository<TEntity>, IEnumerable<KeyValuePair<string, TEntity>>
+public abstract class LayoutRepository<TEntity>
+    : EntityStorage<TEntity>
+    , ILayoutRepository<TEntity>
+    , IEnumerable<KeyValuePair<string, TEntity>>
     where TEntity : LayoutEntity {
+
+    protected LayoutRepository(string prefix = "***", string? filename = null, string? pathname = null) {
+        Prefix = prefix;
+        FileName = filename ?? $"DCCRailway.{GetType().Name}.json";
+        Load();
+    }
+
+    public void Save() => Save(FullName);
+    public void Load() => Load(FullName);
 
     public event RepositoryChangedEventHandler? RepositoryChanged;
     private readonly SemaphoreSlim _atomicMutex = new SemaphoreSlim(1, 1);
     private readonly SemaphoreSlim _nextIDMutex = new SemaphoreSlim(1, 1);
-    public string Prefix { get; init; } = prefix;
+
+    public string Prefix { get; init; }
+    public string FileName { get; set; }
+    public string PathName { get; set; }
+    public string FullName => Path.Combine(PathName ?? "", FileName);
 
     protected async Task<bool> Contains(string id) => await Task.FromResult(ContainsKey(id));
     protected async Task<bool> Contains(TEntity item) => await Task.FromResult(ContainsKey(item.Id));
@@ -22,7 +41,6 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
             yield return item;
         }
     }
-
     public async IAsyncEnumerable<TEntity> GetAllAsync(Func<TEntity, bool> predicate) {
         await foreach (var item in Values.Select( x=> x).Where(predicate).ConvertToAsyncEnumerable()) {
             yield return item;
@@ -46,7 +64,6 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
             _atomicMutex.Release();
         }
     }
-
     public async Task<TEntity?> AddAsync(TEntity entity) {
         try {
             await _atomicMutex.WaitAsync();
@@ -63,7 +80,6 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
             _atomicMutex.Release();
         }
     }
-
     public async Task<TEntity?> DeleteAsync(string id) {
         try {
             await _atomicMutex.WaitAsync();
@@ -82,7 +98,6 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
             _atomicMutex.Release();
         }
     }
-
     public async Task<Task> DeleteAllAsync() {
         await _atomicMutex.WaitAsync();
         try {
@@ -98,6 +113,18 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
         }
         return Task.CompletedTask;
     }
+
+    public IList<TEntity> GetAll() => GetAllAsync().GetListFromAsyncEnumerable().GetAwaiter().GetResult();
+    public IList<TEntity> GetAll(Func<TEntity, bool> predicate) => GetAllAsync(predicate).GetListFromAsyncEnumerable().GetAwaiter().GetResult();
+    public TEntity? Find(Func<TEntity, bool> predicate) => FindAsync(predicate).GetAwaiter().GetResult();
+    public TEntity? GetByID(string id) => GetByIDAsync(id).GetAwaiter().GetResult();
+    public TEntity? GetByName(string name) => GetByNameAsync(name).GetAwaiter().GetResult();
+    public TEntity? IndexOf(int index) => IndexOfAsync(index).GetAwaiter().GetResult();
+    public TEntity? Update(TEntity entity) => UpdateAsync(entity).GetAwaiter().GetResult();
+    public TEntity? Add(TEntity entity) => AddAsync(entity).GetAwaiter().GetResult();
+    public TEntity? Delete(string id) => DeleteAsync(id).GetAwaiter().GetResult();
+    public void DeleteAll() => DeleteAllAsync().GetAwaiter();
+    public string GetNextID() => GetNextIDAsync().GetAwaiter().GetResult();
 
     /// <summary>
     /// Each item in the collection must be UNIQUE and have a Unique ID. Originally this was a GUID but
@@ -128,17 +155,6 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
         }
     }
 
-    public IList<TEntity> GetAll() => GetAllAsync().GetListFromAsyncEnumerable().GetAwaiter().GetResult();
-    public IList<TEntity> GetAll(Func<TEntity, bool> predicate) => GetAllAsync(predicate).GetListFromAsyncEnumerable().GetAwaiter().GetResult();
-    public TEntity? Find(Func<TEntity, bool> predicate) => FindAsync(predicate).GetAwaiter().GetResult();
-    public TEntity? GetByID(string id) => GetByIDAsync(id).GetAwaiter().GetResult();
-    public TEntity? GetByName(string name) => GetByNameAsync(name).GetAwaiter().GetResult();
-    public TEntity? IndexOf(int index) => IndexOfAsync(index).GetAwaiter().GetResult();
-    public TEntity? Update(TEntity entity) => UpdateAsync(entity).GetAwaiter().GetResult();
-    public TEntity? Add(TEntity entity) => AddAsync(entity).GetAwaiter().GetResult();
-    public TEntity? Delete(string id) => DeleteAsync(id).GetAwaiter().GetResult();
-    public void DeleteAll() => DeleteAllAsync().GetAwaiter();
-    public string GetNextID() => GetNextIDAsync().GetAwaiter().GetResult();
 
     private void OnItemChanged(string id, RepositoryChangeAction action) {
         RepositoryChanged?.Invoke(this, new RepositoryChangedEventArgs(this.GetType().Name, id, action));
@@ -149,5 +165,3 @@ public class LayoutRepository<TEntity>(string prefix = "***") : ConcurrentDictio
     }
 
 }
-
-public delegate void RepositoryChangedEventHandler(object sender, RepositoryChangedEventArgs args);
