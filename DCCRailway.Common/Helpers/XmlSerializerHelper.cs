@@ -18,8 +18,7 @@ public class XmlSerializerHelper<T> {
             using var reader        = new StreamReader(fileName);
 
             return (T?)xmlSerializer.Deserialize(reader);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'", ex);
         }
     }
@@ -40,8 +39,7 @@ public class XmlSerializerHelper<T> {
             using var xmlWriter         = XmlWriter.Create(fileName, xmlWriterSettings);
             var       xmlSerializer     = new XmlSerializer(typeof(T));
             xmlSerializer.Serialize(xmlWriter, collection);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException($"Unable to save configuration data to '{fileName}' due to '{ex.Message}'");
         }
     }

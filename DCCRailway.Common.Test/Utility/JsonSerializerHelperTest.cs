@@ -11,7 +11,7 @@ public class JsonSerializerHelperTest {
     [SetUp]
     public void SetUp() {
         // Clean up the test file before each test
-        if (File.Exists(TestFileName)) File.Delete(TestFileName?? "test.json");
+        if (File.Exists(TestFileName)) File.Delete(TestFileName ?? "test.json");
     }
 
     [Test]
@@ -22,7 +22,7 @@ public class JsonSerializerHelperTest {
         File.WriteAllText(TestFileName ?? "test.json", serializedStr);
 
         // Act
-        var serializer = new JsonSerializerTest();
+        var serializer   = new JsonSerializerTest();
         var loadedObject = serializer.Load(TestFileName);
 
         // Assert
@@ -34,9 +34,9 @@ public class JsonSerializerHelperTest {
     public void LoadReturnNullWhenFileDoesNotExist() {
         // Arrange
         var nonExistentFileName = "nonexistent.json";
-        var serializer = new JsonSerializerTest();
-        var loaded = serializer.Load(nonExistentFileName);
-        Assert.That(loaded,Is.EqualTo(null));
+        var serializer          = new JsonSerializerTest();
+        var loaded              = serializer.Load(nonExistentFileName);
+        Assert.That(loaded, Is.EqualTo(null));
     }
 
     [Test]
@@ -71,6 +71,7 @@ public class JsonSerializerHelperTest {
     public void Save_ShouldThrowException_WhenFileNameIsNullOrEmpty() {
         // Arrange
         var objectToSave = new TestObject { Name = "Test" };
+
         // Act & Assert
         var serializer = new JsonSerializerTest();
         Assert.Throws<ApplicationException>(() => serializer.Save(objectToSave, null));
@@ -78,8 +79,8 @@ public class JsonSerializerHelperTest {
     }
 
     private class JsonSerializerTest : JsonSerializerHelper<TestObject> {
-        public void Save(TestObject obj, string? filename = null) => SaveFile(obj, filename);
-        public TestObject? Load(string? filename = null) => LoadFile(filename);
+        public void        Save(TestObject obj, string? filename = null) => SaveFile(obj, filename);
+        public TestObject? Load(string? filename = null)                 => LoadFile(filename);
     }
 
     private class TestObject {

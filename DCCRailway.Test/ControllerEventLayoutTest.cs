@@ -15,14 +15,13 @@ namespace DCCRailway.Test;
 
 [TestFixture]
 public class ControllerEventLayoutTest {
-
     [Test]
     public void TestLayoutCmdProcessorForALoco() {
         var layoutConfig = RailwayManager.New();
         Assert.That(layoutConfig, Is.Not.Null);
 
         layoutConfig.Settings.Controller.Name = "Virtual";
-        layoutConfig.Settings.Controller.Adapters.Add(new Adapter() {Name = "Virtual"});
+        layoutConfig.Settings.Controller.Adapters.Add(new Adapter() { Name = "Virtual" });
         layoutConfig.Start();
         Assert.That(layoutConfig.StateManager, Is.Not.Null);
         Assert.That(layoutConfig.CommandStationManager, Is.Not.Null);
@@ -40,14 +39,14 @@ public class ControllerEventLayoutTest {
         setLocoSpeed.Speed    = new DCCSpeed(50);
         Assert.That(loco?.Speed?.Value, Is.EqualTo(0));
 
-        var result = setLocoSpeed.Execute();
+        var result          = setLocoSpeed.Execute();
         var controllerEvent = new CommandEventArgs(result);
         layoutConfig.StateProcessor.ProcessCommandEvent(controllerEvent);
-        //Assert.That(loco?.Speed?.Value, Is.EqualTo(50));
 
+        //Assert.That(loco?.Speed?.Value, Is.EqualTo(50));
     }
 
-     ICommandStation CreateVirtualControllerWithAdapter() {
+    private ICommandStation CreateVirtualControllerWithAdapter() {
         // Create an instance of a CommandStation using the Factory
         // ------------------------------------------------------------
         var factory       = new CommandStationFactory();

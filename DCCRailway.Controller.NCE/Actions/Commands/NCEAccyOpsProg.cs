@@ -32,7 +32,7 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand, IAccyCmd {
     public DCCAddress Address     { get; set; }
     public DCCAddress LocoAddress { get; set; }
     public DCCAddress CVAddress   { get; set; }
-    public byte        Value       { get; set; }
+    public byte       Value       { get; set; }
 
     protected override ICmdResult Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAF };

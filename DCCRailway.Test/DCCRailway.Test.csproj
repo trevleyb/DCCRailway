@@ -23,12 +23,12 @@
         <None Remove="ServerTest\"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj" />
-        <ProjectReference Include="..\DCCRailway.Controller.Digitrax\DCCRailway.Controller.Digitrax.csproj" />
-        <ProjectReference Include="..\DCCRailway.Controller.NCE\DCCRailway.Controller.NCE.csproj" />
-        <ProjectReference Include="..\DCCRailway.Controller.Sprog\DCCRailway.Controller.Sprog.csproj" />
-        <ProjectReference Include="..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj" />
-        <ProjectReference Include="..\DCCRailway\DCCRailway.csproj" />
+        <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.Digitrax\DCCRailway.Controller.Digitrax.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.NCE\DCCRailway.Controller.NCE.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.Sprog\DCCRailway.Controller.Sprog.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj"/>
+        <ProjectReference Include="..\DCCRailway\DCCRailway.csproj"/>
     </ItemGroup>
     <ItemGroup>
         <None Remove="SystemTests\roster.xml"/>

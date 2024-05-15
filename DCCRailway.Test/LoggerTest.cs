@@ -6,12 +6,10 @@ namespace DCCRailway.Test;
 
 [TestFixture]
 public class LoggerTest {
-
     [Test]
     public void TestWeHaveALoggerWithoutContext() {
-
         var logger = Logger.Instance;
-        Assert.That(logger,Is.Not.Null, "Should always have a logger instance via the singleton.");
+        Assert.That(logger, Is.Not.Null, "Should always have a logger instance via the singleton.");
 
         Console.WriteLine("Outputting to the Console");
         Logger.Log.Debug("Debug information");
@@ -24,9 +22,8 @@ public class LoggerTest {
 
     [Test]
     public void TestWeHaveALoggerWithContext() {
-
         var logger = Logger.Instance;
-        Assert.That(logger,Is.Not.Null, "Should always have a logger instance via the singleton.");
+        Assert.That(logger, Is.Not.Null, "Should always have a logger instance via the singleton.");
 
         Logger.Instance.ForContext<LoggerTest>();
         Logger.Log.Debug("Debug information");
@@ -39,9 +36,8 @@ public class LoggerTest {
 
     [Test]
     public void TestWeHaveALoggerOfAType() {
-
         var logger = Logger.LogContext<LoggerTest>();
-        Assert.That(logger,Is.Not.Null, "Should always have a logger instance via the singleton.");
+        Assert.That(logger, Is.Not.Null, "Should always have a logger instance via the singleton.");
 
         Logger.Log.Debug("Debug information");
         Logger.Log.Information("Information Information");
@@ -49,8 +45,5 @@ public class LoggerTest {
         Logger.Log.Fatal("Fatal Error");
         Logger.Log.Verbose("Verbose");
         Logger.Log.Warning("Warning");
-
-
     }
-
 }

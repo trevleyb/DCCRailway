@@ -24,8 +24,8 @@ public class MsgRosterList(WiThrottleConnection connection) : ThrottleMsg, IThro
             return message.ToString();
         }
     }
-    public override string ToString() => $"MSG:RosterList [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 
+    public override string ToString() => $"MSG:RosterList [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 }
 
 /*

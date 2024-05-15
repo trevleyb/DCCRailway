@@ -20,7 +20,7 @@ public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
         Momentum = momentum;
     }
 
-    public DCCAddress Address  { get; set; }
+    public DCCAddress  Address  { get; set; }
     public DCCMomentum Momentum { get; set; }
 
     protected override ICmdResult Execute(IAdapter adapter) {

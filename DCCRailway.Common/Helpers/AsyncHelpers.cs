@@ -9,10 +9,8 @@ public static class AsyncHelpers {
         return list;
     }
 
-    public static async IAsyncEnumerable<T> ConvertToAsyncEnumerable<T>(this IEnumerable<T> enumerable)
-    {
-        foreach (var item in enumerable)
-        {
+    public static async IAsyncEnumerable<T> ConvertToAsyncEnumerable<T>(this IEnumerable<T> enumerable) {
+        foreach (var item in enumerable) {
             await Task.Yield(); // This is used to create an artificial delay. In real world you might have other awaitable operations.
             yield return item;
         }

@@ -29,7 +29,7 @@ public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
     }
 
     public DCCFunctionBlocks? Previous  { get; set; }
-    public DCCAddress        Address   { get; set; }
+    public DCCAddress         Address   { get; set; }
     public DCCFunctionBlocks  Functions { get; }
 
     protected override ICmdResult Execute(IAdapter adapter) {

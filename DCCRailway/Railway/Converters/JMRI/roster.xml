@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="/xml/XSLT/roster2array.xsl" type="text/xsl"?>
-<roster-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/roster.xsd">
+<roster-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://jmri.org/xml/schema/roster.xsd">
     <!--Written by JMRI version 4.19.3+R7364caf9c on Tue Feb 11 14:36:16 EST 2020-->
     <roster>
         <locomotive id="CN3000" fileName="CN3000.xml" roadNumber="3000" roadName="Canadian National" mfg="ScaleTrains"

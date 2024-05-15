@@ -6,8 +6,7 @@ public class VirtualCmdResultVersion : CmdResult {
     public VirtualCmdResultVersion(byte[]? dataSet) : base(true, null, dataSet, null) {
         if (Data.Length != 3) {
             Success = false;
-        }
-        else {
+        } else {
             Version = Data[0];
             Major   = Data[1];
             Minor   = Data[2];

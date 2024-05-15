@@ -8,15 +8,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
-      <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj" />
-      <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj" />
-      <ProjectReference Include="..\DCCRailway.WebApp\DCCRailway.WebApp.csproj" />
+        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
+        <ProjectReference Include="..\DCCRailway.WebApp\DCCRailway.WebApp.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Configuration\" />
-      <Folder Include="Railway\Throttles\WiThrottle\Settings\" />
+        <Folder Include="Configuration\"/>
+        <Folder Include="Railway\Throttles\WiThrottle\Settings\"/>
     </ItemGroup>
 
 </Project>

@@ -27,6 +27,7 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
         SensorAddress             = address;
         SensorAddress.AddressType = DCCAddressType.Accessory;
     }
+
     public DCCAddress Address {
         get => SensorAddress;
         set => SensorAddress = value;
@@ -40,13 +41,14 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
             if (!result.Success) return result;
             _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data);
         }
-        return new NCECmdResultSensorState(Address,  _sensorCache.GetState(SensorAddress.Address));
+        return new NCECmdResultSensorState(Address, _sensorCache.GetState(SensorAddress.Address));
     }
 
     public void SetAddressByCabPin(byte cab, byte pin) => SensorAddress = new DCCAddress(CalculateAddress(cab, pin), DCCAddressType.Accessory);
-    public void SetAddressByCab(byte cab) => SensorAddress = new DCCAddress(CalculateAddress(cab, 1), DCCAddressType.Accessory);
+    public void SetAddressByCab(byte cab)              => SensorAddress = new DCCAddress(CalculateAddress(cab, 1), DCCAddressType.Accessory);
 
     protected internal static (byte cab, byte pin) CalculateCabPin(DCCAddress address) => CalculateCabPin(address.Address);
+
     protected internal static (byte cab, byte pin) CalculateCabPin(int address) {
         var pin = address % 16 + 1;
         var cab = (address - address % 16) / 16 + 1;
@@ -112,19 +114,16 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
                     if (pin >= 1 && pin <= 8) {
                         pinCheck = new byte().SetBit(pin - 1, true);
                         pinValue = data?[1].Invert();
-                    }
-                    else if (pin >= 9 && pin <= 16) {
+                    } else if (pin >= 9 && pin <= 16) {
                         pinCheck = new byte().SetBit(pin - 9, true);
                         pinValue = (byte?)(data?[0].Invert() - 0xC0);
-                    }
-                    else {
+                    } else {
                         return DCCAccessoryState.Off;
                     }
-                    return ((pinValue & pinCheck) > 0) ? DCCAccessoryState.On : DCCAccessoryState.Off;
+                    return (pinValue & pinCheck) > 0 ? DCCAccessoryState.On : DCCAccessoryState.Off;
                 }
                 return DCCAccessoryState.Off;
-            }
-            catch {
+            } catch {
                 return DCCAccessoryState.Off;
             }
         }

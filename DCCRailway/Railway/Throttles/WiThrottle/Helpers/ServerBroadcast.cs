@@ -12,20 +12,21 @@ public static class ServerBroadcast {
             var addressList = new List<IPAddress>() { options.HostAddress };
             try {
                 var sd = new ServiceDiscovery();
+
                 //sd.ServiceDiscovered         += Sd_ServiceDiscovered;
                 //sd.ServiceInstanceShutdown   += Sd_ServiceInstanceShutdown;
                 //sd.ServiceInstanceDiscovered += Sd_ServiceInstanceDiscovered;
                 sd.AnswersContainsAdditionalRecords = true;
                 var sp = new ServiceProfile(options.Name, options.ServiceName, (ushort)options.HostPort, host.AddressList);
-                foreach (var prop in options.Properties) sp.AddProperty(prop.Key,prop.Value);
+                foreach (var prop in options.Properties) {
+                    sp.AddProperty(prop.Key, prop.Value);
+                }
                 sd.AnswersContainsAdditionalRecords = true;
                 sd.Advertise(sp);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 throw new ApplicationException("Could not start Broadcast", ex);
             }
-        }
-        else {
+        } else {
             throw new ApplicationException("Could not Broadcast since cannot determine local IP Addresses.");
         }
     }

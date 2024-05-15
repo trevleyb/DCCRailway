@@ -7,7 +7,7 @@ namespace DCCRailway.Controller.Actions;
 
 public interface ICommand : IParameterMappable {
     ICmdResult      Execute();
-    IAdapter        Adapter { set; }
+    IAdapter        Adapter        { set; }
     ICommandStation CommandStation { set; }
 
     //public Task<ICmdResult> ExecuteAsync();

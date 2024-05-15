@@ -32,6 +32,6 @@ public class NCECVWrite : NCECommand, ICmdCVWrite, ICommand {
         return SendAndReceive(adapter, new NCEDataReadValidation(), CV.ToByteArray().AddToArray(command).AddToArray(Value));
     }
 
-    public override string       ToString() => $"WRITE CV ({CV}={Value}/{ProgrammingMode})";
+    public override string     ToString() => $"WRITE CV ({CV}={Value}/{ProgrammingMode})";
     public          DCCAddress Address    { get; set; }
 }

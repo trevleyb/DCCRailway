@@ -32,11 +32,10 @@ public class NCEClockSet : NCECommand, ICmdClockSet, ICommand {
         get => _minute;
     }
 
-    public DateTime ClockTime => new DateTime(DateTime.Now.Year,
-                                 DateTime.Now.Month,
-                                 DateTime.Now.Day,
-                                 Hour, Minute, 0);
-
+    public DateTime ClockTime => new(DateTime.Now.Year,
+                                     DateTime.Now.Month,
+                                     DateTime.Now.Day,
+                                     Hour, Minute, 0);
 
     public bool Is24Hour {
         set => _is24Hour = value;

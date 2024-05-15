@@ -4,7 +4,6 @@ namespace DCCRailway.Controller.Test.Attributes;
 
 [TestFixture]
 public class CommandAttributeTests {
-
     [Test]
     public void TestThatAnythingIsSupported() {
         // The idea is that a COmmand is available IF the selected Adapter matches and the version matches
@@ -33,7 +32,6 @@ public class CommandAttributeTests {
 
     [Test]
     public void TestThatOnlyAdapter1IsSupported() {
-
         // This command is ONLY supported by Adapter1 but should work for ALL versions
         var attr = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "Adapter1" }, null);
         Assert.IsTrue(attr.IsSupported("Adapter1"));
@@ -48,7 +46,6 @@ public class CommandAttributeTests {
 
     [Test]
     public void TestThatAnythingExceptAdapter1isSupported() {
-
         // This command will work with anything EXCEPT Adapter1
         var attr = new CommandAttribute("TestCommand", "Test Description", "1.0", null, new[] { "Adapter1" });
         Assert.IsTrue(attr.IsSupported("Adapter2"));
@@ -63,7 +60,6 @@ public class CommandAttributeTests {
 
     [Test]
     public void TestThatAnytingExceptAdapter1or3IsSupported() {
-
         // This command will work with anything EXCEPT Adapter1 or adapter 3
         var attr = new CommandAttribute("TestCommand", "Test Description", "1.0", null, new[] { "Adapter1", "Adapter3@*" });
         Assert.IsTrue(attr.IsSupported("Adapter2"));

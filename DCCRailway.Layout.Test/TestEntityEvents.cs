@@ -7,58 +7,54 @@ namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class TestEntityEvents {
-
     // TODO: Add Web Events to support getting events from a repository
 
     [Test]
     public void TestThatEntityRepositoryIsEventingChanges() {
-
-        var propertyChanged = false;
+        var propertyChanged   = false;
         var repositoryChanged = false;
-        var config = CreateTestConfig();
-        var locomotives = config.Locomotives;
-        locomotives.RepositoryChanged += (sender, args) => repositoryChanged= true;
+        var config            = CreateTestConfig();
+        var locomotives       = config.Locomotives;
+        locomotives.RepositoryChanged += (sender, args) => repositoryChanged = true;
 
         propertyChanged = false;
         var addedLoco = locomotives.Add(new Locomotive { Name = "Train06" });
-        Assert.That(repositoryChanged,Is.True);  // Property Is not changed on Add/Remove
-        Assert.That(propertyChanged,Is.False);  // Property Is not changed on Add/Remove
+        Assert.That(repositoryChanged, Is.True); // Property Is not changed on Add/Remove
+        Assert.That(propertyChanged, Is.False);  // Property Is not changed on Add/Remove
 
         var locomotive = locomotives.GetByName("Train01");
-        Assert.That(locomotive,Is.Not.Null);
+        Assert.That(locomotive, Is.Not.Null);
         locomotive.PropertyChanged += (sender, args) => propertyChanged = true;
 
         propertyChanged = false;
         locomotive.Name = "Train09";
-        Assert.That(propertyChanged,Is.True);
+        Assert.That(propertyChanged, Is.True);
 
-        propertyChanged = false;
+        propertyChanged    = false;
         locomotive.Address = new DCCAddress(345);
-        Assert.That(propertyChanged,Is.True);
+        Assert.That(propertyChanged, Is.True);
 
-        propertyChanged = false;
+        propertyChanged      = false;
         locomotive.Direction = DCCDirection.Reverse;
-        Assert.That(propertyChanged,Is.True);
+        Assert.That(propertyChanged, Is.True);
 
-        propertyChanged = false;
+        propertyChanged      = false;
         locomotive.Direction = DCCDirection.Stop;
-        Assert.That(propertyChanged,Is.True);
+        Assert.That(propertyChanged, Is.True);
 
         propertyChanged = false;
         locomotives.DeleteAsync(locomotive.Id);
-
     }
 
     private IRailwayManager CreateTestConfig() {
-
         var config = RailwayManager.New("Test Entities", "Test Entities");
 
         var locomotives = config.Locomotives;
-        locomotives.Add(new Locomotive { Name = "Train01" } );
-        locomotives.Add(new Locomotive { Name = "Train02" } );
-        locomotives.Add(new Locomotive { Name = "Train03" } );
-        locomotives.Add(new Locomotive { Name = "Train04" } );
-        locomotives.Add(new Locomotive { Name = "Train05" } );
+        locomotives.Add(new Locomotive { Name = "Train01" });
+        locomotives.Add(new Locomotive { Name = "Train02" });
+        locomotives.Add(new Locomotive { Name = "Train03" });
+        locomotives.Add(new Locomotive { Name = "Train04" });
+        locomotives.Add(new Locomotive { Name = "Train05" });
 
         var sensors = config.Sensors;
         sensors.Add(new Sensor { Name = "Sensor01", Address = new DCCAddress(501) });

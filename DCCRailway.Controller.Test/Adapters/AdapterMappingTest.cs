@@ -6,18 +6,17 @@ namespace DCCRailway.Controller.Test.Adapters;
 
 [TestFixture]
 public class AdapterMappingTest {
-
     // For these tests we use a subclass of Adapter because it is abstract
     private class TestAdapter : Adapter {
-        public string AStringValue { get; set; }
-        public long ALongValue { get; set; }
-        public DateOnly ADateValue { get; set; }
-        public byte AByteValue { get; set; }
-        public int AIntValue { get; set; }
-        public Parity AParityValue { get; set; }
-        public StopBits AStopValue { get; set; }
-        public ColorEnum AEnumValue { get; set; }
-        public bool ABoolean { get; set; }
+        public string    AStringValue { get; set; }
+        public long      ALongValue   { get; set; }
+        public DateOnly  ADateValue   { get; set; }
+        public byte      AByteValue   { get; set; }
+        public int       AIntValue    { get; set; }
+        public Parity    AParityValue { get; set; }
+        public StopBits  AStopValue   { get; set; }
+        public ColorEnum AEnumValue   { get; set; }
+        public bool      ABoolean     { get; set; }
     }
 
     [Test]
@@ -98,11 +97,9 @@ public class AdapterMappingTest {
         adapter.SetMappableParameter("ABoolean", "false");
         Assert.That(adapter.ABoolean, Is.EqualTo(false));
     }
-
 }
 
-
-enum ColorEnum {
+internal enum ColorEnum {
     Red,
     Green,
     Yellow,

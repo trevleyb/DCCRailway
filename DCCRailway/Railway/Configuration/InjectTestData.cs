@@ -7,11 +7,9 @@ using Route = DCCRailway.Layout.Entities.Route;
 namespace DCCRailway.Railway.Configuration;
 
 public static class InjectTestData {
-
     public static void SampleData(IRailwayManager manager) {
-
         if (string.IsNullOrEmpty(manager.Settings.Name)) manager.Settings.Name = "Sample";
-        manager.Settings.Description = "A Test configuration file for testing";
+        manager.Settings.Description     = "A Test configuration file for testing";
         manager.Settings.Controller.Name = "Virtual";
         manager.Settings.Controller.Adapters.Add("Virtual");
         manager.Settings.Controller.Parameters.Add("Optional", "Value");
@@ -19,8 +17,8 @@ public static class InjectTestData {
         var locomotives = manager.Locomotives;
         locomotives.Add(new Locomotive { Id = "CN1029", Address = new DCCAddress(1029, DCCAddressType.Long), Name = "CN-1029", Description = "Canadian National (1029)" });
         locomotives.Add(new Locomotive { Id = "UP6502", Address = new DCCAddress(6502, DCCAddressType.Long), Name = "UP-6502", Description = "Union Pacific (6502)" });
-        locomotives.Add(new Locomotive { Id = "NS98", Address = new DCCAddress(98, DCCAddressType.Short), Name = "NS-98", Description = "Norfolk Southern (98)" });
-        locomotives.Add(new Locomotive { Id = "NS97", Address = new DCCAddress(97, DCCAddressType.Short), Name = "NS-97", Description = "Norfolk Southern (97)" });
+        locomotives.Add(new Locomotive { Id = "NS98", Address   = new DCCAddress(98, DCCAddressType.Short), Name  = "NS-98", Description   = "Norfolk Southern (98)" });
+        locomotives.Add(new Locomotive { Id = "NS97", Address   = new DCCAddress(97, DCCAddressType.Short), Name  = "NS-97", Description   = "Norfolk Southern (97)" });
         locomotives.Add(new Locomotive { Id = "CN1020", Address = new DCCAddress(1020, DCCAddressType.Long), Name = "CN-1020", Description = "Canadian National (1020)" });
 
         var sensors = manager.Sensors;
@@ -40,7 +38,7 @@ public static class InjectTestData {
         signals.Add(new Signal { Id = "SIG03", Name = "Station-to-Mainline" });
 
         var routes = manager.Routes;
-        var route = new Route { Id = "R01", Name = "Route1", Description = "Station to Mainline" };
+        var route  = new Route { Id = "R01", Name = "Route1", Description = "Station to Mainline" };
         route.AddRoute("T01", true);
         route.AddRoute("T02", true);
         routes.Add(route);
@@ -67,5 +65,4 @@ public static class InjectTestData {
         blocks.Add(new Block { Id = "B01", Name = "Mainline-West" });
         blocks.Add(new Block { Id = "B02", Name = "Mainline-East" });
     }
-
 }

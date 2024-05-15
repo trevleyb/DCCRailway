@@ -3,7 +3,6 @@ using System.Text;
 namespace DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 
 public static class Terminators {
-
     public static string ForDisplay(string message) => message.Replace((char)0x0A, '•').Replace((char)0x0d, '•');
 
     public static readonly string[] PossibleTerminators = new[] {
@@ -15,20 +14,21 @@ public static class Terminators {
     public const char Terminator = (char)0x0a;
 
     public static StringBuilder AddTerminator(StringBuilder input) {
-        if (input.Length > 0) {
-            if (!HasTerminator(input)) input.Append(Terminator);
-        }
+        if (input.Length > 0)
+            if (!HasTerminator(input))
+                input.Append(Terminator);
         return input;
     }
 
     public static string AddTerminator(string? input) {
-        if (!string.IsNullOrEmpty(input)) {
-            if (!HasTerminator(input)) return input + Terminator;
-        }
+        if (!string.IsNullOrEmpty(input))
+            if (!HasTerminator(input))
+                return input + Terminator;
         return input ?? "";
     }
 
     public static bool HasTerminator(StringBuilder input) => HasTerminator(input.ToString());
+
     public static bool HasTerminator(string input) {
         foreach (var terminator in PossibleTerminators) {
             if (input.Contains(terminator)) return true;
@@ -37,11 +37,11 @@ public static class Terminators {
     }
 
     public static List<string> GetMessagesAndLeaveIncomplete(StringBuilder sb) {
-        var blocks = new List<string>();
-        var remaining = sb.ToString();
+        var blocks       = new List<string>();
+        var remaining    = sb.ToString();
         var currentBlock = "";
 
-        for (int i = 0; i < remaining.Length; i++) {
+        for (var i = 0; i < remaining.Length; i++) {
             currentBlock += remaining[i];
 
             if (PossibleTerminators.Any(t => currentBlock.EndsWith(t))) {

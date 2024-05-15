@@ -19,6 +19,7 @@ public class MsgHardware(WiThrottleConnection connection) : ThrottleMsg, IThrott
             return message.ToString();
         }
     }
+
     public override string ToString() => $"MSG:Hardware [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 }
 

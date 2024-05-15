@@ -5,7 +5,6 @@ namespace DCCRailway.WebApp.EndPoints;
 
 public static class SignalAPI {
     public static void Configure(WebApplication app, ILayoutRepository<Signal> entities) {
-
         app.MapGet("/layout/signals/{id}", async (string id) => {
             var signal = await entities.GetByIDAsync(id);
             return signal == null ? Results.NotFound() : Results.Ok(signal);

@@ -8,7 +8,6 @@ namespace DCCRailway.Railway.Layout.Processors;
 
 public class StateUpdaterSignalCmd(IRailwayManager railwayManager, IStateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
     public override bool Process() {
-
         if (Command is ISignalCmd signalCmd) {
             var signal = railwayManager.Signals.Find(x => x.Address == signalCmd.Address);
 

@@ -7,6 +7,7 @@ public class SimpleResultValidation : IResultValidation {
     public SimpleResultValidation(int expectedLength) => LengthExpected = expectedLength;
 
     public int LengthExpected { get; set; }
+
     public ICmdResult Validate(byte[]? dataReceived) {
         if (dataReceived == null && LengthExpected != 0) return CmdResult.Fail("Expected data from the Adapter but recieved null.");
         if (LengthExpected == 0 && dataReceived?.Length != 0) return CmdResult.Fail(dataReceived!, "No data was expected, but data was recieved.");

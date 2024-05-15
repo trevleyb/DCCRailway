@@ -10,5 +10,5 @@ public class VirtualCmdResultSensorState : CmdResult {
     }
 
     public DCCAddress Address { get; init; }
-    public bool        State   { get; init; }
+    public bool       State   { get; init; }
 }

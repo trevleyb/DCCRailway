@@ -74,59 +74,52 @@ public class DCCFunctionBlocks {
         _block[4] = _block[4].SetBit(7, functions[28]); // F28
     }
 
-
-    [RangeValidation(0,28, "Function number must be between 0..28")]
+    [RangeValidation(0, 28, "Function number must be between 0..28")]
     public void SetFunction(string functionName, bool state) {
         this[GetFunctionFromName(functionName)] = state;
     }
 
-    [RangeValidation(0,28, "Function number must be between 0..28")]
+    [RangeValidation(0, 28, "Function number must be between 0..28")]
     public void SetFunction(int function, bool state) {
         this[function] = state;
     }
 
-    [RangeValidation(0,28, "Function number must be between 0..28")]
-    public bool GetFunction(string functionName) {
-        return this[GetFunctionFromName(functionName)];
-    }
-    
-    [RangeValidation(0,28, "Function number must be between 0..28")]
-    public bool GetFunction(int function) {
-        return this[function];
-    }
+    [RangeValidation(0, 28, "Function number must be between 0..28")]
+    public bool GetFunction(string functionName) => this[GetFunctionFromName(functionName)];
+
+    [RangeValidation(0, 28, "Function number must be between 0..28")]
+    public bool GetFunction(int function) => this[function];
 
     private int GetFunctionFromName(string functionName) {
-        if (functionName.StartsWith("F")) {
-            if (int.TryParse(functionName[1..], out var function)) {
+        if (functionName.StartsWith("F"))
+            if (int.TryParse(functionName[1..], out var function))
                 return function;
-            }
-        }
         throw new IndexOutOfRangeException("Function number must be between 0..28");
     }
-    
+
     /// <summary>
     ///     Indexer to allow access to the functions 0...28
     /// </summary>
     /// <exception cref="IndexOutOfRangeException"></exception>
-    [RangeValidation(0,28, "Function number must be between 0..28")]
+    [RangeValidation(0, 28, "Function number must be between 0..28")]
     public bool this[int i] {
         get {
             if (i == 0) return _block[0].GetBit(4);
-            if (i is >= 1 and <= 4)         return _block[0].GetBit(i - 1);
-            if (i is >= 5 and <= 8)         return _block[1].GetBit(i - 5);
-            if (i is >= 9 and <= 12)        return _block[2].GetBit(i - 9);
-            if (i is >= 13 and <= 20)       return _block[3].GetBit(i - 13);
-            if (i is >= 21 and <= 28)       return _block[4].GetBit(i - 21);
+            if (i is >= 1 and <= 4) return _block[0].GetBit(i - 1);
+            if (i is >= 5 and <= 8) return _block[1].GetBit(i - 5);
+            if (i is >= 9 and <= 12) return _block[2].GetBit(i - 9);
+            if (i is >= 13 and <= 20) return _block[3].GetBit(i - 13);
+            if (i is >= 21 and <= 28) return _block[4].GetBit(i - 21);
 
             throw new IndexOutOfRangeException("Function number must be between 0..28");
         }
         set {
-            if (i == 0)                      _block[0].SetBit(4, value);
-            else if (i is >= 1 and <= 4)     _block[0].SetBit(i - 1, value);
-            else if (i is >= 5 and <= 8)     _block[1].SetBit(i - 5, value);
-            else if (i is >= 9 and <= 12)    _block[2].SetBit(i - 9, value);
-            else if (i is >= 13 and <= 20)   _block[3].SetBit(i - 13, value);
-            else if (i is >= 21 and <= 28)   _block[4].SetBit(i - 21, value);
+            if (i == 0) _block[0].SetBit(4, value);
+            else if (i is >= 1 and <= 4) _block[0].SetBit(i - 1, value);
+            else if (i is >= 5 and <= 8) _block[1].SetBit(i - 5, value);
+            else if (i is >= 9 and <= 12) _block[2].SetBit(i - 9, value);
+            else if (i is >= 13 and <= 20) _block[3].SetBit(i - 13, value);
+            else if (i is >= 21 and <= 28) _block[4].SetBit(i - 21, value);
             else throw new IndexOutOfRangeException("Function number must be between 0..28");
         }
     }

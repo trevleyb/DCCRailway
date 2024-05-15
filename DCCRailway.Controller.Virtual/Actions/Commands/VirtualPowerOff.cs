@@ -11,10 +11,11 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 [Command("PowerStateOff", "Set the Current State of the Power Supply to ON")]
 public class VirtualPowerOff : VirtualCommand, ICmdPowerSetOff {
     protected override ICmdResult Execute(IAdapter adapter) {
-        var result = new VirtualCmdResultPowerState(DCCPowerState.Off);
+        var result                                                              = new VirtualCmdResultPowerState(DCCPowerState.Off);
         if (adapter is VirtualAdapter virtualAdapter) virtualAdapter.PowerState = DCCPowerState.Off;
         return result;
     }
-    public DCCPowerState State { get; set; } = DCCPowerState.Unknown;
-    public override string ToString() => "POWER STATE OFF";
+
+    public          DCCPowerState State      { get; set; } = DCCPowerState.Unknown;
+    public override string        ToString() => "POWER STATE OFF";
 }

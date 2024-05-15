@@ -16,7 +16,7 @@ public class VirtualLocoSetSpeed : VirtualCommand, ICmdLocoSetSpeed, ICommand {
         SpeedSteps = speedSteps;
     }
 
-    public DCCAddress  Address    { get; set; }
+    public DCCAddress   Address    { get; set; }
     public DCCProtocol  SpeedSteps { get; set; }
     public DCCDirection Direction  { get; set; }
     public DCCSpeed     Speed      { get; set; }

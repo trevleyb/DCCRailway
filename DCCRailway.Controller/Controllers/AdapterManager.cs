@@ -8,8 +8,7 @@ using DCCRailway.Controller.Exceptions;
 namespace DCCRailway.Controller.Controllers;
 
 public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
-
-    private IAdapter? _adapter;
+    private IAdapter?                           _adapter;
     private Dictionary<Type, AdapterAttribute>  _adapters = [];
     public event EventHandler<AdapterEventArgs> AdapterEvent;
 
@@ -27,7 +26,7 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
         if (_adapter != null) Detatch();
 
         OnAdapterAdd(this, adapter);
-        _adapter                =  adapter;
+        _adapter               =  adapter;
         _adapter.DataReceived  += (sender, e) => OnAdapterDataRecv(sender!, _adapter, e);
         _adapter.DataSent      += (sender, e) => OnAdapterDataSent(sender!, _adapter, e);
         _adapter.ErrorOccurred += (sender, e) => OnAdapterError(sender!, _adapter, e);
@@ -50,8 +49,7 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
                     if (adapterInstance != null) return Attach(adapterInstance);
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new AdapterException(adapterName, "Error instantiating the Adapter.", ex);
         }
         throw new AdapterException(adapterName, "CommandStation does not support the specified adapter.");
@@ -62,14 +60,15 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
             OnAdapterRemoved(this, _adapter);
             _adapter.Disconnect();
             _adapter.Dispose();
-            _adapter  = null;
+            _adapter = null;
         }
     }
 
-    public ICommandStation CommandStation => commandStation;
-    public bool IsAdapterSupported<T>() where T : IAdapter => _adapters.ContainsKey(typeof(T));
-    public bool IsAdapterSupported(Type adapter) => _adapters.ContainsKey(adapter);
-    public bool IsAdapterSupported(string name)  => _adapters.Any(pair => pair.Value.Name != null && pair.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+    public ICommandStation CommandStation                             => commandStation;
+    public bool            IsAdapterSupported<T>() where T : IAdapter => _adapters.ContainsKey(typeof(T));
+    public bool            IsAdapterSupported(Type adapter)           => _adapters.ContainsKey(adapter);
+    public bool            IsAdapterSupported(string name)            => _adapters.Any(pair => pair.Value.Name != null && pair.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+
     public List<AdapterAttribute> Adapters {
         get {
             if (_adapters.Any() is false) RegisterAdapters();
@@ -104,7 +103,7 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
     #region Raise Events
     // Raise when we add an Adapter to this controller
     private void OnAdapterAdd(object sender, IAdapter adapter) {
-        var e = new AdapterEventArgs(adapter, AdapterEventType.Attach,  null, $"Adapter {adapter.GetType().Name} added");
+        var e = new AdapterEventArgs(adapter, AdapterEventType.Attach, null, $"Adapter {adapter.GetType().Name} added");
         AdapterEvent(sender, e);
     }
 
@@ -129,5 +128,4 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
         AdapterEvent.Invoke(sender, e);
     }
     #endregion
-
 }

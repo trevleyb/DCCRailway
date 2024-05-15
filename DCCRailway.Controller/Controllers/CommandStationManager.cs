@@ -13,7 +13,6 @@ namespace DCCRailway.Controller.Controllers;
 /// </summary>
 [DebuggerDisplay("Name: {Name}, Manufacturer: {Manufacturer}, Model: {Model}, Version: {Version}")]
 public class CommandStationManager(ControllerAttribute attributes, string assemblyPath, Type assemblyType) {
-
     private ControllerAttribute Attributes   { get; } = attributes;
     private Type                AssemblyType { get; } = assemblyType;
     private string              AssemblyPath { get; } = assemblyPath;
@@ -53,8 +52,7 @@ public class CommandStationManager(ControllerAttribute attributes, string assemb
             if (Activator.CreateInstance(AssemblyType) is not ICommandStation instance) throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the controller.");
 
             return instance;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException($"Unable to instantiate a new '{Name}' from {AssemblyPath}", ex);
         }
     }

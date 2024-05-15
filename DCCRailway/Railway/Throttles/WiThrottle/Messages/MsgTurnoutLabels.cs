@@ -3,7 +3,6 @@ using DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Messages;
 
-
 public class MsgTurnoutLabels(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
@@ -17,11 +16,11 @@ public class MsgTurnoutLabels(WiThrottleConnection connection) : ThrottleMsg, IT
             message.Append("]\\[");
             message.Append("Turnouts");
             message.Append("}|{");
-            message.Append("Turnout");            
+            message.Append("Turnout");
             message.Append("]\\[");
             message.Append("Closed");
             message.Append("}|{");
-            message.Append("2");            
+            message.Append("2");
             message.Append("]\\[");
             message.Append("Thrown");
             message.Append("}|{");
@@ -30,6 +29,7 @@ public class MsgTurnoutLabels(WiThrottleConnection connection) : ThrottleMsg, IT
             return message.ToString();
         }
     }
+
     public override string ToString() => $"MSG:TurnoutLabels [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 }
 

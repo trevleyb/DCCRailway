@@ -4,5 +4,4 @@ using DCCRailway.Controller.Adapters.Base;
 
 namespace DCCRailway.Controller.Actions.Commands;
 
-public interface ICmdClockRead : ICommand, ISystemCmd {
-}
+public interface ICmdClockRead : ICommand, ISystemCmd { }

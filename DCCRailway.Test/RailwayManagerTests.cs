@@ -7,7 +7,6 @@ namespace DCCRailway.Test;
 
 [TestFixture]
 public class RailwayManagerTests {
-
     [Test]
     public void CreateTestFileForTesting() {
         var manager = RailwayManager.New("MyTestLayout");
@@ -18,7 +17,7 @@ public class RailwayManagerTests {
 
     [Test]
     public void CreateTestFileForTestingAndReload() {
-        var manager = RailwayManager.New("MyTestLayout");
+        var manager  = RailwayManager.New("MyTestLayout");
         var pathname = $"./MyTestLayout{DateTime.Now:yyMMddHHmmss}";
         manager.PathName = pathname;
         InjectTestData.SampleData(manager);
@@ -29,10 +28,8 @@ public class RailwayManagerTests {
         Assert.That(manager.Accessories.Count, Is.EqualTo(newInstance.Accessories.Count));
     }
 
-
     [Test]
     public async Task TestInstantiatingTheRailwayManager() {
-
         /*
         var testFilename   = "test.json";
         var railwayConfig  = RailwayConfig.Load();

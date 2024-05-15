@@ -5,34 +5,33 @@ using DCCRailway.Controller.Tasks;
 
 namespace DCCRailway.Controller.Virtual.Tasks;
 
-[Task("VirtualDummyTask","Background Dummy to Poll the Console")]
+[Task("VirtualDummyTask", "Background Dummy to Poll the Console")]
 public class VirtualDummyTask : ControllerTask {
-
     private int counter = 0;
 
     protected override void OnWorkStarted() {
-        Logger.Log.Debug($"Work has Started for task '{this.Name}'");
+        Logger.Log.Debug($"Work has Started for task '{Name}'");
         base.OnWorkStarted();
     }
 
     protected override void OnWorkFinished() {
-        Logger.Log.Debug($"Work has Finished for task '{this.Name}'");
+        Logger.Log.Debug($"Work has Finished for task '{Name}'");
         base.OnWorkFinished();
     }
 
     protected override void OnWorkInProgress() {
-        Logger.Log.Debug($"Work is in progress for task '{this.Name}'");
+        Logger.Log.Debug($"Work is in progress for task '{Name}'");
         base.OnWorkInProgress();
     }
 
     protected override void DoWork() {
         counter++;
-        Logger.Log.Debug($"Virtual Dummy Task: {this.Name}. Called {counter} times.");
+        Logger.Log.Debug($"Virtual Dummy Task: {Name}. Called {counter} times.");
     }
 
     protected override void Setup() {
-        counter = 0;
-        this.Frequency = new TimeSpan(0, 0, 0, 0, 500);
+        counter   = 0;
+        Frequency = new TimeSpan(0, 0, 0, 0, 500);
     }
 
     protected override void CleanUp() {

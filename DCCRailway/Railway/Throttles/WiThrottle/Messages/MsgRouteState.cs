@@ -20,6 +20,6 @@ public class MsgRouteState(WiThrottleConnection connection, Route? route) : Thro
             return sb.ToString();
         }
     }
-    public override string ToString() => $"MSG:RouteState [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 
+    public override string ToString() => $"MSG:RouteState [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 }

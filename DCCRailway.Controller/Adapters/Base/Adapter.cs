@@ -4,9 +4,9 @@ using DCCRailway.Controller.Adapters.Events;
 namespace DCCRailway.Controller.Adapters.Base;
 
 public abstract class Adapter : IParameterMappable {
-    public event EventHandler<DataRecvArgs> DataReceived;
-    public event EventHandler<DataSentArgs> DataSent;
-    public event EventHandler<DataErrorArgs>    ErrorOccurred;
+    public event EventHandler<DataRecvArgs>  DataReceived;
+    public event EventHandler<DataSentArgs>  DataSent;
+    public event EventHandler<DataErrorArgs> ErrorOccurred;
 
     #region Events Delegates
     /// <summary>

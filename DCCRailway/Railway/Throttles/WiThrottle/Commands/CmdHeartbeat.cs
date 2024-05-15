@@ -2,9 +2,9 @@ using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Commands;
 
-public class CmdHeartbeat (WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
+public class CmdHeartbeat(WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        Logger.Log.Information("{0}:{2}=>'{1}'",ToString(),commandStr,connection.ToString());
+        Logger.Log.Information("{0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
         if (commandStr.Length <= 1) return;
         switch (commandStr[1]) {
         case '+':
@@ -14,10 +14,10 @@ public class CmdHeartbeat (WiThrottleConnection connection) : ThrottleCmd, IThro
             connection.HeartbeatState = HeartbeatStateEnum.Off;
             break;
         default:
-            Logger.Log.Information("{0}:{1}=>Heartbeat Receievd'",ToString(),commandStr);
+            Logger.Log.Information("{0}:{1}=>Heartbeat Receievd'", ToString(), commandStr);
             break;
         }
-
     }
+
     public override string ToString() => $"CMD:Heartbeat";
 }

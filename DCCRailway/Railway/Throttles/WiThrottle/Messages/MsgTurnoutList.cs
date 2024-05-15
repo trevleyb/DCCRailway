@@ -4,7 +4,6 @@ using DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Messages;
 
-
 public class MsgTurnoutList(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
@@ -28,6 +27,7 @@ public class MsgTurnoutList(WiThrottleConnection connection) : ThrottleMsg, IThr
             return message.ToString();
         }
     }
+
     public override string ToString() => $"MSG:TurnoutList [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 }
 

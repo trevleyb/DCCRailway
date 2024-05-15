@@ -4,21 +4,30 @@ using DCCRailway.Railway.Throttles.WiThrottle.Messages;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Commands;
 
-public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
+public class CmdPanel(WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-
-        Logger.Log.Information("{0:{2}=>'{1}'",ToString(),commandStr,connection.ToString());
+        Logger.Log.Information("{0:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
         try {
             switch (commandStr[0..3].ToUpper()) {
-                case "PPA": SetPowerState(commandStr[3]); break;
-                case "PTA": ThrowTurnout(commandStr[3..]);break;
-                case "PRA": SetRoute(commandStr[3..]);break;
-                case "PFT": Logger.Log.Information("{0}: Fast Clock not currently supported=>'{1}'", ToString(), commandStr); break;
-                default: Logger.Log.Information("{0}: Unknown Panel TurnoutCommand recieved=>'{1}'", ToString(), commandStr); break;
-            };
-        }
-        catch {
-            Logger.Log.Error("{0}: Unable to Process the command =>'{1}'",ToString(),commandStr);
+            case "PPA":
+                SetPowerState(commandStr[3]);
+                break;
+            case "PTA":
+                ThrowTurnout(commandStr[3..]);
+                break;
+            case "PRA":
+                SetRoute(commandStr[3..]);
+                break;
+            case "PFT":
+                Logger.Log.Information("{0}: Fast Clock not currently supported=>'{1}'", ToString(), commandStr);
+                break;
+            default:
+                Logger.Log.Information("{0}: Unknown Panel TurnoutCommand recieved=>'{1}'", ToString(), commandStr);
+                break;
+            }
+            ;
+        } catch {
+            Logger.Log.Error("{0}: Unable to Process the command =>'{1}'", ToString(), commandStr);
         }
     }
 
@@ -28,7 +37,6 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
     /// of its current state.
     /// </summary>
     private async void ThrowTurnout(string commandStr) {
-
         /*
         var turnoutID = commandStr[1..];
         if (connection.RailwayConfig.Turnouts is { } turnouts) {
@@ -91,7 +99,6 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
         */
     }
 
-
     /// <summary>
     /// Looks at the 4th charater of the message and uses it to
     /// turn on or off the Power to the Entities. It then sends a PowerMsg
@@ -101,11 +108,16 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
     private void SetPowerState(char state) {
         var layoutCmds = new WitThrottleLayoutCmd(connection.CommandStationManager.CommandStation);
         switch (state) {
-            case '0': if (layoutCmds.IsPowerSupported()) layoutCmds.SetPowerState(DCCPowerState.Off); break;
-            case '1': if (layoutCmds.IsPowerSupported()) layoutCmds.SetPowerState(DCCPowerState.On);  break;
+        case '0':
+            if (layoutCmds.IsPowerSupported()) layoutCmds.SetPowerState(DCCPowerState.Off);
+            break;
+        case '1':
+            if (layoutCmds.IsPowerSupported()) layoutCmds.SetPowerState(DCCPowerState.On);
+            break;
         }
         connection.QueueMsg(new MsgPowerState(connection));
     }
+
     public override string ToString() => $"CMD:Panel";
 
     private enum TurnoutCommand {
@@ -115,7 +127,6 @@ public class CmdPanel (WiThrottleConnection connection) : ThrottleCmd, IThrottle
     }
 
     private enum RouteCommand {
-        Active = '2',
+        Active = '2'
     }
-
 }

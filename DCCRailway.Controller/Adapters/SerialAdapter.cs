@@ -10,23 +10,22 @@ using DCCRailway.Controller.Attributes;
 namespace DCCRailway.Controller.Adapters;
 
 public abstract class SerialAdapter : Adapter, IAdapter {
-
     [Parameter("Name of the Serial port to use")]
-    public string   PortName { get; set; }
+    public string PortName { get; set; }
 
-    [Parameter("Timeout in Seconds",30)]
-    public int      Timeout  { get; set; } = 30;
+    [Parameter("Timeout in Seconds", 30)]
+    public int Timeout { get; set; } = 30;
 
-    [Parameter("Baud Rate",9600)]
-    public int      BaudRate { get; set; } = 9600;
+    [Parameter("Baud Rate", 9600)]
+    public int BaudRate { get; set; } = 9600;
 
-    [Parameter("Number of Data Bits (Default: 8)",8)]
-    public int      DataBits { get; set; } = 8;
+    [Parameter("Number of Data Bits (Default: 8)", 8)]
+    public int DataBits { get; set; } = 8;
 
-    [Parameter("Data Parity (Default: None)", System.IO.Ports.Parity.None)]
-    public Parity   Parity   { get; set; } = Parity.None;
+    [Parameter("Data Parity (Default: None)", Parity.None)]
+    public Parity Parity { get; set; } = Parity.None;
 
-    [Parameter("Data Stop Bits (Default: None)", System.IO.Ports.StopBits.None)]
+    [Parameter("Data Stop Bits (Default: None)", StopBits.None)]
     public StopBits StopBits { get; set; } = StopBits.None;
 
     private SerialPort? _connection;
@@ -48,7 +47,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
         if (string.IsNullOrEmpty(PortName)) throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
         try {
             _connection = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits)
-                                        { WriteTimeout = Timeout, ReadTimeout = Timeout };
+                { WriteTimeout = Timeout, ReadTimeout = Timeout };
 
             //_connection.DataReceived += delegate (object sender, SerialDataReceivedEventArgs args) {
             //    Console.WriteLine($"{Name}: Received message: {0}", args.ToString());
@@ -60,8 +59,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
                 OnErrorOccurred(new DataErrorArgs(args.EventType.ToString(), this));
             };
             _connection.Open();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not connect to the device: " + PortName, ex);
         }
     }
@@ -105,8 +103,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
             Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} - Read '{0}' data as bytes from SerialPort.", returnData.ToArray().ToDisplayValueChars());
             OnDataRecieved(new DataRecvArgs(returnData.ToArray(), this, command));
             return returnData.ToArray();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not read from the Command Station", ex);
         }
     }
@@ -124,8 +121,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
         try {
             if (_connection!.BytesToRead > 0) _connection.ReadExisting();
             _connection!.Write(data, 0, data.Length);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not read/write to Command Station", ex);
         }
         OnDataSent(new DataSentArgs(data, this, commandReference));
@@ -142,10 +138,10 @@ public abstract class SerialAdapter : Adapter, IAdapter {
 
     protected SerialAdapter(string portName, int baudRate, int dataBits, Parity parity, StopBits stopBits, int timeout) {
         PortName = portName;
-        Timeout = timeout;
+        Timeout  = timeout;
         BaudRate = baudRate;
         DataBits = dataBits;
-        Parity = parity;
+        Parity   = parity;
         StopBits = stopBits;
     }
 

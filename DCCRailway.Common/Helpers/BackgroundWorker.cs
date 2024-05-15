@@ -8,13 +8,13 @@ public abstract class BackgroundWorker(string? name, TimeSpan? frequency = null)
     public event EventHandler WorkFinished;
     public event EventHandler WorkInProgress;
 
-    public string Name { get; set; } = name ?? "default";
-    public TimeSpan Frequency { get; set; } = frequency ?? new TimeSpan(0,0,0);
-    public decimal Seconds => (decimal)Frequency.TotalSeconds;
-    public int Milliseconds => (int)Frequency.TotalMilliseconds;
+    public string   Name         { get; set; } = name ?? "default";
+    public TimeSpan Frequency    { get; set; } = frequency ?? new TimeSpan(0, 0, 0);
+    public decimal  Seconds      => (decimal)Frequency.TotalSeconds;
+    public int      Milliseconds => (int)Frequency.TotalMilliseconds;
 
-    protected readonly ILogger Log = Logger.LogContext<BackgroundWorker>();
-    private CancellationTokenSource? _cancellationTokenSource;
+    protected readonly ILogger                  Log = Logger.LogContext<BackgroundWorker>();
+    private            CancellationTokenSource? _cancellationTokenSource;
 
     protected abstract void DoWork();
 
@@ -31,14 +31,12 @@ public abstract class BackgroundWorker(string? name, TimeSpan? frequency = null)
                         _cancellationTokenSource.Token.ThrowIfCancellationRequested();
                         Thread.Sleep(Milliseconds);
                     }
-                }
-                catch (OperationCanceledException) {
+                } catch (OperationCanceledException) {
                     Log.Information("{0}: Background Worker Cancelled.", Name);
                 }
                 OnWorkFinished();
             }, _cancellationTokenSource.Token);
-        }
-        else {
+        } else {
             Log.Information("{0}: Frequency not defined so task will conclude.", Name);
         }
     }

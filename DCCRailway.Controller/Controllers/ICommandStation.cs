@@ -23,19 +23,19 @@ public interface ICommandStation : IParameterMappable {
 
     // Attach or detect an Adapter to a Command Station
     // ----------------------------------------------------------------------------
-    IAdapter?      Adapter { get; set; }
-    IAdapter?      CreateAdapter(string? name);
+    IAdapter?              Adapter { get; set; }
+    IAdapter?              CreateAdapter(string? name);
     List<AdapterAttribute> Adapters { get; }
 
     // Attach or detect background tasks on the Command Station
     // ----------------------------------------------------------------------------
     List<TaskAttribute> Tasks { get; }
-    IControllerTask? CreateTask(string taskType);
-    IControllerTask? AttachTask(IControllerTask task);
-    IControllerTask? AttachTask(string name, string taskType, TimeSpan? frequency);
-    IControllerTask? AttachTask(string name, IControllerTask task, TimeSpan? frequency);
-    void StartAllTasks();
-    void StopAllTasks();
+    IControllerTask?    CreateTask(string taskType);
+    IControllerTask?    AttachTask(IControllerTask task);
+    IControllerTask?    AttachTask(string name, string taskType, TimeSpan? frequency);
+    IControllerTask?    AttachTask(string name, IControllerTask task, TimeSpan? frequency);
+    void                StartAllTasks();
+    void                StopAllTasks();
 
     // Create and Execute commands that are associated with this command station
     // --------------------------------------------------------------------------
@@ -53,5 +53,4 @@ public interface ICommandStation : IParameterMappable {
     bool IsAdapterSupported(string name);
 
     void OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result);
-
 }

@@ -12,16 +12,16 @@ using DCCRailway.Controller.Exceptions;
 namespace DCCRailway.Controller.Controllers;
 
 public class CommandManager(ICommandStation commandStation, Assembly assembly) {
-
     private Dictionary<Type, (CommandAttribute Attributes, Type ConcreteType)> _commands = [];
-    public event EventHandler<CommandEventArgs>  CommandEvent;
-    private Assembly _assembly { get; set; } = assembly;
+    public event EventHandler<CommandEventArgs>                                CommandEvent;
+    private Assembly                                                           _assembly { get; set; } = assembly;
 
     public List<CommandAttribute> Commands {
         get {
             if (_commands.Any() is false) RegisterCommands();
+
             // ToDo: Add in here if the command is supported.
-            return _commands.Values.Select(x => x.Item1) .ToList();
+            return _commands.Values.Select(x => x.Item1).ToList();
         }
     }
 
@@ -31,18 +31,18 @@ public class CommandManager(ICommandStation commandStation, Assembly assembly) {
             var attr = AttributeExtractor.GetAttribute<CommandAttribute>(command);
             if (attr != null && !string.IsNullOrEmpty(attr.Name)) {
                 var commandInterface = command.ImplementedInterfaces.First(x => x.FullName != null && x.FullName.StartsWith("DCCRailway.Controller.Actions.Commands.I", StringComparison.InvariantCultureIgnoreCase)) ?? null;
-                if (commandInterface is not null) {
-                    if (!_commands.ContainsKey(commandInterface)) _commands.TryAdd(commandInterface, (attr, command));
-                }
+                if (commandInterface is not null)
+                    if (!_commands.ContainsKey(commandInterface))
+                        _commands.TryAdd(commandInterface, (attr, command));
             }
         }
     }
 
-    protected void RegisterCommand<TInterface,TConcrete>() where TInterface : ICommand where TConcrete : ICommand {
+    protected void RegisterCommand<TInterface, TConcrete>() where TInterface : ICommand where TConcrete : ICommand {
         var attr = AttributeExtractor.GetAttribute<CommandAttribute>(typeof(TInterface));
         if (attr == null || string.IsNullOrEmpty(attr.Name))
             throw new ApplicationException("Command does not contain AttributeInfo Definition. Add AttributeInfo first");
-        if (!_commands.ContainsKey(typeof(TInterface))) _commands.TryAdd(typeof(TInterface), (attr,typeof(TConcrete)));
+        if (!_commands.ContainsKey(typeof(TInterface))) _commands.TryAdd(typeof(TInterface), (attr, typeof(TConcrete)));
     }
 
     protected void ClearCommands() {
@@ -51,10 +51,8 @@ public class CommandManager(ICommandStation commandStation, Assembly assembly) {
 
     private ICommand? AttachProperties(ICommand? command, DCCAddress? address = null) {
         if (command != null) {
-            if (address is not null && command is ICmdAddress cmdAddress) {
-                cmdAddress.Address = address;
-            }
-            command.Adapter = commandStation.Adapter ?? throw new ControllerException("Adapter is not defined.");
+            if (address is not null && command is ICmdAddress cmdAddress) cmdAddress.Address = address;
+            command.Adapter        = commandStation.Adapter ?? throw new ControllerException("Adapter is not defined.");
             command.CommandStation = commandStation;
         }
         return command;
@@ -65,7 +63,7 @@ public class CommandManager(ICommandStation commandStation, Assembly assembly) {
         return AttachProperties(command, address);
     }
 
-    public ICommand? Create<TCommand>(IAdapter adapter, DCCAddress? address = null)  where TCommand : ICommand {
+    public ICommand? Create<TCommand>(IAdapter adapter, DCCAddress? address = null) where TCommand : ICommand {
         var command = Create<TCommand>();
         return AttachProperties(command, address);
     }
@@ -100,18 +98,18 @@ public class CommandManager(ICommandStation commandStation, Assembly assembly) {
             var command = (ICommand?)Activator.CreateInstance(typeToCreate);
             if (command == null) throw new ApplicationException("Could not create an instance of the command.");
             return command;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException("Could not create an instance of the command.", ex);
         }
     }
 
     public bool IsCommandSupported<T>() where T : ICommand => _commands.ContainsKey(typeof(T));
-    public bool IsCommandSupported(Type command) => command.GetInterfaces().Any(iface => _commands.ContainsKey(iface));
+    public bool IsCommandSupported(Type command)           => command.GetInterfaces().Any(iface => _commands.ContainsKey(iface));
+
     public bool IsCommandSupported(string name) => _commands.Any(item =>
-            item.Key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase) ||
-            item.Value.ConcreteType.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
-            );
+                                                                     item.Key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase) ||
+                                                                     item.Value.ConcreteType.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
+                                                                );
 
     #region Raise Events
     // Raise when this CommandStation executes a command

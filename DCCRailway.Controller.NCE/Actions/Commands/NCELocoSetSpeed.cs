@@ -20,7 +20,7 @@ public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
         SpeedSteps = speedSteps;
     }
 
-    public DCCAddress  Address    { get; set; }
+    public DCCAddress   Address    { get; set; }
     public DCCProtocol  SpeedSteps { get; set; }
     public DCCDirection Direction  { get; set; }
     public DCCSpeed     Speed      { get; set; }
@@ -32,8 +32,7 @@ public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
         if (Direction == DCCDirection.Stop) {
             command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x06 : 0x05));
             Speed   = new DCCSpeed(0);
-        }
-        else {
+        } else {
             if (SpeedSteps == DCCProtocol.DCC14 || SpeedSteps == DCCProtocol.DCC28)
                 command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x02 : 0x01));
             else

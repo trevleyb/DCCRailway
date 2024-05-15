@@ -8,12 +8,11 @@ namespace DCCRailway.Controller.Virtual.Adapters;
 
 [Adapter("Virtual", AdapterType.Virtual)]
 public class VirtualAdapter : ConsoleAdapter, IAdapter {
-
     public DCCPowerState PowerState = DCCPowerState.Unknown;
 
     public DateTime FastClockSetTime;
-    public int FastClockRatio = 1;
-    public bool FastClockState = false;
+    public int      FastClockRatio = 1;
+    public bool     FastClockState = false;
     /*
     _lastResult = command.GetType() switch {
         ICmdPowerSetOn        => _simulator!.SetPowerState(true),

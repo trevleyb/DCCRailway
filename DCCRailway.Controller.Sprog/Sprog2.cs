@@ -6,6 +6,6 @@ namespace DCCRailway.Controller.Sprog;
 
 [Controller("Sprog II", "DCCSystems", "Sprog II")]
 public class Sprog2 : CommandStation, ICommandStation {
-    public override DCCAddress CreateAddress() => new DCCAddress();
-    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new DCCAddress(address, type);
+    public override DCCAddress CreateAddress()                                                       => new();
+    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new(address, type);
 }

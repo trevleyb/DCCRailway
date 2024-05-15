@@ -5,10 +5,9 @@ namespace DCCRailway.Railway.Configuration.Entities;
 
 [Serializable]
 public class Parameter {
-
-    public string   Name    { get; set; }
-    public string   Value   { get; set; }
-    public string?  ObjType { get; set; }
+    public string  Name    { get; set; }
+    public string  Value   { get; set; }
+    public string? ObjType { get; set; }
 
     public Parameter() { }
     public Parameter(string name, object value) => Set(name, value);
@@ -37,8 +36,7 @@ public class Parameter {
                     "System.IO.Ports.DataBits"  => Convert.ToInt32(Value, CultureInfo.InvariantCulture),
                     _                           => Convert.ChangeType(Value, Type.GetType(ObjType) ?? typeof(string), CultureInfo.InvariantCulture)
                 };
-        }
-        catch {
+        } catch {
             return Convert.ChangeType(Value, typeof(string), CultureInfo.InvariantCulture);
         }
         return Value;

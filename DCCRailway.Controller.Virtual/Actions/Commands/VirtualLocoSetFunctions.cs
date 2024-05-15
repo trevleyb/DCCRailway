@@ -25,7 +25,7 @@ public class VirtualLocoSetFunctions : VirtualCommand, ICmdLocoSetFunctions, ICo
     }
 
     public DCCFunctionBlocks? Previous  { get; set; }
-    public DCCAddress        Address   { get; set; }
+    public DCCAddress         Address   { get; set; }
     public DCCFunctionBlocks  Functions { get; }
 
     public override string ToString() {

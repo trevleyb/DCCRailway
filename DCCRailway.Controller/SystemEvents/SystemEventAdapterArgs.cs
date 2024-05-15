@@ -12,9 +12,9 @@ public class SystemEventAdapterArgs : SystemEventArgs {
         Description = adapter.AttributeInfo().Description;
     }
 
-    public string Message     { get; set; }
+    public string  Message     { get; set; }
     public string? Name        { get; set; }
-    public string Description { get; set; }
+    public string  Description { get; set; }
 
     public override string ToString() => $"Adapter: {Name} - {Description} - {Message}";
 }

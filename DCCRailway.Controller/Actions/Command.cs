@@ -14,14 +14,14 @@ public abstract class Command : PropertyChangedBase, ICommand, IParameterMappabl
     public string Version     => this.AttributeInfo().Version ?? "Unknown";
     public string Description => this.AttributeInfo().Description ?? "Unknown";
 
-    public ICommandStation CommandStation { get; set; }
-    public IAdapter? Adapter { get; set; }
-    protected abstract ICmdResult Execute(IAdapter adapter);
+    public             ICommandStation CommandStation { get; set; }
+    public             IAdapter?       Adapter        { get; set; }
+    protected abstract ICmdResult      Execute(IAdapter adapter);
 
     public ICmdResult Execute() {
         if (Adapter is null) throw new ControllerException("No adapter is configured on this command.");
         if (CommandStation is null) throw new ControllerException("Fatal error, command station reference is missing.");
-        if (!CommandStation.IsCommandSupported(this.GetType())) throw new ControllerException("Command is not supported.");
+        if (!CommandStation.IsCommandSupported(GetType())) throw new ControllerException("Command is not supported.");
 
         var result = Execute(Adapter);
         if (result is null) throw new ControllerException("Invalid or missing result from the adapter.");
@@ -35,6 +35,7 @@ public abstract class Command : PropertyChangedBase, ICommand, IParameterMappabl
     //public async Task<ICmdResult> ExecuteAsync(IAdapter adapter) => await Task.FromResult(Execute(adapter));
 
     protected ICmdResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceive(adapter, validator, new[] { sendData });
+
     protected ICmdResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte[] sendData) {
         // Send the command provided to the command station
         // -----------------------------------------------------------------------------------------------------------

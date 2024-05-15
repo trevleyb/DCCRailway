@@ -15,8 +15,7 @@ public static class JMRIRosterImporter {
             var jmriRoster = JMRIRoster.Load(rosterName);
             if (jmriRoster == null) return;
             MapJMRItoDCCTrain(manager, jmriRoster);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new Exception($"Unable to load the current JMRI Roster file '{rosterName}' due to '{ex.Message}'");
         }
     }
@@ -27,7 +26,6 @@ public static class JMRIRosterImporter {
     /// <param name="locoList">Collection of Locomotives</param>
     /// <param name="jMRIRoster">The JMRI Roster File</param>
     private static void MapJMRItoDCCTrain(IRailwayManager manager, JMRIRoster jmriRoster) {
-
         var locomotives = manager.Locomotives;
         locomotives.Clear();
 
@@ -41,7 +39,8 @@ public static class JMRIRosterImporter {
                     RoadName     = jmri.RoadName,
                     RoadNumber   = jmri.RoadNumber,
                     Manufacturer = jmri.Mfg,
-                    Model        = jmri.Model,
+                    Model        = jmri.Model
+
                     //Decoder      = new Configuration.Entities.Entities.Decoder() {
                     //    Manufacturer = RailwayConfig.Instance.ManufacturerRepository.Find(x => x.Name == jmri.Mfg),
                     //    Model = jmri.Decoder.Model,
@@ -59,8 +58,7 @@ public static class JMRIRosterImporter {
                     loco.Address.Protocol = DCCProtocol.DCC28;
                 }
                 locomotives.Add(loco);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 Logger.Log.Error("Unable to map the JMRI Locomotive to the DCCRailway format due to '{0}'", ex.Message);
             }
         }

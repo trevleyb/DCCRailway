@@ -18,7 +18,7 @@ public class GuardClausesTest {
     public void IsNotNull_ShouldThrowArgumentNullException_WhenArgumentIsNull() {
         // Arrange
         object? argumentValue = null;
-        var    argumentName  = "argument";
+        var     argumentName  = "argument";
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => GuardClauses.IsNotNull(argumentValue, argumentName));
@@ -38,7 +38,7 @@ public class GuardClausesTest {
     public void IsNotNullOrEmpty_ShouldThrowArgumentNullException_WhenArgumentIsNull() {
         // Arrange
         string? argumentValue = null;
-        var    argumentName  = "argument";
+        var     argumentName  = "argument";
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => GuardClauses.IsNotNullOrEmpty(argumentValue, argumentName));

@@ -12,7 +12,6 @@ public class WiThrottleCmdProcessor() {
     /// <param name="commandStr">A string of data, in raw BYTE form that has been received</param>
     /// <returns></returns>
     public static bool Interpret(WiThrottleConnection connection, string commandStr) {
-
         connection.UpdateHeartbeat();
 
         // When we get here, there will only ever be a single message as

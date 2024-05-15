@@ -10,10 +10,9 @@ using DCCRailway.Controller.Tasks.Events;
 namespace DCCRailway.Controller.Controllers;
 
 public class TaskManager(ICommandStation commandStation, Assembly assembly) {
-
-    private Dictionary<Type,TaskAttribute> _availableTasks = [];
-    private readonly Dictionary<string,IControllerTask> _runningTasks = [];
-    public event EventHandler<TaskEventArgs> TaskEvent;
+    private          Dictionary<Type, TaskAttribute>     _availableTasks = [];
+    private readonly Dictionary<string, IControllerTask> _runningTasks   = [];
+    public event EventHandler<TaskEventArgs>             TaskEvent;
 
     public IControllerTask? this[string name] => _runningTasks[name] ?? null;
     public List<IControllerTask> RunningTasks => _runningTasks.Values.ToList();
@@ -35,16 +34,13 @@ public class TaskManager(ICommandStation commandStation, Assembly assembly) {
                 }
             }
             return null;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new TaskException(taskName, "Error instantiating the Task.", ex);
         }
         throw new TaskException(taskName, "Task type specified is not supported by this command station.");
     }
 
-    public IControllerTask? Attach(IControllerTask task) {
-        return Attach(task.Name, task, task.Frequency);
-    }
+    public IControllerTask? Attach(IControllerTask task) => Attach(task.Name, task, task.Frequency);
 
     public IControllerTask? Attach(string instanceName, string taskName, TimeSpan? frequency = null) {
         var task = Create(taskName);
@@ -53,10 +49,10 @@ public class TaskManager(ICommandStation commandStation, Assembly assembly) {
     }
 
     public IControllerTask? Attach(string instanceName, IControllerTask task, TimeSpan? frequency = null) {
-        task.Name = instanceName;
+        task.Name           = instanceName;
         task.CommandStation = commandStation;
         if (frequency != null) task.Frequency = (TimeSpan)frequency;
-        var attr = AttributeExtractor.GetAttribute<TaskAttribute>(task.GetType());
+        var attr                              = AttributeExtractor.GetAttribute<TaskAttribute>(task.GetType());
         if (attr != null) _runningTasks.TryAdd(instanceName, task);
         return task;
     }
@@ -86,28 +82,31 @@ public class TaskManager(ICommandStation commandStation, Assembly assembly) {
     }
 
     public void StartAllTasks() {
-        foreach (var task in _runningTasks) task.Value.Start();
+        foreach (var task in _runningTasks) {
+            task.Value.Start();
+        }
     }
 
     public void StopAllTasks() {
-        foreach (var task in _runningTasks) task.Value.Stop();
+        foreach (var task in _runningTasks) {
+            task.Value.Stop();
+        }
     }
-
-
 
     #region Raise Events
     private void OnTaskAdd(object sender, IControllerTask task) {
         var e = new TaskEventArgs();
         TaskEvent(sender, e);
     }
+
     private void OnTaskStart(object sender, IControllerTask task) {
         var e = new TaskEventArgs();
         TaskEvent(sender, e);
     }
+
     private void OnTaskStop(object sender, IControllerTask task) {
         var e = new TaskEventArgs();
         TaskEvent(sender, e);
     }
     #endregion
-
 }

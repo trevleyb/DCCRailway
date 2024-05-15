@@ -7,12 +7,10 @@ namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class SettingsTest {
-
     [Test]
-    public async Task  TestEntityRepositoryAddAndStore() {
-
+    public async Task TestEntityRepositoryAddAndStore() {
         // This will either load the file, or will create a new one if it does not exist.
-        var config = RailwayManager.New("TestFile","./TestConfig");
+        var config = RailwayManager.New("TestFile", "./TestConfig");
 
         var accessoryRepository = config.Accessories;
         await accessoryRepository.AddAsync(new Accessory { Name = "TestAccessory1", Description = "Test Accessory Description1" });
@@ -47,7 +45,7 @@ public class SettingsTest {
         config.Save();
 
         var config2 = RailwayManager.Load("TestSystemWithAll.json");
-        Assert.That(config2,Is.Not.Null);
+        Assert.That(config2, Is.Not.Null);
 
         var accs = config2.Accessories.GetAll();
         var blks = config2.Blocks.GetAll();

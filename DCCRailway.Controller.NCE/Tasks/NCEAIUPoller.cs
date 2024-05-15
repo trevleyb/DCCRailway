@@ -12,11 +12,9 @@ using DCCRailway.Controller.Tasks;
 
 namespace DCCRailway.Controller.NCE.Tasks;
 
-[Task("AIUPoller","NCE AIU Poller")]
+[Task("AIUPoller", "NCE AIU Poller")]
 public class NCEAIUPoller : ControllerTask, IParameterMappable {
-
-    [Range(1,63)]
-    [Parameter("NCE Cab Address of this AIU interface","Should be between 1..63")]
+    [Range(1, 63), Parameter("NCE Cab Address of this AIU interface", "Should be between 1..63")]
     public byte CabAddress { get; set; }
 
     protected override void Setup() {
@@ -30,7 +28,7 @@ public class NCEAIUPoller : ControllerTask, IParameterMappable {
     /// </summary>
     protected override void DoWork() {
         var pinStr = new StringBuilder();
-        var pins = new bool[14];
+        var pins   = new bool[14];
         if (CommandStation.CreateCommand<ICmdSensorGetState>() is NCESensorGetState command) {
             pinStr.Append("|");
             for (byte pin = 1; pin <= 14; pin++) {

@@ -4,7 +4,6 @@ using System.Text;
 namespace DCCRailway.Common.Parameters;
 
 public class ParameterInfo {
-
     public string Name;
     public string Type;
     public string Options;
@@ -15,19 +14,19 @@ public class ParameterInfo {
         var attribute = propertyInfo.GetCustomAttribute<ParameterAttribute>();
         Name  = propertyInfo.Name;
         Type  = propertyInfo.GetType().ToString();
-        Value = (field == null) ? string.Empty : propertyInfo.GetValue(field)?.ToString() ?? string.Empty;
+        Value = field == null ? string.Empty : propertyInfo.GetValue(field)?.ToString() ?? string.Empty;
         if (attribute != null) {
-            Options = (string.IsNullOrEmpty(attribute.Options) ? attribute.Options : GetAvailableOptions(propertyInfo)) ?? string.Empty;
+            Options     = (string.IsNullOrEmpty(attribute.Options) ? attribute.Options : GetAvailableOptions(propertyInfo)) ?? string.Empty;
             Description = attribute.Description ?? string.Empty;
+        } else {
+            Options = GetAvailableOptions(propertyInfo);
         }
-        else Options = GetAvailableOptions(propertyInfo);
     }
 
     private string GetAvailableOptions(PropertyInfo prop) {
-        if (prop.PropertyType.BaseType?.Name.ToLower() == "enum") {
+        if (prop.PropertyType.BaseType?.Name.ToLower() == "enum")
             return GetEnumOptions(prop.PropertyType);
-        }
-        else {
+        else
             return prop.PropertyType.Name.ToLower() switch {
                 "byte"   => "0...255",
                 "string" => "String Value",
@@ -35,7 +34,6 @@ public class ParameterInfo {
                 "bool"   => "true | false",
                 _        => ""
             };
-        }
 
         string GetEnumOptions(Type property) {
             var builder = new StringBuilder();

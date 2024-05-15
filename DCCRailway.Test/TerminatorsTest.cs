@@ -6,10 +6,8 @@ namespace DCCRailway.Test;
 
 [TestFixture]
 public class TerminatorsTest {
-
     [Test]
     public void TestEachTerminator() {
-
         var block = "This is a sample string";
         Assert.That(Terminators.HasTerminator(block), Is.False);
         foreach (var terminator in Terminators.PossibleTerminators) {
@@ -20,34 +18,34 @@ public class TerminatorsTest {
     [Test]
     public void TestWeCanGetBackEachBlockSuccessfully() {
         var block = new StringBuilder("This is a sample string");
-        Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Any(),Is.False);
-        Assert.That(block.Length,Is.EqualTo("This is a sample string".Length));
+        Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Any(), Is.False);
+        Assert.That(block.Length, Is.EqualTo("This is a sample string".Length));
 
         block = Terminators.AddTerminator(block);
-        Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Any(),Is.True);
-        Assert.That(block.Length,Is.EqualTo(0));
+        Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Any(), Is.True);
+        Assert.That(block.Length, Is.EqualTo(0));
 
         block = new StringBuilder("Message1").Append(Terminators.Terminator);
         block.Append("Message2").Append(Terminators.Terminator);
-        Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Count,Is.EqualTo(2));
-        Assert.That(block.Length,Is.EqualTo(0));
+        Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Count, Is.EqualTo(2));
+        Assert.That(block.Length, Is.EqualTo(0));
 
         block = new StringBuilder("Message1").Append(Terminators.Terminator);
         block.Append("Message2").Append(Terminators.Terminator);
         block.Append("Message3").Append(Terminators.Terminator);
-        Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Count,Is.EqualTo(3));
-        Assert.That(block.Length,Is.EqualTo(0));
+        Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Count, Is.EqualTo(3));
+        Assert.That(block.Length, Is.EqualTo(0));
 
         block = new StringBuilder("Message1").Append(Terminators.Terminator);
         block.Append("Message2").Append(Terminators.Terminator);
         block.Append("Message3");
-        Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Count,Is.EqualTo(2));
-        Assert.That(block.ToString(),Is.EqualTo("Message3"));
+        Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Count, Is.EqualTo(2));
+        Assert.That(block.ToString(), Is.EqualTo("Message3"));
     }
 
     [Test]
     public void TestMultipleTerminators() {
-        var rnd = new Random();
+        var rnd   = new Random();
         var block = new StringBuilder();
         block.Append("Message1").Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
         block.Append("Message2").Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);

@@ -2,9 +2,10 @@ using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Commands;
 
-public class CmdIgnore (WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
+public class CmdIgnore(WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        Logger.Log.Information("{0}:{2}=>'{1}'",ToString(),commandStr,connection.ToString());
+        Logger.Log.Information("{0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
     }
+
     public override string ToString() => $"CMD:Ignore";
 }

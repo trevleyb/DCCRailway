@@ -5,7 +5,6 @@ namespace DCCRailway.WebApp.EndPoints;
 
 public static class TurnoutAPI {
     public static void Configure(WebApplication app, ILayoutRepository<Turnout> entities) {
-
         app.MapGet("/layout/turnouts/{id}", async (string id) => {
             var turnout = await entities.GetByIDAsync(id);
             return turnout == null ? Results.NotFound() : Results.Ok(turnout);
@@ -15,6 +14,5 @@ public static class TurnoutAPI {
         app.MapPost("/layout/turnouts", async (Turnout turnout) => Results.Ok(await entities.AddAsync(turnout)));
         app.MapPut("/layout/turnouts/{id}", async (string id, Turnout turnout) => Results.Ok(await entities.UpdateAsync(turnout)));
         app.MapDelete("/layout/turnouts/{id}", async (string id) => Results.Ok(await entities.DeleteAsync(id)));
-
     }
 }

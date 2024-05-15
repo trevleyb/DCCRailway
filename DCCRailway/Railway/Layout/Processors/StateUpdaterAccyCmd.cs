@@ -8,7 +8,6 @@ namespace DCCRailway.Railway.Layout.Processors;
 
 public class StateUpdaterAccyCmd(IRailwayManager railwayManager, IStateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
     public override bool Process() {
-
         if (Command is IAccyCmd accyCmd) {
             var accessory = railwayManager.Accessories.Find(x => x.Address == accyCmd.Address);
 
@@ -25,6 +24,7 @@ public class StateUpdaterAccyCmd(IRailwayManager railwayManager, IStateManager s
 
             case ICmdAccySetState cmd: {
                 Event("Accy Set State");
+
                 //accessory.Parameters["state"].Value = cmd.State.ToString();
                 break;
             }

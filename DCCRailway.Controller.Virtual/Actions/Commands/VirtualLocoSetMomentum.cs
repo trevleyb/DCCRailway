@@ -16,7 +16,7 @@ public class VirtualLocoSetMomentum : VirtualCommand, ICmdLocoSetMomentum, IComm
         Momentum = momentum;
     }
 
-    public DCCAddress Address  { get; set; }
+    public DCCAddress  Address  { get; set; }
     public DCCMomentum Momentum { get; set; }
 
     public override string ToString() => $"LOCO MOMENTUM ({Address}={Momentum}";

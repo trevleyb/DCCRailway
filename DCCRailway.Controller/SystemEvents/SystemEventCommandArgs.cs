@@ -47,10 +47,10 @@ public class SystemEventCommandArgs : SystemEventArgs {
         }
     }
 
-    public string      Name        { get; set; }
-    public string      Description { get; set; }
-    public string      Message     { get; set; }
-    public DCCAddress  Address     { get; set; }
+    public string     Name        { get; set; }
+    public string     Description { get; set; }
+    public string     Message     { get; set; }
+    public DCCAddress Address     { get; set; }
 
     public override string ToString() => Description;
 }

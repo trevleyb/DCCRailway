@@ -4,8 +4,7 @@ using DCCRailway.Common.Helpers;
 namespace DCCRailway.Controller.Adapters.Helpers;
 
 public static class SerialAdapterFinder {
-
-    const int MillisecondsDelay = 10;
+    private const int MillisecondsDelay = 10;
 
     /// <summary>
     ///     Static function that will SEARCH for a Port that returns some valid data
@@ -46,11 +45,10 @@ public static class SerialAdapterFinder {
 
                 if (connection.BytesToRead > 0) {
                     readData = new byte[connection.BytesToRead];
-                    _ = await connection.BaseStream.ReadAsync(readData, 0, readData.Length);
+                    _        = await connection.BaseStream.ReadAsync(readData, 0, readData.Length);
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.Log.Debug($"ERROR Connecting to port: {ex.Message}");
         }
         return readData;

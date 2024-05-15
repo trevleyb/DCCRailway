@@ -2,9 +2,8 @@ using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Commands;
 
-public class CmdRoster (WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
+public class CmdRoster(WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-
         Logger.Log.Information("{0}=>'{1}'", ToString(), commandStr);
         try {
             var cmd = commandStr[0..3];
@@ -23,10 +22,8 @@ public class CmdRoster (WiThrottleConnection connection) : ThrottleCmd, IThrottl
                 Logger.Log.Information("{0}:{2}=>Unknown Panel Command recieved=>'{1}'", ToString(), commandStr, connection.ToString());
                 break;
             }
-        }
-        catch {
+        } catch {
             Logger.Log.Error("{0}:{2}=>Unable to Process the command =>'{1}'", ToString(), commandStr, connection.ToString());
-
         }
     }
 

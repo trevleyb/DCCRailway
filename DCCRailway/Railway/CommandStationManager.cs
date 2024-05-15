@@ -8,14 +8,13 @@ using DCCRailway.Railway.Layout;
 namespace DCCRailway.Railway;
 
 public class CommandStationManager {
-
-    public ICommandStation CommandStation { get; private set; }
+    public  ICommandStation     CommandStation { get; private set; }
     private StateEventProcessor _processor;
 
     public void Start(StateEventProcessor processor) {
         // Wire up the events from the Command Station so we can track Entities Property Changes
         // --------------------------------------------------------------------------------------------
-        _processor = processor;
+        _processor                     =  processor;
         CommandStation.ControllerEvent += CommandStationInstanceOnCommandStationEvent;
         CommandStation.Start();
         CommandStation.StartAllTasks();
@@ -54,16 +53,13 @@ public class CommandStationManager {
         var controllerManager = new CommandStationFactory();
         try {
             var commandStation = controllerManager.CreateController(controller.Name) ??
-                             throw new ControllerException($"Invalid CommandStation Name specified {controller.Name}");
+                                 throw new ControllerException($"Invalid CommandStation Name specified {controller.Name}");
 
             foreach (var parameter in controller.Parameters) {
-                if (commandStation.IsMappableParameter(parameter.Name)) {
-                    commandStation.SetMappableParameter(parameter.Name, parameter.Value);
-                }
+                if (commandStation.IsMappableParameter(parameter.Name)) commandStation.SetMappableParameter(parameter.Name, parameter.Value);
             }
             return commandStation;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.Log.Error("Unable to instantiate an instance of the specified commandStation: {0} => {1}", controller, ex.Message);
             throw;
         }
@@ -86,14 +82,11 @@ public class CommandStationManager {
                                       throw new AdapterException("Unable to create an Adapter of type: {0}", controllerAdapter.Name);
 
                 foreach (var parameter in controllerAdapter.Parameters) {
-                    if (adapterInstance.IsMappableParameter(parameter.Name)) {
-                        adapterInstance.SetMappableParameter(parameter.Name, parameter.Value);
-                    }
+                    if (adapterInstance.IsMappableParameter(parameter.Name)) adapterInstance.SetMappableParameter(parameter.Name, parameter.Value);
                 }
                 commandStation.Adapter = adapterInstance;
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.Log.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapters, ex.Message);
             throw;
         }
@@ -112,23 +105,19 @@ public class CommandStationManager {
                 try {
                     var taskInstance = commandStation.CreateTask(task.Type);
                     if (taskInstance is not null) {
-                        taskInstance.Name = task.Name;
+                        taskInstance.Name      = task.Name;
                         taskInstance.Frequency = task.Frequency;
                         commandStation.AttachTask(taskInstance);
 
                         foreach (var parameter in task.Parameters) {
-                            if (taskInstance.IsMappableParameter(parameter.Name)) {
-                                taskInstance.SetMappableParameter(parameter.Name, parameter.Value);
-                            }
+                            if (taskInstance.IsMappableParameter(parameter.Name)) taskInstance.SetMappableParameter(parameter.Name, parameter.Value);
                         }
                     }
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     Logger.Log.Error($"Unable to instantiate the task '{task.Name}' or type '{task.Type}'", ex);
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.Log.Error("Unable to create and attach tasks to the Command Station.", ex.Message);
             throw;
         }

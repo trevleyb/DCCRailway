@@ -23,6 +23,6 @@ public class MsgTurnoutState(WiThrottleConnection connection, Turnout? turnout) 
             return sb.ToString();
         }
     }
-    public override string ToString() => $"MSG:TurnoutState [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 
+    public override string ToString() => $"MSG:TurnoutState [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 }

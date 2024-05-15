@@ -8,8 +8,6 @@ namespace DCCRailway.Layout.Collection;
 
 public class EntityStorage<TEntity> : ConcurrentDictionary<string, TEntity>
     where TEntity : LayoutEntity {
-
-
     /// <summary>
     ///     LoadFile an instance of class T from a provided filename and throw an exception if the
     ///     file name does not exist.
@@ -21,12 +19,13 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string, TEntity>
         Clear();
         if (!File.Exists(fileName)) return;
         try {
-            var serializedStr = File.ReadAllText(fileName);
+            var serializedStr     = File.ReadAllText(fileName);
             var serializerOptions = JsonOptions;
-            var collection = JsonSerializer.Deserialize<Dictionary<string, TEntity>>(serializedStr, serializerOptions) ?? [];
-            foreach (var keyPair in collection) TryAdd(keyPair.Key, keyPair.Value);
-        }
-        catch (Exception ex) {
+            var collection        = JsonSerializer.Deserialize<Dictionary<string, TEntity>>(serializedStr, serializerOptions) ?? [];
+            foreach (var keyPair in collection) {
+                TryAdd(keyPair.Key, keyPair.Value);
+            }
+        } catch (Exception ex) {
             throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'", ex);
         }
     }
@@ -43,16 +42,15 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string, TEntity>
         // -----------------------------------------------------------------------------------
         try {
             var serializerOptions = JsonOptions;
-            var serializedStr = JsonSerializer.Serialize(this.ToFrozenDictionary(), serializerOptions);
+            var serializedStr     = JsonSerializer.Serialize(this.ToFrozenDictionary(), serializerOptions);
             File.WriteAllText(fileName, serializedStr);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException($"Unable to save configuration data to '{fileName}' due to '{ex.Message}'");
         }
     }
 
-    private JsonSerializerOptions JsonOptions => new JsonSerializerOptions {
-        WriteIndented = true,
+    private JsonSerializerOptions JsonOptions => new() {
+        WriteIndented          = true,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
     };
 }

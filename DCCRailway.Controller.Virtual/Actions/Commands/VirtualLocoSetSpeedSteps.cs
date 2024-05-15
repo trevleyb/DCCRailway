@@ -16,7 +16,7 @@ public class VirtualLocoSetSpeedSteps : VirtualCommand, ICmdLocoSetSpeedSteps, I
         SpeedSteps = speedSteps;
     }
 
-    public DCCAddress Address    { get; set; }
+    public DCCAddress  Address    { get; set; }
     public DCCProtocol SpeedSteps { get; set; }
 
     public override string ToString() => $"LOCO SPEED STEPS ({Address}={SpeedSteps}";

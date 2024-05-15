@@ -5,7 +5,6 @@ namespace DCCRailway.WebApp.EndPoints;
 
 public static class AccessoryApi {
     public static void Configure(WebApplication app, ILayoutRepository<Accessory> entities) {
-
         app.MapGet("/layout/accessories/{id}", async (string id) => {
             var accessory = await entities.GetByIDAsync(id);
             return accessory == null ? Results.NotFound() : Results.Ok(accessory);

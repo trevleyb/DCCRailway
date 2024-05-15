@@ -7,7 +7,7 @@ namespace DCCRailway.Railway.Throttles.WiThrottle.Messages;
 public class MsgPowerState(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
-            var sb = new StringBuilder();
+            var sb            = new StringBuilder();
             var powerStateMsg = GetPowerStateMsg();
             if (!string.IsNullOrEmpty(powerStateMsg)) sb.AppendLine(powerStateMsg);
             return sb.ToString();
@@ -24,8 +24,7 @@ public class MsgPowerState(WiThrottleConnection connection) : ThrottleMsg, IThro
                 _                     => null
             };
             return powerMsg;
-        }
-        catch {
+        } catch {
             return null;
         }
     }

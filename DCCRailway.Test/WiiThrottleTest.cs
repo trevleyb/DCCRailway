@@ -4,10 +4,8 @@ namespace DCCRailway.Test;
 
 [TestFixture]
 public class WiThrottleTest {
-
     [Test]
     public void TestIfWiThrottleLoads() {
-
         /*
         var config = TestConfig.CreateTestConfig();
         ICommandStation commandStation = new VirtualCommandStation {
@@ -22,9 +20,9 @@ public class WiThrottleTest {
     }
 
     [Test]
+
     //[Ignore("Ignore this test")]
     public void TestIfWiThrottleLoadsAndRuns() {
-
         /*
         IRailwayConfig config = TestConfig.CreateTestConfig();
         ICommandStation commandStation = new VirtualCommandStation {

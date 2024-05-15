@@ -3,7 +3,6 @@ using DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Messages;
 
-
 public class MsgRouteLabels(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
@@ -27,7 +26,9 @@ public class MsgRouteLabels(WiThrottleConnection connection) : ThrottleMsg, IThr
             message.AppendLine();
             return message.ToString();
         }
-    }    public override string ToString() => $"MSG:RouteLabels [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
+    }
+
+    public override string ToString() => $"MSG:RouteLabels [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
 }
 
 /*

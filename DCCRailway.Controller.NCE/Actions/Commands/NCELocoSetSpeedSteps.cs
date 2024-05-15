@@ -20,7 +20,7 @@ public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand 
         SpeedSteps = speedSteps;
     }
 
-    public DCCAddress Address    { get; set; }
+    public DCCAddress  Address    { get; set; }
     public DCCProtocol SpeedSteps { get; set; }
 
     protected override ICmdResult Execute(IAdapter adapter) {

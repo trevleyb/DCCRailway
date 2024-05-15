@@ -7,13 +7,11 @@ namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class LayoutPropertyChangedTests {
-    private bool   _triggeredChanged  = false;
-    private string _activeField       = "";
-
+    private bool   _triggeredChanged = false;
+    private string _activeField      = "";
 
     [Test]
     public void LocoPropertyChangedEvent() {
-
         var loco = new Locomotive();
         loco.PropertyChanged += LocoOnPropertyChanged;
 
@@ -42,7 +40,7 @@ public class LayoutPropertyChangedTests {
         TestField(loco, nameof(loco.RoadNumber), "CN1234");
         TestField(loco, nameof(loco.RoadNumber), "UP9999");
 
-        loco.PropertyChanged  -= LocoOnPropertyChanged;
+        loco.PropertyChanged -= LocoOnPropertyChanged;
     }
 
     private void LocoOnPropertyChanged(object? sender, PropertyChangedEventArgs e) {
@@ -64,16 +62,12 @@ public class LayoutPropertyChangedTests {
 
     private static void SetPropertyValue<T>(object obj, string propertyName, T value) {
         var propertyInfo = obj.GetType().GetProperty(propertyName);
-        if (propertyInfo != null && propertyInfo.CanWrite) {
-            propertyInfo.SetValue(obj, value);
-        }
+        if (propertyInfo != null && propertyInfo.CanWrite) propertyInfo.SetValue(obj, value);
     }
 
     private static T? GetPropertyValue<T>(object obj, string propertyName) {
         var propertyInfo = obj.GetType().GetProperty(propertyName);
-        if (propertyInfo != null && propertyInfo.CanRead) {
-            return (T?)propertyInfo.GetValue(obj);
-        }
+        if (propertyInfo != null && propertyInfo.CanRead) return (T?)propertyInfo.GetValue(obj);
         return default(T);
     }
 }

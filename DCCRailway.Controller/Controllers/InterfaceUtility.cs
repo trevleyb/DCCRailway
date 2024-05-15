@@ -31,8 +31,7 @@ public static class InterfaceUtility {
             if (foundName != null) {
                 if (foundName == searchInterface) {
                     isICommand = true;
-                }
-                else {
+                } else {
                     if (!string.IsNullOrEmpty(interfaceType.FullName)) foundInterfaces.Add(interfaceType.FullName);
                 }
             }
@@ -49,6 +48,5 @@ public static class InterfaceUtility {
     }
 
     public static string? FindImplmentationInterface<T>(IEnumerable<TypeInfo> definedTypes) where T : ICommand => FindImplmentationInterface(definedTypes, typeof(T).ToString());
-    public static bool ImplementsInterface(TypeInfo definedType, string searchInterface) => FindImplementsInterface(definedType, searchInterface) != null;
-
+    public static bool    ImplementsInterface(TypeInfo definedType, string searchInterface)                    => FindImplementsInterface(definedType, searchInterface) != null;
 }

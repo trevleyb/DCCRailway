@@ -16,7 +16,7 @@ public class NCELocoSetFunction : NCECommand, ICmdLocoSetFunction, ICommand {
 
     public byte Function { get; set; }
     public bool State    { get; set; }
-    
+
     public NCELocoSetFunction() {
         Functions = new DCCFunctionBlocks();
         Previous  = new DCCFunctionBlocks();
@@ -30,21 +30,21 @@ public class NCELocoSetFunction : NCECommand, ICmdLocoSetFunction, ICommand {
         Function = function;
         State    = state;
     }
-    
+
     public NCELocoSetFunction(DCCAddress address, DCCFunctionBlocks functions) {
         Address   = address;
         Functions = functions;
     }
 
     public DCCFunctionBlocks? Previous  { get; set; }
-    public DCCAddress        Address   { get; set; }
+    public DCCAddress         Address   { get; set; }
     public DCCFunctionBlocks  Functions { get; }
 
     protected override ICmdResult Execute(IAdapter adapter) {
         Previous ??= new DCCFunctionBlocks();
 
         Functions[Function] = State;
-        
+
         // Loop through the 5 groups of functions and see if any have changed from last time
         // If any have changed, then sent those new settings to the command station for the Loco Address
         for (var block = 1; block <= 5; block++) {

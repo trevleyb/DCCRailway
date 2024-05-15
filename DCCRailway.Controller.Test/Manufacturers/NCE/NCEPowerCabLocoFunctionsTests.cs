@@ -18,7 +18,7 @@ public class NCEPowerCabLocoFunctionsTests {
             RegisterCommand<ICmdLocoStop>(typeof(NCE.Actions.NCELocoStop));
     */
 
-    protected IAdapter?    Adapter;
+    protected IAdapter?        Adapter;
     protected ICommandStation? System;
 
     [SetUp]
@@ -37,8 +37,7 @@ public class NCEPowerCabLocoFunctionsTests {
             Adapter.DataSent      += Adapter_DataSent;
             Adapter.ErrorOccurred += Adapter_ErrorOccurred;
             _system.Adapter       =  Adapter;
-        }
-        else {
+        } else {
             Assert.Fail("Could not create a CommandStation Object");
         }
     }
@@ -105,7 +104,7 @@ public class NCEPowerCabLocoFunctionsTests {
                 speedCmd.Execute();
 
                 functionCmd.Functions[0] = false;
-                result = functionCmd.Execute();
+                result                   = functionCmd.Execute();
                 if (!result!.Success) Console.WriteLine(result!.ToString());
 
                 speedCmd.Direction  = DCCDirection.Forward;

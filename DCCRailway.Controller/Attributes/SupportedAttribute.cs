@@ -10,9 +10,9 @@ public class SupportedAttribute() : Attribute {
         UnSupported = unSupported == null ? [] : unSupported.ToList();
     }
 
-    public string?     Name        { get; init; }
-    public string      Description { get; init; }
-    public string      Version     { get; init; }
+    public string? Name        { get; init; }
+    public string  Description { get; init; }
+    public string  Version     { get; init; }
 
     private List<string> Supported   { get; }
     private List<string> UnSupported { get; }
@@ -26,7 +26,7 @@ public class SupportedAttribute() : Attribute {
     // if either is * then that means ALL (default for the supported list)
 
     public bool IsSupported(string commandStationName) {
-        var parts  = commandStationName.Split('@', 2);
+        var parts   = commandStationName.Split('@', 2);
         var station = parts.Length > 0 ? parts[0] : "";
         var version = parts.Length > 1 ? parts[1] : "";
         return IsSupported(station, version);
@@ -34,16 +34,12 @@ public class SupportedAttribute() : Attribute {
 
     public bool IsSupported(string commandStationName, string version) {
         if (string.IsNullOrWhiteSpace(commandStationName)) commandStationName = "*";
-        if (string.IsNullOrWhiteSpace(version)) version = "*";
-        var item = $"{commandStationName}@{version}";
+        if (string.IsNullOrWhiteSpace(version)) version                       = "*";
+        var item                                                              = $"{commandStationName}@{version}";
 
-        if (UnSupported.Contains(item) || UnSupported.Contains(commandStationName) || UnSupported.Contains($"{commandStationName}@*") || UnSupported.Contains($"@{version}") || UnSupported.Contains("*") || UnSupported.Contains("*@*")) {
-            return false;
-        }
+        if (UnSupported.Contains(item) || UnSupported.Contains(commandStationName) || UnSupported.Contains($"{commandStationName}@*") || UnSupported.Contains($"@{version}") || UnSupported.Contains("*") || UnSupported.Contains("*@*")) return false;
 
-        if (!Supported.Any() || Supported.Contains(item) || Supported.Contains(commandStationName) || Supported.Contains($"{commandStationName}@*") || Supported.Contains($"@{version}") || Supported.Contains("*") || Supported.Contains("*@*")) {
-            return true;
-        }
+        if (!Supported.Any() || Supported.Contains(item) || Supported.Contains(commandStationName) || Supported.Contains($"{commandStationName}@*") || Supported.Contains($"@{version}") || Supported.Contains("*") || Supported.Contains("*@*")) return true;
         return false;
     }
 }

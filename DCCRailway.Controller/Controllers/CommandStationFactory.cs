@@ -10,9 +10,9 @@ namespace DCCRailway.Controller.Controllers;
 /// allows the caller to dynamically create a controller based on the name of the controller.
 /// </summary>
 public class CommandStationFactory {
-    private Dictionary<string, CommandStationManager>? _controllers           = new();
-    private const string DefaultAssemblyPattern = @"(.*)DCCRailway.Controller\.(\D+)\.dll";
-    private const string DefaultPath = ".";
+    private       Dictionary<string, CommandStationManager>? _controllers           = new();
+    private const string                                     DefaultAssemblyPattern = @"(.*)DCCRailway.Controller\.(\D+)\.dll";
+    private const string                                     DefaultPath            = ".";
 
     /// <summary>
     /// Get a list of all available controllers. If the current list is empty, then call the load function
@@ -77,19 +77,17 @@ public class CommandStationFactory {
                                 throw new ApplicationException($"Duplicate CommandStation Name found: {systemAttr.Name}");
                             _controllers.Add(systemAttr.Name, new CommandStationManager(systemAttr, assemblyPath, controller));
                         }
-                    }
-                    catch (Exception ex) {
+                    } catch (Exception ex) {
                         Logger.Log.Debug("ASSEMBLY: Unable to obtain the name of the Manufacturer or CommandStation from the Assembly.", ex);
                     }
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 throw new ApplicationException($"Could not load assembly: {assemblyPath}", ex);
             }
         }
     }
 
     public List<CommandStationManager> FindByManufacturer(string manufacturer) => _controllers?.Where(key => key.Value.Manufacturer.Equals(manufacturer, StringComparison.InvariantCultureIgnoreCase)).Select(key => key.Value).ToList() ?? [];
-    public CommandStationManager? this[string                    name] => Find(name);
-    public CommandStationManager? Find(string                    name) => Controllers?.FirstOrDefault(key => key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
+    public CommandStationManager? this[string name] => Find(name);
+    public CommandStationManager? Find(string name) => Controllers?.FirstOrDefault(key => key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
 }

@@ -11,7 +11,7 @@ public class VirtualAccySetState : VirtualCommand, ICmdAccySetState, ICommand {
 
     public VirtualAccySetState(DCCAccessoryState state = DCCAccessoryState.Normal) => State = state;
 
-    public DCCAddress       Address { get; set; }
+    public DCCAddress        Address { get; set; }
     public DCCAccessoryState State   { get; set; }
 
     public override string ToString() => $"ACCY STATE ({Address} = {State})";

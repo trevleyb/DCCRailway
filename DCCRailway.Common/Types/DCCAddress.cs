@@ -61,7 +61,7 @@ public class DCCAddress : PropertyChangedBase {
             if (value < 0 || value >= MAX_ADDRESS) throw new ArgumentOutOfRangeException($"Address must be in the range of 1..{MAX_ADDRESS}");
             SetPropertyField(ref _address, value);
             if (value >= 128) AddressType = DCCAddressType.Long;
-            if (value == 0) AddressType = DCCAddressType.Broadcast;
+            if (value == 0) AddressType   = DCCAddressType.Broadcast;
         }
     }
 
@@ -77,7 +77,8 @@ public class DCCAddress : PropertyChangedBase {
         set => SetPropertyField(ref _protocol, value);
     }
 
-    [JsonIgnore] public bool IsLong => AddressType == DCCAddressType.Long;
+    [JsonIgnore]
+    public bool IsLong => AddressType == DCCAddressType.Long;
 
     [JsonIgnore]
     public string AddressName {
@@ -107,13 +108,11 @@ public class DCCAddress : PropertyChangedBase {
         if (AddressType == DCCAddressType.Short) {
             _lowAddress  = (byte)Address; // Take the low order bits
             _highAddress = 0;             // Short address is ALWAYS 0
-        }
-        else if (AddressType == DCCAddressType.Long) {
+        } else if (AddressType == DCCAddressType.Long) {
             _lowAddress  = (byte)Address;               // Take the low order bits
             _highAddress = (byte)(Address >> 8);        // Take the 2nd order bits
             _highAddress = (byte)(_highAddress | 0xC0); // Turn on 2 bits to indicate LONG address
-        }
-        else {
+        } else {
             _lowAddress  = (byte)Address;        // Take the low order bits
             _highAddress = (byte)(Address >> 8); // Take the 2nd order bits
         }

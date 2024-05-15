@@ -15,9 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Actions\Results\Base\" />
-      <Folder Include="Actions\Commands\Abstract\" />
-      <Folder Include="Helpers\" />
+        <Folder Include="Actions\Results\Base\"/>
+        <Folder Include="Actions\Commands\Abstract\"/>
+        <Folder Include="Helpers\"/>
     </ItemGroup>
 
 </Project>
