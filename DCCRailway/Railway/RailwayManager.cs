@@ -1,11 +1,11 @@
 using DCCRailway.Layout.Collection;
 using DCCRailway.Layout.Entities;
-using DCCRailway.Railway.Configuration.Helpers;
+using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Layout;
 using DCCRailway.Railway.Layout.State;
 using DCCRailway.Railway.Throttles.WiThrottle;
 
-namespace DCCRailway.Railway.Configuration;
+namespace DCCRailway.Railway;
 
 public sealed class RailwayManager : IRailwayManager {
     public const string DefaultConfigName   = "DCCRailway";

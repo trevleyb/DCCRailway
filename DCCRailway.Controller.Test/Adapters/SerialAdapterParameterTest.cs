@@ -2,7 +2,7 @@ using System.IO.Ports;
 using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.NCE.Adapters;
 
-namespace DCCRailway.System.Test.Adapters;
+namespace DCCRailway.Controller.Test.Adapters;
 
 [TestFixture]
 public class SerialAdapterParameterTest {

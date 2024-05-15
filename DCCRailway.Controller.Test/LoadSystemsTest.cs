@@ -1,6 +1,6 @@
 ﻿using DCCRailway.Controller.Controllers;
 
-namespace DCCRailway.System.Test;
+namespace DCCRailway.Controller.Test;
 
 [TestFixture]
 public class LoadSystemsTest {

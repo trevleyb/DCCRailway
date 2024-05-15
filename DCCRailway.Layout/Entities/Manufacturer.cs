@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using DCCRailway.Layout.Base;
 
-namespace DCCRailway.Railway.Configuration.Helpers;
+namespace DCCRailway.Layout.Entities;
 
 [Serializable]
 [DebuggerDisplay("MANUFACTURER={Id}, Name: {Name}")]

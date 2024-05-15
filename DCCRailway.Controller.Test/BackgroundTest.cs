@@ -1,10 +1,8 @@
 using System.Text.Json;
-using DCCRailway.Controller.Adapters;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Virtual.Adapters;
-using Tmds.Linux;
 
-namespace DCCRailway.System.Test;
+namespace DCCRailway.Controller.Test;
 
 [TestFixture]
 public class BackgroundTest {

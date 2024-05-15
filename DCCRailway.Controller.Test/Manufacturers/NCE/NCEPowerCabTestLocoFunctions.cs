@@ -1,4 +1,4 @@
-﻿namespace DCCRailway.System.Test.Manufacturers.NCE;
+﻿namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 /*
 
     [TestFixture]

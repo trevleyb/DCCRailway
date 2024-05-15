@@ -1,6 +1,6 @@
 using DCCRailway.Controller.Controllers;
 
-namespace DCCRailway.System.Test.Controllers;
+namespace DCCRailway.Controller.Test.Controllers;
 
 [TestFixture, TestOf(typeof(CommandStationManager))]
 public class CommandStationManagerTest {

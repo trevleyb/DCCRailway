@@ -1,7 +1,6 @@
 using DCCRailway.Layout.Collection;
-using DCCRailway.Layout.Entities;
 
-namespace DCCRailway.Railway.Configuration.Helpers;
+namespace DCCRailway.Layout.Entities;
 
 [Serializable]
 public class Manufacturers : LayoutRepository<Manufacturer>  {

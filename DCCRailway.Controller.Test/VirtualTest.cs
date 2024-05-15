@@ -3,7 +3,7 @@ using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Controllers.Events;
 
-namespace DCCRailway.System.Test;
+namespace DCCRailway.Controller.Test;
 
 [TestFixture]
 public class VirtualTest {

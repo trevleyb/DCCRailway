@@ -2,7 +2,7 @@ using System.IO.Ports;
 using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Adapters.Base;
 
-namespace DCCRailway.System.Test.Adapters;
+namespace DCCRailway.Controller.Test.Adapters;
 
 [TestFixture]
 public class AdapterMappingTest {

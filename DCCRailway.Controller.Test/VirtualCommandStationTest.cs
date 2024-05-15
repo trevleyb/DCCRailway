@@ -1,8 +1,7 @@
-﻿using DCCRailway.Controller.Adapters;
-using DCCRailway.Controller.Controllers;
+﻿using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Virtual.Adapters;
 
-namespace DCCRailway.System.Test;
+namespace DCCRailway.Controller.Test;
 
 [TestFixture, Ignore("Re-writing this")]
 public class VirtualCommandStationTest {

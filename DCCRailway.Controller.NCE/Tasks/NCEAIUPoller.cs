@@ -4,14 +4,13 @@ using System.Text;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Parameters;
 using DCCRailway.Common.Types;
-using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.NCE.Actions.Commands;
 using DCCRailway.Controller.NCE.Actions.Results;
 using DCCRailway.Controller.Tasks;
 
-namespace DCCRailway.Controller.Virtual.Tasks;
+namespace DCCRailway.Controller.NCE.Tasks;
 
 [Task("AIUPoller","NCE AIU Poller")]
 public class NCEAIUPoller : ControllerTask, IParameterMappable {

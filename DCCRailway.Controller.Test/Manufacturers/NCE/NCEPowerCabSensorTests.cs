@@ -7,7 +7,7 @@ using DCCRailway.Controller.NCE.Actions.Commands;
 using DCCRailway.Controller.NCE.Actions.Results;
 using DCCRailway.Controller.NCE.Adapters;
 
-namespace DCCRailway.System.Test.Manufacturers.NCE;
+namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 
 [TestFixture, Ignore("This is a hardware test")]
 public class NCEPowerCabSensorTest {

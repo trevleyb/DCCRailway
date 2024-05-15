@@ -1,13 +1,12 @@
 ﻿using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
-using DCCRailway.Controller.Adapters;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Adapters.Events;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.NCE;
 using DCCRailway.Controller.NCE.Adapters;
 
-namespace DCCRailway.System.Test.Manufacturers.NCE;
+namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 
 [TestFixture, Ignore("This is a hardware test")]
 public class NCEPowerCabLocoFunctionsTests {

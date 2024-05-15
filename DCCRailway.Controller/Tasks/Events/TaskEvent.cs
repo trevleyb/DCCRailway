@@ -1,4 +1,4 @@
-namespace DCCRailway.Controller.Adapters.Events;
+namespace DCCRailway.Controller.Tasks.Events;
 
 public class TaskEventArgs : EventArgs, ITaskEvent {
     public TaskEventArgs() {

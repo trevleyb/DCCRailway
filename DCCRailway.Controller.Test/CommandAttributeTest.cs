@@ -1,7 +1,6 @@
 using DCCRailway.Controller.Attributes;
-using NUnit.Framework;
 
-namespace DCCRailway.System.Test;
+namespace DCCRailway.Controller.Test;
 
 public class CommandAttributeTest {
 

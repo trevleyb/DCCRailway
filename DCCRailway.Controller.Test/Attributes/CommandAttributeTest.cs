@@ -1,6 +1,6 @@
 using DCCRailway.Controller.Attributes;
 
-namespace DCCRailway.System.Test.Attributes;
+namespace DCCRailway.Controller.Test.Attributes;
 
 [TestFixture]
 public class CommandAttributeTests {

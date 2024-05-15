@@ -1,12 +1,10 @@
 using DCCRailway.Layout.Entities;
-using DCCRailway.Railway.Configuration.Entities;
-using DCCRailway.Railway.Configuration.Helpers;
+using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Layout;
 using DCCRailway.Railway.Layout.State;
 using DCCRailway.Railway.Throttles.WiThrottle;
-using Parameters = DCCRailway.Layout.Entities.Parameters;
 
-namespace DCCRailway.Railway.Configuration;
+namespace DCCRailway.Railway;
 
 /// <summary>
 /// IRailwayConfig represents the data used to manage the railway. This will include Locomotices, Blocks,

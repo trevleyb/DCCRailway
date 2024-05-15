@@ -1,4 +1,5 @@
 using DCCRailway.Common.Types;
+using DCCRailway.Railway;
 using DCCRailway.Railway.Configuration;
 using NUnit.Framework;
 

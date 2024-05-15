@@ -1,5 +1,5 @@
 
-namespace DCCRailway.Railway.EndPoints;
+namespace DCCRailway.WebApp.EndPoints;
 
 public static class StateAPI {
 /*

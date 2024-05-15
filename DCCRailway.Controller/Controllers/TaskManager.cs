@@ -5,6 +5,7 @@ using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
 using DCCRailway.Controller.Tasks;
+using DCCRailway.Controller.Tasks.Events;
 
 namespace DCCRailway.Controller.Controllers;
 

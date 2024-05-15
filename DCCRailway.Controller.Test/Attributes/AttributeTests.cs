@@ -1,7 +1,7 @@
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.NCE.Actions.Commands;
 
-namespace DCCRailway.System.Test.Attributes;
+namespace DCCRailway.Controller.Test.Attributes;
 
 [TestFixture]
 public class AttributeTests {

@@ -1,8 +1,7 @@
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Virtual;
-using NUnit.Framework.Interfaces;
 
-namespace DCCRailway.System.Test;
+namespace DCCRailway.Controller.Test;
 
 [TestFixture]
 public class CommandTypeTest {
