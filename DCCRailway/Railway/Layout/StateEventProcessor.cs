@@ -3,6 +3,7 @@ using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Actions.Commands.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
+using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Layout.Processors;
 using DCCRailway.Railway.Layout.State;
 
@@ -17,7 +18,7 @@ namespace DCCRailway.Railway.Layout;
 /// So this is a bridge between the two systems. It takes a DCCRailwayConfig instance whcih is
 /// the collection of all data related to the current executing layout.
 /// </summary>
-public class StateEventProcessor (StateManager stateManager){
+public class StateEventProcessor (IRailwayManager railwayManager, IStateManager stateManager){
 
     public void ProcessCommandEvent(ControllerEventArgs eventArgs) {
         switch (eventArgs) {
@@ -35,14 +36,14 @@ public class StateEventProcessor (StateManager stateManager){
             // ---------------------------------------------------
             if (args.Result is { Success: true, Command: not null } result) {
                 IStateUpdaterProcess stateUpdater = result.Command switch {
-                    IAccyCmd    => new StateUpdaterAccyCmd(stateManager, result),
-                    ILocoCmd    => new StateUpdaterLocoCmd(stateManager, result),
-                    ISensorCmd  => new StateUpdaterSensorCmd(stateManager, result),
-                    ISignalCmd  => new StateUpdaterSignalCmd(stateManager, result),
-                    ISystemCmd  => new StateUpdaterSystemCmd(stateManager, result),
-                    IConsistCmd => new StateUpdaterConsistCmd(stateManager, result),
-                    ICVCmd      => new StateUpdaterCvCmd(stateManager, result),
-                    _           => new StateUpdaterGenericCmd(stateManager, result),
+                    IAccyCmd    => new StateUpdaterAccyCmd(railwayManager,stateManager, result),
+                    ILocoCmd    => new StateUpdaterLocoCmd(railwayManager,stateManager, result),
+                    ISensorCmd  => new StateUpdaterSensorCmd(railwayManager,stateManager, result),
+                    ISignalCmd  => new StateUpdaterSignalCmd(railwayManager,stateManager, result),
+                    ISystemCmd  => new StateUpdaterSystemCmd(railwayManager,stateManager, result),
+                    IConsistCmd => new StateUpdaterConsistCmd(railwayManager,stateManager, result),
+                    ICVCmd      => new StateUpdaterCvCmd(railwayManager,stateManager, result),
+                    _           => new StateUpdaterGenericCmd(railwayManager,stateManager, result),
                 };
                 stateUpdater.Process();
             }

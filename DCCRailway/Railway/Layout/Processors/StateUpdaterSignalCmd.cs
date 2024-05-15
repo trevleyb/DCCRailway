@@ -6,11 +6,11 @@ using DCCRailway.Railway.Layout.State;
 
 namespace DCCRailway.Railway.Layout.Processors;
 
-public class StateUpdaterSignalCmd(StateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
+public class StateUpdaterSignalCmd(IRailwayManager railwayManager, IStateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
     public override bool Process() {
 
         if (Command is ISignalCmd signalCmd) {
-            var signal = RailwayManager.Instance.Signals.Find(x => x.Address == signalCmd.Address);
+            var signal = railwayManager.Signals.Find(x => x.Address == signalCmd.Address);
 
             switch (signalCmd) {
             case ICmdSignalSetAspect cmd:

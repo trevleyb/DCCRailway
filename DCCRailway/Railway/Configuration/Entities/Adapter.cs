@@ -2,6 +2,6 @@
 
 [Serializable]
 public class Adapter {
-    public string? Name;
+    public string? Name { get; set; }
     public Parameters Parameters { get; set; } = [];
 }

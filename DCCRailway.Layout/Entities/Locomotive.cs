@@ -41,9 +41,7 @@ public class Locomotive : LayoutEntityDecoder {
     [JsonConstructor]
     protected Locomotive() : this("") { }
 
-    public Locomotive(string id = "") : base(id) {
-        AddressType = DCCAddressType.Long;
-    }
+    public Locomotive(string id = "") : base(id) { }
 
     // Hate backing fields but need them for INotifyPropertyChanged Events
     // ----------------------------------------------------------------------------
@@ -59,7 +57,4 @@ public class Locomotive : LayoutEntityDecoder {
     public DCCFunctionBlocks FunctionBlocks { get => _functionBlocks;   set => SetField(ref _functionBlocks, value); }
 
     public new string                       ToString() => $"{Name}";
-    public IEnumerator GetEnumerator() {
-        throw new NotImplementedException();
-    }
 }

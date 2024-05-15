@@ -6,11 +6,11 @@ using DCCRailway.Railway.Layout.State;
 
 namespace DCCRailway.Railway.Layout.Processors;
 
-public class StateUpdaterAccyCmd(StateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
+public class StateUpdaterAccyCmd(IRailwayManager railwayManager, IStateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
     public override bool Process() {
 
         if (Command is IAccyCmd accyCmd) {
-            var accessory = RailwayManager.Instance.Accessories.Find(x => x.Address == accyCmd.Address);
+            var accessory = railwayManager.Accessories.Find(x => x.Address == accyCmd.Address);
 
             if (accessory is null) {
                 Error($"No matching Accessory {accyCmd.Address.Address}.");

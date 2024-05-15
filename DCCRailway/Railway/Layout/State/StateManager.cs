@@ -8,7 +8,7 @@ namespace DCCRailway.Railway.Layout.State;
 /// an identifier and an object that represents its state and the state can be
 /// returned as part of a call to the state manager.
 /// </summary>
-public class StateManager {
+public class StateManager : IStateManager {
 
     private readonly ConcurrentDictionary<string, StateObject> _states = new();
 

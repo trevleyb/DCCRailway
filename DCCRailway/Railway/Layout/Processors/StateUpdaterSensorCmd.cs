@@ -6,10 +6,10 @@ using DCCRailway.Railway.Layout.State;
 
 namespace DCCRailway.Railway.Layout.Processors;
 
-public class StateUpdaterSensorCmd(StateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
+public class StateUpdaterSensorCmd(IRailwayManager railwayManager, IStateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
     public override bool Process() {
         if (Command is ISensorCmd sensorCmd) {
-            var sensor = RailwayManager.Instance.Sensors.Find(x => x.Address == sensorCmd.Address);
+            var sensor = railwayManager.Sensors.Find(x => x.Address == sensorCmd.Address);
             switch (sensorCmd) {
             case ICmdSensorGetState cmd:
                 Event("Getting the State of a Sensor");

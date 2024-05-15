@@ -1,12 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/PencilsConfiguration/ActualSeverity/@EntryValue">SUGGESTION</s:String>
-	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INT_ALIGN_ASSIGNMENTS/@EntryValue">False</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INT_ALIGN_METHODS/@EntryValue">False</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INT_ALIGN_NESTED_TERNARY/@EntryValue">False</s:Boolean>
+	
+	
+	
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INT_ALIGN_PARAMETERS/@EntryValue">False</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INT_ALIGN_PROPERTIES/@EntryValue">False</s:Boolean>
+	
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INT_ALIGN_PROPERTY_PATTERNS/@EntryValue">False</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INT_ALIGN_VARIABLES/@EntryValue">False</s:Boolean>
+	
     <s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;
   &lt;Assembly Path="/Users/trevorleybourne/.nuget/packages/system.io.ports/8.0.0-preview.6.23329.7/lib/net7.0/System.IO.Ports.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
@@ -32,6 +32,7 @@
       &lt;TestId&gt;NUnit3x::9F7826B2-569F-47F1-9FAF-1862E7BFB396::net8.0::DCCRailway.System.Test.BackgroundTest.TestDeserializationofTimeSpan&lt;/TestId&gt;
       &lt;TestId&gt;NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::net8.0::DCCRailway.Layout.Test.LayoutStorageTest.TestCreatingaRepositoryWhichShouldBeEmpty&lt;/TestId&gt;
       &lt;TestId&gt;NUnit3x::ECB148C2-8B76-46FB-B05B-10E0DFF70C31::net8.0::DCCRailway.Layout.Test.LayoutStorageTest.TestSavingAndLoadingARepository&lt;/TestId&gt;
+      &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.RailwayManagerTests.CreateTestFileForTestingAndReload&lt;/TestId&gt;
     &lt;/TestAncestor&gt;
     &lt;Project Location="/Users/trevor/Library/Mobile Documents/com~apple~CloudDocs/Development/DCCRailway/DCCRailway.CmdStation.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.CmdStation.Test&amp;gt;" /&gt;
   &lt;/Or&gt;

@@ -33,10 +33,24 @@ public abstract class LayoutRepository<TEntity>
 
     public void Save(string pathname) {
         PathName = pathname;
+        ValidatePath(pathname);
         SaveFile(FullName);
     }
-    public void Save() => SaveFile(FullName);
+
+    public void Save() {
+        ValidatePath(PathName);
+        SaveFile(FullName);
+    }
+
     public virtual void Load() => LoadFile(FullName);
+
+    private void ValidatePath(string pathname) {
+        try {
+            if (!Directory.Exists(pathname)) Directory.CreateDirectory(pathname);
+        } catch (Exception ex) {
+            throw new ApplicationException($"Unable to create or access the specified path for the config files '{pathname}'", ex);
+        }
+    }
 
     protected async Task<bool> Contains(string id) => await Task.FromResult(ContainsKey(id));
     protected async Task<bool> Contains(TEntity item) => await Task.FromResult(ContainsKey(item.Id));

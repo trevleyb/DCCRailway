@@ -7,7 +7,7 @@ using DCCRailway.Railway.Layout.State;
 
 namespace DCCRailway.Railway.Layout.Processors;
 
-public class StateUpdaterLocoCmd(StateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
+public class StateUpdaterLocoCmd(IRailwayManager railwayManager, IStateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
     public override bool Process() {
 
         // Get the Accessory from the configuration so that we can update its state
@@ -16,7 +16,7 @@ public class StateUpdaterLocoCmd(StateManager stateManager, ICmdResult result) :
             //var locomotives = RailwayConfig.Instance.Locomotives;
             //var loco = locomotives.Find(x => x.Address.Address == locoCmd.Address.Address).Results;
             //var loco = Config.Locomotives[locoCmd.Address];
-            var loco = RailwayManager.Instance.Locomotives.Find(x => x.Address.Address == locoCmd.Address.Address);
+            var loco = railwayManager.Locomotives.Find(x => x.Address.Address == locoCmd.Address.Address);
 
             if (loco is null) {
                 Error($"Command - no matching Accessory {((IAccyCmd)Command).Address.Address}.");

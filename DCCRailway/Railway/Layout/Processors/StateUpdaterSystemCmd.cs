@@ -1,11 +1,12 @@
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Results;
+using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Layout.State;
 
 namespace DCCRailway.Railway.Layout.Processors;
 
-public class StateUpdaterSystemCmd(StateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
+public class StateUpdaterSystemCmd(IRailwayManager railwayManager, IStateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
     public override bool Process() {
         switch (Command) {
         case ICmdStatus cmd:

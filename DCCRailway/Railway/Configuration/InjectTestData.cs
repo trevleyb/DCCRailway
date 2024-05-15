@@ -6,12 +6,11 @@ using Route = DCCRailway.Layout.Entities.Route;
 
 namespace DCCRailway.Railway.Configuration;
 
-public static class CreateTestFile {
+public static class InjectTestData {
 
-    public static void Build(string? pathname = null, string? name = "DCCRailway") {
+    public static void SampleData(IRailwayManager manager) {
 
-        var manager = RailwayManager.New("TestLayout", "./Configuration");
-
+        if (string.IsNullOrEmpty(manager.Settings.Name)) manager.Settings.Name = "Sample";
         manager.Settings.Description = "A Test configuration file for testing";
         manager.Settings.Controller.Name = "Virtual";
         manager.Settings.Controller.Adapters.Add("Virtual");
@@ -67,8 +66,6 @@ public static class CreateTestFile {
         var blocks = manager.Blocks;
         blocks.Add(new Block { Id = "B01", Name = "Mainline-West" });
         blocks.Add(new Block { Id = "B02", Name = "Mainline-East" });
-
-        manager.Save();
     }
 
 }

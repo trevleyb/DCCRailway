@@ -10,9 +10,9 @@ namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class TestEntityCollectionWithChanges {
-    private string repository;
-    private string id;
-    private RepositoryChangeAction action;
+    private string _repository;
+    private string _id;
+    private RepositoryChangeAction _action;
 
     [Test]
     public void TestCastToEntityChangingProperties() {
@@ -26,23 +26,23 @@ public class TestEntityCollectionWithChanges {
         var newEntity = new TestEntity { Name = "Entity 1" };
         var addEntity = collection.Add(newEntity);
         Assert.That(addEntity,Is.Not.Null);
-        Assert.That(action,Is.EqualTo(RepositoryChangeAction.Add));
-        Assert.That(repository,Is.EqualTo("TestEntities"));
-        Assert.That(id,Is.EqualTo(addEntity.Id));
+        Assert.That(_action,Is.EqualTo(RepositoryChangeAction.Add));
+        Assert.That(_repository,Is.EqualTo("TestEntities"));
+        Assert.That(_id,Is.EqualTo(addEntity.Id));
 
         var entity = collection.IndexOf(0);
         Assert.That(entity,Is.Not.Null);
         entity.Name = "Updated Entity";
         collection.Update(entity);
-        Assert.That(action,Is.EqualTo(RepositoryChangeAction.Update));
-        Assert.That(repository,Is.EqualTo("TestEntities"));
-        Assert.That(id,Is.EqualTo(collection.IndexOf(0)?.Id));
+        Assert.That(_action,Is.EqualTo(RepositoryChangeAction.Update));
+        Assert.That(_repository,Is.EqualTo("TestEntities"));
+        Assert.That(_id,Is.EqualTo(collection.IndexOf(0)?.Id));
     }
 
     private void CollectionOnRepositoryChanged(object sender, RepositoryChangedEventArgs args) {
-        action = args.Action;
-        id = args.Id;
-        repository = args.Repository;
+        _action = args.Action;
+        _id = args.Id;
+        _repository = args.Repository;
     }
 }
 

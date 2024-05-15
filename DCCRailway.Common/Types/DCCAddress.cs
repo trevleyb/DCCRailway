@@ -1,10 +1,12 @@
-﻿using DCCRailway.Common.Helpers;
+﻿using System.Text.Json.Serialization;
+using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Common.Types;
 
 /// <summary>
 ///     Represents the storage of an ADDRESS for a DCC Loco or Accessory
 /// </summary>
+[Serializable]
 public class DCCAddress : PropertyChangedBase {
     private const int MAX_ADDRESS = 10000;
 
@@ -26,6 +28,7 @@ public class DCCAddress : PropertyChangedBase {
     ///     For NCE, split he address into 2 parts. Return the LOW ORDER part of the address
     ///     but calculate the value first from the provided address.
     /// </summary>
+    [JsonIgnore]
     public byte LowAddress {
         get {
             CalculateHighLowAddress();
@@ -37,6 +40,7 @@ public class DCCAddress : PropertyChangedBase {
     ///     For NCE, split he address into 2 parts. Return the HIGH ORDER part of the address
     ///     but calculate the value first from the provided address.
     /// </summary>
+    [JsonIgnore]
     public byte HighAddress {
         get {
             CalculateHighLowAddress();
@@ -44,6 +48,7 @@ public class DCCAddress : PropertyChangedBase {
         }
     }
 
+    [JsonIgnore]
     public byte[] AddressBytes => new[] { HighAddress, LowAddress };
 
     /// <summary>
@@ -60,18 +65,21 @@ public class DCCAddress : PropertyChangedBase {
         }
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public DCCAddressType AddressType {
         get => _addressType;
         set => SetPropertyField(ref _addressType, value);
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public DCCProtocol Protocol {
         get => _protocol;
         set => SetPropertyField(ref _protocol, value);
     }
 
-    public bool IsLong => AddressType == DCCAddressType.Long;
+    [JsonIgnore] public bool IsLong => AddressType == DCCAddressType.Long;
 
+    [JsonIgnore]
     public string AddressName {
         get {
             var shortOrLong = AddressType switch {

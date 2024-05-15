@@ -9,8 +9,25 @@ public class RailwayManagerTests {
 
     [Test]
     public void CreateTestFileForTesting() {
-        CreateTestFile.Build("DCCRailway.Test.Json");
+        var manager = RailwayManager.New("MyTestLayout");
+        manager.PathName = $"./MyTestLayout{DateTime.Now:yyMMddHHmmss}";
+        InjectTestData.SampleData(manager);
+        manager.Save();
     }
+
+    [Test]
+    public void CreateTestFileForTestingAndReload() {
+        var manager = RailwayManager.New("MyTestLayout");
+        var pathname = $"./MyTestLayout{DateTime.Now:yyMMddHHmmss}";
+        manager.PathName = pathname;
+        InjectTestData.SampleData(manager);
+        manager.Save();
+
+        var newInstance = RailwayManager.Load("MyTestLayout", pathname);
+        Assert.That(newInstance, Is.Not.Null);
+        Assert.That(manager.Accessories.Count, Is.EqualTo(newInstance.Accessories.Count));
+    }
+
 
     [Test]
     public async Task TestInstantiatingTheRailwayManager() {

@@ -1,11 +1,12 @@
 using System.Collections.Concurrent;
 using System.Collections.Frozen;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using DCCRailway.Layout.Base;
 
 namespace DCCRailway.Layout.Collection;
 
-public class EntityStorage<TEntity> : ConcurrentDictionary<string,TEntity>
+public class EntityStorage<TEntity> : ConcurrentDictionary<string, TEntity>
     where TEntity : LayoutEntity {
 
 
@@ -21,9 +22,7 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string,TEntity>
         if (!File.Exists(fileName)) return;
         try {
             var serializedStr = File.ReadAllText(fileName);
-            var serializerOptions = new JsonSerializerOptions {
-                WriteIndented = true
-            };
+            var serializerOptions = JsonOptions;
             var collection = JsonSerializer.Deserialize<Dictionary<string, TEntity>>(serializedStr, serializerOptions) ?? [];
             foreach (var keyPair in collection) TryAdd(keyPair.Key, keyPair.Value);
         }
@@ -43,9 +42,7 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string,TEntity>
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------
         try {
-            var serializerOptions   = new JsonSerializerOptions {
-                    WriteIndented = true
-            };
+            var serializerOptions = JsonOptions;
             var serializedStr = JsonSerializer.Serialize(this.ToFrozenDictionary(), serializerOptions);
             File.WriteAllText(fileName, serializedStr);
         }
@@ -53,4 +50,9 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string,TEntity>
             throw new ApplicationException($"Unable to save configuration data to '{fileName}' due to '{ex.Message}'");
         }
     }
+
+    private JsonSerializerOptions JsonOptions => new JsonSerializerOptions {
+        WriteIndented = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
 }
