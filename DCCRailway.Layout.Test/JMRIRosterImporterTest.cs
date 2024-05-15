@@ -7,7 +7,7 @@ namespace DCCRailway.Layout.Test;
 public class JMRIRosterImporterTest {
     [SetUp]
     public void SetUp() {
-        mgr = RailwayManager.Load() ?? throw new Exception("Cannot start a Layout Manager");
+        mgr = new RailwayManager() ?? throw new Exception("Cannot start a Layout Manager");
     }
 
     [TearDown]

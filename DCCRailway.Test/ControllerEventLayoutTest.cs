@@ -13,7 +13,7 @@ namespace DCCRailway.Test;
 public class ControllerEventLayoutTest {
     [Test]
     public void TestLayoutCmdProcessorForALoco() {
-        var layoutConfig = RailwayManager.New();
+        var layoutConfig = new RailwayManager();
         Assert.That(layoutConfig, Is.Not.Null);
 
         layoutConfig.Settings.Controller.Name = "Virtual";

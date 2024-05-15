@@ -15,6 +15,7 @@ public class WiThrottlePreferences : JsonSerializerHelper<WiThrottlePreferences>
     public string? Port             { get; set; }
     public bool    UseFastClock     { get; set; } = false;
     public int     HeartbeatSeconds { get; set; } = 15;
+    public bool    RunOnStartup     { get; set; } = false;
 
     [JsonIgnore]
     public IPAddress HostAddress => string.IsNullOrEmpty(Address) ? Network.GetLocalIPAddress() : IPAddress.Parse(Address);

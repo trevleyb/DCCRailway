@@ -46,7 +46,7 @@ public class TestEntityEvents {
     }
 
     private IRailwayManager CreateTestConfig() {
-        var config = RailwayManager.New("Test Entities", "Test Entities");
+        var config = new RailwayManager("Test Entities");
 
         var locomotives = config.Locomotives;
         locomotives.Add(new Locomotive { Name = "Train01" });

@@ -8,7 +8,7 @@ public class SettingsTest {
     [Test]
     public async Task TestEntityRepositoryAddAndStore() {
         // This will either load the file, or will create a new one if it does not exist.
-        var config = RailwayManager.New("TestFile", "./TestConfig");
+        var config = new RailwayManager("./TestConfig", "TestFile");
 
         var accessoryRepository = config.Accessories;
         await accessoryRepository.AddAsync(new Accessory { Name = "TestAccessory1", Description = "Test Accessory Description1" });
@@ -42,7 +42,7 @@ public class SettingsTest {
 
         config.Save();
 
-        var config2 = RailwayManager.Load("TestSystemWithAll.json");
+        var config2 = new RailwayManager("./TestConfig", "TestFile", load: true);
         Assert.That(config2, Is.Not.Null);
 
         var accs = config2.Accessories.GetAll();
@@ -51,13 +51,15 @@ public class SettingsTest {
         var sens = config2.Sensors.GetAll();
         var sigs = config2.Signals.GetAll();
         var turs = config2.Turnouts.GetAll();
+        var ruts = config2.Routes.GetAll();
 
-        Assert.That(accs.Count(), Is.EqualTo(3));
-        Assert.That(blks.Count(), Is.EqualTo(3));
-        Assert.That(locs.Count(), Is.EqualTo(3));
-        Assert.That(sens.Count(), Is.EqualTo(3));
-        Assert.That(sigs.Count(), Is.EqualTo(3));
-        Assert.That(turs.Count(), Is.EqualTo(3));
+        Assert.That(accs.Count(), Is.EqualTo(config.Accessories.Count));
+        Assert.That(blks.Count(), Is.EqualTo(config.Blocks.Count));
+        Assert.That(locs.Count(), Is.EqualTo(config.Locomotives.Count));
+        Assert.That(sens.Count(), Is.EqualTo(config.Sensors.Count));
+        Assert.That(sigs.Count(), Is.EqualTo(config.Signals.Count));
+        Assert.That(turs.Count(), Is.EqualTo(config.Turnouts.Count));
+        Assert.That(ruts.Count(), Is.EqualTo(config.Routes.Count));
 
         var acc = accs.First(x => x.Name.Contains("1")).Name;
         var blk = blks.First(x => x.Name.Contains("1")).Name;

@@ -8,27 +8,25 @@ namespace DCCRailway.Test;
 public class RailwayManagerTests {
     [Test]
     public void CreateTestFileForTesting() {
-        var manager = RailwayManager.New("MyTestLayout");
-        manager.PathName = $"./MyTestLayout{DateTime.Now:yyMMddHHmmss}";
+        var manager = new RailwayManager($"./MyTestLayout{DateTime.Now:yyMMddHHmmss}", "MyTestLayout");
         InjectTestData.SampleData(manager);
         manager.Save();
     }
 
     [Test]
     public void CreateTestFileForTestingAndReload() {
-        var manager  = RailwayManager.New("MyTestLayout");
-        var pathname = $"./MyTestLayout{DateTime.Now:yyMMddHHmmss}";
-        manager.PathName = pathname;
+        var manager = new RailwayManager($"./MyTestLayout{DateTime.Now:yyMMddHHmmss}", "MyTestLayout");
+        var pathname = manager.PathName;
         InjectTestData.SampleData(manager);
         manager.Save();
 
-        var newInstance = RailwayManager.Load("MyTestLayout", pathname);
+        var newInstance = new RailwayManager(pathname, "MyTestLayout",false,true);
         Assert.That(newInstance, Is.Not.Null);
         Assert.That(manager.Accessories.Count, Is.EqualTo(newInstance.Accessories.Count));
     }
 
     [Test]
-    public async Task TestInstantiatingTheRailwayManager() {
+    public void TestInstantiatingTheRailwayManager() {
         /*
         var testFilename   = "test.json";
         var railwayConfig  = RailwayConfig.Load();
@@ -45,16 +43,6 @@ public class RailwayManagerTests {
 
         railwayManager.ActiveController!.Execute(locoCmd);
         Assert.That((await config.Locomotives.GetByNameAsync("Train01"))?.Speed.Value, Is.EqualTo(50));
-        */
-    }
-
-    [Test]
-    public async Task TestThatTheTestConfigIsCorrect() {
-        /*
-        var config = await CreateTestConfig();
-        Assert.That((await config.Locomotives.GetByNameAsync("Train01"))?.Name, Is.EqualTo("Train01"));
-        Assert.That((await config.Locomotives.GetByNameAsync("Train01"))?.Address?.Address, Is.EqualTo(201));
-        Assert.That((await config.Locomotives.GetByNameAsync("Train01"))?.Address?.AddressType, Is.EqualTo(DCCAddressType.Short));
         */
     }
 }

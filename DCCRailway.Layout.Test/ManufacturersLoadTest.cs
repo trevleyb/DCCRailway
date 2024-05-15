@@ -6,7 +6,7 @@ namespace DCCRailway.Layout.Test;
 public class ManufacturersLoadTest {
     [Test]
     public void LoadManufacturersList() {
-        var manager       = RailwayManager.New();
+        var manager       = new RailwayManager();
         var manufacturers = manager.Manufacturers;
         Assert.That(manufacturers, Is.Not.Null, "Should have at least 1 manufacturer returned from the Manufacturers call");
         foreach (var manufacturer in manufacturers.Values) {
