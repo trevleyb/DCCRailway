@@ -7,7 +7,7 @@ namespace DCCRailway.Controller.Test;
 
 [TestFixture]
 public class VirtualTest {
-    private bool _controllerEventFired = false;
+    private bool _controllerEventFired;
 
     [Test]
     public void TestControllerCreation() {

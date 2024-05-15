@@ -13,7 +13,7 @@ public class MsgTurnoutList(WiThrottleConnection connection) : ThrottleMsg, IThr
             // This block should be re-written in the future to support the Names of the States
             // of the Turnouts to come from Condfiguration.
             var message = new StringBuilder();
-            message.Append($"PTL");
+            message.Append("PTL");
             foreach (var turnout in turnouts) {
                 message.Append("]\\["); // Separator
                 message.Append(turnout.Id);

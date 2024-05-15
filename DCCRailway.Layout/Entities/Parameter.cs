@@ -5,14 +5,13 @@ namespace DCCRailway.Layout.Entities;
 
 [Serializable]
 public class Parameter {
+    public Parameter() : this(Guid.NewGuid()) { }
+    public Parameter(Guid guid) => Id = guid;
+    public Parameter(string name, object value) => Set(name, value);
     public Guid    Id      { get; set; }
     public string  Name    { get; set; }
     public string  Value   { get; set; }
     public string? ObjType { get; set; }
-
-    public Parameter() : this(Guid.NewGuid()) { }
-    public Parameter(Guid guid) => Id = guid;
-    public Parameter(string name, object value) => Set(name, value);
 
     public void Set(string name, object value) {
         Name    = name;

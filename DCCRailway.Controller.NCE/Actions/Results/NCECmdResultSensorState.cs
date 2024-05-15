@@ -10,6 +10,7 @@ public class NCECmdResultSensorState : CmdResult, ICmdResultAddress {
         State   = state;
     }
 
-    public DCCAddress        Address { get; set; }
-    public DCCAccessoryState State   { get; init; }
+    public DCCAccessoryState State { get; init; }
+
+    public DCCAddress Address { get; set; }
 }

@@ -2,19 +2,18 @@
 using System.Net.Sockets;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
-using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Throttles.WiThrottle.Messages;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle;
 
 public class WiThrottleConnection {
-    private           int                     _heartbeatSeconds = 15;
-    private readonly  WiThrottleMsgQueue      _serverMessages   = [];
-    private readonly  WiThrottleConnections   _listReference;
     private readonly  WiThrottleAssignedLocos _assignedLocos = new();
+    private readonly  WiThrottleConnections   _listReference;
+    private readonly  WiThrottleMsgQueue      _serverMessages = [];
+    internal readonly CommandStationManager   CommandStationManager;
     internal readonly WiThrottlePreferences   Preferences;
     internal readonly IRailwayManager         RailwayManager;
-    internal readonly CommandStationManager   CommandStationManager;
+    private           int                     _heartbeatSeconds = 15;
 
     /// <summary>
     ///     A connection AttributeInfo Entry stores information about a particular entry in the throttle
@@ -56,15 +55,15 @@ public class WiThrottleConnection {
     /// </summary>
     public bool IsHeartbeatOk => HeartbeatState == HeartbeatStateEnum.Off || (DateTime.Now - LastHeartbeat).TotalSeconds < HeartbeatSeconds;
 
+    public IThrottleMsg? NextMsg => _serverMessages.HasMessages ? _serverMessages.Dequeue() : null;
+    public bool          HasMsg  => _serverMessages.HasMessages;
+
     public void UpdateHeartbeat() => LastHeartbeat = DateTime.Now;
 
     public bool IsLocoAssigned(DCCAddress address)     => _assignedLocos.IsAssigned(address);
     public bool Release(DCCAddress address)            => _assignedLocos.Release(address);
     public bool Assign(char group, DCCAddress address) => _assignedLocos.Assign(group, address);
-
-    public IThrottleMsg? NextMsg                        => _serverMessages.HasMessages ? _serverMessages.Dequeue() : null;
-    public void          QueueMsg(IThrottleMsg message) => _serverMessages.Add(message);
-    public bool          HasMsg                         => _serverMessages.HasMessages;
+    public void QueueMsg(IThrottleMsg message)         => _serverMessages.Add(message);
 
     public WiThrottleConnection? GetByHardwareID(string hardwareID) {
         return _listReference.FirstOrDefault(x => x.HardwareID.Equals(hardwareID) && x.ConnectionHandle != ConnectionHandle);
@@ -83,9 +82,9 @@ public class WiThrottleConnection {
     }
 
     /// <summary>
-    /// Close this connection. If there are any "InUse" locos, then ensure that are stopped
-    /// and released and then close the connection and remove this entry from the list of active
-    /// collections
+    ///     Close this connection. If there are any "InUse" locos, then ensure that are stopped
+    ///     and released and then close the connection and remove this entry from the list of active
+    ///     collections
     /// </summary>
     public void Close() {
         Logger.Log.Information("Closing the '{0}' connection.", ConnectionHandle);

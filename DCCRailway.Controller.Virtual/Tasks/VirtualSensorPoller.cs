@@ -3,8 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Parameters;
-using DCCRailway.Common.Types;
-using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Tasks;
@@ -23,8 +21,8 @@ public class VirtualSensorPoller : ControllerTask, IParameterMappable {
     }
 
     /// <summary>
-    /// For the AIU, we need to poll the CAB fo information on the AIU device and to return
-    /// the current state of the device.
+    ///     For the AIU, we need to poll the CAB fo information on the AIU device and to return
+    ///     the current state of the device.
     /// </summary>
     protected override void DoWork() {
         var pinStr = new StringBuilder();
@@ -36,7 +34,7 @@ public class VirtualSensorPoller : ControllerTask, IParameterMappable {
                 pinStr.Append(pins[pin - 1] ? "X" : ".");
             }
             pinStr.Append("|");
-            Logger.Log.Information($"Read AIU '{CabAddress}' => {pinStr.ToString()}");
+            Logger.Log.Information($"Read AIU '{CabAddress}' => {pinStr}");
         }
     }
 }

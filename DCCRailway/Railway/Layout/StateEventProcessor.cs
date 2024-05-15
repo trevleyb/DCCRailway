@@ -1,23 +1,20 @@
 using DCCRailway.Common.Helpers;
-using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Actions.Commands.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
-using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Layout.Processors;
 using DCCRailway.Railway.Layout.State;
 
 namespace DCCRailway.Railway.Layout;
 
 /// <summary>
-/// The LayoutCmdUpdated class is a bridge between an Event being recieved from a system,
-/// and the Entities Configuration itself.This is because, while the layout might issue a command
-/// to the command statin and it will be executed, other systems might issue a command also
-/// and so if these are detected (for example if we have a DC packet analyser listening to commands)
-/// then we need to update the Entities data with these changes.
-///
-/// So this is a bridge between the two systems. It takes a DCCRailwayConfig instance whcih is
-/// the collection of all data related to the current executing layout.
+///     The LayoutCmdUpdated class is a bridge between an Event being recieved from a system,
+///     and the Entities Configuration itself.This is because, while the layout might issue a command
+///     to the command statin and it will be executed, other systems might issue a command also
+///     and so if these are detected (for example if we have a DC packet analyser listening to commands)
+///     then we need to update the Entities data with these changes.
+///     So this is a bridge between the two systems. It takes a DCCRailwayConfig instance whcih is
+///     the collection of all data related to the current executing layout.
 /// </summary>
 public class StateEventProcessor(IRailwayManager railwayManager, IStateManager stateManager) {
     public void ProcessCommandEvent(ControllerEventArgs eventArgs) {

@@ -7,17 +7,16 @@ namespace DCCRailway.Controller.Adapters;
 
 [Adapter("Console", AdapterType.Virtual, "Adapter that writes to the Console", "1.0")]
 public abstract class ConsoleAdapter : Adapter, IAdapter {
-    private bool _connected = false;
-    public  bool IsConnected => _connected;
+    public bool IsConnected { get; private set; }
 
     public void Connect() {
         Console.WriteLine("Connected to console.");
-        _connected = true;
+        IsConnected = true;
     }
 
     public void Disconnect() {
         Console.WriteLine("Disconnected from console.");
-        _connected = false;
+        IsConnected = false;
     }
 
     public void Dispose() { }

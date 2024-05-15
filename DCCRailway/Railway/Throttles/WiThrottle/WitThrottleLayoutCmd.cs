@@ -6,9 +6,10 @@ using DCCRailway.Controller.Controllers;
 namespace DCCRailway.Railway.Throttles.WiThrottle;
 
 public class WitThrottleLayoutCmd(ICommandStation commandStation, DCCAddress? address = null) {
-    public void Stop()     { }
-    public void Release()  { }
-    public void Dispatch() { }
+    public DCCPowerState PowerState => ((ICmdResultPowerState)commandStation.CreateCommand<ICmdPowerGetState>()?.Execute()!).State;
+    public void          Stop()     { }
+    public void          Release()  { }
+    public void          Dispatch() { }
 
     public bool IsReleaseSupported()  => commandStation.IsCommandSupported<ICmdLocoRelease>();
     public bool IsDispatchSupported() => commandStation.IsCommandSupported<ICmdLocoDispatch>();
@@ -32,6 +33,4 @@ public class WitThrottleLayoutCmd(ICommandStation commandStation, DCCAddress? ad
             _                 => null
         };
     }
-
-    public DCCPowerState PowerState => ((ICmdResultPowerState)commandStation.CreateCommand<ICmdPowerGetState>()?.Execute()!).State;
 }

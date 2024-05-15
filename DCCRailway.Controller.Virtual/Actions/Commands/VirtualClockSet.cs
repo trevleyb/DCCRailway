@@ -12,16 +12,6 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 
 [Command("SetClock", "Set the Clock on a Virtual commandStation")]
 public class VirtualClockSet : VirtualCommand, ICmdClockSet, ICommand {
-    protected override ICmdResult Execute(IAdapter adapter) {
-        var result = new VirtualCmdResultClock(Hour, Minute, Ratio);
-        if (adapter is VirtualAdapter virtualAdapter) {
-            virtualAdapter.FastClockSetTime = result.CurrentTime;
-            virtualAdapter.FastClockRatio   = result.Ratio;
-            virtualAdapter.FastClockState   = true;
-        }
-        return new VirtualCmdResultClock(Hour, Minute, Ratio);
-    }
-
     private int  _hour = 12;
     private bool _is24Hour;
     private int  _minute;
@@ -58,6 +48,16 @@ public class VirtualClockSet : VirtualCommand, ICmdClockSet, ICommand {
             _ratio = value;
         }
         get => _ratio;
+    }
+
+    protected override ICmdResult Execute(IAdapter adapter) {
+        var result = new VirtualCmdResultClock(Hour, Minute, Ratio);
+        if (adapter is VirtualAdapter virtualAdapter) {
+            virtualAdapter.FastClockSetTime = result.CurrentTime;
+            virtualAdapter.FastClockRatio   = result.Ratio;
+            virtualAdapter.FastClockState   = true;
+        }
+        return new VirtualCmdResultClock(Hour, Minute, Ratio);
     }
 
     public override string ToString() => $"SET CLOCK ({_hour:D2}:{_minute:D2}@{_ratio}:15";

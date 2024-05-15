@@ -1,13 +1,10 @@
 using DCCRailway.Railway;
-using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Converters.JMRI;
 
 namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class JMRIRosterImporterTest {
-    private IRailwayManager mgr;
-
     [SetUp]
     public void SetUp() {
         mgr = RailwayManager.Load() ?? throw new Exception("Cannot start a Layout Manager");
@@ -15,6 +12,8 @@ public class JMRIRosterImporterTest {
 
     [TearDown]
     public void TearDown() { }
+
+    private IRailwayManager mgr;
 
     [Test]
     public void ImportJMRIRoster() {

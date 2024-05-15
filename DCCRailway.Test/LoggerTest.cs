@@ -1,6 +1,5 @@
 using DCCRailway.Common.Helpers;
 using NUnit.Framework;
-using Serilog;
 
 namespace DCCRailway.Test;
 

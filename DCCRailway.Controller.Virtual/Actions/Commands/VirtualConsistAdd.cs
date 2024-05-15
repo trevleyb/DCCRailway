@@ -16,10 +16,11 @@ public class VirtualConsistAdd : VirtualCommand, ICmdConsistAdd, ICommand {
         Direction      = direction;
     }
 
+    public DCCDirection Direction { get; set; }
+
     //public VirtualConsistAdd(byte consistAddress, DCCAddress address, DCCDirection direction = DCCDirection.Forward, DCCConsistPosition position = DCCConsistPosition.Front) : this(consistAddress, new DCCLoco(address, direction), position) { }
 
     public byte               ConsistAddress { get; set; }
-    public DCCDirection       Direction      { get; set; }
     public DCCAddress         Loco           { get; set; }
     public DCCConsistPosition Position       { get; set; }
 

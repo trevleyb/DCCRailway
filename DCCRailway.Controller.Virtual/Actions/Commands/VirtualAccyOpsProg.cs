@@ -22,12 +22,12 @@ public class VirtualAccyOpsProg : VirtualCommand, ICmdAccyOpsProg, ICommand, IAc
         Value       = value;
     }
 
-    public new static string Name => "Virtual Accessory Programming";
+    public new static string     Name        => "Virtual Accessory Programming";
+    public            DCCAddress LocoAddress { get; set; }
+    public            DCCAddress CVAddress   { get; set; }
 
-    public DCCAddress Address     { get; set; }
-    public DCCAddress LocoAddress { get; set; }
-    public DCCAddress CVAddress   { get; set; }
-    public byte       Value       { get; set; }
+    public DCCAddress Address { get; set; }
+    public byte       Value   { get; set; }
 
     public override string ToString() => $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
 }

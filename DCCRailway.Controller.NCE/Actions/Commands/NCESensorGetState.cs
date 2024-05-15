@@ -28,12 +28,12 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
         SensorAddress.AddressType = DCCAddressType.Accessory;
     }
 
+    public DCCAddress SensorAddress { get; set; }
+
     public DCCAddress Address {
         get => SensorAddress;
         set => SensorAddress = value;
     }
-
-    public DCCAddress SensorAddress { get; set; }
 
     protected override ICmdResult Execute(IAdapter adapter) {
         if (!_sensorCache.IsCurrent) {

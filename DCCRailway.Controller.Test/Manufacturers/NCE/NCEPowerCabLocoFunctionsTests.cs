@@ -10,17 +10,6 @@ namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 
 [TestFixture, Ignore("This is a hardware test")]
 public class NCEPowerCabLocoFunctionsTests {
-    /*
-            RegisterCommand<ICmdLocoSetFunctions>(typeof(NCE.Actions.NCELocoSetFunctions));
-            RegisterCommand<ICmdLocoSetSpeed>(typeof(NCE.Actions.NCELocoSetSpeed));
-            RegisterCommand<ICmdLocoSetSpeedSteps>(typeof(NCE.Actions.NCELocoSetSpeedSteps));
-            RegisterCommand<ICmdLocoSetMomentum>(typeof(NCE.Actions.NCELocoSetMomentum));
-            RegisterCommand<ICmdLocoStop>(typeof(NCE.Actions.NCELocoStop));
-    */
-
-    protected IAdapter?        Adapter;
-    protected ICommandStation? System;
-
     [SetUp]
     public void TestSetup() {
         var _system = new CommandStationFactory().Find("NCEPowerCab")?.Create(new NCEVirtualAdapter());
@@ -42,12 +31,6 @@ public class NCEPowerCabLocoFunctionsTests {
         }
     }
 
-    private void Adapter_ErrorOccurred(object? sender, DataErrorArgs e) => Console.WriteLine(e.ToString());
-
-    private void Adapter_DataSent(object? sender, DataSentArgs e) => Console.WriteLine(e.ToString());
-
-    private void Adapter_DataReceived(object? sender, DataRecvArgs e) => Console.WriteLine(e.ToString());
-
     [TearDown]
     public void TestCleanup() {
         if (Adapter is not null) {
@@ -67,6 +50,22 @@ public class NCEPowerCabLocoFunctionsTests {
 
         System = null;
     }
+    /*
+            RegisterCommand<ICmdLocoSetFunctions>(typeof(NCE.Actions.NCELocoSetFunctions));
+            RegisterCommand<ICmdLocoSetSpeed>(typeof(NCE.Actions.NCELocoSetSpeed));
+            RegisterCommand<ICmdLocoSetSpeedSteps>(typeof(NCE.Actions.NCELocoSetSpeedSteps));
+            RegisterCommand<ICmdLocoSetMomentum>(typeof(NCE.Actions.NCELocoSetMomentum));
+            RegisterCommand<ICmdLocoStop>(typeof(NCE.Actions.NCELocoStop));
+    */
+
+    protected IAdapter?        Adapter;
+    protected ICommandStation? System;
+
+    private void Adapter_ErrorOccurred(object? sender, DataErrorArgs e) => Console.WriteLine(e.ToString());
+
+    private void Adapter_DataSent(object? sender, DataSentArgs e) => Console.WriteLine(e.ToString());
+
+    private void Adapter_DataReceived(object? sender, DataRecvArgs e) => Console.WriteLine(e.ToString());
 
     [Test]
     public void TurnOnOffLightsTest() {

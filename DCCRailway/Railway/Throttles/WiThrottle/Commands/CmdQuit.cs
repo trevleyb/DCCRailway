@@ -7,5 +7,5 @@ public class CmdQuit(WiThrottleConnection connection) : ThrottleCmd, IThrottleCm
         Logger.Log.Information("{0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
     }
 
-    public override string ToString() => $"CMD:Quit";
+    public override string ToString() => "CMD:Quit";
 }

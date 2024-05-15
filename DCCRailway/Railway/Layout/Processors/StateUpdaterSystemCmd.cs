@@ -1,7 +1,6 @@
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Results;
-using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Layout.State;
 
 namespace DCCRailway.Railway.Layout.Processors;
@@ -58,12 +57,12 @@ public class StateUpdaterSystemCmd(IRailwayManager railwayManager, IStateManager
         case IDummyCmd cmd:
             var dummyCount = stateManager.GetState<int>("SYSTEM", StateType.Dummy);
             dummyCount++;
-            stateManager.SetState<int>("SYSTEM", StateType.Dummy, dummyCount);
+            stateManager.SetState("SYSTEM", StateType.Dummy, dummyCount);
             Event($"Dummy Command (called {dummyCount} times).");
             break;
 
         default:
-            Error($"Command not supported.");
+            Error("Command not supported.");
             throw new Exception("Unexpected type of command executed.");
         }
         return true;

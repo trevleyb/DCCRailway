@@ -4,12 +4,14 @@ using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Adapters.Events;
-using DCCRailway.Controller.Exceptions;
 using DCCRailway.Controller.Attributes;
+using DCCRailway.Controller.Exceptions;
 
 namespace DCCRailway.Controller.Adapters;
 
 public abstract class SerialAdapter : Adapter, IAdapter {
+    private SerialPort? _connection;
+
     [Parameter("Name of the Serial port to use")]
     public string PortName { get; set; }
 
@@ -27,8 +29,6 @@ public abstract class SerialAdapter : Adapter, IAdapter {
 
     [Parameter("Data Stop Bits (Default: None)", StopBits.None)]
     public StopBits StopBits { get; set; } = StopBits.None;
-
-    private SerialPort? _connection;
 
     /// <summary>
     ///     Return a list of available port names that can be used by the adapter
@@ -74,7 +74,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     }
 
     /// <summary>
-    /// Reads a block of data from the Adapter and returns it as an array of bytes
+    ///     Reads a block of data from the Adapter and returns it as an array of bytes
     /// </summary>
     /// <param name="command">The command to associate with the received data</param>
     /// <returns>Array of Bytes being the data read from the Adapter</returns>
@@ -109,7 +109,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     }
 
     /// <summary>
-    /// Sends a block of data to the Adapter as an array of bytes
+    ///     Sends a block of data to the Adapter as an array of bytes
     /// </summary>
     /// <param name="data">The data stored as an array of bytes</param>
     /// <param name="commandReference">The reference to the command being sent</param>
@@ -146,11 +146,11 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     }
 
     /// <summary>
-    /// Dispose of the SerialAdapter and release any resources used.
+    ///     Dispose of the SerialAdapter and release any resources used.
     /// </summary>
     /// <remarks>
-    /// This method should be called when the SerialAdapter is no longer needed. It closes the open Serial connection
-    /// and releases any resources used by the adapter.
+    ///     This method should be called when the SerialAdapter is no longer needed. It closes the open Serial connection
+    ///     and releases any resources used by the adapter.
     /// </remarks>
     public void Dispose() {
         Dispose(true);
@@ -158,7 +158,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     }
 
     /// <summary>
-    /// Disposes the SerialAdapter instance by closing the open Serial connection and releasing any resources.
+    ///     Disposes the SerialAdapter instance by closing the open Serial connection and releasing any resources.
     /// </summary>
     /// <param name="disposing">Specifies whether to dispose of managed resources.</param>
     protected virtual void Dispose(bool disposing) {

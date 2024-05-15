@@ -6,7 +6,7 @@ public class CmdRoster(WiThrottleConnection connection) : ThrottleCmd, IThrottle
     public void Execute(string commandStr) {
         Logger.Log.Information("{0}=>'{1}'", ToString(), commandStr);
         try {
-            var cmd = commandStr[0..3];
+            var cmd = commandStr[..3];
             switch (cmd.ToUpper()) {
             case "RCP": // RE-ORDER positions
                 break;
@@ -27,5 +27,5 @@ public class CmdRoster(WiThrottleConnection connection) : ThrottleCmd, IThrottle
         }
     }
 
-    public override string ToString() => $"CMD:Roster";
+    public override string ToString() => "CMD:Roster";
 }

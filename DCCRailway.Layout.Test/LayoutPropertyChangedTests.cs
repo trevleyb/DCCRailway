@@ -7,8 +7,8 @@ namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class LayoutPropertyChangedTests {
-    private bool   _triggeredChanged = false;
-    private string _activeField      = "";
+    private bool   _triggeredChanged;
+    private string _activeField = "";
 
     [Test]
     public void LocoPropertyChangedEvent() {

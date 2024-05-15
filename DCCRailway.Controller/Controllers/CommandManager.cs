@@ -13,8 +13,7 @@ namespace DCCRailway.Controller.Controllers;
 
 public class CommandManager(ICommandStation commandStation, Assembly assembly) {
     private Dictionary<Type, (CommandAttribute Attributes, Type ConcreteType)> _commands = [];
-    public event EventHandler<CommandEventArgs>                                CommandEvent;
-    private Assembly                                                           _assembly { get; set; } = assembly;
+    private Assembly                                                           _assembly { get; } = assembly;
 
     public List<CommandAttribute> Commands {
         get {
@@ -24,6 +23,8 @@ public class CommandManager(ICommandStation commandStation, Assembly assembly) {
             return _commands.Values.Select(x => x.Item1).ToList();
         }
     }
+
+    public event EventHandler<CommandEventArgs> CommandEvent;
 
     private void RegisterCommands() {
         if (_assembly is null) throw new ApplicationException("No Assembly has been set for the Command Manager");

@@ -33,7 +33,7 @@ public class CommandAttributeTests {
     [Test]
     public void TestThatOnlyAdapter1IsSupported() {
         // This command is ONLY supported by Adapter1 but should work for ALL versions
-        var attr = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "Adapter1" }, null);
+        var attr = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "Adapter1" });
         Assert.IsTrue(attr.IsSupported("Adapter1"));
         Assert.IsTrue(attr.IsSupported("Adapter1@1.0"));
         Assert.IsTrue(attr.IsSupported("Adapter1@2.0"));
@@ -78,7 +78,7 @@ public class CommandAttributeTests {
 
     [Test]
     public void IsSupported_ReturnsTrue_WhenAdapterAndVersionAreIncluded() {
-        var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "Adapter1@1.0" }, null);
+        var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "Adapter1@1.0" });
         Assert.IsTrue(commandAttribute.IsSupported("Adapter1@1.0"));
     }
 
@@ -90,7 +90,7 @@ public class CommandAttributeTests {
 
     [Test]
     public void IsSupported_ReturnsTrue_WhenAllAdaptersAndVersionsAreIncluded() {
-        var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "*@*" }, null);
+        var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "*@*" });
         Assert.IsTrue(commandAttribute.IsSupported("Adapter1@1.0"));
     }
 
@@ -102,13 +102,13 @@ public class CommandAttributeTests {
 
     [Test]
     public void IsSupported_ReturnsTrue_WhenOnlyAdapterIsIncluded() {
-        var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "Adapter1" }, null);
+        var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "Adapter1" });
         Assert.IsTrue(commandAttribute.IsSupported("Adapter1@1.0"));
     }
 
     [Test]
     public void IsSupported_ReturnsTrue_WhenOnlyVersionIsIncluded() {
-        var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "@1.0" }, null);
+        var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "@1.0" });
         Assert.IsTrue(commandAttribute.IsSupported("Adapter1@1.0"));
     }
 }

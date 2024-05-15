@@ -7,9 +7,9 @@ using DCCRailway.Controller.Exceptions;
 namespace DCCRailway.Controller.Controllers;
 
 /// <summary>
-/// The controller info class is used to store information about the controller. This is
-/// dynamically read by scanning all assemblies in the current folder and determining
-/// attributes and information about the controller.
+///     The controller info class is used to store information about the controller. This is
+///     dynamically read by scanning all assemblies in the current folder and determining
+///     attributes and information about the controller.
 /// </summary>
 [DebuggerDisplay("Name: {Name}, Manufacturer: {Manufacturer}, Model: {Model}, Version: {Version}")]
 public class CommandStationManager(ControllerAttribute attributes, string assemblyPath, Type assemblyType) {

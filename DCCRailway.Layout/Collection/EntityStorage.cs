@@ -8,6 +8,11 @@ namespace DCCRailway.Layout.Collection;
 
 public class EntityStorage<TEntity> : ConcurrentDictionary<string, TEntity>
     where TEntity : LayoutEntity {
+    private JsonSerializerOptions JsonOptions => new() {
+        WriteIndented          = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
+
     /// <summary>
     ///     LoadFile an instance of class T from a provided filename and throw an exception if the
     ///     file name does not exist.
@@ -31,7 +36,7 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string, TEntity>
     }
 
     /// <summary>
-    ///    Provide a file name for the configuration and save to that file
+    ///     Provide a file name for the configuration and save to that file
     /// </summary>
     /// <param name="fileName">The name of the file to write the data to</param>
     /// <exception cref="ApplicationException">Returns an error if it cannot save</exception>
@@ -48,9 +53,4 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string, TEntity>
             throw new ApplicationException($"Unable to save configuration data to '{fileName}' due to '{ex.Message}'");
         }
     }
-
-    private JsonSerializerOptions JsonOptions => new() {
-        WriteIndented          = true,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-    };
 }

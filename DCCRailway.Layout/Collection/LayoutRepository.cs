@@ -1,5 +1,3 @@
-using System.Collections.Concurrent;
-using System.Collections.Immutable;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout.Base;
 using DCCRailway.Layout.Events;
@@ -14,21 +12,22 @@ public abstract class LayoutRepository<TEntity>
       , ILayoutRepository<TEntity>
       , IEnumerable<KeyValuePair<string, TEntity>>
     where TEntity : LayoutEntity {
+    private readonly SemaphoreSlim _atomicMutex = new(1, 1);
+    private readonly SemaphoreSlim _nextIDMutex = new(1, 1);
+
     protected LayoutRepository(string prefix, string name, string? pathname = null) {
         Prefix   = prefix;
         Name     = name;
         PathName = pathname ?? "./";
     }
 
-    public event RepositoryChangedEventHandler? RepositoryChanged;
-    private readonly SemaphoreSlim              _atomicMutex = new(1, 1);
-    private readonly SemaphoreSlim              _nextIDMutex = new(1, 1);
-
     public string Name     { get; set; }
     public string Prefix   { get; init; }
-    public string PathName { get; set; }
     public string FileName => $"{Name}.{GetType().Name}.json";
     public string FullName => Path.Combine(PathName ?? "", FileName);
+
+    public event RepositoryChangedEventHandler? RepositoryChanged;
+    public string                               PathName { get; set; }
 
     public void Save(string pathname) {
         PathName = pathname;
@@ -42,17 +41,6 @@ public abstract class LayoutRepository<TEntity>
     }
 
     public virtual void Load() => LoadFile(FullName);
-
-    private void ValidatePath(string pathname) {
-        try {
-            if (!Directory.Exists(pathname)) Directory.CreateDirectory(pathname);
-        } catch (Exception ex) {
-            throw new ApplicationException($"Unable to create or access the specified path for the config files '{pathname}'", ex);
-        }
-    }
-
-    protected async Task<bool> Contains(string id)    => await Task.FromResult(ContainsKey(id));
-    protected async Task<bool> Contains(TEntity item) => await Task.FromResult(ContainsKey(item.Id));
 
     public async IAsyncEnumerable<TEntity> GetAllAsync() {
         await foreach (var item in Values.ConvertToAsyncEnumerable()) {
@@ -137,12 +125,23 @@ public abstract class LayoutRepository<TEntity>
     public TEntity?       Add(TEntity entity)                   => AddAsync(entity).GetAwaiter().GetResult();
     public TEntity?       Delete(string id)                     => DeleteAsync(id).GetAwaiter().GetResult();
     public void           DeleteAll()                           => DeleteAllAsync().GetAwaiter();
-    public string         GetNextID()                           => GetNextIDAsync().GetAwaiter().GetResult();
+
+    private void ValidatePath(string pathname) {
+        try {
+            if (!Directory.Exists(pathname)) Directory.CreateDirectory(pathname);
+        } catch (Exception ex) {
+            throw new ApplicationException($"Unable to create or access the specified path for the config files '{pathname}'", ex);
+        }
+    }
+
+    protected async Task<bool> Contains(string id)    => await Task.FromResult(ContainsKey(id));
+    protected async Task<bool> Contains(TEntity item) => await Task.FromResult(ContainsKey(item.Id));
+    public          string     GetNextID()            => GetNextIDAsync().GetAwaiter().GetResult();
 
     /// <summary>
-    /// Each item in the collection must be UNIQUE and have a Unique ID. Originally this was a GUID but
-    /// that is not user friendly so changed it to be a sequential number with a prefix. This code looks
-    /// at the current collection and finds the next available ID.
+    ///     Each item in the collection must be UNIQUE and have a Unique ID. Originally this was a GUID but
+    ///     that is not user friendly so changed it to be a sequential number with a prefix. This code looks
+    ///     at the current collection and finds the next available ID.
     /// </summary>
     public async Task<string> GetNextIDAsync() {
         await _nextIDMutex.WaitAsync();

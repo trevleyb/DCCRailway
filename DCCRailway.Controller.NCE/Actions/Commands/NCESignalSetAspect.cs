@@ -38,10 +38,10 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
     }
 
     protected override ICmdResult Execute(IAdapter adapter) {
-        var cmd = new byte[] { 0xAD };                            // Command is 0xAD
-        cmd = cmd.AddToArray(((DCCAddress)Address).AddressBytes); // Add the high and low bytes of the Address
-        cmd = cmd.AddToArray(0x05);                               // Signals command is 0x05
-        cmd = cmd.AddToArray(Aspect);                             // Aspect must be 00 to 0x0f
+        var cmd = new byte[] { 0xAD };              // Command is 0xAD
+        cmd = cmd.AddToArray(Address.AddressBytes); // Add the high and low bytes of the Address
+        cmd = cmd.AddToArray(0x05);                 // Signals command is 0x05
+        cmd = cmd.AddToArray(Aspect);               // Aspect must be 00 to 0x0f
 
         return SendAndReceive(adapter, new NCEStandardValidation(), cmd);
     }

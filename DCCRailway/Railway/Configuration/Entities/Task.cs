@@ -1,6 +1,3 @@
-using System.Globalization;
-using System.IO.Ports;
-
 namespace DCCRailway.Railway.Configuration.Entities;
 
 [Serializable]

@@ -4,15 +4,9 @@ using DCCRailway.Common.Types;
 namespace DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 
 /// <summary>
-/// Class that breaks up a command string into the 3 consituent parts ensuring that the data is also valid.
+///     Class that breaks up a command string into the 3 consituent parts ensuring that the data is also valid.
 /// </summary>
 public class MultiThrottleMessage {
-    public char       Group    { get; }
-    public char       Function { get; }
-    public DCCAddress Address  { get; }
-    public string     Action   { get; }
-    public bool       IsValid  { get; }
-
     private static readonly string Delimiter      = "<;>";
     private static readonly char[] ValidFunctions = ['+', '-', 'S', 'A', 'L'];
 
@@ -38,7 +32,7 @@ public class MultiThrottleMessage {
                 Address = new DCCAddress(0, DCCAddressType.Broadcast);
             else
                 Address = address[0] switch {
-                    'L' => new DCCAddress(int.Parse(address[1..]), DCCAddressType.Long),
+                    'L' => new DCCAddress(int.Parse(address[1..])),
                     'S' => new DCCAddress(int.Parse(address[1..]), DCCAddressType.Short),
                     _   => throw new Exception("Invalid Address Provided.")
                 };
@@ -49,4 +43,10 @@ public class MultiThrottleMessage {
             IsValid = false;
         }
     }
+
+    public char       Group    { get; }
+    public char       Function { get; }
+    public DCCAddress Address  { get; }
+    public string     Action   { get; }
+    public bool       IsValid  { get; }
 }

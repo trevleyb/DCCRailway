@@ -3,9 +3,9 @@ using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Actions.Validators;
 using DCCRailway.Controller.Adapters.Base;
-using DCCRailway.Controller.Exceptions;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers;
+using DCCRailway.Controller.Exceptions;
 
 namespace DCCRailway.Controller.Actions;
 
@@ -14,9 +14,8 @@ public abstract class Command : PropertyChangedBase, ICommand, IParameterMappabl
     public string Version     => this.AttributeInfo().Version ?? "Unknown";
     public string Description => this.AttributeInfo().Description ?? "Unknown";
 
-    public             ICommandStation CommandStation { get; set; }
-    public             IAdapter?       Adapter        { get; set; }
-    protected abstract ICmdResult      Execute(IAdapter adapter);
+    public ICommandStation CommandStation { get; set; }
+    public IAdapter?       Adapter        { get; set; }
 
     public ICmdResult Execute() {
         if (Adapter is null) throw new ControllerException("No adapter is configured on this command.");
@@ -30,6 +29,8 @@ public abstract class Command : PropertyChangedBase, ICommand, IParameterMappabl
         CommandStation.OnCommandExecute(CommandStation, this, result);
         return result;
     }
+
+    protected abstract ICmdResult Execute(IAdapter adapter);
 
     //public async Task<ICmdResult> ExecuteAsync() => Adapter != null ? await Task.FromResult(Execute(Adapter)) : throw new UnsupportedCommandException("No adapter is configured on this command.");
     //public async Task<ICmdResult> ExecuteAsync(IAdapter adapter) => await Task.FromResult(Execute(adapter));

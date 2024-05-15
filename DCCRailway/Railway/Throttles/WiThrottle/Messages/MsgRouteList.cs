@@ -10,7 +10,7 @@ public class MsgRouteList(WiThrottleConnection connection) : ThrottleMsg, IThrot
             if (!routes.Any()) return "";
 
             var message = new StringBuilder();
-            message.Append($"PRL");
+            message.Append("PRL");
             foreach (var route in routes) {
                 message.Append("]\\["); // Separator
                 message.Append(route.Id);

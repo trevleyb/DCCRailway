@@ -1,6 +1,5 @@
 ﻿using System.Net.Sockets;
 using DCCRailway.Common.Types;
-using DCCRailway.Railway.Configuration;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle;
 

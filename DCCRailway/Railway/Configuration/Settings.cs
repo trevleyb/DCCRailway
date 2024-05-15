@@ -1,9 +1,7 @@
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Railway.Configuration.Entities;
 using DCCRailway.Railway.Throttles.WiThrottle;
-using Controller = DCCRailway.Railway.Configuration.Entities.Controller;
 
 namespace DCCRailway.Railway.Configuration;
 

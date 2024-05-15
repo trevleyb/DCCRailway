@@ -12,9 +12,10 @@ public class DataSentArgs : EventArgs, IAdapterEvent {
         Data    = data;
     }
 
+    public byte[]? Data { get; }
+
     public ICommand? Command { get; set; }
     public IAdapter? Adapter { get; set; }
-    public byte[]?   Data    { get; }
 
     public override string ToString() {
         var tmp = Data.ToDisplayValueChars();

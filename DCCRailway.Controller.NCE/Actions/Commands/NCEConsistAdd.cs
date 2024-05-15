@@ -20,10 +20,11 @@ public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
         Direction      = direction;
     }
 
+    public DCCDirection Direction { get; set; }
+
     //public NCEConsistAdd(byte consistAddress, IDCCAddress address, DCCDirection direction = DCCDirection.Forward, DCCConsistPosition position = DCCConsistPosition.Front) : this(consistAddress, new DCCLoco(address, direction), position) { }
 
     public byte               ConsistAddress { get; set; }
-    public DCCDirection       Direction      { get; set; }
     public DCCAddress         Loco           { get; set; }
     public DCCConsistPosition Position       { get; set; }
 

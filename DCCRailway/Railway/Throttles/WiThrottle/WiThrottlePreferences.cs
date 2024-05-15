@@ -6,7 +6,7 @@ using DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 namespace DCCRailway.Railway.Throttles.WiThrottle;
 
 [Serializable]
-public class WiThrottlePreferences() : JsonSerializerHelper<WiThrottlePreferences> {
+public class WiThrottlePreferences : JsonSerializerHelper<WiThrottlePreferences> {
     private const ushort _defaultPort        = 12090;
     private const string _defaultServiceName = "_withrottle._tcp";
 
@@ -23,13 +23,13 @@ public class WiThrottlePreferences() : JsonSerializerHelper<WiThrottlePreference
     public int HostPort => string.IsNullOrEmpty(Port) ? _defaultPort : int.Parse(Port);
 
     [JsonIgnore]
-    public int HeartbeatCheckTime => (int)(HeartbeatSeconds / 5 * 1000);
+    public int HeartbeatCheckTime => HeartbeatSeconds / 5 * 1000;
 
     [JsonIgnore]
     public string ServiceName => _defaultServiceName;
 
     /// <summary>
-    /// This collection tracks a list of connections from different WiThrottles
+    ///     This collection tracks a list of connections from different WiThrottles
     /// </summary>
     [JsonIgnore]
     public WiThrottleConnections Connections { get; } = [];

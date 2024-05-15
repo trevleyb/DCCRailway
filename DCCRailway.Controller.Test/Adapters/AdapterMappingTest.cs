@@ -8,15 +8,15 @@ namespace DCCRailway.Controller.Test.Adapters;
 public class AdapterMappingTest {
     // For these tests we use a subclass of Adapter because it is abstract
     private class TestAdapter : Adapter {
-        public string    AStringValue { get; set; }
-        public long      ALongValue   { get; set; }
-        public DateOnly  ADateValue   { get; set; }
-        public byte      AByteValue   { get; set; }
-        public int       AIntValue    { get; set; }
-        public Parity    AParityValue { get; set; }
-        public StopBits  AStopValue   { get; set; }
-        public ColorEnum AEnumValue   { get; set; }
-        public bool      ABoolean     { get; set; }
+        public string    AStringValue { get; }
+        public long      ALongValue   { get; }
+        public DateOnly  ADateValue   { get; }
+        public byte      AByteValue   { get; }
+        public int       AIntValue    { get; }
+        public Parity    AParityValue { get; }
+        public StopBits  AStopValue   { get; }
+        public ColorEnum AEnumValue   { get; }
+        public bool      ABoolean     { get; }
     }
 
     [Test]

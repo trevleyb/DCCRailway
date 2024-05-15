@@ -10,6 +10,16 @@ using DCCRailway.Controller.Tasks;
 namespace DCCRailway.Controller.Controllers;
 
 public interface ICommandStation : IParameterMappable {
+    List<CommandAttribute> Commands { get; }
+
+    // Attach or detect an Adapter to a Command Station
+    // ----------------------------------------------------------------------------
+    IAdapter?              Adapter  { get; set; }
+    List<AdapterAttribute> Adapters { get; }
+
+    // Attach or detect background tasks on the Command Station
+    // ----------------------------------------------------------------------------
+    List<TaskAttribute>                            Tasks { get; }
     public event EventHandler<ControllerEventArgs> ControllerEvent;
 
     void Start();
@@ -17,25 +27,15 @@ public interface ICommandStation : IParameterMappable {
 
     // Execute a Command. Must be executed via here
     // ----------------------------------------------------------------------------
-    TCommand?              CreateCommand<TCommand>() where TCommand : ICommand;
-    TCommand?              CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand;
-    List<CommandAttribute> Commands { get; }
-
-    // Attach or detect an Adapter to a Command Station
-    // ----------------------------------------------------------------------------
-    IAdapter?              Adapter { get; set; }
-    IAdapter?              CreateAdapter(string? name);
-    List<AdapterAttribute> Adapters { get; }
-
-    // Attach or detect background tasks on the Command Station
-    // ----------------------------------------------------------------------------
-    List<TaskAttribute> Tasks { get; }
-    IControllerTask?    CreateTask(string taskType);
-    IControllerTask?    AttachTask(IControllerTask task);
-    IControllerTask?    AttachTask(string name, string taskType, TimeSpan? frequency);
-    IControllerTask?    AttachTask(string name, IControllerTask task, TimeSpan? frequency);
-    void                StartAllTasks();
-    void                StopAllTasks();
+    TCommand?        CreateCommand<TCommand>() where TCommand : ICommand;
+    TCommand?        CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand;
+    IAdapter?        CreateAdapter(string? name);
+    IControllerTask? CreateTask(string taskType);
+    IControllerTask? AttachTask(IControllerTask task);
+    IControllerTask? AttachTask(string name, string taskType, TimeSpan? frequency);
+    IControllerTask? AttachTask(string name, IControllerTask task, TimeSpan? frequency);
+    void             StartAllTasks();
+    void             StopAllTasks();
 
     // Create and Execute commands that are associated with this command station
     // --------------------------------------------------------------------------

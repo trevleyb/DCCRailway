@@ -3,7 +3,7 @@ using DCCRailway.Railway.Throttles.WiThrottle.Commands;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle;
 
-public class WiThrottleCmdProcessor() {
+public class WiThrottleCmdProcessor {
     /// <summary>
     ///     Simply, given an input string, this will return a Command Object that
     ///     needs to be managed and processed based on the commandStr provided.

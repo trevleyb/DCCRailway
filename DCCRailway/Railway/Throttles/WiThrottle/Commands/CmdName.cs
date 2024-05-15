@@ -25,5 +25,5 @@ public class CmdName(WiThrottleConnection connection) : ThrottleCmd, IThrottleCm
         }
     }
 
-    public override string ToString() => $"CMD:Name";
+    public override string ToString() => "CMD:Name";
 }

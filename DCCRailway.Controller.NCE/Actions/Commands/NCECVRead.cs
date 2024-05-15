@@ -16,6 +16,7 @@ public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
 
     public DCCProgrammingMode ProgrammingMode { get; set; }
     public int                CV              { get; set; }
+    public DCCAddress         Address         { get; set; }
 
     protected override ICmdResult Execute(IAdapter adapter) {
         byte command = ProgrammingMode switch {
@@ -28,6 +29,5 @@ public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
         return SendAndReceive(adapter, new NCEDataReadValidation(), CV.ToByteArray().AddToArray(command));
     }
 
-    public override string     ToString() => $"READ CV ({CV}/{ProgrammingMode})";
-    public          DCCAddress Address    { get; set; }
+    public override string ToString() => $"READ CV ({CV}/{ProgrammingMode})";
 }

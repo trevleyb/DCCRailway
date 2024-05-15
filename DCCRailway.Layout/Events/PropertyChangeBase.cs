@@ -6,7 +6,8 @@ namespace DCCRailway.Layout.Events;
 
 public abstract class PropertyChangeBase : INotifyPropertyChanged {
     /// <summary>
-    /// Represents a base class for configuration objects that implements the INotifyPropertyChanged and INotifyPropertyChanging interfaces.
+    ///     Represents a base class for configuration objects that implements the INotifyPropertyChanged and
+    ///     INotifyPropertyChanging interfaces.
     /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged;
 

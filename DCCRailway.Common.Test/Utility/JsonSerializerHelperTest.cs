@@ -6,13 +6,13 @@ namespace DCCRailway.Common.Test.Utility;
 
 [TestFixture]
 public class JsonSerializerHelperTest {
-    private const string? TestFileName = "test.json";
-
     [SetUp]
     public void SetUp() {
         // Clean up the test file before each test
         if (File.Exists(TestFileName)) File.Delete(TestFileName ?? "test.json");
     }
+
+    private const string? TestFileName = "test.json";
 
     [Test]
     public void Load_ShouldDeserializeObject_WhenFileExists() {
@@ -74,7 +74,7 @@ public class JsonSerializerHelperTest {
 
         // Act & Assert
         var serializer = new JsonSerializerTest();
-        Assert.Throws<ApplicationException>(() => serializer.Save(objectToSave, null));
+        Assert.Throws<ApplicationException>(() => serializer.Save(objectToSave));
         Assert.Throws<ApplicationException>(() => serializer.Save(objectToSave, string.Empty));
     }
 

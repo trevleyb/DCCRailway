@@ -1,6 +1,5 @@
 using DCCRailway.Layout.Base;
 using DCCRailway.Layout.Collection;
-using DCCRailway.Layout.Entities;
 
 namespace DCCRailway.Layout.Test;
 
@@ -18,9 +17,9 @@ public class LayoutStorageTest {
     public void TestSavingAndLoadingARepository() {
         var testRepo = new TestRepository("xxx", "testxxx", "./test");
         Assert.That(testRepo.Count, Is.EqualTo(0), "Should be nothing in the Repository");
-        testRepo.Add(new TestRepositoryItem() { Id = "001", Name = "Item1", NumberOftheBeast = 666 });
-        testRepo.Add(new TestRepositoryItem() { Id = "002", Name = "Item2", NumberOftheBeast = 666 });
-        testRepo.Add(new TestRepositoryItem() { Id = "003", Name = "Item3", NumberOftheBeast = 666 });
+        testRepo.Add(new TestRepositoryItem { Id = "001", Name = "Item1", NumberOftheBeast = 666 });
+        testRepo.Add(new TestRepositoryItem { Id = "002", Name = "Item2", NumberOftheBeast = 666 });
+        testRepo.Add(new TestRepositoryItem { Id = "003", Name = "Item3", NumberOftheBeast = 666 });
         testRepo.Name = "TestSavingAndLoadingARepository";
         testRepo.Save();
         testRepo.Load();

@@ -1,6 +1,5 @@
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Results;
-using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Layout.State;
 
 namespace DCCRailway.Railway.Layout.Processors;
@@ -17,7 +16,7 @@ public class StateUpdaterCvCmd(IRailwayManager railwayManager, IStateManager sta
             Event("Write a CV");
             break;
         default:
-            Error($"Command not supported.");
+            Error("Command not supported.");
             throw new Exception("Unexpected type of command executed.");
         }
 

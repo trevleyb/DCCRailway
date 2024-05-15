@@ -47,9 +47,9 @@ public class ParameterTests {
 
         bag.Add<string>("Value4", "Value");
         Assert.That(bag.Get("value4")!.Equals("Value"));
-        bag.Add<int>("Value5", 42);
+        bag.Add("Value5", 42);
         Assert.That(bag.Get("value5")!.Equals(42));
-        bag.Add<Parity>("Value6", Parity.Even);
+        bag.Add("Value6", Parity.Even);
         Assert.That(bag.Get("value6")!.Equals(Parity.Even));
     }
 

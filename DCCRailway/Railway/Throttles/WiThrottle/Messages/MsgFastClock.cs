@@ -10,7 +10,7 @@ public class MsgFastClock(WiThrottleConnection connection, FastClockState state,
             sb.Append("PFT");
             sb.Append(timeSince1970);
             sb.Append("<;>");
-            sb.AppendLine(state == FastClockState.Stop ? $"0.0" : $"{ratio}.0");
+            sb.AppendLine(state == FastClockState.Stop ? "0.0" : $"{ratio}.0");
             return sb.ToString();
 
             /*

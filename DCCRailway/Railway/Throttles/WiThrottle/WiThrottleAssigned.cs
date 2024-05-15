@@ -3,7 +3,7 @@ using DCCRailway.Common.Types;
 namespace DCCRailway.Railway.Throttles.WiThrottle;
 
 /// <summary>
-/// This class tracks what locos are owned or assigned to a particular Throttle
+///     This class tracks what locos are owned or assigned to a particular Throttle
 /// </summary>
 public class WiThrottleAssignedLocos {
     private readonly Dictionary<char, List<DCCAddress>> _assignedAddresses = [];

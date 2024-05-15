@@ -27,12 +27,12 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand, IAccyCmd {
         Value       = value;
     }
 
-    public new static string Name => "NCE Accessory Programming";
+    public new static string     Name        => "NCE Accessory Programming";
+    public            DCCAddress LocoAddress { get; set; }
+    public            DCCAddress CVAddress   { get; set; }
 
-    public DCCAddress Address     { get; set; }
-    public DCCAddress LocoAddress { get; set; }
-    public DCCAddress CVAddress   { get; set; }
-    public byte       Value       { get; set; }
+    public DCCAddress Address { get; set; }
+    public byte       Value   { get; set; }
 
     protected override ICmdResult Execute(IAdapter adapter) {
         var cmd = new byte[] { 0xAF };

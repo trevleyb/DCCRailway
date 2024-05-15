@@ -23,8 +23,8 @@ public class NCEAIUPoller : ControllerTask, IParameterMappable {
     }
 
     /// <summary>
-    /// For the AIU, we need to poll the CAB fo information on the AIU device and to return
-    /// the current state of the device.
+    ///     For the AIU, we need to poll the CAB fo information on the AIU device and to return
+    ///     the current state of the device.
     /// </summary>
     protected override void DoWork() {
         var pinStr = new StringBuilder();
@@ -39,7 +39,7 @@ public class NCEAIUPoller : ControllerTask, IParameterMappable {
                 }
             }
             pinStr.Append("|");
-            Logger.Log.Information($"Read AIU '{CabAddress}' => {pinStr.ToString()}");
+            Logger.Log.Information($"Read AIU '{CabAddress}' => {pinStr}");
         }
     }
 }

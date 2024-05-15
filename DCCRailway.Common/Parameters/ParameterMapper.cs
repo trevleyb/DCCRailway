@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Reflection;
-using System.Text;
 
 namespace DCCRailway.Common.Parameters;
 
@@ -9,9 +8,9 @@ public static class ParameterMapper {
         BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Public;
 
     /// <summary>
-    /// This function take a Name/Value pair and looks in the Adapter for those
-    /// properties and if they exist, and if the object data can be converted to
-    /// that type, then it will set the value of that property.
+    ///     This function take a Name/Value pair and looks in the Adapter for those
+    ///     properties and if they exist, and if the object data can be converted to
+    ///     that type, then it will set the value of that property.
     /// </summary>
     /// <param name="input">The object that supports Property Mapping</param>
     /// <param name="parameterName">The Name of the Property to change</param>

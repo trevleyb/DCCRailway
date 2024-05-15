@@ -39,9 +39,9 @@ public class BackgroundTest {
         taskInstance.WorkFinished   += (sender, args) => workFinished = true;
         taskInstance.WorkInProgress += (sender, args) => workHappened++;
         taskInstance.Start();
-        Thread.Sleep((int)taskInstance.Milliseconds * 5); // Go to sleep for 5 times the duration of the process
+        Thread.Sleep(taskInstance.Milliseconds * 5); // Go to sleep for 5 times the duration of the process
         taskInstance.Stop();
-        Thread.Sleep((int)500); // Give the background process a change to end before we test it ended
+        Thread.Sleep(500); // Give the background process a change to end before we test it ended
 
         Assert.That(workStarted, Is.True);
         Assert.That(workFinished, Is.True);

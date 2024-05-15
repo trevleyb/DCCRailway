@@ -27,7 +27,7 @@ public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
 
     protected override ICmdResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
-        command = command.AddToArray(((DCCAddress)Address).AddressBytes);
+        command = command.AddToArray(Address.AddressBytes);
 
         if (Direction == DCCDirection.Stop) {
             command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x06 : 0x05));

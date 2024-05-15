@@ -6,10 +6,7 @@ using DCCRailway.Controller.Controllers;
 namespace DCCRailway.Controller.Tasks;
 
 [Task("Controler Task")]
-public abstract class ControllerTask() : BackgroundWorker(null, null), IControllerTask, IParameterMappable {
-    protected virtual void Setup()   { }
-    protected virtual void CleanUp() { }
-
+public abstract class ControllerTask() : BackgroundWorker(null), IControllerTask, IParameterMappable {
     public override void Start() {
         Setup();
         base.Start();
@@ -20,5 +17,7 @@ public abstract class ControllerTask() : BackgroundWorker(null, null), IControll
         CleanUp();
     }
 
-    public ICommandStation CommandStation { get; set; }
+    public            ICommandStation CommandStation { get; set; }
+    protected virtual void            Setup()        { }
+    protected virtual void            CleanUp()      { }
 }

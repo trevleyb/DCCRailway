@@ -1,20 +1,18 @@
-using System.ComponentModel;
 using Serilog;
 
 namespace DCCRailway.Common.Helpers;
 
 public abstract class BackgroundWorker(string? name, TimeSpan? frequency = null) {
+    protected readonly ILogger                  Log = Logger.LogContext<BackgroundWorker>();
+    private            CancellationTokenSource? _cancellationTokenSource;
+
+    public string             Name         { get; set; } = name ?? "default";
+    public TimeSpan           Frequency    { get; set; } = frequency ?? new TimeSpan(0, 0, 0);
+    public decimal            Seconds      => (decimal)Frequency.TotalSeconds;
+    public int                Milliseconds => (int)Frequency.TotalMilliseconds;
     public event EventHandler WorkStarted;
     public event EventHandler WorkFinished;
     public event EventHandler WorkInProgress;
-
-    public string   Name         { get; set; } = name ?? "default";
-    public TimeSpan Frequency    { get; set; } = frequency ?? new TimeSpan(0, 0, 0);
-    public decimal  Seconds      => (decimal)Frequency.TotalSeconds;
-    public int      Milliseconds => (int)Frequency.TotalMilliseconds;
-
-    protected readonly ILogger                  Log = Logger.LogContext<BackgroundWorker>();
-    private            CancellationTokenSource? _cancellationTokenSource;
 
     protected abstract void DoWork();
 

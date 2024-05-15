@@ -6,14 +6,14 @@ namespace DCCRailway.Layout.Entities;
 
 [Serializable, DebuggerDisplay("TURNOUT={Id}, Name: {Name}")]
 public class Turnout : LayoutEntityDecoder {
-    public Turnout(string id = "") : base(id) { }
-
-    private bool            _isManual;
-    private bool            _isReversed;
-    private bool            _resetOnPowerOn;
-    private DCCTurnoutState _initialState;
     private DCCTurnoutState _currentState;
-    private DCCTurnoutType  _type;
+    private DCCTurnoutState _initialState;
+
+    private bool           _isManual;
+    private bool           _isReversed;
+    private bool           _resetOnPowerOn;
+    private DCCTurnoutType _type;
+    public Turnout(string id = "") : base(id) { }
 
     public bool IsManual {
         get => _isManual;

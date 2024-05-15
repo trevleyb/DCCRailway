@@ -1,6 +1,6 @@
 using System.Text;
-using DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 using DCCRailway.Controller.Attributes;
+using DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Messages;
 

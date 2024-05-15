@@ -1,4 +1,3 @@
-using System;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Actions.Results.Abstract;
 using DateTime = System.DateTime;
@@ -18,10 +17,10 @@ public class NCECmdResultClock : CmdResult, ICmdResultFastClock {
     public int Hour { get; }
     public int Min  { get; }
 
+    public string FastClock => $"{Hour:D2}:{Min:D2}";
+
     public DateTime CurrentTime => new(DateTime.Now.Year,
                                        DateTime.Now.Month,
                                        DateTime.Now.Day,
                                        Hour, Min, 0);
-
-    public string FastClock => $"{Hour:D2}:{Min:D2}";
 }

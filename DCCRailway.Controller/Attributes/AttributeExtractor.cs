@@ -19,7 +19,7 @@ public static class AttributeExtractor {
         }
     }
 
-    public static AdapterAttribute    AttributeInfo(this IAdapter adapter)               => GetAttribute<AdapterAttribute>(adapter.GetType()) ?? new AdapterAttribute("Unknown", AdapterType.Unknown);
+    public static AdapterAttribute    AttributeInfo(this IAdapter adapter)               => GetAttribute<AdapterAttribute>(adapter.GetType()) ?? new AdapterAttribute("Unknown");
     public static ControllerAttribute AttributeInfo(this ICommandStation commandStation) => GetAttribute<ControllerAttribute>(commandStation.GetType()) ?? new ControllerAttribute("Unknown");
     public static CommandAttribute    AttributeInfo(this ICommand command)               => GetAttribute<CommandAttribute>(command.GetType()) ?? new CommandAttribute("Unknown", "Unknown", "Unknown", new[] { "!*" }, new[] { "!*" });
 }

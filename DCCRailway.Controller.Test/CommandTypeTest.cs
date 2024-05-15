@@ -11,7 +11,7 @@ public class CommandTypeTest {
         var command        = commandStation.CreateCommand<IDummyCmd>();
         Assert.That(command, Is.Not.Null);
 
-        var isDummyAiDummy = command as IDummyCmd;
+        var isDummyAiDummy = command;
         Assert.That(isDummyAiDummy, Is.Not.Null);
 
         Assert.That(commandStation.IsCommandSupported(command.GetType()), Is.True);

@@ -5,9 +5,9 @@ using DCCRailway.Controller.Attributes;
 namespace DCCRailway.Railway.Layout;
 
 public abstract class StateUpdaterProcess(ICmdResult result) : IStateUpdaterProcess {
+    public string?    Name    => Command?.AttributeInfo()?.Name ?? "Unknown Command";
     public ICmdResult Result  { get; } = result;
     public ICommand?  Command => Result.Command ?? null;
-    public string?    Name    => Command?.AttributeInfo()?.Name ?? "Unknown Command";
     public byte[]?    Data    => Result.Data;
 
     public abstract bool Process();

@@ -19,5 +19,5 @@ public class CmdHeartbeat(WiThrottleConnection connection) : ThrottleCmd, IThrot
         }
     }
 
-    public override string ToString() => $"CMD:Heartbeat";
+    public override string ToString() => "CMD:Heartbeat";
 }

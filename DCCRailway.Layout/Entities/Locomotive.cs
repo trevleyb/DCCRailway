@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text.Json.Serialization;
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Base;
@@ -8,18 +7,18 @@ namespace DCCRailway.Layout.Entities;
 
 [Serializable, DebuggerDisplay("LOCOMOTIVE={Id}, Name: {Name}, Address: {Address.Address}")]
 public class Locomotive : LayoutEntityDecoder {
-    private string            _type         = "";
-    private string            _roadName     = "";
-    private string            _roadNumber   = "";
-    private string            _manufacturer = "";
-    private string            _model;
-    private DCCMomentum       _momentum       = new(0);
-    private DCCSpeed          _speed          = new(0);
     private DCCDirection      _direction      = DCCDirection.Stop;
     private DCCFunctionBlocks _functionBlocks = new();
+    private string            _manufacturer   = "";
+    private string            _model;
+    private DCCMomentum       _momentum   = new(0);
+    private string            _roadName   = "";
+    private string            _roadNumber = "";
+    private DCCSpeed          _speed      = new(0);
+    private string            _type       = "";
 
     /// <summary>
-    /// Represents a locomotive layoutEntity with DCC address, direction, and speed.
+    ///     Represents a locomotive layoutEntity with DCC address, direction, and speed.
     /// </summary>
     public Locomotive(string id, DCCAddress address, DCCDirection direction = DCCDirection.Forward) : this(id) {
         Address     = address;
@@ -28,7 +27,7 @@ public class Locomotive : LayoutEntityDecoder {
     }
 
     /// <summary>
-    /// Represents a locomotive layoutEntity with DCC address, direction, and speed.
+    ///     Represents a locomotive layoutEntity with DCC address, direction, and speed.
     /// </summary>
     public Locomotive(string id, int address, DCCAddressType type = DCCAddressType.Long, DCCDirection direction = DCCDirection.Stop) : this(id) {
         Address     = new DCCAddress(address, type);

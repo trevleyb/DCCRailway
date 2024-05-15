@@ -2,28 +2,27 @@
 using System.Text;
 using System.Timers;
 using DCCRailway.Common.Helpers;
-using DCCRailway.Railway.Configuration;
 using DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 using DCCRailway.Railway.Throttles.WiThrottle.Messages;
+using Timer = System.Timers.Timer;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle;
 
 /// <summary>
-/// This is the main server for the WiThrottleController. It manages incomming connections, tracks them in a
-/// WiThrottleConnection and manages messages. It takes as parameters a RailwayConfig reference to allow it
-/// to get information about the Entities (Locos, Turnouts etc) as well as a reference to the active DCC
-/// commandStation so it can send messages to that commandStation.
-///
-/// Note that it does not need to track what messages it has sent as the LayoutConfig uses events to
-/// track what commands have been sent and automatically update the Entities with state changes.
+///     This is the main server for the WiThrottleController. It manages incomming connections, tracks them in a
+///     WiThrottleConnection and manages messages. It takes as parameters a RailwayConfig reference to allow it
+///     to get information about the Entities (Locos, Turnouts etc) as well as a reference to the active DCC
+///     commandStation so it can send messages to that commandStation.
+///     Note that it does not need to track what messages it has sent as the LayoutConfig uses events to
+///     track what commands have been sent and automatically update the Entities with state changes.
 /// </summary>
-public class WiThrottleServer() {
-    private CancellationTokenSource cts = new();
-    private System.Timers.Timer     _heartbeatCheckTimer;
-    private IRailwayManager         _railwayManager;
-    private CommandStationManager   _cmdStationMgr;
+public class WiThrottleServer {
+    private          CommandStationManager   _cmdStationMgr;
+    private          Timer                   _heartbeatCheckTimer;
+    private          IRailwayManager         _railwayManager;
+    private readonly CancellationTokenSource cts = new();
 
-    public int ActiveClients { get; set; } = 0;
+    public int ActiveClients { get; set; }
 
     /// <summary>
     ///     Start up the Listener Service using the provided Port and IPAddress
@@ -66,7 +65,7 @@ public class WiThrottleServer() {
         ServerBroadcast.Start(_railwayManager.WiThrottlePreferences);
 
         try {
-            _heartbeatCheckTimer           =  new System.Timers.Timer(_railwayManager.WiThrottlePreferences.HeartbeatCheckTime);
+            _heartbeatCheckTimer           =  new Timer(_railwayManager.WiThrottlePreferences.HeartbeatCheckTime);
             _heartbeatCheckTimer.Elapsed   += HeartbeatCheckHandler;
             _heartbeatCheckTimer.AutoReset =  true;
             _heartbeatCheckTimer.Start();
@@ -142,9 +141,9 @@ public class WiThrottleServer() {
     }
 
     /// <summary>
-    /// While processing messages from the client we might need to generate one or more responses.
-    /// Also, there may be an instance where changes need to be broadcast to the client and this allows
-    /// us to inject messages to be sent.
+    ///     While processing messages from the client we might need to generate one or more responses.
+    ///     Also, there may be an instance where changes need to be broadcast to the client and this allows
+    ///     us to inject messages to be sent.
     /// </summary>
     /// <param name="connection"></param>
     /// <param name="stream"></param>
@@ -166,9 +165,9 @@ public class WiThrottleServer() {
     }
 
     /// <summary>
-    /// Heartbeat management - ensure that we get heartbeats from each connection
-    /// and if we don't then force that connection to close but ensure we execute a
-    /// stop all for any locos under that Throttles control.
+    ///     Heartbeat management - ensure that we get heartbeats from each connection
+    ///     and if we don't then force that connection to close but ensure we execute a
+    ///     stop all for any locos under that Throttles control.
     /// </summary>
     private void HeartbeatCheckHandler(object? sender, ElapsedEventArgs args) {
         //Logger.Log.Information($"Heartbeat Checker: {args.SignalTime}");

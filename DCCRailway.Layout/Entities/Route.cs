@@ -6,8 +6,8 @@ namespace DCCRailway.Layout.Entities;
 
 [Serializable, DebuggerDisplay("ROUTE={Id}, Name: {Name}")]
 public class Route(string id = "") : LayoutEntity(id) {
-    public RouteState         State { get; set; } = RouteState.Unknown;
     public List<RouteTurnout> RouteTurnouts = new();
+    public RouteState         State { get; set; } = RouteState.Unknown;
 
     // Add a route to the list of routes at the END of the list
     // ------------------------------------------------------------------------------------------------

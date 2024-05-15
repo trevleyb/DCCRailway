@@ -9,7 +9,7 @@ public static class ServerBroadcast {
         var host = Dns.GetHostEntry(Dns.GetHostName());
 
         if (host.AddressList.Length > 0) {
-            var addressList = new List<IPAddress>() { options.HostAddress };
+            var addressList = new List<IPAddress> { options.HostAddress };
             try {
                 var sd = new ServiceDiscovery();
 

@@ -3,15 +3,15 @@ using System.Text;
 namespace DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 
 public static class Terminators {
-    public static string ForDisplay(string message) => message.Replace((char)0x0A, '•').Replace((char)0x0d, '•');
+    public const char Terminator = (char)0x0a;
 
-    public static readonly string[] PossibleTerminators = new[] {
+    public static readonly string[] PossibleTerminators = {
         new string([(char)0x0a]),
         new string([(char)0x0d]),
         new string([(char)0x0a, (char)0x0d]),
         new string([(char)0x0d, (char)0x0a])
     };
-    public const char Terminator = (char)0x0a;
+    public static string ForDisplay(string message) => message.Replace((char)0x0A, '•').Replace((char)0x0d, '•');
 
     public static StringBuilder AddTerminator(StringBuilder input) {
         if (input.Length > 0)

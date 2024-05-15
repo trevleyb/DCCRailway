@@ -5,8 +5,8 @@ public class CmdResult(bool success, ICommand? command, byte[]? data, string? er
     // -----------------------------------------------------------------------
     public CmdResult() : this(true, null, null, null) { }
     public CmdResult(bool success, string? errorMessage = null) : this(success, null, null, errorMessage) { }
-    public CmdResult(ICommand command, byte[]? data) : this(true, command, data, null) { }
-    public CmdResult(byte[]? data) : this(true, null, data, null) { }
+    public CmdResult(ICommand command, byte[]? data) : this(true, command, data) { }
+    public CmdResult(byte[]? data) : this(true, null, data) { }
     public CmdResult(bool success, byte[]? data, string? errorMessage = null) : this(success, null, data, errorMessage) { }
     public CmdResult(ICmdResult result) : this(result.Success, result.Command, result.Data, result.ErrorMessage) { }
 
@@ -25,9 +25,9 @@ public class CmdResult(bool success, ICommand? command, byte[]? data, string? er
     // Helpers
     // -----------------------------------------------------------------------
     public static ICmdResult Ok()                                => new CmdResult();
-    public static ICmdResult Ok(ICommand? command)               => new CmdResult(true, command, null, null);
-    public static ICmdResult Ok(byte[]? data)                    => new CmdResult(true, null, data, null);
-    public static ICmdResult Ok(ICommand? command, byte[]? data) => new CmdResult(true, command, data, null);
+    public static ICmdResult Ok(ICommand? command)               => new CmdResult(true, command, null);
+    public static ICmdResult Ok(byte[]? data)                    => new CmdResult(true, null, data);
+    public static ICmdResult Ok(ICommand? command, byte[]? data) => new CmdResult(true, command, data);
     public static ICmdResult Ok(ICmdResult result)               => new CmdResult(true, result.Command, result.Data, "");
 
     public static ICmdResult Fail()                                                     => new CmdResult();

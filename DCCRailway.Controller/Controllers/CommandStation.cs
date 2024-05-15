@@ -7,18 +7,11 @@ using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
-using DCCRailway.Controller.Exceptions;
 using DCCRailway.Controller.Tasks;
 
 namespace DCCRailway.Controller.Controllers;
 
 public abstract class CommandStation : ICommandStation, IParameterMappable {
-    public event EventHandler<ControllerEventArgs> ControllerEvent;
-
-    private TaskManager    TaskManager    { get; } // Manages background Tasks
-    private CommandManager CommandManager { get; } // Manages what commands are available
-    private AdapterManager AdapterManager { get; } // Manages the attached Adapter(s)
-
     protected CommandStation() {
         CommandManager = new CommandManager(this, Assembly.GetCallingAssembly());
         AdapterManager = new AdapterManager(this, Assembly.GetCallingAssembly());
@@ -27,6 +20,11 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
         CommandManager.CommandEvent += CommandManagerOnCommandManagerEvent;
         AdapterManager.AdapterEvent += AdapterManagerOnAdapterManagerEvent;
     }
+
+    private TaskManager                            TaskManager    { get; } // Manages background Tasks
+    private CommandManager                         CommandManager { get; } // Manages what commands are available
+    private AdapterManager                         AdapterManager { get; } // Manages the attached Adapter(s)
+    public event EventHandler<ControllerEventArgs> ControllerEvent;
 
     public virtual void Start() {
         OnControllerEvent(this, "Starting up the CommandStation");
@@ -69,6 +67,10 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
     public abstract DCCAddress CreateAddress();
     public abstract DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
 
+    public void OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result) {
+        ControllerEvent?.Invoke(this, new CommandEventArgs(command, result, $"Command Executed on {commandStation.AttributeInfo().Name}"));
+    }
+
     // Used for general CommandStation Events to be Raised
     public void OnControllerEvent(object? sender, string message = "") {
         ControllerEvent?.Invoke(sender, new ControllerEventArgs(message));
@@ -80,9 +82,5 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
 
     public void CommandManagerOnCommandManagerEvent(object? sender, CommandEventArgs e) {
         if (e.Command != null) ControllerEvent?.Invoke(sender, new CommandEventArgs(e.Command, e.Result, e.Message ?? ""));
-    }
-
-    public void OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result) {
-        ControllerEvent?.Invoke(this, new CommandEventArgs(command, result, $"Command Executed on {commandStation.AttributeInfo().Name}"));
     }
 }

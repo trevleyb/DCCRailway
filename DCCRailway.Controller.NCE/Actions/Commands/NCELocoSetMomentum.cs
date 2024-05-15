@@ -25,7 +25,7 @@ public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
 
     protected override ICmdResult Execute(IAdapter adapter) {
         byte[] command = { 0xA2 };
-        command = command.AddToArray(((DCCAddress)Address).AddressBytes);
+        command = command.AddToArray(Address.AddressBytes);
         command = command.AddToArray(0x12);
         command = command.AddToArray(Momentum.Value);
 

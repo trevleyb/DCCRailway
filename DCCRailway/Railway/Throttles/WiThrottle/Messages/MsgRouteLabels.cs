@@ -10,7 +10,7 @@ public class MsgRouteLabels(WiThrottleConnection connection) : ThrottleMsg, IThr
             if (!routes.Any()) return "";
 
             var message = new StringBuilder();
-            message.Append($"PRT");
+            message.Append("PRT");
             message.Append("]\\[");
             message.Append("Routes");
             message.Append("}|{");

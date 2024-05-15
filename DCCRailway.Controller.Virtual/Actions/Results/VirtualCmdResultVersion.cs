@@ -3,7 +3,7 @@ using DCCRailway.Controller.Actions.Results.Abstract;
 namespace DCCRailway.Controller.Virtual.Actions.Results;
 
 public class VirtualCmdResultVersion : CmdResult {
-    public VirtualCmdResultVersion(byte[]? dataSet) : base(true, null, dataSet, null) {
+    public VirtualCmdResultVersion(byte[]? dataSet) : base(true, null, dataSet) {
         if (Data.Length != 3) {
             Success = false;
         } else {
@@ -14,6 +14,10 @@ public class VirtualCmdResultVersion : CmdResult {
     }
 
     public string ToVersionString => $"{Version}.{Major}.{Minor}";
+
+    public int Major   { get; }
+    public int Minor   { get; }
+    public int Version { get; }
 
     public bool IsVersionMatch(string compare) => IsVersionMatch(ToVersionString, compare);
 
@@ -28,8 +32,4 @@ public class VirtualCmdResultVersion : CmdResult {
 
         return true;
     }
-
-    public int Major   { get; }
-    public int Minor   { get; }
-    public int Version { get; }
 }

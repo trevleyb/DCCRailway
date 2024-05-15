@@ -10,12 +10,13 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 
 [Command("PowerGetState", "Get the Current State of the Power Supply")]
 public class VirtualPowerGetState : VirtualCommand, ICmdPowerGetState {
+    public DCCPowerState State { get; set; } = DCCPowerState.Unknown;
+
     protected override ICmdResult Execute(IAdapter adapter) {
         var result                                                 = new VirtualCmdResultPowerState(DCCPowerState.On);
         if (adapter is VirtualAdapter virtualAdapter) result.State = virtualAdapter.PowerState;
         return result;
     }
 
-    public          DCCPowerState State      { get; set; } = DCCPowerState.Unknown;
-    public override string        ToString() => "POWER STATE";
+    public override string ToString() => "POWER STATE";
 }

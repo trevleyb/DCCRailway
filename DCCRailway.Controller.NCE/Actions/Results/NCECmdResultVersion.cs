@@ -13,8 +13,12 @@ public class NCECmdResultVersion : CmdResult {
         }
     }
 
-    public string ToVersionString                => $"{Version}.{Major}.{Minor}";
-    public bool   IsVersionMatch(string compare) => IsVersionMatch(ToVersionString, compare);
+    public string ToVersionString => $"{Version}.{Major}.{Minor}";
+
+    public int  Major                          { get; }
+    public int  Minor                          { get; }
+    public int  Version                        { get; }
+    public bool IsVersionMatch(string compare) => IsVersionMatch(ToVersionString, compare);
 
     public bool IsVersionMatch(string source, string compare) {
         var sourceSplit  = source.Split('.');
@@ -26,8 +30,4 @@ public class NCECmdResultVersion : CmdResult {
         }
         return true;
     }
-
-    public int Major   { get; }
-    public int Minor   { get; }
-    public int Version { get; }
 }

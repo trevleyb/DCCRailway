@@ -4,8 +4,8 @@ using DCCRailway.Layout.Base;
 namespace DCCRailway.Layout.Events;
 
 public class EntityPropertyChangedEventArgs : PropertyChangedEventArgs {
-    public          LayoutEntity? Entity;
     public readonly object?       Value;
+    public          LayoutEntity? Entity;
 
     public EntityPropertyChangedEventArgs(string? propertyName) : base(propertyName) { }
 

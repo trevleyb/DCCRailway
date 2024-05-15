@@ -5,12 +5,11 @@ namespace DCCRailway.Railway.Configuration.Entities;
 
 [Serializable]
 public class Parameter {
+    public Parameter() { }
+    public Parameter(string name, object value) => Set(name, value);
     public string  Name    { get; set; }
     public string  Value   { get; set; }
     public string? ObjType { get; set; }
-
-    public Parameter() { }
-    public Parameter(string name, object value) => Set(name, value);
 
     public void Set(string name, object value) {
         Name    = name;

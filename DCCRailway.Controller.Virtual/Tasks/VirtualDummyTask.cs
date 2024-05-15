@@ -7,7 +7,7 @@ namespace DCCRailway.Controller.Virtual.Tasks;
 
 [Task("VirtualDummyTask", "Background Dummy to Poll the Console")]
 public class VirtualDummyTask : ControllerTask {
-    private int counter = 0;
+    private int counter;
 
     protected override void OnWorkStarted() {
         Logger.Log.Debug($"Work has Started for task '{Name}'");

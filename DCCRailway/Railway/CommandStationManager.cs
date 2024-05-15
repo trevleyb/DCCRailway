@@ -8,8 +8,8 @@ using DCCRailway.Railway.Layout;
 namespace DCCRailway.Railway;
 
 public class CommandStationManager {
-    public  ICommandStation     CommandStation { get; private set; }
     private StateEventProcessor _processor;
+    public  ICommandStation     CommandStation { get; private set; }
 
     public void Start(StateEventProcessor processor) {
         // Wire up the events from the Command Station so we can track Entities Property Changes
@@ -27,9 +27,9 @@ public class CommandStationManager {
     }
 
     /// <summary>
-    /// Looks at the configuration and instantiates the commandStation for the Entities. This includes adding appropriate
-    /// adapters to the commandStation and pushing any parameters into the Controllers and Adapaters as defined in the
-    /// configuration.
+    ///     Looks at the configuration and instantiates the commandStation for the Entities. This includes adding appropriate
+    ///     adapters to the commandStation and pushing any parameters into the Controllers and Adapaters as defined in the
+    ///     configuration.
     /// </summary>
     public void Configure(Configuration.Entities.Controller controller) {
         if (controller is null) throw new ApplicationException("Cannot start the Entities Layout as no Controllers are defined.");
@@ -43,8 +43,8 @@ public class CommandStationManager {
     }
 
     /// <summary>
-    /// Create an instance of the CommandStation Controller based on the name, and attach any
-    /// additional properties to the controller as defined in the configuration.
+    ///     Create an instance of the CommandStation Controller based on the name, and attach any
+    ///     additional properties to the controller as defined in the configuration.
     /// </summary>
     /// <param name="controller">Configuration Collection for the controller to create</param>
     /// <returns>An instance of a Command Station Controller or NULL if it was unable to do so. </returns>
@@ -66,7 +66,7 @@ public class CommandStationManager {
     }
 
     /// <summary>
-    /// Attaches an adapter to the commandStation and configures it using the provided parameters.
+    ///     Attaches an adapter to the commandStation and configures it using the provided parameters.
     /// </summary>
     /// <param name="controller">The DCCController object representing the controller for the commandStation.</param>
     /// <param name="commandStation">The ICommandStation object representing the commandStation.</param>
@@ -93,9 +93,9 @@ public class CommandStationManager {
     }
 
     /// <summary>
-    /// Attaches tasks from a DCCController to a ICommandStation. This method creates instances of the tasks
-    /// and sets their properties based on the configuration provided in the DCCController. The tasks are then
-    /// attached to the ICommandStation.
+    ///     Attaches tasks from a DCCController to a ICommandStation. This method creates instances of the tasks
+    ///     and sets their properties based on the configuration provided in the DCCController. The tasks are then
+    ///     attached to the ICommandStation.
     /// </summary>
     /// <param name="controller">The DCCController containing the tasks to be attached.</param>
     /// <param name="commandStation">The ICommandStation to which the tasks will be attached.</param>

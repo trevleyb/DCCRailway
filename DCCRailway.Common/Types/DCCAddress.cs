@@ -11,9 +11,9 @@ public class DCCAddress : PropertyChangedBase {
     private const int MAX_ADDRESS = 10000;
 
     private int            _address;
+    private DCCAddressType _addressType;
     private byte           _highAddress;
     private byte           _lowAddress;
-    private DCCAddressType _addressType;
     private DCCProtocol    _protocol;
 
     public DCCAddress() : this(3, DCCAddressType.Short) { }

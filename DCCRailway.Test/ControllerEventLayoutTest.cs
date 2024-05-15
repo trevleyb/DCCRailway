@@ -1,14 +1,10 @@
 using DCCRailway.Common.Types;
-using DCCRailway.Railway.Configuration;
-using DCCRailway.Railway.Layout;
 using DCCRailway.Controller.Actions.Commands;
-using DCCRailway.Controller.Actions.Results.Abstract;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Layout.Entities;
 using DCCRailway.Railway;
 using DCCRailway.Railway.Configuration.Entities;
-using DCCRailway.Railway.Layout.State;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
@@ -21,7 +17,7 @@ public class ControllerEventLayoutTest {
         Assert.That(layoutConfig, Is.Not.Null);
 
         layoutConfig.Settings.Controller.Name = "Virtual";
-        layoutConfig.Settings.Controller.Adapters.Add(new Adapter() { Name = "Virtual" });
+        layoutConfig.Settings.Controller.Adapters.Add(new Adapter { Name = "Virtual" });
         layoutConfig.Start();
         Assert.That(layoutConfig.StateManager, Is.Not.Null);
         Assert.That(layoutConfig.CommandStationManager, Is.Not.Null);

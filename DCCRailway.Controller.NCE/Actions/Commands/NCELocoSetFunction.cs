@@ -14,9 +14,6 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCELocoSetFunction : NCECommand, ICmdLocoSetFunction, ICommand {
     private readonly byte[] _opCodes = { 0x07, 0x08, 0x09, 0x15, 0x16 };
 
-    public byte Function { get; set; }
-    public bool State    { get; set; }
-
     public NCELocoSetFunction() {
         Functions = new DCCFunctionBlocks();
         Previous  = new DCCFunctionBlocks();
@@ -37,8 +34,11 @@ public class NCELocoSetFunction : NCECommand, ICmdLocoSetFunction, ICommand {
     }
 
     public DCCFunctionBlocks? Previous  { get; set; }
-    public DCCAddress         Address   { get; set; }
     public DCCFunctionBlocks  Functions { get; }
+
+    public byte       Function { get; set; }
+    public bool       State    { get; set; }
+    public DCCAddress Address  { get; set; }
 
     protected override ICmdResult Execute(IAdapter adapter) {
         Previous ??= new DCCFunctionBlocks();
@@ -49,7 +49,7 @@ public class NCELocoSetFunction : NCECommand, ICmdLocoSetFunction, ICommand {
         // If any have changed, then sent those new settings to the command station for the Loco Address
         for (var block = 1; block <= 5; block++) {
             if (Functions.GetBlock(block) != Previous.GetBlock(block)) {
-                var command = new byte[] { 0xA2, ((DCCAddress)Address).HighAddress, ((DCCAddress)Address).LowAddress, _opCodes[block - 1], Functions.GetBlock(block) };
+                var command = new byte[] { 0xA2, Address.HighAddress, ((DCCAddress)Address).LowAddress, _opCodes[block - 1], Functions.GetBlock(block) };
                 var result  = SendAndReceive(adapter, new NCEStandardValidation(), command);
                 if (!result.Success) return result;
             }

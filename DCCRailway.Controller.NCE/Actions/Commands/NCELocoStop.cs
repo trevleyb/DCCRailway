@@ -23,7 +23,7 @@ public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
 
     protected override ICmdResult Execute(IAdapter adapter) {
         byte[] command = [0xA2];
-        command = command.AddToArray(((DCCAddress)Address).AddressBytes);
+        command = command.AddToArray(Address.AddressBytes);
         command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x06 : 0x05));
         command = command.AddToArray(0);
 

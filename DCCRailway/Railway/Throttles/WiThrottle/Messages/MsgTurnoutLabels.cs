@@ -12,7 +12,7 @@ public class MsgTurnoutLabels(WiThrottleConnection connection) : ThrottleMsg, IT
             // This block should be re-written in the future to support the Names of the States
             // of the Turnouts to come from Condfiguration. 
             var message = new StringBuilder();
-            message.Append($"PTT");
+            message.Append("PTT");
             message.Append("]\\[");
             message.Append("Turnouts");
             message.Append("}|{");

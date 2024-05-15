@@ -39,7 +39,7 @@ public class NCELocoSetFunctions : NCECommand, ICmdLocoSetFunctions, ICommand {
         // If any have changed, then sent those new settings to the command station for the Loco Address
         for (var block = 1; block <= 5; block++) {
             if (Functions.GetBlock(block) != Previous.GetBlock(block)) {
-                var command = new byte[] { 0xA2, ((DCCAddress)Address).HighAddress, ((DCCAddress)Address).LowAddress, _opCodes[block - 1], Functions.GetBlock(block) };
+                var command = new byte[] { 0xA2, Address.HighAddress, ((DCCAddress)Address).LowAddress, _opCodes[block - 1], Functions.GetBlock(block) };
                 var result  = SendAndReceive(adapter, new NCEStandardValidation(), command);
 
                 if (!result.Success) return result;

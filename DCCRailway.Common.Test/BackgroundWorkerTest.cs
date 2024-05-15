@@ -1,5 +1,4 @@
 using DCCRailway.Common.Helpers;
-using Tmds.Linux;
 
 namespace DCCRailway.Common.Test;
 
@@ -27,8 +26,8 @@ public class BackgroundWorkerTest {
 }
 
 public class BackgroundWorkerTestClass(string name, TimeSpan freq) : BackgroundWorker(name, freq) {
-    private int       counter  = 0;
-    private DateTime? lastTime = null;
+    private int       counter;
+    private DateTime? lastTime;
 
     protected override void DoWork() {
         TimeSpan? duration             = new TimeSpan(0);

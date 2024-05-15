@@ -6,18 +6,18 @@ using DCCRailway.Controller.Attributes;
 namespace DCCRailway.Controller.Controllers;
 
 /// <summary>
-/// The CommandStation Factory instantiates a list of available controllers and then
-/// allows the caller to dynamically create a controller based on the name of the controller.
+///     The CommandStation Factory instantiates a list of available controllers and then
+///     allows the caller to dynamically create a controller based on the name of the controller.
 /// </summary>
 public class CommandStationFactory {
-    private       Dictionary<string, CommandStationManager>? _controllers           = new();
     private const string                                     DefaultAssemblyPattern = @"(.*)DCCRailway.Controller\.(\D+)\.dll";
     private const string                                     DefaultPath            = ".";
+    private       Dictionary<string, CommandStationManager>? _controllers           = new();
 
     /// <summary>
-    /// Get a list of all available controllers. If the current list is empty, then call the load function
-    /// to read the current director and find all classes that are ICommandStation and then load them into the
-    /// list to be returned.  
+    ///     Get a list of all available controllers. If the current list is empty, then call the load function
+    ///     to read the current director and find all classes that are ICommandStation and then load them into the
+    ///     list to be returned.
     /// </summary>
     public List<CommandStationManager> Controllers {
         get {
@@ -26,8 +26,10 @@ public class CommandStationFactory {
         }
     }
 
+    public CommandStationManager? this[string name] => Find(name);
+
     /// <summary>
-    /// Create a New CommandStation directly from the Factory without any further details (ignore the CommandStation info)
+    ///     Create a New CommandStation directly from the Factory without any further details (ignore the CommandStation info)
     /// </summary>
     /// <param name="name">The Name of the CommandStation to create</param>
     /// <returns>A new CommandStation</returns>
@@ -40,8 +42,10 @@ public class CommandStationFactory {
 
     /// <summary>
     ///     The function returns a collection of supported systems by looking at all libraries in the current folder
-    ///     (or by override the path) and looking for classes that support the ICommandStation interface. Once you have obtained
-    ///     a SupportedSystem instance, you can use that instance to create a controller and to make operations on that controller.
+    ///     (or by override the path) and looking for classes that support the ICommandStation interface. Once you have
+    ///     obtained
+    ///     a SupportedSystem instance, you can use that instance to create a controller and to make operations on that
+    ///     controller.
     /// </summary>
     /// <param name="defaultPath"></param>
     /// <returns>List of systems that have been found</returns>
@@ -88,6 +92,5 @@ public class CommandStationFactory {
     }
 
     public List<CommandStationManager> FindByManufacturer(string manufacturer) => _controllers?.Where(key => key.Value.Manufacturer.Equals(manufacturer, StringComparison.InvariantCultureIgnoreCase)).Select(key => key.Value).ToList() ?? [];
-    public CommandStationManager? this[string name] => Find(name);
-    public CommandStationManager? Find(string name) => Controllers?.FirstOrDefault(key => key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
+    public CommandStationManager?      Find(string name)                       => Controllers?.FirstOrDefault(key => key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
 }

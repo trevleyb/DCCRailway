@@ -8,9 +8,8 @@ using DCCRailway.Controller.Exceptions;
 namespace DCCRailway.Controller.Controllers;
 
 public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
-    private IAdapter?                           _adapter;
-    private Dictionary<Type, AdapterAttribute>  _adapters = [];
-    public event EventHandler<AdapterEventArgs> AdapterEvent;
+    private IAdapter?                          _adapter;
+    private Dictionary<Type, AdapterAttribute> _adapters = [];
 
     public IAdapter? Adapter {
         get => _adapter;
@@ -21,6 +20,17 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
             }
         }
     }
+
+    public ICommandStation CommandStation => commandStation;
+
+    public List<AdapterAttribute> Adapters {
+        get {
+            if (_adapters.Any() is false) RegisterAdapters();
+            return _adapters.Values.ToList();
+        }
+    }
+
+    public event EventHandler<AdapterEventArgs> AdapterEvent;
 
     protected IAdapter? Attach(IAdapter adapter) {
         if (_adapter != null) Detatch();
@@ -35,8 +45,8 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
     }
 
     /// <summary>
-    /// Attach an Adapter by giving the Name of the Adapter to the controller. This will instantiate the
-    /// adapter, and connect it to the physical device.
+    ///     Attach an Adapter by giving the Name of the Adapter to the controller. This will instantiate the
+    ///     adapter, and connect it to the physical device.
     /// </summary>
     /// <param name="adapterName">The name of the Adapter to instantiate and connect.</param>
     /// <exception cref="AdapterException">Throws an exception if it cannot find or instantiate the adapter</exception>
@@ -64,17 +74,9 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
         }
     }
 
-    public ICommandStation CommandStation                             => commandStation;
-    public bool            IsAdapterSupported<T>() where T : IAdapter => _adapters.ContainsKey(typeof(T));
-    public bool            IsAdapterSupported(Type adapter)           => _adapters.ContainsKey(adapter);
-    public bool            IsAdapterSupported(string name)            => _adapters.Any(pair => pair.Value.Name != null && pair.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
-
-    public List<AdapterAttribute> Adapters {
-        get {
-            if (_adapters.Any() is false) RegisterAdapters();
-            return _adapters.Values.ToList();
-        }
-    }
+    public bool IsAdapterSupported<T>() where T : IAdapter => _adapters.ContainsKey(typeof(T));
+    public bool IsAdapterSupported(Type adapter)           => _adapters.ContainsKey(adapter);
+    public bool IsAdapterSupported(string name)            => _adapters.Any(pair => pair.Value.Name != null && pair.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
 
     private void RegisterAdapters() {
         if (assembly is null) throw new ApplicationException("No Assembly has been set for the Adapter Manager");

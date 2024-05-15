@@ -1,8 +1,5 @@
 using System.Reflection;
-using DCCRailway.Controller.Adapters.Base;
-using DCCRailway.Controller.Adapters.Events;
 using DCCRailway.Controller.Attributes;
-using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
 using DCCRailway.Controller.Tasks;
 using DCCRailway.Controller.Tasks.Events;
@@ -10,9 +7,8 @@ using DCCRailway.Controller.Tasks.Events;
 namespace DCCRailway.Controller.Controllers;
 
 public class TaskManager(ICommandStation commandStation, Assembly assembly) {
-    private          Dictionary<Type, TaskAttribute>     _availableTasks = [];
     private readonly Dictionary<string, IControllerTask> _runningTasks   = [];
-    public event EventHandler<TaskEventArgs>             TaskEvent;
+    private          Dictionary<Type, TaskAttribute>     _availableTasks = [];
 
     public IControllerTask? this[string name] => _runningTasks[name] ?? null;
     public List<IControllerTask> RunningTasks => _runningTasks.Values.ToList();
@@ -23,6 +19,8 @@ public class TaskManager(ICommandStation commandStation, Assembly assembly) {
             return _availableTasks.Values.ToList();
         }
     }
+
+    public event EventHandler<TaskEventArgs> TaskEvent;
 
     public IControllerTask? Create(string taskName) {
         if (Tasks is not { Count: > 0 }) throw new TaskException(taskName, "CommandStation has no supported Tasks");

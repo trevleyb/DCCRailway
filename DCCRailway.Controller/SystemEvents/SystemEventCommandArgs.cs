@@ -17,31 +17,31 @@ public class SystemEventCommandArgs : SystemEventArgs {
         switch (command) {
         case ILocoCmd locoCommand:
             Address     = locoCommand.Address;
-            Description = $"Executed command '{Name}' on Loco '{Address}' with a resultOld of '{result.Success}' and a value of '{result.ToString()}' - {Message}";
+            Description = $"Executed command '{Name}' on Loco '{Address}' with a resultOld of '{result.Success}' and a value of '{result}' - {Message}";
 
             break;
         case IAccyCmd accyCommand:
             Address     = accyCommand.Address;
-            Description = $"Executed command '{Name}' on Accessory '{Address}' with a resultOld of '{result.Success}' and a value of '{result.ToString()}' - {Message}";
+            Description = $"Executed command '{Name}' on Accessory '{Address}' with a resultOld of '{result.Success}' and a value of '{result}' - {Message}";
 
             break;
         case ISensorCmd sensorCommand:
             Address     = new DCCAddress(0);
-            Description = $"Executed command '{Name}' on Sensor '{Address}' with a resultOld of '{result.Success}' and a value of '{result.ToString()}' - {Message}";
+            Description = $"Executed command '{Name}' on Sensor '{Address}' with a resultOld of '{result.Success}' and a value of '{result}' - {Message}";
 
             break;
         case ISignalCmd signalCommand:
             Address     = signalCommand.Address;
-            Description = $"Executed command '{Name}' on Signal '{Address}' with a resultOld of '{result.Success}' and a value of '{result.ToString()}' - {Message}";
+            Description = $"Executed command '{Name}' on Signal '{Address}' with a resultOld of '{result.Success}' and a value of '{result}' - {Message}";
 
             break;
         case ISystemCmd systemCommand:
             Address     = new DCCAddress(0);
-            Description = $"Executed command '{Name}' on the System with a resultOld of '{result.Success}' and a value of '{result.ToString()}' - {Message}";
+            Description = $"Executed command '{Name}' on the System with a resultOld of '{result.Success}' and a value of '{result}' - {Message}";
 
             break;
         default:
-            Description = $"Executed command '{Name}' with a result of '{result.Success}' and a value of '{result.ToString()}' - {{Message}}";
+            Description = $"Executed command '{Name}' with a result of '{result.Success}' and a value of '{result}' - {{Message}}";
 
             break;
         }

@@ -1,7 +1,5 @@
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Entities;
-using DCCRailway.Railway.Configuration.Entities;
-using Parameter = DCCRailway.Railway.Configuration.Entities.Parameter;
 using Route = DCCRailway.Layout.Entities.Route;
 
 namespace DCCRailway.Railway.Configuration;
@@ -15,11 +13,11 @@ public static class InjectTestData {
         manager.Settings.Controller.Parameters.Add("Optional", "Value");
 
         var locomotives = manager.Locomotives;
-        locomotives.Add(new Locomotive { Id = "CN1029", Address = new DCCAddress(1029, DCCAddressType.Long), Name = "CN-1029", Description = "Canadian National (1029)" });
-        locomotives.Add(new Locomotive { Id = "UP6502", Address = new DCCAddress(6502, DCCAddressType.Long), Name = "UP-6502", Description = "Union Pacific (6502)" });
-        locomotives.Add(new Locomotive { Id = "NS98", Address   = new DCCAddress(98, DCCAddressType.Short), Name  = "NS-98", Description   = "Norfolk Southern (98)" });
-        locomotives.Add(new Locomotive { Id = "NS97", Address   = new DCCAddress(97, DCCAddressType.Short), Name  = "NS-97", Description   = "Norfolk Southern (97)" });
-        locomotives.Add(new Locomotive { Id = "CN1020", Address = new DCCAddress(1020, DCCAddressType.Long), Name = "CN-1020", Description = "Canadian National (1020)" });
+        locomotives.Add(new Locomotive { Id = "CN1029", Address = new DCCAddress(1029), Name                     = "CN-1029", Description = "Canadian National (1029)" });
+        locomotives.Add(new Locomotive { Id = "UP6502", Address = new DCCAddress(6502), Name                     = "UP-6502", Description = "Union Pacific (6502)" });
+        locomotives.Add(new Locomotive { Id = "NS98", Address   = new DCCAddress(98, DCCAddressType.Short), Name = "NS-98", Description   = "Norfolk Southern (98)" });
+        locomotives.Add(new Locomotive { Id = "NS97", Address   = new DCCAddress(97, DCCAddressType.Short), Name = "NS-97", Description   = "Norfolk Southern (97)" });
+        locomotives.Add(new Locomotive { Id = "CN1020", Address = new DCCAddress(1020), Name                     = "CN-1020", Description = "Canadian National (1020)" });
 
         var sensors = manager.Sensors;
         sensors.Add(new Sensor { Id = "S01", Name = "Yard-Occupied" });

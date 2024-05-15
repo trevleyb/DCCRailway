@@ -8,7 +8,7 @@ public class CommandAttributeTest {
 
         [SetUp]
         public void Setup() {
-            _commandAttribute = new CommandAttribute("TestName", "TestDescription", "1.0", new string[] { "Adapter1", "Adapter2" }, new string[] { "2.0", "2.1" });
+            _commandAttribute = new CommandAttribute("TestName", "TestDescription", "1.0", new[] { "Adapter1", "Adapter2" }, new[] { "2.0", "2.1" });
         }
 
         [Test]

@@ -40,5 +40,5 @@ public class CmdMultiThrottle(WiThrottleConnection connection) : ThrottleCmd, IT
 
     private IThrottleMsg? ProvideLocoFunctions(MultiThrottleMessage data) => new MsgAddress(connection, data);
 
-    public override string ToString() => $"CMD:MultiThrottle";
+    public override string ToString() => "CMD:MultiThrottle";
 }

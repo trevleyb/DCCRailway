@@ -32,10 +32,8 @@ public class CmdHardware(WiThrottleConnection connection) : ThrottleCmd, IThrott
                 Logger.Log.Debug("{0}:{2} Set the hardwareID to '{1}'", ToString(), hardwareID, connection.ToString());
                 connection.QueueMsg(new MsgHardware(connection));
                 break;
-            default:
-                break;
             }
     }
 
-    public override string ToString() => $"CMD:Hardware";
+    public override string ToString() => "CMD:Hardware";
 }

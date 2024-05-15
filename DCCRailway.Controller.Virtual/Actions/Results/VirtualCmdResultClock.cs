@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using DCCRailway.Controller.Actions.Results.Abstract;
 
 namespace DCCRailway.Controller.Virtual.Actions.Results;

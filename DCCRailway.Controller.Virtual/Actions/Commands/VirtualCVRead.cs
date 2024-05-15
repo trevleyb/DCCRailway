@@ -10,7 +10,7 @@ public class VirtualCVRead : VirtualCommand, ICmdCVRead {
 
     public DCCProgrammingMode ProgrammingMode { get; set; }
     public int                CV              { get; set; }
+    public DCCAddress         Address         { get; set; }
 
-    public override string     ToString() => $"READ CV ({CV}/{ProgrammingMode})";
-    public          DCCAddress Address    { get; set; }
+    public override string ToString() => $"READ CV ({CV}/{ProgrammingMode})";
 }

@@ -21,7 +21,7 @@ public interface ICmdClockSet : ICommand, ISystemCmd {
     public int Minute { get; set; }
 
     /// <summary>
-    /// The time of the clock
+    ///     The time of the clock
     /// </summary>
     public DateTime ClockTime { get; }
 

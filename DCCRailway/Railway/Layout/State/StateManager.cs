@@ -4,9 +4,9 @@ using DCCRailway.Common.Types;
 namespace DCCRailway.Railway.Layout.State;
 
 /// <summary>
-/// A state manager simply tracks the state of given objects. An object must have
-/// an identifier and an object that represents its state and the state can be
-/// returned as part of a call to the state manager.
+///     A state manager simply tracks the state of given objects. An object must have
+///     an identifier and an object that represents its state and the state can be
+///     returned as part of a call to the state manager.
 /// </summary>
 public class StateManager : IStateManager {
     private readonly ConcurrentDictionary<string, StateObject> _states = new();
@@ -23,7 +23,7 @@ public class StateManager : IStateManager {
         return stateObject;
     }
 
-    public StateObject SetState<T>(DCCAddress address, StateType key, T value) => SetState<T>(address.ToString(), key, value);
+    public StateObject SetState<T>(DCCAddress address, StateType key, T value) => SetState(address.ToString(), key, value);
 
     public StateObject SetState<T>(string id, StateType key, T value) {
         if (!_states.ContainsKey(id)) _states.TryAdd(id, new StateObject(id));
@@ -61,7 +61,7 @@ public class StateManager : IStateManager {
         return (T)idStates.Data[key];
     }
 
-    public T GetState<T>(DCCAddress address, StateType key, T ifNotExist) => GetState<T>(address.ToString(), key, ifNotExist);
+    public T GetState<T>(DCCAddress address, StateType key, T ifNotExist) => GetState(address.ToString(), key, ifNotExist);
 
     public T GetState<T>(string id, StateType key, T ifNotExist) {
         if (!_states.TryGetValue(id, out var idStates)) return ifNotExist;

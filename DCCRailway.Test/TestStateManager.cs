@@ -24,12 +24,12 @@ public class TestStateManager {
     public void TestSetAndGetProperties() {
         var stateManager = new StateManager();
         var stateObject  = new StateObject("XX");
-        stateObject.Add(StateType.Signal, (int)15);
+        stateObject.Add(StateType.Signal, 15);
         stateObject.Add(StateType.Route, DCCActiveState.Active);
         stateManager.SetState(stateObject);
         var getState = stateManager.GetState("XX");
         Assert.That(getState, Is.Not.Null);
-        Assert.That((int)getState![StateType.Signal]!, Is.EqualTo((int)15));
+        Assert.That((int)getState![StateType.Signal]!, Is.EqualTo(15));
         Assert.That((DCCActiveState)getState[StateType.Route]!, Is.EqualTo(DCCActiveState.Active));
 
         stateManager.SetState("XX", StateType.Turnout, DCCTurnoutState.Thrown);
@@ -38,7 +38,7 @@ public class TestStateManager {
         var res1 = stateManager.GetState("XX", StateType.Block, "NOT");
         Assert.That(res1, Is.EqualTo("NOT"));
 
-        var res2 = stateManager.GetState<DCCAddress>("XX", StateType.Aspect, new DCCAddress(0));
+        var res2 = stateManager.GetState("XX", StateType.Aspect, new DCCAddress(0));
         Assert.That(res2.Address, Is.EqualTo(0));
     }
 
@@ -74,7 +74,7 @@ public class TestStateManager {
         Assert.That(sc, Is.Not.Null);
         Assert.That(sc, Is.EqualTo(DCCTurnoutState.Thrown));
 
-        so.Add(StateType.Signal, (int)15);
+        so.Add(StateType.Signal, 15);
         so.Add(StateType.Route, DCCActiveState.Active);
 
         lsm.SetState(so);

@@ -24,7 +24,7 @@ public class XmlSerializerHelper<T> {
     }
 
     /// <summary>
-    ///    Provide a file name for the configuration and save to that file 
+    ///     Provide a file name for the configuration and save to that file
     /// </summary>
     /// <param name="collection">The collection to serialise</param>
     /// <param name="fileName">The name of the file to write the data to</param>

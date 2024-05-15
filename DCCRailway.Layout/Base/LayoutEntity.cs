@@ -6,10 +6,25 @@ namespace DCCRailway.Layout.Base;
 
 [Serializable]
 public abstract class LayoutEntity : PropertyChangeBase, INotifyPropertyChanged {
+    private string     _description = "";
     private string     _id          = "";
     private string     _name        = "";
-    private string     _description = "";
     private Parameters _parameters  = [];
+
+    protected LayoutEntity() { }
+
+    protected LayoutEntity(string id) =>
+
+        // This is correct, but the ID is only needed once it is added to a collection/repository
+        // As part of that Add function, if there is no ID, then one is generated automatically.
+        // if (string.IsNullOrEmpty(id)) throw new ArgumentException("All entities must have a unique ID");
+        Id = id;
+
+    protected LayoutEntity(string id, string name, string description = "") {
+        Id          = id;
+        Name        = name;
+        Description = description;
+    }
 
     public string Id {
         get => _id;
@@ -29,20 +44,5 @@ public abstract class LayoutEntity : PropertyChangeBase, INotifyPropertyChanged 
     public Parameters Parameters {
         get => _parameters;
         set => SetField(ref _parameters, value);
-    }
-
-    protected LayoutEntity() { }
-
-    protected LayoutEntity(string id) =>
-
-        // This is correct, but the ID is only needed once it is added to a collection/repository
-        // As part of that Add function, if there is no ID, then one is generated automatically.
-        // if (string.IsNullOrEmpty(id)) throw new ArgumentException("All entities must have a unique ID");
-        Id = id;
-
-    protected LayoutEntity(string id, string name, string description = "") {
-        Id          = id;
-        Name        = name;
-        Description = description;
     }
 }

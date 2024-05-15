@@ -6,6 +6,6 @@ public class Adapters : List<Adapter> {
 
     public void Add(string name, Parameters? parameters = null) {
         ArgumentNullException.ThrowIfNull(name);
-        Add(new Adapter() { Name = name, Parameters = parameters ?? [] });
+        Add(new Adapter { Name = name, Parameters = parameters ?? [] });
     }
 }
