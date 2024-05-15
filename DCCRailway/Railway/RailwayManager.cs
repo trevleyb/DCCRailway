@@ -16,7 +16,9 @@ using Parameters = DCCRailway.Layout.Entities.Parameters;
 namespace DCCRailway.Railway.Configuration;
 
 public sealed class RailwayManager : IRailwayManager {
-    public const string DefaultConfigFilename = "DCCRailway.Config.json";
+
+    public const string DefaultConfigName = "DCCRailway";
+    public const string DefaultPathLocation = "./";
 
     public string Name          => Settings.Name;
     public string Description   => Settings.Description;
@@ -51,76 +53,82 @@ public sealed class RailwayManager : IRailwayManager {
     }
 
     /// <summary>
-    /// Creates a new instance of the RailwayManager.
+    /// Creates a new instance of the RailwayManager with the specified name and pathname.
+    /// If no name and pathname are provided, default values are used.
     /// </summary>
-    /// <param name="filename">The filename of the configuration file. If not provided, a default filename will be used.</param>
-    /// <param name="name">The name of the railway manager. (Optional)</param>
-    /// <param name="description">The description of the railway manager. (Optional)</param>
-    /// <returns>An instance of IRailwayManager.</returns>
-    public static IRailwayManager New(string filename = DefaultConfigFilename, string? name = null, string? description = null) {
+    /// <param name="name">The name of the RailwayManager instance. Defaults to null.</param>
+    /// <param name="pathname">The pathname of the RailwayManager instance. Defaults to null.</param>
+    /// <returns>The new instance of the RailwayManager.</returns>
+    public static IRailwayManager New(string? name = null, string? pathname = null) {
         lock (_lockObject) {
             _instance = new RailwayManager();
+            _instance.Settings.Name = name ?? DefaultConfigName;
+            _instance.Settings.PathName = pathname ?? DefaultPathLocation;
             CreateRepositories(_instance, false);
-            SetDefaults(_instance, filename, name, description);
         }
         return Instance;
     }
 
     /// <summary>
-    /// Loads the RailwayManager instance with the specified configuration file.
+    /// Loads the RailwayManager instance with the specified name and pathname. If no name and pathname are provided, default values are used.
     /// </summary>
-    /// <param name="filename">The filename of the configuration file. If not provided, the default filename "DCCRailway.Config.json" will be used.</param>
-    /// <param name="name">The name of the railway manager. (Optional)</param>
-    /// <param name="description">The description of the railway manager. (Optional)</param>
-    /// <returns>An instance of IRailwayManager.</returns>
-    public static IRailwayManager Load(string filename = DefaultConfigFilename, string? name = null, string? description = null) {
+    /// <param name="name">The name of the RailwayManager instance. Defaults to null.</param>
+    /// <param name="pathname">The pathname of the RailwayManager instance. Defaults to null.</param>
+    /// <returns>The loaded instance of the RailwayManager.</returns>
+    public static IRailwayManager Load(string? name = null, string? pathname = null) {
         lock (_lockObject) {
             _instance = new RailwayManager();
-            _instance.Settings.FileName = filename;
+            _instance.Settings.Name = name ?? DefaultConfigName;
+            _instance.Settings.PathName = pathname ?? DefaultPathLocation;
             _instance.Settings.Load();
-            SetDefaults(_instance, filename, name, description);
+            _instance.Settings.Name = name ?? DefaultConfigName;
+            _instance.Settings.PathName = pathname ?? DefaultPathLocation;
             CreateRepositories(_instance,true);
         }
         return Instance;
     }
 
-    /// <summary>
-    /// Sets the default values for the railway manager instance.
-    /// </summary>
-    /// <param name="instance">The railway manager instance.</param>
-    /// <param name="filename">The filename of the configuration file.</param>
-    /// <param name="name">The name of the railway manager. (Optional)</param>
-    /// <param name="description">The description of the railway manager. (Optional)</param>
-    private static void SetDefaults(IRailwayManager instance, string filename, string? name, string? description) {
-        instance.Settings.Name = (string.IsNullOrEmpty(name) ? string.IsNullOrEmpty(instance.Name) ? "My Railway" : _instance?.Name : name ?? " ") ?? string.Empty;
-        instance.Settings.Description = string.IsNullOrEmpty(description) ? instance.Description : description;
-        instance.Settings.FileName = filename;
-    }
 
     /// <summary>
     /// Creates repository instances for each entity type in the RailwayManager.
     /// </summary>
     /// <param name="instance">The instance of the RailwayManager.</param>
+    /// <param name="load">Indicates if the instantiation should load existing data.</param>
     private static void CreateRepositories(IRailwayManager instance, bool load = false) {
         // TODO: Should add that the name of the system is incorporated into the file names
         // eg: MyTestRailway.Settings.Json, MyTestRailway.Accessories.Json etc.
-        instance.Accessories    = CreateRepository<Accessories>(instance.Settings, "Accessories", load);
-        instance.Blocks         = CreateRepository<Blocks>(instance.Settings, "Blocks", load);
-        instance.Locomotives    = CreateRepository<Locomotives>(instance.Settings, "Locomotives", load);
-        instance.Routes         = CreateRepository<Routes>(instance.Settings, "Routes", load);
-        instance.Sensors        = CreateRepository<Sensors>(instance.Settings, "Sensors", load);
-        instance.Signals        = CreateRepository<Signals>(instance.Settings, "Signals", load);
-        instance.Turnouts       = CreateRepository<Turnouts>(instance.Settings, "Turnouts", load);
-        instance.Manufacturers  = CreateRepository<Manufacturers>(instance.Settings, "Manufacturers", load);
+        instance.Accessories    = CreateRepository<Accessories>(instance.Settings, "Accessories", "A",load);
+        instance.Blocks         = CreateRepository<Blocks>(instance.Settings, "Blocks", "B", load);
+        instance.Locomotives    = CreateRepository<Locomotives>(instance.Settings, "Locomotives", "L", load);
+        instance.Routes         = CreateRepository<Routes>(instance.Settings, "Routes", "R", load);
+        instance.Sensors        = CreateRepository<Sensors>(instance.Settings, "Sensors", "S", load);
+        instance.Signals        = CreateRepository<Signals>(instance.Settings, "Signals", "G", load);
+        instance.Turnouts       = CreateRepository<Turnouts>(instance.Settings, "Turnouts", "T", load);
+        instance.Manufacturers  = CreateRepository<Manufacturers>(instance.Settings, "Manufacturers", "M", load);
     }
 
     /// <summary>
     /// Saves the configuration of the railway manager.
     /// </summary>
     public void Save() {
-        Settings.Save(Settings,Settings.FullName);
-        foreach (var property in this.GetType().GetProperties().Where(x => x.PropertyType == typeof(ILayoutSaveLoad) || typeof(ILayoutSaveLoad).IsAssignableFrom(x.PropertyType))) {
-            if (property.GetValue(this) is ILayoutSaveLoad saveable) saveable.Save();
+        try {
+            if (!Directory.Exists(Settings.PathName)) Directory.CreateDirectory(Settings.PathName);
+        } catch (Exception ex) {
+            throw new ApplicationException($"Unable to create or access the specified path for the config files '{Settings.PathName}'", ex);
+        }
+
+        try {
+            Settings.Save(Settings.FullName);
+        } catch (Exception ex) {
+            throw new ApplicationException($"Unable to save the main Configuration settings file. '{Settings.FullName}'", ex);
+        }
+
+        try {
+            foreach (var property in this.GetType().GetProperties().Where(x => x.PropertyType == typeof(ILayoutSaveLoad) || typeof(ILayoutSaveLoad).IsAssignableFrom(x.PropertyType))) {
+                if (property.GetValue(this) is ILayoutSaveLoad saveable) saveable.Save();
+            }
+        } catch (Exception ex) {
+            throw new ApplicationException($"Unable to save one of the configuration files.", ex);
         }
     }
 
@@ -132,12 +140,12 @@ public sealed class RailwayManager : IRailwayManager {
     /// <typeparam name="T">The type of the repository to create.</typeparam>
     /// <param name="settings">The settings object containing the entity information.</param>
     /// <param name="entityKey">The key of the entity in the settings object.</param>
+    /// <param name="defautPrefix">The prefix to be used when auto-generting the unique identifier</param>
+    /// <param name="load">Indicates if the instantiation should load existing data.</param>
     /// <returns>A repository of type T.</returns>
-    public static T CreateRepository<T>(Settings settings, string entityKey, bool load = false) {
-        var prefix = settings?.Entities[entityKey]?.Prefix ?? "A";
-        var fileName = settings?.Entities[entityKey]?.FileName;
-        var pathName = settings?.PathName;
-        var entity = (T)Activator.CreateInstance(typeof(T), prefix, fileName, pathName)!;
+    public static T CreateRepository<T>(Settings settings, string entityKey, string defautPrefix, bool load = false) {
+        var prefix = settings.Entities[entityKey]?.Prefix ?? defautPrefix;
+        var entity = (T)Activator.CreateInstance(typeof(T), prefix, settings.Name, settings.PathName)!;
         if (entity is ILayoutSaveLoad loadable) if (load) loadable.Load();
         return entity;
     }

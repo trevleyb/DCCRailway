@@ -8,14 +8,11 @@ namespace DCCRailway.Railway.Configuration;
 
 public static class CreateTestFile {
 
-    public static void Build(string? filename = null) {
+    public static void Build(string? pathname = null, string? name = "DCCRailway") {
 
-        var manager = RailwayManager.New();
+        var manager = RailwayManager.New("TestLayout", "./Configuration");
 
-        manager.Settings.Name = "Test Railway Layout";
         manager.Settings.Description = "A Test configuration file for testing";
-        manager.Settings.FileName = filename ?? "DCCRailway.TestConfig.json";
-        manager.Settings.PathName = "./";
         manager.Settings.Controller.Name = "Virtual";
         manager.Settings.Controller.Adapters.Add("Virtual");
         manager.Settings.Controller.Parameters.Add("Optional", "Value");

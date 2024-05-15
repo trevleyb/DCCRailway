@@ -8,7 +8,7 @@ namespace DCCRailway.Railway.Configuration;
 
 [Serializable]
 public class Settings : JsonSerializerHelper<Settings> {
-    public string         Name                  { get; set; } = "My Entities";
+    public string         Name                  { get; set; } = "DCCRailway";
     public string         Description           { get; set; } = "";
 
     public Entities.Controller      Controller  { get; set; } = new();
@@ -16,10 +16,12 @@ public class Settings : JsonSerializerHelper<Settings> {
     public Entities.Entities        Entities    { get; set; } = new();
     public WiThrottlePreferences    WiThrottle  { get; set; } = new();
 
-    public string FileName { get; set; } = "DCCRailway.Config.json";
     public string PathName { get; set; }
+    public string FileName => $"{Name}.Settings.json";
     public string FullName => Path.Combine(PathName ?? "", FileName);
 
-    public void Save() => Save(this,FullName);
-    public Settings? Load() => Load(FullName);
+    public void Save() => SaveFile(this,FullName);
+    public void Save(string? fullName) => SaveFile(this,fullName ?? FullName);
+    public Settings? Load() => LoadFile(FullName);
+    public Settings? Load(string? fullName) => LoadFile(fullName ?? FullName);
 }

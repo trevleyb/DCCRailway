@@ -3,5 +3,5 @@ using DCCRailway.Layout.Collection;
 namespace DCCRailway.Layout.Entities;
 
 [Serializable]
-public class Routes(string prefix, string? filename = null, string? pathname = null)
-    : LayoutRepository<Route>(prefix, filename, pathname);
+public class Routes(string prefix, string name, string? pathname = null)
+    : LayoutRepository<Route>(prefix, name, pathname);

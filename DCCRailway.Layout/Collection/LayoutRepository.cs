@@ -15,22 +15,28 @@ public abstract class LayoutRepository<TEntity>
     , IEnumerable<KeyValuePair<string, TEntity>>
     where TEntity : LayoutEntity {
 
-    protected LayoutRepository(string prefix, string? filename = null, string? pathname = null) {
+    protected LayoutRepository(string prefix, string name, string? pathname = null) {
         Prefix = prefix;
-        FileName = filename ?? $"DCCRailway.{GetType().Name}.json";
+        Name = name;
+        PathName = pathname ?? "./";
     }
-
-    public void Save() => Save(FullName);
-    public virtual void Load() => Load(FullName);
 
     public event RepositoryChangedEventHandler? RepositoryChanged;
     private readonly SemaphoreSlim _atomicMutex = new SemaphoreSlim(1, 1);
     private readonly SemaphoreSlim _nextIDMutex = new SemaphoreSlim(1, 1);
 
-    public string Prefix { get; init; }
-    public string FileName { get; set; }
-    public string PathName { get; set; }
+    public string Name      { get; set; }
+    public string Prefix    { get; init; }
+    public string PathName  { get; set; }
+    public string FileName => $"{Name}.{GetType().Name}.json";
     public string FullName => Path.Combine(PathName ?? "", FileName);
+
+    public void Save(string pathname) {
+        PathName = pathname;
+        SaveFile(FullName);
+    }
+    public void Save() => SaveFile(FullName);
+    public virtual void Load() => LoadFile(FullName);
 
     protected async Task<bool> Contains(string id) => await Task.FromResult(ContainsKey(id));
     protected async Task<bool> Contains(TEntity item) => await Task.FromResult(ContainsKey(item.Id));

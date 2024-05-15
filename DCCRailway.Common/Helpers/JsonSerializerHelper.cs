@@ -10,7 +10,7 @@ public abstract class JsonSerializerHelper<T> {
     /// <param name="fileName">The name of the file to load</param>
     /// <returns>An instance of an XML class </returns>
     /// <exception cref="ApplicationException">If it is unable to load the file</exception>
-    public static T? Load(string? fileName) {
+    protected static T? LoadFile(string? fileName) {
         if (!File.Exists(fileName)) return default(T);
         try {
             var serializedStr = File.ReadAllText(fileName);
@@ -27,10 +27,10 @@ public abstract class JsonSerializerHelper<T> {
     /// <summary>
     ///    Provide a file name for the configuration and save to that file 
     /// </summary>
-    /// <param name="collection">The collection to serialise</param>
+    /// <param name="entity">The collection to serialise</param>
     /// <param name="fileName">The name of the file to write the data to</param>
     /// <exception cref="ApplicationException">Returns an error if it cannot save</exception>
-    public static void Save(T collection, string? fileName) {
+    protected static void SaveFile(T entity, string? fileName) {
         if (string.IsNullOrEmpty(fileName)) throw new ApplicationException("You must specify a name for the Configuration File.");
 
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
@@ -39,7 +39,7 @@ public abstract class JsonSerializerHelper<T> {
             var serializerOptions   = new JsonSerializerOptions {
                     WriteIndented = true
             };
-            var serializedStr = JsonSerializer.Serialize(collection, serializerOptions);
+            var serializedStr = JsonSerializer.Serialize(entity, serializerOptions);
             File.WriteAllText(fileName, serializedStr);
         }
         catch (Exception ex) {

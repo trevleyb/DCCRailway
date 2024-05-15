@@ -22,7 +22,8 @@ public class JsonSerializerHelperTest {
         File.WriteAllText(TestFileName ?? "test.json", serializedStr);
 
         // Act
-        var loadedObject = JsonSerializerHelper<TestObject>.Load(TestFileName);
+        var serializer = new JsonSerializerTest();
+        var loadedObject = serializer.Load(TestFileName);
 
         // Assert
         Assert.IsNotNull(loadedObject);
@@ -33,7 +34,8 @@ public class JsonSerializerHelperTest {
     public void LoadReturnNullWhenFileDoesNotExist() {
         // Arrange
         var nonExistentFileName = "nonexistent.json";
-        var loaded = JsonSerializerHelper<TestObject>.Load(nonExistentFileName);
+        var serializer = new JsonSerializerTest();
+        var loaded = serializer.Load(nonExistentFileName);
         Assert.That(loaded,Is.EqualTo(null));
     }
 
@@ -44,7 +46,8 @@ public class JsonSerializerHelperTest {
         File.WriteAllText(TestFileName ?? "test.json", "invalid json");
 
         // Act & Assert
-        Assert.Throws<ApplicationException>(() => JsonSerializerHelper<TestObject>.Load(TestFileName));
+        var serializer = new JsonSerializerTest();
+        Assert.Throws<ApplicationException>(() => serializer.Load(TestFileName));
     }
 
     [Test]
@@ -53,7 +56,8 @@ public class JsonSerializerHelperTest {
         var objectToSave = new TestObject { Name = "Test" };
 
         // Act
-        JsonSerializerHelper<TestObject>.Save(objectToSave, TestFileName);
+        var serializer = new JsonSerializerTest();
+        serializer.Save(objectToSave, TestFileName);
 
         // Assert
         Assert.IsTrue(File.Exists(TestFileName));
@@ -68,8 +72,14 @@ public class JsonSerializerHelperTest {
         // Arrange
         var objectToSave = new TestObject { Name = "Test" };
         // Act & Assert
-        Assert.Throws<ApplicationException>(() => JsonSerializerHelper<TestObject>.Save(objectToSave, null));
-        Assert.Throws<ApplicationException>(() => JsonSerializerHelper<TestObject>.Save(objectToSave, string.Empty));
+        var serializer = new JsonSerializerTest();
+        Assert.Throws<ApplicationException>(() => serializer.Save(objectToSave, null));
+        Assert.Throws<ApplicationException>(() => serializer.Save(objectToSave, string.Empty));
+    }
+
+    private class JsonSerializerTest : JsonSerializerHelper<TestObject> {
+        public void Save(TestObject obj, string? filename = null) => SaveFile(obj, filename);
+        public TestObject? Load(string? filename = null) => LoadFile(filename);
     }
 
     private class TestObject {

@@ -25,11 +25,12 @@ public class TestEntityCollectionWithChanges {
         // -----------------------------------------------------------------------------
         var newEntity = new TestEntity { Name = "Entity 1" };
         var addEntity = collection.Add(newEntity);
+        Assert.That(addEntity,Is.Not.Null);
         Assert.That(action,Is.EqualTo(RepositoryChangeAction.Add));
         Assert.That(repository,Is.EqualTo("TestEntities"));
         Assert.That(id,Is.EqualTo(addEntity.Id));
 
-        TestEntity entity = collection.IndexOf(0);
+        var entity = collection.IndexOf(0);
         Assert.That(entity,Is.Not.Null);
         entity.Name = "Updated Entity";
         collection.Update(entity);
@@ -45,6 +46,6 @@ public class TestEntityCollectionWithChanges {
     }
 }
 
-public class TestEntities(string prefix = "TEST") : LayoutRepository<TestEntity>(prefix) { }
+public class TestEntities(string prefix = "TEST") : LayoutRepository<TestEntity>(prefix,"TEST","./test") { }
 
 public class TestEntity : LayoutEntity { }

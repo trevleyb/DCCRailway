@@ -5,7 +5,7 @@ namespace DCCRailway.Railway.Configuration.Helpers;
 
 [Serializable]
 public class Manufacturers : LayoutRepository<Manufacturer>  {
-    public Manufacturers(string prefix, string? filename = null, string? pathname = null) : base(prefix, filename, pathname) {
+    public Manufacturers(string prefix, string name, string? pathname = null) : base(prefix, name, pathname) {
         base.Load();
         if (Count == 0) BuildManufacturersList();
     }

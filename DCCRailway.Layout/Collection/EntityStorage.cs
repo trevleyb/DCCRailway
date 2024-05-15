@@ -16,7 +16,7 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string,TEntity>
     /// <param name="fileName">The name of the file to load</param>
     /// <returns>An instance of an XML class </returns>
     /// <exception cref="ApplicationException">If it is unable to load the file</exception>
-    protected void Load(string fileName) {
+    protected void LoadFile(string fileName) {
         Clear();
         if (!File.Exists(fileName)) return;
         try {
@@ -37,7 +37,7 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string,TEntity>
     /// </summary>
     /// <param name="fileName">The name of the file to write the data to</param>
     /// <exception cref="ApplicationException">Returns an error if it cannot save</exception>
-    protected void Save(string fileName) {
+    protected void SaveFile(string fileName) {
         if (string.IsNullOrEmpty(fileName)) throw new ApplicationException("You must specify a name for the Configuration File.");
 
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
