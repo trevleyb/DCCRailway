@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Configuration\"/>
+        <Folder Include="SampleSettings\" />
     </ItemGroup>
 
     <ItemGroup>

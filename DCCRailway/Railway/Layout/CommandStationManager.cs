@@ -1,12 +1,10 @@
-using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
-using DCCRailway.Railway.Layout;
 using Serilog;
 
-namespace DCCRailway.Railway;
+namespace DCCRailway.Railway.Layout;
 
 public class CommandStationManager(ILogger logger) {
     private StateEventProcessor _processor;
