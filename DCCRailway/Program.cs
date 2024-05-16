@@ -4,9 +4,10 @@ using Serilog.Sinks.SystemConsole.Themes;
 using DCCRailway;
 using DCCRailway.Railway;
 using DCCRailway.WebApp.Components;
+using Serilog.Configuration;
 using Serilog.Core;
 
-    const string consoleOutputTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}|{AssemblyName}.{SourceContext}] {Message:lj}|{Properties:lj}|{Exception}{NewLine}";
+    const string consoleOutputTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}|{AssemblyName}.{SourceContext}] {Message:lj} {Exception}{NewLine}";
     Parser.Default.ParseArguments<Options>(args)
           .WithParsed(options => {
                var loggerConfig =
@@ -16,31 +17,44 @@ using Serilog.Core;
                       .Enrich.WithAssemblyName()
                       .Enrich.WithProcessId()
                       .Enrich.WithThreadName()
-                      .WriteTo.Debug()
                       .WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Day);
 
+               // If option to write to the console is enabled, then add console logging
                if (options.Console) {
                    loggerConfig.WriteTo.Console(theme: AnsiConsoleTheme.Literate, outputTemplate: consoleOutputTemplate);
                }
-               if (options.Verbose) {
-                   loggerConfig.MinimumLevel.Debug();
+
+               // If we are running in Debugger mode,then output to the Debug window
+               if (System.Diagnostics.Debugger.IsAttached) {
+                   loggerConfig.WriteTo.Debug();
                }
+
+               // Set the minimum logging level
+               var levelSwitch = new LoggingLevelSwitch(options.LogLevel);
+               loggerConfig.MinimumLevel.ControlledBy(levelSwitch);
                var logger = loggerConfig.CreateLogger();
 
-               var path          = ValidatePath(options.Path);
-               var name          = ValidateName(path, options.Name);
-               var runWiThrottle = options.RunWiThrottle;
-               var clean         = options.Clean;
-               RunRailway(logger, path, name, runWiThrottle);
+               // Validate the options provided
+               try {
+                   var path          = ValidatePath(options.Path);
+                   var name          = ValidateName(path, options.Name);
+                   var runWiThrottle = options.RunWiThrottle;
+                   var clean         = options.Clean;
+
+                   RunRailway(logger, path, name, clean, runWiThrottle);
+               } catch (Exception ex) {
+                   logger.Error("DCCRailway existing with a fatal error. : {0}",ex);
+               }
            });
 
 //
 //  Launch and run the railway and run until it terminates.
 //  ---------------------------------------------------------------------------------
-    static void RunRailway(ILogger logger, string path, string name, bool runWiThrottle, bool clean = false) {
+    static void RunRailway(ILogger logger, string path, string name, bool clean, bool runWiThrottle) {
+        var railway = new RailwayManager(logger, name, path, !clean, runWiThrottle);
         logger.Information("Starting the DCCRailway Manager.");
-        var railway = new RailwayManager(logger, name, path, runWiThrottle, !clean);
         railway.Start();
+        logger.Information("WebApp finished. Closing down other services. ");
         railway.Stop();
         logger.Information("DCCRailway Manager finished.");
     }

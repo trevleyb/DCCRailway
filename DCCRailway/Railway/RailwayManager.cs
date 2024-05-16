@@ -116,20 +116,22 @@ public sealed class RailwayManager : IRailwayManager {
         if (Settings.Controller is { Name: not null }) {
             StateManager   = new StateManager();
             StateProcessor = new StateEventProcessor(Logger, this, StateManager);
+            CommandStationManager = new CommandStationManager(Logger); //Controller, StateProcessor);
 
-            CommandStationManager = new CommandStationManager(Logger);//Controller, StateProcessor);
             //CommandStationManager.Start();
 
             if (Settings.WiThrottle.RunOnStartup) {
                 WiThrottle = new WiThrottleServer(Logger, this, Settings.WiThrottle, CommandStationManager);
                 WiThrottle.Start();
             }
-
-            // This is blocking so will hold until the web-app finishes and then will exit the app
-            // ------------------------------------------------------------------------------------
-            var webApp = new RailwayWebApp();
-            webApp.Start(new string[]{});
+        } else {
+            Logger.Warning("No controller has been defined in settings. Only WebApp will run.");
         }
+
+        // This is blocking so will hold until the web-app finishes and then will exit the app
+        // ------------------------------------------------------------------------------------
+        var webApp = new RailwayWebApp();
+        webApp.Start(new string[]{});
     }
 
     public void Stop() {
