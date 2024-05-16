@@ -158,7 +158,7 @@ public abstract class LayoutRepository<TEntity>
             }
             return $"{Prefix}{nextID:D4}";
         } catch (Exception ex) {
-            throw;
+            throw new ApplicationException("Somehow could not create a new unique identifier.", ex);
         } finally {
             _nextIDMutex.Release();
         }

@@ -14,9 +14,7 @@ public abstract class JsonSerializerHelper<T> {
         if (!File.Exists(fileName)) return default(T);
         try {
             var serializedStr = File.ReadAllText(fileName);
-            var serializerOptions = new JsonSerializerOptions {
-                WriteIndented = true
-            };
+            var serializerOptions = JsonSerializerHelper.Options;
             return JsonSerializer.Deserialize<T>(serializedStr, serializerOptions)!;
         } catch (Exception ex) {
             throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'", ex);
@@ -35,9 +33,7 @@ public abstract class JsonSerializerHelper<T> {
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------
         try {
-            var serializerOptions = new JsonSerializerOptions {
-                WriteIndented = true
-            };
+            var serializerOptions = JsonSerializerHelper.Options;
             var serializedStr = JsonSerializer.Serialize(entity, serializerOptions);
             File.WriteAllText(fileName, serializedStr);
         } catch (Exception ex) {

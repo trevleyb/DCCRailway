@@ -1,0 +1,30 @@
+{
+  "R01": {
+    "State": 2,
+    "Id": "R01",
+    "Name": "Route1",
+    "Description": "Station to Mainline",
+    "Parameters": []
+  },
+  "R04": {
+    "State": 2,
+    "Id": "R04",
+    "Name": "Route4",
+    "Description": "Mainline to Station",
+    "Parameters": []
+  },
+  "R03": {
+    "State": 2,
+    "Id": "R03",
+    "Name": "Route3",
+    "Description": "Yard to Station",
+    "Parameters": []
+  },
+  "R02": {
+    "State": 2,
+    "Id": "R02",
+    "Name": "Route2",
+    "Description": "Yard to Mainline",
+    "Parameters": []
+  }
+}

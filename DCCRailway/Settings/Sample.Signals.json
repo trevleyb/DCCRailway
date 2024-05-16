@@ -1,0 +1,20 @@
+{
+  "SIG01": {
+    "Id": "SIG01",
+    "Name": "Entrance-to-Yard",
+    "Description": "",
+    "Parameters": []
+  },
+  "SIG03": {
+    "Id": "SIG03",
+    "Name": "Station-to-Mainline",
+    "Description": "",
+    "Parameters": []
+  },
+  "SIG02": {
+    "Id": "SIG02",
+    "Name": "Exit-Yard-to-Mainline",
+    "Description": "",
+    "Parameters": []
+  }
+}

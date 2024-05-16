@@ -1,0 +1,32 @@
+{
+  "S01": {
+    "Id": "S01",
+    "Name": "Yard-Occupied",
+    "Description": "",
+    "Parameters": []
+  },
+  "S04": {
+    "Id": "S04",
+    "Name": "Station-Occupied",
+    "Description": "",
+    "Parameters": []
+  },
+  "S03": {
+    "Id": "S03",
+    "Name": "Station-Exit",
+    "Description": "",
+    "Parameters": []
+  },
+  "S02": {
+    "Id": "S02",
+    "Name": "Station-Enter",
+    "Description": "",
+    "Parameters": []
+  },
+  "S05": {
+    "Id": "S05",
+    "Name": "Mainline-Occupied",
+    "Description": "",
+    "Parameters": []
+  }
+}

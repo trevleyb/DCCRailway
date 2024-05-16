@@ -12,16 +12,13 @@ using Serilog.Core;
           .WithParsed(options => {
                var loggerConfig =
                    new LoggerConfiguration()
-                      .MinimumLevel.Warning()
                       .Enrich.FromLogContext()
                       .Enrich.WithAssemblyName()
-                      .Enrich.WithProcessId()
-                      .Enrich.WithThreadName()
                       .WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Day);
 
                // If option to write to the console is enabled, then add console logging
                if (options.Console) {
-                   loggerConfig.WriteTo.Console(theme: AnsiConsoleTheme.Literate, outputTemplate: consoleOutputTemplate);
+                   loggerConfig.WriteTo.Console(outputTemplate: consoleOutputTemplate, theme: AnsiConsoleTheme.Literate);
                }
 
                // If we are running in Debugger mode,then output to the Debug window
@@ -36,11 +33,11 @@ using Serilog.Core;
 
                // Validate the options provided
                try {
-                   var path          = ValidatePath(options.Path);
-                   var name          = ValidateName(path, options.Name);
-                   var runWiThrottle = options.RunWiThrottle;
+                   var path         = ValidatePath(options.Path);
+                   var name         = ValidateName(path, options.Name);
                    var clean         = options.Clean;
-
+                   var runWiThrottle = options.RunWiThrottle;
+                   logger.Verbose($"Log Level set to: {levelSwitch.MinimumLevel}");
                    RunRailway(logger, path, name, clean, runWiThrottle);
                } catch (Exception ex) {
                    logger.Error("DCCRailway existing with a fatal error. : {0}",ex);

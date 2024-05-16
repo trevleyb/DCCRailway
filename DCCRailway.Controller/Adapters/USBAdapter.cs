@@ -5,6 +5,7 @@ using Serilog;
 namespace DCCRailway.Controller.Adapters;
 
 public abstract class USBAdapter(ILogger logger) : Adapter, IAdapter {
+
     public bool IsConnected => throw new NotImplementedException();
 
     public void Connect() => throw new NotImplementedException();

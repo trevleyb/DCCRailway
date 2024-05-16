@@ -1,0 +1,33 @@
+{
+  "Name": "Sample",
+  "Description": "A Test configuration file for testing",
+  "PathName": "./Settings",
+  "Controller": {
+    "Name": "Virtual",
+    "Adapters": [
+      {
+        "Name": "Virtual",
+        "Parameters": []
+      }
+    ],
+    "Tasks": [],
+    "Parameters": [
+      {
+        "Name": "Optional",
+        "Value": "Value",
+        "ObjType": "System.String"
+      }
+    ],
+    "SendStopOnDisconnect": false
+  },
+  "Parameters": [],
+  "Entities": [],
+  "WiThrottle": {
+    "Name": "DCCRailway WiThrottle Service",
+    "Address": null,
+    "Port": 12090,
+    "UseFastClock": false,
+    "HeartbeatSeconds": 15,
+    "RunOnStartup": false
+  }
+}

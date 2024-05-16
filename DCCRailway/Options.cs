@@ -5,7 +5,8 @@ using Serilog.Events;
 namespace DCCRailway;
 
 public class Options {
-    [Option('l', "log", Required = false, HelpText = "Set the level of loging.", Default = LogEventLevel.Information )]
+
+    [Option('l', "log", Required = false, HelpText = "Set the level of loging [Verbose,Information,Warning,Error,Debug,Fatal] .", Default = LogEventLevel.Information )]
     public LogEventLevel LogLevel { get; set; }
 
     [Option('c', "console", Required = false, HelpText = "Write logging output to the Console", Default = true)]

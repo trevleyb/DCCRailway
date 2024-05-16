@@ -2,16 +2,13 @@ using System.Collections.Concurrent;
 using System.Collections.Frozen;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using DCCRailway.Common.Helpers;
 using DCCRailway.Layout.Base;
 
 namespace DCCRailway.Layout.Collection;
 
 public class EntityStorage<TEntity> : ConcurrentDictionary<string, TEntity>
     where TEntity : LayoutEntity {
-    private JsonSerializerOptions JsonOptions => new() {
-        WriteIndented          = true,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-    };
 
     /// <summary>
     ///     LoadFile an instance of class T from a provided filename and throw an exception if the
@@ -24,8 +21,8 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string, TEntity>
         Clear();
         if (!File.Exists(fileName)) return;
         try {
-            var serializedStr     = File.ReadAllText(fileName);
-            var serializerOptions = JsonOptions;
+            var serializedStr= File.ReadAllText(fileName);
+            var serializerOptions = JsonSerializerHelper.Options;
             var collection        = JsonSerializer.Deserialize<Dictionary<string, TEntity>>(serializedStr, serializerOptions) ?? [];
             foreach (var keyPair in collection) {
                 TryAdd(keyPair.Key, keyPair.Value);
@@ -46,8 +43,8 @@ public class EntityStorage<TEntity> : ConcurrentDictionary<string, TEntity>
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------
         try {
-            var serializerOptions = JsonOptions;
-            var serializedStr     = JsonSerializer.Serialize(this.ToFrozenDictionary(), serializerOptions);
+            var serializerOptions = JsonSerializerHelper.Options;
+            var serializedStr= JsonSerializer.Serialize(this.ToFrozenDictionary(), serializerOptions);
             File.WriteAllText(fileName, serializedStr);
         } catch (Exception ex) {
             throw new ApplicationException($"Unable to save configuration data to '{fileName}' due to '{ex.Message}'");
