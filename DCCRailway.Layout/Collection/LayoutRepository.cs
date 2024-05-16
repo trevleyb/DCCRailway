@@ -158,7 +158,6 @@ public abstract class LayoutRepository<TEntity>
             }
             return $"{Prefix}{nextID:D4}";
         } catch (Exception ex) {
-            Logger.Log.Error("Unable to determine the next sequence: {0}", ex.Message);
             throw;
         } finally {
             _nextIDMutex.Release();

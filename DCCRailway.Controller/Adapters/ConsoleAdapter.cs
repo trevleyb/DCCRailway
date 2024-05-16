@@ -2,11 +2,12 @@ using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
+using Serilog;
 
 namespace DCCRailway.Controller.Adapters;
 
 [Adapter("Console", AdapterType.Virtual, "Adapter that writes to the Console", "1.0")]
-public abstract class ConsoleAdapter : Adapter, IAdapter {
+public abstract class ConsoleAdapter(ILogger logger) : Adapter, IAdapter {
     public bool IsConnected { get; private set; }
 
     public void Connect() {

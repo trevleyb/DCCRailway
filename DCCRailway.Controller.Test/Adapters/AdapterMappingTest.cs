@@ -8,21 +8,22 @@ namespace DCCRailway.Controller.Test.Adapters;
 public class AdapterMappingTest {
     // For these tests we use a subclass of Adapter because it is abstract
     private class TestAdapter : Adapter {
-        public string    AStringValue { get; }
-        public long      ALongValue   { get; }
-        public DateOnly  ADateValue   { get; }
-        public byte      AByteValue   { get; }
-        public int       AIntValue    { get; }
-        public Parity    AParityValue { get; }
-        public StopBits  AStopValue   { get; }
-        public ColorEnum AEnumValue   { get; }
-        public bool      ABoolean     { get; }
+        [Parameter] public string    AStringValue { get; set; }
+        [Parameter] public long      ALongValue   { get; set;}
+        [Parameter] public DateOnly  ADateValue   { get; set;}
+        [Parameter] public byte      AByteValue   { get; set;}
+        [Parameter] public int       AIntValue    { get; set; }
+        [Parameter] public Parity    AParityValue { get; set;}
+        [Parameter] public StopBits  AStopValue   { get; set;}
+        [Parameter] public ColorEnum AEnumValue   { get; set;}
+        [Parameter] public bool      ABoolean     { get; set;}
     }
 
     [Test]
     public void Test_GetMappablePropertiesOnMappableClass() {
         var adapter = new TestAdapter();
-        Assert.That(adapter.GetMappableParameters().Count, Is.EqualTo(9));
+        var availableParameters = adapter.GetMappableParameters();
+        Assert.That(availableParameters.Count, Is.EqualTo(9));
 
         adapter.SetMappableParameter("AStringValue", "string");
         adapter.SetMappableParameter("ALongValue", "12345671234567");

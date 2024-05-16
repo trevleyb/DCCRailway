@@ -23,7 +23,6 @@ public class StateUpdaterAccyCmd(IRailwayManager railwayManager, IStateManager s
 
             case ICmdAccySetState cmd: {
                 Event("Accy Set State");
-
                 //accessory.Parameters["state"].Value = cmd.State.ToString();
                 break;
             }

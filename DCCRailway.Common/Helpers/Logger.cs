@@ -4,11 +4,9 @@ using Serilog.Sinks.SystemConsole.Themes;
 // Lazy initialization of logger.
 namespace DCCRailway.Common.Helpers;
 
-public static class Logger {
-    private static readonly Lazy<ILogger> Lazy = new(() => CreateLogger());
-    public static           ILogger       Instance        => Lazy.Value;
-    public static           ILogger       Log             => Instance;
-    public static           ILogger       LogContext<T>() => Instance.ForContext<T>();
+
+public static class LoggerHelper {
+    public static ILogger ConsoleLogger => new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
     private static ILogger CreateLogger() {
         ILogger logger =

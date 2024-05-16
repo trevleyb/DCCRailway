@@ -1,4 +1,5 @@
-﻿using DCCRailway.Common.Types;
+﻿using DCCRailway.Common.Helpers;
+using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.NCE;
@@ -10,10 +11,12 @@ namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 public class NCEPowerCabAccessoryTest {
     [Test]
     public void TogglePoints() {
-        var adapter = new NCEUSBSerial("COM3", 19200);
+        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger);
+        adapter.PortName = "COM3";
+        adapter.BaudRate = 9600;;
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
 
-        var system = new CommandStationFactory().Find("NCEPowerCab")?.Create(adapter);
+        var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);
         Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab commandStation created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab CommandStation Created");
 

@@ -1,3 +1,4 @@
+using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Controllers;
@@ -6,6 +7,7 @@ using DCCRailway.Layout.Entities;
 using DCCRailway.Railway;
 using DCCRailway.Railway.Configuration.Entities;
 using NUnit.Framework;
+using Serilog;
 
 namespace DCCRailway.Test;
 
@@ -45,7 +47,7 @@ public class ControllerEventLayoutTest {
     private ICommandStation CreateVirtualControllerWithAdapter() {
         // Create an instance of a CommandStation using the Factory
         // ------------------------------------------------------------
-        var factory       = new CommandStationFactory();
+        var factory       = new CommandStationFactory(LoggerHelper.ConsoleLogger);
         var virtualSystem = factory.Find("Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
 

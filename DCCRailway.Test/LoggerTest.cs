@@ -7,42 +7,29 @@ namespace DCCRailway.Test;
 public class LoggerTest {
     [Test]
     public void TestWeHaveALoggerWithoutContext() {
-        var logger = Logger.Instance;
+        var logger = LoggerHelper.ConsoleLogger;
         Assert.That(logger, Is.Not.Null, "Should always have a logger instance via the singleton.");
 
         Console.WriteLine("Outputting to the Console");
-        Logger.Log.Debug("Debug information");
-        Logger.Log.Information("Information Information");
-        Logger.Log.Error("Error Information");
-        Logger.Log.Fatal("Fatal Error");
-        Logger.Log.Verbose("Verbose");
-        Logger.Log.Warning("Warning");
+        logger.Debug("Debug information");
+        logger.Information("Information Information");
+        logger.Error("Error Information");
+        logger.Fatal("Fatal Error");
+        logger.Verbose("Verbose");
+        logger.Warning("Warning");
     }
 
     [Test]
     public void TestWeHaveALoggerWithContext() {
-        var logger = Logger.Instance;
+        var logger = LoggerHelper.ConsoleLogger;
         Assert.That(logger, Is.Not.Null, "Should always have a logger instance via the singleton.");
 
-        Logger.Instance.ForContext<LoggerTest>();
-        Logger.Log.Debug("Debug information");
-        Logger.Log.Information("Information Information");
-        Logger.Log.Error("Error Information");
-        Logger.Log.Fatal("Fatal Error");
-        Logger.Log.Verbose("Verbose");
-        Logger.Log.Warning("Warning");
-    }
-
-    [Test]
-    public void TestWeHaveALoggerOfAType() {
-        var logger = Logger.LogContext<LoggerTest>();
-        Assert.That(logger, Is.Not.Null, "Should always have a logger instance via the singleton.");
-
-        Logger.Log.Debug("Debug information");
-        Logger.Log.Information("Information Information");
-        Logger.Log.Error("Error Information");
-        Logger.Log.Fatal("Fatal Error");
-        Logger.Log.Verbose("Verbose");
-        Logger.Log.Warning("Warning");
+        logger.ForContext<LoggerTest>();
+        logger.Debug("Debug information");
+        logger.Information("Information Information");
+        logger.Error("Error Information");
+        logger.Fatal("Fatal Error");
+        logger.Verbose("Verbose");
+        logger.Warning("Warning");
     }
 }

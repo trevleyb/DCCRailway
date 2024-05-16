@@ -2,11 +2,12 @@ using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers;
+using Serilog;
 
 namespace DCCRailway.Controller.Tasks;
 
 [Task("Controler Task")]
-public abstract class ControllerTask() : BackgroundWorker(null), IControllerTask, IParameterMappable {
+public abstract class ControllerTask(ILogger logger) : BackgroundWorker(null), IControllerTask, IParameterMappable {
     public override void Start() {
         Setup();
         base.Start();

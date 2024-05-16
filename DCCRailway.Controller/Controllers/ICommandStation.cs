@@ -29,11 +29,12 @@ public interface ICommandStation : IParameterMappable {
     // ----------------------------------------------------------------------------
     TCommand?        CreateCommand<TCommand>() where TCommand : ICommand;
     TCommand?        CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand;
+
     IAdapter?        CreateAdapter(string? name);
+
     IControllerTask? CreateTask(string taskType);
-    IControllerTask? AttachTask(IControllerTask task);
-    IControllerTask? AttachTask(string name, string taskType, TimeSpan? frequency);
-    IControllerTask? AttachTask(string name, IControllerTask task, TimeSpan? frequency);
+    IControllerTask? CreateTask(string name, string taskType, TimeSpan? frequency);
+    IControllerTask? CreateTask(string name, IControllerTask task, TimeSpan? frequency);
     void             StartAllTasks();
     void             StopAllTasks();
 

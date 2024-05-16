@@ -8,19 +8,22 @@ using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Tasks;
+using Serilog;
+using Serilog.Core;
 
 namespace DCCRailway.Controller.Controllers;
 
 public abstract class CommandStation : ICommandStation, IParameterMappable {
-    protected CommandStation() {
-        CommandManager = new CommandManager(this, Assembly.GetCallingAssembly());
-        AdapterManager = new AdapterManager(this, Assembly.GetCallingAssembly());
-        TaskManager    = new TaskManager(this, Assembly.GetCallingAssembly());
-
+    protected CommandStation(ILogger logger) {
+        Logger = logger;
+        CommandManager = new CommandManager(logger, this, Assembly.GetCallingAssembly());
+        AdapterManager = new AdapterManager(logger, this, Assembly.GetCallingAssembly());
+        TaskManager    = new TaskManager(logger, this, Assembly.GetCallingAssembly());
         CommandManager.CommandEvent += CommandManagerOnCommandManagerEvent;
         AdapterManager.AdapterEvent += AdapterManagerOnAdapterManagerEvent;
     }
 
+    private ILogger                                Logger { get; init; }
     private TaskManager                            TaskManager    { get; } // Manages background Tasks
     private CommandManager                         CommandManager { get; } // Manages what commands are available
     private AdapterManager                         AdapterManager { get; } // Manages the attached Adapter(s)
@@ -28,12 +31,12 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
 
     public virtual void Start() {
         OnControllerEvent(this, "Starting up the CommandStation");
-        Logger.Log.Information("Starting Up the CommandStation. {0}", this.AttributeInfo()?.Name);
+        Logger.Information("Starting Up the CommandStation. {0}", this.AttributeInfo()?.Name);
     }
 
     public virtual void Stop() {
         OnControllerEvent(this, "Shutting Down the CommandStation");
-        Logger.Log.Information("Shutting Down the CommandStation. {0}", this.AttributeInfo()?.Name);
+        Logger.Information("Shutting Down the CommandStation. {0}", this.AttributeInfo()?.Name);
     }
 
     public IAdapter? Adapter {
@@ -52,15 +55,15 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
     public List<AdapterAttribute> Adapters => AdapterManager.Adapters;
     public List<CommandAttribute> Commands => CommandManager.Commands;
 
-    public IAdapter? CreateAdapter(string? name)                                            => AdapterManager.Attach(name);
+    public IAdapter? CreateAdapter(string? name) => AdapterManager.Attach(name);
+    public IAdapter? AttachAdapter(IAdapter adapter) => AdapterManager.Attach(adapter);
     public TCommand? CreateCommand<TCommand>() where TCommand : ICommand                    => (TCommand?)CommandManager.Create<TCommand>(Adapter!);
     public TCommand? CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand => (TCommand?)CommandManager.Create<TCommand>(Adapter!, address);
 
     public List<TaskAttribute> Tasks                                                                     => TaskManager.Tasks;
     public IControllerTask?    CreateTask(string taskType)                                               => TaskManager.Create(taskType);
-    public IControllerTask?    AttachTask(IControllerTask task)                                          => TaskManager.Attach(task);
-    public IControllerTask?    AttachTask(string name, string taskType, TimeSpan? frequency = null)      => TaskManager.Attach(name, taskType, frequency);
-    public IControllerTask?    AttachTask(string name, IControllerTask task, TimeSpan? frequency = null) => TaskManager.Attach(name, task, frequency);
+    public IControllerTask?    CreateTask(string name, string taskType, TimeSpan? frequency = null)      => TaskManager.Create(name, taskType, frequency);
+    public IControllerTask?    CreateTask(string name, IControllerTask task, TimeSpan? frequency = null) => TaskManager.Create(name, task, frequency);
     public void                StartAllTasks()                                                           => TaskManager.StartAllTasks();
     public void                StopAllTasks()                                                            => TaskManager.StopAllTasks();
 

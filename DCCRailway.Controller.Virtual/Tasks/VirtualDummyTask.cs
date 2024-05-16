@@ -2,31 +2,33 @@ using System;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Tasks;
+using Serilog;
+using Serilog.Core;
 
 namespace DCCRailway.Controller.Virtual.Tasks;
 
 [Task("VirtualDummyTask", "Background Dummy to Poll the Console")]
-public class VirtualDummyTask : ControllerTask {
+public class VirtualDummyTask(ILogger logger) : ControllerTask(logger) {
     private int counter;
 
     protected override void OnWorkStarted() {
-        Logger.Log.Debug($"Work has Started for task '{Name}'");
+        logger.Debug($"Work has Started for task '{Name}'");
         base.OnWorkStarted();
     }
 
     protected override void OnWorkFinished() {
-        Logger.Log.Debug($"Work has Finished for task '{Name}'");
+        logger.Debug($"Work has Finished for task '{Name}'");
         base.OnWorkFinished();
     }
 
     protected override void OnWorkInProgress() {
-        Logger.Log.Debug($"Work is in progress for task '{Name}'");
+        logger.Debug($"Work is in progress for task '{Name}'");
         base.OnWorkInProgress();
     }
 
     protected override void DoWork() {
         counter++;
-        Logger.Log.Debug($"Virtual Dummy Task: {Name}. Called {counter} times.");
+        logger.Debug($"Virtual Dummy Task: {Name}. Called {counter} times.");
     }
 
     protected override void Setup() {

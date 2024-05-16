@@ -1,12 +1,13 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
 using DCCRailway.Railway.Throttles.WiThrottle.Messages;
+using Serilog;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Commands;
 
-public class CmdPanel(WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
+public class CmdPanel(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        Logger.Log.Information("{0:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
+        logger.ForContext<WiThrottleServer>().Information("{0:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
         try {
             switch (commandStr[..3].ToUpper()) {
             case "PPA":
@@ -19,15 +20,15 @@ public class CmdPanel(WiThrottleConnection connection) : ThrottleCmd, IThrottleC
                 SetRoute(commandStr[3..]);
                 break;
             case "PFT":
-                Logger.Log.Information("{0}: Fast Clock not currently supported=>'{1}'", ToString(), commandStr);
+                logger.ForContext<WiThrottleServer>().Information("{0}: Fast Clock not currently supported=>'{1}'", ToString(), commandStr);
                 break;
             default:
-                Logger.Log.Information("{0}: Unknown Panel TurnoutCommand recieved=>'{1}'", ToString(), commandStr);
+                logger.ForContext<WiThrottleServer>().Information("{0}: Unknown Panel TurnoutCommand recieved=>'{1}'", ToString(), commandStr);
                 break;
             }
             ;
         } catch {
-            Logger.Log.Error("{0}: Unable to Process the command =>'{1}'", ToString(), commandStr);
+            logger.ForContext<WiThrottleServer>().Error("{0}: Unable to Process the command =>'{1}'", ToString(), commandStr);
         }
     }
 

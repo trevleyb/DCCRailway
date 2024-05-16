@@ -1,10 +1,11 @@
 using DCCRailway.Common.Helpers;
+using Serilog;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Commands;
 
-public class CmdHeartbeat(WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
+public class CmdHeartbeat(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        Logger.Log.Information("{0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
+        logger.ForContext<WiThrottleServer>().Information("{0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
         if (commandStr.Length <= 1) return;
         switch (commandStr[1]) {
         case '+':
@@ -14,7 +15,7 @@ public class CmdHeartbeat(WiThrottleConnection connection) : ThrottleCmd, IThrot
             connection.HeartbeatState = HeartbeatStateEnum.Off;
             break;
         default:
-            Logger.Log.Information("{0}:{1}=>Heartbeat Receievd'", ToString(), commandStr);
+            logger.ForContext<WiThrottleServer>().Verbose("{0}:{1}=>Heartbeat Receievd'", ToString(), commandStr);
             break;
         }
     }

@@ -29,7 +29,7 @@ public static class ParameterMapper {
                 else
                     throw new InvalidCastException($"Cannot convert \"{parameterValue}\" to type \"{prop.PropertyType}\".");
             } else {
-                throw new ArgumentException($"\"{parameterName}\" is not a valid property name in \"{type.Name}\" class.");
+                throw new ArgumentException($"\"{parameterName}\" is not a valid read/write property in \"{type.Name}\" class.");
             }
         }
     }

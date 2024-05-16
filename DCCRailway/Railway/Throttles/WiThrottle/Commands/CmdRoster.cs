@@ -1,10 +1,11 @@
 using DCCRailway.Common.Helpers;
+using Serilog;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Commands;
 
-public class CmdRoster(WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
+public class CmdRoster(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        Logger.Log.Information("{0}=>'{1}'", ToString(), commandStr);
+        logger.ForContext<WiThrottleServer>().Information("{0}=>'{1}'", ToString(), commandStr);
         try {
             var cmd = commandStr[..3];
             switch (cmd.ToUpper()) {
@@ -19,11 +20,11 @@ public class CmdRoster(WiThrottleConnection connection) : ThrottleCmd, IThrottle
             case "RCF": // Functions
                 break;
             default:
-                Logger.Log.Information("{0}:{2}=>Unknown Panel Command recieved=>'{1}'", ToString(), commandStr, connection.ToString());
+                logger.ForContext<WiThrottleServer>().Information("{0}:{2}=>Unknown Panel Command recieved=>'{1}'", ToString(), commandStr, connection.ToString());
                 break;
             }
         } catch {
-            Logger.Log.Error("{0}:{2}=>Unable to Process the command =>'{1}'", ToString(), commandStr, connection.ToString());
+            logger.ForContext<WiThrottleServer>().Error("{0}:{2}=>Unable to Process the command =>'{1}'", ToString(), commandStr, connection.ToString());
         }
     }
 

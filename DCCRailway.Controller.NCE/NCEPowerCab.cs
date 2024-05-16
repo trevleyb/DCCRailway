@@ -1,11 +1,12 @@
 ﻿using DCCRailway.Common.Types;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers;
+using Serilog;
 
 namespace DCCRailway.Controller.NCE;
 
 [Controller("NCEPowerCab", "North Coast Engineering (NCE)", "PowerCab", "1.65")]
-public class NcePowerCab : CommandStation, ICommandStation {
+public class NcePowerCab(ILogger logger) : CommandStation(logger), ICommandStation {
     public override DCCAddress CreateAddress() => new();
 
     public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new(address, type);

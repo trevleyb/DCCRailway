@@ -1,3 +1,4 @@
+using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Controllers;
 
 namespace DCCRailway.Controller.Test.Controllers;
@@ -6,14 +7,14 @@ namespace DCCRailway.Controller.Test.Controllers;
 public class CommandStationFactoryTest {
     [Test]
     public void ControllerFactorLoadControllersTest() {
-        var factory = new CommandStationFactory();
+        var factory = new CommandStationFactory(LoggerHelper.ConsoleLogger);
         Assert.That(factory.Controllers.Count > 0, "Should get a set of controllers from the loader.");
         Assert.That(factory.Controllers.Exists(n => n.Name.Equals("Virtual", StringComparison.InvariantCultureIgnoreCase)), "Should contain the Virtual commandStation.");
     }
 
     [Test]
     public void ControllerFactorLoadAndInstantiateControllers() {
-        var factory = new CommandStationFactory();
+        var factory = new CommandStationFactory(LoggerHelper.ConsoleLogger);
         foreach (var controller in factory.Controllers) {
             var instance = controller.Create();
             Assert.That(instance, Is.Not.Null, "Should be able to create an instance of the commandStation.");
@@ -24,7 +25,7 @@ public class CommandStationFactoryTest {
 
     [Test]
     public void ControllerFactorLoadAndInstantiateControllersAndCheckCommands() {
-        var factory = new CommandStationFactory();
+        var factory = new CommandStationFactory(LoggerHelper.ConsoleLogger);
         foreach (var controller in factory.Controllers) {
             var instance = controller.Create();
             Assert.That(instance, Is.Not.Null, "Should be able to create an instance of the commandStation.");

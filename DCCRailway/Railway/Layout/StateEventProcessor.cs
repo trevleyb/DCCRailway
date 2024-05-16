@@ -4,6 +4,7 @@ using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Railway.Layout.Processors;
 using DCCRailway.Railway.Layout.State;
+using Serilog;
 
 namespace DCCRailway.Railway.Layout;
 
@@ -16,7 +17,7 @@ namespace DCCRailway.Railway.Layout;
 ///     So this is a bridge between the two systems. It takes a DCCRailwayConfig instance whcih is
 ///     the collection of all data related to the current executing layout.
 /// </summary>
-public class StateEventProcessor(IRailwayManager railwayManager, IStateManager stateManager) {
+public class StateEventProcessor(ILogger logger, IRailwayManager railwayManager, IStateManager stateManager) {
     public void ProcessCommandEvent(ControllerEventArgs eventArgs) {
         switch (eventArgs) {
         case CommandEventArgs args:
@@ -24,7 +25,7 @@ public class StateEventProcessor(IRailwayManager railwayManager, IStateManager s
             // If the command failed, log the error and return.
             // -------------------------------------------------
             if (args.Result is { Success: false } failedResult) {
-                Logger.Log.Information(failedResult.Command != null ? $"Command {failedResult.Command.AttributeInfo().Name} failed with error {failedResult.ErrorMessage}" : $"Command 'unknown' failed with error {failedResult.ErrorMessage}");
+                logger.ForContext<StateEventProcessor>().Information(failedResult.Command != null ? $"Command {failedResult.Command.AttributeInfo().Name} failed with error {failedResult.ErrorMessage}" : $"Command 'unknown' failed with error {failedResult.ErrorMessage}");
                 return;
             }
 
@@ -46,11 +47,11 @@ public class StateEventProcessor(IRailwayManager railwayManager, IStateManager s
             break;
 
         case AdapterEventArgs exec:
-            if (exec.Adapter != null) Logger.Log.Error($"Command {exec.Adapter.AttributeInfo().Name} {exec.AdapterEvent} the commandStation.");
+            if (exec.Adapter != null) logger.ForContext<StateEventProcessor>().Error($"Command {exec.Adapter.AttributeInfo().Name} {exec.AdapterEvent} the commandStation.");
             break;
 
         default:
-            Logger.Log.Error($"CommandStation Event Raise: {eventArgs.Message}");
+            logger.ForContext<StateEventProcessor>().Error($"CommandStation Event Raise: {eventArgs.Message}");
             break;
         }
     }

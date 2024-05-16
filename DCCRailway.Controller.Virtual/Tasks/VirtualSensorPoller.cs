@@ -7,11 +7,13 @@ using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Tasks;
 using DCCRailway.Controller.Virtual.Actions.Commands;
+using Serilog;
+using Serilog.Core;
 
 namespace DCCRailway.Controller.Virtual.Tasks;
 
 [Task("AIUPoller", "NCE AIU Poller")]
-public class VirtualSensorPoller : ControllerTask, IParameterMappable {
+public class VirtualSensorPoller(ILogger logger) : ControllerTask (logger), IParameterMappable {
     [Range(1, 63), Parameter("Virtual Cab Address of this AIU interface", "Should be between 1..63")]
     public byte CabAddress { get; set; }
 
@@ -34,7 +36,7 @@ public class VirtualSensorPoller : ControllerTask, IParameterMappable {
                 pinStr.Append(pins[pin - 1] ? "X" : ".");
             }
             pinStr.Append("|");
-            Logger.Log.Information($"Read AIU '{CabAddress}' => {pinStr}");
+            logger.Information($"Read AIU '{CabAddress}' => {pinStr}");
         }
     }
 }

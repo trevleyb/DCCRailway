@@ -3,10 +3,11 @@ using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Exceptions;
 using DCCRailway.Controller.Tasks;
 using DCCRailway.Controller.Tasks.Events;
+using Serilog;
 
 namespace DCCRailway.Controller.Controllers;
 
-public class TaskManager(ICommandStation commandStation, Assembly assembly) {
+public class TaskManager(ILogger logger, ICommandStation commandStation, Assembly assembly) {
     private readonly Dictionary<string, IControllerTask> _runningTasks   = [];
     private          Dictionary<Type, TaskAttribute>     _availableTasks = [];
 
@@ -27,7 +28,7 @@ public class TaskManager(ICommandStation commandStation, Assembly assembly) {
         try {
             foreach (var task in _availableTasks) {
                 if (task.Value.Name != null && task.Value.Name.Equals(taskName, StringComparison.InvariantCultureIgnoreCase)) {
-                    var taskInstance = (IControllerTask?)Activator.CreateInstance(task.Key);
+                    var taskInstance = (IControllerTask?)Activator.CreateInstance(task.Key, logger);
                     if (taskInstance != null) return taskInstance;
                 }
             }
@@ -38,15 +39,13 @@ public class TaskManager(ICommandStation commandStation, Assembly assembly) {
         throw new TaskException(taskName, "Task type specified is not supported by this command station.");
     }
 
-    public IControllerTask? Attach(IControllerTask task) => Attach(task.Name, task, task.Frequency);
-
-    public IControllerTask? Attach(string instanceName, string taskName, TimeSpan? frequency = null) {
+    public IControllerTask? Create(string instanceName, string taskName, TimeSpan? frequency = null) {
         var task = Create(taskName);
-        if (task != null) return Attach(instanceName, task, frequency);
+        if (task != null) return Create(instanceName, task, frequency);
         return null;
     }
 
-    public IControllerTask? Attach(string instanceName, IControllerTask task, TimeSpan? frequency = null) {
+    public IControllerTask? Create(string instanceName, IControllerTask task, TimeSpan? frequency = null) {
         task.Name           = instanceName;
         task.CommandStation = commandStation;
         if (frequency != null) task.Frequency = (TimeSpan)frequency;

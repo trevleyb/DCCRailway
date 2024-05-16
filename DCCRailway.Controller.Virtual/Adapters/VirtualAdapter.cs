@@ -3,11 +3,12 @@ using DCCRailway.Common.Types;
 using DCCRailway.Controller.Adapters;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
+using Serilog;
 
 namespace DCCRailway.Controller.Virtual.Adapters;
 
 [Adapter("Virtual", AdapterType.Virtual)]
-public class VirtualAdapter : ConsoleAdapter, IAdapter {
+public class VirtualAdapter(ILogger logger) : ConsoleAdapter(logger), IAdapter {
     public int FastClockRatio = 1;
 
     public DateTime      FastClockSetTime;

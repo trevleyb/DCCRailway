@@ -6,10 +6,11 @@ using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Adapters.Events;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Exceptions;
+using Serilog;
 
 namespace DCCRailway.Controller.Adapters;
 
-public abstract class SerialAdapter : Adapter, IAdapter {
+public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     private SerialPort? _connection;
 
     [Parameter("Name of the Serial port to use")]
@@ -41,7 +42,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     ///     Open a connection to this adapter if it is not already open (close it first if it is)
     /// </summary>
     public void Connect() {
-        Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} - Connecting");
+        logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Connecting");
         if (IsConnected) Disconnect();
 
         if (string.IsNullOrEmpty(PortName)) throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
@@ -55,7 +56,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
             //};
 
             _connection.ErrorReceived += delegate(object sender, SerialErrorReceivedEventArgs args) {
-                Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} - SerialConnection Error Occurred: {0}", args);
+                logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - SerialConnection Error Occurred: {0}", args);
                 OnErrorOccurred(new DataErrorArgs(args.EventType.ToString(), this));
             };
             _connection.Open();
@@ -68,7 +69,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     ///     Close the open Serial connection and reset the reference
     /// </summary>
     public void Disconnect() {
-        Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} - Disconnecting");
+        logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Disconnecting");
         if (_connection != null) _connection.Close();
         _connection = null;
     }
@@ -80,7 +81,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     /// <returns>Array of Bytes being the data read from the Adapter</returns>
     /// <exception cref="AdapterException">Throws if there is a connection error</exception>
     public byte[]? RecvData(ICommand? command = null) {
-        Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} - Listening for data");
+        logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Listening for data");
         if (!IsConnected) throw new AdapterException(this.AttributeInfo().Name, "No active connection to the Command Station.");
 
         GuardClauses.IsNotNull(_connection, "_connection");
@@ -95,12 +96,12 @@ public abstract class SerialAdapter : Adapter, IAdapter {
                     readBytes = false;
                     var readData = new byte[_connection.BytesToRead];
                     _connection.Read(readData, 0, _connection.BytesToRead);
-                    Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
+                    logger.Debug($"ADAPTER:{this.AttributeInfo().Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
                     returnData.AddRange(readData);
                 }
             }
 
-            Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} - Read '{0}' data as bytes from SerialPort.", returnData.ToArray().ToDisplayValueChars());
+            logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Read '{0}' data as bytes from SerialPort.", returnData.ToArray().ToDisplayValueChars());
             OnDataRecieved(new DataRecvArgs(returnData.ToArray(), this, command));
             return returnData.ToArray();
         } catch (Exception ex) {
@@ -115,7 +116,7 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     /// <param name="commandReference">The reference to the command being sent</param>
     /// <exception cref="AdapterException">Throws an exception if there is a connection error</exception>
     public void SendData(byte[] data, ICommand? commandReference = null) {
-        Logger.Log.Debug($"ADAPTER:{this.AttributeInfo().Name} -Sending data to the {this.AttributeInfo().Name} Adapter '{data.ToDisplayValueChars()}'");
+        logger.Debug($"ADAPTER:{this.AttributeInfo().Name} -Sending data to the {this.AttributeInfo().Name} Adapter '{data.ToDisplayValueChars()}'");
         if (!IsConnected) throw new AdapterException(this.AttributeInfo().Name, "No active connection to the Command Station.");
 
         try {
@@ -132,18 +133,6 @@ public abstract class SerialAdapter : Adapter, IAdapter {
     /// </summary>
     /// <returns>String representation of the connection string</returns>
     public override string ToString() => $"Adapter '{this.AttributeInfo().Name}' = {PortName} @ {BaudRate},{DataBits},{StopBits},{Parity}";
-
-    #region Constructor and Destructor
-    protected SerialAdapter() { }
-
-    protected SerialAdapter(string portName, int baudRate, int dataBits, Parity parity, StopBits stopBits, int timeout) {
-        PortName = portName;
-        Timeout  = timeout;
-        BaudRate = baudRate;
-        DataBits = dataBits;
-        Parity   = parity;
-        StopBits = stopBits;
-    }
 
     /// <summary>
     ///     Dispose of the SerialAdapter and release any resources used.
@@ -169,5 +158,4 @@ public abstract class SerialAdapter : Adapter, IAdapter {
                 _connection = null;
             }
     }
-    #endregion
 }

@@ -87,13 +87,13 @@ public class WiThrottleConnection {
     ///     collections
     /// </summary>
     public void Close() {
-        Logger.Log.Information("Closing the '{0}' connection.", ConnectionHandle);
-        if (_assignedLocos.Count > 0)
+        if (_assignedLocos.Count > 0) {
             foreach (var address in _assignedLocos.AssignedLocos) {
                 var layoutCmd = new WitThrottleLayoutCmd(CommandStationManager.CommandStation!, address);
                 layoutCmd.Release();
                 layoutCmd.Stop();
             }
+        }
 
         // Turn off the Heartbeat so we don't check this connection.
         HeartbeatState = HeartbeatStateEnum.Off;

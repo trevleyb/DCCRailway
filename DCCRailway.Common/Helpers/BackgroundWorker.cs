@@ -3,7 +3,6 @@ using Serilog;
 namespace DCCRailway.Common.Helpers;
 
 public abstract class BackgroundWorker(string? name, TimeSpan? frequency = null) {
-    protected readonly ILogger                  Log = Logger.LogContext<BackgroundWorker>();
     private            CancellationTokenSource? _cancellationTokenSource;
 
     public string             Name         { get; set; } = name ?? "default";

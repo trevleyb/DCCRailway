@@ -8,8 +8,8 @@ public class LayoutStorageTest {
     [Test]
     public void TestCreatingaRepositoryWhichShouldBeEmpty() {
         var testRepo = new TestRepository("xxx", "testxxx", "./test");
-        Assert.That(testRepo.FileName, Is.EqualTo("testxxx.Settings.json"));
-        Assert.That(testRepo.FullName, Is.EqualTo("./test/testxxx.Settings.json"));
+        Assert.That(testRepo.FileName, Is.EqualTo("testxxx.TestRepository.json"));
+        Assert.That(testRepo.FullName, Is.EqualTo("./test/testxxx.TestRepository.json"));
         Assert.That(testRepo.Count, Is.EqualTo(0), "Should be nothing in the Repository");
     }
 
@@ -23,7 +23,7 @@ public class LayoutStorageTest {
         testRepo.Name = "TestSavingAndLoadingARepository";
         testRepo.Save();
         testRepo.Load();
-        Assert.That(testRepo.FileName, Is.EqualTo("TestSavingAndLoadingARepository.Settings.json"));
+        Assert.That(testRepo.FileName, Is.EqualTo("TestSavingAndLoadingARepository.TestRepository.json"));
         Assert.That(testRepo.Count, Is.EqualTo(3), "Should have 3 items in our repository");
     }
 

@@ -4,10 +4,11 @@ using DCCRailway.Controller.Adapters.Events;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
+using Serilog;
 
 namespace DCCRailway.Controller.Controllers;
 
-public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
+public class AdapterManager(ILogger logger, ICommandStation commandStation, Assembly assembly) {
     private IAdapter?                          _adapter;
     private Dictionary<Type, AdapterAttribute> _adapters = [];
 
@@ -32,7 +33,7 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
 
     public event EventHandler<AdapterEventArgs> AdapterEvent;
 
-    protected IAdapter? Attach(IAdapter adapter) {
+    public IAdapter? Attach(IAdapter adapter) {
         if (_adapter != null) Detatch();
 
         OnAdapterAdd(this, adapter);
@@ -55,7 +56,7 @@ public class AdapterManager(ICommandStation commandStation, Assembly assembly) {
         try {
             foreach (var adapters in _adapters) {
                 if (adapters.Value.Name != null && adapters.Value.Name.Equals(adapterName, StringComparison.InvariantCultureIgnoreCase)) {
-                    var adapterInstance = (IAdapter?)Activator.CreateInstance(adapters.Key);
+                    var adapterInstance = (IAdapter?)Activator.CreateInstance(adapters.Key,logger);
                     if (adapterInstance != null) return Attach(adapterInstance);
                 }
             }

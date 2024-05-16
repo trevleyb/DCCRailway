@@ -1,4 +1,5 @@
 using System.IO.Ports;
+using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.NCE.Adapters;
 
@@ -8,7 +9,7 @@ namespace DCCRailway.Controller.Test.Adapters;
 public class SerialAdapterParameterTest {
     [Test]
     public void TestThatASerialAdapterParametersCanBeRead() {
-        var adapter = new NCESerial();
+        var adapter = new NCESerial(LoggerHelper.ConsoleLogger);
         adapter.PortName = "\\Dev\\Com1";
         adapter.Timeout  = 2000;
         adapter.Parity   = Parity.Even;
@@ -27,7 +28,8 @@ public class SerialAdapterParameterTest {
 
     [Test]
     public void TestThatASerialAdapterCanBeInjectedWithParameters() {
-        var adapter = new NCESerial();
+
+        var adapter = new NCESerial(LoggerHelper.ConsoleLogger);
         adapter.SetMappableParameter("PortName", "\\Dev\\Com1");
         adapter.SetMappableParameter("Timeout", "2000");
         adapter.SetMappableParameter("Parity", "Even");
@@ -45,7 +47,7 @@ public class SerialAdapterParameterTest {
 
     [Test]
     public void LoadParameterInfoAndMatch() {
-        var adapter = new NCESerial();
+        var adapter = new NCESerial(LoggerHelper.ConsoleLogger);
         var info    = adapter.GetMappableParameters();
         Assert.That(info.Count, Is.GreaterThan(0));
     }

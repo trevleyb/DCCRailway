@@ -1,3 +1,4 @@
+using System.Reflection;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout.Collection;
 using DCCRailway.Layout.Entities;
@@ -57,26 +58,34 @@ public sealed class RailwayManager : IRailwayManager {
         Name     = name ?? DefaultConfigName;
         PathName = path ?? DefaultPathLocation;
         if (runWiThrottle != null) Settings.WiThrottle.RunOnStartup = (bool)runWiThrottle;
-        CreateRepositories(load ?? true);
+        CreateRepositories();
+        if (load is not null && (bool) load) Load();
     }
 
-    public RailwayManager () : this(Common.Helpers.Logger.Instance, DefaultPathLocation, DefaultConfigName, false, false) { }
-    public RailwayManager (bool load) : this(Common.Helpers.Logger.Instance, DefaultPathLocation, DefaultConfigName, load, false) { }
-    public RailwayManager (string? name = null) : this(Common.Helpers.Logger.Instance, DefaultPathLocation, name, false, false) { }
-    public RailwayManager (string? path, string? name = null, bool? load = null, bool? runWiThrottle = null) : this(Common.Helpers.Logger.Instance, path, name, runWiThrottle) { }
-    public RailwayManager (string? path, string? name = null, bool load = false) : this(Common.Helpers.Logger.Instance, path, name, false, false) { }
-    public RailwayManager (string? path, string? name = null) : this(Common.Helpers.Logger.Instance, path, name, false, false) { }
+    public RailwayManager () : this(LoggerHelper.ConsoleLogger, DefaultPathLocation, DefaultConfigName, false, false) { }
+    public RailwayManager (bool load) : this(LoggerHelper.ConsoleLogger, DefaultPathLocation, DefaultConfigName, load, false) { }
+    public RailwayManager (string? name = null) : this(LoggerHelper.ConsoleLogger, DefaultPathLocation, name, false, false) { }
+    public RailwayManager (string? path, string? name = null, bool? load = null, bool? runWiThrottle = null) : this(LoggerHelper.ConsoleLogger, path, name, load, runWiThrottle) { }
+    public RailwayManager (string? path, string? name = null, bool load = false) : this(LoggerHelper.ConsoleLogger, path, name, load, false) { }
+    public RailwayManager (string? path, string? name = null) : this(LoggerHelper.ConsoleLogger, path, name, false, false) { }
 
     /// <summary>
     /// Re-Loads the repositories into the collections. This is done when we instantiate
     /// the Railway Manager anyway, so this is a re-load function.
     /// </summary>
-    public void Load() => CreateRepositories(true);
+    public void Load() {
+        Settings.Load(Settings.FullName);
+        foreach (var property in GetType().GetProperties().Where(x => x.PropertyType == typeof(ILayoutSaveLoad) || typeof(ILayoutSaveLoad).IsAssignableFrom(x.PropertyType))) {
+            if (property.GetValue(this) is ILayoutSaveLoad saveable) saveable.Load();
+        }
+    }
 
     /// <summary>
     /// This will clear out the existing config so that there is a set of blank items.
     /// </summary>
-    public void New() => CreateRepositories(false);
+    public void New() {
+        CreateRepositories();
+    }
 
     /// <summary>
     ///     Saves the configuration of the railway manager.
@@ -106,16 +115,15 @@ public sealed class RailwayManager : IRailwayManager {
     public void Start() {
         if (Settings.Controller is { Name: not null }) {
             StateManager   = new StateManager();
-            StateProcessor = new StateEventProcessor(this, StateManager);
+            StateProcessor = new StateEventProcessor(Logger, this, StateManager);
 
-            CommandStationManager = new CommandStationManager();//Controller, StateProcessor);
+            CommandStationManager = new CommandStationManager(Logger);//Controller, StateProcessor);
             //CommandStationManager.Start();
 
             if (Settings.WiThrottle.RunOnStartup) {
                 WiThrottle = new WiThrottleServer(Logger, this, Settings.WiThrottle, CommandStationManager);
                 WiThrottle.Start();
             }
-
 
             // This is blocking so will hold until the web-app finishes and then will exit the app
             // ------------------------------------------------------------------------------------
@@ -133,15 +141,15 @@ public sealed class RailwayManager : IRailwayManager {
     ///     Creates repository instances for each entity type in the RailwayManager.
     /// </summary>
     /// <param name="load">Indicates if the instantiation should load existing data.</param>
-    private void CreateRepositories(bool load = false) {
-        Accessories   = CreateRepository<Accessories>(Settings, "Accessories", "A", load);
-        Blocks        = CreateRepository<Blocks>(Settings, "Blocks", "B", load);
-        Locomotives   = CreateRepository<Locomotives>(Settings, "Locomotives", "L", load);
-        Routes        = CreateRepository<Routes>(Settings, "Routes", "R", load);
-        Sensors       = CreateRepository<Sensors>(Settings, "Sensors", "S", load);
-        Signals       = CreateRepository<Signals>(Settings, "Signals", "G", load);
-        Turnouts      = CreateRepository<Turnouts>(Settings, "Turnouts", "T", load);
-        Manufacturers = CreateRepository<Manufacturers>(Settings, "Manufacturers", "M", load);
+    private void CreateRepositories() {
+        Accessories   = CreateRepository<Accessories>(Settings, "Accessories", "A");
+        Blocks        = CreateRepository<Blocks>(Settings, "Blocks", "B");
+        Locomotives   = CreateRepository<Locomotives>(Settings, "Locomotives", "L");
+        Routes        = CreateRepository<Routes>(Settings, "Routes", "R");
+        Sensors       = CreateRepository<Sensors>(Settings, "Sensors", "S");
+        Signals       = CreateRepository<Signals>(Settings, "Signals", "G");
+        Turnouts      = CreateRepository<Turnouts>(Settings, "Turnouts", "T");
+        Manufacturers = CreateRepository<Manufacturers>(Settings, "Manufacturers", "M");
     }
 
     /// <summary>
@@ -155,10 +163,9 @@ public sealed class RailwayManager : IRailwayManager {
     /// <param name="defautPrefix">The prefix to be used when auto-generting the unique identifier</param>
     /// <param name="load">Indicates if the instantiation should load existing data.</param>
     /// <returns>A repository of type T.</returns>
-    public static T CreateRepository<T>(Settings settings, string entityKey, string defautPrefix, bool load = false) {
+    public static T CreateRepository<T>(Settings settings, string entityKey, string defautPrefix) {
         var prefix = settings.Entities[entityKey]?.Prefix ?? defautPrefix;
         var entity = (T)Activator.CreateInstance(typeof(T), prefix, settings.Name, settings.PathName)!;
-        if (load && entity is ILayoutSaveLoad loadable) loadable.Load();
         return entity;
     }
 }

@@ -1,9 +1,10 @@
 ﻿using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Adapters.Base;
+using Serilog;
 
 namespace DCCRailway.Controller.Adapters;
 
-public abstract class NetworkAdapter : Adapter, IAdapter {
+public abstract class NetworkAdapter(ILogger logger) : Adapter, IAdapter {
     public bool IsConnected => throw new NotImplementedException();
 
     public void Connect() => throw new NotImplementedException();

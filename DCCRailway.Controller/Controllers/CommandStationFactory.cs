@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Attributes;
+using Serilog;
 
 namespace DCCRailway.Controller.Controllers;
 
@@ -9,7 +10,7 @@ namespace DCCRailway.Controller.Controllers;
 ///     The CommandStation Factory instantiates a list of available controllers and then
 ///     allows the caller to dynamically create a controller based on the name of the controller.
 /// </summary>
-public class CommandStationFactory {
+public class CommandStationFactory(ILogger logger) {
     private const string                                     DefaultAssemblyPattern = @"(.*)DCCRailway.Controller\.(\D+)\.dll";
     private const string                                     DefaultPath            = ".";
     private       Dictionary<string, CommandStationManager>? _controllers           = new();
@@ -68,7 +69,7 @@ public class CommandStationFactory {
                 var assembly = Assembly.LoadFrom(assemblyPath);
 
                 if (assembly is null) throw new ApplicationException($"Unable to load assembly: {assemblyPath}");
-                Logger.Log.Debug($"ASSEMBLY: Loading Assembly: {assemblyPath}");
+                logger.Debug($"ASSEMBLY: Loading Assembly: {assemblyPath}");
 
                 foreach (var controller in assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(ICommandStation)))) {
                     // Get the relevant properties needed to report on what this controller is via reflecting into the
@@ -79,10 +80,10 @@ public class CommandStationFactory {
                         if (systemAttr is not null) {
                             if (_controllers.ContainsKey(systemAttr.Name))
                                 throw new ApplicationException($"Duplicate CommandStation Name found: {systemAttr.Name}");
-                            _controllers.Add(systemAttr.Name, new CommandStationManager(systemAttr, assemblyPath, controller));
+                            _controllers.Add(systemAttr.Name, new CommandStationManager(logger, systemAttr, assemblyPath, controller));
                         }
                     } catch (Exception ex) {
-                        Logger.Log.Debug("ASSEMBLY: Unable to obtain the name of the Manufacturer or CommandStation from the Assembly.", ex);
+                        logger.Debug("ASSEMBLY: Unable to obtain the name of the Manufacturer or CommandStation from the Assembly.", ex);
                     }
                 }
             } catch (Exception ex) {

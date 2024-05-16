@@ -39,7 +39,6 @@ public class MultiThrottleMessage {
             Action  = commandStr[(delimiterPos + Delimiter.Length)..];
             IsValid = true;
         } catch {
-            Logger.Log.Error("CMD:MultiThrottleMessage: Unknown MultiThrottle Command=>'{0}'", commandStr);
             IsValid = false;
         }
     }

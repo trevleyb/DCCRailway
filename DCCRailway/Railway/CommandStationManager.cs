@@ -4,10 +4,11 @@ using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
 using DCCRailway.Railway.Layout;
+using Serilog;
 
 namespace DCCRailway.Railway;
 
-public class CommandStationManager {
+public class CommandStationManager(ILogger logger) {
     private StateEventProcessor _processor;
     public  ICommandStation     CommandStation { get; private set; }
 
@@ -50,7 +51,7 @@ public class CommandStationManager {
     /// <returns>An instance of a Command Station Controller or NULL if it was unable to do so. </returns>
     /// <exception cref="ControllerException">Thrown if it cannot create the controller. </exception>
     private ICommandStation? CreateCommandStationController(Configuration.Entities.Controller controller) {
-        var controllerManager = new CommandStationFactory();
+        var controllerManager = new CommandStationFactory(logger);
         try {
             var commandStation = controllerManager.CreateController(controller.Name) ??
                                  throw new ControllerException($"Invalid CommandStation Name specified {controller.Name}");
@@ -60,7 +61,7 @@ public class CommandStationManager {
             }
             return commandStation;
         } catch (Exception ex) {
-            Logger.Log.Error("Unable to instantiate an instance of the specified commandStation: {0} => {1}", controller, ex.Message);
+            logger.ForContext<CommandStationManager>().Error("Unable to instantiate an instance of the specified commandStation: {0} => {1}", controller, ex.Message);
             throw;
         }
     }
@@ -87,7 +88,7 @@ public class CommandStationManager {
                 commandStation.Adapter = adapterInstance;
             }
         } catch (Exception ex) {
-            Logger.Log.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapters, ex.Message);
+            logger.ForContext<CommandStationManager>().Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapters, ex.Message);
             throw;
         }
     }
@@ -107,18 +108,16 @@ public class CommandStationManager {
                     if (taskInstance is not null) {
                         taskInstance.Name      = task.Name;
                         taskInstance.Frequency = task.Frequency;
-                        commandStation.AttachTask(taskInstance);
-
                         foreach (var parameter in task.Parameters) {
                             if (taskInstance.IsMappableParameter(parameter.Name)) taskInstance.SetMappableParameter(parameter.Name, parameter.Value);
                         }
                     }
                 } catch (Exception ex) {
-                    Logger.Log.Error($"Unable to instantiate the task '{task.Name}' or type '{task.Type}'", ex);
+                    logger.ForContext<CommandStationManager>().Error($"Unable to instantiate the task '{task.Name}' or type '{task.Type}'", ex);
                 }
             }
         } catch (Exception ex) {
-            Logger.Log.Error("Unable to create and attach tasks to the Command Station.", ex.Message);
+            logger.ForContext<CommandStationManager>().Error("Unable to create and attach tasks to the Command Station.", ex.Message);
             throw;
         }
     }

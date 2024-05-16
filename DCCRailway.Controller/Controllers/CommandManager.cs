@@ -8,10 +8,11 @@ using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
+using Serilog;
 
 namespace DCCRailway.Controller.Controllers;
 
-public class CommandManager(ICommandStation commandStation, Assembly assembly) {
+public class CommandManager(ILogger logger, ICommandStation commandStation, Assembly assembly) {
     private Dictionary<Type, (CommandAttribute Attributes, Type ConcreteType)> _commands = [];
     private Assembly                                                           _assembly { get; } = assembly;
 
@@ -55,6 +56,7 @@ public class CommandManager(ICommandStation commandStation, Assembly assembly) {
             if (address is not null && command is ICmdAddress cmdAddress) cmdAddress.Address = address;
             command.Adapter        = commandStation.Adapter ?? throw new ControllerException("Adapter is not defined.");
             command.CommandStation = commandStation;
+            command.Logger         = logger; // Should probably be injected in the constructor..
         }
         return command;
     }
@@ -94,7 +96,7 @@ public class CommandManager(ICommandStation commandStation, Assembly assembly) {
         throw new ApplicationException("Selected Command Type is not supported by this Adapter.");
     }
 
-    private static ICommand? CreateInstance(Type typeToCreate) {
+    private ICommand? CreateInstance(Type typeToCreate) {
         try {
             var command = (ICommand?)Activator.CreateInstance(typeToCreate);
             if (command == null) throw new ApplicationException("Could not create an instance of the command.");

@@ -1,3 +1,4 @@
+using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Virtual;
 
@@ -7,8 +8,9 @@ namespace DCCRailway.Controller.Test;
 public class CommandTypeTest {
     [Test]
     public void TestThatWeCangenerateAndAcceptTypes() {
-        var commandStation = new VirtualCommandStation();
-        var command        = commandStation.CreateCommand<IDummyCmd>();
+        var commandStation = new VirtualCommandStation(LoggerHelper.ConsoleLogger);
+        commandStation.CreateAdapter("Virtual");
+        var command = commandStation.CreateCommand<IDummyCmd>();
         Assert.That(command, Is.Not.Null);
 
         var isDummyAiDummy = command;

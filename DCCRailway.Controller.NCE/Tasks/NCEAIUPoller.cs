@@ -9,11 +9,13 @@ using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.NCE.Actions.Commands;
 using DCCRailway.Controller.NCE.Actions.Results;
 using DCCRailway.Controller.Tasks;
+using Serilog;
+using Serilog.Core;
 
 namespace DCCRailway.Controller.NCE.Tasks;
 
 [Task("AIUPoller", "NCE AIU Poller")]
-public class NCEAIUPoller : ControllerTask, IParameterMappable {
+public class NCEAIUPoller(ILogger logger) : ControllerTask(logger), IParameterMappable {
     [Range(1, 63), Parameter("NCE Cab Address of this AIU interface", "Should be between 1..63")]
     public byte CabAddress { get; set; }
 
@@ -39,7 +41,7 @@ public class NCEAIUPoller : ControllerTask, IParameterMappable {
                 }
             }
             pinStr.Append("|");
-            Logger.Log.Information($"Read AIU '{CabAddress}' => {pinStr}");
+            logger.Information($"Read AIU '{CabAddress}' => {pinStr}");
         }
     }
 }

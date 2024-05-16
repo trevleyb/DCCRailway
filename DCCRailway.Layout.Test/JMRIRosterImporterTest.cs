@@ -1,5 +1,7 @@
 using DCCRailway.Railway;
 using DCCRailway.Railway.Converters.JMRI;
+using Serilog;
+using Serilog.Core;
 
 namespace DCCRailway.Layout.Test;
 
@@ -17,25 +19,29 @@ public class JMRIRosterImporterTest {
 
     [Test]
     public void ImportJMRIRoster() {
-        JMRIRosterImporter.Import(mgr!, "roster.xml");
+        var importer = new JmriRosterImporter(new LoggerConfiguration().CreateLogger());
+        importer.Import(mgr!, "roster.xml");
     }
 
     [Test]
     public void ImportJMRIRosterAndCheck() {
         var sw = new StreamWriter("corruptfile.xml");
         sw.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?");
-        Assert.That(() => JMRIRosterImporter.Import(mgr!, "corruptfile.xml"), Throws.Exception);
+        var importer = new JmriRosterImporter(new LoggerConfiguration().CreateLogger());
+        Assert.That(() => importer.Import(mgr!, "corruptfile.xml"), Throws.Exception);
     }
 
     [Test]
     public void InvalidFilename() {
-        Assert.That(() => JMRIRosterImporter.Import(mgr!, "invalid.xml"), Throws.Exception);
+        var importer = new JmriRosterImporter(new LoggerConfiguration().CreateLogger());
+        Assert.That(() => importer.Import(mgr!, "invalid.xml"), Throws.Exception);
     }
 
     [Test]
     public void InvalidFileFormat() {
         var sw = new StreamWriter("invalidfile.xml");
         sw.WriteLine("This is not a valid XML file");
-        Assert.That(() => JMRIRosterImporter.Import(mgr!, "invalidfile.xml"), Throws.Exception);
+        var importer = new JmriRosterImporter(new LoggerConfiguration().CreateLogger());
+        Assert.That(() => importer.Import(mgr!, "invalidfile.xml"), Throws.Exception);
     }
 }

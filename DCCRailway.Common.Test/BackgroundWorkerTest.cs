@@ -18,6 +18,7 @@ public class BackgroundWorkerTest {
         bw.Start();
         Thread.Sleep(10000); // 10-seconds so the background worker SHOULD run at least 9 times
         bw.Stop();
+        Thread.Sleep(1000); // 1 second delay to make sure we get the event processed
 
         Assert.That(itStarted, Is.True);
         Assert.That(itStopped, Is.True);
@@ -32,7 +33,6 @@ public class BackgroundWorkerTestClass(string name, TimeSpan freq) : BackgroundW
     protected override void DoWork() {
         TimeSpan? duration             = new TimeSpan(0);
         if (lastTime != null) duration = DateTime.Now - lastTime;
-        Log.Information($"Doing some work: {++counter} and last execution was {duration?.ToString()}");
         lastTime = DateTime.Now;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO.Ports;
+using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Controllers;
@@ -14,10 +15,10 @@ public class NCEPowerCabSignalTest {
     public void CycleSignals() {
         //var adapter = new NCEUSBSerial("COM3", 19200);
         var ports   = SerialPort.GetPortNames();
-        var adapter = new NCEUSBSerial("/dev/cu.SLAB_USBtoUART", 19200, 8, Parity.None, StopBits.One, 500);
+        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger, "/dev/cu.SLAB_USBtoUART", 19200, 8, Parity.None, StopBits.One, 500);
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
 
-        var system = new CommandStationFactory().Find("NCEPowerCab")?.Create(adapter);
+        var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);
 
         //var system = SystemFactory.Create("NCEPowerCab", adapter);
         Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab commandStation created.");

@@ -1,12 +1,13 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Railway.Throttles.WiThrottle.Helpers;
 using DCCRailway.Railway.Throttles.WiThrottle.Messages;
+using Serilog;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle.Commands;
 
-public class CmdMultiThrottle(WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
+public class CmdMultiThrottle(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        Logger.Log.Information("{0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
+        logger.ForContext<WiThrottleServer>().Information("{0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
         try {
             IThrottleMsg? response = null;
             var           data     = new MultiThrottleMessage(commandStr);
@@ -26,7 +27,7 @@ public class CmdMultiThrottle(WiThrottleConnection connection) : ThrottleCmd, IT
             };
             if (response is not null) connection.QueueMsg(response);
         } catch {
-            Logger.Log.Error("{0}:{2}=> Unable to Process the command =>'{1}'", ToString(), commandStr, connection.ToString());
+            logger.ForContext<WiThrottleServer>().Error("{0}:{2}=> Unable to Process the command =>'{1}'", ToString(), commandStr, connection.ToString());
         }
     }
 

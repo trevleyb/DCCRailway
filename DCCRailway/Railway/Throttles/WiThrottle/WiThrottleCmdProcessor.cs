@@ -1,9 +1,10 @@
 ﻿using DCCRailway.Common.Helpers;
 using DCCRailway.Railway.Throttles.WiThrottle.Commands;
+using Serilog;
 
 namespace DCCRailway.Railway.Throttles.WiThrottle;
 
-public class WiThrottleCmdProcessor {
+public class WiThrottleCmdProcessor(ILogger logger) {
     /// <summary>
     ///     Simply, given an input string, this will return a Command Object that
     ///     needs to be managed and processed based on the commandStr provided.
@@ -11,7 +12,7 @@ public class WiThrottleCmdProcessor {
     /// <param name="connection">A reference to the connection that this command is for</param>
     /// <param name="commandStr">A string of data, in raw BYTE form that has been received</param>
     /// <returns></returns>
-    public static bool Interpret(WiThrottleConnection connection, string commandStr) {
+    public bool Interpret(WiThrottleConnection connection, string commandStr) {
         connection.UpdateHeartbeat();
 
         // When we get here, there will only ever be a single message as
@@ -19,7 +20,7 @@ public class WiThrottleCmdProcessor {
         // ------------------------------------------------------------------
         if (!string.IsNullOrEmpty(commandStr) && commandStr.Length >= 1) {
             var cmdProcessor = DetermineCommandType();
-            Logger.Log.Debug("CMD:Processor [{0}]: Recieved a command of {1}", connection.ToString(), cmdProcessor.ToString());
+            logger.ForContext<WiThrottleServer>().Debug("CMD:Processor [{0}]: Recieved a command of {1}", connection.ToString(), cmdProcessor.ToString());
             cmdProcessor.Execute(commandStr);
             if (cmdProcessor is CmdQuit) return true;
         }
@@ -27,18 +28,18 @@ public class WiThrottleCmdProcessor {
 
 
         IThrottleCmd DetermineCommandType() {
-            if (string.IsNullOrEmpty(commandStr)) return new CmdIgnore(connection);
+            if (string.IsNullOrEmpty(commandStr)) return new CmdIgnore(logger,connection);
             var commandChar = (int)commandStr[0];
             var commandType = Enum.IsDefined(typeof(CommandType), commandChar) ? (CommandType)commandChar : CommandType.Ignore;
             return commandType switch {
-                CommandType.Name          => new CmdName(connection),
-                CommandType.Hardware      => new CmdHardware(connection),
-                CommandType.MultiThrottle => new CmdMultiThrottle(connection),
-                CommandType.Panel         => new CmdPanel(connection),
-                CommandType.Roster        => new CmdRoster(connection),
-                CommandType.Heartbeat     => new CmdHeartbeat(connection),
-                CommandType.Quit          => new CmdQuit(connection),
-                _                         => new CmdIgnore(connection)
+                CommandType.Name          => new CmdName(logger,connection),
+                CommandType.Hardware      => new CmdHardware(logger,connection),
+                CommandType.MultiThrottle => new CmdMultiThrottle(logger,connection),
+                CommandType.Panel         => new CmdPanel(logger,connection),
+                CommandType.Roster        => new CmdRoster(logger,connection),
+                CommandType.Heartbeat     => new CmdHeartbeat(logger,connection),
+                CommandType.Quit          => new CmdQuit(logger,connection),
+                _                         => new CmdIgnore(logger,connection)
             };
         }
     }

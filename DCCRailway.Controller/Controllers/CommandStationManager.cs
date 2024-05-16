@@ -3,6 +3,7 @@ using System.Reflection;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Exceptions;
+using Serilog;
 
 namespace DCCRailway.Controller.Controllers;
 
@@ -12,7 +13,7 @@ namespace DCCRailway.Controller.Controllers;
 ///     attributes and information about the controller.
 /// </summary>
 [DebuggerDisplay("Name: {Name}, Manufacturer: {Manufacturer}, Model: {Model}, Version: {Version}")]
-public class CommandStationManager(ControllerAttribute attributes, string assemblyPath, Type assemblyType) {
+public class CommandStationManager(ILogger logger, ControllerAttribute attributes, string assemblyPath, Type assemblyType) {
     private ControllerAttribute Attributes   { get; } = attributes;
     private Type                AssemblyType { get; } = assemblyType;
     private string              AssemblyPath { get; } = assemblyPath;
@@ -49,7 +50,7 @@ public class CommandStationManager(ControllerAttribute attributes, string assemb
             var assembly = Assembly.LoadFrom(AssemblyPath);
 
             if (assembly is null) throw new SystemInstantiateException(Name, $"Unable to get the Assembly from the Path '{AssemblyPath}'.");
-            if (Activator.CreateInstance(AssemblyType) is not ICommandStation instance) throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the controller.");
+            if (Activator.CreateInstance(AssemblyType,logger) is not ICommandStation instance) throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the controller.");
 
             return instance;
         } catch (Exception ex) {

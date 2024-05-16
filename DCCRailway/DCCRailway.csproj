@@ -16,7 +16,6 @@
 
     <ItemGroup>
         <Folder Include="Configuration\"/>
-        <Folder Include="Railway\Throttles\WiThrottle\Settings\"/>
     </ItemGroup>
 
     <ItemGroup>

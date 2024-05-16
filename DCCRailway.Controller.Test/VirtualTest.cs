@@ -1,3 +1,4 @@
+using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers;
@@ -11,16 +12,18 @@ public class VirtualTest {
 
     [Test]
     public void TestControllerCreation() {
-        var controller = new CommandStationFactory().CreateController("Virtual");
+        var controller = new CommandStationFactory(LoggerHelper.ConsoleLogger).CreateController("Virtual");
         Assert.That(controller, Is.Not.Null);
         Assert.That(controller.AttributeInfo().Name.Equals("Virtual"));
     }
 
     [Test]
     public void TestControllerCreationAndGetCommands() {
-        var controller = new CommandStationFactory().CreateController("Virtual");
+        var controller = new CommandStationFactory(LoggerHelper.ConsoleLogger).CreateController("Virtual");
         Assert.That(controller, Is.Not.Null);
         Assert.That(controller.AttributeInfo().Name.Equals("Virtual"));
+        controller.CreateAdapter("Virtual");
+        Assert.That(controller.Adapter, Is.Not.Null);
         var supportedCommands = controller.Commands;
         Assert.That(supportedCommands!.Count >= 1);
         var command = controller.CreateCommand<IDummyCmd>();
@@ -35,7 +38,7 @@ public class VirtualTest {
     private ICommandStation CreateVirtualControllerAndAddVirtualAdapter() {
         // Create an instance of a CommandStation using the Factory 
         // ------------------------------------------------------------
-        var factory       = new CommandStationFactory();
+        var factory       = new CommandStationFactory(LoggerHelper.ConsoleLogger);
         var virtualSystem = factory.Find("Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
 

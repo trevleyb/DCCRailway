@@ -20,7 +20,7 @@ public class RailwayManagerTests {
         InjectTestData.SampleData(manager);
         manager.Save();
 
-        var newInstance = new RailwayManager(pathname, "MyTestLayout",false,true);
+        var newInstance = new RailwayManager(pathname, "MyTestLayout",true,false);
         Assert.That(newInstance, Is.Not.Null);
         Assert.That(manager.Accessories.Count, Is.EqualTo(newInstance.Accessories.Count));
     }

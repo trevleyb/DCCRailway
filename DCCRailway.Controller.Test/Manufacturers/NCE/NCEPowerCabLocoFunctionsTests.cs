@@ -1,4 +1,5 @@
-﻿using DCCRailway.Common.Types;
+﻿using DCCRailway.Common.Helpers;
+using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Adapters.Events;
@@ -12,7 +13,7 @@ namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 public class NCEPowerCabLocoFunctionsTests {
     [SetUp]
     public void TestSetup() {
-        var _system = new CommandStationFactory().Find("NCEPowerCab")?.Create(new NCEVirtualAdapter());
+        var _system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(new NCEVirtualAdapter(LoggerHelper.ConsoleLogger));
 
         //_system = SystemFactory.Create("NCE", "NCEPowerCab");
 
@@ -20,7 +21,10 @@ public class NCEPowerCabLocoFunctionsTests {
             Assert.That(_system, Is.Not.Null, "Should have an NCE PowerCab commandStation created.");
             Assert.That(_system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab CommandStation Created");
 
-            Adapter = new NCEUSBSerial("COM3", 19200);
+            var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger);
+            adapter.PortName = "COM3";
+            adapter.BaudRate = 9600;;
+
             Assert.That(Adapter, Is.Not.Null, "Should have a Serial Adapter created");
             Adapter.DataReceived  += Adapter_DataReceived;
             Adapter.DataSent      += Adapter_DataSent;

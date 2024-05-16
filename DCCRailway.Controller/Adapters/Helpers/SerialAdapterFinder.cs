@@ -49,7 +49,7 @@ public static class SerialAdapterFinder {
                 }
             }
         } catch (Exception ex) {
-            Logger.Log.Debug($"ERROR Connecting to port: {ex.Message}");
+            throw new Exception($"ERROR Connecting to port: {ex.Message}");
         }
         return readData;
     }

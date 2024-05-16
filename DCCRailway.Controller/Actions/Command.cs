@@ -6,6 +6,7 @@ using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Exceptions;
+using Serilog;
 
 namespace DCCRailway.Controller.Actions;
 
@@ -16,6 +17,7 @@ public abstract class Command : PropertyChangedBase, ICommand, IParameterMappabl
 
     public ICommandStation CommandStation { get; set; }
     public IAdapter?       Adapter        { get; set; }
+    public ILogger         Logger         { get; set; }
 
     public ICmdResult Execute() {
         if (Adapter is null) throw new ControllerException("No adapter is configured on this command.");
