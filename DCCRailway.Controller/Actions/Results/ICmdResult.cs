@@ -1,8 +1,8 @@
+using DCCRailway.Common.Helpers;
+
 namespace DCCRailway.Controller.Actions.Results;
 
-public interface ICmdResult {
-    bool      Success      { get; }
-    string?   ErrorMessage { get; }
+public interface ICmdResult : IResult {
     ICommand? Command      { get; set; }
 
     byte[] Data { get; }

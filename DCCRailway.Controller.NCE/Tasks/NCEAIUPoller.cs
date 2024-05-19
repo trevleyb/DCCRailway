@@ -16,6 +16,7 @@ namespace DCCRailway.Controller.NCE.Tasks;
 
 [Task("AIUPoller", "NCE AIU Poller")]
 public class NCEAIUPoller(ILogger logger) : ControllerTask(logger), IParameterMappable {
+    private readonly ILogger _logger = logger;
 
     [Range(1, 63), Parameter("NCE Cab Address of this AIU interface", "Should be between 1..63")]
     public byte CabAddress { get; set; }
@@ -42,7 +43,7 @@ public class NCEAIUPoller(ILogger logger) : ControllerTask(logger), IParameterMa
                 }
             }
             pinStr.Append("|");
-            logger.Information($"Read AIU '{CabAddress}' => {pinStr}");
+            _logger.Information($"Read AIU '{CabAddress}' => {pinStr}");
         }
     }
 }

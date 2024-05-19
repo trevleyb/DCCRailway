@@ -11,24 +11,23 @@ public abstract class ConsoleAdapter(ILogger logger) : Adapter, IAdapter {
     public bool IsConnected { get; private set; }
 
     public void Connect() {
-        Console.WriteLine("Connected to console.");
+        logger.Information("Connected to console.");
         IsConnected = true;
     }
 
     public void Disconnect() {
-        Console.WriteLine("Disconnected from console.");
+        logger.Information("Disconnected from console.");
         IsConnected = false;
     }
 
     public void Dispose() { }
 
     public void SendData(byte[] data, ICommand command) {
-        Console.WriteLine("Sending Data {0} => {1}", data.ToDisplayValues(), command.AttributeInfo().Name);
+        logger.Information("Sending Data {0} => {1}", data.ToDisplayValues(), command.AttributeInfo().Name);
     }
 
     public byte[]? RecvData(ICommand command) {
-        Console.WriteLine("Receiving Data <= {0}", command.AttributeInfo().Name);
-
+        logger.Information("Receiving Data <= {0}", command.AttributeInfo().Name);
         return [];
     }
 }

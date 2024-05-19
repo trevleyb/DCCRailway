@@ -25,6 +25,8 @@
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.TestSerialize.TestComplex&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.RailwayManagerTests.CreateTestFileForTestingAndReload&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.LoggerTest&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::5489776D-7885-48FE-AC7F-D92DC35EC324::net8.0::DCCRailway.Test.ControllerEventLayoutTest.TestSimpleEventToState&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=941bfb22_002D96ca_002D46e5_002Db122_002D0987caa18f97/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestComplex #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;

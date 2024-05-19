@@ -14,6 +14,9 @@ namespace DCCRailway.Controller.Virtual.Tasks;
 
 [Task("AIUPoller", "NCE AIU Poller")]
 public class VirtualSensorPoller(ILogger logger) : ControllerTask (logger), IParameterMappable {
+
+    private readonly ILogger _logger = logger;
+
     [Range(1, 63), Parameter("Virtual Cab Address of this AIU interface", "Should be between 1..63")]
     public byte CabAddress { get; set; }
 
@@ -36,7 +39,7 @@ public class VirtualSensorPoller(ILogger logger) : ControllerTask (logger), IPar
                 pinStr.Append(pins[pin - 1] ? "X" : ".");
             }
             pinStr.Append("|");
-            logger.Information($"Read AIU '{CabAddress}' => {pinStr}");
+            _logger.Information($"Read AIU '{CabAddress}' => {pinStr}");
         }
     }
 }

@@ -2,8 +2,8 @@ using Serilog;
 
 namespace DCCRailway.Common.Helpers;
 
-public abstract class BackgroundWorker(string? name, TimeSpan? frequency = null) {
-    private            CancellationTokenSource? _cancellationTokenSource;
+public abstract class BackgroundWorker(ILogger logger, string? name, TimeSpan? frequency = null) {
+    private CancellationTokenSource? _cancellationTokenSource;
 
     public string             Name         { get; set; } = name ?? "default";
     public TimeSpan           Frequency    { get; set; } = frequency ?? new TimeSpan(0, 0, 0);
@@ -17,7 +17,7 @@ public abstract class BackgroundWorker(string? name, TimeSpan? frequency = null)
 
     public virtual void Start() {
         _cancellationTokenSource = new CancellationTokenSource();
-        Log.Information("{0}: Background Worker starting up on a frequency of '{1}'.", Name, Frequency.ToString());
+        logger.Information("{0}: Background Worker starting up on a frequency of '{1}'.", Name, Frequency.ToString());
         if (Milliseconds > 0) {
             OnWorkStarted();
             Task.Run(() => {
@@ -29,18 +29,18 @@ public abstract class BackgroundWorker(string? name, TimeSpan? frequency = null)
                         Thread.Sleep(Milliseconds);
                     }
                 } catch (OperationCanceledException) {
-                    Log.Information("{0}: Background Worker Cancelled.", Name);
+                    logger.Information("{0}: Background Worker Cancelled.", Name);
                 }
                 OnWorkFinished();
             }, _cancellationTokenSource.Token);
         } else {
-            Log.Information("{0}: Frequency not defined so task will conclude.", Name);
+            logger.Information("{0}: Frequency not defined so task will conclude.", Name);
         }
     }
 
     public virtual void Stop() {
         _cancellationTokenSource?.Cancel();
-        Log.Information("{0}: Background Worker Finished.", Name);
+        logger.Information("{0}: Background Worker Finished.", Name);
     }
 
     protected virtual void OnWorkStarted() {

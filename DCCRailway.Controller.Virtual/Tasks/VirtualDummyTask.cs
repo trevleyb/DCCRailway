@@ -9,26 +9,28 @@ namespace DCCRailway.Controller.Virtual.Tasks;
 
 [Task("VirtualDummyTask", "Background Dummy to Poll the Console")]
 public class VirtualDummyTask(ILogger logger) : ControllerTask(logger) {
+
     private int counter;
+    private readonly ILogger _logger = logger;
 
     protected override void OnWorkStarted() {
-        logger.Debug($"Work has Started for task '{Name}'");
+        _logger.Debug($"Work has Started for task '{Name}'");
         base.OnWorkStarted();
     }
 
     protected override void OnWorkFinished() {
-        logger.Debug($"Work has Finished for task '{Name}'");
+        _logger.Debug($"Work has Finished for task '{Name}'");
         base.OnWorkFinished();
     }
 
     protected override void OnWorkInProgress() {
-        logger.Debug($"Work is in progress for task '{Name}'");
+        _logger.Debug($"Work is in progress for task '{Name}'");
         base.OnWorkInProgress();
     }
 
     protected override void DoWork() {
         counter++;
-        logger.Debug($"Virtual Dummy Task: {Name}. Called {counter} times.");
+        _logger.Debug($"Virtual Dummy Task: {Name}. Called {counter} times.");
     }
 
     protected override void Setup() {

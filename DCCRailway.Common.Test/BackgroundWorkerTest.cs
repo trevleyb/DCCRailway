@@ -1,4 +1,5 @@
 using DCCRailway.Common.Helpers;
+using Serilog;
 
 namespace DCCRailway.Common.Test;
 
@@ -10,7 +11,7 @@ public class BackgroundWorkerTest {
         var itStopped = false;
         var didWork   = 0;
 
-        var bw = new BackgroundWorkerTestClass("test", new TimeSpan(0, 0, 1));
+        var bw = new BackgroundWorkerTestClass(LoggerHelper.ConsoleLogger, "test", new TimeSpan(0, 0, 1));
         bw.WorkStarted    += (sender, args) => itStarted = true;
         bw.WorkFinished   += (sender, args) => itStopped = true;
         bw.WorkInProgress += (sender, args) => didWork++;
@@ -26,7 +27,7 @@ public class BackgroundWorkerTest {
     }
 }
 
-public class BackgroundWorkerTestClass(string name, TimeSpan freq) : BackgroundWorker(name, freq) {
+public class BackgroundWorkerTestClass(ILogger logger, string name, TimeSpan freq) : BackgroundWorker(logger, name, freq) {
     private int _counter = 0;
     private DateTime? _lastTime;
 

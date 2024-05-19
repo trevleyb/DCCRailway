@@ -4,6 +4,8 @@ using DCCRailway.Controller.Adapters.Base;
 
 namespace DCCRailway.Controller.Controllers.Events;
 
+// TODO: These events need to be cleaned up as they are messy with duplicated and complex data
+
 public class ControllerEventArgs : EventArgs {
     public ControllerEventArgs(ICommand? command, ICmdResult? result, IAdapter? adapter, EventArgs? e, string? message = "") {
         Command = command;

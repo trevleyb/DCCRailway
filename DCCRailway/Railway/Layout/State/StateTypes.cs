@@ -14,7 +14,9 @@ public enum StateType {
     Momentum,
     Aspect,
     Turnout,
-    Signal,
     Route,
-    Block
+    Block,
+    Accessory,
+    Sensor,
+    Signal
 }

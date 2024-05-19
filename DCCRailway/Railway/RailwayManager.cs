@@ -47,7 +47,7 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
 
     public CommandStationManager CommandStationManager { get; private set; }
     public StateManager          StateManager          { get; private set; }
-    public StateEventProcessor   StateProcessor        { get; private set; }
+    public StateUpdater   StateProcessor        { get; private set; }
     public WiThrottleServer?     WiThrottle            { get; private set; }
 
     /// <summary>
@@ -81,7 +81,7 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
     public void Start() {
         if (Settings.Controller is { Name: not null }) {
             StateManager   = new StateManager();
-            StateProcessor = new StateEventProcessor(Logger, this, StateManager);
+            StateProcessor = new StateUpdater(Logger, StateManager);
             CommandStationManager = new CommandStationManager(Logger); //Controller, StateProcessor);
 
             //CommandStationManager.Start();
@@ -107,26 +107,26 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
 
     private void SaveRepositories(string path, string name) {
         JsonSerializerHelper<Settings>.SaveFile(Settings,FullName(path, name, "Settings"));
-        LayoutStorage.SaveFile<Accessories, Accessory>(logger, Accessories, FullName(path, name, "Accessories"));
-        LayoutStorage.SaveFile<Blocks, Block>(logger, Blocks,FullName(path, name, "Blocks"));
-        LayoutStorage.SaveFile<Locomotives, Locomotive>(logger, Locomotives,FullName(path, name, "Locomotives"));
-        LayoutStorage.SaveFile<Routes, Route>(logger, Routes,FullName(path, name, "Routes"));
-        LayoutStorage.SaveFile<Sensors, Sensor>(logger, Sensors,FullName(path, name, "Sensors"));
-        LayoutStorage.SaveFile<Signals, Signal>(logger, Signals,FullName(path, name, "Signals"));
-        LayoutStorage.SaveFile<Turnouts, Turnout>(logger, Turnouts,FullName(path, name, "Turnouts"));
-        LayoutStorage.SaveFile<Manufacturers, Manufacturer>(logger, Manufacturers,FullName(path, name, "Manufacturers"));
+        LayoutStorage.SaveFile<Accessories, Accessory>(Logger, Accessories, FullName(path, name, "Accessories"));
+        LayoutStorage.SaveFile<Blocks, Block>(Logger, Blocks,FullName(path, name, "Blocks"));
+        LayoutStorage.SaveFile<Locomotives, Locomotive>(Logger, Locomotives,FullName(path, name, "Locomotives"));
+        LayoutStorage.SaveFile<Routes, Route>(Logger, Routes,FullName(path, name, "Routes"));
+        LayoutStorage.SaveFile<Sensors, Sensor>(Logger, Sensors,FullName(path, name, "Sensors"));
+        LayoutStorage.SaveFile<Signals, Signal>(Logger, Signals,FullName(path, name, "Signals"));
+        LayoutStorage.SaveFile<Turnouts, Turnout>(Logger, Turnouts,FullName(path, name, "Turnouts"));
+        LayoutStorage.SaveFile<Manufacturers, Manufacturer>(Logger, Manufacturers,FullName(path, name, "Manufacturers"));
     }
 
     private void LoadRepositories(string path, string name) {
         Settings    = JsonSerializerHelper<Settings>.LoadFile(FullName(path, name, "Settings")) ?? new Settings();
-        Accessories = LayoutStorage.LoadFile<Accessories, Accessory>(logger, FullName(path, name, "Accessories")) ?? new Accessories();
-        Blocks      = LayoutStorage.LoadFile<Blocks, Block>(logger, FullName(path, name, "Blocks")) ?? new Blocks();
-        Locomotives = LayoutStorage.LoadFile<Locomotives, Locomotive>(logger, FullName(path, name, "Locomotives")) ?? new Locomotives();
-        Routes      = LayoutStorage.LoadFile<Routes, Route>(logger, FullName(path, name, "Routes")) ?? new Routes();
-        Sensors     = LayoutStorage.LoadFile<Sensors, Sensor>(logger, FullName(path, name, "Sensors")) ?? new Sensors();
-        Signals     = LayoutStorage.LoadFile<Signals, Signal>(logger, FullName(path, name, "Signals")) ?? new Signals();
-        Turnouts    = LayoutStorage.LoadFile<Turnouts, Turnout>(logger, FullName(path, name, "Turnouts")) ?? new Turnouts();
-        Manufacturers = LayoutStorage.LoadFile<Manufacturers, Manufacturer>(logger, FullName(path, name, "Manufacturers")) ?? new Manufacturers();
+        Accessories = LayoutStorage.LoadFile<Accessories, Accessory>(Logger, FullName(path, name, "Accessories")) ?? new Accessories();
+        Blocks      = LayoutStorage.LoadFile<Blocks, Block>(Logger, FullName(path, name, "Blocks")) ?? new Blocks();
+        Locomotives = LayoutStorage.LoadFile<Locomotives, Locomotive>(Logger, FullName(path, name, "Locomotives")) ?? new Locomotives();
+        Routes      = LayoutStorage.LoadFile<Routes, Route>(Logger, FullName(path, name, "Routes")) ?? new Routes();
+        Sensors     = LayoutStorage.LoadFile<Sensors, Sensor>(Logger, FullName(path, name, "Sensors")) ?? new Sensors();
+        Signals     = LayoutStorage.LoadFile<Signals, Signal>(Logger, FullName(path, name, "Signals")) ?? new Signals();
+        Turnouts    = LayoutStorage.LoadFile<Turnouts, Turnout>(Logger, FullName(path, name, "Turnouts")) ?? new Turnouts();
+        Manufacturers = LayoutStorage.LoadFile<Manufacturers, Manufacturer>(Logger, FullName(path, name, "Manufacturers")) ?? new Manufacturers();
         if (Manufacturers.Count == 0) Manufacturers.BuildManufacturersList();
     }
 

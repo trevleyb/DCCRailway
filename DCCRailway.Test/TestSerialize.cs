@@ -30,7 +30,7 @@ public class TestSerialize {
         var ss = LayoutStorage.SerializeLayout<TestRepository, TestEntity>(tr);
 
         var dd = LayoutStorage.DeserializeLayout<TestRepository, TestEntity>(ss);
-        Console.WriteLine(dd.HeaderValue, tr.HeaderValue);
+        Console.WriteLine(dd?.HeaderValue ?? "UNKNOWN", tr?.HeaderValue ?? "Unknown");
 
     }
 }

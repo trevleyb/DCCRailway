@@ -33,7 +33,7 @@ public interface IRailwayManager {
 
     public CommandStationManager CommandStationManager { get; }
     public StateManager          StateManager          { get; }
-    public StateEventProcessor   StateProcessor        { get; }
+    public StateUpdater   StateProcessor        { get; }
 
     public void Start();
     public void Stop();

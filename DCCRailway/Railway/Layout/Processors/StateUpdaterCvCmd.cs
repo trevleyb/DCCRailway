@@ -1,25 +1,24 @@
+using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Results;
+using DCCRailway.Controller.Attributes;
 using DCCRailway.Railway.Layout.State;
 
 namespace DCCRailway.Railway.Layout.Processors;
 
-public class StateUpdaterCvCmd(IRailwayManager railwayManager, IStateManager stateManager, ICmdResult result) : StateUpdaterProcess(result), IStateUpdaterProcess {
-    public override bool Process() {
-        switch (Command) {
+public class StateUpdaterCvCmd(IStateManager stateManager) : IStateUpdater{
+    public IResult Process(ICmdResult cmdResult) {
+        switch (cmdResult.Command) {
         case ICmdCVRead cmd:
-            // TODO: Implement the command processing
-            Event("Read a CV");
+            //stateManager.SetState()
             break;
         case ICmdCVWrite cmd:
-            // TODO: Implement the command processing
-            Event("Write a CV");
+            //stateManager.SetState()
             break;
         default:
-            Error("Command not supported.");
-            throw new Exception("Unexpected type of command executed.");
+            return Result.Fail($"Unexpected command type {cmdResult?.Command?.AttributeInfo()?.Name}.");
         }
 
-        return true;
+        return Result.Ok();
     }
 }

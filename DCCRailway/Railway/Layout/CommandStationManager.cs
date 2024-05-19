@@ -7,10 +7,10 @@ using Serilog;
 namespace DCCRailway.Railway.Layout;
 
 public class CommandStationManager(ILogger logger) {
-    private StateEventProcessor _processor;
+    private StateUpdater _processor;
     public  ICommandStation     CommandStation { get; private set; }
 
-    public void Start(StateEventProcessor processor) {
+    public void Start(StateUpdater processor) {
         // Wire up the events from the Command Station so we can track Entities Property Changes
         // --------------------------------------------------------------------------------------------
         _processor                     =  processor;
