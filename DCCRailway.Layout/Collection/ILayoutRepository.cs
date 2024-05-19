@@ -2,7 +2,7 @@ using DCCRailway.Layout.Base;
 
 namespace DCCRailway.Layout.Collection;
 
-public interface ILayoutRepository<TEntity> : IDictionary<string, TEntity>, ILayoutSaveLoad
+public interface ILayoutRepository<TEntity> : IDictionary<string, TEntity>
     where TEntity : LayoutEntity {
     event RepositoryChangedEventHandler? RepositoryChanged;
 

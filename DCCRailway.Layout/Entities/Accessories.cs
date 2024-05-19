@@ -3,5 +3,10 @@ using DCCRailway.Layout.Collection;
 namespace DCCRailway.Layout.Entities;
 
 [Serializable]
-public class Accessories(string prefix, string name, string? pathname = null)
-    : LayoutRepository<Accessory>(prefix, name, pathname);
+public class Accessories : LayoutRepository<Accessory> {
+    public Accessories() : this(null) { }
+
+    public Accessories(string? prefix = null) {
+        Prefix = prefix ?? "A";
+    }
+}

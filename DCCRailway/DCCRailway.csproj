@@ -22,4 +22,43 @@
       <PackageReference Include="CommandLineParser" Version="2.9.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Settings\Sample.Accessories.json" />
+      <AdditionalFiles Include="Settings\Sample.Accessories.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Settings\Sample.Blocks.json" />
+      <AdditionalFiles Include="Settings\Sample.Blocks.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Settings\Sample.Locomotives.json" />
+      <AdditionalFiles Include="Settings\Sample.Locomotives.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Settings\Sample.Manufacturers.json" />
+      <AdditionalFiles Include="Settings\Sample.Manufacturers.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Settings\Sample.Routes.json" />
+      <AdditionalFiles Include="Settings\Sample.Routes.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Settings\Sample.Sensors.json" />
+      <AdditionalFiles Include="Settings\Sample.Sensors.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Settings\Sample.Settings.json" />
+      <AdditionalFiles Include="Settings\Sample.Settings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Settings\Sample.Signals.json" />
+      <AdditionalFiles Include="Settings\Sample.Signals.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Settings\Sample.Turnouts.json" />
+      <AdditionalFiles Include="Settings\Sample.Turnouts.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
 </Project>

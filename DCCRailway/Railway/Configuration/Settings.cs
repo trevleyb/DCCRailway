@@ -6,24 +6,13 @@ using DCCRailway.Railway.Throttles.WiThrottle;
 namespace DCCRailway.Railway.Configuration;
 
 [Serializable]
-public class Settings : JsonSerializerHelper<Settings> {
+public class Settings {
     public string Name        { get; set; } = "DCCRailway";
     public string Description { get; set; } = "";
     public string PathName    { get; set; }
 
     public Entities.Controller   Controller { get; set; } = new();
-    public Parameters            Parameters { get; set; } = new();
-    public Entities.Entities     Entities   { get; set; } = new();
+    public Entities.Parameters   Parameters { get; set; } = new();
     public WiThrottlePreferences WiThrottle { get; set; } = new();
 
-    [JsonIgnore]
-    public string FileName => $"{Name}.Settings.json";
-
-    [JsonIgnore]
-    public string FullName => Path.Combine(PathName ?? "", FileName);
-
-    public void      Save()                 => SaveFile(this, FullName);
-    public void      Save(string? fullName) => SaveFile(this, fullName ?? FullName);
-    public Settings? Load()                 => LoadFile(FullName);
-    public Settings? Load(string? fullName) => LoadFile(fullName ?? FullName);
 }

@@ -1,3 +1,4 @@
+using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Entities;
 using DCCRailway.Railway;
@@ -46,7 +47,7 @@ public class TestEntityEvents {
     }
 
     private IRailwayManager CreateTestConfig() {
-        var config = new RailwayManager("Test Entities");
+        var config = new RailwayManager(LoggerHelper.ConsoleLogger).New("./","Test Entities");
 
         var locomotives = config.Locomotives;
         locomotives.Add(new Locomotive { Name = "Train01" });

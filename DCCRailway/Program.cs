@@ -48,7 +48,9 @@ using Serilog.Core;
 //  Launch and run the railway and run until it terminates.
 //  ---------------------------------------------------------------------------------
     static void RunRailway(ILogger logger, string path, string name, bool clean, bool runWiThrottle) {
-        var railway = new RailwayManager(logger, name, path, !clean, runWiThrottle);
+        var railway = new RailwayManager(logger);
+        if (clean) railway.New(path, name); else railway.Load(path, name);
+
         logger.Information("Starting the DCCRailway Manager.");
         railway.Start();
         logger.Information("WebApp finished. Closing down other services. ");
@@ -69,10 +71,11 @@ using Serilog.Core;
 //  Look for the config file in the specified folder.
 //  ---------------------------------------------------------------------------------
     static string? FindConfigFile(string path) {
-        foreach (var file in Directory.GetFiles(path)) {
-            if (file.EndsWith(".Settings.json", StringComparison.InvariantCultureIgnoreCase)) return file;
-        }
-        return null;
+        return Directory
+              .GetFiles(path)
+              .Select(Path.GetFileName)
+              .FirstOrDefault(file => file != null && file.EndsWith(".Settings.json", StringComparison.InvariantCultureIgnoreCase))?
+              .Replace(".Settings.json", "", StringComparison.InvariantCultureIgnoreCase);
     }
 
 //

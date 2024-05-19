@@ -15,13 +15,12 @@ namespace DCCRailway.Test;
 public class ControllerEventLayoutTest {
     [Test]
     public void TestLayoutCmdProcessorForALoco() {
-        var layoutConfig = new RailwayManager();
+        var layoutConfig = new RailwayManager(LoggerHelper.ConsoleLogger).New("./", "Test");
         Assert.That(layoutConfig, Is.Not.Null);
 
         layoutConfig.Settings.Controller.Name = "Virtual";
         layoutConfig.Settings.Controller.Adapters.Add(new Adapter { Name = "Virtual" });
         layoutConfig.Start();
-        Assert.That(layoutConfig.StateManager, Is.Not.Null);
         Assert.That(layoutConfig.CommandStationManager, Is.Not.Null);
 
         // Add a Locomotive to the layout configuration

@@ -3,5 +3,9 @@ using DCCRailway.Layout.Collection;
 namespace DCCRailway.Layout.Entities;
 
 [Serializable]
-public class Locomotives(string prefix, string name, string? pathname = null)
-    : LayoutRepository<Locomotive>(prefix, name, pathname);
+public class Locomotives : LayoutRepository<Locomotive> {
+    public Locomotives() : this(null) { }
+    public Locomotives(string? prefix= null) {
+        Prefix = prefix ?? "L";
+    }
+}

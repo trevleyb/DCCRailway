@@ -3,5 +3,9 @@ using DCCRailway.Layout.Collection;
 namespace DCCRailway.Layout.Entities;
 
 [Serializable]
-public class Sensors(string prefix, string name, string? pathname = null)
-    : LayoutRepository<Sensor>(prefix, name, pathname);
+public class Sensors : LayoutRepository<Sensor> {
+    public Sensors() : this(null) { }
+    public Sensors(string? prefix= null) {
+        Prefix = prefix ?? "S";
+    }
+}

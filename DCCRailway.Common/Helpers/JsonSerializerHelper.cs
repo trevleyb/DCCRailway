@@ -1,8 +1,9 @@
-﻿using System.Text.Json;
+﻿using System.Reflection;
+using System.Text.Json;
 
 namespace DCCRailway.Common.Helpers;
 
-public abstract class JsonSerializerHelper<T> {
+public static class JsonSerializerHelper<T> {
     /// <summary>
     ///     LoadFile an instance of class T from a provided filename and throw an exception if the
     ///     file name does not exist.
@@ -10,7 +11,7 @@ public abstract class JsonSerializerHelper<T> {
     /// <param name="fileName">The name of the file to load</param>
     /// <returns>An instance of an XML class </returns>
     /// <exception cref="ApplicationException">If it is unable to load the file</exception>
-    protected static T? LoadFile(string? fileName) {
+    public static T? LoadFile(string? fileName) {
         if (!File.Exists(fileName)) return default(T);
         try {
             var serializedStr = File.ReadAllText(fileName);
@@ -27,7 +28,7 @@ public abstract class JsonSerializerHelper<T> {
     /// <param name="entity">The collection to serialise</param>
     /// <param name="fileName">The name of the file to write the data to</param>
     /// <exception cref="ApplicationException">Returns an error if it cannot save</exception>
-    protected static void SaveFile(T entity, string? fileName) {
+    public static void SaveFile(T entity, string? fileName) {
         if (string.IsNullOrEmpty(fileName)) throw new ApplicationException("You must specify a name for the Configuration File.");
 
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File

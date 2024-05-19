@@ -1,26 +1,34 @@
 {
-  "T01": {
-    "IsManual": false,
-    "IsReversed": false,
-    "ResetOnPowerOn": false,
-    "InitialState": 0,
-    "CurrentState": 0,
-    "Type": 0,
-    "Id": "T01",
-    "Name": "Mainline-to-Station",
-    "Description": "",
-    "Parameters": []
-  },
-  "T02": {
-    "IsManual": false,
-    "IsReversed": false,
-    "ResetOnPowerOn": false,
-    "InitialState": 0,
-    "CurrentState": 0,
-    "Type": 0,
-    "Id": "T02",
-    "Name": "Mainline-to-Yard",
-    "Description": "",
-    "Parameters": []
-  }
+  "Turnouts": [
+    {
+      "Key": "T01",
+      "Value": {
+        "IsManual": false,
+        "IsReversed": false,
+        "ResetOnPowerOn": false,
+        "InitialState": 0,
+        "CurrentState": 0,
+        "Type": 0,
+        "Id": "T01",
+        "Name": "Mainline-to-Station",
+        "Description": "",
+        "Parameters": []
+      }
+    },
+    {
+      "Key": "T02",
+      "Value": {
+        "IsManual": false,
+        "IsReversed": false,
+        "ResetOnPowerOn": false,
+        "InitialState": 0,
+        "CurrentState": 0,
+        "Type": 0,
+        "Id": "T02",
+        "Name": "Mainline-to-Yard",
+        "Description": "",
+        "Parameters": []
+      }
+    }
+  ]
 }

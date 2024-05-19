@@ -5,7 +5,7 @@ using DCCRailway.Layout.Events;
 namespace DCCRailway.Layout.Base;
 
 [Serializable]
-public abstract class LayoutEntity : PropertyChangeBase, INotifyPropertyChanged {
+public abstract class LayoutEntity : PropertyChangeBase, INotifyPropertyChanged, ILayoutEntity {
     private string     _description = "";
     private string     _id          = "";
     private string     _name        = "";

@@ -1,4 +1,5 @@
-﻿using DCCRailway.Layout.Entities;
+﻿using DCCRailway.Common.Helpers;
+using DCCRailway.Layout.Entities;
 using DCCRailway.Railway;
 
 namespace DCCRailway.Layout.Test;
@@ -8,7 +9,7 @@ public class SettingsTest {
     [Test]
     public async Task TestEntityRepositoryAddAndStore() {
         // This will either load the file, or will create a new one if it does not exist.
-        var config = new RailwayManager("./TestConfig", "TestFile");
+        var config = new RailwayManager(LoggerHelper.ConsoleLogger).New("./TestConfig", "TestFile");
 
         var accessoryRepository = config.Accessories;
         await accessoryRepository.AddAsync(new Accessory { Name = "TestAccessory1", Description = "Test Accessory Description1" });
@@ -42,7 +43,7 @@ public class SettingsTest {
 
         config.Save();
 
-        var config2 = new RailwayManager("./TestConfig", "TestFile", load: true);
+        var config2 = new RailwayManager(LoggerHelper.ConsoleLogger).New("./TestConfig", "TestFile");
         Assert.That(config2, Is.Not.Null);
 
         var accs = config2.Accessories.GetAll();

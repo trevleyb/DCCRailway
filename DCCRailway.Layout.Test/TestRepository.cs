@@ -41,5 +41,5 @@ public class TestEntityCollectionWithChanges {
     }
 }
 
-public class TestEntities(string prefix = "TEST") : LayoutRepository<TestEntity>(prefix, "TEST", "./test") { }
+public class TestEntities() : LayoutRepository<TestEntity> { }
 public class TestEntity : LayoutEntity { }

@@ -1,3 +1,5 @@
+using System.Collections.Concurrent;
+using System.Text.Json.Serialization;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout.Base;
 using DCCRailway.Layout.Events;
@@ -8,39 +10,16 @@ public delegate void RepositoryChangedEventHandler(object sender, RepositoryChan
 
 [Serializable]
 public abstract class LayoutRepository<TEntity>
-    : EntityStorage<TEntity>
-      , ILayoutRepository<TEntity>
-      , IEnumerable<KeyValuePair<string, TEntity>>
+    : ConcurrentDictionary<string, TEntity>, ILayoutRepository<TEntity>
     where TEntity : LayoutEntity {
+
     private readonly SemaphoreSlim _atomicMutex = new(1, 1);
     private readonly SemaphoreSlim _nextIDMutex = new(1, 1);
 
-    protected LayoutRepository(string prefix, string name, string? pathname = null) {
-        Prefix   = prefix;
-        Name     = name;
-        PathName = pathname ?? "./";
-    }
-
-    public string Name     { get; set; }
-    public string Prefix   { get; init; }
-    public string FileName => $"{Name}.{GetType().Name}.json";
-    public string FullName => Path.Combine(PathName ?? "", FileName);
+    [JsonInclude]
+    public string Prefix { get; set; }
 
     public event RepositoryChangedEventHandler? RepositoryChanged;
-    public string                               PathName { get; set; }
-
-    public void Save(string pathname) {
-        PathName = pathname;
-        ValidatePath(pathname);
-        SaveFile(FullName);
-    }
-
-    public void Save() {
-        ValidatePath(PathName);
-        SaveFile(FullName);
-    }
-
-    public virtual void Load() => LoadFile(FullName);
 
     public async IAsyncEnumerable<TEntity> GetAllAsync() {
         await foreach (var item in Values.ConvertToAsyncEnumerable()) {
@@ -77,7 +56,7 @@ public abstract class LayoutRepository<TEntity>
     public async Task<TEntity?> AddAsync(TEntity entity) {
         try {
             await _atomicMutex.WaitAsync();
-            if (string.IsNullOrEmpty(entity.Id)) entity.Id = await GetNextIDAsync();
+            if (string.IsNullOrEmpty(entity.Id)) entity.Id = GetNextIDAsync();
             if (TryAdd(entity.Id, entity)) OnItemChanged(entity.Id, RepositoryChangeAction.Add);
             return await Task.FromResult(this[entity.Id]);
         } catch {
@@ -136,15 +115,15 @@ public abstract class LayoutRepository<TEntity>
 
     protected async Task<bool> Contains(string id)    => await Task.FromResult(ContainsKey(id));
     protected async Task<bool> Contains(TEntity item) => await Task.FromResult(ContainsKey(item.Id));
-    public          string     GetNextID()            => GetNextIDAsync().GetAwaiter().GetResult();
+    public          string     GetNextID()            => GetNextIDAsync();
 
     /// <summary>
     ///     Each item in the collection must be UNIQUE and have a Unique ID. Originally this was a GUID but
     ///     that is not user friendly so changed it to be a sequential number with a prefix. This code looks
     ///     at the current collection and finds the next available ID.
     /// </summary>
-    public async Task<string> GetNextIDAsync() {
-        await _nextIDMutex.WaitAsync();
+    public string GetNextIDAsync() {
+        _nextIDMutex.WaitAsync();
         try {
             var nextID = 1;
 
@@ -152,11 +131,11 @@ public abstract class LayoutRepository<TEntity>
             // calculate a new ID based on the entities.Prefix and the next sequential number.
             if (this.Any()) {
                 var maxId = Keys
-                           .Where(e => int.TryParse(e.Replace(Prefix, ""), out _))
-                           .Max(e => int.Parse(e.Replace(Prefix, "")));
+                           .Where(e => int.TryParse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, ""), out _))
+                           .Max(e => int.Parse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, "")));
                 nextID = maxId + 1;
             }
-            return $"{Prefix}{nextID:D4}";
+            return $"{Prefix ?? ""}{nextID:D4}";
         } catch (Exception ex) {
             throw new ApplicationException("Somehow could not create a new unique identifier.", ex);
         } finally {

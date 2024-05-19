@@ -4,8 +4,12 @@ namespace DCCRailway.Layout.Entities;
 
 [Serializable]
 public class Manufacturers : LayoutRepository<Manufacturer> {
-    public Manufacturers(string prefix, string name, string? pathname = null) : base(prefix, name, pathname) {
-        base.Load();
+
+    public Manufacturers(string? prefix= null) {
+        Prefix = prefix ?? "B";
+    }
+
+    public Manufacturers() {
         if (Count == 0) BuildManufacturersList();
     }
 
@@ -14,9 +18,9 @@ public class Manufacturers : LayoutRepository<Manufacturer> {
         if (!ContainsKey(idStr)) Add(new Manufacturer(idStr, name));
     }
 
-    private void BuildManufacturersList() {
+    public void BuildManufacturersList() {
         // Copied from DecoderPro definitions which are from the MNRA Manufacturers List
-
+        Clear();
         AddManufacturer("Unknown", 0);
         AddManufacturer("A-Train Electronics", 137);
         AddManufacturer("AMW", 19);

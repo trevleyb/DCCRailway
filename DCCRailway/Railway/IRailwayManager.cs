@@ -15,29 +15,29 @@ namespace DCCRailway.Railway;
 /// </summary>
 public interface IRailwayManager {
 
-    public string        Name          { get; set; }
-    public string        Description   { get; set; }
-    public string        PathName      { get; set; }
+    public string        Name          { get; }
+    public string        Description   { get; }
+    public string        PathName      { get; }
 
     public ILogger       Logger        { get;}
     public Settings      Settings      { get; }
 
-    public Accessories   Accessories   { get; set; }
-    public Blocks        Blocks        { get; set; }
-    public Locomotives   Locomotives   { get; set; }
-    public Routes        Routes        { get; set; }
-    public Sensors       Sensors       { get; set; }
-    public Signals       Signals       { get; set; }
-    public Turnouts      Turnouts      { get; set; }
-    public Manufacturers Manufacturers { get; set; }
+    public Accessories   Accessories   { get; }
+    public Blocks        Blocks        { get; }
+    public Locomotives   Locomotives   { get; }
+    public Routes        Routes        { get; }
+    public Sensors       Sensors       { get; }
+    public Signals       Signals       { get; }
+    public Turnouts      Turnouts      { get; }
+    public Manufacturers Manufacturers { get; }
 
-    //public CommandStationManager CommandStationManager { get; }
-    //public StateManager          StateManager          { get; }
-    //public StateEventProcessor   StateProcessor        { get; }
+    public CommandStationManager CommandStationManager { get; }
+    public StateManager          StateManager          { get; }
+    public StateEventProcessor   StateProcessor        { get; }
 
     public void Start();
     public void Stop();
     public void Save();
-    public void Load();
-    public void New();
+    public IRailwayManager Load(string path, string name);
+    public IRailwayManager New (string path, string name);
 }

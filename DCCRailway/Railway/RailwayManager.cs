@@ -1,5 +1,6 @@
 using System.Reflection;
 using DCCRailway.Common.Helpers;
+using DCCRailway.Layout.Base;
 using DCCRailway.Layout.Collection;
 using DCCRailway.Layout.Entities;
 using DCCRailway.Railway.Configuration;
@@ -12,7 +13,8 @@ using Serilog;
 
 namespace DCCRailway.Railway;
 
-public sealed class RailwayManager : IRailwayManager {
+public sealed class RailwayManager(ILogger logger) : IRailwayManager {
+
     public const string DefaultConfigName   = "DCCRailway";
     public const string DefaultPathLocation = "./";
 
@@ -28,88 +30,52 @@ public sealed class RailwayManager : IRailwayManager {
 
     public string PathName {
         get => Settings.PathName;
-        set {
-            Settings.PathName = value;
-            foreach (var property in GetType().GetProperties().Where(x => x.PropertyType == typeof(ILayoutSaveLoad) || typeof(ILayoutSaveLoad).IsAssignableFrom(x.PropertyType))) {
-                if (property.GetValue(this) is ILayoutSaveLoad saveable) saveable.PathName = value;
-            }
-        }
+        set => Settings.PathName = value;
     }
 
-    public ILogger       Logger        { get; init; }
-    public Settings      Settings      { get; init; } = new();
+    public ILogger       Logger        { get; init; } = logger;
+    public Settings      Settings      { get; private set; }
 
-    public Accessories   Accessories   { get; set; }
-    public Blocks        Blocks        { get; set; }
-    public Locomotives   Locomotives   { get; set; }
-    public Routes        Routes        { get; set; }
-    public Sensors       Sensors       { get; set; }
-    public Signals       Signals       { get; set; }
-    public Turnouts      Turnouts      { get; set; }
-    public Manufacturers Manufacturers { get; set; }
+    public Accessories   Accessories   { get; private set; } = [];
+    public Blocks        Blocks        { get; private set; } = [];
+    public Locomotives   Locomotives   { get; private set; } = [];
+    public Routes        Routes        { get; private set; } = [];
+    public Sensors       Sensors       { get; private set; } = [];
+    public Signals       Signals       { get; private set; } = [];
+    public Turnouts      Turnouts      { get; private set; } = [];
+    public Manufacturers Manufacturers { get; private set; } = [];
 
-    public CommandStationManager CommandStationManager { get; set; }
+    public CommandStationManager CommandStationManager { get; private set; }
     public StateManager          StateManager          { get; private set; }
     public StateEventProcessor   StateProcessor        { get; private set; }
     public WiThrottleServer?     WiThrottle            { get; private set; }
-
-    public RailwayManager (ILogger logger, string? path, string? name = null, bool? load = null, bool? runWiThrottle = null) {
-        Logger   = logger;
-        Name     = name ?? DefaultConfigName;
-        PathName = path ?? DefaultPathLocation;
-        if (runWiThrottle != null) Settings.WiThrottle.RunOnStartup = (bool)runWiThrottle;
-        CreateRepositories();
-        if (load is not null && (bool) load) Load();
-    }
-
-    public RailwayManager () : this(LoggerHelper.ConsoleLogger, DefaultPathLocation, DefaultConfigName, false, false) { }
-    public RailwayManager (bool load) : this(LoggerHelper.ConsoleLogger, DefaultPathLocation, DefaultConfigName, load, false) { }
-    public RailwayManager (string? name = null) : this(LoggerHelper.ConsoleLogger, DefaultPathLocation, name, false, false) { }
-    public RailwayManager (string? path, string? name = null, bool? load = null, bool? runWiThrottle = null) : this(LoggerHelper.ConsoleLogger, path, name, load, runWiThrottle) { }
-    public RailwayManager (string? path, string? name = null, bool load = false) : this(LoggerHelper.ConsoleLogger, path, name, load, false) { }
-    public RailwayManager (string? path, string? name = null) : this(LoggerHelper.ConsoleLogger, path, name, false, false) { }
 
     /// <summary>
     /// Re-Loads the repositories into the collections. This is done when we instantiate
     /// the Railway Manager anyway, so this is a re-load function.
     /// </summary>
-    public void Load() {
-        Settings.Load(Settings.FullName);
-        foreach (var property in GetType().GetProperties().Where(x => x.PropertyType == typeof(ILayoutSaveLoad) || typeof(ILayoutSaveLoad).IsAssignableFrom(x.PropertyType))) {
-            if (property.GetValue(this) is ILayoutSaveLoad saveable) saveable.Load();
-        }
+    public IRailwayManager Load(string path, string name) {
+        LoadRepositories(path,name);
+        Settings.Name     = name;
+        Settings.PathName = path;
+        return this;
     }
 
     /// <summary>
     /// This will clear out the existing config so that there is a set of blank items.
     /// </summary>
-    public void New() {
-        CreateRepositories();
+    public IRailwayManager New(string path, string name) {
+        CreateRepositories(path,name);
+        Settings.Name = name;
+        Settings.PathName = path;
+        return this;
     }
 
     /// <summary>
     ///     Saves the configuration of the railway manager.
     /// </summary>
     public void Save() {
-        try {
-            if (!Directory.Exists(PathName)) Directory.CreateDirectory(PathName);
-        } catch (Exception ex) {
-            throw new ApplicationException($"Unable to create or access the specified path for the config files '{Settings.PathName}'", ex);
-        }
-
-        try {
-            Settings.Save(Settings.FullName);
-        } catch (Exception ex) {
-            throw new ApplicationException($"Unable to save the main Configuration settings file. '{Settings.FullName}'", ex);
-        }
-
-        foreach (var property in GetType().GetProperties().Where(x => x.PropertyType == typeof(ILayoutSaveLoad) || typeof(ILayoutSaveLoad).IsAssignableFrom(x.PropertyType))) {
-            try {
-                if (property.GetValue(this) is ILayoutSaveLoad saveable) saveable.Save();
-            } catch (Exception ex) {
-                throw new ApplicationException($"Unable to save one of the configuration files: '{property.Name}'.", ex);
-            }
-        }
+        SaveRepositories(PathName, Name);
     }
 
     public void Start() {
@@ -139,35 +105,51 @@ public sealed class RailwayManager : IRailwayManager {
         if (Settings.Controller is { Name: not null }) CommandStationManager.Stop();
     }
 
-    /// <summary>
-    ///     Creates repository instances for each entity type in the RailwayManager.
-    /// </summary>
-    /// <param name="load">Indicates if the instantiation should load existing data.</param>
-    private void CreateRepositories() {
-        Accessories   = CreateRepository<Accessories>(Settings, "Accessories", "A");
-        Blocks        = CreateRepository<Blocks>(Settings, "Blocks", "B");
-        Locomotives   = CreateRepository<Locomotives>(Settings, "Locomotives", "L");
-        Routes        = CreateRepository<Routes>(Settings, "Routes", "R");
-        Sensors       = CreateRepository<Sensors>(Settings, "Sensors", "S");
-        Signals       = CreateRepository<Signals>(Settings, "Signals", "G");
-        Turnouts      = CreateRepository<Turnouts>(Settings, "Turnouts", "T");
-        Manufacturers = CreateRepository<Manufacturers>(Settings, "Manufacturers", "M");
+    private void SaveRepositories(string path, string name) {
+        JsonSerializerHelper<Settings>.SaveFile(Settings,FullName(path, name, "Settings"));
+        LayoutStorage.SaveFile<Accessories, Accessory>(logger, Accessories, FullName(path, name, "Accessories"));
+        LayoutStorage.SaveFile<Blocks, Block>(logger, Blocks,FullName(path, name, "Blocks"));
+        LayoutStorage.SaveFile<Locomotives, Locomotive>(logger, Locomotives,FullName(path, name, "Locomotives"));
+        LayoutStorage.SaveFile<Routes, Route>(logger, Routes,FullName(path, name, "Routes"));
+        LayoutStorage.SaveFile<Sensors, Sensor>(logger, Sensors,FullName(path, name, "Sensors"));
+        LayoutStorage.SaveFile<Signals, Signal>(logger, Signals,FullName(path, name, "Signals"));
+        LayoutStorage.SaveFile<Turnouts, Turnout>(logger, Turnouts,FullName(path, name, "Turnouts"));
+        LayoutStorage.SaveFile<Manufacturers, Manufacturer>(logger, Manufacturers,FullName(path, name, "Manufacturers"));
     }
 
-    /// <summary>
-    ///     Creates a repository of type T based on the provided settings and entity key.
-    ///     This is to alolow the filename, the prefix and path location to be overridden in the
-    ///     settings structure for each of the repository types.
-    /// </summary>
-    /// <typeparam name="T">The type of the repository to create.</typeparam>
-    /// <param name="settings">The settings object containing the entity information.</param>
-    /// <param name="entityKey">The key of the entity in the settings object.</param>
-    /// <param name="defautPrefix">The prefix to be used when auto-generting the unique identifier</param>
-    /// <param name="load">Indicates if the instantiation should load existing data.</param>
-    /// <returns>A repository of type T.</returns>
-    public static T CreateRepository<T>(Settings settings, string entityKey, string defautPrefix) {
-        var prefix = settings.Entities[entityKey]?.Prefix ?? defautPrefix;
-        var entity = (T)Activator.CreateInstance(typeof(T), prefix, settings.Name, settings.PathName)!;
-        return entity;
+    private void LoadRepositories(string path, string name) {
+        Settings    = JsonSerializerHelper<Settings>.LoadFile(FullName(path, name, "Settings")) ?? new Settings();
+        Accessories = LayoutStorage.LoadFile<Accessories, Accessory>(logger, FullName(path, name, "Accessories")) ?? new Accessories();
+        Blocks      = LayoutStorage.LoadFile<Blocks, Block>(logger, FullName(path, name, "Blocks")) ?? new Blocks();
+        Locomotives = LayoutStorage.LoadFile<Locomotives, Locomotive>(logger, FullName(path, name, "Locomotives")) ?? new Locomotives();
+        Routes      = LayoutStorage.LoadFile<Routes, Route>(logger, FullName(path, name, "Routes")) ?? new Routes();
+        Sensors     = LayoutStorage.LoadFile<Sensors, Sensor>(logger, FullName(path, name, "Sensors")) ?? new Sensors();
+        Signals     = LayoutStorage.LoadFile<Signals, Signal>(logger, FullName(path, name, "Signals")) ?? new Signals();
+        Turnouts    = LayoutStorage.LoadFile<Turnouts, Turnout>(logger, FullName(path, name, "Turnouts")) ?? new Turnouts();
+        Manufacturers = LayoutStorage.LoadFile<Manufacturers, Manufacturer>(logger, FullName(path, name, "Manufacturers")) ?? new Manufacturers();
+        if (Manufacturers.Count == 0) Manufacturers.BuildManufacturersList();
+    }
+
+    private void CreateRepositories(string path, string name) {
+        Settings        = new Settings();
+        Accessories     = new Accessories();
+        Blocks          = new Blocks();
+        Locomotives     = new Locomotives();
+        Routes          = new Routes();
+        Sensors         = new Sensors();
+        Signals         = new Signals();
+        Turnouts        = new Turnouts();
+        Manufacturers   = new Manufacturers();
+
+    }
+    public static string FullName(string path, string name, string entity) {
+        if (!Directory.Exists(path)) {
+            try {
+                Directory.CreateDirectory(path);
+            } catch (Exception ex) {
+                throw new ApplicationException($"Unable to create the specified folder '{path}'", ex);
+            }
+        }
+        return Path.Combine(path ?? "", $"{name}.{entity}.json");
     }
 }
