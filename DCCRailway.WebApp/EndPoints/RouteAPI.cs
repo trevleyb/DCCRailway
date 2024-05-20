@@ -1,4 +1,4 @@
-using DCCRailway.Layout.Collection;
+using DCCRailway.Layout.Entities.Collection;
 using Route = DCCRailway.Layout.Entities.Route;
 
 namespace DCCRailway.WebApp.EndPoints;

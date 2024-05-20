@@ -1,6 +1,6 @@
 using DCCRailway.Common.Helpers;
-using DCCRailway.Layout.Base;
-using DCCRailway.Layout.Collection;
+using DCCRailway.Layout.Entities.Base;
+using DCCRailway.Layout.Entities.Collection;
 
 namespace DCCRailway.Layout.Test;
 

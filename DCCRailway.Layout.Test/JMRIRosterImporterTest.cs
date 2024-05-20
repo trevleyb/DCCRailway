@@ -1,6 +1,5 @@
 using DCCRailway.Common.Helpers;
-using DCCRailway.Railway;
-using DCCRailway.Railway.Converters.JMRI;
+using DCCRailway.Layout.Converters.JMRI;
 using Serilog;
 using Serilog.Core;
 
@@ -10,18 +9,18 @@ namespace DCCRailway.Layout.Test;
 public class JMRIRosterImporterTest {
     [SetUp]
     public void SetUp() {
-        mgr = new RailwayManager(LoggerHelper.ConsoleLogger) ?? throw new Exception("Cannot start a Layout Manager");
+        mgr = new RailwaySettings(LoggerHelper.ConsoleLogger) ?? throw new Exception("Cannot start a Layout Manager");
     }
 
     [TearDown]
     public void TearDown() { }
 
-    private IRailwayManager mgr;
+    private IRailwaySettings mgr;
 
     [Test]
     public void ImportJMRIRoster() {
         var importer = new JmriRosterImporter(new LoggerConfiguration().CreateLogger());
-        importer.Import(mgr!, "roster.xml");
+        importer.Import(mgr.Locomotives, "roster.xml");
     }
 
     [Test]
@@ -29,13 +28,13 @@ public class JMRIRosterImporterTest {
         var sw = new StreamWriter("corruptfile.xml");
         sw.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?");
         var importer = new JmriRosterImporter(new LoggerConfiguration().CreateLogger());
-        Assert.That(() => importer.Import(mgr!, "corruptfile.xml"), Throws.Exception);
+        Assert.That(() => importer.Import(mgr.Locomotives, "corruptfile.xml"), Throws.Exception);
     }
 
     [Test]
     public void InvalidFilename() {
         var importer = new JmriRosterImporter(new LoggerConfiguration().CreateLogger());
-        Assert.That(() => importer.Import(mgr!, "invalid.xml"), Throws.Exception);
+        Assert.That(() => importer.Import(mgr.Locomotives, "invalid.xml"), Throws.Exception);
     }
 
     [Test]
@@ -43,6 +42,6 @@ public class JMRIRosterImporterTest {
         var sw = new StreamWriter("invalidfile.xml");
         sw.WriteLine("This is not a valid XML file");
         var importer = new JmriRosterImporter(new LoggerConfiguration().CreateLogger());
-        Assert.That(() => importer.Import(mgr!, "invalidfile.xml"), Throws.Exception);
+        Assert.That(() => importer.Import(mgr.Locomotives, "invalidfile.xml"), Throws.Exception);
     }
 }

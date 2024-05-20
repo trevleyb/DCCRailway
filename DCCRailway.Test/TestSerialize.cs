@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 using DCCRailway.Common.Helpers;
-using DCCRailway.Layout.Base;
-using DCCRailway.Layout.Collection;
 using DCCRailway.Layout.Entities;
+using DCCRailway.Layout.Entities.Base;
+using DCCRailway.Layout.Entities.Collection;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using JsonConverter = System.Text.Json.Serialization.JsonConverter;

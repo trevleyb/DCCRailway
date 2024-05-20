@@ -12,6 +12,7 @@
         <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
         <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
         <ProjectReference Include="..\DCCRailway.WebApp\DCCRailway.WebApp.csproj"/>
+        <ProjectReference Include="..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj" />
     </ItemGroup>
 
     <ItemGroup>

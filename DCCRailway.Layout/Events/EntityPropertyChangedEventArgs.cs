@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using DCCRailway.Layout.Base;
+using DCCRailway.Layout.Entities.Base;
 
 namespace DCCRailway.Layout.Events;
 

@@ -1,4 +1,4 @@
-using DCCRailway.Layout.Collection;
+using DCCRailway.Layout.Entities.Collection;
 
 namespace DCCRailway.Layout.Entities;
 

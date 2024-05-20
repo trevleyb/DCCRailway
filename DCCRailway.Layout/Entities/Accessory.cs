@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using DCCRailway.Layout.Base;
+using DCCRailway.Layout.Entities.Base;
 
 namespace DCCRailway.Layout.Entities;
 

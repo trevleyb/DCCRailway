@@ -1,7 +1,6 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Entities;
-using DCCRailway.Railway;
 
 namespace DCCRailway.Layout.Test;
 
@@ -13,8 +12,8 @@ public class TestEntityEvents {
     public void TestThatEntityRepositoryIsEventingChanges() {
         var propertyChanged   = false;
         var repositoryChanged = false;
-        var config            = CreateTestConfig();
-        var locomotives       = config.Locomotives;
+        var config  = CreateTestConfig();
+        var locomotives = config.Locomotives;
         locomotives.RepositoryChanged += (sender, args) => repositoryChanged = true;
 
         propertyChanged = false;
@@ -46,8 +45,8 @@ public class TestEntityEvents {
         locomotives.DeleteAsync(locomotive.Id);
     }
 
-    private IRailwayManager CreateTestConfig() {
-        var config = new RailwayManager(LoggerHelper.ConsoleLogger).New("./","Test Entities");
+    private IRailwaySettings CreateTestConfig() {
+        var config = new RailwaySettings(LoggerHelper.ConsoleLogger).New("./","Test Entities");
 
         var locomotives = config.Locomotives;
         locomotives.Add(new Locomotive { Name = "Train01" });

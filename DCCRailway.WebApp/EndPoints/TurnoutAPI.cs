@@ -1,5 +1,5 @@
-using DCCRailway.Layout.Collection;
 using DCCRailway.Layout.Entities;
+using DCCRailway.Layout.Entities.Collection;
 
 namespace DCCRailway.WebApp.EndPoints;
 
