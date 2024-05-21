@@ -20,7 +20,7 @@ public class MsgHardware(WiThrottleConnection connection) : ThrottleMsg, IThrott
         }
     }
 
-    public override string ToString() => $"MSG:Hardware [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
+    public override string ToString() => $"MSG:Hardware [{connection?.ToString() ?? ""}]";
 }
 
 /*

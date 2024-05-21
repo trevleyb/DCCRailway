@@ -13,5 +13,5 @@ public class MsgConfiguration(WiThrottleConnection connection) : ThrottleMsg, IT
         }
     }
 
-    public override string ToString() => $"MSG:Configuration [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
+    public override string ToString() => $"MSG:Configuration [{connection?.ToString() ?? ""}]";
 }

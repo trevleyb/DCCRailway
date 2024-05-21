@@ -27,7 +27,7 @@ public class MsgRouteList(WiThrottleConnection connection) : ThrottleMsg, IThrot
         }
     }
 
-    public override string ToString() => $"MSG:RouteList [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
+    public override string ToString() => $"MSG:RouteList [{connection?.ToString() ?? ""}]";
 }
 
 /*

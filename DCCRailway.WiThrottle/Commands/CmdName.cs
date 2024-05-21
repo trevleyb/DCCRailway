@@ -11,8 +11,6 @@ public class CmdName(ILogger logger, WiThrottleConnection connection) : Throttle
         if (commandStr.Length > 1) {
             var deviceName = commandStr[1..].Replace("???", "'");
             connection.ThrottleName = deviceName;
-            logger.Information("WiThrottle Cmd: Name - {0}:{2}=> Set the connection device name to '{1}'", connection.ConnectionHandle, deviceName, connection.ToString());
-
             connection.QueueMsg(new MsgServerID(connection));
             connection.QueueMsg(new MsgHeartbeat(connection));
             connection.QueueMsg(new MsgPowerState(connection));

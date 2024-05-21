@@ -28,7 +28,7 @@ public class MsgTurnoutList(WiThrottleConnection connection) : ThrottleMsg, IThr
         }
     }
 
-    public override string ToString() => $"MSG:TurnoutList [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";
+    public override string ToString() => $"MSG:TurnoutList [{connection?.ToString() ?? ""}]";
 }
 
 /*
