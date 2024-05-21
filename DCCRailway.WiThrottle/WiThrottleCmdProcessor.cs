@@ -1,4 +1,5 @@
-﻿using DCCRailway.Controller.Controllers;
+﻿using DCCRailway.Controller.Attributes;
+using DCCRailway.Controller.Controllers;
 using DCCRailway.WiThrottle.Commands;
 using Serilog;
 
@@ -20,12 +21,11 @@ public class WiThrottleCmdProcessor(ILogger logger, ICommandStation commandStati
         // ------------------------------------------------------------------
         if (!string.IsNullOrEmpty(commandStr) && commandStr.Length >= 1) {
             var cmdProcessor = DetermineCommandType();
-            logger.ForContext<WiThrottleServer>().Debug("CMD:Processor [{0}]: Recieved a command of {1}", connection.ToString(), cmdProcessor.ToString());
+            logger.Debug("WiThrottle Command Processor [{0}]: Recieved a command of {1} for {2}", connection.ToString(), cmdProcessor.ToString(),commandStation.AttributeInfo().Name);
             cmdProcessor.Execute(commandStr);
             if (cmdProcessor is CmdQuit) return true;
         }
         return false;
-
 
         IThrottleCmd DetermineCommandType() {
             if (string.IsNullOrEmpty(commandStr)) return new CmdIgnore(logger,connection);

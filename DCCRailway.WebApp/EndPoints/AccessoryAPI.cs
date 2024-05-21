@@ -6,13 +6,13 @@ namespace DCCRailway.WebApp.EndPoints;
 public static class AccessoryApi {
     public static void Configure(WebApplication app, ILayoutRepository<Accessory> entities) {
         app.MapGet("/layout/accessories/{id}", async (string id) => {
-            var accessory = await entities.GetByIDAsync(id);
-            return accessory == null ? Results.NotFound() : Results.Ok(accessory);
+            var accessory = entities.GetByID(id);
+            return await Task.FromResult(accessory == null ? Results.NotFound() : Results.Ok(accessory));
         });
 
-        app.MapGet("/layout/accessories", async () => await Task.FromResult(Results.Ok(entities.GetAllAsync())));
-        app.MapPost("/layout/accessories", async (Accessory accessory) => Results.Ok(await entities.AddAsync(accessory)));
-        app.MapPut("/layout/accessories/{id}", async (string id, Accessory accessory) => Results.Ok(await entities.UpdateAsync(accessory)));
-        app.MapDelete("/layout/accessories/{id}", async (string id) => Results.Ok(await entities.DeleteAsync(id)));
+        app.MapGet("/layout/accessories", async () => await Task.FromResult(Results.Ok(entities.GetAll())));
+        app.MapPost("/layout/accessories", async (Accessory accessory) => await Task.FromResult(Results.Ok(entities.Add(accessory))));
+        app.MapPut("/layout/accessories/{id}", async (string id, Accessory accessory) => await Task.FromResult(Results.Ok(entities.Update(accessory))));
+        app.MapDelete("/layout/accessories/{id}", async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
     }
 }

@@ -21,7 +21,120 @@ public abstract class LayoutRepository<TEntity>
 
     public event RepositoryChangedEventHandler? RepositoryChanged;
 
-    public async IAsyncEnumerable<TEntity> GetAllAsync() {
+    public IList<TEntity> GetAll() => Values.ToList();
+    public IList<TEntity> GetAll(Func<TEntity, bool> predicate) => Values.Select(x => x).Where(predicate).ToList();
+
+    public TEntity? Find(Func<TEntity, bool> predicate) => Values.FirstOrDefault(predicate);
+    public TEntity? GetByID(string id) => this[id] ?? default(TEntity?);
+    public TEntity? GetByName(string name)              => Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+    public TEntity? IndexOf(int index)                  => this.ElementAtOrDefault(index).Value;
+    public TEntity? Update(TEntity entity) {
+        try {
+            _atomicMutex.Wait();
+            if (ContainsKey(entity.Id)) {
+                this[entity.Id] = entity;
+                OnItemChanged(entity.Id, RepositoryChangeAction.Update);
+                return entity;
+            } else {
+                throw new KeyNotFoundException("Provided key in the Entity does not exist.");
+            }
+        } finally {
+            _atomicMutex.Release();
+        }
+    }
+
+    public TEntity? Add(TEntity entity) {
+        try {
+            _atomicMutex.Wait();
+            if (string.IsNullOrEmpty(entity.Id)) entity.Id = GetNextID();
+            if (TryAdd(entity.Id, entity)) OnItemChanged(entity.Id, RepositoryChangeAction.Add);
+            return this[entity.Id];
+        } catch {
+            throw new KeyNotFoundException("Provided key in the Entity does not exist.");
+        } finally {
+            _atomicMutex.Release();
+        }
+    }
+
+    public TEntity? Delete(string id) {
+        try {
+            _atomicMutex.Wait();
+            if (ContainsKey(id)) {
+                if (TryRemove(id, out var removed)) OnItemChanged(id, RepositoryChangeAction.Delete);
+                return removed;
+            }
+            return default(TEntity?);
+        } catch {
+            throw new KeyNotFoundException("Provided key in the Entity does not exist.");
+        } finally {
+            _atomicMutex.Release();
+        }
+    }
+
+    public void DeleteAll() {
+        _atomicMutex.Wait();
+        try {
+            var keys = new List<string>(Keys);
+            foreach (var key in keys) {
+                if (TryRemove(key, out var removed)) OnItemChanged(key, RepositoryChangeAction.Delete);
+            }
+        } finally {
+            _atomicMutex.Release();
+        }
+    }
+
+    private void ValidatePath(string pathname) {
+        try {
+            if (!Directory.Exists(pathname)) Directory.CreateDirectory(pathname);
+        } catch (Exception ex) {
+            throw new ApplicationException($"Unable to create or access the specified path for the config files '{pathname}'", ex);
+        }
+    }
+
+    protected bool Contains(string id)    => ContainsKey(id);
+    protected bool Contains(TEntity item) => ContainsKey(item.Id);
+
+    /// <summary>
+    ///     Each item in the collection must be UNIQUE and have a Unique ID. Originally this was a GUID but
+    ///     that is not user friendly so changed it to be a sequential number with a prefix. This code looks
+    ///     at the current collection and finds the next available ID.
+    /// </summary>
+    public string GetNextID() {
+        _nextIDMutex.WaitAsync();
+        try {
+            var nextID = 1;
+
+            // sort the current collection and find the highest number in the collection and
+            // calculate a new ID based on the entities.Prefix and the next sequential number.
+            if (this.Any()) {
+                var maxId = Keys
+                           .Where(e => int.TryParse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, ""), out _))
+                           .Max(e => int.Parse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, "")));
+                nextID = maxId + 1;
+            }
+            return $"{Prefix ?? ""}{nextID:D4}";
+        } catch (Exception ex) {
+            throw new ApplicationException("Somehow could not create a new unique identifier.", ex);
+        } finally {
+            _nextIDMutex.Release();
+        }
+    }
+
+    private void OnItemChanged(string id, RepositoryChangeAction action) {
+        RepositoryChanged?.Invoke(this, new RepositoryChangedEventArgs(GetType().Name, id, action));
+    }
+
+    private void OnItemChanged(RepositoryChangedEventArgs e) {
+        RepositoryChanged?.Invoke(this, e);
+    }
+
+
+
+
+
+
+    /*
+    public IAsyncEnumerable<TEntity> GetAllAsync() {
         await foreach (var item in Values.ConvertToAsyncEnumerable()) {
             yield return item;
         }
@@ -116,38 +229,5 @@ public abstract class LayoutRepository<TEntity>
     protected async Task<bool> Contains(string id)    => await Task.FromResult(ContainsKey(id));
     protected async Task<bool> Contains(TEntity item) => await Task.FromResult(ContainsKey(item.Id));
     public          string     GetNextID()            => GetNextIDAsync();
-
-    /// <summary>
-    ///     Each item in the collection must be UNIQUE and have a Unique ID. Originally this was a GUID but
-    ///     that is not user friendly so changed it to be a sequential number with a prefix. This code looks
-    ///     at the current collection and finds the next available ID.
-    /// </summary>
-    public string GetNextIDAsync() {
-        _nextIDMutex.WaitAsync();
-        try {
-            var nextID = 1;
-
-            // sort the current collection and find the highest number in the collection and
-            // calculate a new ID based on the entities.Prefix and the next sequential number.
-            if (this.Any()) {
-                var maxId = Keys
-                           .Where(e => int.TryParse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, ""), out _))
-                           .Max(e => int.Parse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, "")));
-                nextID = maxId + 1;
-            }
-            return $"{Prefix ?? ""}{nextID:D4}";
-        } catch (Exception ex) {
-            throw new ApplicationException("Somehow could not create a new unique identifier.", ex);
-        } finally {
-            _nextIDMutex.Release();
-        }
-    }
-
-    private void OnItemChanged(string id, RepositoryChangeAction action) {
-        RepositoryChanged?.Invoke(this, new RepositoryChangedEventArgs(GetType().Name, id, action));
-    }
-
-    private void OnItemChanged(RepositoryChangedEventArgs e) {
-        RepositoryChanged?.Invoke(this, e);
-    }
+*/
 }

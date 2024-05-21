@@ -74,7 +74,7 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
     private void StartListener(TcpListener server) {
         // Setup the Server to Broadcast its presence on the network
         // ----------------------------------------------------------
-        var serverBroadcaster = new ServerBroadcast(logger);
+        var serverBroadcaster = new ServerBroadcast();
         serverBroadcaster.Start(railwaySettings.Settings.WiThrottle);
         try {
             _heartbeatCheckTimer           =  new Timer(railwaySettings.Settings.WiThrottle.HeartbeatCheckTime);

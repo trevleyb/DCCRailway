@@ -6,14 +6,14 @@ namespace DCCRailway.WebApp.EndPoints;
 public static class LocomotiveAPI {
     public static void Configure(WebApplication app, ILayoutRepository<Locomotive> entities) {
         app.MapGet("/layout/locomotives/{id}", async (string id) => {
-            var locomotive = await entities.GetByIDAsync(id);
-            return locomotive == null ? Results.NotFound() : Results.Ok(locomotive);
+            var locomotive = entities.GetByID(id);
+            return await Task.FromResult(locomotive == null ? Results.NotFound() : Results.Ok(locomotive));
         });
 
         app.MapGet("/layout/locomotives", async () => await Task.FromResult(entities));
-        app.MapPost("/layout/locomotives", async (Locomotive locomotive) => Results.Ok(await entities.AddAsync(locomotive)));
-        app.MapPut("/layout/locomotives/{id}", async (string id, Locomotive locomotive) => Results.Ok(await entities.UpdateAsync(locomotive)));
-        app.MapDelete("/layout/locomotives/{id}", async (string id) => Results.Ok(await entities.DeleteAsync(id)));
+        app.MapPost("/layout/locomotives", async (Locomotive locomotive) => await Task.FromResult(Results.Ok(entities.Add(locomotive))));
+        app.MapPut("/layout/locomotives/{id}", async (string id, Locomotive locomotive) => await Task.FromResult(Results.Ok(entities.Update(locomotive))));
+        app.MapDelete("/layout/locomotives/{id}", async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
     }
 }
 

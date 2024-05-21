@@ -1,28 +1,16 @@
-using System.Diagnostics;
-using System.Net;
-using System.Net.Sockets;
 using CommandLine;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using DCCRailway;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout;
-using DCCRailway.Layout.Configuration;
 using DCCRailway.Managers;
 using DCCRailway.Managers.Controller;
 using DCCRailway.Managers.State;
-using DCCRailway.WebApp.Components;
 using DCCRailway.WiThrottle;
-using DCCRailway.WiThrottle.Helpers;
-using Makaretu.Dns;
-using Serilog.Configuration;
 using Serilog.Core;
-using Task = System.Threading.Tasks.Task;
 
 WiThrottleRun(args);
-
-void Main(string[] args) {
-}
 
 void WiThrottleRun(string[] args) {
 

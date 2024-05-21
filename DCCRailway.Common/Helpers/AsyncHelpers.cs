@@ -1,5 +1,6 @@
 namespace DCCRailway.Common.Helpers;
 
+
 public static class AsyncHelpers {
     public static async Task<IList<T>> GetListFromAsyncEnumerable<T>(this IAsyncEnumerable<T> asyncEnumerable) {
         var list = new List<T>();

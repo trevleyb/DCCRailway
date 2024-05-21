@@ -42,7 +42,7 @@ public class TestEntityEvents {
         Assert.That(propertyChanged, Is.True);
 
         propertyChanged = false;
-        locomotives.DeleteAsync(locomotive.Id);
+        locomotives.Delete(locomotive.Id);
     }
 
     private IRailwaySettings CreateTestConfig() {

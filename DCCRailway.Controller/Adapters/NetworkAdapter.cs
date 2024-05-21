@@ -15,5 +15,7 @@ public abstract class NetworkAdapter(ILogger logger) : Adapter, IAdapter {
 
     public void SendData(byte[] data, ICommand? command = null) => throw new NotImplementedException();
 
-    public void Dispose() { }
+    public void Dispose() {
+        logger.Verbose("NetworkAdapter Disposed.");
+    }
 }

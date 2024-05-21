@@ -12,5 +12,8 @@ public class NullAdapter (ILogger logger): Adapter, IAdapter {
     public void    Disconnect()                            { }
     public void    SendData(byte[] data, ICommand command) { }
     public byte[]? RecvData(ICommand command)              => [];
-    public void    Dispose()                               { }
+
+    public void Dispose() {
+        logger.Verbose("NullAdapter Disposed.");
+    }
 }

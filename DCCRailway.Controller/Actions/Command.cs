@@ -34,9 +34,6 @@ public abstract class Command : PropertyChangedBase, ICommand, IParameterMappabl
 
     protected abstract ICmdResult Execute(IAdapter adapter);
 
-    //public async Task<ICmdResult> ExecuteAsync() => Adapter != null ? await Task.FromResult(Execute(Adapter)) : throw new UnsupportedCommandException("No adapter is configured on this command.");
-    //public async Task<ICmdResult> ExecuteAsync(IAdapter adapter) => await Task.FromResult(Execute(adapter));
-
     protected ICmdResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceive(adapter, validator, new[] { sendData });
 
     protected ICmdResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte[] sendData) {

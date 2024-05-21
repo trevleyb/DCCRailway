@@ -11,8 +11,4 @@ public interface ICommand : IParameterMappable {
     ICommandStation CommandStation { set; }
     ILogger Logger { get; set; }
     ICmdResult      Execute();
-
-
-    //public Task<ICmdResult> ExecuteAsync();
-    //public Task<ICmdResult> ExecuteAsync(IAdapter adapter);
 }

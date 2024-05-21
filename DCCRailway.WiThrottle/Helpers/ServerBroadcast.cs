@@ -5,7 +5,7 @@ using Serilog;
 
 namespace DCCRailway.WiThrottle.Helpers;
 
-public class ServerBroadcast(ILogger logger) {
+public class ServerBroadcast() {
     private ServiceDiscovery? _sd;
 
     public void Start(WiThrottlePrefs options) {
@@ -18,7 +18,7 @@ public class ServerBroadcast(ILogger logger) {
             _sd = new ServiceDiscovery();
             _sd.Advertise(sp);
         } catch (Exception ex) {
-            throw new ApplicationException("WiThrottle Service Boradcast: Could not start Broadcast", ex);
+            throw new ApplicationException("WiThrottle Service Broadcast: Could not start Broadcast", ex);
         }
     }
 

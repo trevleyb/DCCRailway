@@ -16,5 +16,7 @@ public abstract class USBAdapter(ILogger logger) : Adapter, IAdapter {
 
     public void SendData(byte[] data, ICommand? command = null) => throw new NotImplementedException();
 
-    public void Dispose() { }
+    public void Dispose() {
+        logger.Verbose("USBAdapter Disposed.");
+    }
 }

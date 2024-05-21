@@ -6,13 +6,13 @@ namespace DCCRailway.WebApp.EndPoints;
 public static class RouteAPI {
     public static void Configure(WebApplication app, ILayoutRepository<Route> entities) {
         app.MapGet("/layout/routes/{id}", async (string id) => {
-            var route = await entities.GetByIDAsync(id);
-            return route == null ? Results.NotFound() : Results.Ok(route);
+            var route = entities.GetByID(id);
+            return await Task.FromResult(route == null ? Results.NotFound() : Results.Ok(route));
         });
 
-        app.MapGet("/layout/routes", async () => await Task.FromResult(Results.Ok(entities.GetAllAsync())));
-        app.MapPost("/layout/routes", async (Route route) => Results.Ok(await entities.AddAsync(route)));
-        app.MapPut("/layout/routes/{id}", async (string id, Route route) => Results.Ok(await entities.UpdateAsync(route)));
-        app.MapDelete("/layout/routes/{id}", async (string id) => Results.Ok(await entities.DeleteAsync(id)));
+        app.MapGet("/layout/routes", async () => await Task.FromResult(Results.Ok(entities.GetAll())));
+        app.MapPost("/layout/routes", async (Route route) => await Task.FromResult(Results.Ok(entities.Add(route))));
+        app.MapPut("/layout/routes/{id}", async (string id, Route route) => await Task.FromResult(Results.Ok(entities.Update(route))));
+        app.MapDelete("/layout/routes/{id}", async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
     }
 }
