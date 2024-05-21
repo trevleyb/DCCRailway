@@ -173,8 +173,15 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
     private void SendServerMessages(WiThrottleConnection connection, NetworkStream stream) {
         while (connection.HasMsg) {
             try {
-                if (connection.NextMsg is { IsValid: true } message) {
-                    SendServerMessages(message.Message, stream);
+
+                // Get the message off the queue but only call the "Message" property
+                // once as calling it can cause code to be executed such as getting the
+                // power state, or a turnout state etc.
+                // --------------------------------------------------------------------
+                var messageStr = connection.NextMsg?.Message ?? "";
+                if (!string.IsNullOrEmpty(Terminators.RemoveTerminators(messageStr)) && Terminators.HasTerminator(messageStr)) {
+                    logger.Information($"WiThrottle Msg: {Terminators.ForDisplay(messageStr)}");
+                    SendServerMessages(messageStr, stream);
                 }
             } catch (Exception ex) {
                 logger.Error("WiThrottle Unable to send message to the client : {0}", ex.Message);
@@ -182,7 +189,7 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
             }
         }
     }
-//
+
     private void SendServerMessages(string serverMessage, NetworkStream stream) {
         SendServerMessages(Encoding.ASCII.GetBytes(serverMessage), stream);
     }
