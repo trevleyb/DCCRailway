@@ -3,17 +3,24 @@ using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Commands.Base;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Attributes;
-using DCCRailway.StateManagement.State;
+using DCCRailway.Managers.State;
 
-namespace DCCRailway.StateManagement.Processors;
+namespace DCCRailway.Managers.Updater;
 
-public class StateUpdaterSignalCmd(IStateManager stateManager) : IStateUpdater {
+public class StateUpdaterAccyCmd(IStateManager stateManager) : IStateUpdater {
     public IResult Process(ICmdResult cmdResult) {
-        if (cmdResult.Command is ISignalCmd signalCmd) {
-            switch (signalCmd) {
-            case ICmdSignalSetAspect cmd:
-                stateManager.SetState(cmd.Address, StateType.Signal, cmd.Aspect);
+
+        if (cmdResult.Command is IAccyCmd accyCmd) {
+            switch (accyCmd) {
+            case ICmdAccyOpsProg cmd: {
                 break;
+            }
+
+            case ICmdAccySetState cmd: {
+                stateManager.SetState(cmd.Address, StateType.Accessory, cmd.State);
+                break;
+            }
+
             default:
                 return Result.Fail($"Unexpected command type {cmdResult?.Command?.AttributeInfo()?.Name}.");
             }

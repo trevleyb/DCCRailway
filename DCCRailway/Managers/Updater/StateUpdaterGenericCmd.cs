@@ -1,8 +1,8 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Actions.Results;
-using DCCRailway.StateManagement.State;
+using DCCRailway.Managers.State;
 
-namespace DCCRailway.StateManagement.Processors;
+namespace DCCRailway.Managers.Updater;
 
 public class StateUpdaterGenericCmd(IStateManager stateManager) : IStateUpdater {
     public IResult Process(ICmdResult cmdResult) {

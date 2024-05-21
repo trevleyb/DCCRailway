@@ -1,6 +1,10 @@
-﻿using System.Net.Sockets;
+﻿using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Timers;
+using DCCRailway.Common.Helpers;
+using DCCRailway.Controller.Actions;
+using DCCRailway.Controller.Controllers;
 using DCCRailway.Layout;
 using DCCRailway.WiThrottle.Helpers;
 using DCCRailway.WiThrottle.Messages;
@@ -21,20 +25,26 @@ namespace DCCRailway.WiThrottle;
 //public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings, CommandStationManager cmdStationMgr) {
 public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) {
     private readonly CancellationTokenSource _cts = new();
-
+    private readonly WiThrottleConnections _connections = new();
+    private ICommandStation _commandStation;
     private Timer _heartbeatCheckTimer;
-    private WiThrottleConnections _connections = [];
+    private IPAddress _hostAdress;
+    private int _hostPort;
 
-    public int ActiveClients { get; set; }
+    public int ActiveClients { get; private set; }
 
     /// <summary>
     ///     Start up the Listener Service using the provided Port and IPAddress
     /// </summary>
-    public void Start() {
+    public void Start(ICommandStation commandStation) {
+
+        _commandStation = commandStation;
+        _hostAdress = Network.GetLocalIpAddress();
+        _hostPort   = railwaySettings.Settings.WiThrottle.HostPort;
 
         // Make sure that the Service is not already running
         // -------------------------------------------------------
-        if (ServiceHelper.IsServiceRunningOnPort(railwaySettings.Settings.WiThrottle.HostPort)) {
+        if (ServiceHelper.IsServiceRunningOnPort(_hostPort)) {
             logger.ForContext<WiThrottleServer>().Error("Service is already running. ");
             return;
         }
@@ -42,12 +52,12 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
         // Start up the TCP Server to listen for incoming connections and process
         // ----------------------------------------------------------
         try {
-            logger.ForContext<WiThrottleServer>().Information("Starting the WiThrottle Server Listener.");
-            var tcpServer = new TcpListener(railwaySettings.Settings.WiThrottle.HostAddress, railwaySettings.Settings.WiThrottle.HostPort);
+            logger.Information("Starting the WiThrottle Server Listener on {0}:{1}.",_hostAdress,_hostPort);
+            var tcpServer = new TcpListener(_hostAdress,_hostPort);
             tcpServer.Start();
             Task.Run(() => { StartListener(tcpServer); });
         } catch (Exception ex) {
-            logger.ForContext<WiThrottleServer>().Error("Server Crashed: {0}", ex);
+            logger.Error("WiThrottle Server Ended Unexpectantly: {0}", ex.Message);
             throw;
         }
     }
@@ -57,6 +67,7 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
     ///     have connections.
     /// </summary>
     public void Stop() {
+        logger.Information("Stopping the WiThrottle Server Listener on {0}:{1}.",_hostAdress,_hostPort);
         _cts.Cancel();
     }
 
@@ -65,27 +76,26 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
         // ----------------------------------------------------------
         var serverBroadcaster = new ServerBroadcast(logger);
         serverBroadcaster.Start(railwaySettings.Settings.WiThrottle);
-
         try {
             _heartbeatCheckTimer           =  new Timer(railwaySettings.Settings.WiThrottle.HeartbeatCheckTime);
             _heartbeatCheckTimer.Elapsed   += HeartbeatCheckHandler;
             _heartbeatCheckTimer.AutoReset =  true;
             _heartbeatCheckTimer.Start();
 
-            logger.ForContext<WiThrottleServer>().Debug("Server Running: Waiting for a connection on {0}", server.LocalEndpoint);
             while (!_cts.IsCancellationRequested) {
-                var    client = server.AcceptTcpClient();
-                Thread t      = new(HandleConnection);
+                var client = server.AcceptTcpClient();
+                Thread t = new(HandleConnection);
                 t.Start(client);
             }
-            logger.ForContext<WiThrottleServer>().Debug("Server Shutting Down on {0}", server.LocalEndpoint);
+            logger.Information("WiThrottle Server Shutting Down on {0}", server.LocalEndpoint);
         } catch (SocketException e) {
-            logger.ForContext<WiThrottleServer>().Error("SocketException: {0}", e);
+            logger.Error("WiThrottle SocketException: {0}", e);
         } finally {
             _heartbeatCheckTimer.Stop();
             ForceCloseAllConnections();
+            serverBroadcaster.Stop();
             server.Stop();
-            logger.ForContext<WiThrottleServer>().Information("Server Stopped.");
+            logger.Information("WiThrottle Server Stopped.");
         }
     }
 
@@ -94,55 +104,69 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
     /// </summary>
     /// <param name="obj"></param>
     private void HandleConnection(object? obj) {
-        ActiveClients++;
-
         // This should not be possible but best to ensure and check for this edge case.
         // -----------------------------------------------------------------------------
         if (obj is not TcpClient client) {
-            logger.ForContext<WiThrottleServer>().Warning("Started thread but provided a NON-TCP Client Object.");
+            logger.Warning("WiThrottle Started thread but provided a NON-TCP Client Object.");
             return;
         }
 
-        logger.ForContext<WiThrottleServer>().Debug("Connection: Client '{0}' has connected.", client.Client.Handle);
-        var stream     = client.GetStream();
-
-        // TODO: Fix this. Should not be in the preferences anyway
-        var connection = _connections.Add(client, railwaySettings);
-        connection.QueueMsg(new MsgConfiguration(connection));
-        var cmdProcessor = new WiThrottleCmdProcessor(logger);
-
         try {
-            var           bytesRead = 0;
-            var           bytes     = new byte[256];
-            StringBuilder buffer    = new();
+            ActiveClients++;
+            logger.Information("WiThrottle Connection: Client '{0}' has connected. [{1} active / {2} inactive connections]", client.Client.Handle ,ActiveClients,_connections.Count);
+            var stream = client.GetStream();
 
-            while ((bytesRead = stream.Read(bytes, 0, bytes.Length)) != 0) {
-                // Read the data and append it to a String Builder in-case there is more data to read.
-                // We are only reading 256 bytes maximum at a time from the stream so keep reading until
-                // we get a terminator at the end of the data stream.
-                // -------------------------------------------------------------------------------------
-                var data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
+            var connection = _connections.Add(client, railwaySettings, _commandStation);
+            connection.QueueMsg(new MsgConfiguration(connection));
+            var cmdProcessor = new WiThrottleCmdProcessor(logger, _commandStation);
 
-                //_logger.ForContext<WiThrottleServer>().Debug($"CMD:RcvBuffer [{connection.ToString()}] => {Terminators.ForDisplay(data.Trim())}");
-                buffer.Append(data);
+            try {
+                var           bytesRead = 0;
+                var           bytes     = new byte[256];
+                StringBuilder buffer    = new();
 
-                if (Terminators.HasTerminator(buffer)) {
-                    foreach (var command in Terminators.GetMessagesAndLeaveIncomplete(buffer)) {
-                        if (!string.IsNullOrEmpty(command)) {
-                            if (cmdProcessor.Interpret(connection, command)) break;
-                            SendServerMessages(connection, stream);
+                while (!_cts.IsCancellationRequested && (bytesRead = stream.Read(bytes, 0, bytes.Length)) != 0) {
+                    // Read the data and append it to a String Builder in-case there is more data to read.
+                    // We are only reading 256 bytes maximum at a time from the stream so keep reading until
+                    // we get a terminator at the end of the data stream.
+                    // -------------------------------------------------------------------------------------
+                    var data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
+                    if (IsBrowserRequest(data, stream)) break;
+
+                    buffer.Append(data);
+                    if (Terminators.HasTerminator(buffer)) {
+                        foreach (var command in Terminators.GetMessagesAndLeaveIncomplete(buffer)) {
+                            if (!string.IsNullOrEmpty(command)) {
+                                if (cmdProcessor.Interpret(connection, command)) break;
+                                SendServerMessages(connection, stream);
+                            }
                         }
+                        buffer.Clear();
                     }
-                    buffer.Clear();
                 }
+                logger.Information("WiThrottle Connection: Client '{0}' has closed.", connection?.ConnectionHandle);
+            } catch (Exception ex) {
+                logger.Error("WiThrottle Error: {0}", ex.Message);
+            } finally {
+                connection?.Close();
             }
-            logger.ForContext<WiThrottleServer>().Debug("Connection: Client '{0}' has closed.", connection?.ConnectionHandle);
-        } catch (Exception e) {
-            logger.ForContext<WiThrottleServer>().Error("Exception: {0}", e);
         } finally {
-            connection?.Close();
+            ActiveClients--;
         }
-        ActiveClients--;
+    }
+
+    private bool IsBrowserRequest(string data, NetworkStream stream) {
+        if (data.StartsWith("GET")) {
+            var message =
+                "HTTP/1.1 403 Forbidden\r\n"+
+                "Content-Type: text/plain\r\n\r\n"+
+               $"The service running on {_hostAdress}:{_hostPort} is a Withrottle service.\r\n"+
+                "Please connect to this service using a WiThrottle compatible application\r\n" +
+                "such as https://www.withrottle.com";
+            SendServerMessages(message.ToString(), stream);
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -156,16 +180,28 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
         while (connection.HasMsg) {
             try {
                 if (connection.NextMsg is { IsValid: true } message) {
-                    var serverMessage = Encoding.ASCII.GetBytes(message.Message);
-                    if (stream is { CanWrite: true }) {
-                        logger.ForContext<WiThrottleServer>().Information("{0}", message.ToString());
-                        stream.Write(serverMessage, 0, serverMessage.Length);
-                    }
+                    SendServerMessages(message.Message, stream);
                 }
             } catch (Exception ex) {
-                logger.ForContext<WiThrottleServer>().Error("Unable to send message to the client : {0}", ex.Message);
+                logger.Error("WiThrottle Unable to send message to the client : {0}", ex.Message);
                 throw;
             }
+        }
+    }
+//
+    private void SendServerMessages(string serverMessage, NetworkStream stream) {
+        SendServerMessages(Encoding.ASCII.GetBytes(serverMessage), stream);
+    }
+
+    private void SendServerMessages(byte[] serverMessage, NetworkStream stream) {
+        try {
+            if (stream is { CanWrite: true }) {
+                //logger.Information("WiThrottle : {0}", Encoding.ASCII.GetString(serverMessage));
+                stream.Write(serverMessage, 0, serverMessage.Length);
+            }
+        } catch (Exception ex) {
+            logger.Error("WiThrottle Unable to send message to the client : {0}", ex.Message);
+            throw;
         }
     }
 
@@ -175,17 +211,9 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
     ///     stop all for any locos under that Throttles control.
     /// </summary>
     private void HeartbeatCheckHandler(object? sender, ElapsedEventArgs args) {
-        CloseConnectionsWithCondition(connection => !connection.IsHeartbeatOk,
-                                      "Did not get a Heartbeat from Client - terminating: {0}");
+        _connections.CloseConnectionsWithCondition(connection => !connection.IsHeartbeatOk,
+                                                   "WiThrottle Did not get a Heartbeat from Client - terminating: {0}");
     }
 
-    private void CloseConnectionsWithCondition(Func<WiThrottleConnection, bool> conditionToClose, string logMessage) {
-        var connectionsToClose = _connections.Where(conditionToClose).ToList();
-        foreach (var connection in connectionsToClose) {
-            logger.ForContext<WiThrottleServer>().Information(logMessage, connection.ConnectionHandle);
-            connection.Close();
-        }
-    }
-
-    private void ForceCloseAllConnections() => CloseConnectionsWithCondition(connection => true, "Force Closing Connection: {0}");
+    private void ForceCloseAllConnections() => _connections.CloseConnectionsWithCondition(connection => true, "Force Closing Connection: {0}");
 }

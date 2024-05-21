@@ -1,10 +1,13 @@
+using DCCRailway.Common.Types;
+using DCCRailway.Layout.Entities;
+using DCCRailway.WiThrottle.Messages;
 using Serilog;
 
 namespace DCCRailway.WiThrottle.Commands;
 
 public class CmdPanel(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        logger.ForContext<WiThrottleServer>().Information("{0:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
+        logger.Information("{0:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
         try {
             switch (commandStr[..3].ToUpper()) {
             case "PPA":
@@ -34,12 +37,11 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
     ///     throw to switch it and finally send a message to tell the throttle
     ///     of its current state.
     /// </summary>
-    private async void ThrowTurnout(string commandStr) {
-        /*
+    private void ThrowTurnout(string commandStr) {
         var turnoutID = commandStr[1..];
-        if (connection.RailwayConfig.Turnouts is { } turnouts) {
-            var turnout = await turnouts.GetByIDAsync(turnoutID);
-            var layoutCmds = new WitThrottleLayoutCmd(connection.ActiveController, turnout?.Address);
+        if (connection.RailwaySettings.Turnouts is { } turnouts) {
+            var turnout = turnouts.GetByID(turnoutID);
+            var layoutCmds = new WitThrottleLayoutCmd(connection.CommandStation, turnout?.Address);
 
             if (turnout != null) {
                 turnout.CurrentState = (TurnoutCommand)commandStr[0] switch {
@@ -52,26 +54,24 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
                 connection.QueueMsg(new MsgTurnoutState(connection, turnout));
             }
         }
-        */
     }
 
     /// <summary>
     ///     Active a Route. You cannot inactivate a route, so the only
     ///     option is command 2 - activate it.
     /// </summary>
-    private async void SetRoute(string commandStr) {
-        /*
+    private void SetRoute(string commandStr) {
         var routeID = commandStr[1..];
-        if (connection.RailwayConfig?.Routes is { } routes) {
-            var route = await routes.GetByIDAsync(routeID);
+        if (connection.RailwaySettings.Routes is { } routes) {
+            var route = routes.GetByID(routeID);
             if (route != null) {
                 DeactiveRoutes();
                 route.State = RouteState.Active;
                 if ((RouteCommand)commandStr[0] == RouteCommand.Active) {
                     foreach (var turnoutEntry in route.RouteTurnouts) {
-                        var turnout = connection.RailwayConfig.Turnouts?[turnoutEntry.TurnoutID];
+                        var turnout = connection.RailwaySettings.Turnouts?[turnoutEntry.TurnoutID];
                         if (turnout is { } item) {
-                            var layoutCmds = new WitThrottleLayoutCmd(connection.ActiveController, item.Address);
+                            var layoutCmds = new WitThrottleLayoutCmd(connection.CommandStation, item.Address);
                             item.CurrentState = turnoutEntry.State;
                             layoutCmds.SetTurnoutState(item.CurrentState);
                         }
@@ -80,21 +80,18 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
                 connection.QueueMsg(new MsgRouteState(connection, route));
             }
         }
-        */
     }
 
     // Force all routes to be deactivated. However, could be more cleaver and could
     // only deactivate routes where there is a clash in the Turnouts.
     // ----------------------------------------------------------------------------
     private void DeactiveRoutes() {
-        /*
-        if (connection.RailwayConfig.Routes.Values is { } routes) {
+        if (connection.RailwaySettings.Routes.Values is { } routes) {
             foreach (var route in routes) {
                 route.State = RouteState.Inactive;
                 connection.QueueMsg(new MsgRouteState(connection, route));
             }
         }
-        */
     }
 
     /// <summary>
@@ -104,8 +101,7 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
     /// </summary>
     /// <param name="state"></param>
     private void SetPowerState(char state) {
-        /*
-        var layoutCmds = new WitThrottleLayoutCmd(connection.CommandStationManager.CommandStation);
+        var layoutCmds = new WitThrottleLayoutCmd(connection.CommandStation);
         switch (state) {
         case '0':
             if (layoutCmds.IsPowerSupported()) layoutCmds.SetPowerState(DCCPowerState.Off);
@@ -115,7 +111,6 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
             break;
         }
         connection.QueueMsg(new MsgPowerState(connection));
-        */
     }
 
     public override string ToString() => "CMD:Panel";

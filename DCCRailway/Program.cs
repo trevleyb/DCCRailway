@@ -1,11 +1,56 @@
+using System.Diagnostics;
+using System.Net;
+using System.Net.Sockets;
 using CommandLine;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using DCCRailway;
+using DCCRailway.Common.Helpers;
+using DCCRailway.Layout;
+using DCCRailway.Layout.Configuration;
+using DCCRailway.Managers;
+using DCCRailway.Managers.Controller;
+using DCCRailway.Managers.State;
 using DCCRailway.WebApp.Components;
+using DCCRailway.WiThrottle;
+using DCCRailway.WiThrottle.Helpers;
+using Makaretu.Dns;
 using Serilog.Configuration;
 using Serilog.Core;
+using Task = System.Threading.Tasks.Task;
 
+WiThrottleRun(args);
+
+void Main(string[] args) {
+}
+
+void WiThrottleRun(string[] args) {
+
+    var logger       = LoggerHelper.ConsoleLogger;
+    var settings     = new RailwaySettings(logger).Sample("./", "Sample");
+    var stateManager = new StateManager();
+    var cmdStation   = new ControllerManager(logger, stateManager, settings.Controller);
+    var wii          = new WiThrottleServer(logger, settings);
+    cmdStation.Start();
+
+    // Start the WiThrottle and run it in the background
+    // --------------------------------------------------
+    logger.Information("Starting the WiThrottle Service");
+    wii.Start(cmdStation.CommandStation);
+    logger.Information("WiThrottle Service should now be running in background.");
+
+    // Wait until we press ENTER to stop the WiThrottle
+    // --------------------------------------------------
+    if (System.Diagnostics.Debugger.IsAttached) {
+        logger.Information("Press ENTER on Console to finish");
+        Console.ReadLine();
+    }
+    logger.Information("Stopping the WiThrottle Service");
+    wii.Stop();
+    logger.Information("END");
+}
+
+void Startup(string[] args) {
     const string consoleOutputTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}|{AssemblyName}.{SourceContext}] {Message:lj} {Exception}{NewLine}";
     Parser.Default.ParseArguments<Options>(args)
           .WithParsed(options => {
@@ -32,16 +77,17 @@ using Serilog.Core;
 
                // Validate the options provided
                try {
-                   var path         = ValidatePath(options.Path);
-                   var name         = ValidateName(path, options.Name);
+                   var path          = ValidatePath(options.Path);
+                   var name          = ValidateName(path, options.Name);
                    var clean         = options.Clean;
                    var runWiThrottle = options.RunWiThrottle;
                    logger.Verbose($"Log Level set to: {levelSwitch.MinimumLevel}");
                    RunRailway(logger, path, name, clean, runWiThrottle);
                } catch (Exception ex) {
-                   logger.Error("DCCRailway existing with a fatal error. : {0}",ex);
+                   logger.Error("DCCRailway existing with a fatal error. : {0}", ex);
                }
            });
+}
 
 //
 //  Launch and run the railway and run until it terminates.

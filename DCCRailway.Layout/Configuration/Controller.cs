@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace DCCRailway.Layout.Configuration;
 
-[Serializable, DebuggerDisplay("DCC COMMAND STATION CONTROLLER={Name}")]
+[Serializable, DebuggerDisplay($"Command Station='{{Name}}'")]
 public class Controller {
     public string     Name                 { get; set; }
     public Adapters   Adapters             { get; set; } = new();

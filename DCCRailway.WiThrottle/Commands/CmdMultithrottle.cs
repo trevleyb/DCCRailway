@@ -29,16 +29,16 @@ public class CmdMultiThrottle(ILogger logger, WiThrottleConnection connection) :
             logger.ForContext<WiThrottleServer>().Error("{0}:{2}=> Unable to Process the command =>'{1}'", ToString(), commandStr, connection.ToString());
         }
     }
-
+    // TODO
     private IThrottleMsg? RequestLocoAccess(MultiThrottleMessage data) => new MsgAddress(connection, data);
-
+    // TODO
     private IThrottleMsg? ReleaseLocoAccess(MultiThrottleMessage data) => new MsgAddress(connection, data);
-
+    // TODO
     private IThrottleMsg? StealLocoAddress(MultiThrottleMessage data) => new MsgAddress(connection, data);
-
+    // TODO
     private IThrottleMsg? PerformLocoAction(MultiThrottleMessage data) => new MsgAddress(connection, data);
-
+    // TODO
     private IThrottleMsg? ProvideLocoFunctions(MultiThrottleMessage data) => new MsgAddress(connection, data);
-
+    // TODO
     public override string ToString() => "CMD:MultiThrottle";
 }

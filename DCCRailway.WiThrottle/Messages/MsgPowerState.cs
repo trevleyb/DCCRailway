@@ -1,4 +1,5 @@
 using System.Text;
+using DCCRailway.Common.Types;
 using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
@@ -6,7 +7,7 @@ namespace DCCRailway.WiThrottle.Messages;
 public class MsgPowerState(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
-            var sb            = new StringBuilder();
+            var sb = new StringBuilder();
             var powerStateMsg = GetPowerStateMsg();
             if (!string.IsNullOrEmpty(powerStateMsg)) sb.AppendLine(powerStateMsg);
             return sb.ToString();
@@ -14,10 +15,8 @@ public class MsgPowerState(WiThrottleConnection connection) : ThrottleMsg, IThro
     }
 
     private string? GetPowerStateMsg() {
-        return null;
-        /*
         try {
-            var layoutCmd = new WitThrottleLayoutCmd(connection.CommandStationManager.CommandStation);
+            var layoutCmd = new WitThrottleLayoutCmd(connection.CommandStation);
             var powerMsg = layoutCmd.PowerState switch {
                 DCCPowerState.On      => "PPA1",
                 DCCPowerState.Off     => "PPA0",
@@ -28,7 +27,6 @@ public class MsgPowerState(WiThrottleConnection connection) : ThrottleMsg, IThro
         } catch {
             return null;
         }
-        */
     }
 
     public override string ToString() => $"MSG:PowerState [{connection?.ToString() ?? ""}]=>{Terminators.ForDisplay(Message)}";

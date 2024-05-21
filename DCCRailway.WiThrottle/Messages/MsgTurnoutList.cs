@@ -7,7 +7,7 @@ namespace DCCRailway.WiThrottle.Messages;
 public class MsgTurnoutList(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
-            var turnouts = connection.RailwayManager.Turnouts.GetAll();
+            var turnouts = connection.RailwaySettings.Turnouts.GetAll();
             if (!turnouts.Any()) return "";
 
             // This block should be re-written in the future to support the Names of the States

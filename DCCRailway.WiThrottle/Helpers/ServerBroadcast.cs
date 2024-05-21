@@ -6,34 +6,23 @@ using Serilog;
 namespace DCCRailway.WiThrottle.Helpers;
 
 public class ServerBroadcast(ILogger logger) {
-    public void Start(WiThrottlePrefs options) {
-        var host = Dns.GetHostEntry(Dns.GetHostName());
+    private ServiceDiscovery? _sd;
 
-        if (host.AddressList.Length > 0) {
-            var addressList = new List<IPAddress> { options.HostAddress };
-            try {
-                var sd = new ServiceDiscovery();
-                //sd.ServiceDiscovered         += Sd_ServiceDiscovered;
-                //sd.ServiceInstanceShutdown   += Sd_ServiceInstanceShutdown;
-                //sd.ServiceInstanceDiscovered += Sd_ServiceInstanceDiscovered;
-                sd.AnswersContainsAdditionalRecords = true;
-                var sp = new ServiceProfile(options.Name, options.ServiceName, (ushort)options.HostPort, host.AddressList);
-                foreach (var prop in options.Properties) {
-                    sp.AddProperty(prop.Key, prop.Value);
-                }
-                sd.AnswersContainsAdditionalRecords = true;
-                sd.Advertise(sp);
-            } catch (Exception ex) {
-                throw new ApplicationException("Could not start Broadcast", ex);
+    public void Start(WiThrottlePrefs options) {
+        var hosts = Dns.GetHostEntry(Dns.GetHostName());
+        try {
+            var sp = new ServiceProfile(options.Name, options.ServiceName, (ushort)options.HostPort, hosts.AddressList);
+            foreach (var prop in options.Properties) {
+                sp.AddProperty(prop.Key, prop.Value);
             }
-        } else {
-            throw new ApplicationException("Could not Broadcast since cannot determine local IP Addresses.");
+            _sd = new ServiceDiscovery();
+            _sd.Advertise(sp);
+        } catch (Exception ex) {
+            throw new ApplicationException("WiThrottle Service Boradcast: Could not start Broadcast", ex);
         }
     }
 
-    private void Sd_ServiceInstanceShutdown(object? sender, ServiceInstanceShutdownEventArgs e) => logger.ForContext<ServerBroadcast>().Debug($"SD: Shutdown=>{e.Message}");
-
-    private void Sd_ServiceInstanceDiscovered(object? sender, ServiceInstanceDiscoveryEventArgs e) => logger.ForContext<ServerBroadcast>().Debug($"SD: Instance Discovered=>{e.Message}");
-
-    private void Sd_ServiceDiscovered(object? sender, DomainName e) => logger.ForContext<ServerBroadcast>().Debug($"SD: Service Discovered=>{e.Labels}");
+    public void Stop() {
+        if (_sd is not null) _sd.Unadvertise();
+    }
 }

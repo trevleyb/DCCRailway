@@ -1,5 +1,5 @@
 using DCCRailway.Common.Types;
-using DCCRailway.StateManagement.State;
+using DCCRailway.Managers.State;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;

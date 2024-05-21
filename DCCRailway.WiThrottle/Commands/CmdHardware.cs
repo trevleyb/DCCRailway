@@ -4,6 +4,7 @@ using Serilog;
 namespace DCCRailway.WiThrottle.Commands;
 
 public class CmdHardware(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
+
     // When we get a HardwareID, we need to see if we already have one in our current list of
     // connections. This is because there might have been a temporary disconnect and now a
     // reconnect of the throttle. So we want to re-use the data that we prefiously had.
@@ -17,7 +18,7 @@ public class CmdHardware(ILogger logger, WiThrottleConnection connection) : Thro
                 var hardwareID = commandStr[2..];
                 connection.HardwareID = hardwareID;
                 if (connection.HasDuplicateID(hardwareID)) {
-                    logger.ForContext<WiThrottleServer>().Debug("{0}:{1} Duplicate HardwareIDs found - re-using previous connection.", ToString(), connection.ToString());
+                    logger.Information("WiThrottle Duplicate HardwareIDs found {0}:{1} - re-using previous connection.", ToString(), connection.ToString());
 
                     // Get the other connection (first one that has the same hardwareID but a different connectionID)
                     // ----------------------------------------------------------------------------------------------
@@ -29,8 +30,9 @@ public class CmdHardware(ILogger logger, WiThrottleConnection connection) : Thro
                         connection.Client = client;
                     }
                 }
-                logger.ForContext<WiThrottleServer>().Debug("{0}:{2} Set the hardwareID to '{1}'", ToString(), hardwareID, connection.ToString());
+                logger.Information("WiThrottle Duplicate HardwareIDs {0}:{2} ==> '{1}'", ToString(), hardwareID, connection.ToString());
                 connection.QueueMsg(new MsgHardware(connection));
+                connection.QueueMsg(new MsgHeartbeat(connection));
                 break;
             }
     }

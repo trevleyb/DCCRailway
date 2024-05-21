@@ -1,4 +1,4 @@
-namespace DCCRailway;
+namespace DCCRailway.Managers;
 
 /// <summary>
 ///     IRailwayConfig represents the data used to manage the railway. This will include Locomotices, Blocks,

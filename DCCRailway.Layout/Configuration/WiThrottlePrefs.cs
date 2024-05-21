@@ -10,14 +10,10 @@ public class WiThrottlePrefs {
     private const string _defaultServiceName = "_withrottle._tcp";
 
     public string  Name             { get; set; } = "DCCRailway WiThrottle Service";
-    public string? Address          { get; set; }
     public int?    Port             { get; set; }
     public bool    UseFastClock     { get; set; } = false;
     public int     HeartbeatSeconds { get; set; } = 15;
     public bool    RunOnStartup     { get; set; } = false;
-
-    [JsonIgnore]
-    public IPAddress HostAddress => string.IsNullOrEmpty(Address) ? Network.GetLocalIpAddress() : IPAddress.Parse(Address);
 
     [JsonIgnore]
     public int HostPort => Port ??  _defaultPort;

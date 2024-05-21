@@ -6,11 +6,11 @@ namespace DCCRailway.WiThrottle.Messages;
 public class MsgTurnoutLabels(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
-            var turnouts = connection.RailwayManager.Turnouts.GetAll();
+            var turnouts = connection.RailwaySettings.Turnouts.GetAll();
             if (!turnouts.Any()) return "";
 
             // This block should be re-written in the future to support the Names of the States
-            // of the Turnouts to come from Condfiguration. 
+            // of the Turnouts to come from Configuration.
             var message = new StringBuilder();
             message.Append("PTT");
             message.Append("]\\[");

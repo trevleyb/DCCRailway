@@ -1,4 +1,5 @@
 using System.Text;
+using DCCRailway.Controller.Attributes;
 using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
@@ -8,12 +9,12 @@ public class MsgHardware(WiThrottleConnection connection) : ThrottleMsg, IThrott
         get {
             var message = new StringBuilder();
             message.Append("HT");
-            //TODO: message.Append(connection.CommandStationManager.CommandStation.AttributeInfo().Name);
+            message.Append(connection.CommandStation.AttributeInfo().Name);
             message.Append(Terminators.Terminator);
             message.Append("Ht");
-            //TODO: message.Append(connection.CommandStationManager.CommandStation.Adapter?.AttributeInfo().Name);
+            message.Append(connection.CommandStation.Adapter?.AttributeInfo().Name);
             message.Append(" ");
-            message.Append(connection.RailwayManager.Name);
+            message.Append(connection.RailwaySettings.Name);
             message.AppendLine();
             return message.ToString();
         }

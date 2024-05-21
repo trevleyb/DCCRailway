@@ -12,4 +12,9 @@
       <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Makaretu.Dns.Multicast.New" Version="0.31.0" />
+      <PackageReference Include="Makaretu.Dns.New" Version="3.0.1" />
+    </ItemGroup>
+
 </Project>

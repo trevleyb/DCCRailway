@@ -1,11 +1,10 @@
 using DCCRailway.Controller.Actions.Commands.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
-using DCCRailway.StateManagement.Processors;
-using DCCRailway.StateManagement.State;
+using DCCRailway.Managers.State;
 using Serilog;
 
-namespace DCCRailway.StateManagement;
+namespace DCCRailway.Managers.Updater;
 
 /// <summary>
 ///     The LayoutCmdUpdated class is a bridge between an Event being recieved from a system,
@@ -42,7 +41,7 @@ public class StateUpdater(ILogger logger, IStateManager stateManager) {
                     _           => new StateUpdaterGenericCmd(stateManager)
                 };
                 var result = stateUpdater.Process(cmdResult);
-                logger.Information("Processed State Command: {0} with result {1} and message '{2}'.",stateUpdater.GetType().Name,result.Success ? "Success" : "Failed", result.Message);
+                logger.Information("Processed State Command: {0} with result {1} {2}.",cmdResult?.Command?.ToString(), result.Success ? "Success" : "Failed", string.IsNullOrEmpty(result?.Message) ? "" : $"and message '{result.Message}'");
             }
             break;
 

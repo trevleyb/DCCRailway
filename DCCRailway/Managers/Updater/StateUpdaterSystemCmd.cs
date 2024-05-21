@@ -4,9 +4,9 @@ using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Commands.Base;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Attributes;
-using DCCRailway.StateManagement.State;
+using DCCRailway.Managers.State;
 
-namespace DCCRailway.StateManagement.Processors;
+namespace DCCRailway.Managers.Updater;
 
 public class StateUpdaterSystemCmd(IStateManager stateManager) : IStateUpdater {
     public IResult Process(ICmdResult cmdResult) {

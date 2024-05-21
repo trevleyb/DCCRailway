@@ -42,7 +42,7 @@ public class SettingsTest {
 
         config.Save();
 
-        var config2 = new RailwaySettings(LoggerHelper.ConsoleLogger).New("./TestConfig", "TestFile");
+        var config2 = new RailwaySettings(LoggerHelper.ConsoleLogger).Load("./TestConfig", "TestFile");
         Assert.That(config2, Is.Not.Null);
 
         var accs = config2.Accessories.GetAll();

@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using DCCRailway.Common.Types;
+using DCCRailway.Controller.Controllers;
 using DCCRailway.Layout;
 using DCCRailway.Layout.Configuration;
 using DCCRailway.WiThrottle.Messages;
@@ -11,9 +12,9 @@ public class WiThrottleConnection {
     private readonly  WiThrottleAssignedLocos _assignedLocos = new();
     private readonly  WiThrottleConnections   _listReference;
     private readonly  WiThrottleMsgQueue      _serverMessages = [];
-    // TODO: internal readonly CommandStationManager   CommandStationManager;
-    internal readonly WiThrottlePrefs   Prefs;
-    internal readonly IRailwaySettings         RailwayManager;
+    internal readonly ICommandStation          CommandStation;
+    internal readonly WiThrottlePrefs          Prefs;
+    internal readonly IRailwaySettings         RailwaySettings;
     private           int                     _heartbeatSeconds = 15;
 
     /// <summary>
@@ -21,28 +22,28 @@ public class WiThrottleConnection {
     ///     roster and allows us to ensure we are tracking the connections and can
     ///     send "STOP" messages if we need to if we do not hear from the throttle.
     /// </summary>
-    public WiThrottleConnection(TcpClient client, IRailwaySettings railwayManager, WiThrottleConnections connections) {
+    public WiThrottleConnection(TcpClient client, IRailwaySettings railwaySettings, WiThrottleConnections connections, ICommandStation commandStation) {
         Client                = client;
-        Prefs           = railwayManager.Settings.WiThrottle;
-        RailwayManager        = railwayManager;
-        // TODO: CommandStationManager = cmdStationMgr;
+        Prefs                 = railwaySettings.Settings.WiThrottle;
+        RailwaySettings       = railwaySettings;
         HeartbeatSeconds      = Prefs.HeartbeatSeconds;
         HeartbeatState        = HeartbeatStateEnum.Off;
         LastHeartbeat         = DateTime.Now;
+        CommandStation        = commandStation;
         _listReference        = connections;
     }
 
     public TcpClient Client       { get; set; }
     public string    ThrottleName { get; set; }
     public string    HardwareID   { get; set; }
-    public Guid      ConnectionID { get; init; } = new();
+    public Guid      ConnectionID { get; init; } = Guid.NewGuid();
 
     public IPAddress? ConnectionAddress => Client.Client.RemoteEndPoint is IPEndPoint endpoint ? endpoint.Address : new IPAddress(0);
-    public ulong      ConnectionHandle  => (ulong)Client.Client.Handle;
+    public ulong      ConnectionHandle  => (ulong)(Client?.Client?.Handle ?? 0);
 
     public int HeartbeatSeconds {
         get => _heartbeatSeconds;
-        set => _heartbeatSeconds = value <= 0 ? 0 : value >= 60 ? 60 : value;
+        init => _heartbeatSeconds = value <= 0 ? 0 : value >= 60 ? 60 : value;
     }
 
     public DateTime           LastHeartbeat  { get; set; }
@@ -67,19 +68,15 @@ public class WiThrottleConnection {
     public void QueueMsg(IThrottleMsg message)         => _serverMessages.Add(message);
 
     public WiThrottleConnection? GetByHardwareID(string hardwareID) {
-        return _listReference.FirstOrDefault(x => x.HardwareID.Equals(hardwareID) && x.ConnectionHandle != ConnectionHandle);
+        return _listReference.GetByHardwareID(hardwareID,ConnectionHandle);
     }
 
     public void RemoveDuplicateID(string hardwareID) {
-        for (var i = _listReference.Count - 1; i >= 0; i--) {
-            if (_listReference[i].HardwareID.Equals(hardwareID) &&
-                _listReference[i].ConnectionHandle != ConnectionHandle)
-                _listReference.RemoveAt(i);
-        }
+        _listReference.RemoveDuplicateID(hardwareID,ConnectionHandle);
     }
 
     public bool HasDuplicateID(string hardwareID) {
-        return _listReference.Any(x => x.HardwareID.Equals(hardwareID) && x.ConnectionHandle != ConnectionHandle);
+        return _listReference.HasDuplicateID(hardwareID,ConnectionHandle);
     }
 
     /// <summary>
@@ -97,9 +94,16 @@ public class WiThrottleConnection {
         }
 
         // Turn off the Heartbeat so we don't check this connection.
+        // -----------------------------------------------------------------------------
         HeartbeatState = HeartbeatStateEnum.Off;
         _assignedLocos.Clear();
         Client.Dispose();
+
+        // if there was no hardwareID (we didn't connect to a throttle) then
+        // we can safely remove this connection. However, if there is a hardwareID then
+        // we want to retain the data as we might use it if this throttle reconnects.
+        // -----------------------------------------------------------------------------
+        if (string.IsNullOrEmpty(HardwareID)) _listReference.Remove(this);
     }
 
     public override string ToString() => $"{ThrottleName} @{ConnectionAddress}/{ConnectionHandle}|";

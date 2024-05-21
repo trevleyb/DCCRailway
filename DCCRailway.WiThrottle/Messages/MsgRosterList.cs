@@ -6,8 +6,7 @@ namespace DCCRailway.WiThrottle.Messages;
 public class MsgRosterList(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
-            //var locos = Task.Run(() => connection.RailwayConfig.Locomotives.GetAllAsync().GetListFromAsyncEnumerable());
-            var locos = connection.RailwayManager.Locomotives.GetAll();
+            var locos = connection.RailwaySettings.Locomotives.GetAll();
             if (!locos.Any()) return "RL0";
 
             var message = new StringBuilder();

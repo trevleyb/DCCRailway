@@ -7,18 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Makaretu.Dns.Multicast" Version="0.27.0"/>
         <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="2.0.0"/>
         <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2"/>
         <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1"/>
         <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0"/>
         <PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00972"/>
+        <PackageReference Include="Serilog.Sinks.TestCorrelator" Version="3.2.0" />
         <PackageReference Include="System.IO.Ports" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Configuration\Entities\" />
+      <Folder Include="Interfaces\" />
     </ItemGroup>
 
 </Project>

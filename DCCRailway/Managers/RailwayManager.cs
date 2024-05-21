@@ -1,21 +1,21 @@
 using DCCRailway.Layout;
-using DCCRailway.StateManagement;
-using DCCRailway.StateManagement.State;
+using DCCRailway.Managers.Controller;
+using DCCRailway.Managers.State;
+using DCCRailway.Managers.Updater;
 using DCCRailway.WebApp;
 using DCCRailway.WiThrottle;
 using Serilog;
 
-namespace DCCRailway;
+namespace DCCRailway.Managers;
 
 public sealed class RailwayManager(ILogger logger) : IRailwayManager {
 
-    public ILogger          Logger   { get; init; } = logger;
-    public IRailwaySettings Settings { get; private set; }
+    public ILogger              Logger   { get; init; } = logger;
+    public IRailwaySettings     Settings { get; private set; }
 
-    public CommandStationManager CommandStationManager { get; private set; }
-    public StateManager          StateManager          { get; private set; }
-    public StateUpdater          StateProcessor        { get; private set; }
-    public WiThrottleServer?     WiThrottle            { get; private set; }
+    public ControllerManager    ControllerManager { get; private set; }
+    public StateManager         StateManager          { get; private set; }
+    public WiThrottleServer?    WiThrottle            { get; private set; }
 
     /// <summary>
     /// Re-Loads the repositories into the collections. This is done when we instantiate
@@ -45,15 +45,13 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
 
     public void Start() {
         if (Settings.Controller is { Name: not null }) {
-            StateManager          = new StateManager();
-            StateProcessor        = new StateUpdater(Logger, StateManager);
-            CommandStationManager = new CommandStationManager(Logger); //Controller, StateProcessor);
-
-            //CommandStationManager.Start();
+            StateManager      = new StateManager();
+            ControllerManager = new ControllerManager(Logger,StateManager,Settings.Controller);
+            ControllerManager.Start();
 
             if (Settings.WiThrottlePrefs.RunOnStartup) {
-                WiThrottle = new WiThrottleServer(Logger, Settings); // TODO: Needs a reference to talk to a command station????
-                WiThrottle.Start();
+                WiThrottle = new WiThrottleServer(Logger, Settings);
+                WiThrottle.Start(ControllerManager.CommandStation);
             }
         } else {
             Logger.Warning("No controller has been defined in settings. Only WebApp will run.");
@@ -67,6 +65,6 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
 
     public void Stop() {
         if (WiThrottle is not null) WiThrottle.Stop();
-        if (Settings.Controller is { Name: not null }) CommandStationManager.Stop();
+        if (Settings.Controller is { Name: not null }) ControllerManager.Stop();
     }
 }

@@ -6,8 +6,8 @@ using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Virtual.Adapters;
 using DCCRailway.Layout.Configuration;
 using DCCRailway.Layout.Entities;
-using DCCRailway.StateManagement;
-using DCCRailway.StateManagement.State;
+using DCCRailway.Managers.State;
+using DCCRailway.Managers.Updater;
 using NUnit.Framework;
 using Serilog;
 

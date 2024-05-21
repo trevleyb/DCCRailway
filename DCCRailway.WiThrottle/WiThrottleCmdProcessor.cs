@@ -1,9 +1,10 @@
-﻿using DCCRailway.WiThrottle.Commands;
+﻿using DCCRailway.Controller.Controllers;
+using DCCRailway.WiThrottle.Commands;
 using Serilog;
 
 namespace DCCRailway.WiThrottle;
 
-public class WiThrottleCmdProcessor(ILogger logger) {
+public class WiThrottleCmdProcessor(ILogger logger, ICommandStation commandStation) {
     /// <summary>
     ///     Simply, given an input string, this will return a Command Object that
     ///     needs to be managed and processed based on the commandStr provided.

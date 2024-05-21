@@ -1,5 +1,6 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout.Configuration;
+using DCCRailway.Layout.Converters;
 using DCCRailway.Layout.Entities;
 using DCCRailway.Layout.Entities.Collection;
 using ILogger = Serilog.ILogger;
@@ -49,6 +50,17 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
     public IRailwaySettings New(string path, string name) {
         CreateRepositories(path,name);
         Settings.Name = name;
+        Settings.PathName = path;
+        return this;
+    }
+
+    /// <summary>
+    /// This will clear out the existing config so that there is a set of blank items.
+    /// </summary>
+    public IRailwaySettings Sample(string path, string name) {
+        CreateRepositories(path,name);
+        InjectTestData.SampleData(this);
+        Settings.Name     = name;
         Settings.PathName = path;
         return this;
     }

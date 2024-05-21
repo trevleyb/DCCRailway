@@ -2,24 +2,35 @@ using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
+using DCCRailway.Managers.State;
+using DCCRailway.Managers.Updater;
 using Serilog;
 
-namespace DCCRailway.StateManagement;
+namespace DCCRailway.Managers.Controller;
 
-public class CommandStationManager(ILogger logger) {
-    private StateUpdater _processor;
-    public  ICommandStation     CommandStation { get; private set; }
+public class ControllerManager {
 
-    public void Start(StateUpdater processor) {
+    private readonly ILogger         _logger;
+    private readonly StateUpdater    _stateUpdater;
+    public  ICommandStation CommandStation { get; private set; }
+
+    public ControllerManager(ILogger logger, StateManager stateManager, Layout.Configuration.Controller controllerSettings) {
+        _logger = logger;
+        _stateUpdater = new StateUpdater(logger, stateManager);
+        Configure(controllerSettings);
+    }
+
+    public void Start() {
         // Wire up the events from the Command Station so we can track Entities Property Changes
         // --------------------------------------------------------------------------------------------
-        _processor                     =  processor;
+        _logger.Information("Controller Manager starting.");
         CommandStation.ControllerEvent += CommandStationInstanceOnCommandStationEvent;
         CommandStation.Start();
         CommandStation.StartAllTasks();
     }
 
     public void Stop() {
+        _logger.Information("Controller Manager stopping.");
         CommandStation.ControllerEvent -= CommandStationInstanceOnCommandStationEvent;
         CommandStation.StopAllTasks();
         CommandStation.Stop();
@@ -32,7 +43,6 @@ public class CommandStationManager(ILogger logger) {
     /// </summary>
     public void Configure(DCCRailway.Layout.Configuration.Controller controller) {
         if (controller is null) throw new ApplicationException("Cannot start the Entities Layout as no Controllers are defined.");
-
         var commandStation = CreateCommandStationController(controller);
         if (commandStation != null) {
             AttachCommandStationAdapter(controller, commandStation);
@@ -48,8 +58,8 @@ public class CommandStationManager(ILogger logger) {
     /// <param name="controller">Configuration Collection for the controller to create</param>
     /// <returns>An instance of a Command Station Controller or NULL if it was unable to do so. </returns>
     /// <exception cref="ControllerException">Thrown if it cannot create the controller. </exception>
-    private ICommandStation? CreateCommandStationController(DCCRailway.Layout.Configuration.Controller controller) {
-        var controllerManager = new CommandStationFactory(logger);
+    private ICommandStation? CreateCommandStationController(Layout.Configuration.Controller controller) {
+        var controllerManager = new CommandStationFactory(_logger);
         try {
             var commandStation = controllerManager.CreateController(controller.Name) ??
                                  throw new ControllerException($"Invalid CommandStation Name specified {controller.Name}");
@@ -59,7 +69,7 @@ public class CommandStationManager(ILogger logger) {
             }
             return commandStation;
         } catch (Exception ex) {
-            logger.ForContext<CommandStationManager>().Error("Unable to instantiate an instance of the specified commandStation: {0} => {1}", controller, ex.Message);
+            _logger.Error("Unable to instantiate an instance of the specified commandStation: {0} => {1}", controller, ex.Message);
             throw;
         }
     }
@@ -86,7 +96,7 @@ public class CommandStationManager(ILogger logger) {
                 commandStation.Adapter = adapterInstance;
             }
         } catch (Exception ex) {
-            logger.ForContext<CommandStationManager>().Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapters, ex.Message);
+            _logger.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapters, ex.Message);
             throw;
         }
     }
@@ -111,16 +121,16 @@ public class CommandStationManager(ILogger logger) {
                         }
                     }
                 } catch (Exception ex) {
-                    logger.ForContext<CommandStationManager>().Error($"Unable to instantiate the task '{task.Name}' or type '{task.Type}'", ex);
+                    _logger.Error($"Unable to instantiate the task '{task.Name}' or type '{task.Type}'", ex);
                 }
             }
         } catch (Exception ex) {
-            logger.ForContext<CommandStationManager>().Error("Unable to create and attach tasks to the Command Station.", ex.Message);
+            _logger.Error("Unable to create and attach tasks to the Command Station.", ex.Message);
             throw;
         }
     }
 
     private void CommandStationInstanceOnCommandStationEvent(object? sender, ControllerEventArgs e) {
-        _processor.ProcessCommandEvent(e);
+        _stateUpdater.ProcessCommandEvent(e);
     }
 }
