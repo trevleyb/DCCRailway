@@ -20,10 +20,10 @@ public class JmriRosterImporter(ILogger logger) {
     }
 
     /// <summary>
-    ///     Mapp the Locomotives from JMRI to the DCCRailway.Delete Format
+    /// Maps JMRI locomotives to DCC trains and imports them into the system.
     /// </summary>
-    /// <param name="locoList">Collection of Locomotives</param>
-    /// <param name="jMRIRoster">The JMRI Roster File</param>
+    /// <param name="locomotives">The collection of locomotives to import to.</param>
+    /// <param name="jmriRoster">The JMRI roster to map and import from.</param>
     private void MapJmrItoDCCTrain(Locomotives locomotives, JMRIRoster jmriRoster) {
         locomotives.Clear();
 
@@ -33,7 +33,6 @@ public class JmriRosterImporter(ILogger logger) {
                     Id           = locomotives.GetNextID(),
                     Name         = (jmri.RoadName + ' ' + jmri.RoadNumber).Trim(),
                     Description  = jmri.Comment,
-                    Type         = "unknown",
                     RoadName     = jmri.RoadName,
                     RoadNumber   = jmri.RoadNumber,
                     Manufacturer = jmri.Mfg,
@@ -46,15 +45,20 @@ public class JmriRosterImporter(ILogger logger) {
                     //}
                 };
 
-                if (jmri.Locoaddress != null && jmri.Locoaddress.Dcclocoaddress != null) {
-                    loco.Address = new DCCAddress(Convert.ToUInt16(jmri.Locoaddress.Dcclocoaddress.Number));
-                    loco.Address.AddressType = jmri.Locoaddress.Dcclocoaddress.Longaddress.Equals("yes")
-                        ? DCCAddressType.Long
-                        : DCCAddressType.Short;
-                    if (jmri.Locoaddress.Protocol.Equals("dcc_long")) loco.Address.AddressType  = DCCAddressType.Long;
-                    if (jmri.Locoaddress.Protocol.Equals("dcc_short")) loco.Address.AddressType = DCCAddressType.Short;
-                    loco.Address.Protocol = DCCProtocol.DCC28;
+                foreach (var label in jmri.Functionlabels.Functionlabel) {
+                    try {
+                        loco.Labels.Add(new LabelFunction() { Key = byte.Parse(label.Num), Label = label.Text });
+                    } catch { /* if an error happens, ignore it */ }
                 }
+
+                loco.Address = new DCCAddress(Convert.ToUInt16(jmri.Locoaddress.Dcclocoaddress.Number)) {
+                    AddressType = jmri.Locoaddress.Dcclocoaddress.Longaddress.Equals("yes")
+                        ? DCCAddressType.Long
+                        : DCCAddressType.Short
+                };
+                if (jmri.Locoaddress.Protocol.Equals("dcc_long")) loco.Address.AddressType  = DCCAddressType.Long;
+                if (jmri.Locoaddress.Protocol.Equals("dcc_short")) loco.Address.AddressType = DCCAddressType.Short;
+                loco.Address.Protocol = DCCProtocol.DCC28;
                 locomotives.Add(loco);
             } catch (Exception ex) {
                 logger.Error("Unable to map the JMRI Locomotive to the DCCRailway format due to '{0}'", ex.Message);

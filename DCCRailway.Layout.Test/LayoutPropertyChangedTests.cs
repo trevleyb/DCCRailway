@@ -25,8 +25,6 @@ public class LayoutPropertyChangedTests {
         TestField(loco, nameof(loco.Direction), DCCDirection.Reverse);
         TestField(loco, nameof(loco.Speed), new DCCSpeed(12));
         TestField(loco, nameof(loco.Speed), new DCCSpeed(21));
-        TestField(loco, nameof(loco.Type), "Big Type");
-        TestField(loco, nameof(loco.Type), "Small Type");
         TestField(loco, nameof(loco.Manufacturer), "NCEDCC");
         TestField(loco, nameof(loco.Manufacturer), "ScaleTrains");
         TestField(loco, nameof(loco.Momentum), new DCCMomentum(99));

@@ -26,12 +26,6 @@ public class Route(string id = "") : LayoutEntity(id) {
     }
 }
 
-[Serializable]
-public class RouteTurnout {
-    public string          TurnoutID { get; set; }
-    public DCCTurnoutState State     { get; set; }
-}
-
 public enum RouteState {
     Active,
     Inactive,

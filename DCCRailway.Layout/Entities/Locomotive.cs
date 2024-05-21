@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text.Json.Serialization;
 using DCCRailway.Common.Types;
+using DCCRailway.Layout.Converters.JMRI;
 using DCCRailway.Layout.Entities.Base;
 
 namespace DCCRailway.Layout.Entities;
@@ -9,13 +10,20 @@ namespace DCCRailway.Layout.Entities;
 public class Locomotive : LayoutEntityDecoder {
     private DCCDirection      _direction      = DCCDirection.Stop;
     private DCCFunctionBlocks _functionBlocks = new();
+    private DCCMomentum       _momentum   = new(0);
+    private DCCSpeed          _speed      = new(0);
     private string            _manufacturer   = "";
     private string            _model;
-    private DCCMomentum       _momentum   = new(0);
     private string            _roadName   = "";
     private string            _roadNumber = "";
-    private DCCSpeed          _speed      = new(0);
-    private string            _type       = "";
+
+    public Locomotive(string id = "") : base(id) {
+        if (Labels.Count == 0) {
+            Labels.Add(new LabelFunction() {Key=0,Label="Lights"});
+            Labels.Add(new LabelFunction() {Key=1,Label="Bell"});
+            Labels.Add(new LabelFunction() {Key=2,Label="Horn"});
+        }
+    }
 
     /// <summary>
     ///     Represents a locomotive layoutEntity with DCC address, direction, and speed.
@@ -38,15 +46,11 @@ public class Locomotive : LayoutEntityDecoder {
     [JsonConstructor]
     protected Locomotive() : this("") { }
 
-    public Locomotive(string id = "") : base(id) { }
+    [JsonInclude]
+    public List<LabelFunction> Labels = [];
 
     // Hate backing fields but need them for INotifyPropertyChanged Events
     // ----------------------------------------------------------------------------
-    public string Type {
-        get => _type;
-        set => SetField(ref _type, value);
-    }
-
     public string RoadName {
         get => _roadName;
         set => SetField(ref _roadName, value);
