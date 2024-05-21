@@ -38,7 +38,7 @@ public class CmdMultiThrottle(ILogger logger, WiThrottleConnection connection) :
     // TODO
     private IThrottleMsg? PerformLocoAction(MultiThrottleMessage data) => new MsgAddress(connection, data);
     // TODO
-    private IThrottleMsg? ProvideLocoFunctions(MultiThrottleMessage data) => new MsgAddress(connection, data);
+    private IThrottleMsg? ProvideLocoFunctions(MultiThrottleMessage data) => new MsgLabels(connection, data);
     // TODO
     public override string ToString() => "CMD:MultiThrottle";
 }
