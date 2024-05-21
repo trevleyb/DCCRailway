@@ -7,7 +7,7 @@ namespace DCCRailway.WiThrottle.Commands;
 
 public class CmdPanel(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        logger.Information("{0:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
+        logger.Information("WiThrottle Cmd: Panel - {0:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
         try {
             switch (commandStr[..3].ToUpper()) {
             case "PPA":
@@ -20,15 +20,15 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
                 SetRoute(commandStr[3..]);
                 break;
             case "PFT":
-                logger.ForContext<WiThrottleServer>().Information("{0}: Fast Clock not currently supported=>'{1}'", ToString(), commandStr);
+                logger.Information("WiThrottle Cmd: Panel - {0}: Fast Clock not currently supported=>'{1}'", ToString(), commandStr);
                 break;
             default:
-                logger.ForContext<WiThrottleServer>().Information("{0}: Unknown Panel TurnoutCommand recieved=>'{1}'", ToString(), commandStr);
+                logger.Information("WiThrottle Cmd: Panel - {0}: Unknown Panel TurnoutCommand recieved=>'{1}'", ToString(), commandStr);
                 break;
             }
             ;
         } catch {
-            logger.ForContext<WiThrottleServer>().Error("{0}: Unable to Process the command =>'{1}'", ToString(), commandStr);
+            logger.Error("WiThrottle Cmd: Panel - {0}: Unable to Process the command =>'{1}'", ToString(), commandStr);
         }
     }
 

@@ -4,7 +4,7 @@ namespace DCCRailway.WiThrottle.Commands;
 
 public class CmdHeartbeat(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        logger.ForContext<WiThrottleServer>().Information("{0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
+        logger.Information("WiThrottle Cmd: Heartbeat - {0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
         if (commandStr.Length <= 1) return;
         switch (commandStr[1]) {
         case '+':
@@ -14,7 +14,7 @@ public class CmdHeartbeat(ILogger logger, WiThrottleConnection connection) : Thr
             connection.HeartbeatState = HeartbeatStateEnum.Off;
             break;
         default:
-            logger.ForContext<WiThrottleServer>().Verbose("{0}:{1}=>Heartbeat Receievd'", ToString(), commandStr);
+            logger.Verbose("WiThrottle Cmd: Heartbeat - {0}:{1}=>Heartbeat Receievd'", ToString(), commandStr);
             break;
         }
     }

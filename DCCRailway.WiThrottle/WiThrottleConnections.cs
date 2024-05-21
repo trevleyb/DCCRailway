@@ -12,49 +12,49 @@ namespace DCCRailway.WiThrottle;
 /// </summary>
 public class WiThrottleConnections {
 
-    private readonly List<WiThrottleConnection> _connections = new List<WiThrottleConnection>();
-    public int Count => _connections.Count;
+    public readonly List<WiThrottleConnection> Connections = new List<WiThrottleConnection>();
+    public int Count => Connections.Count;
     /// <summary>
     ///     Add a new entry into the list of connected Throttles
     /// </summary>
     public WiThrottleConnection Add(TcpClient client, IRailwaySettings railwaySettings, ICommandStation commandStation) {
         var connection = new WiThrottleConnection(client, railwaySettings, this, commandStation);
-        _connections.Add(connection);
+        Connections.Add(connection);
         return connection;
     }
 
     public WiThrottleConnection? GetByHardwareID(string hardwareID,ulong connectionHandle) {
-        return _connections.FirstOrDefault(x => x.HardwareID.Equals(hardwareID) && x.ConnectionHandle != connectionHandle);
+        return Connections.FirstOrDefault(x => x.HardwareID.Equals(hardwareID) && x.ConnectionHandle != connectionHandle);
     }
 
     public void RemoveDuplicateID(string hardwareID, ulong connectionHandle) {
-        for (var i = _connections.Count - 1; i >= 0; i--) {
-            if (_connections[i].HardwareID.Equals(hardwareID) &&
-                _connections[i].ConnectionHandle != connectionHandle)
-                _connections.RemoveAt(i);
+        for (var i = Connections.Count - 1; i >= 0; i--) {
+            if (Connections[i].HardwareID.Equals(hardwareID) &&
+                Connections[i].ConnectionHandle != connectionHandle)
+                Connections.RemoveAt(i);
         }
     }
 
     public bool HasDuplicateID(string hardwareID,ulong connectionHandle) {
-        return _connections.Any(x => x.HardwareID.Equals(hardwareID) && x.ConnectionHandle != connectionHandle);
+        return Connections.Any(x => x.HardwareID.Equals(hardwareID) && x.ConnectionHandle != connectionHandle);
     }
 
     public void CloseConnectionsWithCondition(Func<WiThrottleConnection, bool> conditionToClose, string logMessage) {
-        var connectionsToClose = _connections.Where(conditionToClose).ToList();
+        var connectionsToClose = Connections.Where(conditionToClose).ToList();
         foreach (var connection in connectionsToClose) {
             connection.Close();
         }
     }
 
     public bool IsAddressInUse(DCCAddress address) {
-        foreach (var connection in _connections) {
+        foreach (var connection in Connections) {
             if (connection.IsLocoAssigned(address)) return true;
         }
         return false;
     }
 
     public void Release(DCCAddress address) {
-        foreach (var connection in _connections) {
+        foreach (var connection in Connections) {
             if (connection.IsLocoAssigned(address)) connection.Release(address);
         }
     }
@@ -63,7 +63,7 @@ public class WiThrottleConnections {
     ///     Remove an Entry from the entries list
     /// </summary>
     public void Remove(WiThrottleConnection entry) {
-        _connections.Remove(entry);
+        Connections.Remove(entry);
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class WiThrottleConnections {
     /// </summary>
     /// <param name="hardwareID">The unique hardware ID of the throttle</param>
     /// <returns>A entry of a connected throttle</returns>
-    public WiThrottleConnection? Find(string hardwareID) => _connections.FirstOrDefault(x => x!.HardwareID.Equals(hardwareID, StringComparison.InvariantCultureIgnoreCase));
+    public WiThrottleConnection? Find(string hardwareID) => Connections.FirstOrDefault(x => x!.HardwareID.Equals(hardwareID, StringComparison.InvariantCultureIgnoreCase));
 
     //public WiThrottleConnection? Find(ulong connectionID) => _connections.FirstOrDefault(x => x.ConnectionHandle == connectionID);
 }

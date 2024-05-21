@@ -4,7 +4,7 @@ namespace DCCRailway.WiThrottle.Commands;
 
 public class CmdRoster(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        logger.ForContext<WiThrottleServer>().Information("{0}=>'{1}'", ToString(), commandStr);
+        logger.Information("WiThrottle Cmd: Roster - {0}=>'{1}'", ToString(), commandStr);
         try {
             var cmd = commandStr[..3];
             switch (cmd.ToUpper()) {

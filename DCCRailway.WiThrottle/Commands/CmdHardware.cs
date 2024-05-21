@@ -11,7 +11,7 @@ public class CmdHardware(ILogger logger, WiThrottleConnection connection) : Thro
     // ---------------------------------------------------------------------------------------
 
     public void Execute(string commandStr) {
-        logger.ForContext<WiThrottleServer>().Information("{0}=>'{1}'", ToString(), commandStr);
+        logger.Information("WiThrottle Cmd: Hardware - {0}=>'{1}'", ToString(), commandStr);
         if (commandStr.Length > 2)
             switch (commandStr[1]) {
             case 'U':

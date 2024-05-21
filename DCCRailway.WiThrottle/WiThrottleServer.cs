@@ -157,13 +157,7 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
 
     private bool IsBrowserRequest(string data, NetworkStream stream) {
         if (data.StartsWith("GET")) {
-            var message =
-                "HTTP/1.1 403 Forbidden\r\n"+
-                "Content-Type: text/plain\r\n\r\n"+
-               $"The service running on {_hostAdress}:{_hostPort} is a Withrottle service.\r\n"+
-                "Please connect to this service using a WiThrottle compatible application\r\n" +
-                "such as https://www.withrottle.com";
-            SendServerMessages(message.ToString(), stream);
+            SendServerMessages(BrowserMessage.Message(_connections,_hostAdress,_hostPort).ToString(), stream);
             return true;
         }
         return false;

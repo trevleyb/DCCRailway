@@ -6,7 +6,7 @@ namespace DCCRailway.WiThrottle.Commands;
 
 public class CmdMultiThrottle(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        logger.ForContext<WiThrottleServer>().Information("{0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
+        logger.Information("WiThrottle Cmd: Multithrottle - {0}:{2}=>'{1}'", ToString(), commandStr, connection.ToString());
         try {
             IThrottleMsg? response = null;
             var           data     = new MultiThrottleMessage(commandStr);
@@ -26,7 +26,7 @@ public class CmdMultiThrottle(ILogger logger, WiThrottleConnection connection) :
             };
             if (response is not null) connection.QueueMsg(response);
         } catch {
-            logger.ForContext<WiThrottleServer>().Error("{0}:{2}=> Unable to Process the command =>'{1}'", ToString(), commandStr, connection.ToString());
+            logger.Error("WiThrottle Cmd: Multithrottle - {0}:{2}=> Unable to Process the command =>'{1}'", ToString(), commandStr, connection.ToString());
         }
     }
     // TODO
