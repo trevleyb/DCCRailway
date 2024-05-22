@@ -65,7 +65,7 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
         if (connection.RailwaySettings.Routes is { } routes) {
             var route = routes.GetByID(routeID);
             if (route != null) {
-                DeactiveRoutes();
+                DeactiveRoutes(route);
                 route.State = RouteState.Active;
                 if ((RouteCommand)commandStr[0] == RouteCommand.Active) {
                     foreach (var turnoutEntry in route.RouteTurnouts) {
@@ -85,13 +85,36 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
     // Force all routes to be deactivated. However, could be more cleaver and could
     // only deactivate routes where there is a clash in the Turnouts.
     // ----------------------------------------------------------------------------
-    private void DeactiveRoutes() {
+    private void DeactiveRoutes(Route refRoute) {
+
+        // look to see if any of the Turnouts in the reference Route (refRoute) are contained
+        // on any other ACTIVE route. If they are, and if the turnout direct is different,
+        // then we need to DEACTIVATE the existing active routes first. We don't need to
+        // actually throw the turnouts, just mark the turnout as de-activated
+        // ----------------------------------------------------------------------------------
+        var deactivateList = new List<Route>();
         if (connection.RailwaySettings.Routes.Values is { } routes) {
             foreach (var route in routes) {
-                route.State = RouteState.Inactive;
+                if (AreTurnoutsMatched(refRoute, route)) {
+                    deactivateList.Add(route);
+                    route.State = RouteState.Inactive;
+                }
+            }
+            foreach (var route in deactivateList) {
                 connection.QueueMsgToAll(new MsgRouteState(connection, route));
             }
         }
+    }
+
+    private bool AreTurnoutsMatched(Route refRoute, Route route) {
+        foreach (var turnout in refRoute.RouteTurnouts) {
+            foreach (var checkTurnout in route.RouteTurnouts) {
+                if (turnout.TurnoutID == checkTurnout.TurnoutID && turnout.State != checkTurnout.State) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /// <summary>

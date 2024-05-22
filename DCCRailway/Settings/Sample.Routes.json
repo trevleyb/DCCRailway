@@ -11,11 +11,11 @@
       }
     },
     {
-      "Key": "R04",
+      "Key": "R02",
       "Value": {
         "State": 2,
-        "Id": "R04",
-        "Name": "Route4",
+        "Id": "R02",
+        "Name": "Route2",
         "Description": "Mainline to Station",
         "Parameters": []
       }
@@ -31,11 +31,11 @@
       }
     },
     {
-      "Key": "R02",
+      "Key": "R04",
       "Value": {
         "State": 2,
-        "Id": "R02",
-        "Name": "Route2",
+        "Id": "R04",
+        "Name": "Route4",
         "Description": "Yard to Mainline",
         "Parameters": []
       }

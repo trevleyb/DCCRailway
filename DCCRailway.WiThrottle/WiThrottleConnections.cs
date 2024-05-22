@@ -40,7 +40,7 @@ public class WiThrottleConnections {
     }
 
     public bool HasDuplicateID(string hardwareID,ulong connectionHandle) {
-        return Connections.Any(x => x.HardwareID.Equals(hardwareID) && x.ConnectionHandle != connectionHandle);
+        return Connections.Any(x => x.HardwareID == hardwareID && x.ConnectionHandle != connectionHandle);
     }
 
     public void CloseConnectionsWithCondition(Func<WiThrottleConnection, bool> conditionToClose, string logMessage) {

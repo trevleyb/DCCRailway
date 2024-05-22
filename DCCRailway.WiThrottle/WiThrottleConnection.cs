@@ -32,10 +32,10 @@ public class WiThrottleConnection {
         _listReference        = connections;
     }
 
-    public TcpClient Client       { get; set; }
-    public string    ThrottleName { get; set; }
-    public string    HardwareID   { get; set; }
-    public Guid      ConnectionID { get; init; } = Guid.NewGuid();
+    public TcpClient Client         { get; set; }
+    public string    ThrottleName   { get; set; } = "";
+    public string    HardwareID     { get; set; } = "";
+    public Guid      ConnectionID   { get; init; } = Guid.NewGuid();
 
     public IPAddress? ConnectionAddress => Client.Client.RemoteEndPoint is IPEndPoint endpoint ? endpoint.Address : new IPAddress(0);
     public ulong      ConnectionHandle  => (ulong)(Client?.Client?.Handle ?? 0);

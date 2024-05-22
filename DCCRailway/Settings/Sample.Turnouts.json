@@ -29,6 +29,51 @@
         "Description": "",
         "Parameters": []
       }
+    },
+    {
+      "Key": "T03",
+      "Value": {
+        "IsManual": false,
+        "IsReversed": false,
+        "ResetOnPowerOn": false,
+        "InitialState": 0,
+        "CurrentState": 0,
+        "Type": 0,
+        "Id": "T03",
+        "Name": "Turnout 3",
+        "Description": "",
+        "Parameters": []
+      }
+    },
+    {
+      "Key": "T04",
+      "Value": {
+        "IsManual": false,
+        "IsReversed": false,
+        "ResetOnPowerOn": false,
+        "InitialState": 0,
+        "CurrentState": 0,
+        "Type": 0,
+        "Id": "T04",
+        "Name": "Turnout 4",
+        "Description": "",
+        "Parameters": []
+      }
+    },
+    {
+      "Key": "T05",
+      "Value": {
+        "IsManual": false,
+        "IsReversed": false,
+        "ResetOnPowerOn": false,
+        "InitialState": 0,
+        "CurrentState": 0,
+        "Type": 0,
+        "Id": "T05",
+        "Name": "Turnout 5",
+        "Description": "",
+        "Parameters": []
+      }
     }
   ]
 }

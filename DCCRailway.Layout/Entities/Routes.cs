@@ -13,5 +13,5 @@ public class Routes : LayoutRepository<Route> {
     public string RouteLabel   { get; set; } = "Route";
     public string ActiveLabel  { get; set; } = "Active";
     public string InActiveLabel { get; set; } = "Inactive";
-
+    public bool DeActivateOnOverlap { get; set; } = true;
 }
