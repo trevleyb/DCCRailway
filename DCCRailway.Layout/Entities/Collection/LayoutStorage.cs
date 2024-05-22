@@ -73,7 +73,7 @@ public static class LayoutStorage {
         where TEntity : LayoutEntity
         where TClass : ILayoutRepository<TEntity>, new() {
         try {
-            var jsonOptions = JsonSerializerOptions.Default;
+            var jsonOptions = JsonSerializerHelper.Options;
             var jsonObject  = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonString, jsonOptions);
             if (jsonObject is null) return new TClass() ?? throw new Exception("Could not create a repository to populate. Fatal");
 

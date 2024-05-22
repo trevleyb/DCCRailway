@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace DCCRailway.Common.Helpers;
 
@@ -14,7 +15,7 @@ public static class JsonSerializerHelper<T> {
     public static T? LoadFile(string? fileName) {
         if (!File.Exists(fileName)) return default(T);
         try {
-            var serializedStr = File.ReadAllText(fileName);
+            var serializedStr= File.ReadAllText(fileName);
             var serializerOptions = JsonSerializerHelper.Options;
             return JsonSerializer.Deserialize<T>(serializedStr, serializerOptions)!;
         } catch (Exception ex) {
@@ -35,10 +36,19 @@ public static class JsonSerializerHelper<T> {
         // -----------------------------------------------------------------------------------
         try {
             var serializerOptions = JsonSerializerHelper.Options;
-            var serializedStr = JsonSerializer.Serialize(entity, serializerOptions);
+            var serializedStr     = JsonSerializer.Serialize(entity, serializerOptions);
             File.WriteAllText(fileName, serializedStr);
         } catch (Exception ex) {
             throw new ApplicationException($"Unable to save configuration data to '{fileName}' due to '{ex.Message}'");
         }
     }
+}
+
+public static class JsonSerializerHelper {
+    public static JsonSerializerOptions Options => new() {
+        WriteIndented = true,
+        PropertyNameCaseInsensitive = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        Converters             = { new JsonStringEnumConverter() }
+    };
 }
