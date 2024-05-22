@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Timers;
@@ -112,8 +113,9 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
         var clientHandle = client.Client?.Handle ?? 0;
         try {
             ActiveClients++;
-            logger.Information("WiThrottle Connection: Client '{0}' has connected. [{1} active / {2} inactive connections]", clientHandle, ActiveClients, _connections.Count);
+            logger.Information("WiThrottle Connection: Client '{0}' on '{3}' has connected. [{1} active / {2} inactive connections]", clientHandle, ActiveClients, _connections.Count, client?.Client?.RemoteEndPoint?.ToString() ?? "UnknownIP");
 
+            Debug.Assert(client != null, nameof(client) + " != null");
             var stream = client.GetStream();
             var connection = _connections.Add(client, railwaySettings, _commandStation);
             var cmdProcessor = new WiThrottleCmdProcessor(logger, _commandStation);
