@@ -8,4 +8,10 @@ public class Routes : LayoutRepository<Route> {
     public Routes(string? prefix= null) {
         Prefix = prefix ?? "R";
     }
+
+    public string RoutesLabel  { get; set; } = "Routes";
+    public string RouteLabel   { get; set; } = "Route";
+    public string ActiveLabel  { get; set; } = "Active";
+    public string InActiveLabel { get; set; } = "Inactive";
+
 }

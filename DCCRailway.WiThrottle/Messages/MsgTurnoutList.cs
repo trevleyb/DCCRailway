@@ -1,6 +1,7 @@
 using System.Text;
 using DCCRailway.Common.Types;
 using DCCRailway.WiThrottle.Helpers;
+using Microsoft.Extensions.Primitives;
 
 namespace DCCRailway.WiThrottle.Messages;
 
@@ -10,8 +11,6 @@ public class MsgTurnoutList(WiThrottleConnection connection) : ThrottleMsg, IThr
             var turnouts = connection.RailwaySettings.Turnouts.GetAll();
             if (!turnouts.Any()) return "";
 
-            // This block should be re-written in the future to support the Names of the States
-            // of the Turnouts to come from Condfiguration.
             var message = new StringBuilder();
             message.Append("PTL");
             foreach (var turnout in turnouts) {

@@ -51,7 +51,7 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
                     _                            => throw new ArgumentOutOfRangeException()
                 };
                 layoutCmds.SetTurnoutState(turnout.CurrentState);
-                connection.QueueMsg(new MsgTurnoutState(connection, turnout));
+                connection.QueueMsgToAll(new MsgTurnoutState(connection, turnout));
             }
         }
     }
@@ -77,7 +77,7 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
                         }
                     }
                 }
-                connection.QueueMsg(new MsgRouteState(connection, route));
+                connection.QueueMsgToAll(new MsgRouteState(connection, route));
             }
         }
     }
@@ -89,7 +89,7 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
         if (connection.RailwaySettings.Routes.Values is { } routes) {
             foreach (var route in routes) {
                 route.State = RouteState.Inactive;
-                connection.QueueMsg(new MsgRouteState(connection, route));
+                connection.QueueMsgToAll(new MsgRouteState(connection, route));
             }
         }
     }
@@ -110,7 +110,7 @@ public class CmdPanel(ILogger logger, WiThrottleConnection connection) : Throttl
             if (layoutCmds.IsPowerSupported()) layoutCmds.SetPowerState(DCCPowerState.On);
             break;
         }
-        connection.QueueMsg(new MsgPowerState(connection));
+        connection.QueueMsgToAll(new MsgPowerState(connection));
     }
 
     public override string ToString() => "CMD:Panel";

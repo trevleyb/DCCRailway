@@ -9,4 +9,9 @@ public class Turnouts : LayoutRepository<Turnout> {
         Prefix = prefix ?? "T";
     }
 
+    public string TurnoutsLabel { get; set; } = "Turnouts";
+    public string TurnoutLabel { get; set; } = "Turnout";
+    public string StraightLabel { get; set; } = "Closed";
+    public string DivergingLabel { get; set; } = "Thrown";
+
 }

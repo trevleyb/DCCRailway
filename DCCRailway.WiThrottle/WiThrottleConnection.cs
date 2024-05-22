@@ -76,6 +76,21 @@ public class WiThrottleConnection {
         foreach (var msg in messages) QueueMsg(msg);
     }
 
+    /// <summary>
+    /// Used particularly for changes in Turnout, Power and Routes, send the status update
+    /// message to all connected devices.
+    /// </summary>
+    /// <param name="message"></param>
+    public void QueueMsgToAll(IThrottleMsg message) {
+        foreach (var connection in _listReference.Connections) connection.QueueMsg(message);
+    }
+
+    public void QueueMsgToAll(IThrottleMsg[] messages) {
+        foreach (var connection in _listReference.Connections) {
+            foreach (var msg in messages) connection.QueueMsg(msg);
+        }
+    }
+
     // Find Helpers
     // -------------------------------------------------------------------------------------
     public WiThrottleConnection? GetByHardwareID(string hardwareID) => _listReference.GetByHardwareID(hardwareID,ConnectionHandle);
