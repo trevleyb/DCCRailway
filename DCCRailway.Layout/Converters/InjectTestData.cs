@@ -29,6 +29,9 @@ public static class InjectTestData {
         var turnouts = manager.Turnouts;
         turnouts.Add(new Turnout { Id = "T01", Name = "Mainline-to-Station" });
         turnouts.Add(new Turnout { Id = "T02", Name = "Mainline-to-Yard" });
+        turnouts.Add(new Turnout { Id = "T03", Name = "Turnout 3" });
+        turnouts.Add(new Turnout { Id = "T04", Name = "Turnout 4" });
+        turnouts.Add(new Turnout { Id = "T05", Name = "Turnout 5" });
 
         var signals = manager.Signals;
         signals.Add(new Signal { Id = "SIG01", Name = "Entrance-to-Yard" });
@@ -37,23 +40,36 @@ public static class InjectTestData {
 
         var routes = manager.Routes;
         var route  = new Route { Id = "R01", Name = "Route1", Description = "Station to Mainline" };
-        route.AddRoute("T01", true);
-        route.AddRoute("T02", true);
+        route.AddRoute("T01", false);
+        route.AddRoute("T02", false);
+        route.AddRoute("T03", false);
+        route.AddRoute("T04", false);
+        route.AddRoute("T05", false);
         routes.Add(route);
 
         route = new Route { Id = "R02", Name = "Route2", Description = "Yard to Mainline" };
         route.AddRoute("T01", false);
-        route.AddRoute("T02", true);
+        route.AddRoute("T02", false);
+        route.AddRoute("T03", true);
+        route.AddRoute("T04", true);
+        route.AddRoute("T05", false);
         routes.Add(route);
 
         route = new Route { Id = "R03", Name = "Route3", Description = "Yard to Station" };
-        route.AddRoute("T01", true);
+        route.AddRoute("T01", false);
         route.AddRoute("T02", false);
         routes.Add(route);
 
         route = new Route { Id = "R04", Name = "Route4", Description = "Mainline to Station" };
-        route.AddRoute("T01", false);
+        route.AddRoute("T02", true);
+        route.AddRoute("T03", false);
+        route.AddRoute("T04", false);
+        routes.Add(route);
+
+        route = new Route { Id = "R05", Name = "Route5", Description = "Route 5" };
         route.AddRoute("T02", false);
+        route.AddRoute("T03", false);
+        route.AddRoute("T04", false);
         routes.Add(route);
 
         var accessories = manager.Accessories;

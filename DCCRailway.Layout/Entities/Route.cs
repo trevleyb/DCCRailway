@@ -1,12 +1,17 @@
 using System.Diagnostics;
+using System.Text.Json.Serialization;
 using DCCRailway.Common.Types;
 using DCCRailway.Layout.Entities.Base;
+using Newtonsoft.Json;
 
 namespace DCCRailway.Layout.Entities;
 
 [Serializable, DebuggerDisplay("ROUTE={Id}, Name: {Name}")]
 public class Route(string id = "") : LayoutEntity(id) {
+    [JsonInclude]
     public List<RouteTurnout> RouteTurnouts = new();
+
+    [JsonInclude]
     public RouteState         State { get; set; } = RouteState.Unknown;
 
     // Add a route to the list of routes at the END of the list

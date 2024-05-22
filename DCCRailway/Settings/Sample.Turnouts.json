@@ -1,4 +1,8 @@
 {
+  "TurnoutsLabel": "Turnouts",
+  "TurnoutLabel": "Turnout",
+  "StraightLabel": "Closed",
+  "DivergingLabel": "Thrown",
   "Turnouts": [
     {
       "Key": "T01",
@@ -16,7 +20,7 @@
       }
     },
     {
-      "Key": "T02",
+      "Key": "T04",
       "Value": {
         "IsManual": false,
         "IsReversed": false,
@@ -24,8 +28,8 @@
         "InitialState": 0,
         "CurrentState": 0,
         "Type": 0,
-        "Id": "T02",
-        "Name": "Mainline-to-Yard",
+        "Id": "T04",
+        "Name": "Turnout 4",
         "Description": "",
         "Parameters": []
       }
@@ -46,7 +50,7 @@
       }
     },
     {
-      "Key": "T04",
+      "Key": "T02",
       "Value": {
         "IsManual": false,
         "IsReversed": false,
@@ -54,8 +58,8 @@
         "InitialState": 0,
         "CurrentState": 0,
         "Type": 0,
-        "Id": "T04",
-        "Name": "Turnout 4",
+        "Id": "T02",
+        "Name": "Mainline-to-Yard",
         "Description": "",
         "Parameters": []
       }
