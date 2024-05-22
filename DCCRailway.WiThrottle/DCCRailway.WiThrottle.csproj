@@ -17,4 +17,8 @@
       <PackageReference Include="Makaretu.Dns.New" Version="3.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Docs\" />
+    </ItemGroup>
+
 </Project>

@@ -84,7 +84,7 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
 
             while (!_cts.IsCancellationRequested) {
                 var client = server.AcceptTcpClient();
-                Thread t = new(HandleConnection);
+                Thread t = new(HandleConnectionAsync);
                 t.Start(client);
             }
             logger.Information("WiThrottle Server Shutting Down on {0}", server.LocalEndpoint);
@@ -100,63 +100,68 @@ public class WiThrottleServer(ILogger logger, IRailwaySettings railwaySettings) 
     }
 
     /// <summary>
-    ///     Thread object to handle a request.
+    /// Re-Written Handle Connection Method which is non-blocking and Async.
     /// </summary>
-    /// <param name="obj"></param>
-    private void HandleConnection(object? obj) {
-        // This should not be possible but best to ensure and check for this edge case.
-        // -----------------------------------------------------------------------------
+    /// <param name="obj">Refernce to the TcpClient to manage</param>
+    private async void HandleConnectionAsync(object? obj) {
         if (obj is not TcpClient client) {
             logger.Warning("WiThrottle Started thread but provided a NON-TCP Client Object.");
             return;
         }
 
+        var clientHandle = client.Client?.Handle ?? 0;
         try {
             ActiveClients++;
-            logger.Information("WiThrottle Connection: Client '{0}' has connected. [{1} active / {2} inactive connections]", client.Client.Handle ,ActiveClients,_connections.Count);
-            var stream = client.GetStream();
+            logger.Information("WiThrottle Connection: Client '{0}' has connected. [{1} active / {2} inactive connections]", clientHandle, ActiveClients, _connections.Count);
 
+            var stream = client.GetStream();
             var connection = _connections.Add(client, railwaySettings, _commandStation);
-            connection.QueueMsg(new MsgConfiguration(connection));
             var cmdProcessor = new WiThrottleCmdProcessor(logger, _commandStation);
 
-            try {
-                var           bytesRead = 0;
-                var           bytes     = new byte[256];
-                StringBuilder buffer    = new();
+            connection.QueueMsg(new MsgConfiguration(connection));
 
-                while (!_cts.IsCancellationRequested && (bytesRead = stream.Read(bytes, 0, bytes.Length)) != 0) {
-                    // Read the data and append it to a String Builder in-case there is more data to read.
-                    // We are only reading 256 bytes maximum at a time from the stream so keep reading until
-                    // we get a terminator at the end of the data stream.
-                    // -------------------------------------------------------------------------------------
+            var bytes     = new byte[256];
+            StringBuilder buffer    = new();
+
+            while (!_cts.IsCancellationRequested) {
+                var bytesRead = 0;
+                try {
+                    bytesRead = await stream.ReadAsync(bytes, 0, bytes.Length);
+                } catch (ObjectDisposedException) {
+                    break;
+                }
+
+                if (bytesRead != 0) {
                     var data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
-                    if (IsBrowserRequest(data, stream)) break;
+                    if (IsBrowserRequest(data, connection, stream)) break;
 
                     buffer.Append(data);
                     if (Terminators.HasTerminator(buffer)) {
                         foreach (var command in Terminators.GetMessagesAndLeaveIncomplete(buffer)) {
                             if (!string.IsNullOrEmpty(command)) {
                                 if (cmdProcessor.Interpret(connection, command)) break;
-                                SendServerMessages(connection, stream);
                             }
                         }
                         buffer.Clear();
                     }
                 }
-                logger.Information("WiThrottle Connection: Client '{0}' has closed.", connection?.ConnectionHandle);
-            } catch (Exception ex) {
-                logger.Error("WiThrottle Error: {0}", ex.Message);
-            } finally {
-                connection?.Close();
+
+                // Send any queued messages back to the Client
+                // -----------------------------------------------------------
+                if (connection.HasMsg) SendServerMessages(connection, stream);
             }
+            connection?.Close();
+        } catch (Exception ex) {
+            logger.Error("WiThrottle Error: {0}", ex.Message);
         } finally {
             ActiveClients--;
         }
+        logger.Information("WiThrottle Connection: Client '{0}' has closed. [{1} active / {2} inactive connections]", clientHandle, ActiveClients, _connections.Count);
     }
 
-    private bool IsBrowserRequest(string data, NetworkStream stream) {
+    private bool IsBrowserRequest(string data, WiThrottleConnection connection, NetworkStream stream) {
         if (data.StartsWith("GET")) {
+            connection.ThrottleName = "Web Browser";
             SendServerMessages(BrowserMessage.Message(_connections,_hostAdress,_hostPort).ToString(), stream);
             return true;
         }

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections;
+using System.Text.Json.Serialization;
 using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Common.Types;
@@ -7,7 +8,7 @@ namespace DCCRailway.Common.Types;
 ///     Represents the storage of an ADDRESS for a DCC Loco or Accessory
 /// </summary>
 [Serializable]
-public class DCCAddress : PropertyChangedBase {
+public class DCCAddress : PropertyChangedBase, IEqualityComparer<DCCAddress> {
     private const int MAX_ADDRESS = 10000;
 
     private int            _address;
@@ -118,5 +119,20 @@ public class DCCAddress : PropertyChangedBase {
         }
     }
 
-    public override string ToString() => $"ADDRESS:{_address:D4} ({(_addressType == DCCAddressType.Short ? "Short" : "Long")}) ";
+    public override string ToString() => $"{_address:D4} ({(_addressType == DCCAddressType.Short ? "Short" : "Long")}) ";
+    public bool Equals(DCCAddress? x, DCCAddress? y) {
+        if (ReferenceEquals(x, y)) return true;
+        if (ReferenceEquals(x, null) || ReferenceEquals(y, null)) return false;
+        return x.Address == y.Address && x.AddressType == y.AddressType && x.Protocol == y.Protocol;
+    }
+
+    public int GetHashCode(DCCAddress obj) {
+        unchecked // Overflow is fine, just wrap
+        {
+            var hashCode = obj.Address.GetHashCode();
+            hashCode = (hashCode * 397) ^ obj.AddressType.GetHashCode();
+            hashCode = (hashCode * 397) ^ obj.Protocol.GetHashCode();
+            return hashCode;
+        }
+    }
 }

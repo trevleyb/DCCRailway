@@ -9,7 +9,6 @@ using DCCRailway.WiThrottle.Messages;
 namespace DCCRailway.WiThrottle;
 
 public class WiThrottleConnection {
-    private readonly  WiThrottleAssignedLocos _assignedLocos = new();
     private readonly  WiThrottleConnections   _listReference;
     private readonly  WiThrottleMsgQueue      _serverMessages = [];
     internal readonly ICommandStation          CommandStation;
@@ -28,7 +27,7 @@ public class WiThrottleConnection {
         RailwaySettings       = railwaySettings;
         HeartbeatSeconds      = Prefs.HeartbeatSeconds;
         HeartbeatState        = HeartbeatStateEnum.Off;
-        LastHeartbeat         = DateTime.Now;
+        LastHeartbeat         = DateTime.MinValue;
         CommandStation        = commandStation;
         _listReference        = connections;
     }
@@ -46,7 +45,8 @@ public class WiThrottleConnection {
         init => _heartbeatSeconds = value <= 0 ? 0 : value >= 60 ? 60 : value;
     }
 
-    public DateTime           LastHeartbeat  { get; set; }
+    public bool IsActive => !string.IsNullOrEmpty(HardwareID) && (Client?.Client?.Connected ?? false);
+    public DateTime LastHeartbeat { get; set; }
     public HeartbeatStateEnum HeartbeatState { get; set; }
 
     /// <summary>
@@ -62,22 +62,25 @@ public class WiThrottleConnection {
 
     public void UpdateHeartbeat() => LastHeartbeat = DateTime.Now;
 
-    public bool IsLocoAssigned(DCCAddress address)     => _assignedLocos.IsAssigned(address);
-    public bool Release(DCCAddress address)            => _assignedLocos.Release(address);
-    public bool Assign(char group, DCCAddress address) => _assignedLocos.Assign(group, address);
-    public void QueueMsg(IThrottleMsg message)         => _serverMessages.Add(message);
+    // Assignment Helpers
+    // -------------------------------------------------------------------------------------
+    public bool IsAddressInUse(DCCAddress address)      => _listReference.Assignments.IsAssigned(address);
+    public bool Acquire(char group, DCCAddress address) => _listReference.Assignments.Acquire(group, address, this);
+    public WiThrottleConnection? Release(DCCAddress address) => _listReference.Assignments.Release(address);
+    public List<DCCAddress> ReleaseAllInGroup(char dataGroup) => _listReference.Assignments.ReleaseAllInGroup(dataGroup, this);
 
-    public WiThrottleConnection? GetByHardwareID(string hardwareID) {
-        return _listReference.GetByHardwareID(hardwareID,ConnectionHandle);
+    // Queue Helpers
+    // -------------------------------------------------------------------------------------
+    public void QueueMsg(IThrottleMsg message) => _serverMessages.Add(message);
+    public void QueueMsg(IThrottleMsg[] messages) {
+        foreach (var msg in messages) QueueMsg(msg);
     }
 
-    public void RemoveDuplicateID(string hardwareID) {
-        _listReference.RemoveDuplicateID(hardwareID,ConnectionHandle);
-    }
-
-    public bool HasDuplicateID(string hardwareID) {
-        return _listReference.HasDuplicateID(hardwareID,ConnectionHandle);
-    }
+    // Find Helpers
+    // -------------------------------------------------------------------------------------
+    public WiThrottleConnection? GetByHardwareID(string hardwareID) => _listReference.GetByHardwareID(hardwareID,ConnectionHandle);
+    public void RemoveDuplicateID(string hardwareID) => _listReference.RemoveDuplicateID(hardwareID,ConnectionHandle);
+    public bool HasDuplicateID(string hardwareID) => _listReference.HasDuplicateID(hardwareID,ConnectionHandle);
 
     /// <summary>
     ///     Close this connection. If there are any "InUse" locos, then ensure that are stopped
@@ -85,8 +88,8 @@ public class WiThrottleConnection {
     ///     collections
     /// </summary>
     public void Close() {
-        if (_assignedLocos.Count > 0) {
-            foreach (var address in _assignedLocos.AssignedLocos) {
+        if (_listReference.Assignments.Count > 0) {
+            foreach (var address in _listReference.Assignments.AssignedAddresses) {
                 // TODO: var layoutCmd = new WitThrottleLayoutCmd(CommandStationManager.CommandStation!, address);
                 // layoutCmd.Release();
                 // layoutCmd.Stop();
@@ -96,7 +99,6 @@ public class WiThrottleConnection {
         // Turn off the Heartbeat so we don't check this connection.
         // -----------------------------------------------------------------------------
         HeartbeatState = HeartbeatStateEnum.Off;
-        _assignedLocos.Clear();
         Client.Dispose();
 
         // if there was no hardwareID (we didn't connect to a throttle) then
@@ -107,6 +109,7 @@ public class WiThrottleConnection {
     }
 
     public override string ToString() => $"{ThrottleName} @{ConnectionAddress}/{ConnectionHandle}|";
+
 }
 
 public enum HeartbeatStateEnum {

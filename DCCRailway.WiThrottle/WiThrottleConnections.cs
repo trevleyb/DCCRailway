@@ -1,4 +1,6 @@
-﻿using System.Net.Sockets;
+﻿using System.Data.SqlTypes;
+using System.Net.Sockets;
+using System.Text.RegularExpressions;
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Layout;
@@ -12,8 +14,10 @@ namespace DCCRailway.WiThrottle;
 /// </summary>
 public class WiThrottleConnections {
 
-    public readonly List<WiThrottleConnection> Connections = new List<WiThrottleConnection>();
+    public readonly WiThrottleAssignedLocos Assignments = new();
+    public readonly List<WiThrottleConnection> Connections = [];
     public int Count => Connections.Count;
+
     /// <summary>
     ///     Add a new entry into the list of connected Throttles
     /// </summary>
@@ -43,19 +47,6 @@ public class WiThrottleConnections {
         var connectionsToClose = Connections.Where(conditionToClose).ToList();
         foreach (var connection in connectionsToClose) {
             connection.Close();
-        }
-    }
-
-    public bool IsAddressInUse(DCCAddress address) {
-        foreach (var connection in Connections) {
-            if (connection.IsLocoAssigned(address)) return true;
-        }
-        return false;
-    }
-
-    public void Release(DCCAddress address) {
-        foreach (var connection in Connections) {
-            if (connection.IsLocoAssigned(address)) connection.Release(address);
         }
     }
 

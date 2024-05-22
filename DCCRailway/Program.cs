@@ -29,10 +29,9 @@ void WiThrottleRun(string[] args) {
 
     // Wait until we press ENTER to stop the WiThrottle
     // --------------------------------------------------
-    if (System.Diagnostics.Debugger.IsAttached) {
-        logger.Information("Press ENTER on Console to finish");
-        Console.ReadLine();
-    }
+    logger.Information("Press ENTER on Console to finish");
+    Console.ReadLine();
+
     logger.Information("Stopping the WiThrottle Service");
     wii.Stop();
     logger.Information("END");
