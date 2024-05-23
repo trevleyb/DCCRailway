@@ -11,8 +11,11 @@ public static class SignalAPI {
         });
 
         app.MapGet("/layout/signals", async () => await Task.FromResult(Results.Ok(entities.GetAll())));
-        app.MapPost("/layout/signals", async (Signal signal) => await Task.FromResult(Results.Ok(entities.Add(signal))));
-        app.MapPut("/layout/signals/{id}", async (string id, Signal signal) => await Task.FromResult(Results.Ok(entities.Update(signal))));
-        app.MapDelete("/layout/signals/{id}", async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
+        app.MapPost("/layout/signals",
+                    async (Signal signal) => await Task.FromResult(Results.Ok(entities.Add(signal))));
+        app.MapPut("/layout/signals/{id}",
+                   async (string id, Signal signal) => await Task.FromResult(Results.Ok(entities.Update(signal))));
+        app.MapDelete("/layout/signals/{id}",
+                      async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
     }
 }

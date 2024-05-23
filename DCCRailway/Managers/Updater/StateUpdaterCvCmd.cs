@@ -6,7 +6,7 @@ using DCCRailway.Managers.State;
 
 namespace DCCRailway.Managers.Updater;
 
-public class StateUpdaterCvCmd(IStateManager stateManager) : IStateUpdater{
+public class StateUpdaterCvCmd(IStateManager stateManager) : IStateUpdater {
     public IResult Process(ICmdResult cmdResult) {
         switch (cmdResult.Command) {
         case ICmdCVRead cmd:

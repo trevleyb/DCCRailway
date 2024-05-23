@@ -9,63 +9,63 @@
 
     <ItemGroup>
         <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
-        <ProjectReference Include="..\DCCRailway.Controller.Digitrax\DCCRailway.Controller.Digitrax.csproj" />
-        <ProjectReference Include="..\DCCRailway.Controller.NCE\DCCRailway.Controller.NCE.csproj" />
-        <ProjectReference Include="..\DCCRailway.Controller.Sprog\DCCRailway.Controller.Sprog.csproj" />
-        <ProjectReference Include="..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj" />
+        <ProjectReference Include="..\DCCRailway.Controller.Digitrax\DCCRailway.Controller.Digitrax.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.NCE\DCCRailway.Controller.NCE.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.Sprog\DCCRailway.Controller.Sprog.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
         <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
         <ProjectReference Include="..\DCCRailway.WebApp\DCCRailway.WebApp.csproj"/>
-        <ProjectReference Include="..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj" />
+        <ProjectReference Include="..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Settings\" />
+        <Folder Include="Settings\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="CommandLineParser" Version="2.9.1" />
-      <PackageReference Include="Makaretu.Dns.Multicast.New" Version="0.31.0" />
-      <PackageReference Include="Makaretu.Dns.New" Version="3.0.1" />
+        <PackageReference Include="CommandLineParser" Version="2.9.1"/>
+        <PackageReference Include="Makaretu.Dns.Multicast.New" Version="0.31.0"/>
+        <PackageReference Include="Makaretu.Dns.New" Version="3.0.1"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Settings\Sample.Accessories.json" />
-      <AdditionalFiles Include="Settings\Sample.Accessories.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Settings\Sample.Blocks.json" />
-      <AdditionalFiles Include="Settings\Sample.Blocks.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Settings\Sample.Locomotives.json" />
-      <AdditionalFiles Include="Settings\Sample.Locomotives.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Settings\Sample.Manufacturers.json" />
-      <AdditionalFiles Include="Settings\Sample.Manufacturers.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Settings\Sample.Routes.json" />
-      <AdditionalFiles Include="Settings\Sample.Routes.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Settings\Sample.Sensors.json" />
-      <AdditionalFiles Include="Settings\Sample.Sensors.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Settings\Sample.Settings.json" />
-      <AdditionalFiles Include="Settings\Sample.Settings.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Settings\Sample.Signals.json" />
-      <AdditionalFiles Include="Settings\Sample.Signals.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Settings\Sample.Turnouts.json" />
-      <AdditionalFiles Include="Settings\Sample.Turnouts.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
+        <None Remove="Settings\Sample.Accessories.json"/>
+        <AdditionalFiles Include="Settings\Sample.Accessories.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Settings\Sample.Blocks.json"/>
+        <AdditionalFiles Include="Settings\Sample.Blocks.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Settings\Sample.Locomotives.json"/>
+        <AdditionalFiles Include="Settings\Sample.Locomotives.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Settings\Sample.Manufacturers.json"/>
+        <AdditionalFiles Include="Settings\Sample.Manufacturers.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Settings\Sample.Routes.json"/>
+        <AdditionalFiles Include="Settings\Sample.Routes.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Settings\Sample.Sensors.json"/>
+        <AdditionalFiles Include="Settings\Sample.Sensors.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Settings\Sample.Settings.json"/>
+        <AdditionalFiles Include="Settings\Sample.Settings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Settings\Sample.Signals.json"/>
+        <AdditionalFiles Include="Settings\Sample.Signals.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Settings\Sample.Turnouts.json"/>
+        <AdditionalFiles Include="Settings\Sample.Turnouts.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
     </ItemGroup>
 
 </Project>

@@ -13,7 +13,8 @@ public class NCEStandardValidation : IResultValidation {
         // '3' = data out of range
         // '4' = byte count out of range
         // '!' = command completed successfully
-        if (data != null && data.Length != 1) return CmdResult.Fail(data!, "Unexpected data returned and not processed.");
+        if (data != null && data.Length != 1)
+            return CmdResult.Fail(data!, "Unexpected data returned and not processed.");
 
         return data?[0] switch {
             (byte)'0' => CmdResult.Fail("Command not supported."),

@@ -20,8 +20,14 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
     private readonly SensorCache _sensorCache = new();
 
     public NCESensorGetState() { }
-    public NCESensorGetState(byte cab, byte pin) => SetAddressByCabPin(cab, pin);
-    public NCESensorGetState(int cab) => SensorAddress = new DCCAddress(cab, DCCAddressType.Accessory);
+
+    public NCESensorGetState(byte cab, byte pin) {
+        SetAddressByCabPin(cab, pin);
+    }
+
+    public NCESensorGetState(int cab) {
+        SensorAddress = new DCCAddress(cab, DCCAddressType.Accessory);
+    }
 
     public NCESensorGetState(DCCAddress address) {
         SensorAddress             = address;
@@ -37,17 +43,26 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
 
     protected override ICmdResult Execute(IAdapter adapter) {
         if (!_sensorCache.IsCurrent) {
-            var result = SendAndReceive(adapter, new NCESensorValidator(), new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
+            var result = SendAndReceive(adapter, new NCESensorValidator(),
+                                        new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
             if (!result.Success) return result;
             _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data);
         }
+
         return new NCECmdResultSensorState(Address, _sensorCache.GetState(SensorAddress.Address));
     }
 
-    public void SetAddressByCabPin(byte cab, byte pin) => SensorAddress = new DCCAddress(CalculateAddress(cab, pin), DCCAddressType.Accessory);
-    public void SetAddressByCab(byte cab)              => SensorAddress = new DCCAddress(CalculateAddress(cab, 1), DCCAddressType.Accessory);
+    public void SetAddressByCabPin(byte cab, byte pin) {
+        SensorAddress = new DCCAddress(CalculateAddress(cab, pin), DCCAddressType.Accessory);
+    }
 
-    protected internal static (byte cab, byte pin) CalculateCabPin(DCCAddress address) => CalculateCabPin(address.Address);
+    public void SetAddressByCab(byte cab) {
+        SensorAddress = new DCCAddress(CalculateAddress(cab, 1), DCCAddressType.Accessory);
+    }
+
+    protected internal static (byte cab, byte pin) CalculateCabPin(DCCAddress address) {
+        return CalculateCabPin(address.Address);
+    }
 
     protected internal static (byte cab, byte pin) CalculateCabPin(int address) {
         var pin = address % 16 + 1;
@@ -56,12 +71,14 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
         return ((byte)cab, (byte)pin);
     }
 
-    protected internal static int CalculateAddress(byte cab, byte pin) =>
-
+    protected internal static int CalculateAddress(byte cab, byte pin) {
         // Formula (copied from JMRI) is :
-        (cab - 1) * 16 + (pin - 1);
+        return (cab - 1) * 16 + (pin - 1);
+    }
 
-    public override string ToString() => $"GET SENSOR STATE ({SensorAddress})";
+    public override string ToString() {
+        return $"GET SENSOR STATE ({SensorAddress})";
+    }
 
     /// <summary>
     ///     A simple cache of the data so we don't need to continuously go to the command
@@ -114,16 +131,21 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
                     if (pin >= 1 && pin <= 8) {
                         pinCheck = new byte().SetBit(pin - 1, true);
                         pinValue = data?[1].Invert();
-                    } else if (pin >= 9 && pin <= 16) {
+                    }
+                    else if (pin >= 9 && pin <= 16) {
                         pinCheck = new byte().SetBit(pin - 9, true);
                         pinValue = (byte?)(data?[0].Invert() - 0xC0);
-                    } else {
+                    }
+                    else {
                         return DCCAccessoryState.Off;
                     }
+
                     return (pinValue & pinCheck) > 0 ? DCCAccessoryState.On : DCCAccessoryState.Off;
                 }
+
                 return DCCAccessoryState.Off;
-            } catch {
+            }
+            catch {
                 return DCCAccessoryState.Off;
             }
         }

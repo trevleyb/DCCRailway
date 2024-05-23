@@ -16,14 +16,18 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
 
     public NCESignalSetAspect() { }
 
-    public NCESignalSetAspect(byte aspect = 0) => Aspect = aspect;
+    public NCESignalSetAspect(byte aspect = 0) {
+        Aspect = aspect;
+    }
 
     public DCCAddress Address { get; set; }
 
     public byte Aspect {
         get => _aspect;
         set {
-            if ((value < 0 || value > 15) && value != 30 && value != 31) throw new ArgumentOutOfRangeException(nameof(value), value, "Signal Aspect must be between 0..15 or 30,31");
+            if ((value < 0 || value > 15) && value != 30 && value != 31)
+                throw new ArgumentOutOfRangeException(nameof(value), value,
+                                                      "Signal Aspect must be between 0..15 or 30,31");
             _aspect = value;
         }
     }
@@ -46,5 +50,7 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
         return SendAndReceive(adapter, new NCEStandardValidation(), cmd);
     }
 
-    public override string ToString() => $"SIGNAL ASPECT ({Address}@{Aspect})";
+    public override string ToString() {
+        return $"SIGNAL ASPECT ({Address}@{Aspect})";
+    }
 }

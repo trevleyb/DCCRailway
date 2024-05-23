@@ -21,9 +21,12 @@ public class SettingsTest {
         blockRepository.Add(new Block { Name = "TestBlock3", Description = "Test Block Description3" });
 
         var locomotiveRepository = config.Locomotives;
-        locomotiveRepository.Add(new Locomotive { Name = "TestLocomotive1", Description = "Test Locomotive Description1" });
-        locomotiveRepository.Add(new Locomotive { Name = "TestLocomotive2", Description = "Test Locomotive Description2" });
-        locomotiveRepository.Add(new Locomotive { Name = "TestLocomotive3", Description = "Test Locomotive Description3" });
+        locomotiveRepository.Add(new Locomotive
+                                     { Name = "TestLocomotive1", Description = "Test Locomotive Description1" });
+        locomotiveRepository.Add(new Locomotive
+                                     { Name = "TestLocomotive2", Description = "Test Locomotive Description2" });
+        locomotiveRepository.Add(new Locomotive
+                                     { Name = "TestLocomotive3", Description = "Test Locomotive Description3" });
 
         var sensorRepository = config.Sensors;
         sensorRepository.Add(new Sensor { Name = "TestSensor1", Description = "Test Sensor Description1" });

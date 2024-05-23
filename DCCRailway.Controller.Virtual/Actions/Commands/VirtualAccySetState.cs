@@ -9,10 +9,14 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 public class VirtualAccySetState : VirtualCommand, ICmdAccySetState, ICommand {
     public VirtualAccySetState() { }
 
-    public VirtualAccySetState(DCCAccessoryState state = DCCAccessoryState.Normal) => State = state;
+    public VirtualAccySetState(DCCAccessoryState state = DCCAccessoryState.Normal) {
+        State = state;
+    }
 
     public DCCAddress        Address { get; set; }
     public DCCAccessoryState State   { get; set; }
 
-    public override string ToString() => $"ACCY STATE ({Address} = {State})";
+    public override string ToString() {
+        return $"ACCY STATE ({Address} = {State})";
+    }
 }

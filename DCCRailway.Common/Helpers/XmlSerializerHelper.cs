@@ -18,8 +18,10 @@ public class XmlSerializerHelper<T> {
             using var reader        = new StreamReader(fileName);
 
             return (T?)xmlSerializer.Deserialize(reader);
-        } catch (Exception ex) {
-            throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'", ex);
+        }
+        catch (Exception ex) {
+            throw new ApplicationException($"Unable to load the configuration file '{fileName}' due to '{ex.Message}'",
+                                           ex);
         }
     }
 
@@ -30,7 +32,8 @@ public class XmlSerializerHelper<T> {
     /// <param name="fileName">The name of the file to write the data to</param>
     /// <exception cref="ApplicationException">Returns an error if it cannot save</exception>
     public static void Save(T collection, string fileName) {
-        if (string.IsNullOrEmpty(fileName)) throw new ApplicationException("You must specify a name for the Configuration File.");
+        if (string.IsNullOrEmpty(fileName))
+            throw new ApplicationException("You must specify a name for the Configuration File.");
 
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------
@@ -39,7 +42,8 @@ public class XmlSerializerHelper<T> {
             using var xmlWriter         = XmlWriter.Create(fileName, xmlWriterSettings);
             var       xmlSerializer     = new XmlSerializer(typeof(T));
             xmlSerializer.Serialize(xmlWriter, collection);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ApplicationException($"Unable to save configuration data to '{fileName}' due to '{ex.Message}'");
         }
     }

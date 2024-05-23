@@ -12,5 +12,7 @@ public class NCETurnoutSet : NCEAccySetState, ICmdTurnoutSet, IAccyCmd {
         set => base.State = value == DCCTurnoutState.Closed ? DCCAccessoryState.Closed : DCCAccessoryState.Thrown;
     }
 
-    public override string ToString() => $"TURNOUT STATE ({Address} = {State})";
+    public override string ToString() {
+        return $"TURNOUT STATE ({Address} = {State})";
+    }
 }

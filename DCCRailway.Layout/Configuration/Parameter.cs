@@ -6,7 +6,11 @@ namespace DCCRailway.Layout.Configuration;
 [Serializable]
 public class Parameter {
     public Parameter() { }
-    public Parameter(string name, object value) => Set(name, value);
+
+    public Parameter(string name, object value) {
+        Set(name, value);
+    }
+
     public string  Name    { get; set; }
     public string  Value   { get; set; }
     public string? ObjType { get; set; }
@@ -17,7 +21,9 @@ public class Parameter {
         Value   = (string)Convert.ChangeType(value, typeof(string), CultureInfo.InvariantCulture);
     }
 
-    public T? Get<T>() => (T?)Convert.ChangeType(Get(), typeof(T));
+    public T? Get<T>() {
+        return (T?)Convert.ChangeType(Get(), typeof(T));
+    }
 
     public object Get() {
         try {
@@ -33,13 +39,18 @@ public class Parameter {
                     "System.IO.Ports.StopBits"  => (StopBits)Enum.Parse(typeof(StopBits), Value),
                     "System.IO.Ports.Handshake" => (Handshake)Enum.Parse(typeof(Handshake), Value),
                     "System.IO.Ports.DataBits"  => Convert.ToInt32(Value, CultureInfo.InvariantCulture),
-                    _                           => Convert.ChangeType(Value, Type.GetType(ObjType) ?? typeof(string), CultureInfo.InvariantCulture)
+                    _ => Convert.ChangeType(Value, Type.GetType(ObjType) ?? typeof(string),
+                                            CultureInfo.InvariantCulture)
                 };
-        } catch {
+        }
+        catch {
             return Convert.ChangeType(Value, typeof(string), CultureInfo.InvariantCulture);
         }
+
         return Value;
     }
 
-    public new string ToString() => $"{Name}='{Value}'";
+    public new string ToString() {
+        return $"{Name}='{Value}'";
+    }
 }

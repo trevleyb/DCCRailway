@@ -5,14 +5,11 @@ using Serilog;
 
 namespace DCCRailway.WiThrottle.Commands;
 
-public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd
-{
-    public void Execute(string commandStr)
-    {
+public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd {
+    public void Execute(string commandStr) {
         logger.Information("WiThrottle Recieved Cmd from [{0}]: Multithrottle - {1}:{3}=>'{2}'",
                            connection.ConnectionHandle, ToString(), commandStr, connection.ToString());
-        try
-        {
+        try {
             IThrottleMsg[]? response = null;
             var             data     = new MultiThrottleMessage(commandStr);
             if (!data.IsValid) return;
@@ -21,8 +18,7 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
             // ------------------------------------------------------------------------------------------------------
             // Logger.Log.Information("{0}=>'{1}' Split into: '{2}'.'{3}' => '{4}'", ToString(), commandStr, data.Function, data.Address, data.Action);
 
-            response = data.Function switch
-            {
+            response = data.Function switch {
                 '+' => RequestLocoAccess(data),
                 '-' => ReleaseLocoAccess(data),
                 'S' => StealLocoAddress(data),
@@ -32,8 +28,7 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
             };
             if (response is not null) connection.QueueMsg(response);
         }
-        catch
-        {
+        catch {
             logger.Error("WiThrottle Recieved Cmd: Multithrottle - {0}:{2}=> Unable to Process the command =>'{1}'",
                          ToString(), commandStr, connection.ToString());
         }
@@ -43,19 +38,16 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
     /// Acquire a Loco and assign it to this WiThrottle Only
     /// Return a STEAL command if it is assigned to another loco
     /// </summary>
-    private IThrottleMsg[] RequestLocoAccess(MultiThrottleMessage data)
-    {
+    private IThrottleMsg[] RequestLocoAccess(MultiThrottleMessage data) {
         var responses = new List<IThrottleMsg>();
 
         // If the loco is already assigned, then we need to refuse the connection
-        if (connection.IsAddressInUse(data.Address))
-        {
+        if (connection.IsAddressInUse(data.Address)) {
             logger.Information("WiThrottle Recieved Cmd: Request for loco: {0} refused as in use. ",
                                data.Address.ToString());
             responses.Add(new MsgAddressRefused(connection, data));
         }
-        else
-        {
+        else {
             logger.Information("WiThrottle Recieved Cmd: Acquiring loco: {0} ", data.Address.ToString());
             connection.Acquire(data.Group, data.Address);
             responses.Add(new MsgAddress(connection, data));
@@ -68,29 +60,24 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
     /// <summary>
     /// Release a loco from the collection of held Locos and tell WiThrottle it has been released
     /// </summary>
-    private IThrottleMsg[] ReleaseLocoAccess(MultiThrottleMessage data)
-    {
+    private IThrottleMsg[] ReleaseLocoAccess(MultiThrottleMessage data) {
         var responses = new List<IThrottleMsg>();
         logger.Information("WiThrottle Recieved Cmd: Releasing loco: {0}", data.Address.ToString());
 
         // If we get a Broadcast message (ie: it was a *) then we need to release ALL
         // locos that are in the same group for the same connection (if any)
         // -------------------------------------------------------------------------
-        if (data.Address.AddressType == DCCAddressType.Broadcast)
-        {
+        if (data.Address.AddressType == DCCAddressType.Broadcast) {
             var locosToRelease = connection.ReleaseAllInGroup(data.Group);
-            foreach (var loco in locosToRelease)
-            {
+            foreach (var loco in locosToRelease) {
                 logger.Information("WiThrottle Recieved Cmd: Releasing loco: {0} from group: {1}", loco.ToString(),
                                    data.Group);
                 responses.Add(new MsgAddress(connection, data, loco));
             }
         }
-        else
-        {
+        else {
             var owner = connection.Release(data.Address);
-            if (owner is not null && owner != connection)
-            {
+            if (owner is not null && owner != connection) {
                 logger.Information("WiThrottle Recieved Cmd: Releasing loco: {0} but owner is different. ",
                                    data.Address.ToString());
                 owner.QueueMsg(new MsgAddressReleased(owner, data));
@@ -107,15 +94,14 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
     /// We need to release it and let the other connection know they no longer have access
     /// to it, and then assign it to this loco.
     /// </summary>
-    private IThrottleMsg[] StealLocoAddress(MultiThrottleMessage data)
-    {
-        if (!connection.IsAddressInUse(data.Address)) return RequestLocoAccess(data);
-        else
-        {
+    private IThrottleMsg[] StealLocoAddress(MultiThrottleMessage data) {
+        if (!connection.IsAddressInUse(data.Address)) {
+            return RequestLocoAccess(data);
+        }
+        else {
             logger.Information("WiThrottle Recieved Cmd: Stealing loco: {0}", data.Address.ToString());
             var owner = connection.Release(data.Address);
-            if (owner is not null && owner != connection)
-            {
+            if (owner is not null && owner != connection) {
                 logger.Information("WiThrottle Recieved Cmd: Releasing stolen loco: {0} from different owner. ",
                                    data.Address.ToString());
                 owner?.QueueMsg(new MsgAddressReleased(owner, data));
@@ -125,7 +111,15 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
         }
     }
 
-    private IThrottleMsg[] PerformLocoAction(MultiThrottleMessage data) => [new MsgAddress(connection, data)];
-    private IThrottleMsg[] ProvideLocoFunctions(MultiThrottleMessage data) => [new MsgLocoLabels(connection, data)];
-    public override string ToString() => "CMD:MultiThrottle";
+    private IThrottleMsg[] PerformLocoAction(MultiThrottleMessage data) {
+        return [new MsgAddress(connection, data)];
+    }
+
+    private IThrottleMsg[] ProvideLocoFunctions(MultiThrottleMessage data) {
+        return [new MsgLocoLabels(connection, data)];
+    }
+
+    public override string ToString() {
+        return "CMD:MultiThrottle";
+    }
 }

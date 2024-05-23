@@ -66,6 +66,6 @@ public class LayoutPropertyChangedTests {
     private static T? GetPropertyValue<T>(object obj, string propertyName) {
         var propertyInfo = obj.GetType().GetProperty(propertyName);
         if (propertyInfo != null && propertyInfo.CanRead) return (T?)propertyInfo.GetValue(obj);
-        return default(T);
+        return default;
     }
 }

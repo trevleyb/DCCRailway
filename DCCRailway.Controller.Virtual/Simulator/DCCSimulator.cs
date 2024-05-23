@@ -27,6 +27,7 @@ public class DCCSimulator {
     private int           _ratio;
 
     #region Power On/Off and Main Track/Prog Track operations
+
     public object? SetPowerState(DCCPowerState state) {
         _powerState = state;
 
@@ -39,7 +40,9 @@ public class DCCSimulator {
         return null;
     }
 
-    public DCCPowerState GetPowerState() => _powerState;
+    public DCCPowerState GetPowerState() {
+        return _powerState;
+    }
 
     public object? SetProgTrack() {
         _mainTrackSelected = false;
@@ -54,10 +57,13 @@ public class DCCSimulator {
 
         return null;
     }
+
     #endregion
 
     #region Consist Management Functions
-    public object? CreateConsist(DCCAddress frontAddress, DCCDirection frontDirection, DCCAddress rearAddress, DCCDirection readDirection) {
+
+    public object? CreateConsist(DCCAddress frontAddress, DCCDirection frontDirection, DCCAddress rearAddress,
+        DCCDirection readDirection) {
         // Find the next available Consist Address
         // ----------------------------------------
         int? consistAddress = null;
@@ -69,7 +75,8 @@ public class DCCSimulator {
             break;
         }
 
-        if (consistAddress == null) throw new IndexOutOfRangeException("No available Consist Adresses. Cannot create a Consist.");
+        if (consistAddress == null)
+            throw new IndexOutOfRangeException("No available Consist Adresses. Cannot create a Consist.");
 
         //
         // Update the Loco CVs to indicate they are in a Consist and Create a Conists Entry
@@ -101,7 +108,9 @@ public class DCCSimulator {
         return null;
     }
 
-    private int FindConsistAddress(int Address) => FindConsistAddress(new DCCAddress(Address));
+    private int FindConsistAddress(int Address) {
+        return FindConsistAddress(new DCCAddress(Address));
+    }
 
     private int FindConsistAddress(DCCAddress Address) {
         var entry = _locoList.GetLoco(Address.Address);
@@ -134,9 +143,11 @@ public class DCCSimulator {
 
         return null;
     }
+
     #endregion
 
     #region Clock Start/Stop and Set Functions for a Fast Clock
+
     public object? SetClock(int hour, int min, int ratio = 1) {
         _hour  = hour;
         _min   = min;
@@ -175,18 +186,22 @@ public class DCCSimulator {
 
         return (12, 0);
     }
+
     #endregion
 
     #region Read and Write a CV
+
     public object? WriteCV(DCCAddress address, int cv, byte value) {
-        if (!_progTrackSelected || _mainTrackSelected) throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
+        if (!_progTrackSelected || _mainTrackSelected)
+            throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
         _locoList.GetLoco(address)[cv] = value;
 
         return null;
     }
 
     public object? WriteCV(int cv, byte value) {
-        if (!_progTrackSelected || _mainTrackSelected) throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
+        if (!_progTrackSelected || _mainTrackSelected)
+            throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
         var loco                   = _locoList.GetRandomLoco();
         if (loco != null) loco[cv] = value;
 
@@ -194,7 +209,8 @@ public class DCCSimulator {
     }
 
     public byte ReadCV(int cv) {
-        if (!_progTrackSelected || _mainTrackSelected) throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
+        if (!_progTrackSelected || _mainTrackSelected)
+            throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
         var loco = _locoList.GetRandomLoco();
 
         if (loco != null) return loco[cv];
@@ -203,13 +219,16 @@ public class DCCSimulator {
     }
 
     public byte ReadCV(DCCAddress address, int cv) {
-        if (!_progTrackSelected || _mainTrackSelected) throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
+        if (!_progTrackSelected || _mainTrackSelected)
+            throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
 
         return _locoList.GetLoco(address)[cv];
     }
+
     #endregion
 
     #region Programming Functions
+
     public object? AccyOpsProgramming(DCCAddress address, int cv, byte value) {
         var entry = _locoList.GetLoco(address);
         entry[cv] = value;
@@ -237,17 +256,27 @@ public class DCCSimulator {
 
         return null;
     }
+
     #endregion
 
     #region Misc Functions
-    public object? DoNothing() => null;
 
-    public string GetStatus() => "1.0.0";
+    public object? DoNothing() {
+        return null;
+    }
 
-    public object? RunMacro(int macro) => macro > 0 ? null : null;
+    public string GetStatus() {
+        return "1.0.0";
+    }
+
+    public object? RunMacro(int macro) {
+        return macro > 0 ? null : null;
+    }
+
     #endregion
 
     #region Control the Locomotive Direction and Speed
+
     public object? StopLoco(DCCAddress address) {
         var entry = _locoList.GetLoco(address);
         entry.Speed = 0;
@@ -288,5 +317,6 @@ public class DCCSimulator {
 
         return null;
     }
+
     #endregion
 }

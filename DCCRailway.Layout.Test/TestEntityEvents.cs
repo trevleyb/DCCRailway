@@ -12,8 +12,8 @@ public class TestEntityEvents {
     public void TestThatEntityRepositoryIsEventingChanges() {
         var propertyChanged   = false;
         var repositoryChanged = false;
-        var config  = CreateTestConfig();
-        var locomotives = config.Locomotives;
+        var config            = CreateTestConfig();
+        var locomotives       = config.Locomotives;
         locomotives.RepositoryChanged += (sender, args) => repositoryChanged = true;
 
         propertyChanged = false;
@@ -46,7 +46,7 @@ public class TestEntityEvents {
     }
 
     private IRailwaySettings CreateTestConfig() {
-        var config = new RailwaySettings(LoggerHelper.ConsoleLogger).New("./","Test Entities");
+        var config = new RailwaySettings(LoggerHelper.ConsoleLogger).New("./", "Test Entities");
 
         var locomotives = config.Locomotives;
         locomotives.Add(new Locomotive { Name = "Train01" });

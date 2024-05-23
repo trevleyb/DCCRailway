@@ -6,12 +6,15 @@ public static class Terminators {
     public const char Terminator = (char)0x0a;
 
     public static readonly string[] PossibleTerminators = {
-        new string([(char)0x0a]),
-        new string([(char)0x0d]),
-        new string([(char)0x0a, (char)0x0d]),
-        new string([(char)0x0d, (char)0x0a])
+        new([(char)0x0a]),
+        new([(char)0x0d]),
+        new([(char)0x0a, (char)0x0d]),
+        new([(char)0x0d, (char)0x0a])
     };
-    public static string ForDisplay(string message) => message.Replace((char)0x0A, '•').Replace((char)0x0d, '•');
+
+    public static string ForDisplay(string message) {
+        return message.Replace((char)0x0A, '•').Replace((char)0x0d, '•');
+    }
 
     public static StringBuilder AddTerminator(StringBuilder input) {
         if (input.Length > 0)
@@ -27,12 +30,14 @@ public static class Terminators {
         return input ?? "";
     }
 
-    public static bool HasTerminator(StringBuilder input) => HasTerminator(input.ToString());
+    public static bool HasTerminator(StringBuilder input) {
+        return HasTerminator(input.ToString());
+    }
 
     public static bool HasTerminator(string input) {
-        foreach (var terminator in PossibleTerminators) {
-            if (input.Contains(terminator)) return true;
-        }
+        foreach (var terminator in PossibleTerminators)
+            if (input.Contains(terminator))
+                return true;
         return false;
     }
 
@@ -58,9 +63,7 @@ public static class Terminators {
     }
 
     public static string RemoveTerminators(string input) {
-        foreach (var terminator in PossibleTerminators) {
-            input = input.Replace(terminator, "");
-        }
+        foreach (var terminator in PossibleTerminators) input = input.Replace(terminator, "");
         return input;
     }
 

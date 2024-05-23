@@ -19,9 +19,7 @@ public class VirtualConsistCreate : VirtualCommand, ICmdConsistCreate, ICommand 
     public override string ToString() {
         var sb = new StringBuilder();
 
-        foreach (var loco in AddLoco) {
-            sb.Append(loco + ",");
-        }
+        foreach (var loco in AddLoco) sb.Append(loco + ",");
 
         return $"CREATE CONSIST ({ConsistAddress}={LeadLoco},{sb}{RearLoco}";
     }

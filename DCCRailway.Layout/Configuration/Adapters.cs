@@ -2,7 +2,8 @@ namespace DCCRailway.Layout.Configuration;
 
 [Serializable]
 public class Adapters : List<Adapter> {
-    public Adapter? this[string name] => Find(x => x.Name != null && x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
+    public Adapter? this[string name] =>
+        Find(x => x.Name != null && x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
 
     public void Add(string name, Parameters? parameters = null) {
         ArgumentNullException.ThrowIfNull(name);

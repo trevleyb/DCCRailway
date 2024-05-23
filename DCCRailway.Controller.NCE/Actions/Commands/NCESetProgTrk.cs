@@ -8,7 +8,11 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 
 [Command("SetProgTrk", "Switch Power to the Programming Track")]
 public class NCESetProgTrk : NCECommand, ICmdTrackProg {
-    protected override ICmdResult Execute(IAdapter adapter) => SendAndReceive(adapter, new NCEStandardValidation(), 0x9E);
+    protected override ICmdResult Execute(IAdapter adapter) {
+        return SendAndReceive(adapter, new NCEStandardValidation(), 0x9E);
+    }
 
-    public override string ToString() => "PROGRAMMING TRACK";
+    public override string ToString() {
+        return "PROGRAMMING TRACK";
+    }
 }

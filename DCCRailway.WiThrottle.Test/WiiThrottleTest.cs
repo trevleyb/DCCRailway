@@ -7,11 +7,9 @@ using DCCRailway.Managers.State;
 namespace DCCRailway.WiThrottle.Test;
 
 [TestFixture]
-public class WiThrottleTest
-{
+public class WiThrottleTest {
     [Test]
-    public void TestIfWiThrottleLoadsAndRuns()
-    {
+    public void TestIfWiThrottleLoadsAndRuns() {
         Trace.Listeners.Add(new ConsoleTraceListener());
         var logger       = LoggerHelper.ConsoleLogger;
         var settings     = new RailwaySettings(logger).Sample("./", "Sample");
@@ -30,8 +28,7 @@ public class WiThrottleTest
 
         // Wait until we press ENTER to stop the WiThrottle
         // --------------------------------------------------
-        if (System.Diagnostics.Debugger.IsAttached)
-        {
+        if (Debugger.IsAttached) {
             logger.Information("Press ENTER on Console to finish");
             Console.ReadLine();
         }

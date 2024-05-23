@@ -2,29 +2,24 @@ using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Controllers;
-using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Virtual.Adapters;
-using DCCRailway.Layout.Configuration;
-using DCCRailway.Layout.Entities;
 using DCCRailway.Managers.State;
 using DCCRailway.Managers.Updater;
 using NUnit.Framework;
-using Serilog;
 
 namespace DCCRailway.Test;
 
 [TestFixture]
 public class ControllerEventLayoutTest {
-
     [Test]
     public void TestSimpleEventToState() {
-
         // Create a Virtual Controller so we can issue commands and test results.
         // ----------------------------------------------------------------------------
         var stateManager = new StateManager();
         var stateUpdater = new StateUpdater(LoggerHelper.ConsoleLogger, stateManager);
-        var controller = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
-        Assert.That(controller,Is.Not.Null);
+        var controller = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")
+            ?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
+        Assert.That(controller, Is.Not.Null);
 
         // At this point, we have a virtual Controller that we can issue commands against, it is wired to the event
         // processor which processes ICmdResult messages and updates a State Manager to track the state of objects
@@ -32,9 +27,7 @@ public class ControllerEventLayoutTest {
         // as commands are only issued to ADDRESSES
         // ------------------------------------------------------------------------------------------------------------
         if (controller is not null) {
-            controller.ControllerEvent += (sender, args) => {
-                stateUpdater.ProcessCommandEvent(args);
-            };
+            controller.ControllerEvent += (sender, args) => { stateUpdater.ProcessCommandEvent(args); };
 
             // Try setting a Loco Speed
             // ----------------------------------------------------------------------------------------------------
@@ -42,7 +35,8 @@ public class ControllerEventLayoutTest {
             if (cmdSetSpeed is not null) {
                 cmdSetSpeed.Address = new DCCAddress(1024);
                 cmdSetSpeed.Speed   = new DCCSpeed(50);
-                var setSpeedOld = stateManager.GetState<DCCSpeed>(cmdSetSpeed.Address, StateType.Speed, new DCCSpeed(0));
+                var setSpeedOld =
+                    stateManager.GetState<DCCSpeed>(cmdSetSpeed.Address, StateType.Speed, new DCCSpeed(0));
                 Assert.That(setSpeedOld, Is.EqualTo(new DCCSpeed(0)));
                 cmdSetSpeed.Execute();
                 var setSpeedNew = stateManager.GetState<DCCSpeed>(cmdSetSpeed.Address, StateType.Speed);
@@ -53,15 +47,15 @@ public class ControllerEventLayoutTest {
             // ----------------------------------------------------------------------------------------------------
             var cmdSetMomentum = controller.CreateCommand<ICmdLocoSetMomentum>();
             if (cmdSetMomentum is not null) {
-                cmdSetMomentum.Address = new DCCAddress(1024);
-                cmdSetMomentum.Momentum= new DCCMomentum(5);
-                var cmdSetMomentumOld = stateManager.GetState<DCCMomentum>(cmdSetMomentum.Address, StateType.Momentum, new DCCMomentum(0));
+                cmdSetMomentum.Address  = new DCCAddress(1024);
+                cmdSetMomentum.Momentum = new DCCMomentum(5);
+                var cmdSetMomentumOld =
+                    stateManager.GetState<DCCMomentum>(cmdSetMomentum.Address, StateType.Momentum, new DCCMomentum(0));
                 Assert.That(cmdSetMomentumOld, Is.EqualTo(new DCCMomentum(0)));
                 cmdSetMomentum.Execute();
                 var cmdSetMomentumNew = stateManager.GetState<DCCMomentum>(cmdSetMomentum.Address, StateType.Momentum);
                 Assert.That(cmdSetMomentumNew, Is.EqualTo(new DCCMomentum(5)));
             }
-
         }
     }
 

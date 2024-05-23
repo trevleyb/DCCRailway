@@ -1,7 +1,6 @@
 namespace DCCRailway.Common.Helpers;
 
 public class Result(bool success, string message = "", Exception? exception = null) : IResult {
-
     // Constructors
     // -----------------------------------------------------------------------
     public Result() : this(true) { }
@@ -15,15 +14,39 @@ public class Result(bool success, string message = "", Exception? exception = nu
 
     // Helpers
     // -----------------------------------------------------------------------
-    public static IResult Ok()                      => new Result();
-    public static IResult Ok(IResult result)        => new Result(true, result.Message, result.Exception);
-    public static IResult Ok(string errorMessage)   => new Result(true,errorMessage,null);
+    public static IResult Ok() {
+        return new Result();
+    }
 
-    public static IResult Fail()                    => new Result(false);
-    public static IResult Fail(string message)      => new Result(true, message);
-    public static IResult Fail(Exception ex)        => new Result(true, ex.Message, ex);
-    public static IResult Fail(IResult result)      => new Result(false, result.Message, result.Exception);
-    public static IResult Fail(string message, Exception ex) => new Result(true, message, ex);
+    public static IResult Ok(IResult result) {
+        return new Result(true, result.Message, result.Exception);
+    }
 
-    public override string ToString() => $"({(Success ? "Success" : "Failed")}) {Message}";
+    public static IResult Ok(string errorMessage) {
+        return new Result(true, errorMessage, null);
+    }
+
+    public static IResult Fail() {
+        return new Result(false);
+    }
+
+    public static IResult Fail(string message) {
+        return new Result(true, message);
+    }
+
+    public static IResult Fail(Exception ex) {
+        return new Result(true, ex.Message, ex);
+    }
+
+    public static IResult Fail(IResult result) {
+        return new Result(false, result.Message, result.Exception);
+    }
+
+    public static IResult Fail(string message, Exception ex) {
+        return new Result(true, message, ex);
+    }
+
+    public override string ToString() {
+        return $"({(Success ? "Success" : "Failed")}) {Message}";
+    }
 }

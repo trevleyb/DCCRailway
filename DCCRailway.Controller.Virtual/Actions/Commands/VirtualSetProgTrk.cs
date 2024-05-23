@@ -5,5 +5,7 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 
 [Command("SetProgTrk", "Switch Power to the Programming Track")]
 public class VirtualSetProgTrk : VirtualCommand, ICmdTrackProg {
-    public override string ToString() => "PROGRAMMING TRACK";
+    public override string ToString() {
+        return "PROGRAMMING TRACK";
+    }
 }

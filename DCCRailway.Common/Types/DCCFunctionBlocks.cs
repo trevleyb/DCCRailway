@@ -19,9 +19,7 @@ public class DCCFunctionBlocks {
     ///     Constructor with an empty (all off) DCC Functions block
     /// </summary>
     public DCCFunctionBlocks() {
-        for (var i = 0; i <= 28; i++) {
-            this[i] = false;
-        }
+        for (var i = 0; i <= 28; i++) this[i] = false;
     }
 
     /// <summary>
@@ -29,9 +27,7 @@ public class DCCFunctionBlocks {
     /// </summary>
     /// <param name="functions"></param>
     public DCCFunctionBlocks(DCCFunctionBlocks functions) {
-        for (var i = 0; i <= 28; i++) {
-            this[i] = functions[i];
-        }
+        for (var i = 0; i <= 28; i++) this[i] = functions[i];
     }
 
     /// <summary>
@@ -112,10 +108,14 @@ public class DCCFunctionBlocks {
     }
 
     [RangeValidation(0, 28, "Function number must be between 0..28")]
-    public bool GetFunction(string functionName) => this[GetFunctionFromName(functionName)];
+    public bool GetFunction(string functionName) {
+        return this[GetFunctionFromName(functionName)];
+    }
 
     [RangeValidation(0, 28, "Function number must be between 0..28")]
-    public bool GetFunction(int function) => this[function];
+    public bool GetFunction(int function) {
+        return this[function];
+    }
 
     private int GetFunctionFromName(string functionName) {
         if (functionName.StartsWith("F"))
@@ -136,7 +136,11 @@ public class DCCFunctionBlocks {
         _block[blockNum - 1] = value;
     }
 
-    public byte[] ToByteArray() => _block;
+    public byte[] ToByteArray() {
+        return _block;
+    }
 
-    public override string ToString() => _block.ToDisplayValues();
+    public override string ToString() {
+        return _block.ToDisplayValues();
+    }
 }

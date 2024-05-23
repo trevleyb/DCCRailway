@@ -32,5 +32,7 @@ public class NCELocoSetMomentum : NCECommand, ICmdLocoSetMomentum, ICommand {
         return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
-    public override string ToString() => $"LOCO MOMENTUM ({Address}={Momentum}";
+    public override string ToString() {
+        return $"LOCO MOMENTUM ({Address}={Momentum}";
+    }
 }

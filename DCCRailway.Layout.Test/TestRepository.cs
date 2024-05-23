@@ -42,4 +42,5 @@ public class TestEntityCollectionWithChanges {
 }
 
 public class TestEntities() : LayoutRepository<TestEntity> { }
+
 public class TestEntity : LayoutEntity { }

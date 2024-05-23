@@ -8,7 +8,8 @@ public class NCECmdResultClock : CmdResult, ICmdResultFastClock {
     public NCECmdResultClock(byte[]? dataSet) : base(dataSet) {
         if (Data.Length != 2) {
             Success = false;
-        } else {
+        }
+        else {
             Hour = Data[0];
             Min  = Data[1];
         }

@@ -16,11 +16,9 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     [Parameter("Name of the Serial port to use")]
     public string PortName { get; set; }
 
-    [Parameter("Timeout in Seconds", 30)]
-    public int Timeout { get; set; } = 30;
+    [Parameter("Timeout in Seconds", 30)] public int Timeout { get; set; } = 30;
 
-    [Parameter("Baud Rate", 9600)]
-    public int BaudRate { get; set; } = 9600;
+    [Parameter("Baud Rate", 9600)] public int BaudRate { get; set; } = 9600;
 
     [Parameter("Number of Data Bits (Default: 8)", 8)]
     public int DataBits { get; set; } = 8;
@@ -45,7 +43,8 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
         logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Connecting");
         if (IsConnected) Disconnect();
 
-        if (string.IsNullOrEmpty(PortName)) throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
+        if (string.IsNullOrEmpty(PortName))
+            throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
         try {
             _connection = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits)
                 { WriteTimeout = Timeout, ReadTimeout = Timeout };
@@ -60,7 +59,8 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
                 OnErrorOccurred(new DataErrorArgs(args.EventType.ToString(), this));
             };
             _connection.Open();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not connect to the device: " + PortName, ex);
         }
     }
@@ -82,7 +82,8 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     /// <exception cref="AdapterException">Throws if there is a connection error</exception>
     public byte[]? RecvData(ICommand? command = null) {
         logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Listening for data");
-        if (!IsConnected) throw new AdapterException(this.AttributeInfo().Name, "No active connection to the Command Station.");
+        if (!IsConnected)
+            throw new AdapterException(this.AttributeInfo().Name, "No active connection to the Command Station.");
 
         GuardClauses.IsNotNull(_connection, "_connection");
 
@@ -91,20 +92,22 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
             var returnData  = new List<byte>();
             var readBytes   = true;
 
-            while (DateTime.Now < timeoutTime && (readBytes || _connection!.BytesToRead > 0)) {
+            while (DateTime.Now < timeoutTime && (readBytes || _connection!.BytesToRead > 0))
                 if (_connection!.BytesToRead > 0) {
                     readBytes = false;
                     var readData = new byte[_connection.BytesToRead];
                     _connection.Read(readData, 0, _connection.BytesToRead);
-                    logger.Debug($"ADAPTER:{this.AttributeInfo().Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
+                    logger.Debug(
+                        $"ADAPTER:{this.AttributeInfo().Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
                     returnData.AddRange(readData);
                 }
-            }
 
-            logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Read '{0}' data as bytes from SerialPort.", returnData.ToArray().ToDisplayValueChars());
+            logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Read '{0}' data as bytes from SerialPort.",
+                         returnData.ToArray().ToDisplayValueChars());
             OnDataRecieved(new DataRecvArgs(returnData.ToArray(), this, command));
             return returnData.ToArray();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not read from the Command Station", ex);
         }
     }
@@ -116,23 +119,21 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     /// <param name="commandReference">The reference to the command being sent</param>
     /// <exception cref="AdapterException">Throws an exception if there is a connection error</exception>
     public void SendData(byte[] data, ICommand? commandReference = null) {
-        logger.Debug($"ADAPTER:{this.AttributeInfo().Name} -Sending data to the {this.AttributeInfo().Name} Adapter '{data.ToDisplayValueChars()}'");
-        if (!IsConnected) throw new AdapterException(this.AttributeInfo().Name, "No active connection to the Command Station.");
+        logger.Debug(
+            $"ADAPTER:{this.AttributeInfo().Name} -Sending data to the {this.AttributeInfo().Name} Adapter '{data.ToDisplayValueChars()}'");
+        if (!IsConnected)
+            throw new AdapterException(this.AttributeInfo().Name, "No active connection to the Command Station.");
 
         try {
             if (_connection!.BytesToRead > 0) _connection.ReadExisting();
             _connection!.Write(data, 0, data.Length);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not read/write to Command Station", ex);
         }
+
         OnDataSent(new DataSentArgs(data, this, commandReference));
     }
-
-    /// <summary>
-    ///     Override the ToString to display "Serial = tty @ 9600,8,1,N"
-    /// </summary>
-    /// <returns>String representation of the connection string</returns>
-    public override string ToString() => $"Adapter '{this.AttributeInfo().Name}' = {PortName} @ {BaudRate},{DataBits},{StopBits},{Parity}";
 
     /// <summary>
     ///     Dispose of the SerialAdapter and release any resources used.
@@ -144,6 +145,14 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     public void Dispose() {
         Dispose(true);
         GC.SuppressFinalize(this); // Violates rule
+    }
+
+    /// <summary>
+    ///     Override the ToString to display "Serial = tty @ 9600,8,1,N"
+    /// </summary>
+    /// <returns>String representation of the connection string</returns>
+    public override string ToString() {
+        return $"Adapter '{this.AttributeInfo().Name}' = {PortName} @ {BaudRate},{DataBits},{StopBits},{Parity}";
     }
 
     /// <summary>

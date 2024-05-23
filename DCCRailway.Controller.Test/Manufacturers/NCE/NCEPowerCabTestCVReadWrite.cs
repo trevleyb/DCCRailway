@@ -7,7 +7,8 @@ using DCCRailway.Controller.NCE.Adapters;
 
 namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 
-[TestFixture, Ignore("This is a hardware test")]
+[TestFixture]
+[Ignore("This is a hardware test")]
 public class NCEPowerCabTestCVReadWrite {
     [Test]
     public void SwitchMainandProg() {
@@ -71,7 +72,7 @@ public class NCEPowerCabTestCVReadWrite {
 
     [Test]
     public void ReadWriteCV() {
-        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger,"COM3", 19200);
+        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger, "COM3", 19200);
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
         var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);
 

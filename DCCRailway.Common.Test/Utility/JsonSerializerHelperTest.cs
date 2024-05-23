@@ -33,7 +33,7 @@ public class JsonSerializerHelperTest {
     public void LoadReturnNullWhenFileDoesNotExist() {
         // Arrange
         var nonExistentFileName = "nonexistent.json";
-        var loaded    = JsonSerializerHelper<TestObject>.LoadFile(nonExistentFileName);
+        var loaded              = JsonSerializerHelper<TestObject>.LoadFile(nonExistentFileName);
         Assert.That(loaded, Is.EqualTo(null));
     }
 
@@ -57,7 +57,7 @@ public class JsonSerializerHelperTest {
 
         // Assert
         Assert.IsTrue(File.Exists(TestFileName));
-        var serializedStr = File.ReadAllText(TestFileName ?? "test.json");
+        var serializedStr      = File.ReadAllText(TestFileName ?? "test.json");
         var deserializedObject = JsonSerializer.Deserialize<TestObject>(serializedStr);
         Assert.IsNotNull(deserializedObject);
         Assert.That(deserializedObject?.Name, Is.EqualTo(objectToSave.Name));
@@ -69,7 +69,8 @@ public class JsonSerializerHelperTest {
         var objectToSave = new TestObject { Name = "Test" };
 
         // Act & Assert
-        Assert.Throws<ApplicationException>(() => JsonSerializerHelper<TestObject>.SaveFile(objectToSave, string.Empty));
+        Assert.Throws<ApplicationException>(
+            () => JsonSerializerHelper<TestObject>.SaveFile(objectToSave, string.Empty));
     }
 
     private class TestObject {

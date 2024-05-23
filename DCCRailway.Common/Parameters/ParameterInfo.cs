@@ -16,9 +16,12 @@ public class ParameterInfo {
         Type  = propertyInfo.GetType().ToString();
         Value = field == null ? string.Empty : propertyInfo.GetValue(field)?.ToString() ?? string.Empty;
         if (attribute != null) {
-            Options     = (string.IsNullOrEmpty(attribute.Options) ? attribute.Options : GetAvailableOptions(propertyInfo)) ?? string.Empty;
+            Options =
+                (string.IsNullOrEmpty(attribute.Options) ? attribute.Options : GetAvailableOptions(propertyInfo)) ??
+                string.Empty;
             Description = attribute.Description ?? string.Empty;
-        } else {
+        }
+        else {
             Options = GetAvailableOptions(propertyInfo);
         }
     }
@@ -36,12 +39,13 @@ public class ParameterInfo {
 
         string GetEnumOptions(Type property) {
             var builder = new StringBuilder();
-            foreach (var field in property.GetFields()) {
-                if (field.FieldType.BaseType != null && field.FieldType.BaseType.Name.Equals("enum", StringComparison.InvariantCultureIgnoreCase)) {
+            foreach (var field in property.GetFields())
+                if (field.FieldType.BaseType != null &&
+                    field.FieldType.BaseType.Name.Equals("enum", StringComparison.InvariantCultureIgnoreCase)) {
                     if (builder.Length > 0) builder.Append(" | ");
                     builder.Append(field.Name);
                 }
-            }
+
             return builder.ToString();
         }
     }

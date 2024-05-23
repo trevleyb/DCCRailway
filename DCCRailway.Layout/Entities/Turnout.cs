@@ -4,7 +4,8 @@ using DCCRailway.Layout.Entities.Base;
 
 namespace DCCRailway.Layout.Entities;
 
-[Serializable, DebuggerDisplay("TURNOUT={Id}, Name: {Name}")]
+[Serializable]
+[DebuggerDisplay("TURNOUT={Id}, Name: {Name}")]
 public class Turnout : LayoutEntityDecoder {
     private DCCTurnoutState _currentState;
     private DCCTurnoutState _initialState;

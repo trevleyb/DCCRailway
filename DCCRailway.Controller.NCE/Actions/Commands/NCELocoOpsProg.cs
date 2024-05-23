@@ -40,5 +40,7 @@ public class NCELocoOpsProg : NCECommand, ICmdLocoOpsProg, ICommand {
         return SendAndReceive(adapter, new NCEStandardValidation(), cmd);
     }
 
-    public override string ToString() => $"LOCO OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
+    public override string ToString() {
+        return $"LOCO OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
+    }
 }

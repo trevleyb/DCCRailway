@@ -13,7 +13,9 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCEConsistKill : NCECommand, ICmdConsistKill, ICommand {
     public NCEConsistKill() { }
 
-    public NCEConsistKill(DCCAddress address) => Address = address;
+    public NCEConsistKill(DCCAddress address) {
+        Address = address;
+    }
 
     public DCCAddress Address { get; set; }
 
@@ -26,5 +28,7 @@ public class NCEConsistKill : NCECommand, ICmdConsistKill, ICommand {
         return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
-    public override string ToString() => $"CONSIST KILL ({Address})";
+    public override string ToString() {
+        return $"CONSIST KILL ({Address})";
+    }
 }

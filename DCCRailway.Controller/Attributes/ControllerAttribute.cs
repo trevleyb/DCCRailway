@@ -2,7 +2,8 @@ using System.Diagnostics;
 
 namespace DCCRailway.Controller.Attributes;
 
-[DebuggerDisplay("Name: {Name}, Manufacturer: {Manufacturer}, Model: {Model}, Version: {Version}"), AttributeUsage(AttributeTargets.Class)]
+[DebuggerDisplay("Name: {Name}, Manufacturer: {Manufacturer}, Model: {Model}, Version: {Version}")]
+[AttributeUsage(AttributeTargets.Class)]
 public class ControllerAttribute : Attribute {
     public ControllerAttribute(string name, string? manufacturer = null, string? model = null, string? version = null) {
         Name         = name;

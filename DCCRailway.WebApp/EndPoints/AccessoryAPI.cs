@@ -11,8 +11,12 @@ public static class AccessoryApi {
         });
 
         app.MapGet("/layout/accessories", async () => await Task.FromResult(Results.Ok(entities.GetAll())));
-        app.MapPost("/layout/accessories", async (Accessory accessory) => await Task.FromResult(Results.Ok(entities.Add(accessory))));
-        app.MapPut("/layout/accessories/{id}", async (string id, Accessory accessory) => await Task.FromResult(Results.Ok(entities.Update(accessory))));
-        app.MapDelete("/layout/accessories/{id}", async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
+        app.MapPost("/layout/accessories",
+                    async (Accessory accessory) => await Task.FromResult(Results.Ok(entities.Add(accessory))));
+        app.MapPut("/layout/accessories/{id}",
+                   async (string id, Accessory accessory) =>
+                       await Task.FromResult(Results.Ok(entities.Update(accessory))));
+        app.MapDelete("/layout/accessories/{id}",
+                      async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
     }
 }

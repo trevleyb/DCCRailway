@@ -9,9 +9,13 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 public class VirtualConsistKill : VirtualCommand, ICmdConsistKill, ICommand {
     public VirtualConsistKill() { }
 
-    public VirtualConsistKill(DCCAddress address) => Address = address;
+    public VirtualConsistKill(DCCAddress address) {
+        Address = address;
+    }
 
     public DCCAddress Address { get; set; }
 
-    public override string ToString() => $"CONSIST KILL ({Address})";
+    public override string ToString() {
+        return $"CONSIST KILL ({Address})";
+    }
 }

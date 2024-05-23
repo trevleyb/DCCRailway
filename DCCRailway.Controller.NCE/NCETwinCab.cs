@@ -7,6 +7,11 @@ namespace DCCRailway.Controller.NCE;
 
 [Controller("NCETwinCab", "North Coast Engineering (NCE)", "TwinCab", "1.1")]
 public class NceTwinCab(ILogger logger) : CommandStation(logger), ICommandStation {
-    public override DCCAddress CreateAddress()                                                       => new();
-    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new(address, type);
+    public override DCCAddress CreateAddress() {
+        return new DCCAddress();
+    }
+
+    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) {
+        return new DCCAddress(address, type);
+    }
 }

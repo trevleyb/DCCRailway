@@ -2,12 +2,9 @@ using System.Text;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgRouteLabels(Connection connection) : ThrottleMsg, IThrottleMsg
-{
-    public override string Message
-    {
-        get
-        {
+public class MsgRouteLabels(Connection connection) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
+        get {
             var routes = connection.RailwaySettings.Routes.GetAll();
             if (!routes.Any()) return "";
 
@@ -30,7 +27,9 @@ public class MsgRouteLabels(Connection connection) : ThrottleMsg, IThrottleMsg
         }
     }
 
-    public override string ToString() => $"MSG:RouteLabels [{connection?.ToString() ?? ""}]";
+    public override string ToString() {
+        return $"MSG:RouteLabels [{connection?.ToString() ?? ""}]";
+    }
 }
 
 /*

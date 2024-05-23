@@ -4,6 +4,7 @@ using DCCRailway.Layout.Entities.Base;
 using ILogger = Serilog.ILogger;
 
 namespace DCCRailway.Layout.Entities.Collection;
+
 /// <summary>
 /// This is a more complex JSON serializer designed to seriaoise any properties in the
 /// main collection class, and the contents of the dictionary that the class is derived from
@@ -25,10 +26,13 @@ public static class LayoutStorage {
         try {
             var jsonString = File.ReadAllText(fileName);
             return DeserializeLayout<TClass, TEntity>(jsonString);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             var backupFile = Path.ChangeExtension(fileName, null); // remove the old extension
             File.Move(fileName, backupFile + ".Backup-{DateTime.Now:yyMMddHHmmss}.json");
-            logger.Warning("Could not load the repository file {0} due to {1}. File has been backed up to {2} and an emplty repository created.",fileName,ex.Message,backupFile);
+            logger.Warning(
+                "Could not load the repository file {0} due to {1}. File has been backed up to {2} and an emplty repository created.",
+                fileName, ex.Message, backupFile);
             return new TClass();
         }
     }
@@ -47,12 +51,15 @@ public static class LayoutStorage {
     public static void SaveFile<TClass, TEntity>(ILogger logger, TClass entityClass, string? fileName)
         where TEntity : LayoutEntity
         where TClass : LayoutRepository<TEntity> {
-        if (string.IsNullOrEmpty(fileName)) throw new ApplicationException("You must specify a name for the Configuration File.");
+        if (string.IsNullOrEmpty(fileName))
+            throw new ApplicationException("You must specify a name for the Configuration File.");
         try {
             var jsonString = SerializeLayout<TClass, TEntity>(entityClass);
             File.WriteAllText(fileName, jsonString);
-        } catch (Exception ex) {
-            logger.Warning("Could not save the repository {0} to file {1} due to {2}.",typeof(TClass).Name,fileName,ex.Message);
+        }
+        catch (Exception ex) {
+            logger.Warning("Could not save the repository {0} to file {1} due to {2}.", typeof(TClass).Name, fileName,
+                           ex.Message);
         }
     }
 
@@ -75,37 +82,44 @@ public static class LayoutStorage {
         try {
             var jsonOptions = JsonSerializerHelper.Options;
             var jsonObject  = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonString, jsonOptions);
-            if (jsonObject is null) return new TClass() ?? throw new Exception("Could not create a repository to populate. Fatal");
+            if (jsonObject is null)
+                return new TClass() ?? throw new Exception("Could not create a repository to populate. Fatal");
 
             // Reconstruct MyObject instance
             var repository = new TClass() ?? throw new Exception("Could not create a repository to populate. Fatal");
-            var properties = repository.GetType().GetProperties().Where(x => x.DeclaringType == typeof(TClass) && x.CanWrite);
+            var properties = repository.GetType().GetProperties()
+                .Where(x => x.DeclaringType == typeof(TClass) && x.CanWrite);
             var collectionName = typeof(TClass).Name;
 
             foreach (var kvp in jsonObject) {
                 if (kvp.Key == collectionName) {
                     var items = (JsonElement)kvp.Value;
                     foreach (var item in items.EnumerateArray()) {
-                        var key     = item.GetProperty("Key").GetString();
-                        var valueJson= item.GetProperty("Value").GetRawText();
-                        var value         = JsonSerializer.Deserialize<TEntity>(valueJson, jsonOptions);
+                        var key       = item.GetProperty("Key").GetString();
+                        var valueJson = item.GetProperty("Value").GetRawText();
+                        var value     = JsonSerializer.Deserialize<TEntity>(valueJson, jsonOptions);
                         if (value is not null) repository.Add(value);
                     }
-                } else {
+                }
+                else {
                     var property = repository.GetType().GetProperty(kvp.Key);
                     if (property is not null && property.CanWrite) {
                         try {
                             var value = Convert.ChangeType(kvp.Value.ToString(), property.PropertyType);
                             property.SetValue(repository, value);
-                        } catch (InvalidCastException) {
+                        }
+                        catch (InvalidCastException) {
                             // Handle the situation when the conversion cannot be performed
                         }
                     }
                 }
             }
+
             return repository;
-        } catch (Exception ex) {
-            throw new ApplicationException($"Unable to deserialize configuration data in '{typeof(TClass)}'due to '{ex.Message}'");
+        }
+        catch (Exception ex) {
+            throw new ApplicationException(
+                $"Unable to deserialize configuration data in '{typeof(TClass)}'due to '{ex.Message}'");
         }
     }
 
@@ -141,10 +155,10 @@ public static class LayoutStorage {
             jsonObject[collectionName] = entityClass.Select(kv => new { Key = kv.Key, Value = kv.Value });
             var jsonString = JsonSerializer.Serialize(jsonObject, jsonOptions);
             return jsonString;
-        } catch (Exception ex) {
-            throw new ApplicationException($"Unable to serialize configuration data in '{typeof(TClass)}'due to '{ex.Message}'");
+        }
+        catch (Exception ex) {
+            throw new ApplicationException(
+                $"Unable to serialize configuration data in '{typeof(TClass)}'due to '{ex.Message}'");
         }
     }
-
-
 }

@@ -6,8 +6,7 @@ public class Settings {
     public string Description { get; set; } = "";
     public string PathName    { get; set; }
 
-    public Controller   Controller { get; set; } = new();
-    public Parameters   Parameters { get; set; } = new();
+    public Controller      Controller { get; set; } = new();
+    public Parameters      Parameters { get; set; } = new();
     public WiThrottlePrefs WiThrottle { get; set; } = new();
-
 }

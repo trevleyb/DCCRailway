@@ -24,6 +24,7 @@ public class StateUpdaterConsistCmd(IStateManager stateManager) : IStateUpdater 
         default:
             return Result.Fail($"Unexpected command type {cmdResult?.Command?.AttributeInfo()?.Name}.");
         }
+
         return Result.Ok();
     }
 }

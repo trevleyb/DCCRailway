@@ -4,7 +4,8 @@ using DCCRailway.Controller.Virtual.Adapters;
 
 namespace DCCRailway.Controller.Test;
 
-[TestFixture, Ignore("Re-writing this")]
+[TestFixture]
+[Ignore("Re-writing this")]
 public class VirtualCommandStationTest {
     [Test]
     public void TestRegisteredCommands() {
@@ -14,7 +15,8 @@ public class VirtualCommandStationTest {
         Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
-        var virtualSystem = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
+        var virtualSystem = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")
+            ?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
 
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
@@ -43,7 +45,8 @@ public class VirtualCommandStationTest {
         Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
-        var virtualSystem = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
+        var virtualSystem = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")
+            ?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
 
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
@@ -65,7 +68,8 @@ public class VirtualCommandStationTest {
         Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
-        var virtualSystem = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
+        var virtualSystem = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")
+            ?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
 
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
@@ -87,7 +91,8 @@ public class VirtualCommandStationTest {
         Assert.That(systems, Is.Not.Null);
         Assert.That(systems.Count > 0);
 
-        var virtualSystem = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
+        var virtualSystem = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")
+            ?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
 
         //var virtualSystem = SystemFactory.Create("Virtual", "Virtual");
         Assert.That(virtualSystem, Is.Not.Null);

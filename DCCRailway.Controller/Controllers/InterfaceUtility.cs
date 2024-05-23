@@ -5,11 +5,10 @@ namespace DCCRailway.Controller.Controllers;
 
 public static class InterfaceUtility {
     public static string? FindImplmentationInterface(IEnumerable<TypeInfo> definedTypes, string searchtype) {
-        foreach (var definedType in definedTypes) {
-            foreach (var implementedInterface in definedType.ImplementedInterfaces) {
-                if (implementedInterface.Name.Equals(SplitInterfaceName(searchtype))) return definedType.FullName;
-            }
-        }
+        foreach (var definedType in definedTypes)
+        foreach (var implementedInterface in definedType.ImplementedInterfaces)
+            if (implementedInterface.Name.Equals(SplitInterfaceName(searchtype)))
+                return definedType.FullName;
         return null;
     }
 
@@ -18,6 +17,7 @@ public static class InterfaceUtility {
             var foundName = SplitInterfaceName(interfaceType.FullName);
             if (foundName != null && foundName == searchInterface) return foundName;
         }
+
         return null;
     }
 
@@ -31,11 +31,13 @@ public static class InterfaceUtility {
             if (foundName != null) {
                 if (foundName == searchInterface) {
                     isICommand = true;
-                } else {
+                }
+                else {
                     if (!string.IsNullOrEmpty(interfaceType.FullName)) foundInterfaces.Add(interfaceType.FullName);
                 }
             }
         }
+
         return isICommand ? foundInterfaces : null;
     }
 
@@ -44,9 +46,15 @@ public static class InterfaceUtility {
             var split = fullname.Split(".");
             return split.Length > 0 ? split[^1] : null;
         }
+
         return null;
     }
 
-    public static string? FindImplmentationInterface<T>(IEnumerable<TypeInfo> definedTypes) where T : ICommand => FindImplmentationInterface(definedTypes, typeof(T).ToString());
-    public static bool    ImplementsInterface(TypeInfo definedType, string searchInterface)                    => FindImplementsInterface(definedType, searchInterface) != null;
+    public static string? FindImplmentationInterface<T>(IEnumerable<TypeInfo> definedTypes) where T : ICommand {
+        return FindImplmentationInterface(definedTypes, typeof(T).ToString());
+    }
+
+    public static bool ImplementsInterface(TypeInfo definedType, string searchInterface) {
+        return FindImplementsInterface(definedType, searchInterface) != null;
+    }
 }

@@ -13,10 +13,12 @@ public class VirtualPowerOn : VirtualCommand, ICmdPowerSetOn {
     public DCCPowerState State { get; set; } = DCCPowerState.Unknown;
 
     protected override ICmdResult Execute(IAdapter adapter) {
-        var result                                                              = new VirtualCmdResultPowerState(DCCPowerState.On);
+        var result = new VirtualCmdResultPowerState(DCCPowerState.On);
         if (adapter is VirtualAdapter virtualAdapter) virtualAdapter.PowerState = DCCPowerState.On;
         return result;
     }
 
-    public override string ToString() => "POWER STATE ON";
+    public override string ToString() {
+        return "POWER STATE ON";
+    }
 }

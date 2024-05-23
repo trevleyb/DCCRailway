@@ -3,13 +3,16 @@ using DCCRailway.Controller.Controllers;
 
 namespace DCCRailway.Controller.Test.Controllers;
 
-[TestFixture, TestOf(typeof(CommandStationFactory))]
+[TestFixture]
+[TestOf(typeof(CommandStationFactory))]
 public class CommandStationFactoryTest {
     [Test]
     public void ControllerFactorLoadControllersTest() {
         var factory = new CommandStationFactory(LoggerHelper.ConsoleLogger);
         Assert.That(factory.Controllers.Count > 0, "Should get a set of controllers from the loader.");
-        Assert.That(factory.Controllers.Exists(n => n.Name.Equals("Virtual", StringComparison.InvariantCultureIgnoreCase)), "Should contain the Virtual commandStation.");
+        Assert.That(
+            factory.Controllers.Exists(n => n.Name.Equals("Virtual", StringComparison.InvariantCultureIgnoreCase)),
+            "Should contain the Virtual commandStation.");
     }
 
     [Test]

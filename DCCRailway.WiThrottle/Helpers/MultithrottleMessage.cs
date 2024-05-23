@@ -23,7 +23,8 @@ public class MultiThrottleMessage {
             Function = commandStr[2];
             if (!ValidFunctions.Contains(Function)) throw new Exception("Function provided is not Valid");
             var delimiterPos = commandStr.IndexOf(Delimiter, StringComparison.Ordinal);
-            if (delimiterPos == -1 || delimiterPos == 0 || delimiterPos + 1 > commandStr.Length) throw new Exception("Invalid Multi-Throttle Message");
+            if (delimiterPos == -1 || delimiterPos == 0 || delimiterPos + 1 > commandStr.Length)
+                throw new Exception("Invalid Multi-Throttle Message");
 
             // Check the address. Can either be * (all in the group) or L or S followed by the DCC Address
             var address = commandStr[3..delimiterPos];
@@ -37,7 +38,8 @@ public class MultiThrottleMessage {
                 };
             Action  = commandStr[(delimiterPos + Delimiter.Length)..];
             IsValid = true;
-        } catch {
+        }
+        catch {
             IsValid = false;
         }
     }

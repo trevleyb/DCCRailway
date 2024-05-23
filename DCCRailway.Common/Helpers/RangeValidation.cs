@@ -12,5 +12,7 @@ internal sealed class RangeValidationAttribute : ValidationAttribute {
     public byte MinValue { get; set; }
     public byte MaxValue { get; set; }
 
-    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext) => base.IsValid(value, validationContext);
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext) {
+        return base.IsValid(value, validationContext);
+    }
 }

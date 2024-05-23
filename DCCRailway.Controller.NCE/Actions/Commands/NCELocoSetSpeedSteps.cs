@@ -13,7 +13,8 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand {
     public NCELocoSetSpeedSteps() { }
 
-    public NCELocoSetSpeedSteps(int address, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(new DCCAddress(address), speedSteps) { }
+    public NCELocoSetSpeedSteps(int address, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(
+        new DCCAddress(address), speedSteps) { }
 
     public NCELocoSetSpeedSteps(DCCAddress address, DCCProtocol speedSteps = DCCProtocol.DCC128) {
         Address    = address;
@@ -31,5 +32,7 @@ public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand 
         return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
-    public override string ToString() => $"LOCO SPEED STEPS ({Address}={SpeedSteps}";
+    public override string ToString() {
+        return $"LOCO SPEED STEPS ({Address}={SpeedSteps}";
+    }
 }

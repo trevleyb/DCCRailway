@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Parameters;
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions;
@@ -9,21 +8,20 @@ using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Tasks;
 using Serilog;
-using Serilog.Core;
 
 namespace DCCRailway.Controller.Controllers;
 
 public abstract class CommandStation : ICommandStation, IParameterMappable {
     protected CommandStation(ILogger logger) {
-        Logger = logger;
-        CommandManager = new CommandManager(logger, this, Assembly.GetCallingAssembly());
-        AdapterManager = new AdapterManager(logger, this, Assembly.GetCallingAssembly());
-        TaskManager    = new TaskManager(logger, this, Assembly.GetCallingAssembly());
+        Logger                      =  logger;
+        CommandManager              =  new CommandManager(logger, this, Assembly.GetCallingAssembly());
+        AdapterManager              =  new AdapterManager(logger, this, Assembly.GetCallingAssembly());
+        TaskManager                 =  new TaskManager(logger, this, Assembly.GetCallingAssembly());
         CommandManager.CommandEvent += CommandManagerOnCommandManagerEvent;
         AdapterManager.AdapterEvent += AdapterManagerOnAdapterManagerEvent;
     }
 
-    private ILogger                                Logger { get; init; }
+    private ILogger                                Logger         { get; init; }
     private TaskManager                            TaskManager    { get; } // Manages background Tasks
     private CommandManager                         CommandManager { get; } // Manages what commands are available
     private AdapterManager                         AdapterManager { get; } // Manages the attached Adapter(s)
@@ -44,34 +42,77 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
         set => AdapterManager.Adapter = value;
     }
 
-    public bool IsCommandSupported<T>() where T : ICommand => CommandManager.IsCommandSupported<T>();
-    public bool IsCommandSupported(Type command)           => CommandManager.IsCommandSupported(command);
-    public bool IsCommandSupported(string name)            => CommandManager.IsCommandSupported(name);
+    public bool IsCommandSupported<T>() where T : ICommand {
+        return CommandManager.IsCommandSupported<T>();
+    }
 
-    public bool IsAdapterSupported<T>() where T : IAdapter => AdapterManager.IsAdapterSupported<T>();
-    public bool IsAdapterSupported(Type adapter)           => AdapterManager.IsAdapterSupported(adapter);
-    public bool IsAdapterSupported(string name)            => AdapterManager.IsAdapterSupported(name);
+    public bool IsCommandSupported(Type command) {
+        return CommandManager.IsCommandSupported(command);
+    }
+
+    public bool IsCommandSupported(string name) {
+        return CommandManager.IsCommandSupported(name);
+    }
+
+    public bool IsAdapterSupported<T>() where T : IAdapter {
+        return AdapterManager.IsAdapterSupported<T>();
+    }
+
+    public bool IsAdapterSupported(Type adapter) {
+        return AdapterManager.IsAdapterSupported(adapter);
+    }
+
+    public bool IsAdapterSupported(string name) {
+        return AdapterManager.IsAdapterSupported(name);
+    }
 
     public List<AdapterAttribute> Adapters => AdapterManager.Adapters;
     public List<CommandAttribute> Commands => CommandManager.Commands;
 
-    public IAdapter? CreateAdapter(string? name) => AdapterManager.Attach(name);
-    public IAdapter? AttachAdapter(IAdapter adapter) => AdapterManager.Attach(adapter);
-    public TCommand? CreateCommand<TCommand>() where TCommand : ICommand                    => (TCommand?)CommandManager.Create<TCommand>(Adapter!);
-    public TCommand? CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand => (TCommand?)CommandManager.Create<TCommand>(Adapter!, address);
+    public IAdapter? CreateAdapter(string? name) {
+        return AdapterManager.Attach(name);
+    }
 
-    public List<TaskAttribute> Tasks                                                                     => TaskManager.Tasks;
-    public IControllerTask?    CreateTask(string taskType)                                               => TaskManager.Create(taskType);
-    public IControllerTask?    CreateTask(string name, string taskType, TimeSpan? frequency = null)      => TaskManager.Create(name, taskType, frequency);
-    public IControllerTask?    CreateTask(string name, IControllerTask task, TimeSpan? frequency = null) => TaskManager.Create(name, task, frequency);
-    public void                StartAllTasks()                                                           => TaskManager.StartAllTasks();
-    public void                StopAllTasks()                                                            => TaskManager.StopAllTasks();
+    public TCommand? CreateCommand<TCommand>() where TCommand : ICommand {
+        return (TCommand?)CommandManager.Create<TCommand>(Adapter!);
+    }
+
+    public TCommand? CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand {
+        return (TCommand?)CommandManager.Create<TCommand>(Adapter!, address);
+    }
+
+    public List<TaskAttribute> Tasks => TaskManager.Tasks;
+
+    public IControllerTask? CreateTask(string taskType) {
+        return TaskManager.Create(taskType);
+    }
+
+    public IControllerTask? CreateTask(string name, string taskType, TimeSpan? frequency = null) {
+        return TaskManager.Create(name, taskType, frequency);
+    }
+
+    public IControllerTask? CreateTask(string name, IControllerTask task, TimeSpan? frequency = null) {
+        return TaskManager.Create(name, task, frequency);
+    }
+
+    public void StartAllTasks() {
+        TaskManager.StartAllTasks();
+    }
+
+    public void StopAllTasks() {
+        TaskManager.StopAllTasks();
+    }
 
     public abstract DCCAddress CreateAddress();
     public abstract DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
 
     public void OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result) {
-        ControllerEvent?.Invoke(this, new CommandEventArgs(command, result, $"Command Executed on {commandStation.AttributeInfo().Name}"));
+        ControllerEvent?.Invoke(
+            this, new CommandEventArgs(command, result, $"Command Executed on {commandStation.AttributeInfo().Name}"));
+    }
+
+    public IAdapter? AttachAdapter(IAdapter adapter) {
+        return AdapterManager.Attach(adapter);
     }
 
     // Used for general CommandStation Events to be Raised
@@ -80,10 +121,12 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
     }
 
     public void AdapterManagerOnAdapterManagerEvent(object? sender, AdapterEventArgs e) {
-        if (e.Adapter != null) ControllerEvent?.Invoke(sender, new AdapterEventArgs(e.Adapter, e.AdapterEvent, e.Data, e.Message ?? ""));
+        if (e.Adapter != null)
+            ControllerEvent?.Invoke(sender, new AdapterEventArgs(e.Adapter, e.AdapterEvent, e.Data, e.Message ?? ""));
     }
 
     public void CommandManagerOnCommandManagerEvent(object? sender, CommandEventArgs e) {
-        if (e.Command != null) ControllerEvent?.Invoke(sender, new CommandEventArgs(e.Command, e.Result, e.Message ?? ""));
+        if (e.Command != null)
+            ControllerEvent?.Invoke(sender, new CommandEventArgs(e.Command, e.Result, e.Message ?? ""));
     }
 }

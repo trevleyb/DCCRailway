@@ -27,10 +27,10 @@ public interface ICommandStation : IParameterMappable {
 
     // Execute a Command. Must be executed via here
     // ----------------------------------------------------------------------------
-    TCommand?        CreateCommand<TCommand>() where TCommand : ICommand;
-    TCommand?        CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand;
+    TCommand? CreateCommand<TCommand>() where TCommand : ICommand;
+    TCommand? CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand;
 
-    IAdapter?        CreateAdapter(string? name);
+    IAdapter? CreateAdapter(string? name);
 
     IControllerTask? CreateTask(string taskType);
     IControllerTask? CreateTask(string name, string taskType, TimeSpan? frequency);

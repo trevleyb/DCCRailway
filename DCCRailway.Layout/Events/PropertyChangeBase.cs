@@ -11,7 +11,8 @@ public abstract class PropertyChangeBase : INotifyPropertyChanged {
     /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected void OnPropertyChanged(LayoutEntity? entity, [CallerMemberName] string? propertyName = null, object? value = null) {
+    protected void OnPropertyChanged(LayoutEntity? entity, [CallerMemberName] string? propertyName = null,
+        object? value = null) {
         PropertyChanged?.Invoke(this, new EntityPropertyChangedEventArgs(entity, propertyName, value));
     }
 

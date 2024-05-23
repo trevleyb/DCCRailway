@@ -17,5 +17,7 @@ public class VirtualLocoStop : VirtualCommand, ICmdLocoStop, ICommand {
     public DCCDirection Direction { get; set; }
     public DCCAddress   Address   { get; set; }
 
-    public override string ToString() => $"LOCO STOP ({Address}={Direction}";
+    public override string ToString() {
+        return $"LOCO STOP ({Address}={Direction}";
+    }
 }

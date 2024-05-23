@@ -9,9 +9,13 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 public class VirtualConsistDelete : VirtualCommand, ICmdConsistDelete, ICommand {
     public VirtualConsistDelete() { }
 
-    public VirtualConsistDelete(DCCAddress address) => Address = address;
+    public VirtualConsistDelete(DCCAddress address) {
+        Address = address;
+    }
 
     public DCCAddress Address { get; set; }
 
-    public override string ToString() => $"CONSIST DELETE ({Address})";
+    public override string ToString() {
+        return $"CONSIST DELETE ({Address})";
+    }
 }

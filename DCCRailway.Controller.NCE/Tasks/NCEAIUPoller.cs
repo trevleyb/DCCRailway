@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Parameters;
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
@@ -10,7 +9,6 @@ using DCCRailway.Controller.NCE.Actions.Commands;
 using DCCRailway.Controller.NCE.Actions.Results;
 using DCCRailway.Controller.Tasks;
 using Serilog;
-using Serilog.Core;
 
 namespace DCCRailway.Controller.NCE.Tasks;
 
@@ -18,7 +16,8 @@ namespace DCCRailway.Controller.NCE.Tasks;
 public class NCEAIUPoller(ILogger logger) : ControllerTask(logger), IParameterMappable {
     private readonly ILogger _logger = logger;
 
-    [Range(1, 63), Parameter("NCE Cab Address of this AIU interface", "Should be between 1..63")]
+    [Range(1, 63)]
+    [Parameter("NCE Cab Address of this AIU interface", "Should be between 1..63")]
     public byte CabAddress { get; set; }
 
     protected override void Setup() {
@@ -42,6 +41,7 @@ public class NCEAIUPoller(ILogger logger) : ControllerTask(logger), IParameterMa
                     pinStr.Append(result.State == DCCAccessoryState.Occupied ? "X" : ".");
                 }
             }
+
             pinStr.Append("|");
             _logger.Information($"Read AIU '{CabAddress}' => {pinStr}");
         }

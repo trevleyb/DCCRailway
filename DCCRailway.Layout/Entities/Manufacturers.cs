@@ -4,8 +4,7 @@ namespace DCCRailway.Layout.Entities;
 
 [Serializable]
 public class Manufacturers : LayoutRepository<Manufacturer> {
-
-    public Manufacturers(string? prefix= null) {
+    public Manufacturers(string? prefix = null) {
         Prefix = prefix ?? "B";
     }
 

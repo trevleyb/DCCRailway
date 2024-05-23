@@ -11,7 +11,11 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCEStopClock : NCECommand, ICmdClockStop, ICommand {
     public new string Name => "NCE Stop Clock";
 
-    protected override ICmdResult Execute(IAdapter adapter) => SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x83 });
+    protected override ICmdResult Execute(IAdapter adapter) {
+        return SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x83 });
+    }
 
-    public override string ToString() => "STOP CLOCK";
+    public override string ToString() {
+        return "STOP CLOCK";
+    }
 }

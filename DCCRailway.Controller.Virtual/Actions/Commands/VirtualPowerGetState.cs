@@ -18,5 +18,7 @@ public class VirtualPowerGetState : VirtualCommand, ICmdPowerGetState {
         return result;
     }
 
-    public override string ToString() => "POWER STATE";
+    public override string ToString() {
+        return "POWER STATE";
+    }
 }

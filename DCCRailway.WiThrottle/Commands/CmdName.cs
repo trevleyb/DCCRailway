@@ -3,16 +3,13 @@ using Serilog;
 
 namespace DCCRailway.WiThrottle.Commands;
 
-public class CmdName(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd
-{
+public class CmdName(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd {
     // Recieved a "NAME" [N] command from a Client and so we need to process it.
     // ------------------------------------------------------------------------
-    public void Execute(string commandStr)
-    {
+    public void Execute(string commandStr) {
         logger.Information("WiThrottle Recieved Cmd from [{0}]: Name - {1}=>'{2}'", connection.ConnectionHandle,
                            ToString(), commandStr);
-        if (commandStr.Length > 1)
-        {
+        if (commandStr.Length > 1) {
             var deviceName = commandStr[1..].Replace("???", "'");
             connection.ThrottleName = deviceName;
             connection.QueueMsg(new MsgServerID(connection));
@@ -26,5 +23,7 @@ public class CmdName(ILogger logger, Connection connection) : ThrottleCmd, IThro
         }
     }
 
-    public override string ToString() => "CMD:Name";
+    public override string ToString() {
+        return "CMD:Name";
+    }
 }

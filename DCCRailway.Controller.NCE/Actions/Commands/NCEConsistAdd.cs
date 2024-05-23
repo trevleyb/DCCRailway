@@ -13,7 +13,8 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
     public NCEConsistAdd() { }
 
-    public NCEConsistAdd(byte consistAddress, DCCAddress loco, DCCDirection direction = DCCDirection.Forward, DCCConsistPosition position = DCCConsistPosition.Front) {
+    public NCEConsistAdd(byte consistAddress, DCCAddress loco, DCCDirection direction = DCCDirection.Forward,
+        DCCConsistPosition position = DCCConsistPosition.Front) {
         Loco           = loco;
         Position       = position;
         ConsistAddress = consistAddress;
@@ -42,5 +43,7 @@ public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
         return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
-    public override string ToString() => $"CONSIST ADD TO {ConsistAddress:D3} @ {Position} ({Loco.Address}={Direction})";
+    public override string ToString() {
+        return $"CONSIST ADD TO {ConsistAddress:D3} @ {Position} ({Loco.Address}={Direction})";
+    }
 }

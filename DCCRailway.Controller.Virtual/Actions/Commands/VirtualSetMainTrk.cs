@@ -5,5 +5,7 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 
 [Command("SetMainTrk", "Switch Power to the MainLine")]
 public class VirtualSetMainTrk : VirtualCommand, ICmdTrackMain {
-    public override string ToString() => "MAIN TRACK";
+    public override string ToString() {
+        return "MAIN TRACK";
+    }
 }

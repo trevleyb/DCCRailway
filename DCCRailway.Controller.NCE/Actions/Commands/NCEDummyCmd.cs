@@ -10,7 +10,11 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCEDummyCmd : NCECommand, IDummyCmd {
     protected byte[] CommandData => new byte[] { 0x80 };
 
-    protected override ICmdResult Execute(IAdapter adapter) => SendAndReceive(adapter, new NCEStandardValidation(), CommandData);
+    protected override ICmdResult Execute(IAdapter adapter) {
+        return SendAndReceive(adapter, new NCEStandardValidation(), CommandData);
+    }
 
-    public override string ToString() => "DUMMY CMD";
+    public override string ToString() {
+        return "DUMMY CMD";
+    }
 }

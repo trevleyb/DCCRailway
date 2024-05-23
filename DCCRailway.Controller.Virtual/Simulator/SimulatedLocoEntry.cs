@@ -18,9 +18,7 @@ public class SimulatedLocoEntry {
 
         _cvValues = new byte?[MAX_CV_VALUE];
 
-        for (var i = 0; i < _cvValues.Length; i++) {
-            _cvValues[i] = null;
-        }
+        for (var i = 0; i < _cvValues.Length; i++) _cvValues[i] = null;
 
         // Setup the common CV Values so we can report stuff correctly
         // -----------------------------------------------------------
@@ -38,7 +36,8 @@ public class SimulatedLocoEntry {
             this[1]  = 3;
             this[17] = Address.HighAddress;
             this[18] = Address.LowAddress;
-        } else {
+        }
+        else {
             this[1]  = (byte)Address.Address;
             this[17] = 0;
             this[18] = 0;
@@ -61,7 +60,8 @@ public class SimulatedLocoEntry {
 
     public byte this[int cvAddress] {
         get {
-            if (cvAddress >= 0 && cvAddress <= MAX_CV_VALUE) return (byte)(_cvValues[cvAddress] == null ? 123 : _cvValues[cvAddress]!);
+            if (cvAddress >= 0 && cvAddress <= MAX_CV_VALUE)
+                return (byte)(_cvValues[cvAddress] == null ? 123 : _cvValues[cvAddress]!);
 
             throw new IndexOutOfRangeException($"CV Address must be between 0...{MAX_CV_VALUE}");
         }
@@ -72,11 +72,17 @@ public class SimulatedLocoEntry {
         }
     }
 
-    public int ConsistAddress() => this[19].SetBit(7, false);
+    public int ConsistAddress() {
+        return this[19].SetBit(7, false);
+    }
 
-    public bool IsInConsist(int consistAddress) => ConsistAddress() != 0;
+    public bool IsInConsist(int consistAddress) {
+        return ConsistAddress() != 0;
+    }
 
-    public void ClearConsist() => this[29] = 0;
+    public void ClearConsist() {
+        this[29] = 0;
+    }
 
     public void SetConsist(int consistAddress, DCCDirection direction) {
         this[19] = (byte)consistAddress;

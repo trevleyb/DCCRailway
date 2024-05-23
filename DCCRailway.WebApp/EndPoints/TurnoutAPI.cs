@@ -11,8 +11,11 @@ public static class TurnoutAPI {
         });
 
         app.MapGet("/layout/turnouts", async () => await Task.FromResult(Results.Ok(entities.GetAll())));
-        app.MapPost("/layout/turnouts", async (Turnout turnout) => await Task.FromResult(Results.Ok(entities.Add(turnout))));
-        app.MapPut("/layout/turnouts/{id}", async (string id, Turnout turnout) => await Task.FromResult(Results.Ok(entities.Update(turnout))));
-        app.MapDelete("/layout/turnouts/{id}", async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
+        app.MapPost("/layout/turnouts",
+                    async (Turnout turnout) => await Task.FromResult(Results.Ok(entities.Add(turnout))));
+        app.MapPut("/layout/turnouts/{id}",
+                   async (string id, Turnout turnout) => await Task.FromResult(Results.Ok(entities.Update(turnout))));
+        app.MapDelete("/layout/turnouts/{id}",
+                      async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
     }
 }

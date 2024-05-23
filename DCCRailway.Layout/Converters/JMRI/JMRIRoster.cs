@@ -29,17 +29,14 @@ public class Locoaddress {
     [XmlElement(ElementName = "dcclocoaddress")]
     public Dcclocoaddress Dcclocoaddress { get; set; }
 
-    [XmlElement(ElementName = "number")]
-    public string Number { get; set; }
+    [XmlElement(ElementName = "number")] public string Number { get; set; }
 
-    [XmlElement(ElementName = "protocol")]
-    public string Protocol { get; set; }
+    [XmlElement(ElementName = "protocol")] public string Protocol { get; set; }
 }
 
 [XmlRoot(ElementName = "functionlabel")]
 public class Functionlabel {
-    [XmlAttribute(AttributeName = "num")]
-    public string Num { get; set; }
+    [XmlAttribute(AttributeName = "num")] public string Num { get; set; }
 
     [XmlAttribute(AttributeName = "lockable")]
     public string Lockable { get; set; }
@@ -50,8 +47,7 @@ public class Functionlabel {
     [XmlAttribute(AttributeName = "functionImageSelected")]
     public string FunctionImageSelected { get; set; }
 
-    [XmlText]
-    public string Text { get; set; }
+    [XmlText] public string Text { get; set; }
 }
 
 [XmlRoot(ElementName = "functionlabels")]
@@ -62,11 +58,9 @@ public class Functionlabels {
 
 [XmlRoot(ElementName = "soundlabel")]
 public class Soundlabel {
-    [XmlAttribute(AttributeName = "num")]
-    public string Num { get; set; }
+    [XmlAttribute(AttributeName = "num")] public string Num { get; set; }
 
-    [XmlText]
-    public string Text { get; set; }
+    [XmlText] public string Text { get; set; }
 }
 
 [XmlRoot(ElementName = "soundlabels")]
@@ -77,11 +71,9 @@ public class Soundlabels {
 
 [XmlRoot(ElementName = "keyvaluepair")]
 public class Keyvaluepair {
-    [XmlElement(ElementName = "key")]
-    public string Key { get; set; }
+    [XmlElement(ElementName = "key")] public string Key { get; set; }
 
-    [XmlElement(ElementName = "value")]
-    public string Value { get; set; }
+    [XmlElement(ElementName = "value")] public string Value { get; set; }
 }
 
 [XmlRoot(ElementName = "attributepairs")]
@@ -95,8 +87,7 @@ public class JMRILoco {
     [XmlElement(ElementName = "dateUpdated")]
     public string DateUpdated { get; set; }
 
-    [XmlElement(ElementName = "decoder")]
-    public Decoder Decoder { get; set; }
+    [XmlElement(ElementName = "decoder")] public Decoder Decoder { get; set; }
 
     [XmlElement(ElementName = "locoaddress")]
     public Locoaddress Locoaddress { get; set; }
@@ -110,8 +101,7 @@ public class JMRILoco {
     [XmlElement(ElementName = "attributepairs")]
     public Attributepairs Attributepairs { get; set; }
 
-    [XmlAttribute(AttributeName = "id")]
-    public string Id { get; set; }
+    [XmlAttribute(AttributeName = "id")] public string Id { get; set; }
 
     [XmlAttribute(AttributeName = "fileName")]
     public string FileName { get; set; }
@@ -122,8 +112,7 @@ public class JMRILoco {
     [XmlAttribute(AttributeName = "roadName")]
     public string RoadName { get; set; }
 
-    [XmlAttribute(AttributeName = "mfg")]
-    public string Mfg { get; set; }
+    [XmlAttribute(AttributeName = "mfg")] public string Mfg { get; set; }
 
     [XmlAttribute(AttributeName = "owner")]
     public string Owner { get; set; }
@@ -146,8 +135,7 @@ public class JMRILoco {
     [XmlAttribute(AttributeName = "iconFilePath")]
     public string IconFilePath { get; set; }
 
-    [XmlAttribute(AttributeName = "URL")]
-    public string URL { get; set; }
+    [XmlAttribute(AttributeName = "URL")] public string URL { get; set; }
 
     [XmlAttribute(AttributeName = "IsShuntingOn")]
     public string IsShuntingOn { get; set; }
@@ -161,14 +149,12 @@ public class Roster {
 
 [XmlRoot(ElementName = "rosterGroup")]
 public class RosterGroup {
-    [XmlElement(ElementName = "group")]
-    public List<string> Group { get; set; }
+    [XmlElement(ElementName = "group")] public List<string> Group { get; set; }
 }
 
 [XmlRoot(ElementName = "roster-config")]
 public class JMRIRoster : XmlSerializerHelper<JMRIRoster> {
-    [XmlElement(ElementName = "roster")]
-    public Roster Roster { get; set; }
+    [XmlElement(ElementName = "roster")] public Roster Roster { get; set; }
 
     [XmlElement(ElementName = "rosterGroup")]
     public RosterGroup RosterGroup { get; set; }

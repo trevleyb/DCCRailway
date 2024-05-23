@@ -9,6 +9,6 @@ namespace DCCRailway.Controller.Actions;
 public interface ICommand : IParameterMappable {
     IAdapter        Adapter        { set; }
     ICommandStation CommandStation { set; }
-    ILogger Logger { get; set; }
+    ILogger         Logger         { get; set; }
     ICmdResult      Execute();
 }

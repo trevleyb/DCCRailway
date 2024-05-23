@@ -6,7 +6,8 @@ public class VirtualCmdResultVersion : CmdResult {
     public VirtualCmdResultVersion(byte[]? dataSet) : base(true, null, dataSet) {
         if (Data.Length != 3) {
             Success = false;
-        } else {
+        }
+        else {
             Version = Data[0];
             Major   = Data[1];
             Minor   = Data[2];
@@ -19,16 +20,18 @@ public class VirtualCmdResultVersion : CmdResult {
     public int Minor   { get; }
     public int Version { get; }
 
-    public bool IsVersionMatch(string compare) => IsVersionMatch(ToVersionString, compare);
+    public bool IsVersionMatch(string compare) {
+        return IsVersionMatch(ToVersionString, compare);
+    }
 
     public bool IsVersionMatch(string source, string compare) {
         var sourceSplit  = source.Split('.');
         var compareSplit = compare.Split('.');
 
         if (sourceSplit.Length != compareSplit.Length) return false;
-        for (var i = 0; i < sourceSplit.Length; i++) {
-            if (sourceSplit[i] != compareSplit[i] && compareSplit[i].ToUpperInvariant() != "X") return false;
-        }
+        for (var i = 0; i < sourceSplit.Length; i++)
+            if (sourceSplit[i] != compareSplit[i] && compareSplit[i].ToUpperInvariant() != "X")
+                return false;
 
         return true;
     }

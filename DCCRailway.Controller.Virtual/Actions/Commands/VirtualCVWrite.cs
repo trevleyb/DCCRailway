@@ -16,5 +16,7 @@ public class VirtualCVWrite : VirtualCommand, ICmdCVWrite {
     public int                CV              { get; set; }
     public byte               Value           { get; set; }
 
-    public override string ToString() => $"WRITE CV ({CV}={Value}/{ProgrammingMode})";
+    public override string ToString() {
+        return $"WRITE CV ({CV}={Value}/{ProgrammingMode})";
+    }
 }

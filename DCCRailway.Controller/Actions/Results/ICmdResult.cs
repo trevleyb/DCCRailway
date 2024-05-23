@@ -3,7 +3,7 @@ using DCCRailway.Common.Helpers;
 namespace DCCRailway.Controller.Actions.Results;
 
 public interface ICmdResult : IResult {
-    ICommand? Command      { get; set; }
+    ICommand? Command { get; set; }
 
     byte[] Data { get; }
     byte   Byte { get; }

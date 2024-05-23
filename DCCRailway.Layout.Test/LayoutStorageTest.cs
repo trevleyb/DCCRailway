@@ -1,4 +1,3 @@
-using DCCRailway.Common.Helpers;
 using DCCRailway.Layout.Entities.Base;
 using DCCRailway.Layout.Entities.Collection;
 
@@ -21,16 +20,16 @@ public class LayoutStorageTest {
         testRepo.Add(new TestRepositoryItem { Id = "003", Name = "Item3", NumberOftheBeast = 666 });
 
         var serStr = LayoutStorage.SerializeLayout<TestRepository, TestRepositoryItem>(testRepo);
-        Assert.That(serStr,Is.Not.Null);
+        Assert.That(serStr, Is.Not.Null);
         var serObj = LayoutStorage.DeserializeLayout<TestRepository, TestRepositoryItem>(serStr);
-        Assert.That(serObj,Is.Not.Null);
-
+        Assert.That(serObj, Is.Not.Null);
     }
 
     [Serializable]
     public class TestRepository : LayoutRepository<TestRepositoryItem> {
         public TestRepository() : this(null) { }
-        public TestRepository(string? prefix= null) {
+
+        public TestRepository(string? prefix = null) {
             Prefix = prefix ?? "L";
         }
     }

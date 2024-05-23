@@ -9,19 +9,19 @@ public class AdapterMappingTest {
     // For these tests we use a subclass of Adapter because it is abstract
     private class TestAdapter : Adapter {
         [Parameter] public string    AStringValue { get; set; }
-        [Parameter] public long      ALongValue   { get; set;}
-        [Parameter] public DateOnly  ADateValue   { get; set;}
-        [Parameter] public byte      AByteValue   { get; set;}
+        [Parameter] public long      ALongValue   { get; set; }
+        [Parameter] public DateOnly  ADateValue   { get; set; }
+        [Parameter] public byte      AByteValue   { get; set; }
         [Parameter] public int       AIntValue    { get; set; }
-        [Parameter] public Parity    AParityValue { get; set;}
-        [Parameter] public StopBits  AStopValue   { get; set;}
-        [Parameter] public ColorEnum AEnumValue   { get; set;}
-        [Parameter] public bool      ABoolean     { get; set;}
+        [Parameter] public Parity    AParityValue { get; set; }
+        [Parameter] public StopBits  AStopValue   { get; set; }
+        [Parameter] public ColorEnum AEnumValue   { get; set; }
+        [Parameter] public bool      ABoolean     { get; set; }
     }
 
     [Test]
     public void Test_GetMappablePropertiesOnMappableClass() {
-        var adapter = new TestAdapter();
+        var adapter             = new TestAdapter();
         var availableParameters = adapter.GetMappableParameters();
         Assert.That(availableParameters.Count, Is.EqualTo(9));
 

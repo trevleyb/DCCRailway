@@ -3,12 +3,9 @@ using System.Text;
 namespace DCCRailway.WiThrottle.Messages;
 
 public class MsgFastClock(Connection connection, FastClockState state, DateTime clock, int ratio)
-    : ThrottleMsg, IThrottleMsg
-{
-    public override string Message
-    {
-        get
-        {
+    : ThrottleMsg, IThrottleMsg {
+    public override string Message {
+        get {
             var timeSince1970 = (new DateTime(1970, 1, 1, 0, 0, 0) - clock).Seconds;
             var sb            = new StringBuilder();
             sb.Append("PFT");
@@ -35,8 +32,7 @@ public class MsgFastClock(Connection connection, FastClockState state, DateTime 
     }
 }
 
-public enum FastClockState
-{
+public enum FastClockState {
     Start,
     Stop,
     Reset

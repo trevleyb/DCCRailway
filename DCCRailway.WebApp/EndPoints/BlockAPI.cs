@@ -12,7 +12,9 @@ public static class BlockAPI {
 
         app.MapGet("/layout/blocks", async () => await Task.FromResult(entities));
         app.MapPost("/layout/blocks", async (Block block) => await Task.FromResult(Results.Ok(entities.Add(block))));
-        app.MapPut("/layout/blocks/{id}", async (string id, Block block) => await Task.FromResult(Results.Ok(entities.Update(block))));
-        app.MapDelete("/layout/blocks/{id}", async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
+        app.MapPut("/layout/blocks/{id}",
+                   async (string id, Block block) => await Task.FromResult(Results.Ok(entities.Update(block))));
+        app.MapDelete("/layout/blocks/{id}",
+                      async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
     }
 }

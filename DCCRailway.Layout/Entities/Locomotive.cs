@@ -1,27 +1,29 @@
 ﻿using System.Diagnostics;
 using System.Text.Json.Serialization;
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Converters.JMRI;
 using DCCRailway.Layout.Entities.Base;
 
 namespace DCCRailway.Layout.Entities;
 
-[Serializable, DebuggerDisplay("LOCOMOTIVE={Id}, Name: {Name}, Address: {Address.Address}")]
+[Serializable]
+[DebuggerDisplay("LOCOMOTIVE={Id}, Name: {Name}, Address: {Address.Address}")]
 public class Locomotive : LayoutEntityDecoder {
     private DCCDirection      _direction      = DCCDirection.Stop;
     private DCCFunctionBlocks _functionBlocks = new();
-    private DCCMomentum       _momentum   = new(0);
-    private DCCSpeed          _speed      = new(0);
     private string            _manufacturer   = "";
     private string            _model;
+    private DCCMomentum       _momentum   = new(0);
     private string            _roadName   = "";
     private string            _roadNumber = "";
+    private DCCSpeed          _speed      = new(0);
+
+    [JsonInclude] public List<LabelFunction> Labels = [];
 
     public Locomotive(string id = "") : base(id) {
         if (Labels.Count == 0) {
-            Labels.Add(new LabelFunction() {Key=0,Label="Lights"});
-            Labels.Add(new LabelFunction() {Key=1,Label="Bell"});
-            Labels.Add(new LabelFunction() {Key=2,Label="Horn"});
+            Labels.Add(new LabelFunction() { Key = 0, Label = "Lights" });
+            Labels.Add(new LabelFunction() { Key = 1, Label = "Bell" });
+            Labels.Add(new LabelFunction() { Key = 2, Label = "Horn" });
         }
     }
 
@@ -37,7 +39,8 @@ public class Locomotive : LayoutEntityDecoder {
     /// <summary>
     ///     Represents a locomotive layoutEntity with DCC address, direction, and speed.
     /// </summary>
-    public Locomotive(string id, int address, DCCAddressType type = DCCAddressType.Long, DCCDirection direction = DCCDirection.Stop) : this(id) {
+    public Locomotive(string id, int address, DCCAddressType type = DCCAddressType.Long,
+        DCCDirection direction = DCCDirection.Stop) : this(id) {
         Address     = new DCCAddress(address, type);
         Direction   = direction;
         Speed.Value = 0;
@@ -45,9 +48,6 @@ public class Locomotive : LayoutEntityDecoder {
 
     [JsonConstructor]
     protected Locomotive() : this("") { }
-
-    [JsonInclude]
-    public List<LabelFunction> Labels = [];
 
     // Hate backing fields but need them for INotifyPropertyChanged Events
     // ----------------------------------------------------------------------------
@@ -91,5 +91,7 @@ public class Locomotive : LayoutEntityDecoder {
         set => SetField(ref _functionBlocks, value);
     }
 
-    public new string ToString() => $"{Name}";
+    public new string ToString() {
+        return $"{Name}";
+    }
 }

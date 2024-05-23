@@ -34,7 +34,9 @@ public abstract class Command : PropertyChangedBase, ICommand, IParameterMappabl
 
     protected abstract ICmdResult Execute(IAdapter adapter);
 
-    protected ICmdResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) => SendAndReceive(adapter, validator, new[] { sendData });
+    protected ICmdResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte sendData) {
+        return SendAndReceive(adapter, validator, new[] { sendData });
+    }
 
     protected ICmdResult SendAndReceive(IAdapter adapter, IResultValidation validator, byte[] sendData) {
         // Send the command provided to the command station
@@ -46,7 +48,9 @@ public abstract class Command : PropertyChangedBase, ICommand, IParameterMappabl
         // ------------------------------------------------------------
         var recvData = adapter.RecvData(this);
 
-        if (recvData == null) throw new ExpectedDataException(null, adapter, "Command expected to receive data from the Adapter but received nothing. ");
+        if (recvData == null)
+            throw new ExpectedDataException(null, adapter,
+                                            "Command expected to receive data from the Adapter but received nothing. ");
 
         // Validate the data. All NCE Actions return a ! for OK or another code for an error, or some data if appropriate
         // ---------------------------------------------------------------------------------------------------------------

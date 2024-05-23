@@ -16,5 +16,7 @@ public class SystemEventAdapterArgs : SystemEventArgs {
     public string? Name        { get; set; }
     public string  Description { get; set; }
 
-    public override string ToString() => $"Adapter: {Name} - {Description} - {Message}";
+    public override string ToString() {
+        return $"Adapter: {Name} - {Description} - {Message}";
+    }
 }

@@ -13,7 +13,9 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCEConsistDelete : NCECommand, ICmdConsistDelete, ICommand {
     public NCEConsistDelete() { }
 
-    public NCEConsistDelete(DCCAddress address) => Address = address;
+    public NCEConsistDelete(DCCAddress address) {
+        Address = address;
+    }
 
     public DCCAddress Address { get; set; }
 
@@ -26,5 +28,7 @@ public class NCEConsistDelete : NCECommand, ICmdConsistDelete, ICommand {
         return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
-    public override string ToString() => $"CONSIST DELETE ({Address})";
+    public override string ToString() {
+        return $"CONSIST DELETE ({Address})";
+    }
 }

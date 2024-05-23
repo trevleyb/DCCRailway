@@ -27,12 +27,13 @@ public class BackgroundWorkerTest {
     }
 }
 
-public class BackgroundWorkerTestClass(ILogger logger, string name, TimeSpan freq) : BackgroundWorker(logger, name, freq) {
-    private int _counter = 0;
+public class BackgroundWorkerTestClass(ILogger logger, string name, TimeSpan freq)
+    : BackgroundWorker(logger, name, freq) {
+    private int       _counter = 0;
     private DateTime? _lastTime;
 
     protected override void DoWork() {
-        TimeSpan? duration  = new TimeSpan(0);
+        TimeSpan? duration = new TimeSpan(0);
         _counter++;
         if (_lastTime != null) duration = DateTime.Now - _lastTime;
         _lastTime = DateTime.Now;

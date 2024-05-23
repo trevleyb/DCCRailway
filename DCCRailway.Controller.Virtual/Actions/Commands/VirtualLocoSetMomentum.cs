@@ -9,7 +9,8 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 public class VirtualLocoSetMomentum : VirtualCommand, ICmdLocoSetMomentum, ICommand {
     public VirtualLocoSetMomentum() { }
 
-    public VirtualLocoSetMomentum(int address, byte momentum) : this(new DCCAddress(address), new DCCMomentum(momentum)) { }
+    public VirtualLocoSetMomentum(int address, byte momentum) :
+        this(new DCCAddress(address), new DCCMomentum(momentum)) { }
 
     public VirtualLocoSetMomentum(DCCAddress address, DCCMomentum momentum) {
         Address  = address;
@@ -19,5 +20,7 @@ public class VirtualLocoSetMomentum : VirtualCommand, ICmdLocoSetMomentum, IComm
     public DCCAddress  Address  { get; set; }
     public DCCMomentum Momentum { get; set; }
 
-    public override string ToString() => $"LOCO MOMENTUM ({Address}={Momentum}";
+    public override string ToString() {
+        return $"LOCO MOMENTUM ({Address}={Momentum}";
+    }
 }

@@ -9,7 +9,8 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 public class VirtualLocoSetSpeed : VirtualCommand, ICmdLocoSetSpeed, ICommand {
     public VirtualLocoSetSpeed() { }
 
-    public VirtualLocoSetSpeed(DCCAddress address, DCCDirection direction = DCCDirection.Forward, DCCSpeed? speed = null, DCCProtocol speedSteps = DCCProtocol.DCC128) {
+    public VirtualLocoSetSpeed(DCCAddress address, DCCDirection direction = DCCDirection.Forward,
+        DCCSpeed? speed = null, DCCProtocol speedSteps = DCCProtocol.DCC128) {
         Address    = address;
         Speed      = speed ?? new DCCSpeed(0);
         Direction  = direction;
@@ -21,5 +22,7 @@ public class VirtualLocoSetSpeed : VirtualCommand, ICmdLocoSetSpeed, ICommand {
     public DCCDirection Direction  { get; set; }
     public DCCSpeed     Speed      { get; set; }
 
-    public override string ToString() => $"LOCO SPEED ({Address}={Direction}@{SpeedSteps}={Speed}";
+    public override string ToString() {
+        return $"LOCO SPEED ({Address}={Direction}@{SpeedSteps}={Speed}";
+    }
 }

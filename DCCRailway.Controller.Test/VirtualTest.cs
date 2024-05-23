@@ -44,7 +44,8 @@ public class VirtualTest {
 
         // Should have a ControllerManager object at this stage
         // ------------------------------------------------------------
-        if (virtualSystem is null) throw new NullReferenceException("Should have a ControllerManager object at this stage");
+        if (virtualSystem is null)
+            throw new NullReferenceException("Should have a ControllerManager object at this stage");
         Assert.That(virtualSystem!.Name.Equals("Virtual"));
 
         // Check that we can do things with the commandStation
@@ -68,7 +69,8 @@ public class VirtualTest {
         var virtualAdapter = controller!.CreateAdapter("Virtual");
         Assert.That(virtualAdapter, Is.Not.Null);
 
-        if (virtualAdapter is null) throw new NullReferenceException("Should have a VirtualAdapter object at this stage");
+        if (virtualAdapter is null)
+            throw new NullReferenceException("Should have a VirtualAdapter object at this stage");
 
         // Attach the Adapter to the CommandStation
         // ------------------------------------------------------------

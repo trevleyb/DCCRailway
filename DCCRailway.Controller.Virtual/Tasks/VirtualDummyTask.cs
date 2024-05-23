@@ -1,17 +1,14 @@
 using System;
-using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Tasks;
 using Serilog;
-using Serilog.Core;
 
 namespace DCCRailway.Controller.Virtual.Tasks;
 
 [Task("VirtualDummyTask", "Background Dummy to Poll the Console")]
 public class VirtualDummyTask(ILogger logger) : ControllerTask(logger) {
-
-    private int counter;
     private readonly ILogger _logger = logger;
+    private          int     counter;
 
     protected override void OnWorkStarted() {
         _logger.Debug($"Work has Started for task '{Name}'");

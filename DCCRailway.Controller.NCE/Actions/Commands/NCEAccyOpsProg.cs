@@ -8,7 +8,6 @@ using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.NCE.Actions.Validators;
-using Serilog.Core;
 
 namespace DCCRailway.Controller.NCE.Actions.Commands;
 
@@ -44,7 +43,11 @@ public class NCEAccyOpsProg : NCECommand, ICmdAccyOpsProg, ICommand, IAccyCmd {
         return SendAndReceieve(adapter, new NCEStandardValidation(), cmd);
     }
 
-    private ICmdResult SendAndReceieve(IAdapter adapter, NCEStandardValidation nceStandardValidation, byte[] cmd) => throw new NotImplementedException();
+    private ICmdResult SendAndReceieve(IAdapter adapter, NCEStandardValidation nceStandardValidation, byte[] cmd) {
+        throw new NotImplementedException();
+    }
 
-    public override string ToString() => $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
+    public override string ToString() {
+        return $"ACCY OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
+    }
 }

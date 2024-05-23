@@ -36,13 +36,16 @@ public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
         if (!result.Success) return result;
 
         foreach (var extraLoco in AddLoco) {
-            result = AddLocoToConsist(adapter, ConsistAddress, extraLoco, DCCDirection.Forward, DCCConsistPosition.Middle);
+            result = AddLocoToConsist(adapter, ConsistAddress, extraLoco, DCCDirection.Forward,
+                                      DCCConsistPosition.Middle);
             if (!result.Success) return result;
         }
+
         return result;
     }
 
-    private static ICmdResult AddLocoToConsist(IAdapter adapter, byte consistAddress, DCCAddress address, DCCDirection direction, DCCConsistPosition position) {
+    private static ICmdResult AddLocoToConsist(IAdapter adapter, byte consistAddress, DCCAddress address,
+        DCCDirection direction, DCCConsistPosition position) {
         // First Delete the loco from any existing Consist
         // -----------------------------------------------
         var delCmd = new NCEConsistDelete(address);
@@ -59,9 +62,7 @@ public class NCEConsistCreate : NCECommand, ICmdConsistCreate, ICommand {
     public override string ToString() {
         var sb = new StringBuilder();
 
-        foreach (var loco in AddLoco) {
-            sb.Append(loco + ",");
-        }
+        foreach (var loco in AddLoco) sb.Append(loco + ",");
 
         return $"CREATE CONSIST ({ConsistAddress}={LeadLoco},{sb}{RearLoco}";
     }

@@ -7,9 +7,13 @@ namespace DCCRailway.Controller.NCE;
 
 [Controller("NCEPowerCab", "North Coast Engineering (NCE)", "PowerCab", "1.65")]
 public class NcePowerCab(ILogger logger) : CommandStation(logger), ICommandStation {
-    public override DCCAddress CreateAddress() => new();
+    public override DCCAddress CreateAddress() {
+        return new DCCAddress();
+    }
 
-    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new(address, type);
+    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) {
+        return new DCCAddress(address, type);
+    }
 
     /*
     protected override void RegisterAdapters() {

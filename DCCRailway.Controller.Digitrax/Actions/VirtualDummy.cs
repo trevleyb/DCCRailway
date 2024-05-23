@@ -10,5 +10,7 @@ namespace DCCRailway.Controller.Digitrax.Actions;
 
 [Command("Dummy", "Dummy Command")]
 public class VirtualDummy : Command, IDummyCmd {
-    protected override ICmdResult Execute(IAdapter adapter) => SendAndReceive(adapter, new SimpleResultValidation(2), "DUMMY_COMMAND".ToByteArray());
+    protected override ICmdResult Execute(IAdapter adapter) {
+        return SendAndReceive(adapter, new SimpleResultValidation(2), "DUMMY_COMMAND".ToByteArray());
+    }
 }

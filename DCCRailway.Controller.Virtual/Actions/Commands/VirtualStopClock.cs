@@ -6,5 +6,7 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 
 [Command("StopClock", "Stop the Virtual Clock")]
 public class VirtualStopClock : VirtualCommand, ICmdClockStop, ICommand {
-    public override string ToString() => "STOP CLOCK";
+    public override string ToString() {
+        return "STOP CLOCK";
+    }
 }

@@ -17,5 +17,8 @@ public class DataRecvArgs : EventArgs, IAdapterEvent {
     public ICommand? Command { get; set; }
     public IAdapter? Adapter { get; set; }
 
-    public override string ToString() => $"RECVDATA: {Adapter?.AttributeInfo().Description ?? "Unknown Adapter"}: {Command?.ToString() ?? "Unknown Command"}<=='{Data.ToDisplayValues()}'";
+    public override string ToString() {
+        return
+            $"RECVDATA: {Adapter?.AttributeInfo().Description ?? "Unknown Adapter"}: {Command?.ToString() ?? "Unknown Command"}<=='{Data.ToDisplayValues()}'";
+    }
 }

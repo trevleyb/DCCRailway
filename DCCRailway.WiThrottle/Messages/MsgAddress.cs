@@ -5,16 +5,11 @@ using DCCRailway.WiThrottle.Helpers;
 namespace DCCRailway.WiThrottle.Messages;
 
 public class MsgAddress(Connection connection, MultiThrottleMessage data, DCCAddress address)
-    : ThrottleMsg, IThrottleMsg
-{
-    public MsgAddress(Connection connection, MultiThrottleMessage data) : this(connection, data, data.Address)
-    {
-    }
+    : ThrottleMsg, IThrottleMsg {
+    public MsgAddress(Connection connection, MultiThrottleMessage data) : this(connection, data, data.Address) { }
 
-    public override string Message
-    {
-        get
-        {
+    public override string Message {
+        get {
             var sb = new StringBuilder();
             sb.Append($"M{data.Group}{data.Function}");
             sb.Append(address.IsLong ? "L" : "S");
@@ -24,5 +19,7 @@ public class MsgAddress(Connection connection, MultiThrottleMessage data, DCCAdd
         }
     }
 
-    public override string ToString() => $"MSG:MSGAddress [{connection?.ToString() ?? ""}]";
+    public override string ToString() {
+        return $"MSG:MSGAddress [{connection?.ToString() ?? ""}]";
+    }
 }

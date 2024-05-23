@@ -7,13 +7,15 @@ using DCCRailway.Controller.NCE.Adapters;
 
 namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 
-[TestFixture, Ignore("This is a hardware test")]
+[TestFixture]
+[Ignore("This is a hardware test")]
 public class NCEPowerCabAccessoryTest {
     [Test]
     public void TogglePoints() {
         var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger);
         adapter.PortName = "COM3";
-        adapter.BaudRate = 9600;;
+        adapter.BaudRate = 9600;
+        ;
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
 
         var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);

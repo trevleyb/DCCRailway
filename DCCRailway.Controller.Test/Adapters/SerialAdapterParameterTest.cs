@@ -28,7 +28,6 @@ public class SerialAdapterParameterTest {
 
     [Test]
     public void TestThatASerialAdapterCanBeInjectedWithParameters() {
-
         var adapter = new NCESerial(LoggerHelper.ConsoleLogger);
         adapter.SetMappableParameter("PortName", "\\Dev\\Com1");
         adapter.SetMappableParameter("Timeout", "2000");

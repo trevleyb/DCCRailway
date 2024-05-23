@@ -7,8 +7,7 @@ using Serilog;
 
 namespace DCCRailway.Managers;
 
-public sealed class RailwayManager(ILogger logger) : IRailwayManager
-{
+public sealed class RailwayManager(ILogger logger) : IRailwayManager {
     public ILogger          Logger   { get; init; } = logger;
     public IRailwaySettings Settings { get; private set; }
 
@@ -20,18 +19,16 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager
     /// Re-Loads the repositories into the collections. This is done when we instantiate
     /// the Railway Manager anyway, so this is a re-load function.
     /// </summary>
-    public IRailwayManager Load(string path, string name)
-    {
+    public IRailwayManager Load(string path, string name) {
         Settings = new RailwaySettings(Logger);
-        Settings.Load(path: path, name: name);
+        Settings.Load(path, name);
         return this;
     }
 
     /// <summary>
     /// This will clear out the existing config so that there is a set of blank items.
     /// </summary>
-    public IRailwayManager New(string path, string name)
-    {
+    public IRailwayManager New(string path, string name) {
         Settings = new RailwaySettings(Logger);
         Settings.New(path, name);
         return this;
@@ -40,27 +37,22 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager
     /// <summary>
     ///     Saves the configuration of the railway manager.
     /// </summary>
-    public void Save()
-    {
+    public void Save() {
         Settings.Save();
     }
 
-    public void Start()
-    {
-        if (Settings.Controller is { Name: not null })
-        {
+    public void Start() {
+        if (Settings.Controller is { Name: not null }) {
             StateManager      = new StateManager();
             ControllerManager = new ControllerManager(Logger, StateManager, Settings.Controller);
             ControllerManager.Start();
 
-            if (Settings.WiThrottlePrefs.RunOnStartup)
-            {
+            if (Settings.WiThrottlePrefs.RunOnStartup) {
                 WiThrottle = new Server(Logger, Settings);
                 WiThrottle.Start(ControllerManager.CommandStation);
             }
         }
-        else
-        {
+        else {
             Logger.Warning("No controller has been defined in settings. Only WebApp will run.");
         }
 
@@ -70,8 +62,7 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager
         webApp.Start(new string[] { });
     }
 
-    public void Stop()
-    {
+    public void Stop() {
         if (WiThrottle is not null) WiThrottle.Stop();
         if (Settings.Controller is { Name: not null }) ControllerManager.Stop();
     }

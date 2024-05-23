@@ -7,6 +7,11 @@ namespace DCCRailway.Controller.Digitrax;
 
 [Controller("DCS52", "DigiTrax", "DCS52")]
 public class DCS52(ILogger logger) : CommandStation(logger), ICommandStation {
-    public override DCCAddress CreateAddress()                                                       => new();
-    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) => new(address, type);
+    public override DCCAddress CreateAddress() {
+        return new DCCAddress();
+    }
+
+    public override DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long) {
+        return new DCCAddress(address, type);
+    }
 }

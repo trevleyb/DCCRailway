@@ -3,12 +3,9 @@ using DCCRailway.Common.Types;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgPowerState(Connection connection) : ThrottleMsg, IThrottleMsg
-{
-    public override string Message
-    {
-        get
-        {
+public class MsgPowerState(Connection connection) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
+        get {
             var sb            = new StringBuilder();
             var powerStateMsg = GetPowerStateMsg();
             if (!string.IsNullOrEmpty(powerStateMsg)) sb.AppendLine(powerStateMsg);
@@ -16,13 +13,10 @@ public class MsgPowerState(Connection connection) : ThrottleMsg, IThrottleMsg
         }
     }
 
-    private string? GetPowerStateMsg()
-    {
-        try
-        {
+    private string? GetPowerStateMsg() {
+        try {
             var layoutCmd = new LayoutCmdHelper(connection.CommandStation);
-            var powerMsg = layoutCmd.PowerState switch
-            {
+            var powerMsg = layoutCmd.PowerState switch {
                 DCCPowerState.On      => "PPA1",
                 DCCPowerState.Off     => "PPA0",
                 DCCPowerState.Unknown => "PPA2",
@@ -30,11 +24,12 @@ public class MsgPowerState(Connection connection) : ThrottleMsg, IThrottleMsg
             };
             return powerMsg;
         }
-        catch
-        {
+        catch {
             return null;
         }
     }
 
-    public override string ToString() => $"MSG:PowerState [{connection?.ToString() ?? ""}]";
+    public override string ToString() {
+        return $"MSG:PowerState [{connection?.ToString() ?? ""}]";
+    }
 }

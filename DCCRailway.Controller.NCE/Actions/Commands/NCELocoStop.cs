@@ -30,5 +30,7 @@ public class NCELocoStop : NCECommand, ICmdLocoStop, ICommand {
         return SendAndReceive(adapter, new NCEStandardValidation(), command);
     }
 
-    public override string ToString() => $"LOCO STOP ({Address}={Direction}";
+    public override string ToString() {
+        return $"LOCO STOP ({Address}={Direction}";
+    }
 }

@@ -3,19 +3,15 @@ using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgRosterList(Connection connection) : ThrottleMsg, IThrottleMsg
-{
-    public override string Message
-    {
-        get
-        {
+public class MsgRosterList(Connection connection) : ThrottleMsg, IThrottleMsg {
+    public override string Message {
+        get {
             var locos = connection.RailwaySettings.Locomotives.GetAll();
             if (!locos.Any()) return "RL0";
 
             var message = new StringBuilder();
             message.Append($"RL{locos.Count}");
-            foreach (var loco in locos)
-            {
+            foreach (var loco in locos) {
                 message.Append("]\\["); // Separator
                 message.Append(loco.Name.RemoveWiThrottleSeparators());
                 message.Append("}|{");
@@ -29,7 +25,9 @@ public class MsgRosterList(Connection connection) : ThrottleMsg, IThrottleMsg
         }
     }
 
-    public override string ToString() => $"MSG:RosterList [{connection?.ToString() ?? ""}]";
+    public override string ToString() {
+        return $"MSG:RosterList [{connection?.ToString() ?? ""}]";
+    }
 }
 
 /*

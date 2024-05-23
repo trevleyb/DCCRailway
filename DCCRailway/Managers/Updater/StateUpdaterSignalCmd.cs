@@ -9,7 +9,7 @@ namespace DCCRailway.Managers.Updater;
 
 public class StateUpdaterSignalCmd(IStateManager stateManager) : IStateUpdater {
     public IResult Process(ICmdResult cmdResult) {
-        if (cmdResult.Command is ISignalCmd signalCmd) {
+        if (cmdResult.Command is ISignalCmd signalCmd)
             switch (signalCmd) {
             case ICmdSignalSetAspect cmd:
                 stateManager.SetState(cmd.Address, StateType.Signal, cmd.Aspect);
@@ -17,7 +17,7 @@ public class StateUpdaterSignalCmd(IStateManager stateManager) : IStateUpdater {
             default:
                 return Result.Fail($"Unexpected command type {cmdResult?.Command?.AttributeInfo()?.Name}.");
             }
-        }
+
         return Result.Ok();
     }
 }

@@ -10,15 +10,13 @@ namespace DCCRailway.Managers.Updater;
 
 public class StateUpdaterSystemCmd(IStateManager stateManager) : IStateUpdater {
     public IResult Process(ICmdResult cmdResult) {
-
-        if (cmdResult.Command is ISystemCmd command) {
+        if (cmdResult.Command is ISystemCmd command)
             switch (command) {
             case ICmdStatus cmd:
                 break;
             case ICmdClockRead cmd:
-                if (cmdResult is ICmdResultFastClock res) {
+                if (cmdResult is ICmdResultFastClock res)
                     stateManager.SetState("SYSTEM", StateType.Clock, res.CurrentTime);
-                }
                 break;
             case ICmdClockSet cmd:
                 stateManager.SetState("SYSTEM", StateType.Clock, cmd.ClockTime);
@@ -32,9 +30,8 @@ public class StateUpdaterSystemCmd(IStateManager stateManager) : IStateUpdater {
             case ICmdMacroRun cmd:
                 break;
             case ICmdPowerGetState cmd:
-                if (cmdResult is ICmdResultPowerState powerState) {
+                if (cmdResult is ICmdResultPowerState powerState)
                     stateManager.SetState("SYSTEM", StateType.Power, powerState.State);
-                }
                 break;
             case ICmdPowerSetOff cmd:
                 stateManager.SetState("SYSTEM", StateType.Power, DCCPowerState.Off);
@@ -56,9 +53,9 @@ public class StateUpdaterSystemCmd(IStateManager stateManager) : IStateUpdater {
             default:
                 return Result.Fail($"Unexpected command type {cmdResult?.Command?.AttributeInfo()?.Name}.");
             }
-        } else {
+        else
             return Result.Fail($"Unexpected command type {cmdResult?.Command?.AttributeInfo()?.Name}.");
-        }
+
         return Result.Ok();
     }
 }

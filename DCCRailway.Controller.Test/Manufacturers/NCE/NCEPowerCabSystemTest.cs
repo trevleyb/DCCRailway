@@ -3,15 +3,14 @@ using DCCRailway.Controller.Adapters;
 
 namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 
-[TestFixture, Ignore("This is a hardware test")]
+[TestFixture]
+[Ignore("This is a hardware test")]
 public class NCEPowerCab {
     [Test]
     public void GetSerialList() {
         var portList = SerialAdapter.PortNames;
 
-        foreach (var port in portList) {
-            Console.WriteLine("Port==> " + port);
-        }
+        foreach (var port in portList) Console.WriteLine("Port==> " + port);
 
         //Assert.Fail("Stop here to see the output");
     }

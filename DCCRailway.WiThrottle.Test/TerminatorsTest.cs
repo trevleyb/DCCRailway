@@ -1,6 +1,5 @@
 using System.Text;
 using DCCRailway.WiThrottle.Helpers;
-using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
@@ -10,9 +9,8 @@ public class TerminatorsTest {
     public void TestEachTerminator() {
         var block = "This is a sample string";
         Assert.That(Terminators.HasTerminator(block), Is.False);
-        foreach (var terminator in Terminators.PossibleTerminators) {
+        foreach (var terminator in Terminators.PossibleTerminators)
             Assert.That(Terminators.HasTerminator(block + terminator), Is.True);
-        }
     }
 
     [Test]
@@ -47,14 +45,22 @@ public class TerminatorsTest {
     public void TestMultipleTerminators() {
         var rnd   = new Random();
         var block = new StringBuilder();
-        block.Append("Message1").Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
-        block.Append("Message2").Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
-        block.Append("Message3").Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
-        block.Append("Message4").Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
-        block.Append("Message5").Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
-        block.Append("Message6").Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
-        block.Append("Message7").Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
-        block.Append("Message8").Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
+        block.Append("Message1")
+            .Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
+        block.Append("Message2")
+            .Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
+        block.Append("Message3")
+            .Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
+        block.Append("Message4")
+            .Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
+        block.Append("Message5")
+            .Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
+        block.Append("Message6")
+            .Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
+        block.Append("Message7")
+            .Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
+        block.Append("Message8")
+            .Append(Terminators.PossibleTerminators[rnd.Next(0, Terminators.PossibleTerminators.Length)]);
         block.Append("Message9");
         Assert.That(Terminators.GetMessagesAndLeaveIncomplete(block).Count, Is.EqualTo(8));
         Assert.That(block.ToString(), Is.EqualTo("Message9"));

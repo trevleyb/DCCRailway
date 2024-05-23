@@ -44,7 +44,8 @@ public class VirtualClockSet : VirtualCommand, ICmdClockSet, ICommand {
 
     public int Ratio {
         set {
-            if (value <= 0 || value > 15) throw new ValidationException("Ratio must be in the range of 1..15 (1:1 ... 1:15)");
+            if (value <= 0 || value > 15)
+                throw new ValidationException("Ratio must be in the range of 1..15 (1:1 ... 1:15)");
             _ratio = value;
         }
         get => _ratio;
@@ -57,8 +58,11 @@ public class VirtualClockSet : VirtualCommand, ICmdClockSet, ICommand {
             virtualAdapter.FastClockRatio   = result.Ratio;
             virtualAdapter.FastClockState   = true;
         }
+
         return new VirtualCmdResultClock(Hour, Minute, Ratio);
     }
 
-    public override string ToString() => $"SET CLOCK ({_hour:D2}:{_minute:D2}@{_ratio}:15";
+    public override string ToString() {
+        return $"SET CLOCK ({_hour:D2}:{_minute:D2}@{_ratio}:15";
+    }
 }

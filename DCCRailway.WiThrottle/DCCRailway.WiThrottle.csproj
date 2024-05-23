@@ -7,18 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj" />
-      <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj" />
-      <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj" />
+        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Makaretu.Dns.Multicast.New" Version="0.31.0" />
-      <PackageReference Include="Makaretu.Dns.New" Version="3.0.1" />
+        <PackageReference Include="Makaretu.Dns.Multicast.New" Version="0.31.0"/>
+        <PackageReference Include="Makaretu.Dns.New" Version="3.0.1"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Docs\" />
+        <Folder Include="Docs\"/>
     </ItemGroup>
 
 </Project>

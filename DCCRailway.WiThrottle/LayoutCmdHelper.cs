@@ -5,52 +5,49 @@ using DCCRailway.Controller.Controllers;
 
 namespace DCCRailway.WiThrottle;
 
-public class LayoutCmdHelper(ICommandStation commandStation, DCCAddress? address = null)
-{
-    public DCCPowerState PowerState
-    {
-        get
-        {
+public class LayoutCmdHelper(ICommandStation commandStation, DCCAddress? address = null) {
+    public DCCPowerState PowerState {
+        get {
             var command = commandStation.CreateCommand<ICmdPowerGetState>();
             if (command?.Execute() is ICmdResultPowerState res) return res.State;
             return DCCPowerState.Unknown;
         }
     }
 
-    public void Stop()
-    {
+    public void Stop() { }
+
+    public void Release() { }
+
+    public void Dispatch() { }
+
+    public bool IsReleaseSupported() {
+        return commandStation.IsCommandSupported<ICmdLocoRelease>();
     }
 
-    public void Release()
-    {
+    public bool IsDispatchSupported() {
+        return commandStation.IsCommandSupported<ICmdLocoDispatch>();
     }
 
-    public void Dispatch()
-    {
+    public bool IsAcquireSupported() {
+        return commandStation.IsCommandSupported<ICmdLocoAcquire>();
     }
 
-    public bool IsReleaseSupported()  => commandStation.IsCommandSupported<ICmdLocoRelease>();
-    public bool IsDispatchSupported() => commandStation.IsCommandSupported<ICmdLocoDispatch>();
-    public bool IsAcquireSupported()  => commandStation.IsCommandSupported<ICmdLocoAcquire>();
-    public bool IsPowerSupported()    => commandStation.IsCommandSupported<ICmdPowerSetOn>();
+    public bool IsPowerSupported() {
+        return commandStation.IsCommandSupported<ICmdPowerSetOn>();
+    }
 
-    public void SetTurnoutState(DCCTurnoutState state)
-    {
-        if (commandStation.IsCommandSupported<ICmdTurnoutSet>())
-        {
+    public void SetTurnoutState(DCCTurnoutState state) {
+        if (commandStation.IsCommandSupported<ICmdTurnoutSet>()) {
             var command = commandStation.CreateCommand<ICmdTurnoutSet>(address);
-            if (command != null)
-            {
+            if (command != null) {
                 command.State = state;
                 command.Execute();
             }
         }
     }
 
-    public void SetPowerState(DCCPowerState state)
-    {
-        _ = state switch
-        {
+    public void SetPowerState(DCCPowerState state) {
+        _ = state switch {
             DCCPowerState.On  => commandStation.CreateCommand<ICmdPowerSetOn>()?.Execute(),
             DCCPowerState.Off => commandStation.CreateCommand<ICmdPowerSetOff>()?.Execute(),
             _                 => null

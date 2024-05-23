@@ -28,12 +28,15 @@ public abstract class BackgroundWorker(ILogger logger, string? name, TimeSpan? f
                         _cancellationTokenSource.Token.ThrowIfCancellationRequested();
                         Thread.Sleep(Milliseconds);
                     }
-                } catch (OperationCanceledException) {
+                }
+                catch (OperationCanceledException) {
                     logger.Information("{0}: Background Worker Cancelled.", Name);
                 }
+
                 OnWorkFinished();
             }, _cancellationTokenSource.Token);
-        } else {
+        }
+        else {
             logger.Information("{0}: Frequency not defined so task will conclude.", Name);
         }
     }

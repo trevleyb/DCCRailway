@@ -8,8 +8,7 @@ using DCCRailway.WiThrottle.Messages;
 
 namespace DCCRailway.WiThrottle;
 
-public class Connection
-{
+public class Connection {
     private readonly  Connections      _listReference;
     private readonly  MessageQueue     _serverMessages = [];
     internal readonly ICommandStation  CommandStation;
@@ -23,8 +22,7 @@ public class Connection
     ///     send "STOP" messages if we need to if we do not hear from the throttle.
     /// </summary>
     public Connection(TcpClient client, IRailwaySettings railwaySettings, Connections connections,
-        ICommandStation commandStation)
-    {
+        ICommandStation commandStation) {
         Client           = client;
         Prefs            = railwaySettings.Settings.WiThrottle;
         RailwaySettings  = railwaySettings;
@@ -45,8 +43,7 @@ public class Connection
 
     public ulong ConnectionHandle => (ulong)(Client?.Client?.Handle ?? 0);
 
-    public int HeartbeatSeconds
-    {
+    public int HeartbeatSeconds {
         get => _heartbeatSeconds;
         init => _heartbeatSeconds = value <= 0 ? 0 : value >= 60 ? 60 : value;
     }
@@ -82,8 +79,7 @@ public class Connection
     // -------------------------------------------------------------------------------------
     public void QueueMsg(IThrottleMsg message) => _serverMessages.Add(message);
 
-    public void QueueMsg(IThrottleMsg[] messages)
-    {
+    public void QueueMsg(IThrottleMsg[] messages) {
         foreach (var msg in messages) QueueMsg(msg);
     }
 
@@ -92,15 +88,12 @@ public class Connection
     /// message to all connected devices.
     /// </summary>
     /// <param name="message"></param>
-    public void QueueMsgToAll(IThrottleMsg message)
-    {
+    public void QueueMsgToAll(IThrottleMsg message) {
         foreach (var connection in _listReference.ActiveConnections) connection.QueueMsg(message);
     }
 
-    public void QueueMsgToAll(IThrottleMsg[] messages)
-    {
-        foreach (var connection in _listReference.ActiveConnections)
-        {
+    public void QueueMsgToAll(IThrottleMsg[] messages) {
+        foreach (var connection in _listReference.ActiveConnections) {
             foreach (var msg in messages) connection.QueueMsg(msg);
         }
     }
@@ -118,12 +111,9 @@ public class Connection
     ///     and released and then close the connection and remove this entry from the list of active
     ///     collections
     /// </summary>
-    public void Close()
-    {
-        if (_listReference.Assignments.Count > 0)
-        {
-            foreach (var address in _listReference.Assignments.AssignedAddresses)
-            {
+    public void Close() {
+        if (_listReference.Assignments.Count > 0) {
+            foreach (var address in _listReference.Assignments.AssignedAddresses) {
                 // TODO: var layoutCmd = new LayoutCmdHelper(CommandStationManager.CommandStation!, address);
                 // layoutCmd.Release();
                 // layoutCmd.Stop();
@@ -145,8 +135,7 @@ public class Connection
     public override string ToString() => $"{ThrottleName} @{ConnectionAddress}/{ConnectionHandle}|";
 }
 
-public enum HeartbeatStateEnum
-{
+public enum HeartbeatStateEnum {
     On,
     Off
 }

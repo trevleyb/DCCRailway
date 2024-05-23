@@ -3,7 +3,9 @@
 namespace DCCRailway.Common.Helpers;
 
 public static class ExtensionMethods {
-    public static byte Invert(this byte inByte) => (byte)~inByte;
+    public static byte Invert(this byte inByte) {
+        return (byte)~inByte;
+    }
 
     /// <summary>
     ///     Allows easy setting of the bits in a 8-bit byte
@@ -77,7 +79,9 @@ public static class ExtensionMethods {
         return bytes;
     }
 
-    public static byte[] ToByteArray(this string value) => Encoding.Default.GetBytes(value);
+    public static byte[] ToByteArray(this string value) {
+        return Encoding.Default.GetBytes(value);
+    }
 
     public static string ToDisplayValues(this byte[]? bytes) {
         if (bytes == null || bytes.Length == 0) return "<empty>";
@@ -113,7 +117,9 @@ public static class ExtensionMethods {
         return sb.ToString();
     }
 
-    public static string FromByteArray(this byte[]? bytes) => bytes == null ? "" : Encoding.Default.GetString(bytes);
+    public static string FromByteArray(this byte[]? bytes) {
+        return bytes == null ? "" : Encoding.Default.GetString(bytes);
+    }
 
     public static string? FromByteArray(this byte[] bytes, int length) {
         if (bytes.Length >= length) return Encoding.Default.GetString(bytes, 0, length);

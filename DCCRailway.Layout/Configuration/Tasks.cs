@@ -2,7 +2,8 @@ namespace DCCRailway.Layout.Configuration;
 
 [Serializable]
 public class Tasks : List<Task> {
-    public Task? this[string name] => Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
+    public Task? this[string name] =>
+        Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
 
     public void Delete(string name) {
         ArgumentNullException.ThrowIfNull(name);
@@ -14,7 +15,8 @@ public class Tasks : List<Task> {
         ArgumentNullException.ThrowIfNull(taskType);
         ArgumentNullException.ThrowIfNull(name);
 
-        if (Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) != null) throw new ArgumentException($"Parameter '{name}' already exists");
+        if (Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) != null)
+            throw new ArgumentException($"Parameter '{name}' already exists");
         Add(new Task(name, taskType, frequency));
     }
 }

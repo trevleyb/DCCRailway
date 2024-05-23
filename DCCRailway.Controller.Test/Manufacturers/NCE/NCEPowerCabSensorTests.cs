@@ -9,7 +9,8 @@ using DCCRailway.Controller.NCE.Adapters;
 
 namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 
-[TestFixture, Ignore("This is a hardware test")]
+[TestFixture]
+[Ignore("This is a hardware test")]
 public class NCEPowerCabSensorTest {
     [Test]
     public void TestCabConversion() {
@@ -48,16 +49,17 @@ public class NCEPowerCabSensorTest {
         return ((byte)cab, (byte)pin);
     }
 
-    protected internal static int CalculateAddress(byte cab, byte pin) =>
-
+    protected internal static int CalculateAddress(byte cab, byte pin) {
         // Formula (copied from JMRI) is :
-        (cab - 1) * 16 + (pin - 1);
+        return (cab - 1) * 16 + (pin - 1);
+    }
 
     [Test]
     public void TestTheSensor() {
         var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger);
         adapter.PortName = "COM3";
-        adapter.BaudRate = 9600;;
+        adapter.BaudRate = 9600;
+        ;
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
 
         var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);
@@ -73,12 +75,11 @@ public class NCEPowerCabSensorTest {
             var count  = 0;
 
             while (count++ < 5) {
-                for (byte part = 0; part < 2; part++) {
-                    for (byte pin = 0; pin < 8; pin++) {
-                        sensorCmd?.SetAddressByCabPin(4, (byte)(part * 8 + pin));
-                        var state = sensorCmd!.Execute() as NCECmdResultSensorState;
-                        states[part] = states[part].SetBit(pin, state?.State == DCCAccessoryState.Occupied ? true : false);
-                    }
+                for (byte part = 0; part < 2; part++)
+                for (byte pin = 0; pin < 8; pin++) {
+                    sensorCmd?.SetAddressByCabPin(4, (byte)(part * 8 + pin));
+                    var state = sensorCmd!.Execute() as NCECmdResultSensorState;
+                    states[part] = states[part].SetBit(pin, state?.State == DCCAccessoryState.Occupied ? true : false);
                 }
 
                 var dumpLine = states[0].FormatBits() + " " + states[1].FormatBits();

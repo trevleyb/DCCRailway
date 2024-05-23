@@ -19,10 +19,14 @@ public class VirtualClockRead : VirtualCommand, ICmdClockRead, ICommand {
         };
         if (adapter is VirtualAdapter virtualAdapter) {
             var timeSinceReference = DateTime.Now - virtualAdapter.FastClockSetTime;
-            result.CurrentTime = virtualAdapter.FastClockSetTime.AddTicks(timeSinceReference.Ticks * virtualAdapter.FastClockRatio);
+            result.CurrentTime =
+                virtualAdapter.FastClockSetTime.AddTicks(timeSinceReference.Ticks * virtualAdapter.FastClockRatio);
         }
+
         return result;
     }
 
-    public override string ToString() => "READ CLOCK";
+    public override string ToString() {
+        return "READ CLOCK";
+    }
 }

@@ -12,7 +12,9 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 
 [Command("CVRead", "Read a CV from a Loco")]
 public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
-    public NCECVRead(int cv = 0) => CV = cv;
+    public NCECVRead(int cv = 0) {
+        CV = cv;
+    }
 
     public DCCProgrammingMode ProgrammingMode { get; set; }
     public int                CV              { get; set; }
@@ -29,5 +31,7 @@ public class NCECVRead : NCECommand, ICmdCVRead, ICommand {
         return SendAndReceive(adapter, new NCEDataReadValidation(), CV.ToByteArray().AddToArray(command));
     }
 
-    public override string ToString() => $"READ CV ({CV}/{ProgrammingMode})";
+    public override string ToString() {
+        return $"READ CV ({CV}/{ProgrammingMode})";
+    }
 }

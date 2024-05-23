@@ -3,10 +3,8 @@ using System.Text;
 
 namespace DCCRailway.WiThrottle.Helpers;
 
-public static class BrowserMessage
-{
-    public static string Message(Connections connections, IPAddress host, int port)
-    {
+public static class BrowserMessage {
+    public static string Message(Connections connections, IPAddress host, int port) {
         var sb = new StringBuilder();
         sb.AppendLine("HTTP/1.1 403 Forbidden");
         sb.AppendLine("Content-Type: text/plain");
@@ -21,8 +19,7 @@ public static class BrowserMessage
             $"| ThrottleName         | HardwareID                           | Address                   | Heart Beat          | Act |");
         sb.AppendLine(
             $"+======================+======================================+===========================+=====================+=====+");
-        foreach (var connection in connections.ActiveConnections)
-        {
+        foreach (var connection in connections.ActiveConnections) {
             var con = connection.ThrottleName ?? "Unknown Throttle";
             var hid = connection.HardwareID ?? "No Hardware ID";
             var pid = connection.ConnectionAddress?.ToString() ?? "Unknown IP";
@@ -41,8 +38,7 @@ public static class BrowserMessage
         sb.AppendLine($"+======================+======================================+=======+");
         sb.AppendLine($"| DCC Address          | Owned By                             | Group |");
         sb.AppendLine($"+======================+======================================+=======+");
-        foreach (var entry in connections.Assignments.AssignedAddresses)
-        {
+        foreach (var entry in connections.Assignments.AssignedAddresses) {
             var add = entry.Address.ToString();
             var own = entry.Connection.ThrottleName;
             var grp = entry.Group.ToString();

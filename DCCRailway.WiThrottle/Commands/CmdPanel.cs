@@ -5,16 +5,12 @@ using Serilog;
 
 namespace DCCRailway.WiThrottle.Commands;
 
-public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd
-{
-    public void Execute(string commandStr)
-    {
+public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd {
+    public void Execute(string commandStr) {
         logger.Information("WiThrottle Recieved Cmd from [{0}]: Panel {1}:{3}=>'{2}'", connection.ConnectionHandle,
                            ToString(), commandStr, connection.ToString());
-        try
-        {
-            switch (commandStr[..3].ToUpper())
-            {
+        try {
+            switch (commandStr[..3].ToUpper()) {
             case "PPA":
                 SetPowerState(commandStr[3]);
                 break;
@@ -36,8 +32,7 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
 
             ;
         }
-        catch
-        {
+        catch {
             logger.Error("WiThrottle Recieved Cmd: Panel - {0}: Unable to Process the command =>'{1}'", ToString(),
                          commandStr);
         }
@@ -48,18 +43,14 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
     ///     throw to switch it and finally send a message to tell the throttle
     ///     of its current state.
     /// </summary>
-    private void ThrowTurnout(string commandStr)
-    {
+    private void ThrowTurnout(string commandStr) {
         var turnoutID = commandStr[1..];
-        if (connection.RailwaySettings.Turnouts is { } turnouts)
-        {
+        if (connection.RailwaySettings.Turnouts is { } turnouts) {
             var turnout    = turnouts.GetByID(turnoutID);
             var layoutCmds = new LayoutCmdHelper(connection.CommandStation, turnout?.Address);
 
-            if (turnout != null)
-            {
-                turnout.CurrentState = (TurnoutCommand)commandStr[0] switch
-                {
+            if (turnout != null) {
+                turnout.CurrentState = (TurnoutCommand)commandStr[0] switch {
                     TurnoutCommand.ToggleTurnout => turnout.CurrentState == DCCTurnoutState.Closed
                         ? DCCTurnoutState.Thrown
                         : DCCTurnoutState.Closed,
@@ -77,29 +68,22 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
     ///     Active a Route. You cannot inactivate a route, so the only
     ///     option is command 2 - activate it.
     /// </summary>
-    private void SetRoute(string commandStr)
-    {
+    private void SetRoute(string commandStr) {
         var routeID = commandStr[1..];
-        if (connection.RailwaySettings.Routes is { } routes)
-        {
+        if (connection.RailwaySettings.Routes is { } routes) {
             var route = routes.GetByID(routeID);
-            if (route != null)
-            {
+            if (route != null) {
                 DeactiveRoutes(route);
                 route.State = RouteState.Active;
                 if ((RouteCommand)commandStr[0] == RouteCommand.Active)
-                {
-                    foreach (var turnoutEntry in route.RouteTurnouts)
-                    {
+                    foreach (var turnoutEntry in route.RouteTurnouts) {
                         var turnout = connection.RailwaySettings.Turnouts?[turnoutEntry.TurnoutID];
-                        if (turnout is { } item)
-                        {
+                        if (turnout is { } item) {
                             var layoutCmds = new LayoutCmdHelper(connection.CommandStation, item.Address);
                             item.CurrentState = turnoutEntry.State;
                             layoutCmds.SetTurnoutState(item.CurrentState);
                         }
                     }
-                }
 
                 connection.QueueMsgToAll(new MsgRouteState(connection, route));
             }
@@ -109,44 +93,29 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
     // Force all routes to be deactivated. However, could be more cleaver and could
     // only deactivate routes where there is a clash in the Turnouts.
     // ----------------------------------------------------------------------------
-    private void DeactiveRoutes(Route refRoute)
-    {
+    private void DeactiveRoutes(Route refRoute) {
         // look to see if any of the Turnouts in the reference Route (refRoute) are contained
         // on any other ACTIVE route. If they are, and if the turnout direct is different,
         // then we need to DEACTIVATE the existing active routes first. We don't need to
         // actually throw the turnouts, just mark the turnout as de-activated
         // ----------------------------------------------------------------------------------
         var deactivateList = new List<Route>();
-        if (connection.RailwaySettings.Routes.Values is { } routes)
-        {
+        if (connection.RailwaySettings.Routes.Values is { } routes) {
             foreach (var route in routes)
-            {
-                if (AreTurnoutsMatched(refRoute, route))
-                {
+                if (AreTurnoutsMatched(refRoute, route)) {
                     deactivateList.Add(route);
                     route.State = RouteState.Inactive;
                 }
-            }
 
-            foreach (var route in deactivateList)
-            {
-                connection.QueueMsgToAll(new MsgRouteState(connection, route));
-            }
+            foreach (var route in deactivateList) connection.QueueMsgToAll(new MsgRouteState(connection, route));
         }
     }
 
-    private bool AreTurnoutsMatched(Route refRoute, Route route)
-    {
+    private bool AreTurnoutsMatched(Route refRoute, Route route) {
         foreach (var turnout in refRoute.RouteTurnouts)
-        {
-            foreach (var checkTurnout in route.RouteTurnouts)
-            {
-                if (turnout.TurnoutID == checkTurnout.TurnoutID && turnout.State != checkTurnout.State)
-                {
-                    return true;
-                }
-            }
-        }
+        foreach (var checkTurnout in route.RouteTurnouts)
+            if (turnout.TurnoutID == checkTurnout.TurnoutID && turnout.State != checkTurnout.State)
+                return true;
 
         return false;
     }
@@ -157,11 +126,9 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
     ///     update back to the client.
     /// </summary>
     /// <param name="state"></param>
-    private void SetPowerState(char state)
-    {
+    private void SetPowerState(char state) {
         var layoutCmds = new LayoutCmdHelper(connection.CommandStation);
-        switch (state)
-        {
+        switch (state) {
         case '0':
             if (layoutCmds.IsPowerSupported()) layoutCmds.SetPowerState(DCCPowerState.Off);
             break;
@@ -173,17 +140,17 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
         connection.QueueMsgToAll(new MsgPowerState(connection));
     }
 
-    public override string ToString() => "CMD:Panel";
+    public override string ToString() {
+        return "CMD:Panel";
+    }
 
-    private enum TurnoutCommand
-    {
+    private enum TurnoutCommand {
         ToggleTurnout = '2',
         CloseTurnout  = 'C',
         ThrowTurnout  = 'T'
     }
 
-    private enum RouteCommand
-    {
+    private enum RouteCommand {
         Active = '2'
     }
 }

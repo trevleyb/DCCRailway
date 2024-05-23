@@ -9,8 +9,7 @@ namespace DCCRailway.Managers.Updater;
 
 public class StateUpdaterAccyCmd(IStateManager stateManager) : IStateUpdater {
     public IResult Process(ICmdResult cmdResult) {
-
-        if (cmdResult.Command is IAccyCmd accyCmd) {
+        if (cmdResult.Command is IAccyCmd accyCmd)
             switch (accyCmd) {
             case ICmdAccyOpsProg cmd: {
                 break;
@@ -24,7 +23,7 @@ public class StateUpdaterAccyCmd(IStateManager stateManager) : IStateUpdater {
             default:
                 return Result.Fail($"Unexpected command type {cmdResult?.Command?.AttributeInfo()?.Name}.");
             }
-        }
+
         return Result.Ok();
     }
 }

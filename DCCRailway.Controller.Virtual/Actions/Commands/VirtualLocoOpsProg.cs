@@ -27,5 +27,7 @@ public class VirtualLocoOpsProg : VirtualCommand, ICmdLocoOpsProg, ICommand {
     public DCCAddress Address { get; set; }
     public byte       Value   { get; set; }
 
-    public override string ToString() => $"LOCO OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
+    public override string ToString() {
+        return $"LOCO OPS PROGRAMMING ({LocoAddress}:{CVAddress}={Value})";
+    }
 }

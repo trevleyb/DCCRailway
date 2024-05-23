@@ -1,14 +1,14 @@
-namespace DCCRailway.WebApp;
 using DCCRailway.WebApp.Components;
+
+namespace DCCRailway.WebApp;
 
 public class RailwayWebApp {
     public void Start(string[] args) {
-
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
         builder.Services.AddRazorComponents()
-               .AddInteractiveServerComponents();
+            .AddInteractiveServerComponents();
 
         var app = builder.Build();
 
@@ -23,7 +23,7 @@ public class RailwayWebApp {
         app.UseStaticFiles();
         app.UseAntiforgery();
         app.MapRazorComponents<App>()
-           .AddInteractiveServerRenderMode();
+            .AddInteractiveServerRenderMode();
 
         app.Run();
     }

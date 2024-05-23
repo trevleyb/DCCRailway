@@ -17,7 +17,8 @@ public class VirtualLocoSetFunctions : VirtualCommand, ICmdLocoSetFunctions, ICo
 
     public VirtualLocoSetFunctions(int address) : this(new DCCAddress(address), new DCCFunctionBlocks()) { }
 
-    public VirtualLocoSetFunctions(int address, DCCFunctionBlocks functions) : this(new DCCAddress(address), functions) { }
+    public VirtualLocoSetFunctions(int address, DCCFunctionBlocks functions) :
+        this(new DCCAddress(address), functions) { }
 
     public VirtualLocoSetFunctions(DCCAddress address, DCCFunctionBlocks functions) {
         Address   = address;
@@ -31,9 +32,7 @@ public class VirtualLocoSetFunctions : VirtualCommand, ICmdLocoSetFunctions, ICo
     public override string ToString() {
         StringBuilder sb = new();
 
-        for (var i = 0; i < 28; i++) {
-            sb.Append($"F{i:D2}={(Functions[i] ? "1" : "0")},");
-        }
+        for (var i = 0; i < 28; i++) sb.Append($"F{i:D2}={(Functions[i] ? "1" : "0")},");
 
         sb.Append($"F28={(Functions[28] ? "1" : "0")}");
 

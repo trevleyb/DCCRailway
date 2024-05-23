@@ -14,12 +14,22 @@ public static class AttributeExtractor {
     private static T? HandleException<T>(object? attr) where T : class {
         try {
             return attr as T;
-        } catch {
+        }
+        catch {
             return default(T?) ?? null;
         }
     }
 
-    public static AdapterAttribute    AttributeInfo(this IAdapter adapter)               => GetAttribute<AdapterAttribute>(adapter.GetType()) ?? new AdapterAttribute("Unknown");
-    public static ControllerAttribute AttributeInfo(this ICommandStation commandStation) => GetAttribute<ControllerAttribute>(commandStation.GetType()) ?? new ControllerAttribute("Unknown");
-    public static CommandAttribute    AttributeInfo(this ICommand command)               => GetAttribute<CommandAttribute>(command.GetType()) ?? new CommandAttribute("Unknown", "Unknown", "Unknown", new[] { "!*" }, new[] { "!*" });
+    public static AdapterAttribute AttributeInfo(this IAdapter adapter) {
+        return GetAttribute<AdapterAttribute>(adapter.GetType()) ?? new AdapterAttribute("Unknown");
+    }
+
+    public static ControllerAttribute AttributeInfo(this ICommandStation commandStation) {
+        return GetAttribute<ControllerAttribute>(commandStation.GetType()) ?? new ControllerAttribute("Unknown");
+    }
+
+    public static CommandAttribute AttributeInfo(this ICommand command) {
+        return GetAttribute<CommandAttribute>(command.GetType()) ??
+               new CommandAttribute("Unknown", "Unknown", "Unknown", new[] { "!*" }, new[] { "!*" });
+    }
 }

@@ -7,8 +7,8 @@ using Serilog;
 namespace DCCRailway.Controller.Tasks;
 
 [Task("Controler Task")]
-public abstract class ControllerTask(ILogger logger) : BackgroundWorker(logger, null), IControllerTask, IParameterMappable {
-
+public abstract class ControllerTask(ILogger logger)
+    : BackgroundWorker(logger, null), IControllerTask, IParameterMappable {
     public override void Start() {
         Setup();
         base.Start();
@@ -19,7 +19,7 @@ public abstract class ControllerTask(ILogger logger) : BackgroundWorker(logger, 
         CleanUp();
     }
 
-    public ICommandStation CommandStation { get; set; }
-    protected virtual void Setup()        { }
-    protected virtual void CleanUp()      { }
+    public            ICommandStation CommandStation { get; set; }
+    protected virtual void            Setup()        { }
+    protected virtual void            CleanUp()      { }
 }

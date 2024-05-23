@@ -9,11 +9,13 @@ using DCCRailway.Controller.NCE.Adapters;
 
 namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 
-[TestFixture, Ignore("This is a hardware test")]
+[TestFixture]
+[Ignore("This is a hardware test")]
 public class NCEPowerCabLocoFunctionsTests {
     [SetUp]
     public void TestSetup() {
-        var _system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(new NCEVirtualAdapter(LoggerHelper.ConsoleLogger));
+        var _system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")
+            ?.Create(new NCEVirtualAdapter(LoggerHelper.ConsoleLogger));
 
         //_system = SystemFactory.Create("NCE", "NCEPowerCab");
 
@@ -23,14 +25,16 @@ public class NCEPowerCabLocoFunctionsTests {
 
             var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger);
             adapter.PortName = "COM3";
-            adapter.BaudRate = 9600;;
+            adapter.BaudRate = 9600;
+            ;
 
             Assert.That(Adapter, Is.Not.Null, "Should have a Serial Adapter created");
             Adapter.DataReceived  += Adapter_DataReceived;
             Adapter.DataSent      += Adapter_DataSent;
             Adapter.ErrorOccurred += Adapter_ErrorOccurred;
             _system.Adapter       =  Adapter;
-        } else {
+        }
+        else {
             Assert.Fail("Could not create a CommandStation Object");
         }
     }
@@ -65,11 +69,17 @@ public class NCEPowerCabLocoFunctionsTests {
     protected IAdapter?        Adapter;
     protected ICommandStation? System;
 
-    private void Adapter_ErrorOccurred(object? sender, DataErrorArgs e) => Console.WriteLine(e.ToString());
+    private void Adapter_ErrorOccurred(object? sender, DataErrorArgs e) {
+        Console.WriteLine(e.ToString());
+    }
 
-    private void Adapter_DataSent(object? sender, DataSentArgs e) => Console.WriteLine(e.ToString());
+    private void Adapter_DataSent(object? sender, DataSentArgs e) {
+        Console.WriteLine(e.ToString());
+    }
 
-    private void Adapter_DataReceived(object? sender, DataRecvArgs e) => Console.WriteLine(e.ToString());
+    private void Adapter_DataReceived(object? sender, DataRecvArgs e) {
+        Console.WriteLine(e.ToString());
+    }
 
     [Test]
     public void TurnOnOffLightsTest() {

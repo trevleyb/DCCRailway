@@ -17,5 +17,7 @@ public class NCEClockRead : Command, ICmdClockRead, ICommand {
         return new NCECmdResultClock(result.Data);
     }
 
-    public override string ToString() => "READ CLOCK";
+    public override string ToString() {
+        return "READ CLOCK";
+    }
 }

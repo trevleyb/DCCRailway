@@ -2,17 +2,13 @@ using Serilog;
 
 namespace DCCRailway.WiThrottle.Commands;
 
-public class CmdRoster(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd
-{
-    public void Execute(string commandStr)
-    {
+public class CmdRoster(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd {
+    public void Execute(string commandStr) {
         logger.Information("WiThrottle Recieved Cmd from [{0}]: Roster - {1}=>'{2}'", connection.ConnectionHandle,
                            ToString(), commandStr);
-        try
-        {
+        try {
             var cmd = commandStr[..3];
-            switch (cmd.ToUpper())
-            {
+            switch (cmd.ToUpper()) {
             case "RCP": // RE-ORDER positions
                 break;
             case "RCR": // REMOVE DAC
@@ -29,12 +25,13 @@ public class CmdRoster(ILogger logger, Connection connection) : ThrottleCmd, ITh
                 break;
             }
         }
-        catch
-        {
+        catch {
             logger.ForContext<Server>().Error("{0}:{2}=>Unable to Process the command =>'{1}'", ToString(), commandStr,
                                               connection.ToString());
         }
     }
 
-    public override string ToString() => "CMD:Roster";
+    public override string ToString() {
+        return "CMD:Roster";
+    }
 }

@@ -1,7 +1,6 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout;
 using DCCRailway.Layout.Converters;
-using NUnit.Framework;
 
 namespace DCCRailway.Test;
 
@@ -9,14 +8,16 @@ namespace DCCRailway.Test;
 public class RailwayManagerTests {
     [Test]
     public void CreateTestFileForTesting() {
-        var manager = new RailwaySettings(LoggerHelper.ConsoleLogger).New($"./Sample{DateTime.Now:yyMMddHHmmss}", "Sample");
+        var manager =
+            new RailwaySettings(LoggerHelper.ConsoleLogger).New($"./Sample{DateTime.Now:yyMMddHHmmss}", "Sample");
         InjectTestData.SampleData(manager);
         manager.Save();
     }
 
     [Test]
     public void CreateTestFileForTestingAndReload() {
-        var manager = new RailwaySettings(LoggerHelper.ConsoleLogger).New($"./Sample{DateTime.Now:yyMMddHHmmss}", "Sample");
+        var manager =
+            new RailwaySettings(LoggerHelper.ConsoleLogger).New($"./Sample{DateTime.Now:yyMMddHHmmss}", "Sample");
         var pathname = manager.PathName;
         InjectTestData.SampleData(manager);
         manager.Save();

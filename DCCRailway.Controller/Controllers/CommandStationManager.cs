@@ -13,7 +13,11 @@ namespace DCCRailway.Controller.Controllers;
 ///     attributes and information about the controller.
 /// </summary>
 [DebuggerDisplay("Name: {Name}, Manufacturer: {Manufacturer}, Model: {Model}, Version: {Version}")]
-public class CommandStationManager(ILogger logger, ControllerAttribute attributes, string assemblyPath, Type assemblyType) {
+public class CommandStationManager(
+    ILogger logger,
+    ControllerAttribute attributes,
+    string assemblyPath,
+    Type assemblyType) {
     private ControllerAttribute Attributes   { get; } = attributes;
     private Type                AssemblyType { get; } = assemblyType;
     private string              AssemblyPath { get; } = assemblyPath;
@@ -44,16 +48,23 @@ public class CommandStationManager(ILogger logger, ControllerAttribute attribute
     /// <exception cref="ApplicationException">If it cannot create an instance dynamically</exception>
     public ICommandStation Create() {
         try {
-            if (!File.Exists(AssemblyPath)) throw new SystemInstantiateException(Name, $"The Assembly '{AssemblyPath}' does not exist.");
-            if (AssemblyType is null) throw new SystemInstantiateException(Name, "Unable to determine the object type as the type is 'Undefined'.");
+            if (!File.Exists(AssemblyPath))
+                throw new SystemInstantiateException(Name, $"The Assembly '{AssemblyPath}' does not exist.");
+            if (AssemblyType is null)
+                throw new SystemInstantiateException(
+                    Name, "Unable to determine the object type as the type is 'Undefined'.");
 
             var assembly = Assembly.LoadFrom(AssemblyPath);
 
-            if (assembly is null) throw new SystemInstantiateException(Name, $"Unable to get the Assembly from the Path '{AssemblyPath}'.");
-            if (Activator.CreateInstance(AssemblyType,logger) is not ICommandStation instance) throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the controller.");
+            if (assembly is null)
+                throw new SystemInstantiateException(
+                    Name, $"Unable to get the Assembly from the Path '{AssemblyPath}'.");
+            if (Activator.CreateInstance(AssemblyType, logger) is not ICommandStation instance)
+                throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the controller.");
 
             return instance;
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ApplicationException($"Unable to instantiate a new '{Name}' from {AssemblyPath}", ex);
         }
     }
