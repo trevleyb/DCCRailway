@@ -10,7 +10,7 @@ public delegate void RepositoryChangedEventHandler(object sender, RepositoryChan
 [Serializable]
 public abstract class LayoutRepository<TEntity>
     : ConcurrentDictionary<string, TEntity>, ILayoutRepository<TEntity>
-    where TEntity : LayoutEntity {
+    where TEntity : ILayoutEntity {
     private readonly SemaphoreSlim _atomicMutex = new(1, 1);
     private readonly SemaphoreSlim _nextIDMutex = new(1, 1);
 

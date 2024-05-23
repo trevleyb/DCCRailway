@@ -1,16 +1,13 @@
-using System.Diagnostics;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout;
 using DCCRailway.Managers.Controller;
 using DCCRailway.Managers.State;
+using DCCRailway.WiThrottle;
 
-namespace DCCRailway.WiThrottle.Test;
+namespace DCCRailway.TestClasses;
 
-[TestFixture]
-public class WiThrottleTest {
-    [Test]
-    public void TestIfWiThrottleLoadsAndRuns() {
-        Trace.Listeners.Add(new ConsoleTraceListener());
+public static class TestWiThrottle {
+    public static void WiThrottleRun(string[] args) {
         var logger       = LoggerHelper.ConsoleLogger;
         var settings     = new RailwaySettings(logger).Sample("./", "Sample");
         var stateManager = new StateManager();
@@ -21,19 +18,16 @@ public class WiThrottleTest {
         // Start the WiThrottle and run it in the background
         // --------------------------------------------------
         logger.Information("Starting the WiThrottle Server");
-        Trace.Flush();
-
         wii.Start(cmdStation.CommandStation);
-        Assert.That(wii, Is.Not.Null);
+        logger.Information("WiThrottle Server should now be running in background.");
 
         // Wait until we press ENTER to stop the WiThrottle
         // --------------------------------------------------
-        if (Debugger.IsAttached) {
-            logger.Information("Press ENTER on Console to finish");
-            Console.ReadLine();
-        }
+        logger.Information("Press ENTER on Console to finish");
+        Console.ReadLine();
 
         logger.Information("Stopping the WiThrottle Server");
         wii.Stop();
+        logger.Information("END");
     }
 }

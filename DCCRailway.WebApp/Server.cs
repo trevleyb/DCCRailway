@@ -2,7 +2,7 @@ using DCCRailway.WebApp.Components;
 
 namespace DCCRailway.WebApp;
 
-public class RailwayWebApp {
+public class Server {
     public void Start(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
 

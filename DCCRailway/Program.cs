@@ -1,40 +1,13 @@
 using CommandLine;
 using DCCRailway;
-using DCCRailway.Common.Helpers;
-using DCCRailway.Layout;
 using DCCRailway.Managers;
-using DCCRailway.Managers.Controller;
-using DCCRailway.Managers.State;
-using DCCRailway.WiThrottle;
+using DCCRailway.TestClasses;
 using Serilog;
 using Serilog.Core;
 using Serilog.Sinks.SystemConsole.Themes;
 
-WiThrottleRun(args);
-
-void WiThrottleRun(string[] args) {
-    var logger       = LoggerHelper.ConsoleLogger;
-    var settings     = new RailwaySettings(logger).Sample("./", "Sample");
-    var stateManager = new StateManager();
-    var cmdStation   = new ControllerManager(logger, stateManager, settings.Controller);
-    var wii          = new Server(logger, settings);
-    cmdStation.Start();
-
-    // Start the WiThrottle and run it in the background
-    // --------------------------------------------------
-    logger.Information("Starting the WiThrottle Service");
-    wii.Start(cmdStation.CommandStation);
-    logger.Information("WiThrottle Service should now be running in background.");
-
-    // Wait until we press ENTER to stop the WiThrottle
-    // --------------------------------------------------
-    logger.Information("Press ENTER on Console to finish");
-    Console.ReadLine();
-
-    logger.Information("Stopping the WiThrottle Service");
-    wii.Stop();
-    logger.Information("END");
-}
+//TestWiThrottle.WiThrottleRun(args);
+TestWebApi.WebApiRun(args);
 
 void Startup(string[] args) {
     const string consoleOutputTemplate =

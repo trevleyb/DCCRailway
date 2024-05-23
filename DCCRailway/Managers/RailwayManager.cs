@@ -1,9 +1,8 @@
 using DCCRailway.Layout;
 using DCCRailway.Managers.Controller;
 using DCCRailway.Managers.State;
-using DCCRailway.WebApp;
-using DCCRailway.WiThrottle;
 using Serilog;
+using Server = DCCRailway.WebApp.Server;
 
 namespace DCCRailway.Managers;
 
@@ -11,9 +10,9 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
     public ILogger          Logger   { get; init; } = logger;
     public IRailwaySettings Settings { get; private set; }
 
-    public ControllerManager ControllerManager { get; private set; }
-    public StateManager      StateManager      { get; private set; }
-    public Server?           WiThrottle        { get; private set; }
+    public ControllerManager  ControllerManager { get; private set; }
+    public StateManager       StateManager      { get; private set; }
+    public WiThrottle.Server? WiThrottle        { get; private set; }
 
     /// <summary>
     /// Re-Loads the repositories into the collections. This is done when we instantiate
@@ -48,7 +47,7 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
             ControllerManager.Start();
 
             if (Settings.WiThrottlePrefs.RunOnStartup) {
-                WiThrottle = new Server(Logger, Settings);
+                WiThrottle = new WiThrottle.Server(Logger, Settings);
                 WiThrottle.Start(ControllerManager.CommandStation);
             }
         }
@@ -58,7 +57,7 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
 
         // This is blocking so will hold until the web-app finishes and then will exit the app
         // ------------------------------------------------------------------------------------
-        var webApp = new RailwayWebApp();
+        var webApp = new Server();
         webApp.Start(new string[] { });
     }
 
