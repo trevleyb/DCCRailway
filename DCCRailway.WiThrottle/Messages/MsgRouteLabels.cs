@@ -1,11 +1,13 @@
 using System.Text;
-using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgRouteLabels(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
-    public override string Message {
-        get {
+public class MsgRouteLabels(Connection connection) : ThrottleMsg, IThrottleMsg
+{
+    public override string Message
+    {
+        get
+        {
             var routes = connection.RailwaySettings.Routes.GetAll();
             if (!routes.Any()) return "";
 

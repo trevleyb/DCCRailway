@@ -1,11 +1,13 @@
 using System.Text;
-using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgTurnoutLabels(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
-    public override string Message {
-        get {
+public class MsgTurnoutLabels(Connection connection) : ThrottleMsg, IThrottleMsg
+{
+    public override string Message
+    {
+        get
+        {
             var turnouts = connection.RailwaySettings.Turnouts.GetAll();
             if (!turnouts.Any()) return "";
 

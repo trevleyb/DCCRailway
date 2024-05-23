@@ -3,9 +3,12 @@ using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgAddressReleased(WiThrottleConnection connection, MultiThrottleMessage data) : ThrottleMsg, IThrottleMsg {
-    public override string Message {
-        get {
+public class MsgAddressReleased(Connection connection, MultiThrottleMessage data) : ThrottleMsg, IThrottleMsg
+{
+    public override string Message
+    {
+        get
+        {
             var sb = new StringBuilder();
             sb.Append($"M{data.Group}-");
             sb.Append(data.Address.IsLong ? "L" : "S");

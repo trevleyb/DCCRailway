@@ -3,15 +3,19 @@ using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgRouteList(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
-    public override string Message {
-        get {
+public class MsgRouteList(Connection connection) : ThrottleMsg, IThrottleMsg
+{
+    public override string Message
+    {
+        get
+        {
             var routes = connection.RailwaySettings.Routes.GetAll();
             if (!routes.Any()) return "";
 
             var message = new StringBuilder();
             message.Append("PRL");
-            foreach (var route in routes) {
+            foreach (var route in routes)
+            {
                 message.Append("]\\["); // Separator
                 message.Append(route.Id);
                 message.Append("}|{");
@@ -22,6 +26,7 @@ public class MsgRouteList(WiThrottleConnection connection) : ThrottleMsg, IThrot
                 //route.CurrentState == DCCTurnoutState.Closed ? "2" :
                 //route.CurrentState == DCCTurnoutState.Thrown ? "4" : "1");
             }
+
             message.AppendLine();
             return message.ToString();
         }

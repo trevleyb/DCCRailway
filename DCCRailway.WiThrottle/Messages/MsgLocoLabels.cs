@@ -4,12 +4,14 @@ using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgLocoLabels(WiThrottleConnection connection, MultiThrottleMessage data) : ThrottleMsg, IThrottleMsg {
-
+public class MsgLocoLabels(Connection connection, MultiThrottleMessage data) : ThrottleMsg, IThrottleMsg
+{
     private const byte maxLabels = 29;
 
-    public override string Message {
-        get {
+    public override string Message
+    {
+        get
+        {
             var sb = new StringBuilder();
             sb.Append($"M{data.Group}L");
             sb.Append(data.Address.IsLong ? "L" : "S");
@@ -28,12 +30,14 @@ public class MsgLocoLabels(WiThrottleConnection connection, MultiThrottleMessage
         // items in the list, but most will be blank using ]/[
         // ----------------------------------------------------------------------------------
         var max = Math.Min(loco.Labels.Max(x => x.Key), maxLabels);
-        var sb = new StringBuilder();
-        for (byte num = 0; num < max; num++) {
+        var sb  = new StringBuilder();
+        for (byte num = 0; num < max; num++)
+        {
             sb.Append("]\\[");
             var label = loco.Labels.Find(x => x.Key == num)?.Label ?? "";
             sb.Append(label);
         }
+
         return sb.ToString();
     }
 

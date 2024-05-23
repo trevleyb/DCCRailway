@@ -2,12 +2,17 @@ using Serilog;
 
 namespace DCCRailway.WiThrottle.Commands;
 
-public class CmdRoster(ILogger logger, WiThrottleConnection connection) : ThrottleCmd, IThrottleCmd {
-    public void Execute(string commandStr) {
-        logger.Information("WiThrottle Cmd: Roster - {0}=>'{1}'", ToString(), commandStr);
-        try {
+public class CmdRoster(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd
+{
+    public void Execute(string commandStr)
+    {
+        logger.Information("WiThrottle Recieved Cmd from {0}: Roster - {1}=>'{2}'", connection.ConnectionHandle,
+                           ToString(), commandStr);
+        try
+        {
             var cmd = commandStr[..3];
-            switch (cmd.ToUpper()) {
+            switch (cmd.ToUpper())
+            {
             case "RCP": // RE-ORDER positions
                 break;
             case "RCR": // REMOVE DAC
@@ -19,11 +24,15 @@ public class CmdRoster(ILogger logger, WiThrottleConnection connection) : Thrott
             case "RCF": // Functions
                 break;
             default:
-                logger.ForContext<WiThrottleServer>().Information("{0}:{2}=>Unknown Panel Command recieved=>'{1}'", ToString(), commandStr, connection.ToString());
+                logger.ForContext<Server>().Information("{0}:{2}=>Unknown Panel Command recieved=>'{1}'", ToString(),
+                                                        commandStr, connection.ToString());
                 break;
             }
-        } catch {
-            logger.ForContext<WiThrottleServer>().Error("{0}:{2}=>Unable to Process the command =>'{1}'", ToString(), commandStr, connection.ToString());
+        }
+        catch
+        {
+            logger.ForContext<Server>().Error("{0}:{2}=>Unable to Process the command =>'{1}'", ToString(), commandStr,
+                                              connection.ToString());
         }
     }
 

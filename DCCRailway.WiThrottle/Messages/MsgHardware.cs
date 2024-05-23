@@ -4,9 +4,12 @@ using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgHardware(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
-    public override string Message {
-        get {
+public class MsgHardware(Connection connection) : ThrottleMsg, IThrottleMsg
+{
+    public override string Message
+    {
+        get
+        {
             var message = new StringBuilder();
             message.Append("HT");
             message.Append(connection.CommandStation.AttributeInfo().Name);

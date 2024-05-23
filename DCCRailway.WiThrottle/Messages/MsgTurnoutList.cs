@@ -1,19 +1,22 @@
 using System.Text;
 using DCCRailway.Common.Types;
 using DCCRailway.WiThrottle.Helpers;
-using Microsoft.Extensions.Primitives;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgTurnoutList(WiThrottleConnection connection) : ThrottleMsg, IThrottleMsg {
-    public override string Message {
-        get {
+public class MsgTurnoutList(Connection connection) : ThrottleMsg, IThrottleMsg
+{
+    public override string Message
+    {
+        get
+        {
             var turnouts = connection.RailwaySettings.Turnouts.GetAll();
             if (!turnouts.Any()) return "";
 
             var message = new StringBuilder();
             message.Append("PTL");
-            foreach (var turnout in turnouts) {
+            foreach (var turnout in turnouts)
+            {
                 message.Append("]\\["); // Separator
                 message.Append(turnout.Id);
                 message.Append("}|{");
@@ -22,6 +25,7 @@ public class MsgTurnoutList(WiThrottleConnection connection) : ThrottleMsg, IThr
                 message.Append(turnout.CurrentState == DCCTurnoutState.Closed ? "2" :
                                turnout.CurrentState == DCCTurnoutState.Thrown ? "4" : "1");
             }
+
             message.AppendLine();
             return message.ToString();
         }

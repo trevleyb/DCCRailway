@@ -3,8 +3,10 @@ using System.Text;
 
 namespace DCCRailway.WiThrottle.Helpers;
 
-public static class BrowserMessage {
-    public static string Message(WiThrottleConnections connections, IPAddress host, int port) {
+public static class BrowserMessage
+{
+    public static string Message(Connections connections, IPAddress host, int port)
+    {
         var sb = new StringBuilder();
         sb.AppendLine("HTTP/1.1 403 Forbidden");
         sb.AppendLine("Content-Type: text/plain");
@@ -13,10 +15,14 @@ public static class BrowserMessage {
         sb.AppendLine("Please connect to this service using a WiThrottle compatible application");
         sb.AppendLine("such as https://www.withrottle.com");
         sb.AppendLine();
-        sb.AppendLine($"+======================+======================================+===========================+=====================+=====+");
-        sb.AppendLine($"| ThrottleName         | HardwareID                           | Address                   | Heart Beat          | Act |");
-        sb.AppendLine($"+======================+======================================+===========================+=====================+=====+");
-        foreach (var connection in connections.Connections) {
+        sb.AppendLine(
+            $"+======================+======================================+===========================+=====================+=====+");
+        sb.AppendLine(
+            $"| ThrottleName         | HardwareID                           | Address                   | Heart Beat          | Act |");
+        sb.AppendLine(
+            $"+======================+======================================+===========================+=====================+=====+");
+        foreach (var connection in connections.ActiveConnections)
+        {
             var con = connection.ThrottleName ?? "Unknown Throttle";
             var hid = connection.HardwareID ?? "No Hardware ID";
             var pid = connection.ConnectionAddress?.ToString() ?? "Unknown IP";
@@ -25,15 +31,18 @@ public static class BrowserMessage {
             hid = hid.Substring(0, Math.Min(hid.Length, 36));
             pid = pid.Substring(0, Math.Min(pid.Length, 25));
 
-            sb.AppendLine($"| {con,-20} | {hid,-36} | {pid,-25} | {connection.LastHeartbeat:yyyy-MM-dd hh:mm:ss} | {(connection.IsActive ? "Yes" : "No ")} |");
-            sb.AppendLine($"+----------------------+--------------------------------------+---------------------------+---------------------+-----+");
+            sb.AppendLine(
+                $"| {con,-20} | {hid,-36} | {pid,-25} | {connection.LastHeartbeat:yyyy-MM-dd hh:mm:ss} | {(connection.IsActive ? "Yes" : "No ")} |");
+            sb.AppendLine(
+                $"+----------------------+--------------------------------------+---------------------------+---------------------+-----+");
         }
 
         sb.AppendLine();
         sb.AppendLine($"+======================+======================================+=======+");
         sb.AppendLine($"| DCC Address          | Owned By                             | Group |");
         sb.AppendLine($"+======================+======================================+=======+");
-        foreach (var entry in connections.Assignments.AssignedAddresses) {
+        foreach (var entry in connections.Assignments.AssignedAddresses)
+        {
             var add = entry.Address.ToString();
             var own = entry.Connection.ThrottleName;
             var grp = entry.Group.ToString();
@@ -44,6 +53,7 @@ public static class BrowserMessage {
             sb.AppendLine($"| {add,-20} | {own,-36} | {grp,-5} |");
             sb.AppendLine($"+----------------------+--------------------------------------+-------+");
         }
+
         return sb.ToString();
     }
 }
