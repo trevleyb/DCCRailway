@@ -6,7 +6,7 @@ public class CmdRoster(ILogger logger, Connection connection) : ThrottleCmd, ITh
 {
     public void Execute(string commandStr)
     {
-        logger.Information("WiThrottle Recieved Cmd from {0}: Roster - {1}=>'{2}'", connection.ConnectionHandle,
+        logger.Information("WiThrottle Recieved Cmd from [{0}]: Roster - {1}=>'{2}'", connection.ConnectionHandle,
                            ToString(), commandStr);
         try
         {

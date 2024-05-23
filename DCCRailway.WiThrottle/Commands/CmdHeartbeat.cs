@@ -6,7 +6,8 @@ public class CmdHeartbeat(ILogger logger, Connection connection) : ThrottleCmd, 
 {
     public void Execute(string commandStr)
     {
-        logger.Information("WiThrottle Recieved Cmd: Heartbeat - {0}:{2}=>'{1}'", ToString(), commandStr,
+        logger.Information("WiThrottle Recieved Cmd from [{0}]: Heartbeat - {1}:{3}=>'{2}'",
+                           connection.ConnectionHandle, ToString(), commandStr,
                            connection.ToString());
         if (commandStr.Length <= 1) return;
         switch (commandStr[1])

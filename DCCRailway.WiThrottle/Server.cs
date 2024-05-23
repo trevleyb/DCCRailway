@@ -32,7 +32,7 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings)
     private          IPAddress               _hostAdress;
     private          int                     _hostPort;
 
-    public int ActiveClients { get; private set; }
+    private int ActiveClients { get; set; } = 0;
 
     /// <summary>
     ///     Start up the Listener Service using the provided Port and IPAddress
@@ -229,8 +229,8 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings)
                 if (!string.IsNullOrEmpty(Terminators.RemoveTerminators(messageStr)) &&
                     Terminators.HasTerminator(messageStr))
                 {
-                    logger.Information($"WiThrottle Sending Msg to {0}: {Terminators.ForDisplay(messageStr)}",
-                                       connection.ConnectionHandle);
+                    logger.Information("WiThrottle Sending Msg to [{0}]: {1}", connection.ConnectionHandle,
+                                       Terminators.ForDisplay(messageStr));
                     SendServerMessages(messageStr, stream);
                 }
             }
@@ -253,7 +253,6 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings)
         {
             if (stream is { CanWrite: true })
             {
-                //logger.Information("WiThrottle : {0}", Encoding.ASCII.GetString(serverMessage));
                 stream.Write(serverMessage, 0, serverMessage.Length);
             }
         }
@@ -271,8 +270,9 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings)
     /// </summary>
     private void HeartbeatCheckHandler(object? sender, ElapsedEventArgs args)
     {
-        _connections.CloseConnectionsWithCondition(connection => !connection.IsHeartbeatOk,
-                                                   "WiThrottle Did not get a Heartbeat from Client - terminating: {0}");
+        _connections.CloseConnectionsWithCondition(
+            connection => !connection.IsHeartbeatOk,
+            "WiThrottle Did not get a Heartbeat from Client - terminating: {0}");
     }
 
     private void ForceCloseAllConnections() =>

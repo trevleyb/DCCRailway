@@ -9,7 +9,7 @@ public class CmdName(ILogger logger, Connection connection) : ThrottleCmd, IThro
     // ------------------------------------------------------------------------
     public void Execute(string commandStr)
     {
-        logger.Information("WiThrottle Recieved Cmd from {0}: Name - {1}=>'{2}'", connection.ConnectionHandle,
+        logger.Information("WiThrottle Recieved Cmd from [{0}]: Name - {1}=>'{2}'", connection.ConnectionHandle,
                            ToString(), commandStr);
         if (commandStr.Length > 1)
         {

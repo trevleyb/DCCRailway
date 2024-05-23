@@ -9,7 +9,7 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
 {
     public void Execute(string commandStr)
     {
-        logger.Information("WiThrottle Recieved Cmd from {0}: Panel {1}:{3}=>'{2}'", connection.ConnectionHandle,
+        logger.Information("WiThrottle Recieved Cmd from [{0}]: Panel {1}:{3}=>'{2}'", connection.ConnectionHandle,
                            ToString(), commandStr, connection.ToString());
         try
         {

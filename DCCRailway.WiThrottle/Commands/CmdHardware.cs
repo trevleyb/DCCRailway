@@ -12,7 +12,8 @@ public class CmdHardware(ILogger logger, Connection connection) : ThrottleCmd, I
 
     public void Execute(string commandStr)
     {
-        logger.Information("WiThrottle Recieved Cmd: Hardware - {0}=>'{1}'", ToString(), commandStr);
+        logger.Information("WiThrottle Recieved Cmd from [{0}]: Hardware - {1}=>'{2}'", connection.ConnectionHandle,
+                           ToString(), commandStr);
         if (commandStr.Length > 2)
             switch (commandStr[1])
             {

@@ -9,7 +9,7 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
 {
     public void Execute(string commandStr)
     {
-        logger.Information("WiThrottle Recieved Cmd from {0}: Multithrottle - {1}:{3}=>'{2}'",
+        logger.Information("WiThrottle Recieved Cmd from [{0}]: Multithrottle - {1}:{3}=>'{2}'",
                            connection.ConnectionHandle, ToString(), commandStr, connection.ToString());
         try
         {
