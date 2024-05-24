@@ -17,10 +17,10 @@ public class VirtualClockRead : VirtualCommand, ICmdClockRead, ICommand {
         var result = new CmdResultFastClock {
             CurrentTime = DateTime.Now
         };
+
         if (adapter is VirtualAdapter virtualAdapter) {
             var timeSinceReference = DateTime.Now - virtualAdapter.FastClockSetTime;
-            result.CurrentTime =
-                virtualAdapter.FastClockSetTime.AddTicks(timeSinceReference.Ticks * virtualAdapter.FastClockRatio);
+            result.CurrentTime = virtualAdapter.FastClockSetTime.AddTicks(timeSinceReference.Ticks * virtualAdapter.FastClockRatio);
         }
 
         return result;

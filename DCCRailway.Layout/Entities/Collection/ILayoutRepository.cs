@@ -2,8 +2,7 @@ using DCCRailway.Layout.Entities.Base;
 
 namespace DCCRailway.Layout.Entities.Collection;
 
-public interface ILayoutRepository<TEntity> : IDictionary<string, TEntity>
-    where TEntity : ILayoutEntity {
+public interface ILayoutRepository<TEntity> : IDictionary<string, TEntity> where TEntity : ILayoutEntity {
     event RepositoryChangedEventHandler? RepositoryChanged;
 
     IList<TEntity> GetAll();

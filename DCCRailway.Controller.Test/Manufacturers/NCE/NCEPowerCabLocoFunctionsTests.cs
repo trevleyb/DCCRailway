@@ -14,8 +14,7 @@ namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 public class NCEPowerCabLocoFunctionsTests {
     [SetUp]
     public void TestSetup() {
-        var _system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")
-            ?.Create(new NCEVirtualAdapter(LoggerHelper.ConsoleLogger));
+        var _system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(new NCEVirtualAdapter(LoggerHelper.ConsoleLogger));
 
         //_system = SystemFactory.Create("NCE", "NCEPowerCab");
 
@@ -33,8 +32,7 @@ public class NCEPowerCabLocoFunctionsTests {
             Adapter.DataSent      += Adapter_DataSent;
             Adapter.ErrorOccurred += Adapter_ErrorOccurred;
             _system.Adapter       =  Adapter;
-        }
-        else {
+        } else {
             Assert.Fail("Could not create a CommandStation Object");
         }
     }
@@ -50,6 +48,7 @@ public class NCEPowerCabLocoFunctionsTests {
 
         if (System != null) {
             System.Adapter = null;
+
             if (Adapter is not null) {
                 Adapter.Dispose();
                 Adapter = null;

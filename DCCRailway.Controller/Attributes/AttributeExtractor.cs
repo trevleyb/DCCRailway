@@ -14,8 +14,7 @@ public static class AttributeExtractor {
     private static T? HandleException<T>(object? attr) where T : class {
         try {
             return attr as T;
-        }
-        catch {
+        } catch {
             return default(T?) ?? null;
         }
     }
@@ -29,7 +28,6 @@ public static class AttributeExtractor {
     }
 
     public static CommandAttribute AttributeInfo(this ICommand command) {
-        return GetAttribute<CommandAttribute>(command.GetType()) ??
-               new CommandAttribute("Unknown", "Unknown", "Unknown", new[] { "!*" }, new[] { "!*" });
+        return GetAttribute<CommandAttribute>(command.GetType()) ?? new CommandAttribute("Unknown", "Unknown", "Unknown", new[] { "!*" }, new[] { "!*" });
     }
 }

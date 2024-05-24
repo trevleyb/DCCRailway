@@ -30,6 +30,7 @@ public class StateManager : IStateManager {
     public StateObject SetState<T>(string id, StateType key, T value) {
         if (!_states.ContainsKey(id)) _states.TryAdd(id, new StateObject(id));
         var stateObject = _states[id];
+
         if (value is not null) {
             if (!stateObject.Data.ContainsKey(key)) stateObject.Data.TryAdd(key, value);
             stateObject.Data[key] = value;
@@ -102,6 +103,7 @@ public class StateManager : IStateManager {
 
     public void CopyState(string id, StateType firstKey, StateType secondKey, object ifNotExist) {
         var firstState = GetState(id, firstKey);
+
         if (firstState is not null)
             SetState(id, secondKey, firstState);
         else

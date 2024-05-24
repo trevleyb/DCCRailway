@@ -1,5 +1,6 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout;
+using DCCRailway.Layout.Configuration;
 using DCCRailway.Managers.Controller;
 using DCCRailway.Managers.State;
 using DCCRailway.WiThrottle;
@@ -13,6 +14,12 @@ public static class TestWiThrottle {
         var stateManager = new StateManager();
         var cmdStation   = new ControllerManager(logger, stateManager, settings.Controller);
         var wii          = new Server(logger, settings);
+
+        // Turn on the fastClock (normally turned on/off in the UI)
+        // --------------------------------------------------------------
+        settings.Settings.FastClock.Ratio         = 15;
+        settings.Settings.FastClock.State         = FastClockState.Start;
+        settings.Settings.WiThrottle.UseFastClock = true;
         cmdStation.Start();
 
         // Start the WiThrottle and run it in the background

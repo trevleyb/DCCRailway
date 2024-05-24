@@ -13,8 +13,7 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCELocoSetSpeedSteps : NCECommand, ICmdLocoSetSpeedSteps, ICommand {
     public NCELocoSetSpeedSteps() { }
 
-    public NCELocoSetSpeedSteps(int address, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(
-        new DCCAddress(address), speedSteps) { }
+    public NCELocoSetSpeedSteps(int address, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(new DCCAddress(address), speedSteps) { }
 
     public NCELocoSetSpeedSteps(DCCAddress address, DCCProtocol speedSteps = DCCProtocol.DCC128) {
         Address    = address;

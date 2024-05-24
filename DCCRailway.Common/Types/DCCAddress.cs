@@ -18,8 +18,7 @@ public class DCCAddress : PropertyChangedBase, IEqualityComparer<DCCAddress> {
 
     public DCCAddress() : this(3, DCCAddressType.Short) { }
 
-    public DCCAddress(int address, DCCAddressType addressType = DCCAddressType.Long,
-        DCCProtocol protocol = DCCProtocol.DCC28) {
+    public DCCAddress(int address, DCCAddressType addressType = DCCAddressType.Long, DCCProtocol protocol = DCCProtocol.DCC28) {
         Address     = address;
         AddressType = addressType;
         Protocol    = protocol;
@@ -124,13 +123,11 @@ public class DCCAddress : PropertyChangedBase, IEqualityComparer<DCCAddress> {
         if (AddressType == DCCAddressType.Short) {
             _lowAddress  = (byte)Address; // Take the low order bits
             _highAddress = 0;             // Short address is ALWAYS 0
-        }
-        else if (AddressType == DCCAddressType.Long) {
+        } else if (AddressType == DCCAddressType.Long) {
             _lowAddress  = (byte)Address;               // Take the low order bits
             _highAddress = (byte)(Address >> 8);        // Take the 2nd order bits
             _highAddress = (byte)(_highAddress | 0xC0); // Turn on 2 bits to indicate LONG address
-        }
-        else {
+        } else {
             _lowAddress  = (byte)Address;        // Take the low order bits
             _highAddress = (byte)(Address >> 8); // Take the 2nd order bits
         }

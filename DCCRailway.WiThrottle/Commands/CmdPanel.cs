@@ -7,8 +7,8 @@ namespace DCCRailway.WiThrottle.Commands;
 
 public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        logger.Information("WiThrottle Recieved Cmd from [{0}]: Panel {1}:{3}=>'{2}'", connection.ConnectionHandle,
-                           ToString(), commandStr, connection.ToString());
+        logger.Information("WiThrottle Recieved Cmd from [{0}]: Panel {1}:{3}=>'{2}'", connection.ConnectionHandle, ToString(), commandStr, connection.ToString());
+
         try {
             switch (commandStr[..3].ToUpper()) {
             case "PPA":
@@ -21,20 +21,14 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
                 SetRoute(commandStr[3..]);
                 break;
             case "PFT":
-                logger.Information("WiThrottle Recieved Cmd: Panel - {0}: Fast Clock not currently supported=>'{1}'",
-                                   ToString(), commandStr);
+                logger.Information("WiThrottle Recieved Cmd: Panel - {0}: Fast Clock. Should not get this from a client.=>'{1}'", ToString(), commandStr);
                 break;
             default:
-                logger.Information("WiThrottle Recieved Cmd: Panel - {0}: Unknown Panel TurnoutCommand recieved=>'{1}'",
-                                   ToString(), commandStr);
+                logger.Information("WiThrottle Recieved Cmd: Panel - {0}: Unknown Panel TurnoutCommand recieved=>'{1}'", ToString(), commandStr);
                 break;
             }
-
-            ;
-        }
-        catch {
-            logger.Error("WiThrottle Recieved Cmd: Panel - {0}: Unable to Process the command =>'{1}'", ToString(),
-                         commandStr);
+        } catch {
+            logger.Error("WiThrottle Recieved Cmd: Panel - {0}: Unable to Process the command =>'{1}'", ToString(), commandStr);
         }
     }
 
@@ -45,18 +39,17 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
     /// </summary>
     private void ThrowTurnout(string commandStr) {
         var turnoutID = commandStr[1..];
+
         if (connection.RailwaySettings.Turnouts is { } turnouts) {
             var turnout    = turnouts.GetByID(turnoutID);
             var layoutCmds = new LayoutCmdHelper(connection.CommandStation, turnout?.Address);
 
             if (turnout != null) {
                 turnout.CurrentState = (TurnoutCommand)commandStr[0] switch {
-                    TurnoutCommand.ToggleTurnout => turnout.CurrentState == DCCTurnoutState.Closed
-                        ? DCCTurnoutState.Thrown
-                        : DCCTurnoutState.Closed,
-                    TurnoutCommand.CloseTurnout => DCCTurnoutState.Closed,
-                    TurnoutCommand.ThrowTurnout => DCCTurnoutState.Thrown,
-                    _                           => throw new ArgumentOutOfRangeException()
+                    TurnoutCommand.ToggleTurnout => turnout.CurrentState == DCCTurnoutState.Closed ? DCCTurnoutState.Thrown : DCCTurnoutState.Closed,
+                    TurnoutCommand.CloseTurnout  => DCCTurnoutState.Closed,
+                    TurnoutCommand.ThrowTurnout  => DCCTurnoutState.Thrown,
+                    _                            => throw new ArgumentOutOfRangeException()
                 };
                 layoutCmds.SetTurnoutState(turnout.CurrentState);
                 connection.QueueMsgToAll(new MsgTurnoutState(connection, turnout));
@@ -70,14 +63,18 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
     /// </summary>
     private void SetRoute(string commandStr) {
         var routeID = commandStr[1..];
+
         if (connection.RailwaySettings.Routes is { } routes) {
             var route = routes.GetByID(routeID);
+
             if (route != null) {
                 DeactiveRoutes(route);
                 route.State = RouteState.Active;
+
                 if ((RouteCommand)commandStr[0] == RouteCommand.Active)
                     foreach (var turnoutEntry in route.RouteTurnouts) {
                         var turnout = connection.RailwaySettings.Turnouts?[turnoutEntry.TurnoutID];
+
                         if (turnout is { } item) {
                             var layoutCmds = new LayoutCmdHelper(connection.CommandStation, item.Address);
                             item.CurrentState = turnoutEntry.State;
@@ -100,6 +97,7 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
         // actually throw the turnouts, just mark the turnout as de-activated
         // ----------------------------------------------------------------------------------
         var deactivateList = new List<Route>();
+
         if (connection.RailwaySettings.Routes.Values is { } routes) {
             foreach (var route in routes)
                 if (AreTurnoutsMatched(refRoute, route)) {
@@ -128,6 +126,7 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
     /// <param name="state"></param>
     private void SetPowerState(char state) {
         var layoutCmds = new LayoutCmdHelper(connection.CommandStation);
+
         switch (state) {
         case '0':
             if (layoutCmds.IsPowerSupported()) layoutCmds.SetPowerState(DCCPowerState.Off);

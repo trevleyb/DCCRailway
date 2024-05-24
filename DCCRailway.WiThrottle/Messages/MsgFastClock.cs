@@ -1,17 +1,23 @@
 using System.Text;
+using DCCRailway.Layout;
+using DCCRailway.Layout.Configuration;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgFastClock(Connection connection, FastClockState state, DateTime clock, int ratio)
-    : ThrottleMsg, IThrottleMsg {
+public class MsgFastClock(IRailwaySettings settings) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
-            var timeSince1970 = (new DateTime(1970, 1, 1, 0, 0, 0) - clock).Seconds;
-            var sb            = new StringBuilder();
+            var prefs = settings?.Settings?.FastClock;
+            if (prefs is null) return "";
+
+            var referenceDate = new DateTime(1970, 1, 1, 0, 0, 0);
+            var secsSince1970 = (int)prefs.ClockTime.Subtract(referenceDate).TotalSeconds;
+
+            var sb = new StringBuilder();
             sb.Append("PFT");
-            sb.Append(timeSince1970);
+            sb.Append(secsSince1970);
             sb.Append("<;>");
-            sb.AppendLine(state == FastClockState.Stop ? "0.0" : $"{ratio}.0");
+            sb.AppendLine(prefs.State == FastClockState.Stop ? "0.0" : $"{prefs.Ratio}.0");
             return sb.ToString();
 
             /*
@@ -30,10 +36,4 @@ public class MsgFastClock(Connection connection, FastClockState state, DateTime 
              */
         }
     }
-}
-
-public enum FastClockState {
-    Start,
-    Stop,
-    Reset
 }

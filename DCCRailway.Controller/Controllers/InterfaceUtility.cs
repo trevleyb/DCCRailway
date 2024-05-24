@@ -31,8 +31,7 @@ public static class InterfaceUtility {
             if (foundName != null) {
                 if (foundName == searchInterface) {
                     isICommand = true;
-                }
-                else {
+                } else {
                     if (!string.IsNullOrEmpty(interfaceType.FullName)) foundInterfaces.Add(interfaceType.FullName);
                 }
             }

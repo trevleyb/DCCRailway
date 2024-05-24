@@ -9,8 +9,7 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 public class VirtualLocoSetSpeedSteps : VirtualCommand, ICmdLocoSetSpeedSteps, ICommand {
     public VirtualLocoSetSpeedSteps() { }
 
-    public VirtualLocoSetSpeedSteps(int address, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(
-        new DCCAddress(address), speedSteps) { }
+    public VirtualLocoSetSpeedSteps(int address, DCCProtocol speedSteps = DCCProtocol.DCC128) : this(new DCCAddress(address), speedSteps) { }
 
     public VirtualLocoSetSpeedSteps(DCCAddress address, DCCProtocol speedSteps = DCCProtocol.DCC128) {
         Address    = address;

@@ -15,13 +15,11 @@ public class ParameterInfo {
         Name  = propertyInfo.Name;
         Type  = propertyInfo.GetType().ToString();
         Value = field == null ? string.Empty : propertyInfo.GetValue(field)?.ToString() ?? string.Empty;
+
         if (attribute != null) {
-            Options =
-                (string.IsNullOrEmpty(attribute.Options) ? attribute.Options : GetAvailableOptions(propertyInfo)) ??
-                string.Empty;
+            Options     = (string.IsNullOrEmpty(attribute.Options) ? attribute.Options : GetAvailableOptions(propertyInfo)) ?? string.Empty;
             Description = attribute.Description ?? string.Empty;
-        }
-        else {
+        } else {
             Options = GetAvailableOptions(propertyInfo);
         }
     }
@@ -29,6 +27,7 @@ public class ParameterInfo {
     private string GetAvailableOptions(PropertyInfo prop) {
         if (prop.PropertyType.BaseType?.Name.ToLower() == "enum")
             return GetEnumOptions(prop.PropertyType);
+
         return prop.PropertyType.Name.ToLower() switch {
             "byte"   => "0...255",
             "string" => "String Value",
@@ -39,9 +38,9 @@ public class ParameterInfo {
 
         string GetEnumOptions(Type property) {
             var builder = new StringBuilder();
+
             foreach (var field in property.GetFields())
-                if (field.FieldType.BaseType != null &&
-                    field.FieldType.BaseType.Name.Equals("enum", StringComparison.InvariantCultureIgnoreCase)) {
+                if (field.FieldType.BaseType != null && field.FieldType.BaseType.Name.Equals("enum", StringComparison.InvariantCultureIgnoreCase)) {
                     if (builder.Length > 0) builder.Append(" | ");
                     builder.Append(field.Name);
                 }

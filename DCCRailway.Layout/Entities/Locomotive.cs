@@ -39,8 +39,7 @@ public class Locomotive : LayoutEntityDecoder {
     /// <summary>
     ///     Represents a locomotive layoutEntity with DCC address, direction, and speed.
     /// </summary>
-    public Locomotive(string id, int address, DCCAddressType type = DCCAddressType.Long,
-        DCCDirection direction = DCCDirection.Stop) : this(id) {
+    public Locomotive(string id, int address, DCCAddressType type = DCCAddressType.Long, DCCDirection direction = DCCDirection.Stop) : this(id) {
         Address     = new DCCAddress(address, type);
         Direction   = direction;
         Speed.Value = 0;

@@ -7,6 +7,7 @@ public class MsgConfiguration(Connection connection) : ThrottleMsg, IThrottleMsg
         get {
             var sb = new StringBuilder();
             sb.AppendLine("VN2.0"); // Support for version 2.0 of the Protocol
+
             //sb.AppendLine ($"PW{options.Port}"); // Only send this once WebServer is running
             return sb.ToString();
         }

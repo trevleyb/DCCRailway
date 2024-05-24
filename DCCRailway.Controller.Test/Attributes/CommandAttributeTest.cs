@@ -61,8 +61,7 @@ public class CommandAttributeTests {
     [Test]
     public void TestThatAnytingExceptAdapter1or3IsSupported() {
         // This command will work with anything EXCEPT Adapter1 or adapter 3
-        var attr = new CommandAttribute("TestCommand", "Test Description", "1.0", null,
-                                        new[] { "Adapter1", "Adapter3@*" });
+        var attr = new CommandAttribute("TestCommand", "Test Description", "1.0", null, new[] { "Adapter1", "Adapter3@*" });
         Assert.IsTrue(attr.IsSupported("Adapter2"));
         Assert.IsTrue(attr.IsSupported("Adapter2@1.0"));
         Assert.IsTrue(attr.IsSupported("Adapter2@2.0"));
@@ -85,8 +84,7 @@ public class CommandAttributeTests {
 
     [Test]
     public void IsSupported_ReturnsFalse_WhenAdapterIsExcluded() {
-        var commandAttribute =
-            new CommandAttribute("TestCommand", "Test Description", "1.0", null, new[] { "Adapter1@1.0" });
+        var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", null, new[] { "Adapter1@1.0" });
         Assert.IsFalse(commandAttribute.IsSupported("Adapter1@1.0"));
     }
 

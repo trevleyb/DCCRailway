@@ -69,8 +69,7 @@ public class JsonSerializerHelperTest {
         var objectToSave = new TestObject { Name = "Test" };
 
         // Act & Assert
-        Assert.Throws<ApplicationException>(
-            () => JsonSerializerHelper<TestObject>.SaveFile(objectToSave, string.Empty));
+        Assert.Throws<ApplicationException>(() => JsonSerializerHelper<TestObject>.SaveFile(objectToSave, string.Empty));
     }
 
     private class TestObject {

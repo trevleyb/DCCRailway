@@ -12,14 +12,14 @@ public class MsgTurnoutList(Connection connection) : ThrottleMsg, IThrottleMsg {
 
             var message = new StringBuilder();
             message.Append("PTL");
+
             foreach (var turnout in turnouts) {
                 message.Append("]\\["); // Separator
                 message.Append(turnout.Id);
                 message.Append("}|{");
                 message.Append(turnout.Name.RemoveWiThrottleSeparators());
                 message.Append("}|{");
-                message.Append(turnout.CurrentState == DCCTurnoutState.Closed ? "2" :
-                               turnout.CurrentState == DCCTurnoutState.Thrown ? "4" : "1");
+                message.Append(turnout.CurrentState == DCCTurnoutState.Closed ? "2" : turnout.CurrentState == DCCTurnoutState.Thrown ? "4" : "1");
             }
 
             message.AppendLine();

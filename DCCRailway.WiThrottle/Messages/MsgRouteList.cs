@@ -11,6 +11,7 @@ public class MsgRouteList(Connection connection) : ThrottleMsg, IThrottleMsg {
 
             var message = new StringBuilder();
             message.Append("PRL");
+
             foreach (var route in routes) {
                 message.Append("]\\["); // Separator
                 message.Append(route.Id);

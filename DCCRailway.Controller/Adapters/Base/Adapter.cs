@@ -9,7 +9,6 @@ public abstract class Adapter : IParameterMappable {
     public event EventHandler<DataErrorArgs> ErrorOccurred;
 
     #region Events Delegates
-
     /// <summary>
     ///     When data is recieved by the Adapater, raise this event with the
     ///     underlying data so other systems can listen for this information
@@ -37,6 +36,5 @@ public abstract class Adapter : IParameterMappable {
     protected virtual void OnErrorOccurred(DataErrorArgs e) {
         ErrorOccurred?.Invoke(this, e);
     }
-
     #endregion
 }

@@ -4,8 +4,7 @@ using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgAddress(Connection connection, MultiThrottleMessage data, DCCAddress address)
-    : ThrottleMsg, IThrottleMsg {
+public class MsgAddress(Connection connection, MultiThrottleMessage data, DCCAddress address) : ThrottleMsg, IThrottleMsg {
     public MsgAddress(Connection connection, MultiThrottleMessage data) : this(connection, data, data.Address) { }
 
     public override string Message {

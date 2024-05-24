@@ -9,8 +9,7 @@ public class EntityPropertyChangedEventArgs : PropertyChangedEventArgs {
 
     public EntityPropertyChangedEventArgs(string? propertyName) : base(propertyName) { }
 
-    public EntityPropertyChangedEventArgs(LayoutEntity? entity, string? propertyName, object? propertyValue) :
-        base(propertyName) {
+    public EntityPropertyChangedEventArgs(LayoutEntity? entity, string? propertyName, object? propertyValue) : base(propertyName) {
         Entity = entity;
         Value  = propertyValue;
     }

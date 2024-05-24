@@ -25,17 +25,16 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
 
     public IControllerTask? Create(string taskName) {
         if (Tasks is not { Count: > 0 }) throw new TaskException(taskName, "CommandStation has no supported Tasks");
+
         try {
             foreach (var task in _availableTasks)
-                if (task.Value.Name != null &&
-                    task.Value.Name.Equals(taskName, StringComparison.InvariantCultureIgnoreCase)) {
+                if (task.Value.Name != null && task.Value.Name.Equals(taskName, StringComparison.InvariantCultureIgnoreCase)) {
                     var taskInstance = (IControllerTask?)Activator.CreateInstance(task.Key, logger);
                     if (taskInstance != null) return taskInstance;
                 }
 
             return null;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new TaskException(taskName, "Error instantiating the Task.", ex);
         }
 
@@ -64,11 +63,9 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
 
         foreach (var task in foundTypes) {
             var attr = AttributeExtractor.GetAttribute<TaskAttribute>(task);
+
             if (attr != null && !string.IsNullOrEmpty(attr.Name)) {
-                var taskInterface = task.ImplementedInterfaces.First(
-                    x => x.FullName != null &&
-                         x.FullName.StartsWith("DCCRailway.Controller.Tasks.",
-                                               StringComparison.InvariantCultureIgnoreCase));
+                var taskInterface = task.ImplementedInterfaces.First(x => x.FullName != null && x.FullName.StartsWith("DCCRailway.Controller.Tasks.", StringComparison.InvariantCultureIgnoreCase));
                 if (!_availableTasks.ContainsKey(taskInterface)) _availableTasks.TryAdd(task, attr);
             }
         }
@@ -76,6 +73,7 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
 
     protected void RegisterTask<T>() where T : IControllerTask {
         var attr = AttributeExtractor.GetAttribute<TaskAttribute>(typeof(T));
+
         if (attr is null || string.IsNullOrEmpty(attr.Name))
             throw new ApplicationException("Task instance cannot be NULL and must be a concrete object.");
         if (!_availableTasks.ContainsKey(typeof(T))) _availableTasks.TryAdd(typeof(T), attr);
@@ -94,7 +92,6 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
     }
 
     #region Raise Events
-
     private void OnTaskAdd(object sender, IControllerTask task) {
         var e = new TaskEventArgs();
         TaskEvent(sender, e);
@@ -109,6 +106,5 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
         var e = new TaskEventArgs();
         TaskEvent(sender, e);
     }
-
     #endregion
 }

@@ -8,6 +8,7 @@ public class MsgTurnoutState(Connection connection, Turnout? turnout) : Throttle
     public override string Message {
         get {
             var sb = new StringBuilder();
+
             if (turnout != null) {
                 var stateCode = turnout.CurrentState switch {
                     DCCTurnoutState.Closed => '2',

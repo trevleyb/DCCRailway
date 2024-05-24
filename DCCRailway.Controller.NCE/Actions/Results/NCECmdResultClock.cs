@@ -8,8 +8,7 @@ public class NCECmdResultClock : CmdResult, ICmdResultFastClock {
     public NCECmdResultClock(byte[]? dataSet) : base(dataSet) {
         if (Data.Length != 2) {
             Success = false;
-        }
-        else {
+        } else {
             Hour = Data[0];
             Min  = Data[1];
         }
@@ -20,8 +19,5 @@ public class NCECmdResultClock : CmdResult, ICmdResultFastClock {
 
     public string FastClock => $"{Hour:D2}:{Min:D2}";
 
-    public DateTime CurrentTime => new(DateTime.Now.Year,
-                                       DateTime.Now.Month,
-                                       DateTime.Now.Day,
-                                       Hour, Min, 0);
+    public DateTime CurrentTime => new(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Hour, Min, 0);
 }

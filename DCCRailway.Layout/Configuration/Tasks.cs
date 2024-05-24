@@ -2,8 +2,7 @@ namespace DCCRailway.Layout.Configuration;
 
 [Serializable]
 public class Tasks : List<Task> {
-    public Task? this[string name] =>
-        Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
+    public Task? this[string name] => Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) ?? null;
 
     public void Delete(string name) {
         ArgumentNullException.ThrowIfNull(name);

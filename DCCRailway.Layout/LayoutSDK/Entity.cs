@@ -78,6 +78,7 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
     public async Task<TEntity> AddAsync(TEntity entity) {
         var content  = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync($"/{_entityType}", content);
+
         if (response.IsSuccessStatusCode) {
             var result = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<TEntity>(result) ?? throw new Exception("Failed to add Entity.");
@@ -93,6 +94,7 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
     public async Task<TEntity> UpdateAsync(TEntity entity) {
         var content  = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
         var response = await _httpClient.PutAsync($"/{_entityType}", content);
+
         if (response.IsSuccessStatusCode) {
             var result = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<TEntity>(result) ?? throw new Exception("Failed to add Entity.");

@@ -21,8 +21,7 @@ public class Connection {
     ///     roster and allows us to ensure we are tracking the connections and can
     ///     send "STOP" messages if we need to if we do not hear from the throttle.
     /// </summary>
-    public Connection(TcpClient client, IRailwaySettings railwaySettings, Connections connections,
-        ICommandStation commandStation) {
+    public Connection(TcpClient client, IRailwaySettings railwaySettings, Connections connections, ICommandStation commandStation) {
         Client           = client;
         Prefs            = railwaySettings.Settings.WiThrottle;
         RailwaySettings  = railwaySettings;
@@ -38,8 +37,7 @@ public class Connection {
     public string    HardwareID   { get; set; }  = "";
     public Guid      ConnectionID { get; init; } = Guid.NewGuid();
 
-    public IPAddress? ConnectionAddress =>
-        Client.Client.RemoteEndPoint is IPEndPoint endpoint ? endpoint.Address : new IPAddress(0);
+    public IPAddress? ConnectionAddress => Client.Client.RemoteEndPoint is IPEndPoint endpoint ? endpoint.Address : new IPAddress(0);
 
     public ulong ConnectionHandle => (ulong)(Client?.Client?.Handle ?? 0);
 
@@ -48,8 +46,8 @@ public class Connection {
         init => _heartbeatSeconds = value <= 0 ? 0 : value >= 60 ? 60 : value;
     }
 
-    public bool               IsActive => !string.IsNullOrEmpty(HardwareID) && (Client?.Client?.Connected ?? false);
-    public DateTime           LastHeartbeat { get; set; }
+    public bool               IsActive       => !string.IsNullOrEmpty(HardwareID) && (Client?.Client?.Connected ?? false);
+    public DateTime           LastHeartbeat  { get; set; }
     public HeartbeatStateEnum HeartbeatState { get; set; }
 
     /// <summary>
@@ -58,8 +56,7 @@ public class Connection {
     ///     every x seconds or it will issue a E-STOP command on the current Loco attached to
     ///     this commandStation.
     /// </summary>
-    public bool IsHeartbeatOk => HeartbeatState == HeartbeatStateEnum.Off ||
-                                 (DateTime.Now - LastHeartbeat).TotalSeconds < HeartbeatSeconds;
+    public bool IsHeartbeatOk => HeartbeatState == HeartbeatStateEnum.Off || (DateTime.Now - LastHeartbeat).TotalSeconds < HeartbeatSeconds;
 
     public IThrottleMsg? NextMsg => _serverMessages.HasMessages ? _serverMessages.Dequeue() : null;
     public bool          HasMsg  => _serverMessages.HasMessages;
@@ -68,12 +65,11 @@ public class Connection {
 
     // Assignment Helpers
     // -------------------------------------------------------------------------------------
-    public bool IsAddressInUse(DCCAddress address) => _listReference.Assignments.IsAssigned(address);
-    public bool Acquire(char group, DCCAddress address) => _listReference.Assignments.Acquire(group, address, this);
-    public Connection? Release(DCCAddress address) => _listReference.Assignments.Release(address);
+    public bool        IsAddressInUse(DCCAddress address)      => _listReference.Assignments.IsAssigned(address);
+    public bool        Acquire(char group, DCCAddress address) => _listReference.Assignments.Acquire(group, address, this);
+    public Connection? Release(DCCAddress address)             => _listReference.Assignments.Release(address);
 
-    public List<DCCAddress> ReleaseAllInGroup(char dataGroup) =>
-        _listReference.Assignments.ReleaseAllInGroup(dataGroup, this);
+    public List<DCCAddress> ReleaseAllInGroup(char dataGroup) => _listReference.Assignments.ReleaseAllInGroup(dataGroup, this);
 
     // Queue Helpers
     // -------------------------------------------------------------------------------------
@@ -88,20 +84,13 @@ public class Connection {
     /// message to all connected devices.
     /// </summary>
     /// <param name="message"></param>
-    public void QueueMsgToAll(IThrottleMsg message) {
-        foreach (var connection in _listReference.ActiveConnections) connection.QueueMsg(message);
-    }
+    public void QueueMsgToAll(IThrottleMsg message) => _listReference.QueueMsgToAll(message);
 
-    public void QueueMsgToAll(IThrottleMsg[] messages) {
-        foreach (var connection in _listReference.ActiveConnections) {
-            foreach (var msg in messages) connection.QueueMsg(msg);
-        }
-    }
+    public void QueueMsgToAll(IThrottleMsg[] messages) => _listReference.QueueMsgToAll(messages);
 
     // Find Helpers
     // -------------------------------------------------------------------------------------
-    public Connection? GetByHardwareID(string hardwareID) =>
-        _listReference.GetByHardwareID(hardwareID, ConnectionHandle);
+    public Connection? GetByHardwareID(string hardwareID) => _listReference.GetByHardwareID(hardwareID, ConnectionHandle);
 
     public void RemoveDuplicateID(string hardwareID) => _listReference.RemoveDuplicateID(hardwareID, ConnectionHandle);
     public bool HasDuplicateID(string hardwareID)    => _listReference.HasDuplicateID(hardwareID, ConnectionHandle);

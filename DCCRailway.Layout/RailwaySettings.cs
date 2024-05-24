@@ -81,25 +81,19 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
         LayoutStorage.SaveFile<Sensors, Sensor>(logger, Sensors, FullName(path, name, "Sensors"));
         LayoutStorage.SaveFile<Signals, Signal>(logger, Signals, FullName(path, name, "Signals"));
         LayoutStorage.SaveFile<Turnouts, Turnout>(logger, Turnouts, FullName(path, name, "Turnouts"));
-        LayoutStorage.SaveFile<Manufacturers, Manufacturer>(logger, Manufacturers,
-                                                            FullName(path, name, "Manufacturers"));
+        LayoutStorage.SaveFile<Manufacturers, Manufacturer>(logger, Manufacturers, FullName(path, name, "Manufacturers"));
     }
 
     private void LoadRepositories(string path, string name) {
-        Settings = JsonSerializerHelper<Settings>.LoadFile(FullName(path, name, "Settings")) ?? new Settings();
-        Accessories = LayoutStorage.LoadFile<Accessories, Accessory>(logger, FullName(path, name, "Accessories")) ??
-                      new Accessories();
-        Blocks = LayoutStorage.LoadFile<Blocks, Block>(logger, FullName(path, name, "Blocks")) ?? new Blocks();
-        Locomotives = LayoutStorage.LoadFile<Locomotives, Locomotive>(logger, FullName(path, name, "Locomotives")) ??
-                      new Locomotives();
-        Routes  = LayoutStorage.LoadFile<Routes, Route>(logger, FullName(path, name, "Routes")) ?? new Routes();
-        Sensors = LayoutStorage.LoadFile<Sensors, Sensor>(logger, FullName(path, name, "Sensors")) ?? new Sensors();
-        Signals = LayoutStorage.LoadFile<Signals, Signal>(logger, FullName(path, name, "Signals")) ?? new Signals();
-        Turnouts = LayoutStorage.LoadFile<Turnouts, Turnout>(logger, FullName(path, name, "Turnouts")) ??
-                   new Turnouts();
-        Manufacturers =
-            LayoutStorage.LoadFile<Manufacturers, Manufacturer>(logger, FullName(path, name, "Manufacturers")) ??
-            new Manufacturers();
+        Settings      = JsonSerializerHelper<Settings>.LoadFile(FullName(path, name, "Settings")) ?? new Settings();
+        Accessories   = LayoutStorage.LoadFile<Accessories, Accessory>(logger, FullName(path, name, "Accessories")) ?? new Accessories();
+        Blocks        = LayoutStorage.LoadFile<Blocks, Block>(logger, FullName(path, name, "Blocks")) ?? new Blocks();
+        Locomotives   = LayoutStorage.LoadFile<Locomotives, Locomotive>(logger, FullName(path, name, "Locomotives")) ?? new Locomotives();
+        Routes        = LayoutStorage.LoadFile<Routes, Route>(logger, FullName(path, name, "Routes")) ?? new Routes();
+        Sensors       = LayoutStorage.LoadFile<Sensors, Sensor>(logger, FullName(path, name, "Sensors")) ?? new Sensors();
+        Signals       = LayoutStorage.LoadFile<Signals, Signal>(logger, FullName(path, name, "Signals")) ?? new Signals();
+        Turnouts      = LayoutStorage.LoadFile<Turnouts, Turnout>(logger, FullName(path, name, "Turnouts")) ?? new Turnouts();
+        Manufacturers = LayoutStorage.LoadFile<Manufacturers, Manufacturer>(logger, FullName(path, name, "Manufacturers")) ?? new Manufacturers();
         if (Manufacturers.Count == 0) Manufacturers.BuildManufacturersList();
     }
 
@@ -119,8 +113,7 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
         if (!Directory.Exists(path))
             try {
                 Directory.CreateDirectory(path);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 throw new ApplicationException($"Unable to create the specified folder '{path}'", ex);
             }
 

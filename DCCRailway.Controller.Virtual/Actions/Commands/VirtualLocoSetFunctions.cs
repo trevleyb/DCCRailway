@@ -17,8 +17,7 @@ public class VirtualLocoSetFunctions : VirtualCommand, ICmdLocoSetFunctions, ICo
 
     public VirtualLocoSetFunctions(int address) : this(new DCCAddress(address), new DCCFunctionBlocks()) { }
 
-    public VirtualLocoSetFunctions(int address, DCCFunctionBlocks functions) :
-        this(new DCCAddress(address), functions) { }
+    public VirtualLocoSetFunctions(int address, DCCFunctionBlocks functions) : this(new DCCAddress(address), functions) { }
 
     public VirtualLocoSetFunctions(DCCAddress address, DCCFunctionBlocks functions) {
         Address   = address;

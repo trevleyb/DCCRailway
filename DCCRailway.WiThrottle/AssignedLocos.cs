@@ -26,6 +26,7 @@ public class AssignedLocos {
     public List<DCCAddress> ReleaseAllInGroup(char dataGroup, Connection connection) {
         var addresses  = new List<DCCAddress>();
         var foundLocos = new List<AssignedLoco>();
+
         foreach (var loco in AssignedAddresses)
             if (loco.Group == dataGroup && loco.Connection == connection) {
                 foundLocos.Add(loco);
@@ -40,6 +41,7 @@ public class AssignedLocos {
     // advise that Throttle that they no longer have the loco.
     public Connection? Release(DCCAddress address) {
         var loco = AssignedAddresses.FirstOrDefault(x => x.Address.Address == address.Address);
+
         if (loco is not null) {
             AssignedAddresses.Remove(loco);
             return loco.Connection;

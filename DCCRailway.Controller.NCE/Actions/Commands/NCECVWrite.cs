@@ -30,8 +30,7 @@ public class NCECVWrite : NCECommand, ICmdCVWrite, ICommand {
             _                           => throw new UnsupportedCommandException("Invalid CV access type provided.")
         };
 
-        return SendAndReceive(adapter, new NCEDataReadValidation(),
-                              CV.ToByteArray().AddToArray(command).AddToArray(Value));
+        return SendAndReceive(adapter, new NCEDataReadValidation(), CV.ToByteArray().AddToArray(command).AddToArray(Value));
     }
 
     public override string ToString() {

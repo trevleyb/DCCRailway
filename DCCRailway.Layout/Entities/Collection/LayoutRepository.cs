@@ -8,9 +8,7 @@ namespace DCCRailway.Layout.Entities.Collection;
 public delegate void RepositoryChangedEventHandler(object sender, RepositoryChangedEventArgs args);
 
 [Serializable]
-public abstract class LayoutRepository<TEntity>
-    : ConcurrentDictionary<string, TEntity>, ILayoutRepository<TEntity>
-    where TEntity : ILayoutEntity {
+public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, TEntity>, ILayoutRepository<TEntity> where TEntity : ILayoutEntity {
     private readonly SemaphoreSlim _atomicMutex = new(1, 1);
     private readonly SemaphoreSlim _nextIDMutex = new(1, 1);
 
@@ -45,16 +43,15 @@ public abstract class LayoutRepository<TEntity>
     public TEntity? Update(TEntity entity) {
         try {
             _atomicMutex.Wait();
+
             if (ContainsKey(entity.Id)) {
                 this[entity.Id] = entity;
                 OnItemChanged(entity.Id, RepositoryChangeAction.Update);
                 return entity;
-            }
-            else {
+            } else {
                 throw new KeyNotFoundException("Provided key in the Entity does not exist.");
             }
-        }
-        finally {
+        } finally {
             _atomicMutex.Release();
         }
     }
@@ -65,11 +62,9 @@ public abstract class LayoutRepository<TEntity>
             if (string.IsNullOrEmpty(entity.Id)) entity.Id = GetNextID();
             if (TryAdd(entity.Id, entity)) OnItemChanged(entity.Id, RepositoryChangeAction.Add);
             return this[entity.Id];
-        }
-        catch {
+        } catch {
             throw new KeyNotFoundException("Provided key in the Entity does not exist.");
-        }
-        finally {
+        } finally {
             _atomicMutex.Release();
         }
     }
@@ -77,30 +72,30 @@ public abstract class LayoutRepository<TEntity>
     public TEntity? Delete(string id) {
         try {
             _atomicMutex.Wait();
+
             if (ContainsKey(id)) {
                 if (TryRemove(id, out var removed)) OnItemChanged(id, RepositoryChangeAction.Delete);
                 return removed;
             }
 
             return default;
-        }
-        catch {
+        } catch {
             throw new KeyNotFoundException("Provided key in the Entity does not exist.");
-        }
-        finally {
+        } finally {
             _atomicMutex.Release();
         }
     }
 
     public void DeleteAll() {
         _atomicMutex.Wait();
+
         try {
             var keys = new List<string>(Keys);
+
             foreach (var key in keys)
                 if (TryRemove(key, out var removed))
                     OnItemChanged(key, RepositoryChangeAction.Delete);
-        }
-        finally {
+        } finally {
             _atomicMutex.Release();
         }
     }
@@ -112,24 +107,21 @@ public abstract class LayoutRepository<TEntity>
     /// </summary>
     public string GetNextID() {
         _nextIDMutex.WaitAsync();
+
         try {
             var nextID = 1;
 
             // sort the current collection and find the highest number in the collection and
             // calculate a new ID based on the entities.Prefix and the next sequential number.
             if (this.Any()) {
-                var maxId = Keys
-                    .Where(e => int.TryParse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, ""), out _))
-                    .Max(e => int.Parse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, "")));
+                var maxId = Keys.Where(e => int.TryParse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, ""), out _)).Max(e => int.Parse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, "")));
                 nextID = maxId + 1;
             }
 
             return $"{Prefix ?? ""}{nextID:D4}";
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException("Somehow could not create a new unique identifier.", ex);
-        }
-        finally {
+        } finally {
             _nextIDMutex.Release();
         }
     }
@@ -137,10 +129,8 @@ public abstract class LayoutRepository<TEntity>
     private void ValidatePath(string pathname) {
         try {
             if (!Directory.Exists(pathname)) Directory.CreateDirectory(pathname);
-        }
-        catch (Exception ex) {
-            throw new ApplicationException(
-                $"Unable to create or access the specified path for the config files '{pathname}'", ex);
+        } catch (Exception ex) {
+            throw new ApplicationException($"Unable to create or access the specified path for the config files '{pathname}'", ex);
         }
     }
 
@@ -159,7 +149,6 @@ public abstract class LayoutRepository<TEntity>
     private void OnItemChanged(RepositoryChangedEventArgs e) {
         RepositoryChanged?.Invoke(this, e);
     }
-
 
     /*
     public IAsyncEnumerable<TEntity> GetAllAsync() {

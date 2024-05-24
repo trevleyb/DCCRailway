@@ -20,7 +20,6 @@ public class DataSentArgs : EventArgs, IAdapterEvent {
     public override string ToString() {
         var tmp = Data.ToDisplayValueChars();
 
-        return
-            $"SENTDATA: {Adapter?.AttributeInfo().Description ?? "Unknown Adapter"}: {Command?.ToString() ?? "Unknown Command"}==>'{Data.ToDisplayValues()}'";
+        return $"SENTDATA: {Adapter?.AttributeInfo().Description ?? "Unknown Adapter"}: {Command?.ToString() ?? "Unknown Command"}==>'{Data.ToDisplayValues()}'";
     }
 }

@@ -7,6 +7,7 @@ public class MsgRouteState(Connection connection, Route? route) : ThrottleMsg, I
     public override string Message {
         get {
             var sb = new StringBuilder();
+
             if (route != null) {
                 var stateCode = route.State switch {
                     RouteState.Active   => '2',

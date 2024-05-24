@@ -32,10 +32,13 @@ public class NCEAIUPoller(ILogger logger) : ControllerTask(logger), IParameterMa
     protected override void DoWork() {
         var pinStr = new StringBuilder();
         var pins   = new bool[14];
+
         if (CommandStation.CreateCommand<ICmdSensorGetState>() is NCESensorGetState command) {
             pinStr.Append("|");
+
             for (byte pin = 1; pin <= 14; pin++) {
                 command.SetAddressByCabPin(CabAddress, pin);
+
                 if (command.Execute() is NCECmdResultSensorState result) {
                     pins[pin - 1] = result.State == DCCAccessoryState.Occupied ? true : false;
                     pinStr.Append(result.State == DCCAccessoryState.Occupied ? "X" : ".");

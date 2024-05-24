@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace DCCRailway.Layout.Configuration;
 
 [Serializable]
@@ -9,4 +11,6 @@ public class Settings {
     public Controller      Controller { get; set; } = new();
     public Parameters      Parameters { get; set; } = new();
     public WiThrottlePrefs WiThrottle { get; set; } = new();
+
+    [JsonIgnore] public FastClock FastClock { get; set; } = new();
 }

@@ -18,8 +18,10 @@ public abstract class BackgroundWorker(ILogger logger, string? name, TimeSpan? f
     public virtual void Start() {
         _cancellationTokenSource = new CancellationTokenSource();
         logger.Information("{0}: Background Worker starting up on a frequency of '{1}'.", Name, Frequency.ToString());
+
         if (Milliseconds > 0) {
             OnWorkStarted();
+
             Task.Run(() => {
                 try {
                     while (true) {
@@ -28,15 +30,13 @@ public abstract class BackgroundWorker(ILogger logger, string? name, TimeSpan? f
                         _cancellationTokenSource.Token.ThrowIfCancellationRequested();
                         Thread.Sleep(Milliseconds);
                     }
-                }
-                catch (OperationCanceledException) {
+                } catch (OperationCanceledException) {
                     logger.Information("{0}: Background Worker Cancelled.", Name);
                 }
 
                 OnWorkFinished();
             }, _cancellationTokenSource.Token);
-        }
-        else {
+        } else {
             logger.Information("{0}: Frequency not defined so task will conclude.", Name);
         }
     }

@@ -17,22 +17,19 @@ public static class LayoutStorage {
     /// </summary>
     /// <typeparam name="TClass">The type of the class to deserialize the file into.</typeparam>
     /// <typeparam name="TEntity">The type of the entities in the class.</typeparam>
+    /// <param name="logger">logger reference</param>
     /// <param name="fileName">The name of the file to load.</param>
     /// <returns>Returns an instance of the class deserialized from the file or an empty instance of the class if the file does not exist or deserialization fails.</returns>
-    public static TClass? LoadFile<TClass, TEntity>(ILogger logger, string? fileName)
-        where TEntity : LayoutEntity
-        where TClass : LayoutRepository<TEntity>, new() {
+    public static TClass? LoadFile<TClass, TEntity>(ILogger logger, string? fileName) where TEntity : LayoutEntity where TClass : LayoutRepository<TEntity>, new() {
         if (!File.Exists(fileName)) return new TClass();
+
         try {
             var jsonString = File.ReadAllText(fileName);
             return DeserializeLayout<TClass, TEntity>(jsonString);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             var backupFile = Path.ChangeExtension(fileName, null); // remove the old extension
             File.Move(fileName, backupFile + ".Backup-{DateTime.Now:yyMMddHHmmss}.json");
-            logger.Warning(
-                "Could not load the repository file {0} due to {1}. File has been backed up to {2} and an emplty repository created.",
-                fileName, ex.Message, backupFile);
+            logger.Warning("Could not load the repository file {0} due to {1}. File has been backed up to {2} and an emplty repository created.", fileName, ex.Message, backupFile);
             return new TClass();
         }
     }
@@ -45,21 +42,19 @@ public static class LayoutStorage {
     /// </summary>
     /// <typeparam name="TClass">The type of the class to serialize and save.</typeparam>
     /// <typeparam name="TEntity">The type of entities in the class.</typeparam>
+    /// <param name="logger">Logger reference</param>
     /// <param name="entityClass">The instance of the class to save.</param>
     /// <param name="fileName">The name of the file to save.</param>
     /// <exception cref="ApplicationException">Thrown when fileName is null or empty or when an exception occurs during serialization or file writing.</exception>
-    public static void SaveFile<TClass, TEntity>(ILogger logger, TClass entityClass, string? fileName)
-        where TEntity : LayoutEntity
-        where TClass : LayoutRepository<TEntity> {
+    public static void SaveFile<TClass, TEntity>(ILogger logger, TClass entityClass, string? fileName) where TEntity : LayoutEntity where TClass : LayoutRepository<TEntity> {
         if (string.IsNullOrEmpty(fileName))
             throw new ApplicationException("You must specify a name for the Configuration File.");
+
         try {
             var jsonString = SerializeLayout<TClass, TEntity>(entityClass);
             File.WriteAllText(fileName, jsonString);
-        }
-        catch (Exception ex) {
-            logger.Warning("Could not save the repository {0} to file {1} due to {2}.", typeof(TClass).Name, fileName,
-                           ex.Message);
+        } catch (Exception ex) {
+            logger.Warning("Could not save the repository {0} to file {1} due to {2}.", typeof(TClass).Name, fileName, ex.Message);
         }
     }
 
@@ -76,39 +71,37 @@ public static class LayoutStorage {
     /// <remarks>
     /// The specified class must implement the <see cref="ILayoutRepository{TEntity}"/> interface and have the <see cref="LayoutEntity"/> as the base class for the entities in the class.
     /// </remarks>
-    public static TClass? DeserializeLayout<TClass, TEntity>(string jsonString)
-        where TEntity : LayoutEntity
-        where TClass : ILayoutRepository<TEntity>, new() {
+    public static TClass? DeserializeLayout<TClass, TEntity>(string jsonString) where TEntity : LayoutEntity where TClass : ILayoutRepository<TEntity>, new() {
         try {
             var jsonOptions = JsonSerializerHelper.Options;
             var jsonObject  = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonString, jsonOptions);
+
             if (jsonObject is null)
                 return new TClass() ?? throw new Exception("Could not create a repository to populate. Fatal");
 
             // Reconstruct MyObject instance
-            var repository = new TClass() ?? throw new Exception("Could not create a repository to populate. Fatal");
-            var properties = repository.GetType().GetProperties()
-                .Where(x => x.DeclaringType == typeof(TClass) && x.CanWrite);
+            var repository     = new TClass() ?? throw new Exception("Could not create a repository to populate. Fatal");
+            var properties     = repository.GetType().GetProperties().Where(x => x.DeclaringType == typeof(TClass) && x.CanWrite);
             var collectionName = typeof(TClass).Name;
 
             foreach (var kvp in jsonObject) {
                 if (kvp.Key == collectionName) {
                     var items = (JsonElement)kvp.Value;
+
                     foreach (var item in items.EnumerateArray()) {
                         var key       = item.GetProperty("Key").GetString();
                         var valueJson = item.GetProperty("Value").GetRawText();
                         var value     = JsonSerializer.Deserialize<TEntity>(valueJson, jsonOptions);
                         if (value is not null) repository.Add(value);
                     }
-                }
-                else {
+                } else {
                     var property = repository.GetType().GetProperty(kvp.Key);
+
                     if (property is not null && property.CanWrite) {
                         try {
                             var value = Convert.ChangeType(kvp.Value.ToString(), property.PropertyType);
                             property.SetValue(repository, value);
-                        }
-                        catch (InvalidCastException) {
+                        } catch (InvalidCastException) {
                             // Handle the situation when the conversion cannot be performed
                         }
                     }
@@ -116,10 +109,8 @@ public static class LayoutStorage {
             }
 
             return repository;
-        }
-        catch (Exception ex) {
-            throw new ApplicationException(
-                $"Unable to deserialize configuration data in '{typeof(TClass)}'due to '{ex.Message}'");
+        } catch (Exception ex) {
+            throw new ApplicationException($"Unable to deserialize configuration data in '{typeof(TClass)}'due to '{ex.Message}'");
         }
     }
 
@@ -133,9 +124,7 @@ public static class LayoutStorage {
     /// <param name="entityClass">The instance of the class to be serialized.</param>
     /// <returns>Returns a JSON string representation of the serialized object.</returns>
     /// <exception cref="ApplicationException">Thrown when serialization fails.</exception>
-    public static string SerializeLayout<TClass, TEntity>(TClass entityClass)
-        where TEntity : LayoutEntity
-        where TClass : ILayoutRepository<TEntity> {
+    public static string SerializeLayout<TClass, TEntity>(TClass entityClass) where TEntity : LayoutEntity where TClass : ILayoutRepository<TEntity> {
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------
         try {
@@ -144,9 +133,10 @@ public static class LayoutStorage {
 
             // Serialize properties
             var properties = typeof(TClass).GetProperties().Where(x => x.DeclaringType == typeof(TClass) && x.CanWrite);
+
             foreach (var property in properties) {
-                var propertyName = property?.Name;
-                var propertyValue = property?.GetValue(entityClass);
+                var propertyName                                                                    = property?.Name;
+                var propertyValue                                                                   = property?.GetValue(entityClass);
                 if (propertyValue is not null && propertyName is not null) jsonObject[propertyName] = propertyValue;
             }
 
@@ -155,10 +145,8 @@ public static class LayoutStorage {
             jsonObject[collectionName] = entityClass.Select(kv => new { Key = kv.Key, Value = kv.Value });
             var jsonString = JsonSerializer.Serialize(jsonObject, jsonOptions);
             return jsonString;
-        }
-        catch (Exception ex) {
-            throw new ApplicationException(
-                $"Unable to serialize configuration data in '{typeof(TClass)}'due to '{ex.Message}'");
+        } catch (Exception ex) {
+            throw new ApplicationException($"Unable to serialize configuration data in '{typeof(TClass)}'due to '{ex.Message}'");
         }
     }
 }

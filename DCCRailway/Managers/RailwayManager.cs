@@ -50,8 +50,7 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
                 WiThrottle = new WiThrottle.Server(Logger, Settings);
                 WiThrottle.Start(ControllerManager.CommandStation);
             }
-        }
-        else {
+        } else {
             Logger.Warning("No controller has been defined in settings. Only WebApp will run.");
         }
 

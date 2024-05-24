@@ -27,8 +27,7 @@ public class BackgroundWorkerTest {
     }
 }
 
-public class BackgroundWorkerTestClass(ILogger logger, string name, TimeSpan freq)
-    : BackgroundWorker(logger, name, freq) {
+public class BackgroundWorkerTestClass(ILogger logger, string name, TimeSpan freq) : BackgroundWorker(logger, name, freq) {
     private int       _counter = 0;
     private DateTime? _lastTime;
 

@@ -9,8 +9,7 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 public class VirtualConsistAdd : VirtualCommand, ICmdConsistAdd, ICommand {
     public VirtualConsistAdd() { }
 
-    public VirtualConsistAdd(byte consistAddress, DCCAddress loco, DCCDirection direction = DCCDirection.Forward,
-        DCCConsistPosition position = DCCConsistPosition.Front) {
+    public VirtualConsistAdd(byte consistAddress, DCCAddress loco, DCCDirection direction = DCCDirection.Forward, DCCConsistPosition position = DCCConsistPosition.Front) {
         Loco           = loco;
         Position       = position;
         ConsistAddress = consistAddress;

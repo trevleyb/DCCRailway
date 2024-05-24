@@ -17,7 +17,6 @@ public class DataErrorArgs : EventArgs, IAdapterEvent {
     public ICommand? Command { get; set; }
 
     public override string ToString() {
-        return
-            $"ERROR: {Adapter?.AttributeInfo().Description ?? "Unknown Adapter"}:{Command?.ToString() ?? "Unknown Command"}<=={Error}";
+        return $"ERROR: {Adapter?.AttributeInfo().Description ?? "Unknown Adapter"}:{Command?.ToString() ?? "Unknown Command"}<=={Error}";
     }
 }

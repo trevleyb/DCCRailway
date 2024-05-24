@@ -30,8 +30,10 @@ public class VirtualSensorPoller(ILogger logger) : ControllerTask(logger), IPara
     protected override void DoWork() {
         var pinStr = new StringBuilder();
         var pins   = new bool[14];
+
         if (CommandStation.CreateCommand<ICmdSensorGetState>() is VirtualSensorGetState command) {
             pinStr.Append("|");
+
             for (byte pin = 1; pin <= 14; pin++) {
                 pins[pin - 1] = new Random().Next(1, 100) < 10;
                 pinStr.Append(pins[pin - 1] ? "X" : ".");

@@ -32,10 +32,7 @@ public class NCEClockSet : NCECommand, ICmdClockSet, ICommand {
         get => _minute;
     }
 
-    public DateTime ClockTime => new(DateTime.Now.Year,
-                                     DateTime.Now.Month,
-                                     DateTime.Now.Day,
-                                     Hour, Minute, 0);
+    public DateTime ClockTime => new(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Hour, Minute, 0);
 
     public bool Is24Hour {
         set => _is24Hour = value;
@@ -60,12 +57,9 @@ public class NCEClockSet : NCECommand, ICmdClockSet, ICommand {
         // -----------------------------------------------------------------------------------------
         ICmdResult result;
 
-        if ((result = SendAndReceive(adapter, new NCEStandardValidation(),
-                                     new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).Success)
-            if ((result = SendAndReceive(adapter, new NCEStandardValidation(),
-                                         new byte[] { 0x85, (byte)_hour, (byte)_minute })).Success)
-                if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio }))
-                    .Success)
+        if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).Success)
+            if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).Success)
+                if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).Success)
                     return result;
 
         return result;

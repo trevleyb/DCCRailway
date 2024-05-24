@@ -15,9 +15,8 @@ public class NCEPowerCabSignalTest {
     [Test]
     public void CycleSignals() {
         //var adapter = new NCEUSBSerial("COM3", 19200);
-        var ports = SerialPort.GetPortNames();
-        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger, "/dev/cu.SLAB_USBtoUART", 19200, 8, Parity.None,
-                                       StopBits.One, 500);
+        var ports   = SerialPort.GetPortNames();
+        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger, "/dev/cu.SLAB_USBtoUART", 19200, 8, Parity.None, StopBits.One, 500);
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
 
         var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);
@@ -31,9 +30,11 @@ public class NCEPowerCabSignalTest {
 
             if (system?.Adapter != null) {
                 var signalCmd = system.CreateCommand<ICmdSignalSetAspect>();
+
                 if (signalCmd != null) {
                     var aspects = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 30, 31 };
                     var signals = new[] { 11, 12, 14, 13 };
+
                     foreach (var aspect in aspects)
                     foreach (var signal in signals) {
                         signalCmd.Address = new DCCAddress(signal, DCCAddressType.Signal);

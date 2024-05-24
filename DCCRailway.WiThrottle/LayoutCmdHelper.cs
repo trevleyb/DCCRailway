@@ -39,6 +39,7 @@ public class LayoutCmdHelper(ICommandStation commandStation, DCCAddress? address
     public void SetTurnoutState(DCCTurnoutState state) {
         if (commandStation.IsCommandSupported<ICmdTurnoutSet>()) {
             var command = commandStation.CreateCommand<ICmdTurnoutSet>(address);
+
             if (command != null) {
                 command.State = state;
                 command.Execute();

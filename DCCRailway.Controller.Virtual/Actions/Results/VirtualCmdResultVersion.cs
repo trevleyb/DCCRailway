@@ -6,8 +6,7 @@ public class VirtualCmdResultVersion : CmdResult {
     public VirtualCmdResultVersion(byte[]? dataSet) : base(true, null, dataSet) {
         if (Data.Length != 3) {
             Success = false;
-        }
-        else {
+        } else {
             Version = Data[0];
             Major   = Data[1];
             Minor   = Data[2];
@@ -29,6 +28,7 @@ public class VirtualCmdResultVersion : CmdResult {
         var compareSplit = compare.Split('.');
 
         if (sourceSplit.Length != compareSplit.Length) return false;
+
         for (var i = 0; i < sourceSplit.Length; i++)
             if (sourceSplit[i] != compareSplit[i] && compareSplit[i].ToUpperInvariant() != "X")
                 return false;

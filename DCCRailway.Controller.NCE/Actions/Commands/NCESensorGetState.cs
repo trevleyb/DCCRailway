@@ -43,8 +43,7 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
 
     protected override ICmdResult Execute(IAdapter adapter) {
         if (!_sensorCache.IsCurrent) {
-            var result = SendAndReceive(adapter, new NCESensorValidator(),
-                                        new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
+            var result = SendAndReceive(adapter, new NCESensorValidator(), new byte[] { 0x9B, CalculateCabPin(SensorAddress).cab });
             if (!result.Success) return result;
             _sensorCache.UpdateCache(CalculateCabPin(SensorAddress).cab, result!.Data);
         }
@@ -131,12 +130,10 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
                     if (pin >= 1 && pin <= 8) {
                         pinCheck = new byte().SetBit(pin - 1, true);
                         pinValue = data?[1].Invert();
-                    }
-                    else if (pin >= 9 && pin <= 16) {
+                    } else if (pin >= 9 && pin <= 16) {
                         pinCheck = new byte().SetBit(pin - 9, true);
                         pinValue = (byte?)(data?[0].Invert() - 0xC0);
-                    }
-                    else {
+                    } else {
                         return DCCAccessoryState.Off;
                     }
 
@@ -144,8 +141,7 @@ public class NCESensorGetState : NCECommand, ICmdSensorGetState, IAccyCmd {
                 }
 
                 return DCCAccessoryState.Off;
-            }
-            catch {
+            } catch {
                 return DCCAccessoryState.Off;
             }
         }

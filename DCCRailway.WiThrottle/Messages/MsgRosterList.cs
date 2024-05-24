@@ -11,6 +11,7 @@ public class MsgRosterList(Connection connection) : ThrottleMsg, IThrottleMsg {
 
             var message = new StringBuilder();
             message.Append($"RL{locos.Count}");
+
             foreach (var loco in locos) {
                 message.Append("]\\["); // Separator
                 message.Append(loco.Name.RemoveWiThrottleSeparators());

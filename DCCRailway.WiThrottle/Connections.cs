@@ -1,6 +1,7 @@
 ﻿using System.Net.Sockets;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Layout;
+using DCCRailway.WiThrottle.Messages;
 using Serilog;
 
 namespace DCCRailway.WiThrottle;
@@ -25,15 +26,28 @@ public class Connections(ILogger logger) {
         return connection;
     }
 
+    /// <summary>
+    /// Used particularly for changes in Turnout, Power and Routes, send the status update
+    /// message to all connected devices.
+    /// </summary>
+    /// <param name="message"></param>
+    public void QueueMsgToAll(IThrottleMsg message) {
+        foreach (var connection in ActiveConnections) connection.QueueMsg(message);
+    }
+
+    public void QueueMsgToAll(IThrottleMsg[] messages) {
+        foreach (var connection in ActiveConnections)
+        foreach (var msg in messages)
+            connection.QueueMsg(msg);
+    }
+
     public Connection? GetByHardwareID(string hardwareID, ulong connectionHandle) {
-        return ActiveConnections.FirstOrDefault(x => x.HardwareID.Equals(hardwareID) &&
-                                                     x.ConnectionHandle != connectionHandle);
+        return ActiveConnections.FirstOrDefault(x => x.HardwareID.Equals(hardwareID) && x.ConnectionHandle != connectionHandle);
     }
 
     public void RemoveDuplicateID(string hardwareID, ulong connectionHandle) {
         for (var i = ActiveConnections.Count - 1; i >= 0; i--)
-            if (ActiveConnections[i].HardwareID.Equals(hardwareID) &&
-                ActiveConnections[i].ConnectionHandle != connectionHandle)
+            if (ActiveConnections[i].HardwareID.Equals(hardwareID) && ActiveConnections[i].ConnectionHandle != connectionHandle)
                 ActiveConnections.RemoveAt(i);
     }
 
@@ -43,9 +57,9 @@ public class Connections(ILogger logger) {
 
     public void CloseConnectionsWithCondition(Func<Connection, bool> conditionToClose, string logMessage) {
         var connectionsToClose = ActiveConnections.Where(conditionToClose).ToList();
+
         foreach (var connection in connectionsToClose) {
-            logger.Information("WiThrottle Connection: Closing Client '{0}' due to no heartbeat.",
-                               connection.ConnectionHandle);
+            logger.Information("WiThrottle Connection: Closing Client '{0}' due to no heartbeat.", connection.ConnectionHandle);
             connection.Close();
         }
     }
@@ -63,8 +77,7 @@ public class Connections(ILogger logger) {
     /// <param name="hardwareID">The unique hardware ID of the throttle</param>
     /// <returns>A entry of a connected throttle</returns>
     public Connection? Find(string hardwareID) {
-        return ActiveConnections.FirstOrDefault(
-            x => x!.HardwareID.Equals(hardwareID, StringComparison.InvariantCultureIgnoreCase));
+        return ActiveConnections.FirstOrDefault(x => x!.HardwareID.Equals(hardwareID, StringComparison.InvariantCultureIgnoreCase));
     }
 
     //public WiThrottleConnection? Find(ulong connectionID) => _connections.FirstOrDefault(x => x.ConnectionHandle == connectionID);

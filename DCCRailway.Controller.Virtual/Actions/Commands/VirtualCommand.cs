@@ -9,7 +9,6 @@ namespace DCCRailway.Controller.Virtual.Actions.Commands;
 
 public abstract class VirtualCommand : Command {
     protected override ICmdResult Execute(IAdapter adapter) {
-        return SendAndReceive(adapter, new VirtualStandardValidation(),
-                              ToString()?.ToByteArray() ?? Array.Empty<byte>());
+        return SendAndReceive(adapter, new VirtualStandardValidation(), ToString()?.ToByteArray() ?? Array.Empty<byte>());
     }
 }

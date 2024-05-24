@@ -12,9 +12,7 @@ public static class RouteAPI {
 
         app.MapGet("/layout/routes", async () => await Task.FromResult(Results.Ok(entities.GetAll())));
         app.MapPost("/layout/routes", async (Route route) => await Task.FromResult(Results.Ok(entities.Add(route))));
-        app.MapPut("/layout/routes/{id}",
-                   async (string id, Route route) => await Task.FromResult(Results.Ok(entities.Update(route))));
-        app.MapDelete("/layout/routes/{id}",
-                      async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
+        app.MapPut("/layout/routes/{id}", async (string id, Route route) => await Task.FromResult(Results.Ok(entities.Update(route))));
+        app.MapDelete("/layout/routes/{id}", async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
     }
 }

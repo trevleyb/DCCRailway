@@ -23,9 +23,7 @@ public class StateUpdater(ILogger logger, IStateManager stateManager) {
             // If the command failed, log the error and return.
             // -------------------------------------------------
             if (args.Result is { Success: false } failedResult) {
-                logger.Information(failedResult.Command != null
-                                       ? $"Command {failedResult.Command.AttributeInfo().Name} failed with error {failedResult.Message}"
-                                       : $"Command 'unknown' failed with error {failedResult.Message}");
+                logger.Information(failedResult.Command != null ? $"Command {failedResult.Command.AttributeInfo().Name} failed with error {failedResult.Message}" : $"Command 'unknown' failed with error {failedResult.Message}");
                 return;
             }
 
@@ -43,9 +41,7 @@ public class StateUpdater(ILogger logger, IStateManager stateManager) {
                     _           => new StateUpdaterGenericCmd(stateManager)
                 };
                 var result = stateUpdater.Process(cmdResult);
-                logger.Information("Processed State Command: {0} with result {1} {2}.", cmdResult?.Command?.ToString(),
-                                   result.Success ? "Success" : "Failed",
-                                   string.IsNullOrEmpty(result?.Message) ? "" : $"and message '{result.Message}'");
+                logger.Information("Processed State Command: {0} with result {1} {2}.", cmdResult?.Command?.ToString(), result.Success ? "Success" : "Failed", string.IsNullOrEmpty(result?.Message) ? "" : $"and message '{result.Message}'");
             }
 
             break;

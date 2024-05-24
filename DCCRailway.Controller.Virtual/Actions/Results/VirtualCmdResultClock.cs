@@ -15,8 +15,5 @@ public class VirtualCmdResultClock : CmdResult {
     public int    Min       { get; }
     public int    Ratio     { get; }
 
-    public DateTime CurrentTime => new(DateTime.Now.Year,
-                                       DateTime.Now.Month,
-                                       DateTime.Now.Day,
-                                       Hour, Min, 0);
+    public DateTime CurrentTime => new(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Hour, Min, 0);
 }

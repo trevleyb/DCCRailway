@@ -12,9 +12,7 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCEStatusCmd : NCECommand, ICmdStatus {
     protected override ICmdResult Execute(IAdapter adapter) {
         var result = SendAndReceive(adapter, new SimpleResultValidation(3), new byte[] { 0xAA });
-        return result.Success
-            ? new NCECmdResultVersion(result.Data)
-            : CmdResult.Fail(result.Data, "Failed to get NCE Status");
+        return result.Success ? new NCECmdResultVersion(result.Data) : CmdResult.Fail(result.Data, "Failed to get NCE Status");
     }
 
     public override string ToString() {

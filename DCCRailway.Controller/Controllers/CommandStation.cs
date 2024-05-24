@@ -107,8 +107,7 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
     public abstract DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
 
     public void OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result) {
-        ControllerEvent?.Invoke(
-            this, new CommandEventArgs(command, result, $"Command Executed on {commandStation.AttributeInfo().Name}"));
+        ControllerEvent?.Invoke(this, new CommandEventArgs(command, result, $"Command Executed on {commandStation.AttributeInfo().Name}"));
     }
 
     public IAdapter? AttachAdapter(IAdapter adapter) {

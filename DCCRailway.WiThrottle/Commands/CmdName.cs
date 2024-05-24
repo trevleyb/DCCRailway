@@ -7,8 +7,8 @@ public class CmdName(ILogger logger, Connection connection) : ThrottleCmd, IThro
     // Recieved a "NAME" [N] command from a Client and so we need to process it.
     // ------------------------------------------------------------------------
     public void Execute(string commandStr) {
-        logger.Information("WiThrottle Recieved Cmd from [{0}]: Name - {1}=>'{2}'", connection.ConnectionHandle,
-                           ToString(), commandStr);
+        logger.Information("WiThrottle Recieved Cmd from [{0}]: Name - {1}=>'{2}'", connection.ConnectionHandle, ToString(), commandStr);
+
         if (commandStr.Length > 1) {
             var deviceName = commandStr[1..].Replace("???", "'");
             connection.ThrottleName = deviceName;
@@ -20,6 +20,7 @@ public class CmdName(ILogger logger, Connection connection) : ThrottleCmd, IThro
             connection.QueueMsg(new MsgTurnoutList(connection));
             connection.QueueMsg(new MsgRouteLabels(connection));
             connection.QueueMsg(new MsgRouteList(connection));
+            connection.QueueMsg(new MsgFastClock(connection.RailwaySettings));
         }
     }
 

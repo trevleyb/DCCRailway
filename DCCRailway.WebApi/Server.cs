@@ -6,7 +6,7 @@ using ILogger = Serilog.ILogger;
 namespace DCCRailway.WebApi;
 
 public class Server(ILogger logger, IRailwaySettings railwaySettings) {
-    CancellationTokenSource cts = new CancellationTokenSource();
+    private CancellationTokenSource cts = new();
 
     public async void Start() {
         var builder = WebApplication.CreateBuilder();

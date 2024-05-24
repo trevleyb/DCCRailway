@@ -12,8 +12,7 @@ public class ControllerManager {
     private readonly ILogger      _logger;
     private readonly StateUpdater _stateUpdater;
 
-    public ControllerManager(ILogger logger, StateManager stateManager,
-        Layout.Configuration.Controller controllerSettings) {
+    public ControllerManager(ILogger logger, StateManager stateManager, Layout.Configuration.Controller controllerSettings) {
         _logger       = logger;
         _stateUpdater = new StateUpdater(logger, stateManager);
         Configure(controllerSettings);
@@ -46,6 +45,7 @@ public class ControllerManager {
         if (controller is null)
             throw new ApplicationException("Cannot start the Entities Layout as no Controllers are defined.");
         var commandStation = CreateCommandStationController(controller);
+
         if (commandStation != null) {
             AttachCommandStationAdapter(controller, commandStation);
             AttachCommandStationTasks(controller, commandStation);
@@ -62,19 +62,16 @@ public class ControllerManager {
     /// <exception cref="ControllerException">Thrown if it cannot create the controller. </exception>
     private ICommandStation? CreateCommandStationController(Layout.Configuration.Controller controller) {
         var controllerManager = new CommandStationFactory(_logger);
+
         try {
-            var commandStation = controllerManager.CreateController(controller.Name) ??
-                                 throw new ControllerException(
-                                     $"Invalid CommandStation Name specified {controller.Name}");
+            var commandStation = controllerManager.CreateController(controller.Name) ?? throw new ControllerException($"Invalid CommandStation Name specified {controller.Name}");
 
             foreach (var parameter in controller.Parameters)
                 if (commandStation.IsMappableParameter(parameter.Name))
                     commandStation.SetMappableParameter(parameter.Name, parameter.Value);
             return commandStation;
-        }
-        catch (Exception ex) {
-            _logger.Error("Unable to instantiate an instance of the specified commandStation: {0} => {1}", controller,
-                          ex.Message);
+        } catch (Exception ex) {
+            _logger.Error("Unable to instantiate an instance of the specified commandStation: {0} => {1}", controller, ex.Message);
             throw;
         }
     }
@@ -85,28 +82,24 @@ public class ControllerManager {
     /// <param name="controller">The DCCController object representing the controller for the commandStation.</param>
     /// <param name="commandStation">The ICommandStation object representing the commandStation.</param>
     /// <exception cref="AdapterException">Thrown when unable to create an Adapter.</exception>
-    private void AttachCommandStationAdapter(DCCRailway.Layout.Configuration.Controller controller,
-        ICommandStation commandStation) {
+    private void AttachCommandStationAdapter(DCCRailway.Layout.Configuration.Controller controller, ICommandStation commandStation) {
         // Now that we have a commandStation, attach the Adapter to the commandStation and
         // configure the Adapter using the provided Parameters.
         // -----------------------------------------------------------------------------
         try {
             if (controller.Adapters.Count != 1)
                 throw new ControllerException("Only a single Adapter can currently be configured for a Controller.");
+
             if (controller.Adapters[0] is { } controllerAdapter) {
-                var adapterInstance = commandStation.CreateAdapter(controllerAdapter.Name) ??
-                                      throw new AdapterException("Unable to create an Adapter of type: {0}",
-                                                                 controllerAdapter.Name);
+                var adapterInstance = commandStation.CreateAdapter(controllerAdapter.Name) ?? throw new AdapterException("Unable to create an Adapter of type: {0}", controllerAdapter.Name);
 
                 foreach (var parameter in controllerAdapter.Parameters)
                     if (adapterInstance.IsMappableParameter(parameter.Name))
                         adapterInstance.SetMappableParameter(parameter.Name, parameter.Value);
                 commandStation.Adapter = adapterInstance;
             }
-        }
-        catch (Exception ex) {
-            _logger.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}",
-                          controller?.Adapters, ex.Message);
+        } catch (Exception ex) {
+            _logger.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapters, ex.Message);
             throw;
         }
     }
@@ -118,25 +111,24 @@ public class ControllerManager {
     /// </summary>
     /// <param name="controller">The DCCController containing the tasks to be attached.</param>
     /// <param name="commandStation">The ICommandStation to which the tasks will be attached.</param>
-    private void AttachCommandStationTasks(DCCRailway.Layout.Configuration.Controller controller,
-        ICommandStation commandStation) {
+    private void AttachCommandStationTasks(DCCRailway.Layout.Configuration.Controller controller, ICommandStation commandStation) {
         try {
             foreach (var task in controller.Tasks)
                 try {
                     var taskInstance = commandStation.CreateTask(task.Type);
+
                     if (taskInstance is not null) {
                         taskInstance.Name      = task.Name;
                         taskInstance.Frequency = task.Frequency;
+
                         foreach (var parameter in task.Parameters)
                             if (taskInstance.IsMappableParameter(parameter.Name))
                                 taskInstance.SetMappableParameter(parameter.Name, parameter.Value);
                     }
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     _logger.Error($"Unable to instantiate the task '{task.Name}' or type '{task.Type}'", ex);
                 }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             _logger.Error("Unable to create and attach tasks to the Command Station.", ex.Message);
             throw;
         }

@@ -21,10 +21,10 @@ public class NCEAccySetState : NCECommand, ICmdAccySetState, IAccyCmd {
     public DCCAccessoryState State   { get; set; }
 
     protected override ICmdResult Execute(IAdapter adapter) {
-        var cmd = new byte[] { 0xAD }; // Command is 0xAD
-        cmd = cmd.AddToArray(Address.AddressBytes); // Add the high and low bytes of the Address
+        var cmd = new byte[] { 0xAD };                                             // Command is 0xAD
+        cmd = cmd.AddToArray(Address.AddressBytes);                                // Add the high and low bytes of the Address
         cmd = cmd.AddToArray((byte)(State == DCCAccessoryState.On ? 0x03 : 0x04)); // Normal=0x03, Thrown=0x04
-        cmd = cmd.AddToArray(0); // Accessory always has a data of 0x00
+        cmd = cmd.AddToArray(0);                                                   // Accessory always has a data of 0x00
 
         return SendAndReceive(adapter, new NCEStandardValidation(), cmd);
     }

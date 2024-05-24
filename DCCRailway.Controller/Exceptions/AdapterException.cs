@@ -3,13 +3,11 @@
 namespace DCCRailway.Controller.Exceptions;
 
 public class AdapterException : Exception {
-    public AdapterException(string? adapter, string? message, Exception? ex = null) :
-        base(adapter + ":" + message, ex) {
+    public AdapterException(string? adapter, string? message, Exception? ex = null) : base(adapter + ":" + message, ex) {
         Adapter = adapter;
     }
 
-    public AdapterException(IAdapter adapter, string? message, Exception? ex = null) :
-        base(adapter + ":" + message, ex) {
+    public AdapterException(IAdapter adapter, string? message, Exception? ex = null) : base(adapter + ":" + message, ex) {
         Adapter = adapter.ToString();
     }
 

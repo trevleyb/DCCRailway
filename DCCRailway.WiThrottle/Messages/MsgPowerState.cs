@@ -16,6 +16,7 @@ public class MsgPowerState(Connection connection) : ThrottleMsg, IThrottleMsg {
     private string? GetPowerStateMsg() {
         try {
             var layoutCmd = new LayoutCmdHelper(connection.CommandStation);
+
             var powerMsg = layoutCmd.PowerState switch {
                 DCCPowerState.On      => "PPA1",
                 DCCPowerState.Off     => "PPA0",
@@ -23,8 +24,7 @@ public class MsgPowerState(Connection connection) : ThrottleMsg, IThrottleMsg {
                 _                     => null
             };
             return powerMsg;
-        }
-        catch {
+        } catch {
             return null;
         }
     }

@@ -27,7 +27,6 @@ public static class GuardClauses {
         if (argumentValue <= minValue)
 
             //C# 7.0 syntax: $"Argument '{argumentName}' cannot be lower than '{minValue}'"
-            throw new ArgumentException("Argument '" + argumentName + "'  cannot be lower than " + minValue,
-                                        argumentName);
+            throw new ArgumentException("Argument '" + argumentName + "'  cannot be lower than " + minValue, argumentName);
     }
 }

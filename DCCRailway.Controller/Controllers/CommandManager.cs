@@ -29,14 +29,13 @@ public class CommandManager(ILogger logger, ICommandStation commandStation, Asse
 
     private void RegisterCommands() {
         if (_assembly is null) throw new ApplicationException("No Assembly has been set for the Command Manager");
+
         foreach (var command in _assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(ICommand)))) {
             var attr = AttributeExtractor.GetAttribute<CommandAttribute>(command);
+
             if (attr != null && !string.IsNullOrEmpty(attr.Name)) {
-                var commandInterface = command.ImplementedInterfaces.First(
-                                           x => x.FullName != null && x.FullName.StartsWith(
-                                               "DCCRailway.Controller.Actions.Commands.I",
-                                               StringComparison.InvariantCultureIgnoreCase)) ??
-                                       null;
+                var commandInterface = command.ImplementedInterfaces.First(x => x.FullName != null && x.FullName.StartsWith("DCCRailway.Controller.Actions.Commands.I", StringComparison.InvariantCultureIgnoreCase)) ?? null;
+
                 if (commandInterface is not null)
                     if (!_commands.ContainsKey(commandInterface))
                         _commands.TryAdd(commandInterface, (attr, command));
@@ -46,9 +45,9 @@ public class CommandManager(ILogger logger, ICommandStation commandStation, Asse
 
     protected void RegisterCommand<TInterface, TConcrete>() where TInterface : ICommand where TConcrete : ICommand {
         var attr = AttributeExtractor.GetAttribute<CommandAttribute>(typeof(TInterface));
+
         if (attr == null || string.IsNullOrEmpty(attr.Name))
-            throw new ApplicationException(
-                "Command does not contain AttributeInfo Definition. Add AttributeInfo first");
+            throw new ApplicationException("Command does not contain AttributeInfo Definition. Add AttributeInfo first");
         if (!_commands.ContainsKey(typeof(TInterface))) _commands.TryAdd(typeof(TInterface), (attr, typeof(TConcrete)));
     }
 
@@ -79,10 +78,12 @@ public class CommandManager(ILogger logger, ICommandStation commandStation, Asse
 
     public ICommand? Create(string name, DCCAddress? address = null) {
         if (_commands.Any() is false) RegisterCommands();
+
         var entry = _commands.FirstOrDefault(x => {
             Debug.Assert(x.Value.Attributes.Name != null, "x.Value.Attributes.Name != null");
             return x.Value.Attributes.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase);
         });
+
         if (entry.Equals(default(KeyValuePair<Type, (CommandAttribute, Type)>)) && entry.Key != null) {
             var command = CreateInstance(entry.Value.ConcreteType);
             return AttachProperties(command, address);
@@ -93,8 +94,10 @@ public class CommandManager(ILogger logger, ICommandStation commandStation, Asse
 
     public ICommand? Create<TCommand>(DCCAddress? address = null) where TCommand : ICommand {
         if (_commands.Any() is false) RegisterCommands();
+
         if (IsCommandSupported<TCommand>()) {
             var typeToCreate = _commands[typeof(TCommand)].ConcreteType ?? null;
+
             if (typeToCreate is null)
                 throw new ApplicationException("Selected Command Type is not supported by this Adapter.");
             var command = CreateInstance(typeToCreate);
@@ -109,8 +112,7 @@ public class CommandManager(ILogger logger, ICommandStation commandStation, Asse
             var command = (ICommand?)Activator.CreateInstance(typeToCreate);
             if (command == null) throw new ApplicationException("Could not create an instance of the command.");
             return command;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException("Could not create an instance of the command.", ex);
         }
     }
@@ -124,20 +126,14 @@ public class CommandManager(ILogger logger, ICommandStation commandStation, Asse
     }
 
     public bool IsCommandSupported(string name) {
-        return _commands.Any(item =>
-                                 item.Key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase) ||
-                                 item.Value.ConcreteType.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
-        );
+        return _commands.Any(item => item.Key.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase) || item.Value.ConcreteType.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
     }
 
     #region Raise Events
-
     // Raise when this CommandStation executes a command
     private void OnCommandExecute(object sender, ICommand command, ICmdResult result) {
-        var e = new CommandEventArgs(command, result,
-                                     $"Command {command.GetType().Name} executed with resultOld {result.GetType().Name}");
+        var e = new CommandEventArgs(command, result, $"Command {command.GetType().Name} executed with resultOld {result.GetType().Name}");
         CommandEvent?.Invoke(sender, e);
     }
-
     #endregion
 }

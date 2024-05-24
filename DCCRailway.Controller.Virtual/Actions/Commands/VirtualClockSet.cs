@@ -33,10 +33,7 @@ public class VirtualClockSet : VirtualCommand, ICmdClockSet, ICommand {
         get => _minute;
     }
 
-    public DateTime ClockTime => new(DateTime.Now.Year,
-                                     DateTime.Now.Month,
-                                     DateTime.Now.Day,
-                                     Hour, Minute, 0);
+    public DateTime ClockTime => new(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Hour, Minute, 0);
 
     public bool Is24Hour {
         set => _is24Hour = value;
@@ -53,6 +50,7 @@ public class VirtualClockSet : VirtualCommand, ICmdClockSet, ICommand {
 
     protected override ICmdResult Execute(IAdapter adapter) {
         var result = new VirtualCmdResultClock(Hour, Minute, Ratio);
+
         if (adapter is VirtualAdapter virtualAdapter) {
             virtualAdapter.FastClockSetTime = result.CurrentTime;
             virtualAdapter.FastClockRatio   = result.Ratio;

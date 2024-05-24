@@ -26,8 +26,7 @@ public static class SerialAdapterFinder {
         var readData = Array.Empty<byte>();
 
         try {
-            using (var connection = new SerialPort(settings.PortName, settings.BaudRate, settings.Parity,
-                                                   settings.DataBits, settings.StopBits)) {
+            using (var connection = new SerialPort(settings.PortName, settings.BaudRate, settings.Parity, settings.DataBits, settings.StopBits)) {
                 connection.WriteTimeout = settings.Timeout;
                 connection.ReadTimeout  = settings.Timeout;
 
@@ -35,16 +34,14 @@ public static class SerialAdapterFinder {
                 connection.BaseStream.WriteAsync(data, 0, data.Length);
 
                 var timeoutTime = DateTime.Now.AddMilliseconds(settings.Timeout);
-                while (DateTime.Now <= timeoutTime &&
-                       connection.BytesToRead == 0) Task.Delay(MillisecondsDelay); // Adjust as needed
+                while (DateTime.Now <= timeoutTime && connection.BytesToRead == 0) Task.Delay(MillisecondsDelay); // Adjust as needed
 
                 if (connection.BytesToRead > 0) {
                     readData = new byte[connection.BytesToRead];
                     _        = connection.BaseStream.ReadAsync(readData, 0, readData.Length);
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new Exception($"ERROR Connecting to port: {ex.Message}");
         }
 

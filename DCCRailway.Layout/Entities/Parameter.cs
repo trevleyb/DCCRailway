@@ -44,11 +44,9 @@ public class Parameter {
                     "System.IO.Ports.StopBits"  => (StopBits)Enum.Parse(typeof(StopBits), Value),
                     "System.IO.Ports.Handshake" => (Handshake)Enum.Parse(typeof(Handshake), Value),
                     "System.IO.Ports.DataBits"  => Convert.ToInt32(Value, CultureInfo.InvariantCulture),
-                    _ => Convert.ChangeType(Value, Type.GetType(ObjType) ?? typeof(string),
-                                            CultureInfo.InvariantCulture)
+                    _                           => Convert.ChangeType(Value, Type.GetType(ObjType) ?? typeof(string), CultureInfo.InvariantCulture)
                 };
-        }
-        catch {
+        } catch {
             return Convert.ChangeType(Value, typeof(string), CultureInfo.InvariantCulture);
         }
 

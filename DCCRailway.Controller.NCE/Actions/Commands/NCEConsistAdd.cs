@@ -13,8 +13,7 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
     public NCEConsistAdd() { }
 
-    public NCEConsistAdd(byte consistAddress, DCCAddress loco, DCCDirection direction = DCCDirection.Forward,
-        DCCConsistPosition position = DCCConsistPosition.Front) {
+    public NCEConsistAdd(byte consistAddress, DCCAddress loco, DCCDirection direction = DCCDirection.Forward, DCCConsistPosition position = DCCConsistPosition.Front) {
         Loco           = loco;
         Position       = position;
         ConsistAddress = consistAddress;

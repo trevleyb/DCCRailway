@@ -45,9 +45,9 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
 
         if (string.IsNullOrEmpty(PortName))
             throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
+
         try {
-            _connection = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits)
-                { WriteTimeout = Timeout, ReadTimeout = Timeout };
+            _connection = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits) { WriteTimeout = Timeout, ReadTimeout = Timeout };
 
             //_connection.DataReceived += delegate (object sender, SerialDataReceivedEventArgs args) {
             //    Console.WriteLine($"{Name}: Received message: {0}", args.ToString());
@@ -59,8 +59,7 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
                 OnErrorOccurred(new DataErrorArgs(args.EventType.ToString(), this));
             };
             _connection.Open();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not connect to the device: " + PortName, ex);
         }
     }
@@ -82,6 +81,7 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     /// <exception cref="AdapterException">Throws if there is a connection error</exception>
     public byte[]? RecvData(ICommand? command = null) {
         logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Listening for data");
+
         if (!IsConnected)
             throw new AdapterException(this.AttributeInfo().Name, "No active connection to the Command Station.");
 
@@ -97,17 +97,14 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
                     readBytes = false;
                     var readData = new byte[_connection.BytesToRead];
                     _connection.Read(readData, 0, _connection.BytesToRead);
-                    logger.Debug(
-                        $"ADAPTER:{this.AttributeInfo().Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
+                    logger.Debug($"ADAPTER:{this.AttributeInfo().Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
                     returnData.AddRange(readData);
                 }
 
-            logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Read '{0}' data as bytes from SerialPort.",
-                         returnData.ToArray().ToDisplayValueChars());
+            logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Read '{0}' data as bytes from SerialPort.", returnData.ToArray().ToDisplayValueChars());
             OnDataRecieved(new DataRecvArgs(returnData.ToArray(), this, command));
             return returnData.ToArray();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not read from the Command Station", ex);
         }
     }
@@ -119,16 +116,15 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     /// <param name="commandReference">The reference to the command being sent</param>
     /// <exception cref="AdapterException">Throws an exception if there is a connection error</exception>
     public void SendData(byte[] data, ICommand? commandReference = null) {
-        logger.Debug(
-            $"ADAPTER:{this.AttributeInfo().Name} -Sending data to the {this.AttributeInfo().Name} Adapter '{data.ToDisplayValueChars()}'");
+        logger.Debug($"ADAPTER:{this.AttributeInfo().Name} -Sending data to the {this.AttributeInfo().Name} Adapter '{data.ToDisplayValueChars()}'");
+
         if (!IsConnected)
             throw new AdapterException(this.AttributeInfo().Name, "No active connection to the Command Station.");
 
         try {
             if (_connection!.BytesToRead > 0) _connection.ReadExisting();
             _connection!.Write(data, 0, data.Length);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not read/write to Command Station", ex);
         }
 

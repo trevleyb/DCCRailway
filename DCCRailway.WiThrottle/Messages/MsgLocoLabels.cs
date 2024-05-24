@@ -27,6 +27,7 @@ public class MsgLocoLabels(Connection connection, MultiThrottleMessage data) : T
         // ----------------------------------------------------------------------------------
         var max = Math.Min(loco.Labels.Max(x => x.Key), maxLabels);
         var sb  = new StringBuilder();
+
         for (byte num = 0; num < max; num++) {
             sb.Append("]\\[");
             var label = loco.Labels.Find(x => x.Key == num)?.Label ?? "";

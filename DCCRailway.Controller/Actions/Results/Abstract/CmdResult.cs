@@ -2,8 +2,7 @@ using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Controller.Actions.Results.Abstract;
 
-public class CmdResult(bool success, ICommand? command, byte[]? data, string? errorMessage = null)
-    : Result(success, errorMessage ?? ""), ICmdResult, IResult {
+public class CmdResult(bool success, ICommand? command, byte[]? data, string? errorMessage = null) : Result(success, errorMessage ?? ""), ICmdResult, IResult {
     // Constructors
     // -----------------------------------------------------------------------
     public CmdResult() : this(true, null, null, null) { }
@@ -11,8 +10,7 @@ public class CmdResult(bool success, ICommand? command, byte[]? data, string? er
     public CmdResult(ICommand command, byte[]? data) : this(true, command, data) { }
     public CmdResult(byte[]? data) : this(true, null, data) { }
 
-    public CmdResult(bool success, byte[]? data, string? errorMessage = null) :
-        this(success, null, data, errorMessage) { }
+    public CmdResult(bool success, byte[]? data, string? errorMessage = null) : this(success, null, data, errorMessage) { }
 
     public CmdResult(ICmdResult result) : this(result.Success, result.Command, result.Data, result.Message) { }
 

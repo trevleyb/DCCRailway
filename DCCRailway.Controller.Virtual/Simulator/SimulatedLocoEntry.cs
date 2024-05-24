@@ -36,8 +36,7 @@ public class SimulatedLocoEntry {
             this[1]  = 3;
             this[17] = Address.HighAddress;
             this[18] = Address.LowAddress;
-        }
-        else {
+        } else {
             this[1]  = (byte)Address.Address;
             this[17] = 0;
             this[18] = 0;

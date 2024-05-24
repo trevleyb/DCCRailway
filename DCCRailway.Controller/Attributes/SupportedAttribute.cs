@@ -2,8 +2,7 @@ namespace DCCRailway.Controller.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class SupportedAttribute() : Attribute {
-    protected SupportedAttribute(string name, string? description = null, string? version = null,
-        string[]? supported = null, string[]? unSupported = null) : this() {
+    protected SupportedAttribute(string name, string? description = null, string? version = null, string[]? supported = null, string[]? unSupported = null) : this() {
         Name        = name;
         Description = description ?? "";
         Version     = version ?? "";
@@ -38,13 +37,9 @@ public class SupportedAttribute() : Attribute {
         if (string.IsNullOrWhiteSpace(version)) version                       = "*";
         var item                                                              = $"{commandStationName}@{version}";
 
-        if (UnSupported.Contains(item) || UnSupported.Contains(commandStationName) ||
-            UnSupported.Contains($"{commandStationName}@*") || UnSupported.Contains($"@{version}") ||
-            UnSupported.Contains("*") || UnSupported.Contains("*@*")) return false;
+        if (UnSupported.Contains(item) || UnSupported.Contains(commandStationName) || UnSupported.Contains($"{commandStationName}@*") || UnSupported.Contains($"@{version}") || UnSupported.Contains("*") || UnSupported.Contains("*@*")) return false;
 
-        if (!Supported.Any() || Supported.Contains(item) || Supported.Contains(commandStationName) ||
-            Supported.Contains($"{commandStationName}@*") || Supported.Contains($"@{version}") ||
-            Supported.Contains("*") || Supported.Contains("*@*")) return true;
+        if (!Supported.Any() || Supported.Contains(item) || Supported.Contains(commandStationName) || Supported.Contains($"{commandStationName}@*") || Supported.Contains($"@{version}") || Supported.Contains("*") || Supported.Contains("*@*")) return true;
         return false;
     }
 }

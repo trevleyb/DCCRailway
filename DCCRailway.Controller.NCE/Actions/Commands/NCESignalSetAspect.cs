@@ -26,8 +26,7 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
         get => _aspect;
         set {
             if ((value < 0 || value > 15) && value != 30 && value != 31)
-                throw new ArgumentOutOfRangeException(nameof(value), value,
-                                                      "Signal Aspect must be between 0..15 or 30,31");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Signal Aspect must be between 0..15 or 30,31");
             _aspect = value;
         }
     }

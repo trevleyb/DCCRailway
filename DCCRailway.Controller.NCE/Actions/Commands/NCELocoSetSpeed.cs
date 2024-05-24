@@ -13,8 +13,7 @@ namespace DCCRailway.Controller.NCE.Actions.Commands;
 public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
     public NCELocoSetSpeed() { }
 
-    public NCELocoSetSpeed(DCCAddress address, DCCDirection direction = DCCDirection.Forward, DCCSpeed? speed = null,
-        DCCProtocol speedSteps = DCCProtocol.DCC128) {
+    public NCELocoSetSpeed(DCCAddress address, DCCDirection direction = DCCDirection.Forward, DCCSpeed? speed = null, DCCProtocol speedSteps = DCCProtocol.DCC128) {
         Address    = address;
         Speed      = speed ?? new DCCSpeed(0);
         Direction  = direction;
@@ -33,8 +32,7 @@ public class NCELocoSetSpeed : NCECommand, ICmdLocoSetSpeed, ICommand {
         if (Direction == DCCDirection.Stop) {
             command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x06 : 0x05));
             Speed   = new DCCSpeed(0);
-        }
-        else {
+        } else {
             if (SpeedSteps == DCCProtocol.DCC14 || SpeedSteps == DCCProtocol.DCC28)
                 command = command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x02 : 0x01));
             else

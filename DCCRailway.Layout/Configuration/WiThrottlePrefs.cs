@@ -10,6 +10,7 @@ public class WiThrottlePrefs {
     public string Name             { get; set; } = "DCCRailway WiThrottle Service";
     public int?   Port             { get; set; }
     public bool   UseFastClock     { get; set; } = false;
+    public int    FastClockSeconds { get; set; } = 15;
     public int    HeartbeatSeconds { get; set; } = 15;
     public bool   RunOnStartup     { get; set; } = false;
 
@@ -20,8 +21,9 @@ public class WiThrottlePrefs {
     [JsonIgnore] public string ServiceName => _defaultServiceName;
 
     [JsonIgnore]
-    public Dictionary<string, string> Properties => new() {
-        { "node", $"dccrailway-{Guid.NewGuid()}" },
-        { "version", "1.0.0" }
-    };
+    public Dictionary<string, string> Properties =>
+        new() {
+            { "node", $"dccrailway-{Guid.NewGuid()}" },
+            { "version", "1.0.0" }
+        };
 }

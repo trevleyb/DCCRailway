@@ -21,8 +21,7 @@ public class CommandProcessor(ILogger logger, ICommandStation commandStation) {
         // ------------------------------------------------------------------
         if (!string.IsNullOrEmpty(commandStr) && commandStr.Length >= 1) {
             var cmdProcessor = DetermineCommandType();
-            logger.Debug("WiThrottle Command Processor [{0}]: Recieved a command of {1} for {2}", connection.ToString(),
-                         cmdProcessor.ToString(), commandStation.AttributeInfo().Name);
+            logger.Debug("WiThrottle Command Processor [{0}]: Recieved a command of {1} for {2}", connection.ToString(), cmdProcessor.ToString(), commandStation.AttributeInfo().Name);
             cmdProcessor.Execute(commandStr);
             if (cmdProcessor is CmdQuit) return true;
         }
@@ -32,9 +31,8 @@ public class CommandProcessor(ILogger logger, ICommandStation commandStation) {
         IThrottleCmd DetermineCommandType() {
             if (string.IsNullOrEmpty(commandStr)) return new CmdIgnore(logger, connection);
             var commandChar = (int)commandStr[0];
-            var commandType = Enum.IsDefined(typeof(CommandType), commandChar)
-                ? (CommandType)commandChar
-                : CommandType.Ignore;
+            var commandType = Enum.IsDefined(typeof(CommandType), commandChar) ? (CommandType)commandChar : CommandType.Ignore;
+
             return commandType switch {
                 CommandType.Name          => new CmdName(logger, connection),
                 CommandType.Hardware      => new CmdHardware(logger, connection),

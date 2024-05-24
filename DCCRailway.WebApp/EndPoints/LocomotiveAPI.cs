@@ -11,13 +11,9 @@ public static class LocomotiveAPI {
         });
 
         app.MapGet("/layout/locomotives", async () => await Task.FromResult(entities));
-        app.MapPost("/layout/locomotives",
-                    async (Locomotive locomotive) => await Task.FromResult(Results.Ok(entities.Add(locomotive))));
-        app.MapPut("/layout/locomotives/{id}",
-                   async (string id, Locomotive locomotive) =>
-                       await Task.FromResult(Results.Ok(entities.Update(locomotive))));
-        app.MapDelete("/layout/locomotives/{id}",
-                      async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
+        app.MapPost("/layout/locomotives", async (Locomotive locomotive) => await Task.FromResult(Results.Ok(entities.Add(locomotive))));
+        app.MapPut("/layout/locomotives/{id}", async (string id, Locomotive locomotive) => await Task.FromResult(Results.Ok(entities.Update(locomotive))));
+        app.MapDelete("/layout/locomotives/{id}", async (string id) => await Task.FromResult(Results.Ok(entities.Delete(id))));
     }
 }
 
