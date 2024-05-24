@@ -10,6 +10,7 @@ public enum StateType {
     Direction,
     LastSpeed,
     LastDirection,
+    Functions,
     SpeedSteps,
     Momentum,
     Aspect,

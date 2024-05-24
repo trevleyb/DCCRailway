@@ -6,8 +6,6 @@ namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class TestEntityEvents {
-    // TODO: Add Web Events to support getting events from a repository
-
     [Test]
     public void TestThatEntityRepositoryIsEventingChanges() {
         var propertyChanged   = false;

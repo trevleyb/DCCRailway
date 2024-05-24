@@ -100,13 +100,29 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
                 logger.Information("WiThrottle Recieved Cmd: Releasing stolen loco: {0} from different owner. ", data.Address.ToString());
                 owner?.QueueMsg(new MsgAddressReleased(owner, data));
             }
-
             return [new MsgAddress(connection, data)];
         }
     }
 
     private IThrottleMsg[] PerformLocoAction(MultiThrottleMessage data) {
-        return [new MsgAddress(connection, data)];
+        if (Enum.TryParse(data.Action, out LocoAction action)) {
+            IThrottleMsg msg = action switch {
+                LocoAction.SetLeadLocoByAddress => new MsgIgnore(),
+                LocoAction.SetLeadLocoByName    => new MsgIgnore(),
+                LocoAction.SetSpeed             => new MsgIgnore(),
+                LocoAction.SendIdle             => new MsgIgnore(),
+                LocoAction.SendEmergencyStop    => new MsgIgnore(),
+                LocoAction.SetDirection         => new MsgIgnore(),
+                LocoAction.SetFunctionState     => new MsgIgnore(),
+                LocoAction.ForceFunctionState   => new MsgIgnore(),
+                LocoAction.SetSpeedSteps        => new MsgIgnore(),
+                LocoAction.SetMomentaryState    => new MsgIgnore(),
+                LocoAction.QueryValue           => new MsgIgnore(),
+                _                               => new MsgIgnore(),
+            };
+            return [msg];
+        }
+        return [new MsgIgnore()];
     }
 
     private IThrottleMsg[] ProvideLocoFunctions(MultiThrottleMessage data) {
@@ -116,4 +132,18 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
     public override string ToString() {
         return "CMD:MultiThrottle";
     }
+}
+
+internal enum LocoAction {
+    SetLeadLocoByAddress = 'C',
+    SetLeadLocoByName    = 'c',
+    SetSpeed             = 'V',
+    SendIdle             = 'I',
+    SendEmergencyStop    = 'X',
+    SetDirection         = 'R',
+    SetFunctionState     = 'F',
+    ForceFunctionState   = 'f',
+    SetSpeedSteps        = 's',
+    SetMomentaryState    = 'm',
+    QueryValue           = 'q'
 }

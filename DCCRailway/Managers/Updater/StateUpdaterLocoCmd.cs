@@ -21,10 +21,13 @@ public class StateUpdaterLocoCmd(IStateManager stateManager) : IStateUpdater {
                 stateManager.SetState(cmd.Address, StateType.Direction, DCCDirection.Stop);
                 break;
             case ICmdLocoSetFunctions cmd:
-                // TODO: How do we manage Momentary vs toggle Functions?
+                // We just set a function, so we need to update the Function Block
+                stateManager.SetState<DCCFunctionBlocks>(cmd.Address, StateType.Functions, cmd.Functions);
                 break;
             case ICmdLocoSetFunction cmd:
-                // TODO: How do we manage Momentary vs toggle Functions?
+                var currentState = stateManager.GetState<DCCFunctionBlocks>(cmd.Address, StateType.Functions) ?? new DCCFunctionBlocks();
+                currentState.SetFunction(cmd.Function, cmd.State);
+                stateManager.SetState<DCCFunctionBlocks>(cmd.Address, StateType.Functions, currentState);
                 break;
             case ICmdLocoSetMomentum cmd:
                 stateManager.SetState<DCCMomentum>(cmd.Address, StateType.Momentum, cmd.Momentum);

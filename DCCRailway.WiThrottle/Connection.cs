@@ -103,9 +103,9 @@ public class Connection {
     public void Close() {
         if (_listReference.Assignments.Count > 0) {
             foreach (var address in _listReference.Assignments.AssignedAddresses) {
-                // TODO: var layoutCmd = new LayoutCmdHelper(CommandStationManager.CommandStation!, address);
-                // layoutCmd.Release();
-                // layoutCmd.Stop();
+                var layoutCmd = new LayoutCmdHelper(CommandStation, address.Address);
+                Release(address.Address);
+                layoutCmd.Stop();
             }
         }
 

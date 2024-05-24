@@ -1,24 +1,75 @@
 using DCCRailway.Common.Types;
+using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Controllers;
 
 namespace DCCRailway.WiThrottle;
 
+/// <summary>
+/// This is a helper class that makes calls to the Command Station 
+/// </summary>
+/// <param name="commandStation">Reference to the Command Station Controller</param>
+/// <param name="address">Address of the item to send the mesage to (eg: Speed, or Direction)</param>
 public class LayoutCmdHelper(ICommandStation commandStation, DCCAddress? address = null) {
     public DCCPowerState PowerState {
         get {
-            var command = commandStation.CreateCommand<ICmdPowerGetState>();
-            if (command?.Execute() is ICmdResultPowerState res) return res.State;
+            if (GetCommandRef<ICmdPowerGetState>() is { } command) {
+                if (command?.Execute() is ICmdResultPowerState res) return res.State;
+            }
             return DCCPowerState.Unknown;
         }
     }
 
-    public void Stop() { }
+    public void Stop()                                       => SetSpeed(0, DCCDirection.Stop);
+    public void SetSpeed(byte speed, DCCDirection direction) => SetSpeed(new DCCSpeed(speed), direction);
 
-    public void Release() { }
+    public void SetSpeed(DCCSpeed speed, DCCDirection direction) {
+        if (GetCommandRef<ICmdLocoSetSpeed>() is { } command) {
+            command.Speed     = speed;
+            command.Direction = direction;
+            command.Execute();
+        }
+    }
 
-    public void Dispatch() { }
+    public void SetSpeedSteps14()  => SetSpeedSteps(DCCProtocol.DCC14);
+    public void SetSpeedSteps28()  => SetSpeedSteps(DCCProtocol.DCC28);
+    public void SetSpeedSteps128() => SetSpeedSteps(DCCProtocol.DCC128);
+
+    public void SetSpeedSteps(byte steps) {
+        if (steps == 28) SetSpeedSteps28();
+        if (steps == 14) SetSpeedSteps14();
+        SetSpeedSteps128();
+    }
+
+    private T? GetCommandRef<T>() where T : ICommand {
+        return commandStation.IsCommandSupported<T>() ? commandStation.CreateCommand<T>(address) : default(T);
+    }
+
+    public void SetSpeedSteps(DCCProtocol protocol) {
+        if (GetCommandRef<ICmdLocoSetSpeedSteps>() is { } command) {
+            command.SpeedSteps = protocol;
+            command.Execute();
+        }
+    }
+
+    public void Acquire() {
+        if (GetCommandRef<ICmdLocoAcquire>() is { } command) {
+            command.Execute();
+        }
+    }
+
+    public void Release() {
+        if (GetCommandRef<ICmdLocoRelease>() is { } command) {
+            command.Execute();
+        }
+    }
+
+    public void Dispatch() {
+        if (GetCommandRef<ICmdLocoDispatch>() is { } command) {
+            command.Execute();
+        }
+    }
 
     public bool IsReleaseSupported() {
         return commandStation.IsCommandSupported<ICmdLocoRelease>();
@@ -37,13 +88,9 @@ public class LayoutCmdHelper(ICommandStation commandStation, DCCAddress? address
     }
 
     public void SetTurnoutState(DCCTurnoutState state) {
-        if (commandStation.IsCommandSupported<ICmdTurnoutSet>()) {
-            var command = commandStation.CreateCommand<ICmdTurnoutSet>(address);
-
-            if (command != null) {
-                command.State = state;
-                command.Execute();
-            }
+        if (GetCommandRef<ICmdTurnoutSet>() is { } command) {
+            command.State = state;
+            command.Execute();
         }
     }
 

@@ -17,9 +17,10 @@ public class AssignedLocos {
     public bool Acquire(char group, DCCAddress address, Connection connection) {
         if (!IsAssigned(address)) {
             AssignedAddresses.Add(new AssignedLoco { Connection = connection, Group = group, Address = address });
+            var layoutCmd = new LayoutCmdHelper(connection.CommandStation, address);
+            layoutCmd.Acquire();
             return true;
         }
-
         return false;
     }
 
@@ -33,7 +34,7 @@ public class AssignedLocos {
                 addresses.Add(loco.Address);
             }
 
-        foreach (var loco in foundLocos) AssignedAddresses.Remove(loco);
+        foreach (var loco in foundLocos) Release(loco.Address);
         return addresses;
     }
 
@@ -43,6 +44,9 @@ public class AssignedLocos {
         var loco = AssignedAddresses.FirstOrDefault(x => x.Address.Address == address.Address);
 
         if (loco is not null) {
+            var layoutCmd = new LayoutCmdHelper(loco.Connection.CommandStation, loco.Address);
+            layoutCmd.Release();
+            layoutCmd.Dispatch();
             AssignedAddresses.Remove(loco);
             return loco.Connection;
         }
