@@ -3,5 +3,6 @@
 public enum DCCProtocol {
     DCC14  = 01,
     DCC28  = 02,
-    DCC128 = 03
+    DCC27  = 03,
+    DCC128 = 04
 }

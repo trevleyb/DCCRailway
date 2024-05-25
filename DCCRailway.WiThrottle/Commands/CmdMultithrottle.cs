@@ -174,27 +174,71 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
     }
 
     private IThrottleMsg SetFunctionState(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        // TODO
         return new MsgIgnore();
     }
 
     private IThrottleMsg ForceFunctionState(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        // TODO
         return new MsgIgnore();
     }
 
     private IThrottleMsg SetSpeedSteps(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        return new MsgIgnore();
+        byte.TryParse(actionValue, out var speedSteps);
+
+        var protocol = speedSteps switch {
+            1 => DCCProtocol.DCC128,
+            2 => DCCProtocol.DCC28,
+            4 => DCCProtocol.DCC27,
+            8 => DCCProtocol.DCC14,
+            _ => DCCProtocol.DCC128
+        };
+        loco.SpeedSteps = protocol;
+        cmdHelper.SetSpeedSteps(protocol);
+        return new MsgString(data.Message); // Just return the original message
     }
 
     private IThrottleMsg SetMomentaryState(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        return new MsgIgnore();
+        var stateStr    = actionValue[0].ToString();
+        var functionStr = actionValue[1..];
+        byte.TryParse(stateStr, out var state);
+        byte.TryParse(functionStr, out var function);
+        loco.SetMomentaryState(function, state == 0 ? MomentaryStateEnum.Latching : MomentaryStateEnum.Momentary);
+        return new MsgString(data.Message); // Just return the original message
     }
 
     private IThrottleMsg QueryValue(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        return new MsgIgnore();
+        return actionValue switch {
+            "V" => new MsgString($"{data.Action}{data.Group}{data.Function}{data.Address}<;>V{loco.Speed.Value}"),
+            "D" => new MsgString($"{data.Action}{data.Group}{data.Function}{data.Address}<;>V{(loco.Direction == DCCDirection.Forward ? 1 : 0)}"),
+            "S" => new MsgString($"{data.Action}{data.Group}{data.Function}{data.Address}<;>V{ConvertSpeedSteps(loco.SpeedSteps)}"),
+            "M" => new MsgIgnore(), // Not sure what the format of this should be
+            _   => new MsgIgnore()
+        };
     }
 
     public override string ToString() {
         return "CMD:MultiThrottle";
+    }
+
+    public byte ConvertSpeedSteps(DCCProtocol protocol) {
+        return protocol switch {
+            DCCProtocol.DCC14  => 8,
+            DCCProtocol.DCC27  => 4,
+            DCCProtocol.DCC28  => 2,
+            DCCProtocol.DCC128 => 1,
+            _                  => 1
+        };
+    }
+
+    public DCCProtocol ConvertSpeedSteps(byte speedSteps) {
+        return speedSteps switch {
+            8 => DCCProtocol.DCC14,
+            4 => DCCProtocol.DCC27,
+            2 => DCCProtocol.DCC28,
+            1 => DCCProtocol.DCC128,
+            _ => DCCProtocol.DCC128
+        };
     }
 }
 
