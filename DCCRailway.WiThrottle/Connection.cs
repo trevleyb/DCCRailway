@@ -65,11 +65,11 @@ public class Connection {
 
     // Assignment Helpers
     // -------------------------------------------------------------------------------------
-    public bool        IsAddressInUse(DCCAddress address)      => _listReference.Assignments.IsAssigned(address);
-    public bool        Acquire(char group, DCCAddress address) => _listReference.Assignments.Acquire(group, address, this);
-    public Connection? Release(DCCAddress address)             => _listReference.Assignments.Release(address);
-
-    public List<DCCAddress> ReleaseAllInGroup(char dataGroup) => _listReference.Assignments.ReleaseAllInGroup(dataGroup, this);
+    public bool             IsAddressInUse(DCCAddress address)      => _listReference.Assignments.IsAssigned(address);
+    public bool             Acquire(char group, DCCAddress address) => _listReference.Assignments.Acquire(group, address, this);
+    public Connection?      Release(DCCAddress address)             => _listReference.Assignments.Release(address);
+    public AssignedLoco?    GetLoco(DCCAddress address)             => _listReference.Assignments.Get(address);
+    public List<DCCAddress> ReleaseAllInGroup(char dataGroup)       => _listReference.Assignments.ReleaseAllInGroup(dataGroup, this);
 
     // Queue Helpers
     // -------------------------------------------------------------------------------------

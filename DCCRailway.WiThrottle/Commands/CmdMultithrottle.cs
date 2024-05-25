@@ -104,20 +104,34 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
         }
     }
 
+    private IThrottleMsg[] ProvideLocoFunctions(MultiThrottleMessage data) {
+        return [new MsgLocoLabels(connection, data)];
+    }
+
     private IThrottleMsg[] PerformLocoAction(MultiThrottleMessage data) {
-        if (Enum.TryParse(data.Action, out LocoAction action)) {
+        // In all cases, the first char is the ACTION and the remainder is the data for the action
+        // ---------------------------------------------------------------------------------------
+        if (!string.IsNullOrEmpty(data.Action)) return [new MsgIgnore()];
+        var actionChar  = data.Action[0].ToString();
+        var actionValue = data.Action[1..] ?? "";
+
+        var cmdHelper = new LayoutCmdHelper(connection.CommandStation, data.Address);
+        var locoData  = connection.GetLoco(data.Address);
+        if (locoData is null) return [new MsgIgnore()];
+
+        if (Enum.TryParse(actionChar, out LocoAction action)) {
             IThrottleMsg msg = action switch {
-                LocoAction.SetLeadLocoByAddress => new MsgIgnore(),
-                LocoAction.SetLeadLocoByName    => new MsgIgnore(),
-                LocoAction.SetSpeed             => new MsgIgnore(),
-                LocoAction.SendIdle             => new MsgIgnore(),
-                LocoAction.SendEmergencyStop    => new MsgIgnore(),
-                LocoAction.SetDirection         => new MsgIgnore(),
-                LocoAction.SetFunctionState     => new MsgIgnore(),
-                LocoAction.ForceFunctionState   => new MsgIgnore(),
-                LocoAction.SetSpeedSteps        => new MsgIgnore(),
-                LocoAction.SetMomentaryState    => new MsgIgnore(),
-                LocoAction.QueryValue           => new MsgIgnore(),
+                LocoAction.SetLeadLocoByAddress => SetLeadLocoByAddress(data, actionValue, locoData, cmdHelper),
+                LocoAction.SetLeadLocoByName    => SetLeadLocoByName(data, actionValue, locoData, cmdHelper),
+                LocoAction.SetSpeed             => SetSpeed(data, actionValue, locoData, cmdHelper),
+                LocoAction.SendIdle             => SendIdle(data, actionValue, locoData, cmdHelper),
+                LocoAction.SendEmergencyStop    => SendEmergencyStop(data, actionValue, locoData, cmdHelper),
+                LocoAction.SetDirection         => SetDirection(data, actionValue, locoData, cmdHelper),
+                LocoAction.SetFunctionState     => SetFunctionState(data, actionValue, locoData, cmdHelper),
+                LocoAction.ForceFunctionState   => ForceFunctionState(data, actionValue, locoData, cmdHelper),
+                LocoAction.SetSpeedSteps        => SetSpeedSteps(data, actionValue, locoData, cmdHelper),
+                LocoAction.SetMomentaryState    => SetMomentaryState(data, actionValue, locoData, cmdHelper),
+                LocoAction.QueryValue           => QueryValue(data, actionValue, locoData, cmdHelper),
                 _                               => new MsgIgnore(),
             };
             return [msg];
@@ -125,8 +139,58 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
         return [new MsgIgnore()];
     }
 
-    private IThrottleMsg[] ProvideLocoFunctions(MultiThrottleMessage data) {
-        return [new MsgLocoLabels(connection, data)];
+    private IThrottleMsg SetLeadLocoByAddress(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        return new MsgIgnore();
+    }
+
+    private IThrottleMsg SetLeadLocoByName(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        return new MsgIgnore();
+    }
+
+    private IThrottleMsg SetSpeed(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        byte.TryParse(actionValue, out var speed);
+        loco.Speed = new DCCSpeed(speed);
+        cmdHelper.SetSpeed(speed, loco.Direction);
+        return new MsgString(data.Message);
+    }
+
+    private IThrottleMsg SendIdle(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        loco.Speed = new DCCSpeed(0);
+        cmdHelper.SetSpeed(0, loco.Direction);
+        return new MsgString(data.Message);
+    }
+
+    private IThrottleMsg SendEmergencyStop(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        loco.Speed = new DCCSpeed(0);
+        cmdHelper.Stop();
+        return new MsgString(data.Message);
+    }
+
+    private IThrottleMsg SetDirection(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        byte.TryParse(actionValue, out var direction);
+        loco.Direction = direction == 0 ? DCCDirection.Reverse : DCCDirection.Forward;
+        cmdHelper.SetSpeed(loco.Speed, loco.Direction);
+        return new MsgString(data.Message);
+    }
+
+    private IThrottleMsg SetFunctionState(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        return new MsgIgnore();
+    }
+
+    private IThrottleMsg ForceFunctionState(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        return new MsgIgnore();
+    }
+
+    private IThrottleMsg SetSpeedSteps(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        return new MsgIgnore();
+    }
+
+    private IThrottleMsg SetMomentaryState(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        return new MsgIgnore();
+    }
+
+    private IThrottleMsg QueryValue(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+        return new MsgIgnore();
     }
 
     public override string ToString() {

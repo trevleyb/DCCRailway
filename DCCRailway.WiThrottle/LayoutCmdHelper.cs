@@ -21,7 +21,14 @@ public class LayoutCmdHelper(ICommandStation commandStation, DCCAddress? address
         }
     }
 
-    public void Stop()                                       => SetSpeed(0, DCCDirection.Stop);
+    public void Stop() {
+        if (GetCommandRef<ICmdLocoStop>() is { } command) {
+            command.Execute();
+        } else {
+            SetSpeed(0, DCCDirection.Stop);
+        }
+    }
+
     public void SetSpeed(byte speed, DCCDirection direction) => SetSpeed(new DCCSpeed(speed), direction);
 
     public void SetSpeed(DCCSpeed speed, DCCDirection direction) {

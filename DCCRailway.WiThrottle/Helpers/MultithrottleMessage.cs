@@ -17,6 +17,8 @@ public class MultiThrottleMessage {
         // 3. G is the Group so we can group locos
         // 4. Function must be one of + - S A L
         //
+        Message = commandStr;
+
         try {
             if (commandStr[0] != 'M') throw new Exception("Invalid Multi-Throttle Command.");
             Group    = commandStr[1];
@@ -45,9 +47,10 @@ public class MultiThrottleMessage {
         }
     }
 
-    public char       Group    { get; }
-    public char       Function { get; }
-    public DCCAddress Address  { get; }
-    public string     Action   { get; }
-    public bool       IsValid  { get; }
+    public string     Message  { get; private set; }
+    public char       Group    { get; private set; }
+    public char       Function { get; private set; }
+    public DCCAddress Address  { get; private set; }
+    public string     Action   { get; private set; }
+    public bool       IsValid  { get; private set; }
 }

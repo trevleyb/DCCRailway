@@ -10,6 +10,11 @@ public class AssignedLocos {
 
     public int Count => AssignedAddresses.Count;
 
+    public AssignedLoco? Get(DCCAddress address) {
+        var entry = AssignedAddresses.FirstOrDefault(assigned => assigned.Address.Equals(address));
+        return entry;
+    }
+
     public bool IsAssigned(DCCAddress address) {
         return AssignedAddresses.Any(assigned => assigned.Address.Equals(address));
     }
