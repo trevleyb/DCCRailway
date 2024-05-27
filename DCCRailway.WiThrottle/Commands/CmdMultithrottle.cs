@@ -5,7 +5,7 @@ using Serilog;
 
 namespace DCCRailway.WiThrottle.Commands;
 
-public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd {
+public partial class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
         logger.Information("WiThrottle Recieved Cmd from [{0}]: Multithrottle - {1}:{3}=>'{2}'", connection.ConnectionHandle, ToString(), commandStr, connection.ToString());
 
@@ -19,12 +19,12 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
             // Logger.Log.Information("{0}=>'{1}' Split into: '{2}'.'{3}' => '{4}'", ToString(), commandStr, data.Function, data.Address, data.Action);
 
             response = data.Function switch {
-                '+' => RequestLocoAccess(data),
-                '-' => ReleaseLocoAccess(data),
-                'S' => StealLocoAddress(data),
-                'L' => ProvideLocoFunctions(data),
-                'A' => PerformLocoAction(data),
-                _   => null
+                ThrottleFunctionEnum.AcquireLoco          => RequestLocoAccess(data),
+                ThrottleFunctionEnum.ReleaseLoco          => ReleaseLocoAccess(data),
+                ThrottleFunctionEnum.StealLoco            => StealLocoAddress(data),
+                ThrottleFunctionEnum.ProvideLocoFunctions => ProvideLocoFunctions(data),
+                ThrottleFunctionEnum.PerformLocoAction    => PerformLocoAction(data),
+                _                                         => null
             };
             if (response is not null) connection.QueueMsg(response);
         } catch {
@@ -107,151 +107,4 @@ public class CmdMultiThrottle(ILogger logger, Connection connection) : ThrottleC
     private IThrottleMsg[] ProvideLocoFunctions(MultiThrottleMessage data) {
         return [new MsgLocoLabels(connection, data)];
     }
-
-    private IThrottleMsg[] PerformLocoAction(MultiThrottleMessage data) {
-        // In all cases, the first char is the ACTION and the remainder is the data for the action
-        // ---------------------------------------------------------------------------------------
-        if (!string.IsNullOrEmpty(data.Action)) return [new MsgIgnore()];
-        var actionChar  = data.Action[0].ToString();
-        var actionValue = data.Action[1..] ?? "";
-
-        var cmdHelper = new LayoutCmdHelper(connection.CommandStation, data.Address);
-        var locoData  = connection.GetLoco(data.Address);
-        if (locoData is null) return [new MsgIgnore()];
-
-        if (Enum.TryParse(actionChar, out LocoAction action)) {
-            IThrottleMsg msg = action switch {
-                LocoAction.SetLeadLocoByAddress => SetLeadLocoByAddress(data, actionValue, locoData, cmdHelper),
-                LocoAction.SetLeadLocoByName    => SetLeadLocoByName(data, actionValue, locoData, cmdHelper),
-                LocoAction.SetSpeed             => SetSpeed(data, actionValue, locoData, cmdHelper),
-                LocoAction.SendIdle             => SendIdle(data, actionValue, locoData, cmdHelper),
-                LocoAction.SendEmergencyStop    => SendEmergencyStop(data, actionValue, locoData, cmdHelper),
-                LocoAction.SetDirection         => SetDirection(data, actionValue, locoData, cmdHelper),
-                LocoAction.SetFunctionState     => SetFunctionState(data, actionValue, locoData, cmdHelper),
-                LocoAction.ForceFunctionState   => ForceFunctionState(data, actionValue, locoData, cmdHelper),
-                LocoAction.SetSpeedSteps        => SetSpeedSteps(data, actionValue, locoData, cmdHelper),
-                LocoAction.SetMomentaryState    => SetMomentaryState(data, actionValue, locoData, cmdHelper),
-                LocoAction.QueryValue           => QueryValue(data, actionValue, locoData, cmdHelper),
-                _                               => new MsgIgnore(),
-            };
-            return [msg];
-        }
-        return [new MsgIgnore()];
-    }
-
-    private IThrottleMsg SetLeadLocoByAddress(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        return new MsgIgnore();
-    }
-
-    private IThrottleMsg SetLeadLocoByName(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        return new MsgIgnore();
-    }
-
-    private IThrottleMsg SetSpeed(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        byte.TryParse(actionValue, out var speed);
-        loco.Speed = new DCCSpeed(speed);
-        cmdHelper.SetSpeed(speed, loco.Direction);
-        return new MsgString(data.Message);
-    }
-
-    private IThrottleMsg SendIdle(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        loco.Speed = new DCCSpeed(0);
-        cmdHelper.SetSpeed(0, loco.Direction);
-        return new MsgString(data.Message);
-    }
-
-    private IThrottleMsg SendEmergencyStop(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        loco.Speed = new DCCSpeed(0);
-        cmdHelper.Stop();
-        return new MsgString(data.Message);
-    }
-
-    private IThrottleMsg SetDirection(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        byte.TryParse(actionValue, out var direction);
-        loco.Direction = direction == 0 ? DCCDirection.Reverse : DCCDirection.Forward;
-        cmdHelper.SetSpeed(loco.Speed, loco.Direction);
-        return new MsgString(data.Message);
-    }
-
-    private IThrottleMsg SetFunctionState(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        // TODO
-        return new MsgIgnore();
-    }
-
-    private IThrottleMsg ForceFunctionState(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        // TODO
-        return new MsgIgnore();
-    }
-
-    private IThrottleMsg SetSpeedSteps(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        byte.TryParse(actionValue, out var speedSteps);
-
-        var protocol = speedSteps switch {
-            1 => DCCProtocol.DCC128,
-            2 => DCCProtocol.DCC28,
-            4 => DCCProtocol.DCC27,
-            8 => DCCProtocol.DCC14,
-            _ => DCCProtocol.DCC128
-        };
-        loco.SpeedSteps = protocol;
-        cmdHelper.SetSpeedSteps(protocol);
-        return new MsgString(data.Message); // Just return the original message
-    }
-
-    private IThrottleMsg SetMomentaryState(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        var stateStr    = actionValue[0].ToString();
-        var functionStr = actionValue[1..];
-        byte.TryParse(stateStr, out var state);
-        byte.TryParse(functionStr, out var function);
-        loco.SetMomentaryState(function, state == 0 ? MomentaryStateEnum.Latching : MomentaryStateEnum.Momentary);
-        return new MsgString(data.Message); // Just return the original message
-    }
-
-    private IThrottleMsg QueryValue(MultiThrottleMessage data, string actionValue, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        return actionValue switch {
-            "V" => new MsgString($"{data.Action}{data.Group}{data.Function}{data.Address}<;>V{loco.Speed.Value}"),
-            "D" => new MsgString($"{data.Action}{data.Group}{data.Function}{data.Address}<;>V{(loco.Direction == DCCDirection.Forward ? 1 : 0)}"),
-            "S" => new MsgString($"{data.Action}{data.Group}{data.Function}{data.Address}<;>V{ConvertSpeedSteps(loco.SpeedSteps)}"),
-            "M" => new MsgIgnore(), // Not sure what the format of this should be
-            _   => new MsgIgnore()
-        };
-    }
-
-    public override string ToString() {
-        return "CMD:MultiThrottle";
-    }
-
-    public byte ConvertSpeedSteps(DCCProtocol protocol) {
-        return protocol switch {
-            DCCProtocol.DCC14  => 8,
-            DCCProtocol.DCC27  => 4,
-            DCCProtocol.DCC28  => 2,
-            DCCProtocol.DCC128 => 1,
-            _                  => 1
-        };
-    }
-
-    public DCCProtocol ConvertSpeedSteps(byte speedSteps) {
-        return speedSteps switch {
-            8 => DCCProtocol.DCC14,
-            4 => DCCProtocol.DCC27,
-            2 => DCCProtocol.DCC28,
-            1 => DCCProtocol.DCC128,
-            _ => DCCProtocol.DCC128
-        };
-    }
-}
-
-internal enum LocoAction {
-    SetLeadLocoByAddress = 'C',
-    SetLeadLocoByName    = 'c',
-    SetSpeed             = 'V',
-    SendIdle             = 'I',
-    SendEmergencyStop    = 'X',
-    SetDirection         = 'R',
-    SetFunctionState     = 'F',
-    ForceFunctionState   = 'f',
-    SetSpeedSteps        = 's',
-    SetMomentaryState    = 'm',
-    QueryValue           = 'q'
 }

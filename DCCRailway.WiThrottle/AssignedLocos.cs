@@ -11,12 +11,12 @@ public class AssignedLocos {
     public int Count => AssignedAddresses.Count;
 
     public AssignedLoco? Get(DCCAddress address) {
-        var entry = AssignedAddresses.FirstOrDefault(assigned => assigned.Address.Equals(address));
+        var entry = AssignedAddresses.FirstOrDefault(assigned => assigned.Address.Address.Equals(address.Address));
         return entry;
     }
 
     public bool IsAssigned(DCCAddress address) {
-        return AssignedAddresses.Any(assigned => assigned.Address.Equals(address));
+        return AssignedAddresses.Any(assigned => assigned.Address.Address.Equals(address.Address));
     }
 
     public bool Acquire(char group, DCCAddress address, Connection connection) {

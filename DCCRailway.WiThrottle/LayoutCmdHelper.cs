@@ -108,4 +108,12 @@ public class LayoutCmdHelper(ICommandStation commandStation, DCCAddress? address
             _                 => null
         };
     }
+
+    public void SetFunctionState(DCCAddress locoAddress, byte functionNum, FunctionStateEnum stateEnum) {
+        if (GetCommandRef<ICmdLocoSetFunction>() is { } command) {
+            command.Function = functionNum;
+            command.State    = stateEnum == FunctionStateEnum.On;
+            command.Execute();
+        }
+    }
 }
