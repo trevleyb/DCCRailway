@@ -4,6 +4,7 @@ using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Adapters.Events;
+using DCCRailway.Controller.Adapters.Helpers;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Exceptions;
 using Serilog;
@@ -12,6 +13,15 @@ namespace DCCRailway.Controller.Adapters;
 
 public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     private SerialPort? _connection;
+
+    protected SerialAdapter(ILogger logger, SerialAdapterSettings settings) : this(logger) {
+        PortName = settings.PortName;
+        BaudRate = settings.BaudRate;
+        DataBits = settings.DataBits;
+        Parity   = settings.Parity;
+        StopBits = settings.StopBits;
+        Timeout  = settings.Timeout;
+    }
 
     [Parameter("Name of the Serial port to use")]
     public string PortName { get; set; }
@@ -33,6 +43,9 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     ///     Return a list of available port names that can be used by the adapter
     /// </summary>
     public static List<string> PortNames => SerialPort.GetPortNames().ToList();
+
+    public abstract List<SerialAdapterSettings> ValidPorts   { get; }
+    public abstract SerialAdapterSettings?      ValidSetting { get; }
 
     public bool IsConnected => _connection?.IsOpen ?? false;
 
@@ -142,6 +155,8 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
         Dispose(true);
         GC.SuppressFinalize(this); // Violates rule
     }
+
+    public abstract void ConfigureValidSettings();
 
     /// <summary>
     ///     Override the ToString to display "Serial = tty @ 9600,8,1,N"

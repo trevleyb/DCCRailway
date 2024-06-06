@@ -16,7 +16,7 @@ public static class TestWiThrottle {
 
         // Find the NCE USB Serial Adapter that returns a valid response - send 0x80 and get ! returned
         // --------------------------------------------------------------------------------------------
-        var ports = SerialAdapterFinder.Find(0x80, 0x21, null, 9600, 8, Parity.None, StopBits.One);
+        var ports = SerialAdapterFinder.Find(0x80, 0x21, null, [9600], [8], [Parity.None], [StopBits.One]);
         if (ports.Count == 0) {
             logger.Error("No Serial Ports found that match the NCE USB Serial Adapter");
             return;
