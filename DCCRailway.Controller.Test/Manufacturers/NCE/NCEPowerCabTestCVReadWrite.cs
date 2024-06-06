@@ -12,10 +12,10 @@ namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 public class NCEPowerCabTestCVReadWrite {
     [Test]
     public void SwitchMainandProg() {
-        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger, "COM3", 19200);
+        var adapter = new NCEUSBSerial(LoggerHelper.DebugLogger, "COM3", 19200);
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
 
-        var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);
+        var system = new CommandStationFactory(LoggerHelper.DebugLogger).Find("NCEPowerCab")?.Create(adapter);
 
         //var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
         Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab commandStation created.");
@@ -36,9 +36,9 @@ public class NCEPowerCabTestCVReadWrite {
 
     [Test]
     public void ReadCV() {
-        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger, "COM3", 19200);
+        var adapter = new NCEUSBSerial(LoggerHelper.DebugLogger, "COM3", 19200);
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
-        var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);
+        var system = new CommandStationFactory(LoggerHelper.DebugLogger).Find("NCEPowerCab")?.Create(adapter);
 
         //var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
         Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab commandStation created.");
@@ -72,9 +72,9 @@ public class NCEPowerCabTestCVReadWrite {
 
     [Test]
     public void ReadWriteCV() {
-        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger, "COM3", 19200);
+        var adapter = new NCEUSBSerial(LoggerHelper.DebugLogger, "COM3", 19200);
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
-        var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);
+        var system = new CommandStationFactory(LoggerHelper.DebugLogger).Find("NCEPowerCab")?.Create(adapter);
 
         //var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
         Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab commandStation created.");

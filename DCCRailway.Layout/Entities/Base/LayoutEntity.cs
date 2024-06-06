@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 using DCCRailway.Layout.Events;
 
 namespace DCCRailway.Layout.Entities.Base;
@@ -44,4 +45,7 @@ public abstract class LayoutEntity : PropertyChangeBase, INotifyPropertyChanged,
         get => _parameters;
         set => SetField(ref _parameters, value);
     }
+
+    [JsonIgnore] public bool IsDirty     { get; set; } = false;
+    [JsonIgnore] public bool IsTemporary { get; set; } = false;
 }

@@ -7,7 +7,7 @@ namespace DCCRailway.Controller.Test;
 public class LoadSystemsTest {
     [Test]
     public void LoadSystemsList() {
-        var systems = new CommandStationFactory(LoggerHelper.ConsoleLogger).Controllers;
+        var systems = new CommandStationFactory(LoggerHelper.DebugLogger).Controllers;
         Assert.That(systems, Is.Not.Null, "Should have at least 1 commandStation returned from the Controllers call");
     }
 

@@ -1,20 +1,20 @@
 using System.Text;
+using DCCRailway.Common.Types;
 using DCCRailway.Layout.Entities;
-using DCCRailway.WiThrottle.Helpers;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgLocoLabels(Connection connection, MultiThrottleMessage data) : ThrottleMsg, IThrottleMsg {
+public class MsgLocoLabels(Connection connection, DCCAddress address, char group, char function) : ThrottleMsg, IThrottleMsg {
     private const byte maxLabels = 29;
 
     public override string Message {
         get {
             var sb = new StringBuilder();
-            sb.Append($"M{data.Group}L");
-            sb.Append(data.Address.IsLong ? "L" : "S");
-            sb.Append(data.Address.Address);
+            sb.Append($"M{group}L");
+            sb.Append(address.IsLong ? "L" : "S");
+            sb.Append(address.Address);
             sb.Append("<;>");
-            var loco = connection.RailwaySettings.Locomotives.Find(x => x.Address.Address == data.Address.Address);
+            var loco = connection.RailwaySettings.Locomotives.Find(x => x.Address.Address == address.Address);
             if (loco is not null) sb.Append(GenerateLabels(loco));
             sb.AppendLine();
             return sb.ToString();

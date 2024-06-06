@@ -8,7 +8,7 @@ namespace DCCRailway.Controller.Test;
 public class CommandTypeTest {
     [Test]
     public void TestThatWeCangenerateAndAcceptTypes() {
-        var commandStation = new VirtualCommandStation(LoggerHelper.ConsoleLogger);
+        var commandStation = new VirtualCommandStation(LoggerHelper.DebugLogger);
         commandStation.CreateAdapter("Virtual");
         var command = commandStation.CreateCommand<IDummyCmd>();
         Assert.That(command, Is.Not.Null);

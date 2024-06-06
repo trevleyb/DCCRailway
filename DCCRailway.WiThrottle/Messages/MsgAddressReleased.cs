@@ -1,15 +1,15 @@
 using System.Text;
-using DCCRailway.WiThrottle.Helpers;
+using DCCRailway.Common.Types;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgAddressReleased(Connection connection, MultiThrottleMessage data) : ThrottleMsg, IThrottleMsg {
+public class MsgAddressReleased(Connection connection, DCCAddress address, char group, char function) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
             var sb = new StringBuilder();
-            sb.Append($"M{data.Group}-");
-            sb.Append(data.Address.IsLong ? "L" : "S");
-            sb.Append(data.Address.Address);
+            sb.Append($"M{group}-");
+            sb.Append(address.IsLong ? "L" : "S");
+            sb.Append(address.Address);
             sb.AppendLine("<;>");
             return sb.ToString();
         }

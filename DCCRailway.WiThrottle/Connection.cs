@@ -43,7 +43,7 @@ public class Connection {
 
     public int HeartbeatSeconds {
         get => _heartbeatSeconds;
-        init => _heartbeatSeconds = value <= 0 ? 0 : value >= 60 ? 60 : value;
+        set => _heartbeatSeconds = value <= 0 ? 0 : value >= 60 ? 60 : value;
     }
 
     public bool               IsActive       => !string.IsNullOrEmpty(HardwareID) && (Client?.Client?.Connected ?? false);
@@ -58,10 +58,9 @@ public class Connection {
     /// </summary>
     public bool IsHeartbeatOk => HeartbeatState == HeartbeatStateEnum.Off || (DateTime.Now - LastHeartbeat).TotalSeconds < HeartbeatSeconds;
 
-    public IThrottleMsg? NextMsg => _serverMessages.HasMessages ? _serverMessages.Dequeue() : null;
-    public bool          HasMsg  => _serverMessages.HasMessages;
-
-    public void UpdateHeartbeat() => LastHeartbeat = DateTime.Now;
+    public IThrottleMsg? NextMsg           => _serverMessages.HasMessages ? _serverMessages.Dequeue() : null;
+    public bool          HasMsg            => _serverMessages.HasMessages;
+    public void          UpdateHeartbeat() => LastHeartbeat = DateTime.Now;
 
     // Assignment Helpers
     // -------------------------------------------------------------------------------------
@@ -70,6 +69,7 @@ public class Connection {
     public Connection?      Release(DCCAddress address)             => _listReference.Assignments.Release(address);
     public AssignedLoco?    GetLoco(DCCAddress address)             => _listReference.Assignments.Get(address);
     public List<DCCAddress> ReleaseAllInGroup(char dataGroup)       => _listReference.Assignments.ReleaseAllInGroup(dataGroup, this);
+    public List<DCCAddress> AssignedLocos(char dataGroup)           => _listReference.Assignments.GetAllAssignedForConnection(this, dataGroup);
 
     // Queue Helpers
     // -------------------------------------------------------------------------------------

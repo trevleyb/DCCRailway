@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Common.Types;
@@ -17,6 +18,12 @@ public class DCCAddress : PropertyChangedBase, IEqualityComparer<DCCAddress> {
     private DCCProtocol    _protocol;
 
     public DCCAddress() : this(3, DCCAddressType.Short) { }
+
+    // Helper constructor to allow a string to be passed in as a string value of the address
+    // Strip away all non-numeric values as in some cases we my have a Char-prefix
+    public DCCAddress(string address) {
+        Address = int.TryParse(Regex.Replace(address, @"\D", ""), out var addressVal) ? addressVal : 0;
+    }
 
     public DCCAddress(int address, DCCAddressType addressType = DCCAddressType.Long, DCCProtocol protocol = DCCProtocol.DCC28) {
         Address     = address;
@@ -59,6 +66,7 @@ public class DCCAddress : PropertyChangedBase, IEqualityComparer<DCCAddress> {
         set {
             if (value < 0 || value >= MAX_ADDRESS)
                 throw new ArgumentOutOfRangeException($"Address must be in the range of 1..{MAX_ADDRESS}");
+
             SetPropertyField(ref _address, value);
             if (value >= 128) AddressType = DCCAddressType.Long;
             if (value == 0) AddressType   = DCCAddressType.Broadcast;
@@ -94,6 +102,7 @@ public class DCCAddress : PropertyChangedBase, IEqualityComparer<DCCAddress> {
                 DCCAddressType.Broadcast => "BRC",
                 _                        => "S"
             };
+
             return $"{Address:D4}({shortOrLong})";
         }
     }
@@ -118,18 +127,19 @@ public class DCCAddress : PropertyChangedBase, IEqualityComparer<DCCAddress> {
     ///     Calculates the high & low bytes of the address and ensures, if this is a SHORT
     ///     adress that the high order byte is always 0, but if a LONG adress then both
     ///     bytes are used with the HIGH address having 11000000 added to it (highest 2 bits on)
+    ///     but only if the address type is a LOCO
     /// </summary>
     private void CalculateHighLowAddress() {
         if (AddressType == DCCAddressType.Short) {
-            _lowAddress  = (byte)Address; // Take the low order bits
-            _highAddress = 0;             // Short address is ALWAYS 0
+            _lowAddress  = (byte)(Address & 0b11111111); // Take the low order bits
+            _highAddress = 0;                            // Short address is ALWAYS 0
         } else if (AddressType == DCCAddressType.Long) {
-            _lowAddress  = (byte)Address;               // Take the low order bits
-            _highAddress = (byte)(Address >> 8);        // Take the 2nd order bits
-            _highAddress = (byte)(_highAddress | 0xC0); // Turn on 2 bits to indicate LONG address
+            _lowAddress  = (byte)(Address & 0b11111111); // Take the low order bits
+            _highAddress = (byte)(Address >> 8);         // Take the 2nd order bits
+            _highAddress = (byte)(_highAddress | 0xC0);  // Turn on 2 bits to indicate LONG address
         } else {
-            _lowAddress  = (byte)Address;        // Take the low order bits
-            _highAddress = (byte)(Address >> 8); // Take the 2nd order bits
+            _lowAddress  = (byte)(Address & 0b11111111); // Take the low order bits
+            _highAddress = (byte)(Address >> 8);         // Take the 2nd order bits
         }
     }
 

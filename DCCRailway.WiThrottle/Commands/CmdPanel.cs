@@ -10,7 +10,8 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
         logger.Information("WiThrottle Recieved Cmd from [{0}]: Panel {1}:{3}=>'{2}'", connection.ConnectionHandle, ToString(), commandStr, connection.ToString());
 
         try {
-            switch (commandStr[..3].ToUpper()) {
+            var command = commandStr[..3].ToUpper();
+            switch (command) {
             case "PPA":
                 SetPowerState(commandStr[3]);
                 break;
@@ -27,8 +28,8 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
                 logger.Information("WiThrottle Recieved Cmd: Panel - {0}: Unknown Panel TurnoutCommand recieved=>'{1}'", ToString(), commandStr);
                 break;
             }
-        } catch {
-            logger.Error("WiThrottle Recieved Cmd: Panel - {0}: Unable to Process the command =>'{1}'", ToString(), commandStr);
+        } catch (Exception ex) {
+            logger.Error("WiThrottle Recieved Cmd: Panel - {0}: Unable to Process the command =>'{1}' due to: {2}", ToString(), commandStr, ex.Message);
         }
     }
 
@@ -40,19 +41,52 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
     private void ThrowTurnout(string commandStr) {
         var turnoutID = commandStr[1..];
 
+        // See if there is an entry for this turnout in our collection of Turnouts
+        // If there is, use that so we can toggle the state if we can, otherwise
+        // use the ID that has been passed as the Address of the turnout. 
+        // -------------------------------------------------------------------------
         if (connection.RailwaySettings.Turnouts is { } turnouts) {
-            var turnout    = turnouts.GetByID(turnoutID);
-            var layoutCmds = new LayoutCmdHelper(connection.CommandStation, turnout?.Address);
-
-            if (turnout != null) {
-                turnout.CurrentState = (TurnoutCommand)commandStr[0] switch {
-                    TurnoutCommand.ToggleTurnout => turnout.CurrentState == DCCTurnoutState.Closed ? DCCTurnoutState.Thrown : DCCTurnoutState.Closed,
-                    TurnoutCommand.CloseTurnout  => DCCTurnoutState.Closed,
-                    TurnoutCommand.ThrowTurnout  => DCCTurnoutState.Thrown,
-                    _                            => throw new ArgumentOutOfRangeException()
+            var turnout = turnouts.GetByID(turnoutID) ?? null;
+            if (turnout is null) {
+                turnout = new Turnout(turnoutID) {
+                    Name         = "Turnout " + turnoutID,
+                    Address      = new DCCAddress(turnoutID),
+                    CurrentState = DCCTurnoutState.Closed,
+                    IsManual     = true
                 };
-                layoutCmds.SetTurnoutState(turnout.CurrentState);
-                connection.QueueMsgToAll(new MsgTurnoutState(connection, turnout));
+
+                turnouts.Add(turnout);
+            }
+
+            if (turnout.Address.Address > 0) {
+                var layoutCmds = new LayoutCmdHelper(connection.CommandStation, turnout.Address);
+                var state      = commandStr[0];
+
+                switch (state) {
+                case '2':
+                    turnout.CurrentState = (TurnoutCommand)commandStr[0] switch {
+                        TurnoutCommand.ToggleTurnout => turnout.CurrentState == DCCTurnoutState.Closed ? DCCTurnoutState.Thrown : DCCTurnoutState.Closed,
+                        TurnoutCommand.CloseTurnout  => DCCTurnoutState.Closed,
+                        TurnoutCommand.ThrowTurnout  => DCCTurnoutState.Thrown,
+                        _                            => throw new ArgumentOutOfRangeException()
+                    };
+
+                    layoutCmds.SetTurnoutState(turnout.CurrentState);
+                    connection.QueueMsgToAll(new MsgTurnoutState(connection, turnout));
+                    break;
+                case 'C':
+                    turnout.CurrentState = DCCTurnoutState.Closed;
+                    layoutCmds.SetTurnoutState(DCCTurnoutState.Closed);
+                    connection.QueueMsgToAll(new MsgTurnoutState(connection, turnoutID, DCCTurnoutState.Closed));
+                    break;
+                case 'T':
+                    turnout.CurrentState = DCCTurnoutState.Thrown;
+                    layoutCmds.SetTurnoutState(DCCTurnoutState.Thrown);
+                    connection.QueueMsgToAll(new MsgTurnoutState(connection, turnoutID, DCCTurnoutState.Thrown));
+                    break;
+                default:
+                    break;
+                }
             }
         }
     }
@@ -71,16 +105,16 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
                 DeactiveRoutes(route);
                 route.State = RouteState.Active;
 
-                if ((RouteCommand)commandStr[0] == RouteCommand.Active)
+                if ((RouteCommand)commandStr[0] == RouteCommand.Active) {
                     foreach (var turnoutEntry in route.RouteTurnouts) {
-                        var turnout = connection.RailwaySettings.Turnouts?[turnoutEntry.TurnoutID];
-
+                        var turnout = connection.RailwaySettings.Turnouts.GetByID(turnoutEntry.TurnoutID);
                         if (turnout is { } item) {
                             var layoutCmds = new LayoutCmdHelper(connection.CommandStation, item.Address);
                             item.CurrentState = turnoutEntry.State;
                             layoutCmds.SetTurnoutState(item.CurrentState);
                         }
                     }
+                }
 
                 connection.QueueMsgToAll(new MsgRouteState(connection, route));
             }

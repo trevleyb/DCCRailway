@@ -11,7 +11,7 @@ public class BackgroundWorkerTest {
         var itStopped = false;
         var didWork   = 0;
 
-        var bw = new BackgroundWorkerTestClass(LoggerHelper.ConsoleLogger, "test", new TimeSpan(0, 0, 1));
+        var bw = new BackgroundWorkerTestClass(LoggerHelper.DebugLogger, "test", new TimeSpan(0, 0, 1));
         bw.WorkStarted    += (sender, args) => itStarted = true;
         bw.WorkFinished   += (sender, args) => itStopped = true;
         bw.WorkInProgress += (sender, args) => didWork++;

@@ -29,7 +29,7 @@ public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, T
     }
 
     public TEntity? GetByID(string id) {
-        return this[id] ?? default(TEntity?);
+        return Contains(id) ? this[id] : default(TEntity?) ?? default(TEntity?);
     }
 
     public TEntity? GetByName(string name) {
@@ -43,13 +43,14 @@ public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, T
     public TEntity? Update(TEntity entity) {
         try {
             _atomicMutex.Wait();
-
             if (ContainsKey(entity.Id)) {
                 this[entity.Id] = entity;
                 OnItemChanged(entity.Id, RepositoryChangeAction.Update);
                 return entity;
             } else {
-                throw new KeyNotFoundException("Provided key in the Entity does not exist.");
+                if (string.IsNullOrEmpty(entity.Id)) entity.Id = GetNextID();
+                if (TryAdd(entity.Id, entity)) OnItemChanged(entity.Id, RepositoryChangeAction.Add);
+                return this[entity.Id];
             }
         } finally {
             _atomicMutex.Release();

@@ -13,9 +13,8 @@ namespace DCCRailway.WiThrottle;
 /// </summary>
 public class Connections(ILogger logger) {
     public readonly List<Connection> ActiveConnections = [];
-
-    public readonly AssignedLocos Assignments = new();
-    public          int           Count => ActiveConnections.Count;
+    public readonly AssignedLocos    Assignments       = new();
+    public          int              Count => ActiveConnections.Count;
 
     /// <summary>
     ///     Add a new entry into the list of connected Throttles

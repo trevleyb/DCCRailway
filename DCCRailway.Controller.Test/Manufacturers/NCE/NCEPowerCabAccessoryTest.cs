@@ -12,13 +12,13 @@ namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 public class NCEPowerCabAccessoryTest {
     [Test]
     public void TogglePoints() {
-        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger);
+        var adapter = new NCEUSBSerial(LoggerHelper.DebugLogger);
         adapter.PortName = "COM3";
         adapter.BaudRate = 9600;
         ;
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
 
-        var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);
+        var system = new CommandStationFactory(LoggerHelper.DebugLogger).Find("NCEPowerCab")?.Create(adapter);
         Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab commandStation created.");
         Assert.That(system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab CommandStation Created");
 

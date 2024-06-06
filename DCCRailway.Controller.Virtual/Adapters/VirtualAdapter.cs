@@ -11,10 +11,10 @@ namespace DCCRailway.Controller.Virtual.Adapters;
 public class VirtualAdapter(ILogger logger) : ConsoleAdapter(logger), IAdapter {
     public int FastClockRatio = 1;
 
-    public DateTime FastClockSetTime;
-    public bool     FastClockState = false;
+    public DateTime      FastClockSetTime;
+    public bool          FastClockState = false;
+    public DCCPowerState PowerState     = DCCPowerState.Unknown;
 
-    public DCCPowerState PowerState = DCCPowerState.Unknown;
     /*
     _lastResult = command.GetType() switch {
         ICmdPowerSetOn        => _simulator!.SetPowerState(true),

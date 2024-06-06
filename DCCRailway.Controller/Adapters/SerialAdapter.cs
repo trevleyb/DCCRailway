@@ -54,10 +54,10 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
             //    OnDataRecieved(new DataRecvArgs(args.ToString()!.ToByteArray(), this));
             //};
 
-            _connection.ErrorReceived += delegate(object sender, SerialErrorReceivedEventArgs args) {
-                logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - SerialConnection Error Occurred: {0}", args);
-                OnErrorOccurred(new DataErrorArgs(args.EventType.ToString(), this));
-            };
+            //_connection.ErrorReceived += delegate(object sender, SerialErrorReceivedEventArgs args) {
+            //    logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - SerialConnection Error Occurred: {0}", args);
+            //    OnErrorOccurred(new DataErrorArgs(args.EventType.ToString(), this));
+            //};
             _connection.Open();
         } catch (Exception ex) {
             throw new AdapterException(this.AttributeInfo().Name, "Could not connect to the device: " + PortName, ex);

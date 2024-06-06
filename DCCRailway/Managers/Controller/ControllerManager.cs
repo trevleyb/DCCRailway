@@ -44,6 +44,7 @@ public class ControllerManager {
     public void Configure(DCCRailway.Layout.Configuration.Controller controller) {
         if (controller is null)
             throw new ApplicationException("Cannot start the Entities Layout as no Controllers are defined.");
+
         var commandStation = CreateCommandStationController(controller);
 
         if (commandStation != null) {
@@ -69,6 +70,7 @@ public class ControllerManager {
             foreach (var parameter in controller.Parameters)
                 if (commandStation.IsMappableParameter(parameter.Name))
                     commandStation.SetMappableParameter(parameter.Name, parameter.Value);
+
             return commandStation;
         } catch (Exception ex) {
             _logger.Error("Unable to instantiate an instance of the specified commandStation: {0} => {1}", controller, ex.Message);
@@ -87,16 +89,20 @@ public class ControllerManager {
         // configure the Adapter using the provided Parameters.
         // -----------------------------------------------------------------------------
         try {
-            if (controller.Adapters.Count != 1)
+            if (string.IsNullOrEmpty(controller.DefaultAdapter) && controller.Adapters.Count != 1)
                 throw new ControllerException("Only a single Adapter can currently be configured for a Controller.");
 
-            if (controller.Adapters[0] is { } controllerAdapter) {
+            var adapter = controller.Adapters.Count == 1 ? 0 : controller.Adapters.FindIndex(adapter => adapter.Name == controller.DefaultAdapter);
+            if (controller.Adapters[adapter] is { } controllerAdapter) {
                 var adapterInstance = commandStation.CreateAdapter(controllerAdapter.Name) ?? throw new AdapterException("Unable to create an Adapter of type: {0}", controllerAdapter.Name);
-
-                foreach (var parameter in controllerAdapter.Parameters)
-                    if (adapterInstance.IsMappableParameter(parameter.Name))
+                foreach (var parameter in controllerAdapter.Parameters) {
+                    if (adapterInstance.IsMappableParameter(parameter.Name)) {
                         adapterInstance.SetMappableParameter(parameter.Name, parameter.Value);
+                    }
+                }
+
                 commandStation.Adapter = adapterInstance;
+                commandStation.Adapter.Connect();
             }
         } catch (Exception ex) {
             _logger.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapters, ex.Message);

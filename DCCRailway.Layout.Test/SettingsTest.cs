@@ -8,7 +8,7 @@ public class SettingsTest {
     [Test]
     public void TestEntityRepositoryAddAndStore() {
         // This will either load the file, or will create a new one if it does not exist.
-        var config = new RailwaySettings(LoggerHelper.ConsoleLogger).New("./TestConfig", "TestFile");
+        var config = new RailwaySettings(LoggerHelper.DebugLogger).New("./TestConfig", "TestFile");
 
         var accessoryRepository = config.Accessories;
         accessoryRepository.Add(new Accessory { Name = "TestAccessory1", Description = "Test Accessory Description1" });
@@ -42,7 +42,7 @@ public class SettingsTest {
 
         config.Save();
 
-        var config2 = new RailwaySettings(LoggerHelper.ConsoleLogger).Load("./TestConfig", "TestFile");
+        var config2 = new RailwaySettings(LoggerHelper.DebugLogger).Load("./TestConfig", "TestFile");
         Assert.That(config2, Is.Not.Null);
 
         var accs = config2.Accessories.GetAll();

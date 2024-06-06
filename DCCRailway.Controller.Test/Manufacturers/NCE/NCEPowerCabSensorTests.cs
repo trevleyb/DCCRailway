@@ -56,13 +56,13 @@ public class NCEPowerCabSensorTest {
 
     [Test]
     public void TestTheSensor() {
-        var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger);
+        var adapter = new NCEUSBSerial(LoggerHelper.DebugLogger);
         adapter.PortName = "COM3";
         adapter.BaudRate = 9600;
         ;
         Assert.That(adapter, Is.Not.Null, "Should have a Serial Adapter created");
 
-        var system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(adapter);
+        var system = new CommandStationFactory(LoggerHelper.DebugLogger).Find("NCEPowerCab")?.Create(adapter);
 
         //var system = SystemFactory.Create("NCE", "NCEPowerCab", adapter);
         Assert.That(system, Is.Not.Null, "Should have an NCE PowerCab commandStation created.");

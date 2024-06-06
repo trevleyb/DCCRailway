@@ -6,7 +6,7 @@ namespace DCCRailway.Layout.Entities;
 
 [Serializable]
 [DebuggerDisplay("TURNOUT={Id}, Name: {Name}")]
-public class Turnout : LayoutEntityDecoder {
+public class Turnout(string id = "") : LayoutEntityDecoder(id) {
     private DCCTurnoutState _currentState;
     private DCCTurnoutState _initialState;
 
@@ -14,7 +14,14 @@ public class Turnout : LayoutEntityDecoder {
     private bool           _isReversed;
     private bool           _resetOnPowerOn;
     private DCCTurnoutType _type;
-    public Turnout(string id = "") : base(id) { }
+
+    public new DCCAddress Address {
+        get => base.Address;
+        set {
+            base.Address             = value;
+            base.Address.AddressType = DCCAddressType.Accessory;
+        }
+    }
 
     public bool IsManual {
         get => _isManual;

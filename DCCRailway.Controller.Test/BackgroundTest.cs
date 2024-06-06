@@ -28,7 +28,7 @@ public class BackgroundTest {
         var workFinished = false;
         var workHappened = 0;
 
-        var virtualSystem = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
+        var virtualSystem = new CommandStationFactory(LoggerHelper.DebugLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.DebugLogger));
         Assert.That(virtualSystem, Is.Not.Null, "Should have created a Virtual System with a Adapter");
         var tasks = virtualSystem.Tasks;
         Assert.That(tasks.Count, Is.GreaterThan(0), "Should return i the Virtual System at least 1 background task");

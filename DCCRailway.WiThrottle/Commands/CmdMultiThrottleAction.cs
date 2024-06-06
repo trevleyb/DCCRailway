@@ -6,103 +6,125 @@ namespace DCCRailway.WiThrottle.Commands;
 
 public partial class CmdMultiThrottle {
     private IThrottleMsg[] PerformLocoAction(MultiThrottleMessage data) {
-        var cmdHelper = new LayoutCmdHelper(connection.CommandStation, data.Address);
-        var locoData  = connection.GetLoco(data.Address);
-        if (locoData is null) return [new MsgIgnore()];
+        var messages = new List<IThrottleMsg>();
+        foreach (var address in data.Addresses) {
+            var cmdHelper = new LayoutCmdHelper(connection.CommandStation, address);
+            var locoData  = connection.GetLoco(address);
+            if (locoData is not null) {
+                try {
+                    var msg = data.Action switch {
+                        ThrottleActionEnum.SetLeadLocoByAddress => SetLeadLocoByAddress(data, address, locoData, cmdHelper),
+                        ThrottleActionEnum.SetLeadLocoByName    => SetLeadLocoByName(data, address, locoData, cmdHelper),
+                        ThrottleActionEnum.SetSpeed             => SetSpeed(data, address, locoData, cmdHelper),
+                        ThrottleActionEnum.SendIdle             => SendIdle(data, address, locoData, cmdHelper),
+                        ThrottleActionEnum.SendEmergencyStop    => SendEmergencyStop(data, address, locoData, cmdHelper),
+                        ThrottleActionEnum.SetDirection         => SetDirection(data, address, locoData, cmdHelper),
+                        ThrottleActionEnum.SetFunctionState     => SetFunctionState(data, address, locoData, cmdHelper),
+                        ThrottleActionEnum.ForceFunctionState   => ForceFunctionState(data, address, locoData, cmdHelper),
+                        ThrottleActionEnum.SetSpeedSteps        => SetSpeedSteps(data, address, locoData, cmdHelper),
+                        ThrottleActionEnum.SetMomentaryState    => SetMomentaryState(data, address, locoData, cmdHelper),
+                        ThrottleActionEnum.QueryValue           => QueryValue(data, address, locoData, cmdHelper),
+                        _                                       => new MsgIgnore(),
+                    };
 
-        var msg = data.Action switch {
-            ThrottleActionEnum.SetLeadLocoByAddress => SetLeadLocoByAddress(data, locoData, cmdHelper),
-            ThrottleActionEnum.SetLeadLocoByName    => SetLeadLocoByName(data, locoData, cmdHelper),
-            ThrottleActionEnum.SetSpeed             => SetSpeed(data, locoData, cmdHelper),
-            ThrottleActionEnum.SendIdle             => SendIdle(data, locoData, cmdHelper),
-            ThrottleActionEnum.SendEmergencyStop    => SendEmergencyStop(data, locoData, cmdHelper),
-            ThrottleActionEnum.SetDirection         => SetDirection(data, locoData, cmdHelper),
-            ThrottleActionEnum.SetFunctionState     => SetFunctionState(data, locoData, cmdHelper),
-            ThrottleActionEnum.ForceFunctionState   => ForceFunctionState(data, locoData, cmdHelper),
-            ThrottleActionEnum.SetSpeedSteps        => SetSpeedSteps(data, locoData, cmdHelper),
-            ThrottleActionEnum.SetMomentaryState    => SetMomentaryState(data, locoData, cmdHelper),
-            ThrottleActionEnum.QueryValue           => QueryValue(data, locoData, cmdHelper),
-            _                                       => new MsgIgnore(),
-        };
-        return [msg];
+                    messages.Add(msg);
+
+                    // If we have set in the preferences to reset the speed to zero if we change directions, then 
+                    // send the idle command after the direction command to reset the loco to stop on the new direction. 
+                    // ---------------------------------------------------------------------------------------------------
+                    if (data.Action == ThrottleActionEnum.SetDirection && connection.RailwaySettings.WiThrottlePrefs.ZeroSpeedOnDirection) {
+                        messages.Add(SendIdle(data, address, locoData, cmdHelper));
+                    }
+                } catch (Exception ex) {
+                    logger.Error("Unable to process a MultiThrottle Action Message due to {0}", ex.Message);
+                }
+            }
+        }
+
+        return messages.ToArray();
     }
 
-    private IThrottleMsg SetLeadLocoByAddress(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg SetLeadLocoByAddress(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         return new MsgIgnore();
     }
 
-    private IThrottleMsg SetLeadLocoByName(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg SetLeadLocoByName(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         return new MsgIgnore();
     }
 
-    private IThrottleMsg SetSpeed(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg SetSpeed(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         byte.TryParse(data.ActionData, out var speed);
         loco.Speed = new DCCSpeed(speed);
         cmdHelper.SetSpeed(speed, loco.Direction);
-        return new MsgString(data.Message);
+        return new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'V', loco.Speed.Value.ToString());
     }
 
-    private IThrottleMsg SendIdle(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg SendIdle(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         loco.Speed = new DCCSpeed(0);
         cmdHelper.SetSpeed(0, loco.Direction);
-        return new MsgString(data.Message);
+        return new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'V', loco.Speed.Value.ToString());
     }
 
-    private IThrottleMsg SendEmergencyStop(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg SendEmergencyStop(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         loco.Speed = new DCCSpeed(0);
         cmdHelper.Stop();
-        return new MsgString(data.Message);
+        return new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'V', loco.Speed.Value.ToString());
     }
 
-    private IThrottleMsg SetDirection(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg SetDirection(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         var isParseSuccessful = byte.TryParse(data.ActionData, out var direction);
-
         if (isParseSuccessful) {
             loco.Direction = direction == 0 ? DCCDirection.Reverse : DCCDirection.Forward;
             cmdHelper.SetSpeed(loco.Speed, loco.Direction);
-            return new MsgString(data.Message);
+            return new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'R', loco.Direction == DCCDirection.Forward ? "1" : "0");
         }
+
         return new MsgIgnore();
     }
 
     // If this is a momentary option, then we expect to send a ON followed by a OFF on a Press/Release
     // If this is latching, then we need to turn on on a Press if it is off, turn off on a press if it is on
     // but ignore the release otherwise. 
-    private IThrottleMsg SetFunctionState(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg SetFunctionState(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         if (!string.IsNullOrEmpty(data.ActionData) && Enum.TryParse(data.ActionData[0].ToString(), out FunctionStateEnum stateEnum)) {
             if (byte.TryParse(data.ActionData[1..], out var functionNum)) {
                 if (loco.GetMomentaryState(functionNum) == MomentaryStateEnum.Momentary) {
                     cmdHelper.SetFunctionState(loco.Address, functionNum, stateEnum);
                     loco.SetFunctionState(functionNum, stateEnum);
-                    return new MsgFunctionState(connection, data, functionNum, stateEnum);
+                    return new MsgFunctionState(connection, address, data.Group, (char)data.Function, functionNum, stateEnum);
                 } else {
-                    var previousState = loco.GetFunctionState(functionNum);
-
-                    if (previousState != stateEnum) {
-                        cmdHelper.SetFunctionState(loco.Address, functionNum, stateEnum);
-                        loco.SetFunctionState(functionNum, stateEnum);
-                        return new MsgFunctionState(connection, data, functionNum, stateEnum);
+                    if (stateEnum == FunctionStateEnum.On) { // The button has been pressed
+                        var previousState = loco.GetFunctionState(functionNum);
+                        var changeState   = previousState == FunctionStateEnum.On ? FunctionStateEnum.Off : FunctionStateEnum.On;
+                        cmdHelper.SetFunctionState(loco.Address, functionNum, changeState);
+                        loco.SetFunctionState(functionNum, changeState);
+                        return new MsgFunctionState(connection, address, data.Group, (char)data.Function, functionNum, changeState);
+                    } else {
+                        // We need to ignore the OFF or button released state of the message as we just toggle the state
+                        return new MsgIgnore();
                     }
                 }
             }
         }
+
         return new MsgIgnore();
     }
 
     // Forces a function to a given state regardless of momentary or Latching. 
     // -----------------------------------------------------------------------
-    private IThrottleMsg ForceFunctionState(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg ForceFunctionState(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         if (!string.IsNullOrEmpty(data.ActionData) && Enum.TryParse(data.ActionData[0].ToString(), out FunctionStateEnum stateEnum)) {
             if (byte.TryParse(data.ActionData[1..], out var functionNum)) {
                 cmdHelper.SetFunctionState(loco.Address, functionNum, stateEnum);
                 loco.SetFunctionState(functionNum, stateEnum);
-                return new MsgFunctionState(connection, data, functionNum, stateEnum);
+                return new MsgFunctionState(connection, address, data.Group, (char)data.Function, functionNum, stateEnum);
             }
         }
+
         return new MsgIgnore();
     }
 
-    private IThrottleMsg SetSpeedSteps(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg SetSpeedSteps(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         byte.TryParse(data.ActionData, out var speedSteps);
 
         var protocol = speedSteps switch {
@@ -112,12 +134,13 @@ public partial class CmdMultiThrottle {
             8 => DCCProtocol.DCC14,
             _ => DCCProtocol.DCC128
         };
+
         loco.SpeedSteps = protocol;
         cmdHelper.SetSpeedSteps(protocol);
-        return new MsgString(data.Message); // Just return the original message
+        return new MsgQueryValue(connection, address, data.Group, (char)data.Function, 's', ConvertSpeedSteps(loco.SpeedSteps).ToString());
     }
 
-    private IThrottleMsg SetMomentaryState(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg SetMomentaryState(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         var stateStr    = data.ActionData[0].ToString();
         var functionStr = data.ActionData[1..];
         byte.TryParse(stateStr, out var state);
@@ -126,12 +149,12 @@ public partial class CmdMultiThrottle {
         return new MsgString(data.Message); // Just return the original message
     }
 
-    private IThrottleMsg QueryValue(MultiThrottleMessage data, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
+    private IThrottleMsg QueryValue(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         return data.ActionData switch {
-            "V" => new MsgString($"{data.Action}{data.Group}{data.Function}{data.Address}<;>V{loco.Speed.Value}"),
-            "D" => new MsgString($"{data.Action}{data.Group}{data.Function}{data.Address}<;>V{(loco.Direction == DCCDirection.Forward ? 1 : 0)}"),
-            "S" => new MsgString($"{data.Action}{data.Group}{data.Function}{data.Address}<;>V{ConvertSpeedSteps(loco.SpeedSteps)}"),
-            "M" => new MsgIgnore(), // Not sure what the format of this should be
+            "V" => new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'V', loco.Speed.Value.ToString()),
+            "D" => new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'R', loco.Direction == DCCDirection.Forward ? "1" : "0"),
+            "s" => new MsgQueryValue(connection, address, data.Group, (char)data.Function, 's', ConvertSpeedSteps(loco.SpeedSteps).ToString()),
+            "m" => new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'm', loco.MomentaryStates),
             _   => new MsgIgnore()
         };
     }

@@ -14,7 +14,7 @@ namespace DCCRailway.Controller.Test.Manufacturers.NCE;
 public class NCEPowerCabLocoFunctionsTests {
     [SetUp]
     public void TestSetup() {
-        var _system = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("NCEPowerCab")?.Create(new NCEVirtualAdapter(LoggerHelper.ConsoleLogger));
+        var _system = new CommandStationFactory(LoggerHelper.DebugLogger).Find("NCEPowerCab")?.Create(new NCEVirtualAdapter(LoggerHelper.DebugLogger));
 
         //_system = SystemFactory.Create("NCE", "NCEPowerCab");
 
@@ -22,7 +22,7 @@ public class NCEPowerCabLocoFunctionsTests {
             Assert.That(_system, Is.Not.Null, "Should have an NCE PowerCab commandStation created.");
             Assert.That(_system, Is.TypeOf(typeof(NcePowerCab)), "Should be a NCE:NCEPowerCab CommandStation Created");
 
-            var adapter = new NCEUSBSerial(LoggerHelper.ConsoleLogger);
+            var adapter = new NCEUSBSerial(LoggerHelper.DebugLogger);
             adapter.PortName = "COM3";
             adapter.BaudRate = 9600;
             ;

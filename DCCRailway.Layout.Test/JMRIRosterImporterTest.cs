@@ -1,7 +1,6 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout.Converters.JMRI;
 using Serilog;
-using Serilog.Core;
 
 namespace DCCRailway.Layout.Test;
 
@@ -9,7 +8,7 @@ namespace DCCRailway.Layout.Test;
 public class JMRIRosterImporterTest {
     [SetUp]
     public void SetUp() {
-        mgr = new RailwaySettings(LoggerHelper.ConsoleLogger) ?? throw new Exception("Cannot start a Layout Manager");
+        mgr = new RailwaySettings(LoggerHelper.DebugLogger) ?? throw new Exception("Cannot start a Layout Manager");
     }
 
     [TearDown]

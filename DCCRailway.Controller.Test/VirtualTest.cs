@@ -12,14 +12,14 @@ public class VirtualTest {
 
     [Test]
     public void TestControllerCreation() {
-        var controller = new CommandStationFactory(LoggerHelper.ConsoleLogger).CreateController("Virtual");
+        var controller = new CommandStationFactory(LoggerHelper.DebugLogger).CreateController("Virtual");
         Assert.That(controller, Is.Not.Null);
         Assert.That(controller.AttributeInfo().Name.Equals("Virtual"));
     }
 
     [Test]
     public void TestControllerCreationAndGetCommands() {
-        var controller = new CommandStationFactory(LoggerHelper.ConsoleLogger).CreateController("Virtual");
+        var controller = new CommandStationFactory(LoggerHelper.DebugLogger).CreateController("Virtual");
         Assert.That(controller, Is.Not.Null);
         Assert.That(controller.AttributeInfo().Name.Equals("Virtual"));
         controller.CreateAdapter("Virtual");
@@ -38,7 +38,7 @@ public class VirtualTest {
     private ICommandStation CreateVirtualControllerAndAddVirtualAdapter() {
         // Create an instance of a CommandStation using the Factory 
         // ------------------------------------------------------------
-        var factory       = new CommandStationFactory(LoggerHelper.ConsoleLogger);
+        var factory       = new CommandStationFactory(LoggerHelper.DebugLogger);
         var virtualSystem = factory.Find("Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
 
@@ -46,6 +46,7 @@ public class VirtualTest {
         // ------------------------------------------------------------
         if (virtualSystem is null)
             throw new NullReferenceException("Should have a ControllerManager object at this stage");
+
         Assert.That(virtualSystem!.Name.Equals("Virtual"));
 
         // Check that we can do things with the commandStation

@@ -20,13 +20,17 @@ public static class Terminators {
         if (input.Length > 0)
             if (!HasTerminator(input))
                 input.Append(Terminator);
+
         return input;
     }
 
     public static string AddTerminator(string? input) {
-        if (!string.IsNullOrEmpty(input))
-            if (!HasTerminator(input))
+        if (!string.IsNullOrEmpty(input)) {
+            if (!HasTerminator(input)) {
                 return input + Terminator;
+            }
+        }
+
         return input ?? "";
     }
 
@@ -38,6 +42,7 @@ public static class Terminators {
         foreach (var terminator in PossibleTerminators)
             if (input.Contains(terminator))
                 return true;
+
         return false;
     }
 

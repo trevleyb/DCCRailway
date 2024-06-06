@@ -11,7 +11,7 @@ public class WiThrottleTest {
     [Test]
     public void TestIfWiThrottleLoadsAndRuns() {
         Trace.Listeners.Add(new ConsoleTraceListener());
-        var logger       = LoggerHelper.ConsoleLogger;
+        var logger       = LoggerHelper.DebugLogger;
         var settings     = new RailwaySettings(logger).Sample("./", "Sample");
         var stateManager = new StateManager();
         var cmdStation   = new ControllerManager(logger, stateManager, settings.Controller);

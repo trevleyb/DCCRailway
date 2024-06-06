@@ -27,7 +27,7 @@ public class AdapterManager(ILogger logger, ICommandStation commandStation, Asse
     public List<AdapterAttribute> Adapters {
         get {
             if (_adapters.Any() is false) RegisterAdapters();
-            return _adapters.Values.ToList();
+            return _adapters.Values.Select(x => x).ToList();
         }
     }
 
@@ -41,7 +41,6 @@ public class AdapterManager(ILogger logger, ICommandStation commandStation, Asse
         _adapter.DataReceived  += (sender, e) => OnAdapterDataRecv(sender!, _adapter, e);
         _adapter.DataSent      += (sender, e) => OnAdapterDataSent(sender!, _adapter, e);
         _adapter.ErrorOccurred += (sender, e) => OnAdapterError(sender!, _adapter, e);
-        _adapter.Connect();
         return _adapter;
     }
 
@@ -56,11 +55,22 @@ public class AdapterManager(ILogger logger, ICommandStation commandStation, Asse
             throw new AdapterException(adapterName, "CommandStation has no supported Adapters");
 
         try {
-            foreach (var adapters in _adapters)
-                if (adapters.Value.Name != null && adapters.Value.Name.Equals(adapterName, StringComparison.InvariantCultureIgnoreCase)) {
-                    var adapterInstance = (IAdapter?)Activator.CreateInstance(adapters.Key, logger);
+            foreach (var adapter in _adapters) {
+                if (!string.IsNullOrEmpty(adapter.Value.Name) && adapter.Value.Name.Equals(adapterName ?? "", StringComparison.InvariantCultureIgnoreCase)) {
+                    var adapterInstance = (IAdapter?)Activator.CreateInstance(adapter.Key, logger);
                     if (adapterInstance != null) return Attach(adapterInstance);
                 }
+
+                if (!string.IsNullOrEmpty(adapter.Key.ToString()) && adapter.Key.ToString().Contains(adapterName ?? "", StringComparison.InvariantCultureIgnoreCase)) {
+                    var adapterInstance = (IAdapter?)Activator.CreateInstance(adapter.Key, logger);
+                    if (adapterInstance != null) return Attach(adapterInstance);
+                }
+
+                if (!string.IsNullOrEmpty(adapter.Value.Description) && adapter.Value.Description.Contains(adapterName ?? "", StringComparison.InvariantCultureIgnoreCase)) {
+                    var adapterInstance = (IAdapter?)Activator.CreateInstance(adapter.Key, logger);
+                    if (adapterInstance != null) return Attach(adapterInstance);
+                }
+            }
         } catch (Exception ex) {
             throw new AdapterException(adapterName, "Error instantiating the Adapter.", ex);
         }
@@ -108,6 +118,7 @@ public class AdapterManager(ILogger logger, ICommandStation commandStation, Asse
 
         if (attr is null || string.IsNullOrEmpty(attr.Name))
             throw new ApplicationException("Adapter instance cannot be NULL and must be a concrete object.");
+
         if (!_adapters.ContainsKey(typeof(T))) _adapters.TryAdd(typeof(T), attr);
     }
 

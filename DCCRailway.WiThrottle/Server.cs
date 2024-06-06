@@ -87,6 +87,7 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings) {
                 Thread t      = new(HandleConnectionAsync);
                 t.Start(client);
             }
+
             logger.Information("WiThrottle Server Shutting Down on {0}", server.LocalEndpoint);
         } catch (SocketException e) {
             logger.Error("WiThrottle SocketException: {0}", e);
@@ -174,7 +175,7 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings) {
 
             connection?.Close();
         } catch (Exception ex) {
-            logger.Error("WiThrottle Error: {0}", ex.Message);
+            logger.Error(ex, "WiThrottle Error: {0}", ex.Message);
         } finally {
             ActiveClients--;
         }

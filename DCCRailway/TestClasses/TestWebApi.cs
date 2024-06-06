@@ -7,7 +7,7 @@ namespace DCCRailway.TestClasses;
 
 public static class TestWebApi {
     public static void WebApiRun(string[] args) {
-        var logger       = LoggerHelper.ConsoleLogger;
+        var logger       = LoggerHelper.DebugLogger;
         var settings     = new RailwaySettings(logger).Sample("./", "Sample");
         var stateManager = new StateManager();
         var cmdStation   = new ControllerManager(logger, stateManager, settings.Controller);

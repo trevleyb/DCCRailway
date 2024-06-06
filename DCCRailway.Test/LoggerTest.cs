@@ -7,7 +7,7 @@ namespace DCCRailway.Test;
 public class LoggerTest {
     [Test]
     public void TestWeHaveALoggerWithoutContext() {
-        var logger = LoggerHelper.ConsoleLogger;
+        var logger = LoggerHelper.DebugLogger;
         Assert.That(logger, Is.Not.Null, "Should always have a logger instance via the singleton.");
 
         Console.WriteLine("Outputting to the Console");
@@ -21,7 +21,7 @@ public class LoggerTest {
 
     [Test]
     public void TestWeHaveALoggerWithContext() {
-        var logger = LoggerHelper.ConsoleLogger;
+        var logger = LoggerHelper.DebugLogger;
         Assert.That(logger, Is.Not.Null, "Should always have a logger instance via the singleton.");
 
         logger.ForContext<LoggerTest>();

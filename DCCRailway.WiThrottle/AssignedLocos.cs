@@ -26,6 +26,7 @@ public class AssignedLocos {
             layoutCmd.Acquire();
             return true;
         }
+
         return false;
     }
 
@@ -40,6 +41,15 @@ public class AssignedLocos {
             }
 
         foreach (var loco in foundLocos) Release(loco.Address);
+        return addresses;
+    }
+
+    public List<DCCAddress> GetAllAssignedForConnection(Connection connection, char group) {
+        var addresses = new List<DCCAddress>();
+        foreach (var loco in AssignedAddresses) {
+            if (loco.Group == group && loco.Connection == connection) addresses.Add(loco.Address);
+        }
+
         return addresses;
     }
 

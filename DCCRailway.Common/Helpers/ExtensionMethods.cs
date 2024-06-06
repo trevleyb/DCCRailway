@@ -136,7 +136,6 @@ public static class ExtensionMethods {
     public static bool Compare(this byte[]? array1, byte[]? array2) {
         if (array1 == null || array2 == null) return false;
         if (array1.Length != array2.Length) return false;
-
         return !array1.Where((t, i) => t != array2[i]).Any();
     }
 }

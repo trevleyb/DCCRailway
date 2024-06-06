@@ -16,8 +16,8 @@ public class ControllerEventLayoutTest {
         // Create a Virtual Controller so we can issue commands and test results.
         // ----------------------------------------------------------------------------
         var stateManager = new StateManager();
-        var stateUpdater = new StateUpdater(LoggerHelper.ConsoleLogger, stateManager);
-        var controller   = new CommandStationFactory(LoggerHelper.ConsoleLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.ConsoleLogger));
+        var stateUpdater = new StateUpdater(LoggerHelper.DebugLogger, stateManager);
+        var controller   = new CommandStationFactory(LoggerHelper.DebugLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.DebugLogger));
         Assert.That(controller, Is.Not.Null);
 
         // At this point, we have a virtual Controller that we can issue commands against, it is wired to the event
@@ -61,7 +61,7 @@ public class ControllerEventLayoutTest {
     private ICommandStation CreateVirtualControllerWithAdapter() {
         // Create an instance of a CommandStation using the Factory
         // ------------------------------------------------------------
-        var factory       = new CommandStationFactory(LoggerHelper.ConsoleLogger);
+        var factory       = new CommandStationFactory(LoggerHelper.DebugLogger);
         var virtualSystem = factory.Find("Virtual");
         Assert.That(virtualSystem, Is.Not.Null);
 

@@ -44,16 +44,16 @@ public static class InjectTestData {
         sensors.Add(new Sensor { Id = "S05", Name = "Mainline-Occupied" });
 
         var turnouts = manager.Turnouts;
-        turnouts.Add(new Turnout { Id = "T01", Name = "Mainline-to-Station" });
-        turnouts.Add(new Turnout { Id = "T02", Name = "Mainline-to-Yard" });
-        turnouts.Add(new Turnout { Id = "T03", Name = "Turnout 3" });
-        turnouts.Add(new Turnout { Id = "T04", Name = "Turnout 4" });
-        turnouts.Add(new Turnout { Id = "T05", Name = "Turnout 5" });
+        turnouts.Add(new Turnout { Id = "T01", Name = "Mainline-to-Station", Address = new DCCAddress(1) });
+        turnouts.Add(new Turnout { Id = "T02", Name = "Mainline-to-Yard", Address    = new DCCAddress(2) });
+        turnouts.Add(new Turnout { Id = "T03", Name = "Turnout 3", Address           = new DCCAddress(3) });
+        turnouts.Add(new Turnout { Id = "T04", Name = "Turnout 4", Address           = new DCCAddress(4) });
+        turnouts.Add(new Turnout { Id = "T05", Name = "Turnout 5", Address           = new DCCAddress(5) });
 
         var signals = manager.Signals;
-        signals.Add(new Signal { Id = "SIG01", Name = "Entrance-to-Yard" });
-        signals.Add(new Signal { Id = "SIG02", Name = "Exit-Yard-to-Mainline" });
-        signals.Add(new Signal { Id = "SIG03", Name = "Station-to-Mainline" });
+        signals.Add(new Signal { Id = "SIG01", Name = "Entrance-to-Yard", Address      = new DCCAddress(11) });
+        signals.Add(new Signal { Id = "SIG02", Name = "Exit-Yard-to-Mainline", Address = new DCCAddress(12) });
+        signals.Add(new Signal { Id = "SIG03", Name = "Station-to-Mainline", Address   = new DCCAddress(13) });
 
         var routes = manager.Routes;
         var route  = new Route { Id = "R01", Name = "Route1", Description = "Station to Mainline" };
@@ -87,6 +87,16 @@ public static class InjectTestData {
         route.AddRoute("T02", false);
         route.AddRoute("T03", false);
         route.AddRoute("T04", false);
+        routes.Add(route);
+
+        route = new Route { Id = "RX1", Name = "CrossOver1", Description = "CrossOver Passthrough" };
+        route.AddRoute("T01", false);
+        route.AddRoute("T02", false);
+        routes.Add(route);
+
+        route = new Route { Id = "RX2", Name = "CrossOver2", Description = "CrossOver CrossOver" };
+        route.AddRoute("T01", true);
+        route.AddRoute("T02", true);
         routes.Add(route);
 
         var accessories = manager.Accessories;

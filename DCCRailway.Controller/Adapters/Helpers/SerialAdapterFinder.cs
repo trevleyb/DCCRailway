@@ -1,51 +1,64 @@
 using System.IO.Ports;
+using System.Text;
+using DCCRailway.Common.Helpers;
 
 namespace DCCRailway.Controller.Adapters.Helpers;
 
 public static class SerialAdapterFinder {
-    private const int MillisecondsDelay = 10;
+    private const int MillisecondsDelay = 50;
 
     /// <summary>
     ///     Static function that will SEARCH for a Port that returns some valid data
     /// </summary>
-    /// <param name="data">The query to push to the serial adapter</param>
     /// <returns>The reply from the adapter and the settings used</returns>
-    public static IEnumerable<(byte[]? result, SerialAdapterSettings settings)> Find(byte[] data) {
-        foreach (var port in SerialPort.GetPortNames())
-        foreach (var baudRate in new[] { 9600, 19200, 38400, 57600, 115200 })
-        foreach (var parity in new[] { Parity.None, Parity.Even, Parity.Odd, Parity.Mark, Parity.Space })
-        foreach (var dataBits in new[] { 7, 8 })
-        foreach (var stopBits in new[] { StopBits.None, StopBits.One, StopBits.OnePointFive, StopBits.Two }) {
-            var settings = new SerialAdapterSettings(port, baudRate, dataBits, parity, stopBits, 1000);
-            var result   = TestSerialPort(settings, data);
-            yield return (result, settings);
+    public static List<SerialAdapterSettings> Find(byte[] data, byte[] expected, string? portName, int? baudRate, int? dataBits, Parity? parity, StopBits? stopBits) {
+        List<SerialAdapterSettings> foundSettings = [];
+
+        var testBaudRate = baudRate is > 0 ? new int[] { baudRate.Value } : new int[] { 9600, 19200, 38400, 57600, 115200 };
+        var testParity   = parity is not null ? new Parity[] { parity.Value } : new Parity[] { Parity.None, Parity.Even, Parity.Odd, Parity.Mark, Parity.Space };
+        var testDataBits = dataBits is > 0 ? new int[] { dataBits.Value } : new int[] { 7, 8 };
+        var testStopBits = stopBits is not null ? new StopBits[] { stopBits.Value } : new StopBits[] { StopBits.One, StopBits.OnePointFive, StopBits.Two };
+
+        foreach (var searchPort in SerialPort.GetPortNames())
+        foreach (var searchBaudRate in testBaudRate)
+        foreach (var searchParity in testParity)
+        foreach (var searchDataBits in testDataBits)
+        foreach (var searchStopBits in testStopBits) {
+            try {
+                var testSettings = new SerialAdapterSettings(searchPort, searchBaudRate, searchDataBits, searchParity, searchStopBits, 500);
+                var result       = TestSerialPort(testSettings, data);
+                if (result.Compare(expected)) foundSettings.Add(testSettings);
+            } catch { /* Ignore Errors and continue to next Port */
+            }
         }
+
+        return foundSettings;
     }
 
+    public static List<SerialAdapterSettings> Find(byte data, byte expected, string? portName = null, int? baudRate = null, int? dataBits = null, Parity? parity = null, StopBits? stopBits = null)     => Find([data], [expected], portName, baudRate, dataBits, parity, stopBits);
+    public static List<SerialAdapterSettings> Find(string data, string expected, string? portName = null, int? baudRate = null, int? dataBits = null, Parity? parity = null, StopBits? stopBits = null) => Find(Encoding.ASCII.GetBytes(data), Encoding.ASCII.GetBytes(expected), portName, baudRate, dataBits, parity, stopBits);
+    public static List<SerialAdapterSettings> Find(string data, byte[] expected, string? portName = null, int? baudRate = null, int? dataBits = null, Parity? parity = null, StopBits? stopBits = null) => Find(Encoding.ASCII.GetBytes(data), expected, portName, baudRate, dataBits, parity, stopBits);
+    public static List<SerialAdapterSettings> Find(byte[] data, string expected, string? portName = null, int? baudRate = null, int? dataBits = null, Parity? parity = null, StopBits? stopBits = null) => Find(data, Encoding.ASCII.GetBytes(expected), portName, baudRate, dataBits, parity, stopBits);
+
     public static byte[]? TestSerialPort(SerialAdapterSettings settings, byte[] data) {
-        var readData = Array.Empty<byte>();
+        using var connection = new SerialPort(settings.PortName, settings.BaudRate, settings.Parity, settings.DataBits, settings.StopBits);
+        connection.WriteTimeout = settings.Timeout;
+        connection.ReadTimeout  = settings.Timeout;
 
         try {
-            using (var connection = new SerialPort(settings.PortName, settings.BaudRate, settings.Parity, settings.DataBits, settings.StopBits)) {
-                connection.WriteTimeout = settings.Timeout;
-                connection.ReadTimeout  = settings.Timeout;
-
-                connection.Open();
-                connection.BaseStream.WriteAsync(data, 0, data.Length);
-
-                var timeoutTime = DateTime.Now.AddMilliseconds(settings.Timeout);
-                while (DateTime.Now <= timeoutTime && connection.BytesToRead == 0) Task.Delay(MillisecondsDelay); // Adjust as needed
-
-                if (connection.BytesToRead > 0) {
-                    readData = new byte[connection.BytesToRead];
-                    _        = connection.BaseStream.ReadAsync(readData, 0, readData.Length);
-                }
-            }
+            connection.Open();
+            connection.Write(data, 0, data.Length);
+            Thread.Sleep(MillisecondsDelay); // Give the connection time to respond.
+            var readDataBytes = new byte[connection.BytesToRead];
+            connection.Read(readDataBytes, 0, connection.BytesToRead); // Read the data (if any
+            Encoding.ASCII.GetString(readDataBytes);
+            connection.Close();
+            return readDataBytes;
         } catch (Exception ex) {
             throw new Exception($"ERROR Connecting to port: {ex.Message}");
+        } finally {
+            connection.Close();
         }
-
-        return readData;
     }
 
     /* Old NON-AWAITable version

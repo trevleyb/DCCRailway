@@ -3,7 +3,7 @@ using DCCRailway.Common.Types;
 
 namespace DCCRailway.WiThrottle.Messages;
 
-public class MsgFunctionState(Connection connection, DCCAddress address, char group, char function, byte functionNum, FunctionStateEnum stateEnum) : ThrottleMsg, IThrottleMsg {
+public class MsgQueryValue(Connection connection, DCCAddress address, char group, char function, char queryType, string queryValue) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
             var sb = new StringBuilder();
@@ -11,7 +11,7 @@ public class MsgFunctionState(Connection connection, DCCAddress address, char gr
             sb.Append(address.IsLong ? "L" : "S");
             sb.Append(address.Address);
             sb.Append("<;>");
-            sb.AppendLine($"F{(stateEnum == FunctionStateEnum.On ? "1" : "0")}{functionNum}");
+            sb.AppendLine($"{queryType}{queryValue}");
             return sb.ToString();
         }
     }

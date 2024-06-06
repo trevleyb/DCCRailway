@@ -1,3 +1,4 @@
+using System.Text;
 using DCCRailway.Common.Types;
 
 namespace DCCRailway.WiThrottle;
@@ -24,6 +25,22 @@ public class AssignedLoco {
     public DCCProtocol          SpeedSteps     { get; set; }
     public MomentaryStateEnum[] MomentaryState { get; } = new MomentaryStateEnum[128];
     public FunctionStateEnum[]  FunctionState  { get; } = new FunctionStateEnum[128];
+
+    public string MomentaryStates {
+        get {
+            var sb = new StringBuilder();
+            foreach (var state in MomentaryState) sb.Append(state == MomentaryStateEnum.Momentary ? "1" : "0");
+            return sb.ToString();
+        }
+    }
+
+    public string FunctionStates {
+        get {
+            var sb = new StringBuilder();
+            foreach (var state in FunctionState) sb.Append(state == FunctionStateEnum.On ? "1" : "0");
+            return sb.ToString();
+        }
+    }
 
     public void SetFunctionState(byte function, FunctionStateEnum stateEnum) {
         if (function > 127) return;

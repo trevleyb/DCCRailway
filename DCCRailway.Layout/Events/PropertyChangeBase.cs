@@ -16,9 +16,12 @@ public abstract class PropertyChangeBase : INotifyPropertyChanged {
     }
 
     protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null) {
-        if (ReferenceEquals(field, null))
-            if (EqualityComparer<T>.Default.Equals(field, value))
+        if (ReferenceEquals(field, null)) {
+            if (EqualityComparer<T>.Default.Equals(field, value)) {
                 return false;
+            }
+        }
+
         field = value;
         OnPropertyChanged(this as LayoutEntity ?? null, propertyName, value);
         return true;
