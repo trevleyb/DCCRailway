@@ -55,18 +55,23 @@ public partial class CmdMultiThrottle {
     private IThrottleMsg SetSpeed(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
         byte.TryParse(data.ActionData, out var speed);
         loco.Speed = new DCCSpeed(speed);
+        if (loco.Speed.Value > 0 && loco.Direction == DCCDirection.Stop) loco.Direction = DCCDirection.Forward;
         cmdHelper.SetSpeed(speed, loco.Direction);
-        return new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'V', loco.Speed.Value.ToString());
+
+        // Don't send back the speed as it confuses the controller 
+        return new MsgIgnore(); // new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'V', loco.Speed.Value.ToString());
     }
 
     private IThrottleMsg SendIdle(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        loco.Speed = new DCCSpeed(0);
+        loco.Speed     = new DCCSpeed(0);
+        loco.Direction = DCCDirection.Stop;
         cmdHelper.SetSpeed(0, loco.Direction);
         return new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'V', loco.Speed.Value.ToString());
     }
 
     private IThrottleMsg SendEmergencyStop(MultiThrottleMessage data, DCCAddress address, AssignedLoco loco, LayoutCmdHelper cmdHelper) {
-        loco.Speed = new DCCSpeed(0);
+        loco.Speed     = new DCCSpeed(0);
+        loco.Direction = DCCDirection.Stop;
         cmdHelper.Stop();
         return new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'V', loco.Speed.Value.ToString());
     }

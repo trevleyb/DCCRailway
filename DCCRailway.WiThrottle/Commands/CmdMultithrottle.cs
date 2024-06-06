@@ -1,3 +1,4 @@
+using DCCRailway.Common.Types;
 using DCCRailway.WiThrottle.Helpers;
 using DCCRailway.WiThrottle.Messages;
 using Serilog;
@@ -47,8 +48,16 @@ public partial class CmdMultiThrottle(ILogger logger, Connection connection) : T
             } else {
                 logger.Information("WiThrottle Recieved Cmd: Acquiring loco: {0} ", address.Address.ToString());
                 connection.Acquire(data.Group, address);
+                var locoData = connection.GetLoco(address);
+                if (locoData is not null) {
+                    locoData.Speed     = new DCCSpeed(0);
+                    locoData.Direction = DCCDirection.Forward;
+                }
+
                 responses.Add(new MsgAddress(connection, address, data.Group, (char)data.Function));
                 responses.Add(new MsgLocoLabels(connection, address, data.Group, (char)data.Function));
+                responses.Add(new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'V', "0"));
+                responses.Add(new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'R', "1"));
             }
         }
 

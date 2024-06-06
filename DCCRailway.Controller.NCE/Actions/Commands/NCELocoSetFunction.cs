@@ -53,6 +53,7 @@ public class NCELocoSetFunction : NCECommand, ICmdLocoSetFunction, ICommand {
                     0xA2, Address.HighAddress, ((DCCAddress)Address).LowAddress, _opCodes[block - 1],
                     Functions.GetBlock(block)
                 };
+
                 var result = SendAndReceive(adapter, new NCEStandardValidation(), command);
                 if (!result.Success) return result;
             }
