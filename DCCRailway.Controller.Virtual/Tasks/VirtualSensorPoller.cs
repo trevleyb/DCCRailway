@@ -4,6 +4,7 @@ using System.Text;
 using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Attributes;
+using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Tasks;
 using DCCRailway.Controller.Virtual.Actions.Commands;
 using Serilog;
@@ -11,7 +12,7 @@ using Serilog;
 namespace DCCRailway.Controller.Virtual.Tasks;
 
 [Task("AIUPoller", "NCE AIU Poller")]
-public class VirtualSensorPoller(ILogger logger) : ControllerTask(logger), IParameterMappable {
+public class VirtualSensorPoller(ILogger logger, ICommandStation cmdStation) : ControllerTask(logger, cmdStation), IParameterMappable {
     private readonly ILogger _logger = logger;
 
     [Range(1, 63)]

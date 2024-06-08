@@ -35,7 +35,7 @@ public static class TestWiThrottle {
         settings.Controller.Adapter.Parameters.Add("timeout", ports[0].Timeout);
 
         settings.Analyser.Name         = "NCE Packet Analyser";
-        settings.Analyser.Adapter.Name = "NCEUSBSerial";
+        settings.Analyser.Adapter.Name = "NCESerial";
         settings.Analyser.Adapter.Parameters.Add("portName", "/dev/tty.usbserial-11420");
         settings.Analyser.Adapter.Parameters.Add("baudRate", 38400);
         settings.Analyser.Adapter.Parameters.Add("dataBits", 8);

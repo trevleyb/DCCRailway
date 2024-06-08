@@ -11,4 +11,10 @@
         <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Reference Include="DCCPacketAnalyser">
+            <HintPath>..\..\DCCPacketAnalyser\DCCPacketAnalyser\bin\Debug\net8.0\DCCPacketAnalyser.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
 </Project>

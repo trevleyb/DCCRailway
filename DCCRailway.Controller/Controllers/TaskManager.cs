@@ -25,13 +25,13 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
 
     public IControllerTask? Create(string taskName) {
         if (Tasks is not { Count: > 0 }) throw new TaskException(taskName, "CommandStation has no supported Tasks");
-
         try {
-            foreach (var task in _availableTasks)
+            foreach (var task in _availableTasks) {
                 if (task.Value.Name != null && task.Value.Name.Equals(taskName, StringComparison.InvariantCultureIgnoreCase)) {
-                    var taskInstance = (IControllerTask?)Activator.CreateInstance(task.Key, logger);
-                    if (taskInstance != null) return taskInstance;
+                    var taskInstance = (IControllerTask?)Activator.CreateInstance(task.Key, logger, commandStation);
+                    if (taskInstance != null) return Create(taskName, taskInstance, null);
                 }
+            }
 
             return null;
         } catch (Exception ex) {
@@ -48,8 +48,7 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
     }
 
     public IControllerTask? Create(string instanceName, IControllerTask task, TimeSpan? frequency = null) {
-        task.Name           = instanceName;
-        task.CommandStation = commandStation;
+        task.Name = instanceName;
         if (frequency != null) task.Frequency = (TimeSpan)frequency;
         var attr                              = AttributeExtractor.GetAttribute<TaskAttribute>(task.GetType());
         if (attr != null) _runningTasks.TryAdd(instanceName, task);
@@ -62,7 +61,6 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
         }
 
         var foundTypes = assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(IControllerTask)));
-
         foreach (var task in foundTypes) {
             var attr = AttributeExtractor.GetAttribute<TaskAttribute>(task);
 

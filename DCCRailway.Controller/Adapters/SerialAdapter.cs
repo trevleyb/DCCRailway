@@ -59,12 +59,13 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
         logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Connecting");
         if (IsConnected) Disconnect();
 
-        if (string.IsNullOrEmpty(PortName))
+        if (string.IsNullOrEmpty(PortName)) {
             throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
+        }
 
         try {
-            _connection         = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits) { WriteTimeout = Timeout, ReadTimeout = Timeout };
-            _connection.NewLine = NewLine;
+            _connection = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits) { WriteTimeout = Timeout, ReadTimeout = Timeout };
+            if (!string.IsNullOrEmpty(NewLine)) _connection.NewLine = NewLine;
 
             //_connection.DataReceived += delegate (object sender, SerialDataReceivedEventArgs args) {
             //    Console.WriteLine($"{Name}: Received message: {0}", args.ToString());
@@ -97,28 +98,19 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     /// <returns>Array of Bytes being the data read from the Adapter</returns>
     /// <exception cref="AdapterException">Throws if there is a connection error</exception>
     public byte[]? RecvData(ICommand? command = null) {
-        logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Listening for data");
+        //logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Listening for data");
 
-        if (!IsConnected)
+        if (!IsConnected) {
             throw new AdapterException(this.AttributeInfo().Name, "No active connection to the Command Station.");
+        }
 
         GuardClauses.IsNotNull(_connection, "_connection");
-
+        var returnData = new List<byte>();
         try {
-            var timeoutTime = DateTime.Now.AddMilliseconds(Timeout);
-            var returnData  = new List<byte>();
-            var readBytes   = true;
+            var readData = _connection?.ReadExisting() ?? "";
 
-            while (DateTime.Now < timeoutTime && (readBytes || _connection!.BytesToRead > 0))
-                if (_connection!.BytesToRead > 0) {
-                    readBytes = false;
-                    var readData = new byte[_connection.BytesToRead];
-                    _connection.Read(readData, 0, _connection.BytesToRead);
-                    logger.Debug($"ADAPTER:{this.AttributeInfo().Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData.ToDisplayValueChars()}'");
-                    returnData.AddRange(readData);
-                }
-
-            logger.Debug($"ADAPTER:{this.AttributeInfo().Name} - Read '{0}' data as bytes from SerialPort.", returnData.ToArray().ToDisplayValueChars());
+            //logger.Debug($"ADAPTER:{this.AttributeInfo().Name} -  Reading '{readData.Length}' data as bytes from SerialPort: '{readData}'");
+            returnData.AddRange(readData.ToByteArray());
             OnDataRecieved(new DataRecvArgs(returnData.ToArray(), this, command));
             return returnData.ToArray();
         } catch (Exception ex) {
@@ -132,11 +124,16 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     /// <param name="data">The data stored as an array of bytes</param>
     /// <param name="commandReference">The reference to the command being sent</param>
     /// <exception cref="AdapterException">Throws an exception if there is a connection error</exception>
-    public void SendData(byte[] data, ICommand? commandReference = null) {
-        logger.Debug($"ADAPTER:{this.AttributeInfo().Name} -Sending data to the {this.AttributeInfo().Name} Adapter '{data.ToDisplayValueChars()}'");
+    public void SendData(string data, ICommand? commandReference = null) {
+        SendData(data.ToByteArray(), commandReference);
+    }
 
-        if (!IsConnected)
+    public void SendData(byte[] data, ICommand? commandReference = null) {
+        //logger.Debug($"ADAPTER:{this.AttributeInfo().Name} -Sending data to the {this.AttributeInfo().Name} Adapter '{data.ToDisplayValueChars()}'");
+
+        if (!IsConnected) {
             throw new AdapterException(this.AttributeInfo().Name, "No active connection to the Command Station.");
+        }
 
         try {
             if (_connection!.BytesToRead > 0) _connection.ReadExisting();
@@ -175,11 +172,12 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     /// </summary>
     /// <param name="disposing">Specifies whether to dispose of managed resources.</param>
     protected virtual void Dispose(bool disposing) {
-        if (disposing)
+        if (disposing) {
             if (_connection != null) {
                 Disconnect();
                 _connection.Dispose();
                 _connection = null;
             }
+        }
     }
 }

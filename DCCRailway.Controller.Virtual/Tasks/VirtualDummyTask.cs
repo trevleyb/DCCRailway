@@ -1,12 +1,13 @@
 using System;
 using DCCRailway.Controller.Attributes;
+using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Tasks;
 using Serilog;
 
 namespace DCCRailway.Controller.Virtual.Tasks;
 
 [Task("VirtualDummyTask", "Background Dummy to Poll the Console")]
-public class VirtualDummyTask(ILogger logger) : ControllerTask(logger) {
+public class VirtualDummyTask(ILogger logger, ICommandStation cmdStation) : ControllerTask(logger, cmdStation) {
     private readonly ILogger _logger = logger;
     private          int     counter;
 

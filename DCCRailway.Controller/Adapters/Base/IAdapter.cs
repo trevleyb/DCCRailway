@@ -10,8 +10,9 @@ public interface IAdapter : IParameterMappable {
     void Disconnect();
     void Dispose();
 
-    void    SendData(byte[] data, ICommand command);
-    byte[]? RecvData(ICommand command);
+    void    SendData(string data, ICommand? command);
+    void    SendData(byte[] data, ICommand? command);
+    byte[]? RecvData(ICommand? command = null);
 
     event EventHandler<DataRecvArgs>  DataReceived;
     event EventHandler<DataSentArgs>  DataSent;

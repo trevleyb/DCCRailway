@@ -1,4 +1,5 @@
-﻿using DCCRailway.Controller.Actions;
+﻿using DCCRailway.Common.Helpers;
+using DCCRailway.Controller.Actions;
 using DCCRailway.Controller.Adapters.Base;
 using Serilog;
 
@@ -17,6 +18,10 @@ public abstract class NetworkAdapter(ILogger logger) : Adapter, IAdapter {
 
     public byte[]? RecvData(ICommand? command = null) {
         throw new NotImplementedException();
+    }
+
+    public void SendData(string data, ICommand? commandReference = null) {
+        SendData(data.ToByteArray(), commandReference);
     }
 
     public void SendData(byte[] data, ICommand? command = null) {

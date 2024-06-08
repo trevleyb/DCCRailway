@@ -1,6 +1,8 @@
 ﻿<wpf:ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                         xmlns:s="clr-namespace:System;assembly=mscorlib"
                         xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xml:space="preserve">
+	<s:Boolean
+            x:Key="/Default/AddReferences/RecentPaths/=_002FUsers_002Ftrevor_002FDevelopment_002FDCCPacketAnalyser_002FDCCPacketAnalyser_002Fbin_002FDebug_002Fnet8_002E0_002FDCCPacketAnalyser_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/CodeInspection/PencilsConfiguration/ActualSeverity/@EntryValue">SUGGESTION</s:String>
 
 

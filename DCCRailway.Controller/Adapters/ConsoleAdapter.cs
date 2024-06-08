@@ -22,12 +22,16 @@ public abstract class ConsoleAdapter(ILogger logger) : Adapter, IAdapter {
 
     public void Dispose() { }
 
-    public void SendData(byte[] data, ICommand command) {
-        logger.Information("Sending Data {0} => {1}", data.ToDisplayValues(), command.AttributeInfo().Name);
+    public void SendData(string data, ICommand? commandReference = null) {
+        SendData(data.ToByteArray(), commandReference);
     }
 
-    public byte[]? RecvData(ICommand command) {
-        logger.Information("Receiving Data <= {0}", command.AttributeInfo().Name);
+    public void SendData(byte[] data, ICommand? command) {
+        logger.Information("Sending Data {0} => {1}", data.ToDisplayValues(), command?.AttributeInfo().Name ?? "Unknown Command");
+    }
+
+    public byte[]? RecvData(ICommand? command) {
+        logger.Information("Receiving Data <= {0}", command?.AttributeInfo().Name);
         return [];
     }
 }

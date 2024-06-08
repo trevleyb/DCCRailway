@@ -4,7 +4,6 @@ using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Adapters.Events;
 using DCCRailway.Controller.Attributes;
 using Serilog;
-using Serilog.Core;
 
 namespace DCCRailway.Controller.Digitrax.Adapters;
 
@@ -34,10 +33,15 @@ public class DigitraxAdapter(ILogger logger) : Adapter, IAdapter {
             "DUMMY_COMMAND"  => "OK".ToByteArray(),
             _                => null
         };
+
         logger.Debug("Data to return: '" + result.FromByteArray() + "'");
         OnDataRecieved(new DataRecvArgs(result, this, command));
 
         return result;
+    }
+
+    public void SendData(string data, ICommand? commandReference = null) {
+        SendData(data.ToByteArray(), commandReference);
     }
 
     public void SendData(byte[] data, ICommand? command = null) {

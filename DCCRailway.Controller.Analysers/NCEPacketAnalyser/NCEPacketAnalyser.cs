@@ -16,6 +16,8 @@ public class NCEPacketAnalyser(ILogger logger) : CommandStation(logger), IComman
     }
 
     public override void Start() {
+        // Force without specifying that we must execute the Packet processor
+        CreateTask("PacketProcessor");
         base.Start();
     }
 
