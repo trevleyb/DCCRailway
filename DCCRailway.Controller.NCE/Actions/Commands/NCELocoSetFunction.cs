@@ -34,20 +34,24 @@ public class NCELocoSetFunction : NCECommand, ICmdLocoSetFunction, ICommand {
     }
 
     public DCCFunctionBlocks? Previous  { get; set; }
-    public DCCFunctionBlocks  Functions { get; }
+    public DCCFunctionBlocks  Functions { get; set; }
 
     public byte       Function { get; set; }
     public bool       State    { get; set; }
     public DCCAddress Address  { get; set; }
 
     protected override ICmdResult Execute(IAdapter adapter) {
-        Previous ??= new DCCFunctionBlocks();
-
-        Functions[Function] = State;
+        // We only want to send the function settings that have changed since the last time
+        // But we can't easily tell what has changed, so we need to get the last settings
+        // The only place to store this is in the Adapter, so we need to check if the adapter supports this
+        // -------------------------------------------------------------------------------------------
+        Functions = CommandStation.FunctionBlocks(Address);
+        Previous  = CommandStation.FunctionBlocks(Address).Clone();
+        Functions.SetFunction(Function, State);
 
         // Loop through the 5 groups of functions and see if any have changed from last time
-        // If any have changed, then sent those new settings to the command station for the Loco Address
-        for (var block = 1; block <= 5; block++)
+        // If any have changed, then send those new settings to the command station for the Loco Address
+        for (var block = 1; block <= 5; block++) {
             if (Functions.GetBlock(block) != Previous.GetBlock(block)) {
                 var command = new byte[] {
                     0xA2, Address.HighAddress, ((DCCAddress)Address).LowAddress, _opCodes[block - 1],
@@ -57,8 +61,8 @@ public class NCELocoSetFunction : NCECommand, ICmdLocoSetFunction, ICommand {
                 var result = SendAndReceive(adapter, new NCEStandardValidation(), command);
                 if (!result.Success) return result;
             }
+        }
 
-        Previous = new DCCFunctionBlocks(Functions); // save the last time we sent this 
         return CmdResult.Ok();
     }
 

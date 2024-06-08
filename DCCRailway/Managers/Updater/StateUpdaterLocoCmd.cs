@@ -20,10 +20,6 @@ public class StateUpdaterLocoCmd(IStateManager stateManager) : IStateUpdater {
                 stateManager.SetState(cmd.Address, StateType.Speed, new DCCSpeed(0));
                 stateManager.SetState(cmd.Address, StateType.Direction, DCCDirection.Stop);
                 break;
-            case ICmdLocoSetFunctions cmd:
-                // We just set a function, so we need to update the Function Block
-                stateManager.SetState<DCCFunctionBlocks>(cmd.Address, StateType.Functions, cmd.Functions);
-                break;
             case ICmdLocoSetFunction cmd:
                 var currentState = stateManager.GetState<DCCFunctionBlocks>(cmd.Address, StateType.Functions) ?? new DCCFunctionBlocks();
                 currentState.SetFunction(cmd.Function, cmd.State);

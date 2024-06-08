@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO.Ports;
+using DCCRailway.Common.Types;
 using DCCRailway.Controller.Adapters;
 using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Adapters.Helpers;
@@ -25,6 +26,8 @@ public class NCEUSBSerial(ILogger logger) : SerialAdapter(logger), IAdapter {
         StopBits = stopBits;
         Timeout  = timeout;
     }
+
+    public DCCFunctionBlocks LastFunctionBlocks { get; set; }
 
     public override        List<SerialAdapterSettings> ValidPorts   => _validPorts ??= SerialAdapterFinder.Find(0x80, "!", null, [9600, 19200], [7, 8], [Parity.None], [StopBits.One]);
     public sealed override SerialAdapterSettings?      ValidSetting => (ValidPorts.Count > 0) ? ValidPorts[0] : null;

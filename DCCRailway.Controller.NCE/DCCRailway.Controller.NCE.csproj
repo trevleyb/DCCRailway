@@ -23,9 +23,6 @@
         <None Remove="Common\"/>
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Adapters\"/>
-    </ItemGroup>
-    <ItemGroup>
         <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
     </ItemGroup>

@@ -19,11 +19,13 @@ public interface ICommandStation : IParameterMappable {
 
     // Attach or detect background tasks on the Command Station
     // ----------------------------------------------------------------------------
-    List<TaskAttribute>                            Tasks { get; }
-    public event EventHandler<ControllerEventArgs> ControllerEvent;
+    List<TaskAttribute> Tasks { get; }
 
     void Start();
     void Stop();
+
+    void                                           OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result);
+    public event EventHandler<ControllerEventArgs> ControllerEvent;
 
     // Execute a Command. Must be executed via here
     // ----------------------------------------------------------------------------
@@ -53,5 +55,10 @@ public interface ICommandStation : IParameterMappable {
     bool IsAdapterSupported(Type adapter);
     bool IsAdapterSupported(string name);
 
-    void OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result);
+    // Helper to manage Function Blocks. As Functions are not sent to a Command Station as a function
+    // number and state but as a block of functions, we need to track what the current state is of each 
+    // "thing" we are addressing. This is done by the FunctionBlocks class.
+    // ------------------------------------------------------------------------------------------------
+    DCCFunctionBlocks FunctionBlocks(DCCAddress address);
+    DCCFunctionBlocks FunctionBlocks(int address);
 }

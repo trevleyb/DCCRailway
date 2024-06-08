@@ -83,12 +83,13 @@ public class NCEPowerCabLocoFunctionsTests {
     [Test]
     public void TurnOnOffLightsTest() {
         if (System != null && System.Adapter != null)
-            if (System.CreateCommand<ICmdLocoSetFunctions>() is ICmdLocoSetFunctions functionCmd) {
+            if (System.CreateCommand<ICmdLocoSetFunction>() is { } functionCmd) {
                 functionCmd.Address = new DCCAddress(3, DCCAddressType.Short);
 
-                /// Flash the headlight on/off 5 times
+                // Flash the headlight on/off 5 times
                 for (var i = 0; i < 10; i++) {
-                    functionCmd.Functions[0] = i % 2 == 0;
+                    functionCmd.Function = 0;
+                    functionCmd.State    = i % 2 == 0;
                     var result = functionCmd.Execute();
                     if (!result!.Success) Console.WriteLine("Did Not Work." + (char)33);
 
@@ -102,11 +103,11 @@ public class NCEPowerCabLocoFunctionsTests {
         if (System != null && System.Adapter != null) {
             var speedCmd = System.CreateCommand<ICmdLocoSetSpeed>();
 
-            if (System.CreateCommand<ICmdLocoSetFunctions>() is ICmdLocoSetFunctions functionCmd) {
-                functionCmd.Address = new DCCAddress(3, DCCAddressType.Short);
-                speedCmd!.Address   = functionCmd.Address;
-
-                functionCmd.Functions[0] = true;
+            if (System.CreateCommand<ICmdLocoSetFunction>() is { } functionCmd) {
+                functionCmd.Address  = new DCCAddress(3, DCCAddressType.Short);
+                speedCmd!.Address    = functionCmd.Address;
+                functionCmd.Function = 0;
+                functionCmd.State    = true;
                 var result = functionCmd.Execute();
                 if (!result!.Success) Console.WriteLine(result.ToString());
 
@@ -115,8 +116,9 @@ public class NCEPowerCabLocoFunctionsTests {
                 speedCmd.Speed      = new DCCSpeed(5);
                 speedCmd.Execute();
 
-                functionCmd.Functions[0] = false;
-                result                   = functionCmd.Execute();
+                functionCmd.Function = 0;
+                functionCmd.State    = false;
+                result               = functionCmd.Execute();
                 if (!result!.Success) Console.WriteLine(result!.ToString());
 
                 speedCmd.Direction  = DCCDirection.Forward;
@@ -124,8 +126,9 @@ public class NCEPowerCabLocoFunctionsTests {
                 speedCmd.Speed      = new DCCSpeed(5);
                 speedCmd.Execute();
 
-                functionCmd.Functions[0] = true;
-                result                   = functionCmd.Execute();
+                functionCmd.Function = 0;
+                functionCmd.State    = true;
+                result               = functionCmd.Execute();
                 if (!result!.Success) Console.WriteLine(result!.ToString());
 
                 speedCmd.Direction  = DCCDirection.Stop;

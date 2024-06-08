@@ -17,14 +17,16 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
         CommandManager              =  new CommandManager(logger, this, Assembly.GetCallingAssembly());
         AdapterManager              =  new AdapterManager(logger, this, Assembly.GetCallingAssembly());
         TaskManager                 =  new TaskManager(logger, this, Assembly.GetCallingAssembly());
+        FunctionManager             =  new FunctionManager(logger, this);
         CommandManager.CommandEvent += CommandManagerOnCommandManagerEvent;
         AdapterManager.AdapterEvent += AdapterManagerOnAdapterManagerEvent;
     }
 
-    private ILogger                                Logger         { get; init; }
-    private TaskManager                            TaskManager    { get; } // Manages background Tasks
-    private CommandManager                         CommandManager { get; } // Manages what commands are available
-    private AdapterManager                         AdapterManager { get; } // Manages the attached Adapter(s)
+    private ILogger                                Logger          { get; init; }
+    private TaskManager                            TaskManager     { get; } // Manages background Tasks
+    private CommandManager                         CommandManager  { get; } // Manages what commands are available
+    private AdapterManager                         AdapterManager  { get; } // Manages the attached Adapter(s)
+    private FunctionManager                        FunctionManager { get; } // Manages tracking Function Blocks
     public event EventHandler<ControllerEventArgs> ControllerEvent;
 
     public virtual void Start() {
@@ -103,8 +105,10 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
         TaskManager.StopAllTasks();
     }
 
-    public abstract DCCAddress CreateAddress();
-    public abstract DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
+    public abstract DCCAddress        CreateAddress();
+    public abstract DCCAddress        CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
+    public          DCCFunctionBlocks FunctionBlocks(DCCAddress address) => FunctionManager.FunctionBlocks(address);
+    public          DCCFunctionBlocks FunctionBlocks(int address)        => FunctionManager.FunctionBlocks(new DCCAddress(address));
 
     public void OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result) {
         ControllerEvent?.Invoke(this, new CommandEventArgs(command, result, $"Command Executed on {commandStation.AttributeInfo().Name}"));

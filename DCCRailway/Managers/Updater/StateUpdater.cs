@@ -40,6 +40,7 @@ public class StateUpdater(ILogger logger, IStateManager stateManager) {
                     ICVCmd      => new StateUpdaterCvCmd(stateManager),
                     _           => new StateUpdaterGenericCmd(stateManager)
                 };
+
                 var result = stateUpdater.Process(cmdResult);
                 logger.Information("Processed State Command: {0} with result {1} {2}.", cmdResult?.Command?.ToString(), result.Success ? "Success" : "Failed", string.IsNullOrEmpty(result?.Message) ? "" : $"and message '{result.Message}'");
             }
@@ -47,8 +48,9 @@ public class StateUpdater(ILogger logger, IStateManager stateManager) {
             break;
 
         case AdapterEventArgs exec:
-            if (exec.Adapter != null)
-                logger.Error($"Command {exec.Adapter.AttributeInfo().Name} {exec.AdapterEvent} the commandStation.");
+            //if (exec.Adapter != null) {
+            //    logger.Error($"Command {exec.Adapter.AttributeInfo().Name} {exec.AdapterEvent} the commandStation.");
+            // }
             break;
 
         default:
