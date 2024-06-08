@@ -2,11 +2,11 @@ using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Attributes;
-using DCCRailway.Managers.State;
+using DCCRailway.StateManager.State;
 
-namespace DCCRailway.Managers.Updater;
+namespace DCCRailway.StateManager.Updater.CommandUpdater;
 
-public class StateUpdaterCvCmd(IStateManager stateManager) : IStateUpdater {
+public class CmdStateUpdaterCvCmd(IStateManager stateManager) {
     public IResult Process(ICmdResult cmdResult) {
         switch (cmdResult.Command) {
         case ICmdCVRead cmd:

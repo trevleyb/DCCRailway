@@ -2,38 +2,41 @@ using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
-using DCCRailway.Managers.State;
-using DCCRailway.Managers.Updater;
+using DCCRailway.StateManager.Updater;
 using Serilog;
 
-namespace DCCRailway.Managers.Controller;
+namespace DCCRailway.Managers;
 
-public class ControllerManager {
-    private readonly ILogger      _logger;
-    private readonly StateUpdater _stateUpdater;
+public class ControllerManager : IControllerManager {
+    private readonly ILogger       _logger;
+    private readonly IStateUpdater _stateUpdater;
 
-    public ControllerManager(ILogger logger, StateManager stateManager, Layout.Configuration.Controller controllerSettings) {
+    public ControllerManager(ILogger logger, IStateUpdater stateUpdater, Layout.Configuration.Controller controllerSettings) {
         _logger       = logger;
-        _stateUpdater = new StateUpdater(logger, stateManager);
+        _stateUpdater = stateUpdater;
         Configure(controllerSettings);
     }
 
-    public ICommandStation CommandStation { get; private set; }
+    public ICommandStation? CommandStation { get; private set; }
 
     public void Start() {
         // Wire up the events from the Command Station so we can track Entities Property Changes
         // --------------------------------------------------------------------------------------------
         _logger.Information("Controller Manager starting.");
-        CommandStation.ControllerEvent += CommandStationInstanceOnCommandStationEvent;
-        CommandStation.Start();
-        CommandStation.StartAllTasks();
+        if (CommandStation is not null) {
+            CommandStation.ControllerEvent += CommandStationInstanceOnCommandStationEvent;
+            CommandStation.Start();
+            CommandStation.StartAllTasks();
+        }
     }
 
     public void Stop() {
         _logger.Information("Controller Manager stopping.");
-        CommandStation.ControllerEvent -= CommandStationInstanceOnCommandStationEvent;
-        CommandStation.StopAllTasks();
-        CommandStation.Stop();
+        if (CommandStation is not null) {
+            CommandStation.ControllerEvent -= CommandStationInstanceOnCommandStationEvent;
+            CommandStation.StopAllTasks();
+            CommandStation.Stop();
+        }
     }
 
     /// <summary>
@@ -42,11 +45,9 @@ public class ControllerManager {
     ///     configuration.
     /// </summary>
     public void Configure(DCCRailway.Layout.Configuration.Controller controller) {
-        if (controller is null)
-            throw new ApplicationException("Cannot start the Entities Layout as no Controllers are defined.");
+        if (string.IsNullOrEmpty(controller.Name)) return;
 
         var commandStation = CreateCommandStationController(controller);
-
         if (commandStation != null) {
             AttachCommandStationAdapter(controller, commandStation);
             AttachCommandStationTasks(controller, commandStation);
@@ -67,9 +68,11 @@ public class ControllerManager {
         try {
             var commandStation = controllerManager.CreateController(controller.Name) ?? throw new ControllerException($"Invalid CommandStation Name specified {controller.Name}");
 
-            foreach (var parameter in controller.Parameters)
-                if (commandStation.IsMappableParameter(parameter.Name))
+            foreach (var parameter in controller.Parameters) {
+                if (commandStation.IsMappableParameter(parameter.Name)) {
                     commandStation.SetMappableParameter(parameter.Name, parameter.Value);
+                }
+            }
 
             return commandStation;
         } catch (Exception ex) {
@@ -89,23 +92,21 @@ public class ControllerManager {
         // configure the Adapter using the provided Parameters.
         // -----------------------------------------------------------------------------
         try {
-            if (string.IsNullOrEmpty(controller.DefaultAdapter) && controller.Adapters.Count != 1)
-                throw new ControllerException("Only a single Adapter can currently be configured for a Controller.");
-
-            var adapter = controller.Adapters.Count == 1 ? 0 : controller.Adapters.FindIndex(adapter => adapter.Name == controller.DefaultAdapter);
-            if (controller.Adapters[adapter] is { } controllerAdapter) {
-                var adapterInstance = commandStation.CreateAdapter(controllerAdapter.Name) ?? throw new AdapterException("Unable to create an Adapter of type: {0}", controllerAdapter.Name);
-                foreach (var parameter in controllerAdapter.Parameters) {
-                    if (adapterInstance.IsMappableParameter(parameter.Name)) {
-                        adapterInstance.SetMappableParameter(parameter.Name, parameter.Value);
-                    }
-                }
-
-                commandStation.Adapter = adapterInstance;
-                commandStation.Adapter.Connect();
+            if (string.IsNullOrEmpty(controller.Adapter.Name)) {
+                throw new ControllerException("You must specifiy an Adapter for the Command Station.");
             }
+
+            var adapterInstance = commandStation.CreateAdapter(controller.Adapter.Name) ?? throw new AdapterException("Unable to create an Adapter of type: {0}", controller.Adapter.Name);
+            foreach (var parameter in controller.Adapter.Parameters) {
+                if (adapterInstance.IsMappableParameter(parameter.Name)) {
+                    adapterInstance.SetMappableParameter(parameter.Name, parameter.Value);
+                }
+            }
+
+            commandStation.Adapter = adapterInstance;
+            commandStation.Adapter.Connect();
         } catch (Exception ex) {
-            _logger.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapters, ex.Message);
+            _logger.Error("Unable to instantiate an instance of the specified adapter: {0} => {1}", controller?.Adapter.Name, ex.Message);
             throw;
         }
     }
@@ -122,14 +123,15 @@ public class ControllerManager {
             foreach (var task in controller.Tasks)
                 try {
                     var taskInstance = commandStation.CreateTask(task.Type);
-
                     if (taskInstance is not null) {
                         taskInstance.Name      = task.Name;
                         taskInstance.Frequency = task.Frequency;
 
-                        foreach (var parameter in task.Parameters)
-                            if (taskInstance.IsMappableParameter(parameter.Name))
+                        foreach (var parameter in task.Parameters) {
+                            if (taskInstance.IsMappableParameter(parameter.Name)) {
                                 taskInstance.SetMappableParameter(parameter.Name, parameter.Value);
+                            }
+                        }
                     }
                 } catch (Exception ex) {
                     _logger.Error($"Unable to instantiate the task '{task.Name}' or type '{task.Type}'", ex);
@@ -141,6 +143,6 @@ public class ControllerManager {
     }
 
     private void CommandStationInstanceOnCommandStationEvent(object? sender, ControllerEventArgs e) {
-        _stateUpdater.ProcessCommandEvent(e);
+        _stateUpdater.Process(e);
     }
 }

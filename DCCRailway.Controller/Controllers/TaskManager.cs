@@ -57,8 +57,10 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
     }
 
     private void RegisterTasks() {
-        if (assembly is null)
+        if (assembly is null) {
             throw new ApplicationException("No Assembly has been set for the Controller Tasks Manager");
+        }
+
         var foundTypes = assembly.DefinedTypes.Where(t => t.ImplementedInterfaces.Contains(typeof(IControllerTask)));
 
         foreach (var task in foundTypes) {
@@ -76,6 +78,7 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
 
         if (attr is null || string.IsNullOrEmpty(attr.Name))
             throw new ApplicationException("Task instance cannot be NULL and must be a concrete object.");
+
         if (!_availableTasks.ContainsKey(typeof(T))) _availableTasks.TryAdd(typeof(T), attr);
     }
 

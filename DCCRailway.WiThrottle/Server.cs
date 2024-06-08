@@ -24,7 +24,7 @@ namespace DCCRailway.WiThrottle;
 /// </summary>
 
 //public class Server(ILogger logger, IRailwaySettings railwaySettings, CommandStationManager cmdStationMgr) {
-public class Server(ILogger logger, IRailwaySettings railwaySettings) {
+public class Server(ILogger logger, IRailwaySettings railwaySettings, StateManager.State.StateManager stateManager) {
     private readonly Connections             _connections = new(logger);
     private readonly CancellationTokenSource _cts         = new();
     private          ICommandStation         _commandStation;

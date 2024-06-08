@@ -1,8 +1,7 @@
 using DCCRailway.Common.Helpers;
-using DCCRailway.Layout;
 using DCCRailway.Layout.Converters;
 
-namespace DCCRailway.Test;
+namespace DCCRailway.Layout.Test;
 
 [TestFixture]
 public class RailwayManagerTests {

@@ -1,10 +1,10 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Actions.Results;
-using DCCRailway.Managers.State;
+using DCCRailway.StateManager.State;
 
-namespace DCCRailway.Managers.Updater;
+namespace DCCRailway.StateManager.Updater.CommandUpdater;
 
-public class StateUpdaterGenericCmd(IStateManager stateManager) : IStateUpdater {
+public class CmdStateUpdaterGenericCmd(IStateManager stateManager) {
     public IResult Process(ICmdResult cmdResult) {
         return Result.Ok("Command - no matching condition. Ignored.");
     }

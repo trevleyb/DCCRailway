@@ -1,7 +1,7 @@
 using System.Text;
 using DCCRailway.WiThrottle.Helpers;
 
-namespace DCCRailway.Test;
+namespace DCCRailway.WiThrottle.Test;
 
 [TestFixture]
 public class TerminatorsTest {

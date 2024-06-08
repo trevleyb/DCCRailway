@@ -4,11 +4,11 @@ using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Commands.Base;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Attributes;
-using DCCRailway.Managers.State;
+using DCCRailway.StateManager.State;
 
-namespace DCCRailway.Managers.Updater;
+namespace DCCRailway.StateManager.Updater.CommandUpdater;
 
-public class StateUpdaterSystemCmd(IStateManager stateManager) : IStateUpdater {
+public class CmdStateUpdaterSystemCmd(IStateManager stateManager) {
     public IResult Process(ICmdResult cmdResult) {
         if (cmdResult.Command is ISystemCmd command)
             switch (command) {
@@ -17,6 +17,7 @@ public class StateUpdaterSystemCmd(IStateManager stateManager) : IStateUpdater {
             case ICmdClockRead cmd:
                 if (cmdResult is ICmdResultFastClock res)
                     stateManager.SetState("SYSTEM", StateType.Clock, res.CurrentTime);
+
                 break;
             case ICmdClockSet cmd:
                 stateManager.SetState("SYSTEM", StateType.Clock, cmd.ClockTime);
@@ -32,6 +33,7 @@ public class StateUpdaterSystemCmd(IStateManager stateManager) : IStateUpdater {
             case ICmdPowerGetState cmd:
                 if (cmdResult is ICmdResultPowerState powerState)
                     stateManager.SetState("SYSTEM", StateType.Power, powerState.State);
+
                 break;
             case ICmdPowerSetOff cmd:
                 stateManager.SetState("SYSTEM", StateType.Power, DCCPowerState.Off);

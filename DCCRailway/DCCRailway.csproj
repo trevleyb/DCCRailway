@@ -9,12 +9,14 @@
 
     <ItemGroup>
         <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.Analysers\DCCRailway.Controller.Analysers.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller.Digitrax\DCCRailway.Controller.Digitrax.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller.NCE\DCCRailway.Controller.NCE.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller.Sprog\DCCRailway.Controller.Sprog.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
         <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
+        <ProjectReference Include="..\DCCRailway.StateManager\DCCRailway.StateManager.csproj"/>
         <ProjectReference Include="..\DCCRailway.WebApi\DCCRailway.WebApi.csproj"/>
         <ProjectReference Include="..\DCCRailway.WebApp\DCCRailway.WebApp.csproj"/>
         <ProjectReference Include="..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj"/>

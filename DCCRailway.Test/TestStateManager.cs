@@ -1,5 +1,5 @@
 using DCCRailway.Common.Types;
-using DCCRailway.Managers.State;
+using DCCRailway.StateManager.State;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
@@ -8,7 +8,7 @@ namespace DCCRailway.Test;
 public class TestStateManager {
     [Test]
     public void TestStatesAndAndRetrieve() {
-        var lsm = new StateManager();
+        var lsm = new StateManager.State.StateManager();
         var so  = new StateObject("T01");
         so.Add(StateType.Turnout, DCCTurnoutState.Thrown);
         Assert.That(so, Is.Not.Null);
@@ -22,7 +22,7 @@ public class TestStateManager {
 
     [Test]
     public void TestSetAndGetProperties() {
-        var stateManager = new StateManager();
+        var stateManager = new StateManager.State.StateManager();
         var stateObject  = new StateObject("XX");
         stateObject.Add(StateType.Signal, 15);
         stateObject.Add(StateType.Route, DCCActiveState.Active);
@@ -44,7 +44,7 @@ public class TestStateManager {
 
     [Test]
     public void TestStatesAndDelete() {
-        var lsm = new StateManager();
+        var lsm = new StateManager.State.StateManager();
         var so  = new StateObject("T01");
         so.Add(StateType.Turnout, DCCTurnoutState.Thrown);
         Assert.That(so, Is.Not.Null);
@@ -62,7 +62,7 @@ public class TestStateManager {
 
     [Test]
     public void TestStatesUpdate() {
-        var lsm = new StateManager();
+        var lsm = new StateManager.State.StateManager();
         var so  = new StateObject("T01");
         so.Add(StateType.Turnout, DCCTurnoutState.Thrown);
         Assert.That(so, Is.Not.Null);

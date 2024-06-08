@@ -1,4 +1,5 @@
 using DCCRailway.Common.Types;
+using DCCRailway.Layout.Configuration;
 using DCCRailway.Layout.Entities;
 using Route = DCCRailway.Layout.Entities.Route;
 
@@ -7,9 +8,9 @@ namespace DCCRailway.Layout.Converters;
 public static class InjectTestData {
     public static void SampleData(IRailwaySettings manager) {
         if (string.IsNullOrEmpty(manager.Settings.Name)) manager.Settings.Name = "Sample";
-        manager.Settings.Description     = "A Test configuration file for testing";
-        manager.Settings.Controller.Name = "Virtual";
-        manager.Settings.Controller.Adapters.Add("Virtual");
+        manager.Settings.Description        = "A Test configuration file for testing";
+        manager.Settings.Controller.Name    = "Virtual";
+        manager.Settings.Controller.Adapter = new Adapter() { Name = "Virtual" };
         manager.Settings.Controller.Parameters.Add("Optional", "Value");
 
         var locomotives = manager.Locomotives;

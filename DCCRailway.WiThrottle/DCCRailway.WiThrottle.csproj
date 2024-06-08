@@ -10,6 +10,7 @@
         <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
         <ProjectReference Include="..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
+        <ProjectReference Include="..\DCCRailway.StateManager\DCCRailway.StateManager.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

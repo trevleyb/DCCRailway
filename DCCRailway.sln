@@ -48,6 +48,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.WiThrottle.Test"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.WebApi", "DCCRailway.WebApi\DCCRailway.WebApi.csproj", "{3EA1CF21-71EE-4BB6-B9B6-54563A0A5825}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Controller.Analysers", "DCCRailway.Controller.Analysers\DCCRailway.Controller.Analysers.csproj", "{CCAB3BC9-33FE-4CC4-997F-56159C2E6305}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.StateManager", "DCCRailway.StateManager\DCCRailway.StateManager.csproj", "{A97C4C01-0C27-4EB5-BEC1-B6538E6D84B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -118,6 +122,14 @@ Global
 		{3EA1CF21-71EE-4BB6-B9B6-54563A0A5825}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EA1CF21-71EE-4BB6-B9B6-54563A0A5825}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EA1CF21-71EE-4BB6-B9B6-54563A0A5825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCAB3BC9-33FE-4CC4-997F-56159C2E6305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCAB3BC9-33FE-4CC4-997F-56159C2E6305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCAB3BC9-33FE-4CC4-997F-56159C2E6305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCAB3BC9-33FE-4CC4-997F-56159C2E6305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A97C4C01-0C27-4EB5-BEC1-B6538E6D84B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A97C4C01-0C27-4EB5-BEC1-B6538E6D84B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A97C4C01-0C27-4EB5-BEC1-B6538E6D84B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A97C4C01-0C27-4EB5-BEC1-B6538E6D84B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,5 +152,6 @@ Global
 		{483C03E0-FDE2-44DA-B10B-69069513F76B} = {3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}
 		{18A6D007-3A4B-4326-B98A-9240DD72652B} = {3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}
 		{0379E9A3-34CF-4AC6-ACDA-97484CF9BF60} = {E0D75749-0E2A-4DB3-A7C2-E3414C3D870E}
+		{CCAB3BC9-33FE-4CC4-997F-56159C2E6305} = {3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}
 	EndGlobalSection
 EndGlobal

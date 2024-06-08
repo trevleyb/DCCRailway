@@ -4,11 +4,11 @@ using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Commands.Base;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Attributes;
-using DCCRailway.Managers.State;
+using DCCRailway.StateManager.State;
 
-namespace DCCRailway.Managers.Updater;
+namespace DCCRailway.StateManager.Updater.CommandUpdater;
 
-public class StateUpdaterLocoCmd(IStateManager stateManager) : IStateUpdater {
+public class CmdStateUpdaterLocoCmd(IStateManager stateManager) {
     public IResult Process(ICmdResult cmdResult) {
         // Get the Accessory from the configuration so that we can update its state
         // -----------------------------------------------------------------------------

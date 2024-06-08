@@ -3,8 +3,9 @@ using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Adapters.Helpers;
 using DCCRailway.Layout;
 using DCCRailway.Layout.Configuration;
-using DCCRailway.Managers.Controller;
-using DCCRailway.Managers.State;
+using DCCRailway.Managers;
+using DCCRailway.StateManager.Updater.CommandUpdater;
+using DCCRailway.StateManager.Updater.PacketUpdater;
 using DCCRailway.WiThrottle;
 
 namespace DCCRailway.TestClasses;
@@ -24,19 +25,30 @@ public static class TestWiThrottle {
 
         // Set the Controller settings for NCEPowerCab for Testing Purposes.
         // ---------------------------------------------------------------------------------------
-        settings.Controller.Name = "NCEPowerCab";
-        settings.Controller.Adapters.Add("NCEUSBSerial");
-        settings.Controller.Adapters["NCEUSBSerial"]?.Parameters.Add("portName", ports[0].PortName);
-        settings.Controller.Adapters["NCEUSBSerial"]?.Parameters.Add("baudRate", ports[0].BaudRate);
-        settings.Controller.Adapters["NCEUSBSerial"]?.Parameters.Add("dataBits", ports[0].DataBits);
-        settings.Controller.Adapters["NCEUSBSerial"]?.Parameters.Add("stopBits", ports[0].StopBits);
-        settings.Controller.Adapters["NCEUSBSerial"]?.Parameters.Add("parity", ports[0].Parity);
-        settings.Controller.Adapters["NCEUSBSerial"]?.Parameters.Add("timeout", ports[0].Timeout);
-        settings.Controller.DefaultAdapter = "NCEUSBSerial";
+        settings.Controller.Name         = "NCEPowerCab";
+        settings.Controller.Adapter.Name = "NCEUSBSerial";
+        settings.Controller.Adapter.Parameters.Add("portName", ports[0].PortName);
+        settings.Controller.Adapter.Parameters.Add("baudRate", ports[0].BaudRate);
+        settings.Controller.Adapter.Parameters.Add("dataBits", ports[0].DataBits);
+        settings.Controller.Adapter.Parameters.Add("stopBits", ports[0].StopBits);
+        settings.Controller.Adapter.Parameters.Add("parity", ports[0].Parity);
+        settings.Controller.Adapter.Parameters.Add("timeout", ports[0].Timeout);
 
-        var stateManager = new StateManager();
-        var cmdStation   = new ControllerManager(logger, stateManager, settings.Controller);
-        var wii          = new Server(logger, settings);
+        settings.Analyser.Name         = "NCE Packet Analyser";
+        settings.Analyser.Adapter.Name = "NCEUSBSerial";
+        settings.Analyser.Adapter.Parameters.Add("portName", "/dev/tty.usbserial-11420");
+        settings.Analyser.Adapter.Parameters.Add("baudRate", 38400);
+        settings.Analyser.Adapter.Parameters.Add("dataBits", 8);
+        settings.Analyser.Adapter.Parameters.Add("stopBits", StopBits.One);
+        settings.Analyser.Adapter.Parameters.Add("parity", Parity.None);
+        settings.Analyser.Adapter.Parameters.Add("NewLine", "0x0D");
+
+        var stateManager  = new StateManager.State.StateManager();
+        var stateUpdater  = new CmdStateUpdater(logger, stateManager);
+        var cmdStation    = new ControllerManager(logger, stateUpdater, settings.Controller);
+        var packetUpdater = new PacketStateUpdater(logger, stateManager);
+        var analyser      = new ControllerManager(logger, packetUpdater, settings.Analyser);
+        var wii           = new Server(logger, settings, stateManager);
 
         // Turn on the fastClock (normally turned on/off in the UI)
         // --------------------------------------------------------------
@@ -44,11 +56,12 @@ public static class TestWiThrottle {
         settings.Settings.FastClock.State         = FastClockState.Start;
         settings.Settings.WiThrottle.UseFastClock = true;
         cmdStation.Start();
+        analyser.Start();
 
         // Start the WiThrottle and run it in the background
         // --------------------------------------------------
         logger.Information("Starting the WiThrottle Server");
-        wii.Start(cmdStation.CommandStation);
+        wii.Start(cmdStation.CommandStation!);
         logger.Information("WiThrottle Server should now be running in background.");
 
         // Wait until we press ENTER to stop the WiThrottle
@@ -58,6 +71,8 @@ public static class TestWiThrottle {
 
         logger.Information("Stopping the WiThrottle Server");
         wii.Stop();
+        cmdStation.Stop();
+        analyser.Stop();
         logger.Information("END");
     }
 }

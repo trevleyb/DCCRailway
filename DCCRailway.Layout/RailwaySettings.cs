@@ -18,6 +18,7 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
     public string          Description     => Settings.Description;
     public string          PathName        => Settings.PathName;
     public Controller      Controller      => Settings.Controller;
+    public Controller      Analyser        => Settings.Analyser;
     public WiThrottlePrefs WiThrottlePrefs => Settings.WiThrottle;
 
     // Collection/Repository Properties

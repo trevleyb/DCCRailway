@@ -1,6 +1,6 @@
 using DCCRailway.Controller.Controllers;
 
-namespace DCCRailway.Managers.Controller;
+namespace DCCRailway.Managers;
 
 public interface IControllerManager {
     ICommandStation CommandStation { get; }

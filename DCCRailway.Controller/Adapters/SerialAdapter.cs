@@ -39,6 +39,9 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
     [Parameter("Data Stop Bits (Default: None)", StopBits.None)]
     public StopBits StopBits { get; set; } = StopBits.None;
 
+    [Parameter("NewLine Character (Default: None)", "")]
+    public string NewLine { get; set; } = "";
+
     /// <summary>
     ///     Return a list of available port names that can be used by the adapter
     /// </summary>
@@ -60,7 +63,8 @@ public abstract class SerialAdapter(ILogger logger) : Adapter, IAdapter {
             throw new AdapterException(this.AttributeInfo().Name, "No port has been defined. ");
 
         try {
-            _connection = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits) { WriteTimeout = Timeout, ReadTimeout = Timeout };
+            _connection         = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits) { WriteTimeout = Timeout, ReadTimeout = Timeout };
+            _connection.NewLine = NewLine;
 
             //_connection.DataReceived += delegate (object sender, SerialDataReceivedEventArgs args) {
             //    Console.WriteLine($"{Name}: Received message: {0}", args.ToString());
