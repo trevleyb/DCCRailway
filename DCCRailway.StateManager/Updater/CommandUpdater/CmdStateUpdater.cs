@@ -1,9 +1,6 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Actions.Commands.Base;
-using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
-using DCCRailway.StateManager.State;
-using Serilog;
 
 namespace DCCRailway.StateManager.Updater.CommandUpdater;
 
@@ -16,8 +13,8 @@ namespace DCCRailway.StateManager.Updater.CommandUpdater;
 ///     So this is a bridge between the two systems. It takes a DCCRailwayConfig instance whcih is
 ///     the collection of all data related to the current executing layout.
 /// </summary>
-public class CmdStateUpdater(ILogger logger, IStateManager stateManager) : IStateUpdater {
-    public IResult Process(object message) {
+public static class CmdStateUpdater {
+    public static IResult Process(ControllerEventArgs message, IStateManager stateManager) {
         if (message is ControllerEventArgs { } eventArgs) {
             switch (eventArgs) {
             case CommandEventArgs args:
@@ -25,7 +22,6 @@ public class CmdStateUpdater(ILogger logger, IStateManager stateManager) : IStat
                 // If the command failed, log the error and return.
                 // -------------------------------------------------
                 if (args.Result is { Success: false } failedResult) {
-                    logger.Information(failedResult.Command != null ? $"Command {failedResult.Command.AttributeInfo().Name} failed with error {failedResult.Message}" : $"Command 'unknown' failed with error {failedResult.Message}");
                     return Result.Fail(failedResult.Message);
                 }
 
@@ -43,7 +39,6 @@ public class CmdStateUpdater(ILogger logger, IStateManager stateManager) : IStat
                         _           => new CmdStateUpdaterGenericCmd(stateManager).Process(cmdResult)
                     };
 
-                    logger.Information("Processed State Command: {0} with result {1} {2}.", cmdResult?.Command?.ToString(), result.Success ? "Success" : "Failed", string.IsNullOrEmpty(result?.Message) ? "" : $"and message '{result.Message}'");
                     return result ?? Result.Ok();
                 }
 
@@ -56,7 +51,6 @@ public class CmdStateUpdater(ILogger logger, IStateManager stateManager) : IStat
                 return Result.Ok();
 
             default:
-                logger.Verbose($"CommandStation Event Raise: {eventArgs.Message}");
                 return Result.Ok();
             }
         }

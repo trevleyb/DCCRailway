@@ -2,20 +2,21 @@ using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Exceptions;
-using DCCRailway.StateManager.Updater;
+using DCCRailway.Controller.Tasks.Events;
 using Serilog;
 
 namespace DCCRailway.Managers;
 
 public class ControllerManager : IControllerManager {
-    private readonly ILogger       _logger;
-    private readonly IStateUpdater _stateUpdater;
+    private readonly ILogger _logger;
 
-    public ControllerManager(ILogger logger, IStateUpdater stateUpdater, Layout.Configuration.Controller controllerSettings) {
-        _logger       = logger;
-        _stateUpdater = stateUpdater;
+    public ControllerManager(ILogger logger, Layout.Configuration.Controller controllerSettings) {
+        _logger = logger;
         Configure(controllerSettings);
     }
+
+    public event EventHandler<ControllerEventArgs> ControllerEvent;
+    public event EventHandler<ITaskEvent>          TaskEvent;
 
     public ICommandStation? CommandStation { get; private set; }
 
@@ -25,6 +26,7 @@ public class ControllerManager : IControllerManager {
         _logger.Information("Controller Manager starting.");
         if (CommandStation is not null) {
             CommandStation.ControllerEvent += CommandStationInstanceOnCommandStationEvent;
+            CommandStation.TaskEvent       += CommandStationOnTaskEvent;
             CommandStation.Start();
             CommandStation.StartAllTasks();
         }
@@ -34,6 +36,7 @@ public class ControllerManager : IControllerManager {
         _logger.Information("Controller Manager stopping.");
         if (CommandStation is not null) {
             CommandStation.ControllerEvent -= CommandStationInstanceOnCommandStationEvent;
+            CommandStation.TaskEvent       -= CommandStationOnTaskEvent;
             CommandStation.StopAllTasks();
             CommandStation.Stop();
         }
@@ -67,7 +70,6 @@ public class ControllerManager : IControllerManager {
 
         try {
             var commandStation = controllerManager.CreateController(controller.Name) ?? throw new ControllerException($"Invalid CommandStation Name specified {controller.Name}");
-
             foreach (var parameter in controller.Parameters) {
                 if (commandStation.IsMappableParameter(parameter.Name)) {
                     commandStation.SetMappableParameter(parameter.Name, parameter.Value);
@@ -143,6 +145,12 @@ public class ControllerManager : IControllerManager {
     }
 
     private void CommandStationInstanceOnCommandStationEvent(object? sender, ControllerEventArgs e) {
-        _stateUpdater.Process(e);
+        ControllerEvent?.Invoke(sender, e);
+
+        //_stateUpdater.Process(e);
+    }
+
+    private void CommandStationOnTaskEvent(object? sender, ITaskEvent e) {
+        TaskEvent?.Invoke(sender, e);
     }
 }

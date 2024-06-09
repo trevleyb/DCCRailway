@@ -1,4 +1,4 @@
-namespace DCCRailway.StateManager.State;
+namespace DCCRailway.StateManager;
 
 [Serializable]
 public class StateObject(string id) {

@@ -6,6 +6,7 @@ using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Tasks;
+using DCCRailway.Controller.Tasks.Events;
 
 namespace DCCRailway.Controller.Controllers;
 
@@ -24,8 +25,9 @@ public interface ICommandStation : IParameterMappable {
     void Start();
     void Stop();
 
-    void                                           OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result);
-    public event EventHandler<ControllerEventArgs> ControllerEvent;
+    void                                    OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result);
+    event EventHandler<ControllerEventArgs> ControllerEvent;
+    event EventHandler<ITaskEvent>          TaskEvent;
 
     // Execute a Command. Must be executed via here
     // ----------------------------------------------------------------------------

@@ -39,8 +39,9 @@ public class PacketProcessor(ILogger logger, ICommandStation cmdStation) : Contr
     private void ProcessQueue() {
         foreach (var message in GetQueuedMessages()) {
             if (_lastMessage != message) {
-                var decodedPacket = _packetAnalyser.Decode(message);
-                Console.WriteLine(decodedPacket.ToString());
+                var             decodedPacket = _packetAnalyser.Decode(message);
+                PacketTaskEvent taskEvent     = new(this, decodedPacket);
+                OnTaskEvent(this, taskEvent);
             }
 
             _lastMessage = message;

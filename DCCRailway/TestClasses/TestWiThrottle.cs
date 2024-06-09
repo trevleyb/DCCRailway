@@ -4,8 +4,6 @@ using DCCRailway.Controller.Adapters.Helpers;
 using DCCRailway.Layout;
 using DCCRailway.Layout.Configuration;
 using DCCRailway.Managers;
-using DCCRailway.StateManager.Updater.CommandUpdater;
-using DCCRailway.StateManager.Updater.PacketUpdater;
 using DCCRailway.WiThrottle;
 
 namespace DCCRailway.TestClasses;
@@ -34,6 +32,7 @@ public static class TestWiThrottle {
         settings.Controller.Adapter.Parameters.Add("parity", ports[0].Parity);
         settings.Controller.Adapter.Parameters.Add("timeout", ports[0].Timeout);
 
+        /*
         settings.Analyser.Name         = "NCE Packet Analyser";
         settings.Analyser.Adapter.Name = "NCESerial";
         settings.Analyser.Adapter.Parameters.Add("portName", "/dev/tty.usbserial-11420");
@@ -42,13 +41,12 @@ public static class TestWiThrottle {
         settings.Analyser.Adapter.Parameters.Add("stopBits", StopBits.One);
         settings.Analyser.Adapter.Parameters.Add("parity", Parity.None);
         settings.Analyser.Adapter.Parameters.Add("NewLine", "0x0D");
+        */
 
-        var stateManager  = new StateManager.State.StateManager();
-        var stateUpdater  = new CmdStateUpdater(logger, stateManager);
-        var cmdStation    = new ControllerManager(logger, stateUpdater, settings.Controller);
-        var packetUpdater = new PacketStateUpdater(logger, stateManager);
-        var analyser      = new ControllerManager(logger, packetUpdater, settings.Analyser);
-        var wii           = new Server(logger, settings, stateManager);
+        var stateManager = new StateManager.StateManager();
+        var cmdStation   = new ControllerManager(logger, settings.Controller);
+        var analyser     = new ControllerManager(logger, settings.Analyser);
+        var wii          = new Server(logger, settings, stateManager);
 
         // Turn on the fastClock (normally turned on/off in the UI)
         // --------------------------------------------------------------

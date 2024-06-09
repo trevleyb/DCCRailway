@@ -1,3 +1,6 @@
+using DCCRailway.Controller.Analysers.NCEPacketAnalyser.Tasks;
+using DCCRailway.Controller.Controllers.Events;
+using DCCRailway.Controller.Tasks.Events;
 using DCCRailway.Layout;
 using DCCRailway.StateManager.Updater.CommandUpdater;
 using DCCRailway.StateManager.Updater.PacketUpdater;
@@ -10,10 +13,10 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
     public ILogger          Logger   { get; init; } = logger;
     public IRailwaySettings Settings { get; private set; }
 
-    public ControllerManager               ControllerManager { get; private set; }
-    public ControllerManager               AnalyserManager   { get; private set; }
-    public StateManager.State.StateManager StateManager      { get; private set; }
-    public WiThrottle.Server?              WiThrottle        { get; private set; }
+    public ControllerManager         ControllerManager { get; private set; }
+    public ControllerManager         AnalyserManager   { get; private set; }
+    public StateManager.StateManager StateManager      { get; private set; }
+    public WiThrottle.Server?        WiThrottle        { get; private set; }
 
     /// <summary>
     /// Re-Loads the repositories into the collections. This is done when we instantiate
@@ -42,13 +45,15 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
     }
 
     public void Start() {
-        StateManager = new StateManager.State.StateManager();
+        StateManager = new StateManager.StateManager();
 
         // Create an instance of the Main Controller taht controls the layout
         // -------------------------------------------------------------------
         if (Settings.Controller is { Name: not null }) {
-            var cmdStateUpdater = new CmdStateUpdater(Logger, StateManager);
-            ControllerManager = new ControllerManager(Logger, cmdStateUpdater, Settings.Controller);
+            //var cmdStateUpdater = new CmdStateUpdater(Logger, StateManager);
+            ControllerManager                 =  new ControllerManager(Logger, Settings.Controller);
+            ControllerManager.ControllerEvent += ControllerManagerOnControllerEvent;
+            ControllerManager.TaskEvent       += ControllerManagerOnTaskEvent;
             ControllerManager.Start();
 
             if (Settings.WiThrottlePrefs.RunOnStartup) {
@@ -62,8 +67,10 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
         // If we have defined a Packet Analyser, then create an instance of the Packet Analyser
         // -------------------------------------------------------------------
         if (Settings.Analyser is { Name: not null }) {
-            var pktStateUpdater = new PacketStateUpdater(Logger, StateManager);
-            AnalyserManager = new ControllerManager(Logger, pktStateUpdater, Settings.Analyser);
+            //var pktStateUpdater = new PacketStateUpdater(Logger, StateManager);
+            AnalyserManager                 =  new ControllerManager(Logger, Settings.Analyser);
+            AnalyserManager.ControllerEvent += AnalyserManagerOnControllerEvent;
+            AnalyserManager.TaskEvent       += AnalyserManagerOnTaskEvent;
             AnalyserManager.Start();
         }
 
@@ -71,6 +78,24 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
         // ------------------------------------------------------------------------------------
         var webApp = new Server();
         webApp.Start(new string[] { });
+    }
+
+    private void ControllerManagerOnTaskEvent(object? sender, ITaskEvent e) {
+        // Do nothing at the moment
+    }
+
+    private void ControllerManagerOnControllerEvent(object? sender, ControllerEventArgs e) {
+        CmdStateUpdater.Process(e, StateManager);
+    }
+
+    private void AnalyserManagerOnTaskEvent(object? sender, ITaskEvent e) {
+        if (e is PacketTaskEvent packetEvent) {
+            PacketStateUpdater.Process(packetEvent.PacketMessage, StateManager);
+        }
+    }
+
+    private void AnalyserManagerOnControllerEvent(object? sender, ControllerEventArgs e) {
+        throw new NotImplementedException();
     }
 
     public void Stop() {

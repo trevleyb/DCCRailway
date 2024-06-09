@@ -1,5 +1,6 @@
 using DCCRailway.Common.Parameters;
 using DCCRailway.Controller.Controllers;
+using DCCRailway.Controller.Tasks.Events;
 
 namespace DCCRailway.Controller.Tasks;
 
@@ -10,9 +11,7 @@ public interface IControllerTask : IParameterMappable {
     int             Milliseconds   { get; }
     decimal         Seconds        { get; }
 
-    event EventHandler WorkStarted;
-    event EventHandler WorkFinished;
-    event EventHandler WorkInProgress;
+    event EventHandler<ITaskEvent> TaskEvent;
 
     void Start();
     void Stop();

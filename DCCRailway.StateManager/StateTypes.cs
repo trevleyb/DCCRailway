@@ -1,4 +1,4 @@
-namespace DCCRailway.StateManager.State;
+namespace DCCRailway.StateManager;
 
 public enum StateType {
     Dummy,

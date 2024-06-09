@@ -1,3 +1,5 @@
 namespace DCCRailway.Controller.Tasks.Events;
 
-public class TaskEventArgs : EventArgs, ITaskEvent { }
+public class TaskEvent(IControllerTask? task) : EventArgs, ITaskEvent {
+    public IControllerTask Task { get; } = task;
+}

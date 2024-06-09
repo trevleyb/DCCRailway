@@ -7,6 +7,7 @@ using DCCRailway.Controller.Adapters.Base;
 using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Controllers.Events;
 using DCCRailway.Controller.Tasks;
+using DCCRailway.Controller.Tasks.Events;
 using Serilog;
 
 namespace DCCRailway.Controller.Controllers;
@@ -20,14 +21,17 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
         FunctionManager             =  new FunctionManager(logger, this);
         CommandManager.CommandEvent += CommandManagerOnCommandManagerEvent;
         AdapterManager.AdapterEvent += AdapterManagerOnAdapterManagerEvent;
+        TaskManager.TaskEvent       += TaskManagerOnTaskEvent;
     }
 
-    private ILogger                                Logger          { get; init; }
-    private TaskManager                            TaskManager     { get; } // Manages background Tasks
-    private CommandManager                         CommandManager  { get; } // Manages what commands are available
-    private AdapterManager                         AdapterManager  { get; } // Manages the attached Adapter(s)
-    private FunctionManager                        FunctionManager { get; } // Manages tracking Function Blocks
+    private ILogger         Logger          { get; init; }
+    private TaskManager     TaskManager     { get; } // Manages background Tasks
+    private CommandManager  CommandManager  { get; } // Manages what commands are available
+    private AdapterManager  AdapterManager  { get; } // Manages the attached Adapter(s)
+    private FunctionManager FunctionManager { get; } // Manages tracking Function Blocks
+
     public event EventHandler<ControllerEventArgs> ControllerEvent;
+    public event EventHandler<ITaskEvent>          TaskEvent;
 
     public virtual void Start() {
         OnControllerEvent(this, "Starting up the CommandStation");
@@ -70,6 +74,7 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
 
     public List<AdapterAttribute> Adapters => AdapterManager.Adapters;
     public List<CommandAttribute> Commands => CommandManager.Commands;
+    public List<TaskAttribute>    Tasks    => TaskManager.Tasks;
 
     public IAdapter? CreateAdapter(string? name) {
         return AdapterManager.Attach(name);
@@ -82,8 +87,6 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
     public TCommand? CreateCommand<TCommand>(DCCAddress? address) where TCommand : ICommand {
         return (TCommand?)CommandManager.Create<TCommand>(Adapter!, address);
     }
-
-    public List<TaskAttribute> Tasks => TaskManager.Tasks;
 
     public IControllerTask? CreateTask(string taskType) {
         return TaskManager.Create(taskType);
@@ -105,10 +108,16 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
         TaskManager.StopAllTasks();
     }
 
-    public abstract DCCAddress        CreateAddress();
-    public abstract DCCAddress        CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
-    public          DCCFunctionBlocks FunctionBlocks(DCCAddress address) => FunctionManager.FunctionBlocks(address);
-    public          DCCFunctionBlocks FunctionBlocks(int address)        => FunctionManager.FunctionBlocks(new DCCAddress(address));
+    public abstract DCCAddress CreateAddress();
+    public abstract DCCAddress CreateAddress(int address, DCCAddressType type = DCCAddressType.Long);
+
+    public DCCFunctionBlocks FunctionBlocks(DCCAddress address) {
+        return FunctionManager.FunctionBlocks(address);
+    }
+
+    public DCCFunctionBlocks FunctionBlocks(int address) {
+        return FunctionManager.FunctionBlocks(new DCCAddress(address));
+    }
 
     public void OnCommandExecute(ICommandStation commandStation, ICommand command, ICmdResult result) {
         ControllerEvent?.Invoke(this, new CommandEventArgs(command, result, $"Command Executed on {commandStation.AttributeInfo().Name}"));
@@ -124,12 +133,18 @@ public abstract class CommandStation : ICommandStation, IParameterMappable {
     }
 
     public void AdapterManagerOnAdapterManagerEvent(object? sender, AdapterEventArgs e) {
-        if (e.Adapter != null)
+        if (e.Adapter != null) {
             ControllerEvent?.Invoke(sender, new AdapterEventArgs(e.Adapter, e.AdapterEvent, e.Data, e.Message ?? ""));
+        }
     }
 
-    public void CommandManagerOnCommandManagerEvent(object? sender, CommandEventArgs e) {
-        if (e.Command != null)
+    private void CommandManagerOnCommandManagerEvent(object? sender, CommandEventArgs e) {
+        if (e.Command != null) {
             ControllerEvent?.Invoke(sender, new CommandEventArgs(e.Command, e.Result, e.Message ?? ""));
+        }
+    }
+
+    private void TaskManagerOnTaskEvent(object? sender, ITaskEvent e) {
+        TaskEvent?.Invoke(sender, e);
     }
 }

@@ -10,7 +10,6 @@ namespace DCCRailway.Controller.Controllers;
 public class TaskManager(ILogger logger, ICommandStation commandStation, Assembly assembly) {
     private readonly Dictionary<string, IControllerTask> _runningTasks   = [];
     private          Dictionary<Type, TaskAttribute>     _availableTasks = [];
-
     public IControllerTask? this[string name] => _runningTasks[name] ?? null;
     public List<IControllerTask> RunningTasks => _runningTasks.Values.ToList();
 
@@ -21,7 +20,7 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
         }
     }
 
-    public event EventHandler<TaskEventArgs> TaskEvent;
+    public event EventHandler<ITaskEvent> TaskEvent;
 
     public IControllerTask? Create(string taskName) {
         if (Tasks is not { Count: > 0 }) throw new TaskException(taskName, "CommandStation has no supported Tasks");
@@ -85,27 +84,20 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
     }
 
     public void StartAllTasks() {
-        foreach (var task in _runningTasks) task.Value.Start();
+        foreach (var task in _runningTasks) {
+            task.Value.TaskEvent += OnTaskEvent;
+            task.Value.Start();
+        }
     }
 
     public void StopAllTasks() {
-        foreach (var task in _runningTasks) task.Value.Stop();
+        foreach (var task in _runningTasks) {
+            task.Value.TaskEvent -= OnTaskEvent;
+            task.Value.Stop();
+        }
     }
 
-    #region Raise Events
-    private void OnTaskAdd(object sender, IControllerTask task) {
-        var e = new TaskEventArgs();
-        TaskEvent(sender, e);
+    private void OnTaskEvent(object? sender, ITaskEvent e) {
+        TaskEvent?.Invoke(sender, e);
     }
-
-    private void OnTaskStart(object sender, IControllerTask task) {
-        var e = new TaskEventArgs();
-        TaskEvent(sender, e);
-    }
-
-    private void OnTaskStop(object sender, IControllerTask task) {
-        var e = new TaskEventArgs();
-        TaskEvent(sender, e);
-    }
-    #endregion
 }

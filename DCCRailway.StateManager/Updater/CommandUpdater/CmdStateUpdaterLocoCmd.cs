@@ -4,7 +4,6 @@ using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Commands.Base;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Attributes;
-using DCCRailway.StateManager.State;
 
 namespace DCCRailway.StateManager.Updater.CommandUpdater;
 

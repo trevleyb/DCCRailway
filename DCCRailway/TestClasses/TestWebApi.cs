@@ -1,7 +1,6 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Layout;
 using DCCRailway.Managers;
-using DCCRailway.StateManager.Updater.CommandUpdater;
 
 namespace DCCRailway.TestClasses;
 
@@ -9,9 +8,8 @@ public static class TestWebApi {
     public static void WebApiRun(string[] args) {
         var logger       = LoggerHelper.DebugLogger;
         var settings     = new RailwaySettings(logger).Sample("./", "Sample");
-        var stateManager = new StateManager.State.StateManager();
-        var stateUpdater = new CmdStateUpdater(logger, stateManager);
-        var cmdStation   = new ControllerManager(logger, stateUpdater, settings.Controller);
+        var stateManager = new StateManager.StateManager();
+        var cmdStation   = new ControllerManager(logger, settings.Controller);
         var webApi       = new WebApi.Server(logger, settings);
 
         //cmdStation.Start();

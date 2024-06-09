@@ -3,7 +3,7 @@ using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Controllers;
 using DCCRailway.Controller.Virtual.Adapters;
-using DCCRailway.StateManager.State;
+using DCCRailway.StateManager;
 using DCCRailway.StateManager.Updater.CommandUpdater;
 using NUnit.Framework;
 
@@ -15,8 +15,7 @@ public class ControllerEventLayoutTest {
     public void TestSimpleEventToState() {
         // Create a Virtual Controller so we can issue commands and test results.
         // ----------------------------------------------------------------------------
-        var stateManager = new StateManager.State.StateManager();
-        var stateUpdater = new CmdStateUpdater(LoggerHelper.DebugLogger, stateManager);
+        var stateManager = new StateManager.StateManager();
         var controller   = new CommandStationFactory(LoggerHelper.DebugLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.DebugLogger));
         Assert.That(controller, Is.Not.Null);
 
@@ -26,7 +25,7 @@ public class ControllerEventLayoutTest {
         // as commands are only issued to ADDRESSES
         // ------------------------------------------------------------------------------------------------------------
         if (controller is not null) {
-            controller.ControllerEvent += (sender, args) => { stateUpdater.Process(args); };
+            controller.ControllerEvent += (sender, args) => { CmdStateUpdater.Process(args, stateManager); };
 
             // Try setting a Loco Speed
             // ----------------------------------------------------------------------------------------------------

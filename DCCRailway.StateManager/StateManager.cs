@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.StateManager.State;
+namespace DCCRailway.StateManager;
 
 /// <summary>
 ///     A state manager simply tracks the state of given objects. An object must have

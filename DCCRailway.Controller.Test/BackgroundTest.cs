@@ -1,12 +1,17 @@
 using System.Text.Json;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Controllers;
+using DCCRailway.Controller.Tasks.Events;
 using DCCRailway.Controller.Virtual.Adapters;
 
 namespace DCCRailway.Controller.Test;
 
 [TestFixture]
 public class BackgroundTest {
+    bool workStarted  = false;
+    bool workFinished = false;
+    int  workHappened = 0;
+
     [Test]
     public void TestDeserializationofTimeSpan() {
         var timespan1 = new TimeSpan(0, 1, 1, 1, 1);
@@ -24,9 +29,9 @@ public class BackgroundTest {
 
     [Test]
     public void TestThatWeCanLoadVirtualCommandStation() {
-        var workStarted  = false;
-        var workFinished = false;
-        var workHappened = 0;
+        workStarted  = false;
+        workFinished = false;
+        workHappened = 0;
 
         var virtualSystem = new CommandStationFactory(LoggerHelper.DebugLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.DebugLogger));
         Assert.That(virtualSystem, Is.Not.Null, "Should have created a Virtual System with a Adapter");
@@ -36,9 +41,7 @@ public class BackgroundTest {
         Assert.That(taskInstance, Is.Not.Null, "Should have a task instance");
 
         // This will run the task on the background
-        taskInstance.WorkStarted    += (sender, args) => workStarted  = true;
-        taskInstance.WorkFinished   += (sender, args) => workFinished = true;
-        taskInstance.WorkInProgress += (sender, args) => workHappened++;
+        taskInstance.TaskEvent += TaskInstanceOnTaskEvent;
         taskInstance.Start();
         Thread.Sleep(taskInstance.Milliseconds * 5); // Go to sleep for 5 times the duration of the process
         taskInstance.Stop();
@@ -47,5 +50,11 @@ public class BackgroundTest {
         Assert.That(workStarted, Is.True);
         Assert.That(workFinished, Is.True);
         Assert.That(workHappened, Is.GreaterThan(0));
+    }
+
+    private void TaskInstanceOnTaskEvent(object? sender, ITaskEvent e) {
+        if (e is TaskStartEvent) workStarted      = true;
+        else if (e is TaskStopEvent) workFinished = true;
+        else workHappened++;
     }
 }

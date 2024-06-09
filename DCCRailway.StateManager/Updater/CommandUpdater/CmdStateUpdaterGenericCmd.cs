@@ -1,6 +1,5 @@
 using DCCRailway.Common.Helpers;
 using DCCRailway.Controller.Actions.Results;
-using DCCRailway.StateManager.State;
 
 namespace DCCRailway.StateManager.Updater.CommandUpdater;
 
