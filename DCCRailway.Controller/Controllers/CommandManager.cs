@@ -60,8 +60,9 @@ public class CommandManager(ILogger logger, ICommandStation commandStation, Asse
 
     protected void RegisterCommand<TInterface, TConcrete>() where TInterface : ICommand where TConcrete : ICommand {
         var attr = AttributeExtractor.GetAttribute<CommandAttribute>(typeof(TInterface));
-        if (attr == null || string.IsNullOrEmpty(attr.Name))
+        if (attr == null || string.IsNullOrEmpty(attr.Name)) {
             throw new ApplicationException("Command does not contain AttributeInfo Definition. Add AttributeInfo first");
+        }
 
         if (!_commands.ContainsKey(typeof(TInterface))) _commands.TryAdd(typeof(TInterface), (attr, typeof(TConcrete)));
     }

@@ -32,7 +32,7 @@ public class Parameter {
 
     public object Get() {
         try {
-            if (ObjType is not null)
+            if (ObjType is not null) {
                 return ObjType switch {
                     "System.String"             => Value,
                     "System.Int32"              => Convert.ToInt32(Value, CultureInfo.InvariantCulture),
@@ -46,6 +46,7 @@ public class Parameter {
                     "System.IO.Ports.DataBits"  => Convert.ToInt32(Value, CultureInfo.InvariantCulture),
                     _                           => Convert.ChangeType(Value, Type.GetType(ObjType) ?? typeof(string), CultureInfo.InvariantCulture)
                 };
+            }
         } catch {
             return Convert.ChangeType(Value, typeof(string), CultureInfo.InvariantCulture);
         }

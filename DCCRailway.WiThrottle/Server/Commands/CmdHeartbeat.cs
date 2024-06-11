@@ -11,9 +11,11 @@ public class CmdHeartbeat(ILogger logger, Connection connection) : ThrottleCmd, 
             if (commandStr.Length == 1) {
                 connection.UpdateHeartbeat();
             } else if (commandStr.Length >= 2) {
-                if (commandStr[1] == '+') connection.HeartbeatState      = HeartbeatStateEnum.On;
-                else if (commandStr[1] == '-') connection.HeartbeatState = HeartbeatStateEnum.Off;
-                else {
+                if (commandStr[1] == '+') {
+                    connection.HeartbeatState = HeartbeatStateEnum.On;
+                } else if (commandStr[1] == '-') {
+                    connection.HeartbeatState = HeartbeatStateEnum.Off;
+                } else {
                     // We actually should never get here. It should not be possible for a client to change the 
                     // duration of the heartbeats. But lets check in case some do. 
                     if (int.TryParse(commandStr[1..], out var heartBeatSeconds)) {

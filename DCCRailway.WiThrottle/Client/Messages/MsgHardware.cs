@@ -11,12 +11,13 @@ public class MsgHardware(ILogger logger) : IClientMsg {
     public void Process(string commandStr) {
         logger.Information("WiThrottle Recieved Cmd Hardware - {0}=>'{1}'", ToString(), commandStr);
 
-        if (commandStr.Length > 2)
+        if (commandStr.Length > 2) {
             switch (commandStr[1]) {
             case 'U':
                 var hardwareID = commandStr[2..];
                 break;
             }
+        }
     }
 
     public override string ToString() {

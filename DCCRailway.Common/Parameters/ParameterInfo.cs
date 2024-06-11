@@ -25,8 +25,9 @@ public class ParameterInfo {
     }
 
     private string GetAvailableOptions(PropertyInfo prop) {
-        if (prop.PropertyType.BaseType?.Name.ToLower() == "enum")
+        if (prop.PropertyType.BaseType?.Name.ToLower() == "enum") {
             return GetEnumOptions(prop.PropertyType);
+        }
 
         return prop.PropertyType.Name.ToLower() switch {
             "byte"   => "0...255",
@@ -39,11 +40,12 @@ public class ParameterInfo {
         string GetEnumOptions(Type property) {
             var builder = new StringBuilder();
 
-            foreach (var field in property.GetFields())
+            foreach (var field in property.GetFields()) {
                 if (field.FieldType.BaseType != null && field.FieldType.BaseType.Name.Equals("enum", StringComparison.InvariantCultureIgnoreCase)) {
                     if (builder.Length > 0) builder.Append(" | ");
                     builder.Append(field.Name);
                 }
+            }
 
             return builder.ToString();
         }

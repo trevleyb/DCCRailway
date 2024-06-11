@@ -48,8 +48,9 @@ public abstract class Command : PropertyChangedBase, ICommand, IParameterMappabl
         // ------------------------------------------------------------
         var recvData = adapter.RecvData(this);
 
-        if (recvData == null)
+        if (recvData == null) {
             throw new ExpectedDataException(null, adapter, "Command expected to receive data from the Adapter but received nothing. ");
+        }
 
         // Validate the data. All NCE Actions return a ! for OK or another code for an error, or some data if appropriate
         // ---------------------------------------------------------------------------------------------------------------

@@ -11,7 +11,7 @@ public class CmdStateUpdaterLocoCmd(IStateManager stateManager) {
     public IResult Process(ICmdResult cmdResult) {
         // Get the Accessory from the configuration so that we can update its state
         // -----------------------------------------------------------------------------
-        if (cmdResult.Command is ILocoCmd locoCmd)
+        if (cmdResult.Command is ILocoCmd locoCmd) {
             switch (locoCmd) {
             case ICmdLocoStop cmd:
                 stateManager.CopyState(cmd.Address, StateType.Speed, StateType.LastSpeed, new DCCSpeed(0));
@@ -38,8 +38,9 @@ public class CmdStateUpdaterLocoCmd(IStateManager stateManager) {
             default:
                 return Result.Fail($"Unexpected command type {cmdResult?.Command?.AttributeInfo()?.Name}.");
             }
-        else
+        } else {
             return Result.Fail($"Unexpected command type {cmdResult?.Command?.AttributeInfo()?.Name}.");
+        }
 
         return Result.Ok();
     }

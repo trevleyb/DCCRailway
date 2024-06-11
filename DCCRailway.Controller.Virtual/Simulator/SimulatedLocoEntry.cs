@@ -59,8 +59,9 @@ public class SimulatedLocoEntry {
 
     public byte this[int cvAddress] {
         get {
-            if (cvAddress >= 0 && cvAddress <= MAX_CV_VALUE)
+            if (cvAddress >= 0 && cvAddress <= MAX_CV_VALUE) {
                 return (byte)(_cvValues[cvAddress] == null ? 123 : _cvValues[cvAddress]!);
+            }
 
             throw new IndexOutOfRangeException($"CV Address must be between 0...{MAX_CV_VALUE}");
         }

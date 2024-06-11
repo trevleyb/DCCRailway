@@ -73,8 +73,9 @@ public class TaskManager(ILogger logger, ICommandStation commandStation, Assembl
     protected void RegisterTask<T>() where T : IControllerTask {
         var attr = AttributeExtractor.GetAttribute<TaskAttribute>(typeof(T));
 
-        if (attr is null || string.IsNullOrEmpty(attr.Name))
+        if (attr is null || string.IsNullOrEmpty(attr.Name)) {
             throw new ApplicationException("Task instance cannot be NULL and must be a concrete object.");
+        }
 
         if (!_availableTasks.ContainsKey(typeof(T))) _availableTasks.TryAdd(typeof(T), attr);
     }

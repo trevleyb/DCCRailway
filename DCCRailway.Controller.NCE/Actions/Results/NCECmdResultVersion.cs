@@ -29,9 +29,12 @@ public class NCECmdResultVersion : CmdResult {
 
         if (sourceSplit.Length != compareSplit.Length) return false;
 
-        for (var i = 0; i < sourceSplit.Length; i++)
-            if (sourceSplit[i] != compareSplit[i] && compareSplit[i].ToUpperInvariant() != "X")
+        for (var i = 0; i < sourceSplit.Length; i++) {
+            if (sourceSplit[i] != compareSplit[i] && compareSplit[i].ToUpperInvariant() != "X") {
                 return false;
+            }
+        }
+
         return true;
     }
 }

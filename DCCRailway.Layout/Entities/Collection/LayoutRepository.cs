@@ -93,9 +93,11 @@ public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, T
         try {
             var keys = new List<string>(Keys);
 
-            foreach (var key in keys)
-                if (TryRemove(key, out var removed))
+            foreach (var key in keys) {
+                if (TryRemove(key, out var removed)) {
                     OnItemChanged(key, RepositoryChangeAction.Delete);
+                }
+            }
         } finally {
             _atomicMutex.Release();
         }

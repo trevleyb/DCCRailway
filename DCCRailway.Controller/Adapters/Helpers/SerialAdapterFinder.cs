@@ -35,11 +35,25 @@ public static class SerialAdapterFinder {
         return foundSettings;
     }
 
-    public static List<SerialAdapterSettings> Find(byte data, byte expected, string[]? portName = null, int[]? baudRate = null, int[]? dataBits = null, Parity[]? parity = null, StopBits[]? stopBits = null)     => Find([data], [expected], portName, baudRate, dataBits, parity, stopBits);
-    public static List<SerialAdapterSettings> Find(byte data, string expected, string[]? portName = null, int[]? baudRate = null, int[]? dataBits = null, Parity[]? parity = null, StopBits[]? stopBits = null)   => Find([data], Encoding.ASCII.GetBytes(expected), portName, baudRate, dataBits, parity, stopBits);
-    public static List<SerialAdapterSettings> Find(string data, string expected, string[]? portName = null, int[]? baudRate = null, int[]? dataBits = null, Parity[]? parity = null, StopBits[]? stopBits = null) => Find(Encoding.ASCII.GetBytes(data), Encoding.ASCII.GetBytes(expected), portName, baudRate, dataBits, parity, stopBits);
-    public static List<SerialAdapterSettings> Find(string data, byte[] expected, string[]? portName = null, int[]? baudRate = null, int[]? dataBits = null, Parity[]? parity = null, StopBits[]? stopBits = null) => Find(Encoding.ASCII.GetBytes(data), expected, portName, baudRate, dataBits, parity, stopBits);
-    public static List<SerialAdapterSettings> Find(byte[] data, string expected, string[]? portName = null, int[]? baudRate = null, int[]? dataBits = null, Parity[]? parity = null, StopBits[]? stopBits = null) => Find(data, Encoding.ASCII.GetBytes(expected), portName, baudRate, dataBits, parity, stopBits);
+    public static List<SerialAdapterSettings> Find(byte data, byte expected, string[]? portName = null, int[]? baudRate = null, int[]? dataBits = null, Parity[]? parity = null, StopBits[]? stopBits = null) {
+        return Find([data], [expected], portName, baudRate, dataBits, parity, stopBits);
+    }
+
+    public static List<SerialAdapterSettings> Find(byte data, string expected, string[]? portName = null, int[]? baudRate = null, int[]? dataBits = null, Parity[]? parity = null, StopBits[]? stopBits = null) {
+        return Find([data], Encoding.ASCII.GetBytes(expected), portName, baudRate, dataBits, parity, stopBits);
+    }
+
+    public static List<SerialAdapterSettings> Find(string data, string expected, string[]? portName = null, int[]? baudRate = null, int[]? dataBits = null, Parity[]? parity = null, StopBits[]? stopBits = null) {
+        return Find(Encoding.ASCII.GetBytes(data), Encoding.ASCII.GetBytes(expected), portName, baudRate, dataBits, parity, stopBits);
+    }
+
+    public static List<SerialAdapterSettings> Find(string data, byte[] expected, string[]? portName = null, int[]? baudRate = null, int[]? dataBits = null, Parity[]? parity = null, StopBits[]? stopBits = null) {
+        return Find(Encoding.ASCII.GetBytes(data), expected, portName, baudRate, dataBits, parity, stopBits);
+    }
+
+    public static List<SerialAdapterSettings> Find(byte[] data, string expected, string[]? portName = null, int[]? baudRate = null, int[]? dataBits = null, Parity[]? parity = null, StopBits[]? stopBits = null) {
+        return Find(data, Encoding.ASCII.GetBytes(expected), portName, baudRate, dataBits, parity, stopBits);
+    }
 
     public static byte[]? TestSerialPort(SerialAdapterSettings settings, byte[] data) {
         using var connection = new SerialPort(settings.PortName, settings.BaudRate, settings.Parity, settings.DataBits, settings.StopBits);

@@ -25,18 +25,21 @@ public class NCESignalSetAspect : NCECommand, ICmdSignalSetAspect, ICommand {
     public byte Aspect {
         get => _aspect;
         set {
-            if ((value < 0 || value > 15) && value != 30 && value != 31)
+            if ((value < 0 || value > 15) && value != 30 && value != 31) {
                 throw new ArgumentOutOfRangeException(nameof(value), value, "Signal Aspect must be between 0..15 or 30,31");
+            }
+
             _aspect = value;
         }
     }
 
     public bool Off {
         set {
-            if (value)
+            if (value) {
                 _aspect = 31;
-            else
+            } else {
                 _aspect = 15;
+            }
         }
     }
 

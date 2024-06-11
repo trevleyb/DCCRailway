@@ -27,9 +27,11 @@ public static class ParameterMapper {
 
                     // Make sure we can convert the parameterValue to the type of the property
                     // Convert the parameterValue to the type of the property and set the value
+                {
                     prop.SetValue(input, converter.ConvertFromString(parameterValue), null);
-                else
+                } else {
                     throw new InvalidCastException($"Cannot convert \"{parameterValue}\" to type \"{prop.PropertyType}\".");
+                }
             } else {
                 throw new ArgumentException($"\"{parameterName}\" is not a valid read/write property in \"{type.Name}\" class.");
             }
@@ -42,9 +44,12 @@ public static class ParameterMapper {
 
         var prop = type.GetProperty(propertyName, LookupPropertyBindingFlags); // Try get the property from the given parameterName
 
-        if (prop is not null)
-            if (prop.GetCustomAttribute<ParameterAttribute>() is not null)
+        if (prop is not null) {
+            if (prop.GetCustomAttribute<ParameterAttribute>() is not null) {
                 return true;
+            }
+        }
+
         return false;
     }
 

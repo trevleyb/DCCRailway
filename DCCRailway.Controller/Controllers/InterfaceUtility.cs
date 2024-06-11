@@ -6,9 +6,12 @@ namespace DCCRailway.Controller.Controllers;
 public static class InterfaceUtility {
     public static string? FindImplmentationInterface(IEnumerable<TypeInfo> definedTypes, string searchtype) {
         foreach (var definedType in definedTypes)
-        foreach (var implementedInterface in definedType.ImplementedInterfaces)
-            if (implementedInterface.Name.Equals(SplitInterfaceName(searchtype)))
+        foreach (var implementedInterface in definedType.ImplementedInterfaces) {
+            if (implementedInterface.Name.Equals(SplitInterfaceName(searchtype))) {
                 return definedType.FullName;
+            }
+        }
+
         return null;
     }
 

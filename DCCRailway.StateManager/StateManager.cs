@@ -40,9 +40,11 @@ public class StateManager : IStateManager {
     }
 
     public StateObject SetState(StateObject state) {
-        if (!_states.ContainsKey(state.Id))
-            if (!_states.TryAdd(state.Id, state))
+        if (!_states.ContainsKey(state.Id)) {
+            if (!_states.TryAdd(state.Id, state)) {
                 throw new Exception("Error creating a State Object");
+            }
+        }
 
         // Should always get one of these because we would have just added it.
         // --------------------------------------------------------------------
@@ -104,10 +106,11 @@ public class StateManager : IStateManager {
     public void CopyState(string id, StateType firstKey, StateType secondKey, object ifNotExist) {
         var firstState = GetState(id, firstKey);
 
-        if (firstState is not null)
+        if (firstState is not null) {
             SetState(id, secondKey, firstState);
-        else
+        } else {
             SetState(id, secondKey, ifNotExist);
+        }
     }
 
     public void DeleteState(DCCAddress address) {
@@ -123,8 +126,10 @@ public class StateManager : IStateManager {
     }
 
     public void DeleteState(string id, StateType key) {
-        if (_states.TryGetValue(id, out var idStates))
-            if (idStates.Data.ContainsKey(key))
+        if (_states.TryGetValue(id, out var idStates)) {
+            if (idStates.Data.ContainsKey(key)) {
                 idStates.Data.Remove(key);
+            }
+        }
     }
 }

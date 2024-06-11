@@ -30,7 +30,7 @@ public static class PacketStateUpdater {
             SignalMessage signalMsg           => UpdateSignalMsg(signalMsg),
             SpeedAndDirectionMessage speedMsg => UpdateSpeedMsg(speedMsg),
             SpeedStepsMessage stepsMsg        => UpdateStepsMsg(stepsMsg),
-            _                                 => Result.Fail("Unknown Packet Message Type."),
+            _                                 => Result.Fail("Unknown Packet Message Type.")
         };
 
         return result;

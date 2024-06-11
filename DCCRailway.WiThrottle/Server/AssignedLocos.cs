@@ -34,11 +34,12 @@ public class AssignedLocos {
         var addresses  = new List<DCCAddress>();
         var foundLocos = new List<AssignedLoco>();
 
-        foreach (var loco in AssignedAddresses)
+        foreach (var loco in AssignedAddresses) {
             if (loco.Group == dataGroup && loco.Connection == connection) {
                 foundLocos.Add(loco);
                 addresses.Add(loco.Address);
             }
+        }
 
         foreach (var loco in foundLocos) Release(loco.Address);
         return addresses;

@@ -41,8 +41,10 @@ public class VirtualClockSet : VirtualCommand, ICmdClockSet, ICommand {
 
     public int Ratio {
         set {
-            if (value <= 0 || value > 15)
+            if (value <= 0 || value > 15) {
                 throw new ValidationException("Ratio must be in the range of 1..15 (1:1 ... 1:15)");
+            }
+
             _ratio = value;
         }
         get => _ratio;

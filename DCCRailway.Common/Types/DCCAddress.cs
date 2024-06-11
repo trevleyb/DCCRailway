@@ -64,8 +64,9 @@ public class DCCAddress : PropertyChangedBase, IEqualityComparer<DCCAddress> {
     public int Address {
         get => _address;
         set {
-            if (value < 0 || value >= MAX_ADDRESS)
+            if (value < 0 || value >= MAX_ADDRESS) {
                 throw new ArgumentOutOfRangeException($"Address must be in the range of 1..{MAX_ADDRESS}");
+            }
 
             SetPropertyField(ref _address, value);
             if (value >= 128) AddressType = DCCAddressType.Long;

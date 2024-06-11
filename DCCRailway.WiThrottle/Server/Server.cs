@@ -200,7 +200,7 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings, StateManag
     /// <param name="connection"></param>
     /// <param name="stream"></param>
     private void SendServerMessages(Connection connection, NetworkStream stream) {
-        while (connection.HasMsg)
+        while (connection.HasMsg) {
             try {
                 // Get the message off the queue but only call the "Message" property
                 // once as calling it can cause code to be executed such as getting the
@@ -216,6 +216,7 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings, StateManag
                 logger.Error("WiThrottle Unable to send message to the client : {0}", ex.Message);
                 throw;
             }
+        }
     }
 
     private void SendServerMessages(string serverMessage, NetworkStream stream) {

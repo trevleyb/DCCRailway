@@ -27,7 +27,7 @@ public class NCESerial(ILogger logger) : SerialAdapter(logger), IAdapter {
     public DCCFunctionBlocks LastFunctionBlocks { get; set; }
 
     public override        List<SerialAdapterSettings> ValidPorts   => _validPorts ??= SerialAdapterFinder.Find(0x80, "!", null, [9600, 19200], [7, 8], [Parity.None], [StopBits.One]);
-    public sealed override SerialAdapterSettings?      ValidSetting => (ValidPorts.Count > 0) ? ValidPorts[0] : null;
+    public sealed override SerialAdapterSettings?      ValidSetting => ValidPorts.Count > 0 ? ValidPorts[0] : null;
 
     public override void ConfigureValidSettings() {
         if (ValidSetting is not null) {

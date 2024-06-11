@@ -58,22 +58,44 @@ public class Connection {
     /// </summary>
     public bool IsHeartbeatOk => HeartbeatState == HeartbeatStateEnum.Off || (DateTime.Now - LastHeartbeat).TotalSeconds < HeartbeatSeconds;
 
-    public IThrottleMsg? NextMsg           => _serverMessages.HasMessages ? _serverMessages.Dequeue() : null;
-    public bool          HasMsg            => _serverMessages.HasMessages && IsActive;
-    public void          UpdateHeartbeat() => LastHeartbeat = DateTime.Now;
+    public IThrottleMsg? NextMsg => _serverMessages.HasMessages ? _serverMessages.Dequeue() : null;
+    public bool          HasMsg  => _serverMessages.HasMessages && IsActive;
+
+    public void UpdateHeartbeat() {
+        LastHeartbeat = DateTime.Now;
+    }
 
     // Assignment Helpers
     // -------------------------------------------------------------------------------------
-    public bool             IsAddressInUse(DCCAddress address)      => _listReference.Assignments.IsAssigned(address);
-    public bool             Acquire(char group, DCCAddress address) => _listReference.Assignments.Acquire(group, address, this);
-    public Connection?      Release(DCCAddress address)             => _listReference.Assignments.Release(address);
-    public AssignedLoco?    GetLoco(DCCAddress address)             => _listReference.Assignments.Get(address);
-    public List<DCCAddress> ReleaseAllInGroup(char dataGroup)       => _listReference.Assignments.ReleaseAllInGroup(dataGroup, this);
-    public List<DCCAddress> AssignedLocos(char dataGroup)           => _listReference.Assignments.GetAllAssignedForConnection(this, dataGroup);
+    public bool IsAddressInUse(DCCAddress address) {
+        return _listReference.Assignments.IsAssigned(address);
+    }
+
+    public bool Acquire(char group, DCCAddress address) {
+        return _listReference.Assignments.Acquire(group, address, this);
+    }
+
+    public Connection? Release(DCCAddress address) {
+        return _listReference.Assignments.Release(address);
+    }
+
+    public AssignedLoco? GetLoco(DCCAddress address) {
+        return _listReference.Assignments.Get(address);
+    }
+
+    public List<DCCAddress> ReleaseAllInGroup(char dataGroup) {
+        return _listReference.Assignments.ReleaseAllInGroup(dataGroup, this);
+    }
+
+    public List<DCCAddress> AssignedLocos(char dataGroup) {
+        return _listReference.Assignments.GetAllAssignedForConnection(this, dataGroup);
+    }
 
     // Queue Helpers
     // -------------------------------------------------------------------------------------
-    public void QueueMsg(IThrottleMsg message) => _serverMessages.Add(message);
+    public void QueueMsg(IThrottleMsg message) {
+        _serverMessages.Add(message);
+    }
 
     public void QueueMsg(IThrottleMsg[] messages) {
         foreach (var msg in messages) QueueMsg(msg);
@@ -84,16 +106,27 @@ public class Connection {
     /// message to all connected devices.
     /// </summary>
     /// <param name="message"></param>
-    public void QueueMsgToAll(IThrottleMsg message) => _listReference.QueueMsgToAll(message);
+    public void QueueMsgToAll(IThrottleMsg message) {
+        _listReference.QueueMsgToAll(message);
+    }
 
-    public void QueueMsgToAll(IThrottleMsg[] messages) => _listReference.QueueMsgToAll(messages);
+    public void QueueMsgToAll(IThrottleMsg[] messages) {
+        _listReference.QueueMsgToAll(messages);
+    }
 
     // Find Helpers
     // -------------------------------------------------------------------------------------
-    public Connection? GetByHardwareID(string hardwareID) => _listReference.GetByHardwareID(hardwareID, ConnectionHandle);
+    public Connection? GetByHardwareID(string hardwareID) {
+        return _listReference.GetByHardwareID(hardwareID, ConnectionHandle);
+    }
 
-    public void RemoveDuplicateID(string hardwareID) => _listReference.RemoveDuplicateID(hardwareID, ConnectionHandle);
-    public bool HasDuplicateID(string hardwareID)    => _listReference.HasDuplicateID(hardwareID, ConnectionHandle);
+    public void RemoveDuplicateID(string hardwareID) {
+        _listReference.RemoveDuplicateID(hardwareID, ConnectionHandle);
+    }
+
+    public bool HasDuplicateID(string hardwareID) {
+        return _listReference.HasDuplicateID(hardwareID, ConnectionHandle);
+    }
 
     /// <summary>
     ///     Close this connection. If there are any "InUse" locos, then ensure that are stopped
@@ -121,7 +154,9 @@ public class Connection {
         if (string.IsNullOrEmpty(HardwareID)) _listReference.Remove(this);
     }
 
-    public override string ToString() => $"{ThrottleName} @{ConnectionAddress}/{ConnectionHandle}|";
+    public override string ToString() {
+        return $"{ThrottleName} @{ConnectionAddress}/{ConnectionHandle}|";
+    }
 }
 
 public enum HeartbeatStateEnum {

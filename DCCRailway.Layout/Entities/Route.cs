@@ -29,8 +29,10 @@ public class Route(string id = "") : LayoutEntity(id) {
     public void SwapTurnout(int firstPosition, int secondPosition) {
         var routesArray = RouteTurnouts.ToArray();
 
-        if (firstPosition < routesArray.Length && secondPosition < routesArray.Length && firstPosition != secondPosition)
+        if (firstPosition < routesArray.Length && secondPosition < routesArray.Length && firstPosition != secondPosition) {
             (routesArray[firstPosition], routesArray[secondPosition]) = (routesArray[secondPosition], routesArray[firstPosition]);
+        }
+
         RouteTurnouts = routesArray.ToList();
     }
 }

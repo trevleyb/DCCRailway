@@ -18,9 +18,12 @@ public static class ExtensionMethods {
         if (pos < 0 || pos > 7) throw new IndexOutOfRangeException("Bit position should be 0..7");
 
         if (value) //left-shift 1, then bitwise OR
+        {
             bits = (byte)(bits | (1 << pos));
-        else //left-shift 1, then take complement, then bitwise AND
+        } else //left-shift 1, then take complement, then bitwise AND
+        {
             bits = (byte)(bits & ~(1 << pos));
+        }
 
         return bits;
     }

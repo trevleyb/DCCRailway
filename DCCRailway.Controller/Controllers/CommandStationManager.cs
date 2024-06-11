@@ -44,19 +44,23 @@ public class CommandStationManager(ILogger logger, ControllerAttribute attribute
     /// <exception cref="ApplicationException">If it cannot create an instance dynamically</exception>
     public ICommandStation Create() {
         try {
-            if (!File.Exists(AssemblyPath))
+            if (!File.Exists(AssemblyPath)) {
                 throw new SystemInstantiateException(Name, $"The Assembly '{AssemblyPath}' does not exist.");
+            }
 
-            if (AssemblyType is null)
+            if (AssemblyType is null) {
                 throw new SystemInstantiateException(Name, "Unable to determine the object type as the type is 'Undefined'.");
+            }
 
             var assembly = Assembly.LoadFrom(AssemblyPath);
 
-            if (assembly is null)
+            if (assembly is null) {
                 throw new SystemInstantiateException(Name, $"Unable to get the Assembly from the Path '{AssemblyPath}'.");
+            }
 
-            if (Activator.CreateInstance(AssemblyType, logger) is not ICommandStation instance)
+            if (Activator.CreateInstance(AssemblyType, logger) is not ICommandStation instance) {
                 throw new SystemInstantiateException(Name, "Unable to instantiate an instance of the controller.");
+            }
 
             return instance;
         } catch (Exception ex) {

@@ -21,9 +21,11 @@ public static class Terminators {
     }
 
     public static StringBuilder AddTerminator(StringBuilder input) {
-        if (input.Length > 0)
-            if (!HasTerminator(input))
+        if (input.Length > 0) {
+            if (!HasTerminator(input)) {
                 input.Append(Terminator);
+            }
+        }
 
         return input;
     }
@@ -43,9 +45,11 @@ public static class Terminators {
     }
 
     public static bool HasTerminator(string input) {
-        foreach (var terminator in PossibleTerminators)
-            if (input.Contains(terminator))
+        foreach (var terminator in PossibleTerminators) {
+            if (input.Contains(terminator)) {
                 return true;
+            }
+        }
 
         return false;
     }

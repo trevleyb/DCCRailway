@@ -8,7 +8,7 @@ namespace DCCRailway.StateManager.Updater.CommandUpdater;
 
 public class CmdStateUpdaterSensorCmd(IStateManager stateManager) {
     public IResult Process(ICmdResult cmdResult) {
-        if (cmdResult.Command is ISensorCmd sensorCmd)
+        if (cmdResult.Command is ISensorCmd sensorCmd) {
             switch (sensorCmd) {
             case ICmdSensorGetState cmd:
                 stateManager.SetState(cmd.Address, StateType.Sensor, cmdResult.Byte);
@@ -16,6 +16,7 @@ public class CmdStateUpdaterSensorCmd(IStateManager stateManager) {
             default:
                 return Result.Fail($"Unexpected command type {cmdResult?.Command?.AttributeInfo()?.Name}.");
             }
+        }
 
         return Result.Ok();
     }

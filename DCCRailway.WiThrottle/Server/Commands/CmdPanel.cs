@@ -133,11 +133,12 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
         var deactivateList = new List<Route>();
 
         if (connection.RailwaySettings.Routes.Values is { } routes) {
-            foreach (var route in routes)
+            foreach (var route in routes) {
                 if (AreTurnoutsMatched(refRoute, route)) {
                     deactivateList.Add(route);
                     route.State = RouteState.Inactive;
                 }
+            }
 
             foreach (var route in deactivateList) connection.QueueMsgToAll(new MsgRouteState(connection, route));
         }
@@ -145,9 +146,11 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
 
     private bool AreTurnoutsMatched(Route refRoute, Route route) {
         foreach (var turnout in refRoute.RouteTurnouts)
-        foreach (var checkTurnout in route.RouteTurnouts)
-            if (turnout.TurnoutID == checkTurnout.TurnoutID && turnout.State != checkTurnout.State)
+        foreach (var checkTurnout in route.RouteTurnouts) {
+            if (turnout.TurnoutID == checkTurnout.TurnoutID && turnout.State != checkTurnout.State) {
                 return true;
+            }
+        }
 
         return false;
     }

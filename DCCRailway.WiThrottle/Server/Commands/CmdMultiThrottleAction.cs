@@ -23,7 +23,7 @@ public partial class CmdMultiThrottle {
                         ThrottleActionEnum.SetSpeedSteps        => SetSpeedSteps(data, address, locoData, cmdHelper),
                         ThrottleActionEnum.SetMomentaryState    => SetMomentaryState(data, address, locoData, cmdHelper),
                         ThrottleActionEnum.QueryValue           => QueryValue(data, address, locoData, cmdHelper),
-                        _                                       => new MsgIgnore(),
+                        _                                       => new MsgIgnore()
                     };
 
                     messages.Add(msg);

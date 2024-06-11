@@ -27,8 +27,9 @@ public class SimulatedLocoList : Dictionary<int, SimulatedLocoEntry> {
             max -= 1;
             var findPos = new Random().Next(0, Count);
 
-            if (this[findPos] != null && (this[findPos].Type == DCCAddressType.Short || this[findPos].Type == DCCAddressType.Long))
+            if (this[findPos] != null && (this[findPos].Type == DCCAddressType.Short || this[findPos].Type == DCCAddressType.Long)) {
                 return this[findPos];
+            }
         }
 
         return null;

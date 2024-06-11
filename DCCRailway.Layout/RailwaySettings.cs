@@ -111,12 +111,13 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
     }
 
     public static string FullName(string path, string name, string entity) {
-        if (!Directory.Exists(path))
+        if (!Directory.Exists(path)) {
             try {
                 Directory.CreateDirectory(path);
             } catch (Exception ex) {
                 throw new ApplicationException($"Unable to create the specified folder '{path}'", ex);
             }
+        }
 
         return Path.Combine(path ?? "", $"{name}.{entity}.json");
     }

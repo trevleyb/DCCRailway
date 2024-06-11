@@ -30,8 +30,9 @@ public class XmlSerializerHelper<T> {
     /// <param name="fileName">The name of the file to write the data to</param>
     /// <exception cref="ApplicationException">Returns an error if it cannot save</exception>
     public static void Save(T collection, string fileName) {
-        if (string.IsNullOrEmpty(fileName))
+        if (string.IsNullOrEmpty(fileName)) {
             throw new ApplicationException("You must specify a name for the Configuration File.");
+        }
 
         // Write out the Hierarchy of Configuration Options, from this class, to an XML File
         // -----------------------------------------------------------------------------------

@@ -55,8 +55,8 @@ public class CmdMultiThrottleHelper {
                 IsBroadcast = false;
             }
 
-            Action     = (ThrottleActionEnum)commandStr[(delimiterPos + Delimiter.Length)];
-            ActionData = (commandStr.Length > (delimiterPos + Delimiter.Length + 1)) ? commandStr[(delimiterPos + Delimiter.Length + 1)..] : "";
+            Action     = (ThrottleActionEnum)commandStr[delimiterPos + Delimiter.Length];
+            ActionData = commandStr.Length > delimiterPos + Delimiter.Length + 1 ? commandStr[(delimiterPos + Delimiter.Length + 1)..] : "";
             IsValid    = true;
         } catch {
             IsValid = false;

@@ -36,8 +36,9 @@ public class Connections(ILogger logger) {
 
     public void QueueMsgToAll(IThrottleMsg[] messages) {
         foreach (var connection in ActiveConnections)
-        foreach (var msg in messages)
+        foreach (var msg in messages) {
             connection.QueueMsg(msg);
+        }
     }
 
     public Connection? GetByHardwareID(string hardwareID, ulong connectionHandle) {
@@ -45,9 +46,11 @@ public class Connections(ILogger logger) {
     }
 
     public void RemoveDuplicateID(string hardwareID, ulong connectionHandle) {
-        for (var i = ActiveConnections.Count - 1; i >= 0; i--)
-            if (ActiveConnections[i].HardwareID.Equals(hardwareID) && ActiveConnections[i].ConnectionHandle != connectionHandle)
+        for (var i = ActiveConnections.Count - 1; i >= 0; i--) {
+            if (ActiveConnections[i].HardwareID.Equals(hardwareID) && ActiveConnections[i].ConnectionHandle != connectionHandle) {
                 ActiveConnections.RemoveAt(i);
+            }
+        }
     }
 
     public bool HasDuplicateID(string hardwareID, ulong connectionHandle) {

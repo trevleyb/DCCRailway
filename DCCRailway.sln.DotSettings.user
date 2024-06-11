@@ -3,7 +3,7 @@
                         xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xml:space="preserve">
 	<s:Boolean
             x:Key="/Default/AddReferences/RecentPaths/=_002FUsers_002Ftrevor_002FDevelopment_002FDCCPacketAnalyser_002FDCCPacketAnalyser_002Fbin_002FDebug_002Fnet8_002E0_002FDCCPacketAnalyser_002Edll/@EntryIndexedValue">True</s:Boolean>
-	<s:String x:Key="/Default/CodeInspection/PencilsConfiguration/ActualSeverity/@EntryValue">SUGGESTION</s:String>
+    <s:String x:Key="/Default/CodeInspection/PencilsConfiguration/ActualSeverity/@EntryValue">SUGGESTION</s:String>
 
 
     <s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INT_ALIGN_PARAMETERS/@EntryValue">False</s:Boolean>
@@ -77,7 +77,7 @@
     <s:String
             x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a7508f01_002D1eb9_002D4931_002D9ac1_002Dd1f0de0427ce/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RunClientTest #7" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest.RunClientTest&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
     <s:String

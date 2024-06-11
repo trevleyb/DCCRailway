@@ -40,8 +40,10 @@ public class NCEClockSet : NCECommand, ICmdClockSet, ICommand {
 
     public int Ratio {
         set {
-            if (value <= 0 || value > 15)
+            if (value <= 0 || value > 15) {
                 throw new ValidationException("Ratio must be in the range of 1..15 (1:1 ... 1:15)");
+            }
+
             _ratio = value;
         }
         get => _ratio;
@@ -57,10 +59,13 @@ public class NCEClockSet : NCECommand, ICmdClockSet, ICommand {
         // -----------------------------------------------------------------------------------------
         ICmdResult result;
 
-        if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).Success)
-            if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).Success)
-                if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).Success)
+        if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x86, (byte)(_is24Hour ? 00 : 01) })).Success) {
+            if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x85, (byte)_hour, (byte)_minute })).Success) {
+                if ((result = SendAndReceive(adapter, new NCEStandardValidation(), new byte[] { 0x87, (byte)_ratio })).Success) {
                     return result;
+                }
+            }
+        }
 
         return result;
     }

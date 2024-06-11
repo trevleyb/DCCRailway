@@ -14,8 +14,10 @@ public class Parameters : List<Parameter> {
         ArgumentNullException.ThrowIfNull(value);
         ArgumentNullException.ThrowIfNull(name);
 
-        if (Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) != null)
+        if (Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) != null) {
             throw new ArgumentException($"Parameter '{name}' already exists");
+        }
+
         Add(new Parameter(name, value));
     }
 
@@ -23,8 +25,10 @@ public class Parameters : List<Parameter> {
         ArgumentNullException.ThrowIfNull(value);
         ArgumentNullException.ThrowIfNull(name);
 
-        if (Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) != null)
+        if (Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) != null) {
             throw new ArgumentException($"Parameter '{name}' already exists");
+        }
+
         Add(new Parameter(name, value));
     }
 

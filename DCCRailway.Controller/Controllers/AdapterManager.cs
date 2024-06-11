@@ -51,8 +51,9 @@ public class AdapterManager(ILogger logger, ICommandStation commandStation, Asse
     /// <param name="adapterName">The name of the Adapter to instantiate and connect.</param>
     /// <exception cref="AdapterException">Throws an exception if it cannot find or instantiate the adapter</exception>
     public IAdapter? Attach(string? adapterName) {
-        if (Adapters is not { Count: > 0 })
+        if (Adapters is not { Count: > 0 }) {
             throw new AdapterException(adapterName, "CommandStation has no supported Adapters");
+        }
 
         try {
             foreach (var adapter in _adapters) {
@@ -116,8 +117,9 @@ public class AdapterManager(ILogger logger, ICommandStation commandStation, Asse
     protected void RegisterAdapter<T>() where T : IAdapter {
         var attr = AttributeExtractor.GetAttribute<AdapterAttribute>(typeof(T));
 
-        if (attr is null || string.IsNullOrEmpty(attr.Name))
+        if (attr is null || string.IsNullOrEmpty(attr.Name)) {
             throw new ApplicationException("Adapter instance cannot be NULL and must be a concrete object.");
+        }
 
         if (!_adapters.ContainsKey(typeof(T))) _adapters.TryAdd(typeof(T), attr);
     }

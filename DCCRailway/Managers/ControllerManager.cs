@@ -122,7 +122,7 @@ public class ControllerManager : IControllerManager {
     /// <param name="commandStation">The ICommandStation to which the tasks will be attached.</param>
     private void AttachCommandStationTasks(DCCRailway.Layout.Configuration.Controller controller, ICommandStation commandStation) {
         try {
-            foreach (var task in controller.Tasks)
+            foreach (var task in controller.Tasks) {
                 try {
                     var taskInstance = commandStation.CreateTask(task.Type);
                     if (taskInstance is not null) {
@@ -138,6 +138,7 @@ public class ControllerManager : IControllerManager {
                 } catch (Exception ex) {
                     _logger.Error($"Unable to instantiate the task '{task.Name}' or type '{task.Type}'", ex);
                 }
+            }
         } catch (Exception ex) {
             _logger.Error("Unable to create and attach tasks to the Command Station.", ex.Message);
             throw;

@@ -8,9 +8,9 @@ namespace DCCRailway.Controller.Test;
 
 [TestFixture]
 public class BackgroundTest {
-    bool workStarted  = false;
-    bool workFinished = false;
-    int  workHappened = 0;
+    private bool workStarted  = false;
+    private bool workFinished = false;
+    private int  workHappened = 0;
 
     [Test]
     public void TestDeserializationofTimeSpan() {
@@ -53,8 +53,12 @@ public class BackgroundTest {
     }
 
     private void TaskInstanceOnTaskEvent(object? sender, ITaskEvent e) {
-        if (e is TaskStartEvent) workStarted      = true;
-        else if (e is TaskStopEvent) workFinished = true;
-        else workHappened++;
+        if (e is TaskStartEvent) {
+            workStarted = true;
+        } else if (e is TaskStopEvent) {
+            workFinished = true;
+        } else {
+            workHappened++;
+        }
     }
 }

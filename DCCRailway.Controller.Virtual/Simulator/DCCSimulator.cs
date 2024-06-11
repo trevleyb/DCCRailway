@@ -71,8 +71,9 @@ public class DCCSimulator {
             break;
         }
 
-        if (consistAddress == null)
+        if (consistAddress == null) {
             throw new IndexOutOfRangeException("No available Consist Adresses. Cannot create a Consist.");
+        }
 
         //
         // Update the Loco CVs to indicate they are in a Consist and Create a Conists Entry
@@ -184,16 +185,20 @@ public class DCCSimulator {
 
     #region Read and Write a CV
     public object? WriteCV(DCCAddress address, int cv, byte value) {
-        if (!_progTrackSelected || _mainTrackSelected)
+        if (!_progTrackSelected || _mainTrackSelected) {
             throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
+        }
+
         _locoList.GetLoco(address)[cv] = value;
 
         return null;
     }
 
     public object? WriteCV(int cv, byte value) {
-        if (!_progTrackSelected || _mainTrackSelected)
+        if (!_progTrackSelected || _mainTrackSelected) {
             throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
+        }
+
         var loco                   = _locoList.GetRandomLoco();
         if (loco != null) loco[cv] = value;
 
@@ -201,8 +206,10 @@ public class DCCSimulator {
     }
 
     public byte ReadCV(int cv) {
-        if (!_progTrackSelected || _mainTrackSelected)
+        if (!_progTrackSelected || _mainTrackSelected) {
             throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
+        }
+
         var loco = _locoList.GetRandomLoco();
 
         if (loco != null) return loco[cv];
@@ -211,8 +218,9 @@ public class DCCSimulator {
     }
 
     public byte ReadCV(DCCAddress address, int cv) {
-        if (!_progTrackSelected || _mainTrackSelected)
+        if (!_progTrackSelected || _mainTrackSelected) {
             throw new InvalidOperationException("Cannot Read/Write CV unless in Programming Mode.");
+        }
 
         return _locoList.GetLoco(address)[cv];
     }
@@ -296,10 +304,11 @@ public class DCCSimulator {
     public object? SetLocoSpeedSteps(DCCAddress address, DCCProtocol steps) {
         var entry = _locoList.GetLoco(address);
 
-        if (steps == DCCProtocol.DCC14)
+        if (steps == DCCProtocol.DCC14) {
             entry[29] = entry[29].SetBit(2, false);
-        else
+        } else {
             entry[29] = entry[29].SetBit(2, true);
+        }
 
         return null;
     }

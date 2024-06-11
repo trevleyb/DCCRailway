@@ -10,8 +10,9 @@ public class TerminatorsTest {
         var block = "This is a sample string";
         Assert.That(Terminators.HasTerminator(block), Is.False);
 
-        foreach (var terminator in Terminators.PossibleTerminators)
+        foreach (var terminator in Terminators.PossibleTerminators) {
             Assert.That(Terminators.HasTerminator(block + terminator), Is.True);
+        }
     }
 
     [Test]

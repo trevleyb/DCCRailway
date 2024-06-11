@@ -37,6 +37,7 @@ public class NCEConsistAdd : NCECommand, ICmdConsistAdd, ICommand {
             DCCConsistPosition.Rear  => command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x0d : 0x0c)),
             _                        => command.AddToArray((byte)(Direction == DCCDirection.Forward ? 0x0f : 0x0e))
         };
+
         command = command.AddToArray(ConsistAddress);
 
         return SendAndReceive(adapter, new NCEStandardValidation(), command);

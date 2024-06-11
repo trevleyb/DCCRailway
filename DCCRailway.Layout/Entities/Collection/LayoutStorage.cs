@@ -47,8 +47,9 @@ public static class LayoutStorage {
     /// <param name="fileName">The name of the file to save.</param>
     /// <exception cref="ApplicationException">Thrown when fileName is null or empty or when an exception occurs during serialization or file writing.</exception>
     public static void SaveFile<TClass, TEntity>(ILogger logger, TClass entityClass, string? fileName) where TEntity : LayoutEntity where TClass : LayoutRepository<TEntity> {
-        if (string.IsNullOrEmpty(fileName))
+        if (string.IsNullOrEmpty(fileName)) {
             throw new ApplicationException("You must specify a name for the Configuration File.");
+        }
 
         try {
             var jsonString = SerializeLayout<TClass, TEntity>(entityClass);
@@ -76,8 +77,9 @@ public static class LayoutStorage {
             var jsonOptions = JsonSerializerHelper.Options;
             var jsonObject  = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonString, jsonOptions);
 
-            if (jsonObject is null)
+            if (jsonObject is null) {
                 return new TClass() ?? throw new Exception("Could not create a repository to populate. Fatal");
+            }
 
             // Reconstruct MyObject instance
             var repository     = new TClass() ?? throw new Exception("Could not create a repository to populate. Fatal");

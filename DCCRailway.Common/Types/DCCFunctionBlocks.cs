@@ -87,13 +87,21 @@ public class DCCFunctionBlocks {
             throw new IndexOutOfRangeException("Function number must be between 0..28");
         }
         set {
-            if (i == 0) _block[0]                    = _block[0].SetBit(4, value);
-            else if (i is >= 1 and <= 4) _block[0]   = _block[0].SetBit(i - 1, value);
-            else if (i is >= 5 and <= 8) _block[1]   = _block[1].SetBit(i - 5, value);
-            else if (i is >= 9 and <= 12) _block[2]  = _block[2].SetBit(i - 9, value);
-            else if (i is >= 13 and <= 20) _block[3] = _block[3].SetBit(i - 13, value);
-            else if (i is >= 21 and <= 28) _block[4] = _block[4].SetBit(i - 21, value);
-            else throw new IndexOutOfRangeException("Function number must be between 0..28");
+            if (i == 0) {
+                _block[0] = _block[0].SetBit(4, value);
+            } else if (i is >= 1 and <= 4) {
+                _block[0] = _block[0].SetBit(i - 1, value);
+            } else if (i is >= 5 and <= 8) {
+                _block[1] = _block[1].SetBit(i - 5, value);
+            } else if (i is >= 9 and <= 12) {
+                _block[2] = _block[2].SetBit(i - 9, value);
+            } else if (i is >= 13 and <= 20) {
+                _block[3] = _block[3].SetBit(i - 13, value);
+            } else if (i is >= 21 and <= 28) {
+                _block[4] = _block[4].SetBit(i - 21, value);
+            } else {
+                throw new IndexOutOfRangeException("Function number must be between 0..28");
+            }
         }
     }
 
@@ -127,9 +135,11 @@ public class DCCFunctionBlocks {
     }
 
     private int GetFunctionFromName(string functionName) {
-        if (functionName.StartsWith("F"))
-            if (int.TryParse(functionName[1..], out var function))
+        if (functionName.StartsWith("F")) {
+            if (int.TryParse(functionName[1..], out var function)) {
                 return function;
+            }
+        }
 
         throw new IndexOutOfRangeException("Function number must be between 0..28");
     }

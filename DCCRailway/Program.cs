@@ -17,8 +17,9 @@ void Startup(string[] args) {
         var loggerConfig = new LoggerConfiguration().Enrich.FromLogContext().Enrich.WithAssemblyName().WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Day);
 
         // If option to write to the console is enabled, then add console logging
-        if (options.Console)
+        if (options.Console) {
             loggerConfig.WriteTo.Console(outputTemplate: consoleOutputTemplate, theme: AnsiConsoleTheme.Literate);
+        }
 
         // If we are running in Debugger mode,then output to the Debug window
         if (System.Diagnostics.Debugger.IsAttached) loggerConfig.WriteTo.Debug();
@@ -48,8 +49,11 @@ void Startup(string[] args) {
 static void RunRailway(ILogger logger, string path, string name, bool clean, bool runWiThrottle) {
     var railway = new RailwayManager(logger);
 
-    if (clean) railway.New(path, name);
-    else railway.Load(path, name);
+    if (clean) {
+        railway.New(path, name);
+    } else {
+        railway.Load(path, name);
+    }
 
     logger.Information("Starting the DCCRailway Manager.");
     railway.Start();

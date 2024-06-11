@@ -30,7 +30,9 @@ public class LayoutCmdHelper(ICommandStation commandStation, DCCAddress? address
         }
     }
 
-    public void SetSpeed(byte speed, DCCDirection direction) => SetSpeed(new DCCSpeed(speed), direction);
+    public void SetSpeed(byte speed, DCCDirection direction) {
+        SetSpeed(new DCCSpeed(speed), direction);
+    }
 
     public void SetSpeed(DCCSpeed speed, DCCDirection direction) {
         if (GetCommandRef<ICmdLocoSetSpeed>() is { } command) {
@@ -40,9 +42,17 @@ public class LayoutCmdHelper(ICommandStation commandStation, DCCAddress? address
         }
     }
 
-    public void SetSpeedSteps14()  => SetSpeedSteps(DCCProtocol.DCC14);
-    public void SetSpeedSteps28()  => SetSpeedSteps(DCCProtocol.DCC28);
-    public void SetSpeedSteps128() => SetSpeedSteps(DCCProtocol.DCC128);
+    public void SetSpeedSteps14() {
+        SetSpeedSteps(DCCProtocol.DCC14);
+    }
+
+    public void SetSpeedSteps28() {
+        SetSpeedSteps(DCCProtocol.DCC28);
+    }
+
+    public void SetSpeedSteps128() {
+        SetSpeedSteps(DCCProtocol.DCC128);
+    }
 
     public void SetSpeedSteps(byte steps) {
         if (steps == 28) SetSpeedSteps28();
@@ -51,7 +61,7 @@ public class LayoutCmdHelper(ICommandStation commandStation, DCCAddress? address
     }
 
     private T? GetCommandRef<T>() where T : ICommand {
-        return commandStation.IsCommandSupported<T>() ? commandStation.CreateCommand<T>(address) : default(T);
+        return commandStation.IsCommandSupported<T>() ? commandStation.CreateCommand<T>(address) : default;
     }
 
     public void SetSpeedSteps(DCCProtocol protocol) {
