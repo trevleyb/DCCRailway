@@ -8,7 +8,12 @@ public class Result(bool success, string message = "", Exception? exception = nu
 
     // Data
     // -----------------------------------------------------------------------
-    public bool       Success   { get; protected init; } = success;
+    public bool Success { get; protected init; } = success;
+
+    public bool Failed {
+        get => !Success;
+    }
+
     public string     Message   { get; protected init; } = message;
     public Exception? Exception { get; protected init; } = exception;
 
@@ -31,11 +36,11 @@ public class Result(bool success, string message = "", Exception? exception = nu
     }
 
     public static IResult Fail(string message) {
-        return new Result(true, message);
+        return new Result(false, message);
     }
 
     public static IResult Fail(Exception ex) {
-        return new Result(true, ex.Message, ex);
+        return new Result(false, ex.Message, ex);
     }
 
     public static IResult Fail(IResult result) {
@@ -43,7 +48,7 @@ public class Result(bool success, string message = "", Exception? exception = nu
     }
 
     public static IResult Fail(string message, Exception ex) {
-        return new Result(true, message, ex);
+        return new Result(false, message, ex);
     }
 
     public override string ToString() {

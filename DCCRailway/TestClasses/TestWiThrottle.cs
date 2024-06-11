@@ -2,7 +2,7 @@ using DCCRailway.Common.Helpers;
 using DCCRailway.Layout;
 using DCCRailway.Layout.Configuration;
 using DCCRailway.Managers;
-using DCCRailway.WiThrottle;
+using DCCRailway.WiThrottle.Server;
 
 namespace DCCRailway.TestClasses;
 

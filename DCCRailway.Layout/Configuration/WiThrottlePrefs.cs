@@ -15,11 +15,10 @@ public class WiThrottlePrefs {
     public bool   RunOnStartup         { get; set; } = false;
     public bool   ZeroSpeedOnDirection { get; set; } = false;
 
-    [JsonIgnore] public int HostPort => Port ?? _defaultPort;
-
-    [JsonIgnore] public int HeartbeatCheckTime => HeartbeatSeconds / 5 * 1000;
-
-    [JsonIgnore] public string ServiceName => _defaultServiceName;
+    [JsonIgnore] public int    HostPort           => Port ?? _defaultPort;
+    [JsonIgnore] public int    HeartbeatCheckTime => int.Max(HeartbeatSeconds, 5) + 5;
+    [JsonIgnore] public int    FastClockCheckTime => int.Max(FastClockSeconds, 5);
+    [JsonIgnore] public string ServiceName        => _defaultServiceName;
 
     [JsonIgnore]
     public Dictionary<string, string> Properties =>

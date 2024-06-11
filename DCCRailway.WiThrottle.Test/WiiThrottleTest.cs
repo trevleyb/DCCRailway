@@ -14,7 +14,7 @@ public class WiThrottleTest {
         var settings     = new RailwaySettings(logger).Sample("./", "Sample");
         var stateManager = new StateManager.StateManager();
         var cmdStation   = new ControllerManager(logger, settings.Controller);
-        var wii          = new Server(logger, settings, stateManager);
+        var wii          = new Server.Server(logger, settings, stateManager);
         cmdStation.Start();
 
         // Start the WiThrottle and run it in the background

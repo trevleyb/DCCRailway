@@ -16,6 +16,10 @@ public static class Terminators {
         return message.Replace((char)0x0A, '•').Replace((char)0x0d, '•');
     }
 
+    public static string WithTerminator(this string input) {
+        return HasTerminator(input) ? input : input + Terminator;
+    }
+
     public static StringBuilder AddTerminator(StringBuilder input) {
         if (input.Length > 0)
             if (!HasTerminator(input))

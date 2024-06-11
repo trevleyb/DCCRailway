@@ -16,7 +16,7 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
     public ControllerManager         ControllerManager { get; private set; }
     public ControllerManager         AnalyserManager   { get; private set; }
     public StateManager.StateManager StateManager      { get; private set; }
-    public WiThrottle.Server?        WiThrottle        { get; private set; }
+    public WiThrottle.Server.Server? WiThrottle        { get; private set; }
 
     /// <summary>
     /// Re-Loads the repositories into the collections. This is done when we instantiate
@@ -57,7 +57,7 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
             ControllerManager.Start();
 
             if (Settings.WiThrottlePrefs.RunOnStartup) {
-                WiThrottle = new WiThrottle.Server(Logger, Settings, StateManager);
+                WiThrottle = new WiThrottle.Server.Server(Logger, Settings, StateManager);
                 WiThrottle.Start(ControllerManager.CommandStation!);
             }
         } else {
