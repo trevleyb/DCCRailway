@@ -4,7 +4,7 @@ using DCCRailway.Layout.Entities;
 
 namespace DCCRailway.WiThrottle.Server.Messages;
 
-public class MsgLocoLabels(Connection connection, DCCAddress address, char group, char function) : ThrottleMsg, IThrottleMsg {
+public class MsgLocoLabels(Connection connection, DCCAddress address, char group) : ThrottleMsg, IThrottleMsg {
     private const byte maxLabels = 29;
 
     public override string Message {

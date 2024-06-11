@@ -57,7 +57,7 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
             ControllerManager.Start();
 
             if (Settings.WiThrottlePrefs.RunOnStartup) {
-                WiThrottle = new WiThrottle.Server.Server(Logger, Settings, StateManager);
+                WiThrottle = new WiThrottle.Server.Server(Logger, Settings);
                 WiThrottle.Start(ControllerManager.CommandStation!);
             }
         } else {

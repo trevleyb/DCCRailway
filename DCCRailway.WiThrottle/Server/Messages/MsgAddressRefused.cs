@@ -3,7 +3,7 @@ using DCCRailway.Common.Types;
 
 namespace DCCRailway.WiThrottle.Server.Messages;
 
-public class MsgAddressRefused(Connection connection, DCCAddress address, char group, char function) : ThrottleMsg, IThrottleMsg {
+public class MsgAddressRefused(Connection connection, DCCAddress address, char group) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
             var sb = new StringBuilder();

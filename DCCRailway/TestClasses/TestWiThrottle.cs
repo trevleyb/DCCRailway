@@ -49,7 +49,7 @@ public static class TestWiThrottle {
         var stateManager = new StateManager.StateManager();
         var cmdStation   = new ControllerManager(logger, settings.Controller);
         var analyser     = new ControllerManager(logger, settings.Analyser);
-        var wii          = new Server(logger, settings, stateManager);
+        var wii          = new Server(logger, settings);
 
         // Turn on the fastClock (normally turned on/off in the UI)
         // --------------------------------------------------------------

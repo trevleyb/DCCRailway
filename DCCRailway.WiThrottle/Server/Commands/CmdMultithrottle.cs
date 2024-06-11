@@ -43,7 +43,7 @@ public partial class CmdMultiThrottle(ILogger logger, Connection connection) : T
         foreach (var address in data.Addresses) {
             if (connection.IsAddressInUse(address)) {
                 logger.Information("WiThrottle Recieved Cmd: Request for loco: {0} refused as in use. ", address.Address.ToString());
-                responses.Add(new MsgAddressRefused(connection, address, data.Group, (char)data.Function));
+                responses.Add(new MsgAddressRefused(connection, address, data.Group));
             } else {
                 logger.Information("WiThrottle Recieved Cmd: Acquiring loco: {0} ", address.Address.ToString());
                 connection.Acquire(data.Group, address);
@@ -54,7 +54,7 @@ public partial class CmdMultiThrottle(ILogger logger, Connection connection) : T
                 }
 
                 responses.Add(new MsgAddress(connection, address, data.Group, (char)data.Function));
-                responses.Add(new MsgLocoLabels(connection, address, data.Group, (char)data.Function));
+                responses.Add(new MsgLocoLabels(connection, address, data.Group));
                 responses.Add(new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'V', "0"));
                 responses.Add(new MsgQueryValue(connection, address, data.Group, (char)data.Function, 'R', "1"));
             }
@@ -73,10 +73,10 @@ public partial class CmdMultiThrottle(ILogger logger, Connection connection) : T
             var owner = connection.Release(address);
             if (owner is not null && owner != connection) {
                 logger.Information("WiThrottle Recieved Cmd: Releasing loco: {0} but owner is different. ", address.ToString());
-                owner.QueueMsg(new MsgAddressReleased(owner, address, data.Group, (char)data.Function));
+                owner.QueueMsg(new MsgAddressReleased(owner, address, data.Group));
             }
 
-            responses.Add(new MsgAddressReleased(connection, address, data.Group, (char)data.Function));
+            responses.Add(new MsgAddressReleased(connection, address, data.Group));
         }
 
         return responses.ToArray();
@@ -98,7 +98,7 @@ public partial class CmdMultiThrottle(ILogger logger, Connection connection) : T
 
                 if (owner is not null && owner != connection) {
                     logger.Information("WiThrottle Recieved Cmd: Releasing stolen loco: {0} from different owner. ", address.ToString());
-                    owner?.QueueMsg(new MsgAddressReleased(owner, address, data.Group, (char)data.Function));
+                    owner?.QueueMsg(new MsgAddressReleased(owner, address, data.Group));
                 }
 
                 responses.Add(new MsgAddress(connection, address, data.Group, (char)data.Function));
@@ -111,7 +111,7 @@ public partial class CmdMultiThrottle(ILogger logger, Connection connection) : T
     private IThrottleMsg[] ProvideLocoFunctions(CmdMultiThrottleHelper data) {
         var responses = new List<IThrottleMsg>();
         foreach (var address in data.Addresses) {
-            responses.Add(new MsgLocoLabels(connection, address, data.Group, (char)data.Function));
+            responses.Add(new MsgLocoLabels(connection, address, data.Group));
         }
 
         return responses.ToArray();

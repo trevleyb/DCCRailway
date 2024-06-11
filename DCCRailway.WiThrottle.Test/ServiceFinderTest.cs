@@ -7,8 +7,6 @@ namespace DCCRailway.WiThrottle.Test;
 
 [TestFixture]
 public class ServiceFinderTest {
-    private Server.Server _server;
-
     [Test]
     public void ClientInfoTest() {
         var si = new ServiceInfo(@"DCCRailway\032WiThrottle\032Service._withrottle._tcp.local", "10.0.0.1", 1234);
@@ -31,7 +29,7 @@ public class ServiceFinderTest {
         settings.Controller.Adapter.Name = "Virtual";
         var stateManager = new StateManager.StateManager();
         var cmdStation   = new ControllerManager(logger, settings.Controller);
-        var wii          = new Server.Server(logger, settings, stateManager);
+        var wii          = new Server.Server(logger, settings);
         cmdStation.Start();
         wii.Start(cmdStation.CommandStation!);
         return wii;

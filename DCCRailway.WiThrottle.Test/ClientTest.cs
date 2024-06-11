@@ -8,8 +8,7 @@ namespace DCCRailway.WiThrottle.Test;
 
 [TestFixture]
 public class ClientTest {
-    private bool connected = false;
-    private bool gotroster = false;
+    private bool _connected = false;
 
     [Test]
     public void RunClientTest() {
@@ -35,7 +34,7 @@ public class ClientTest {
 
         client.Stop();
         server.Stop();
-        Assert.That(connected, Is.True);
+        Assert.That(_connected, Is.True);
     }
 
     private void ClientOnConnectionError(string obj) {
@@ -43,7 +42,7 @@ public class ClientTest {
     }
 
     private void ClientOnDataReceived(string obj) {
-        connected = true;
+        _connected = true;
         Debug.WriteLine(obj);
     }
 
@@ -55,7 +54,7 @@ public class ClientTest {
         settings.WiThrottlePrefs.HeartbeatSeconds = 1;
         var stateManager = new StateManager.StateManager();
         var cmdStation   = new ControllerManager(logger, settings.Controller);
-        var wii          = new Server.Server(logger, settings, stateManager);
+        var wii          = new Server.Server(logger, settings);
         cmdStation.Start();
         var result = wii.Start(cmdStation.CommandStation!);
         Console.WriteLine(result.Message);

@@ -4,7 +4,7 @@ using Serilog;
 
 namespace DCCRailway.WiThrottle.Client;
 
-public class MessageProcessor(ILogger logger) {
+public class MessageProcessor(ILogger logger, Turnouts turnouts) {
     /// <summary>
     ///     Simply, given an input string, this will return a Command Object that
     ///     needs to be managed and processed based on the commandStr provided.
@@ -32,7 +32,7 @@ public class MessageProcessor(ILogger logger) {
                 CommandTypeEnum.Name          => new MsgName(logger),
                 CommandTypeEnum.Hardware      => new MsgHardware(logger),
                 CommandTypeEnum.MultiThrottle => new MsgMultiThrottle(logger),
-                CommandTypeEnum.Panel         => new MsgPanel(logger),
+                CommandTypeEnum.Panel         => new MsgPanel(logger, turnouts),
                 CommandTypeEnum.Roster        => new MsgRoster(logger),
                 CommandTypeEnum.Heartbeat     => new MsgHeartbeat(logger),
                 CommandTypeEnum.Quit          => new MsgQuit(logger),

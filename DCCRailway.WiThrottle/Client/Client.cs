@@ -22,9 +22,12 @@ public class Client(ClientInfo clientInfo) {
     public Client(string name, string address, int port) : this(new ClientInfo(name, address, port)) { }
     public Client(ServiceInfo service) : this(service.ClientInfo) { }
 
-    public bool                  Echo { get; set; } = true;
-    public event Action<string>? DataReceived;
-    public event Action<string>? ConnectionError;
+    public Turnouts Turnouts { get; } = new();
+
+    public bool                      Echo { get; set; } = true;
+    public event Action<IClientMsg>? MessageProcessed;
+    public event Action<string>?     DataReceived;
+    public event Action<string>?     ConnectionError;
 
     /// <summary>
     /// Connect to the WiThrottle Service via the given Address/Port
@@ -86,16 +89,21 @@ public class Client(ClientInfo clientInfo) {
     }
 
     private void ProcessMessage(string message) {
-        var clientMsg = new MessageProcessor(_logger).Interpret(message);
+        var clientMsg = new MessageProcessor(_logger, Turnouts).Interpret(message);
         switch (clientMsg) {
-        case MsgQuit:
+        case MsgQuit quit:
             _running = false;
+            MessageProcessed?.Invoke(quit);
             break;
         case MsgHeartbeat heartbeat:
             StopHeartbeatTimer();
             StartHeartbeatTimer(heartbeat.HeartbeatSeconds);
             break;
+        case MsgPanel panel:
+            MessageProcessed?.Invoke(panel);
+            break;
         default:
+            MessageProcessed?.Invoke(clientMsg);
             DataReceived?.Invoke(message);
             break;
         }
