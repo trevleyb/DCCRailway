@@ -22,7 +22,7 @@ public class WiThrottleTest {
         logger.Information("Starting the WiThrottle Server");
         Trace.Flush();
 
-        wii.Start(cmdStation.CommandStation);
+        if (cmdStation is { CommandStation: not null }) wii.Start(cmdStation.CommandStation);
         Assert.That(wii, Is.Not.Null);
 
         // Wait until we press ENTER to stop the WiThrottle

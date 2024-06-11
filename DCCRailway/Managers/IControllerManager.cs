@@ -5,7 +5,7 @@ using DCCRailway.Controller.Tasks.Events;
 namespace DCCRailway.Managers;
 
 public interface IControllerManager {
-    ICommandStation                         CommandStation { get; }
+    ICommandStation?                        CommandStation { get; }
     event EventHandler<ControllerEventArgs> ControllerEvent;
     event EventHandler<ITaskEvent>          TaskEvent;
     void                                    Start();

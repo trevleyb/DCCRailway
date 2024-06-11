@@ -1,6 +1,4 @@
-using System.IO.Ports;
 using DCCRailway.Common.Helpers;
-using DCCRailway.Controller.Adapters.Helpers;
 using DCCRailway.Layout;
 using DCCRailway.Layout.Configuration;
 using DCCRailway.Managers;
@@ -15,22 +13,27 @@ public static class TestWiThrottle {
 
         // Find the NCE USB Serial Adapter that returns a valid response - send 0x80 and get ! returned
         // --------------------------------------------------------------------------------------------
-        var ports = SerialAdapterFinder.Find(0x80, 0x21, null, [9600], [8], [Parity.None], [StopBits.One]);
-        if (ports.Count == 0) {
-            logger.Error("No Serial Ports found that match the NCE USB Serial Adapter");
-            return;
-        }
+        //var ports = SerialAdapterFinder.Find(0x80, 0x21, null, [9600], [8], [Parity.None], [StopBits.One]);
+        //if (ports.Count == 0) {
+        //    logger.Error("No Serial Ports found that match the NCE USB Serial Adapter");
+        //    return;
+        //}
 
         // Set the Controller settings for NCEPowerCab for Testing Purposes.
         // ---------------------------------------------------------------------------------------
-        settings.Controller.Name         = "NCEPowerCab";
-        settings.Controller.Adapter.Name = "NCEUSBSerial";
-        settings.Controller.Adapter.Parameters.Add("portName", ports[0].PortName);
-        settings.Controller.Adapter.Parameters.Add("baudRate", ports[0].BaudRate);
-        settings.Controller.Adapter.Parameters.Add("dataBits", ports[0].DataBits);
-        settings.Controller.Adapter.Parameters.Add("stopBits", ports[0].StopBits);
-        settings.Controller.Adapter.Parameters.Add("parity", ports[0].Parity);
-        settings.Controller.Adapter.Parameters.Add("timeout", ports[0].Timeout);
+        settings.Controller.Name         = "Virtual";
+        settings.Controller.Adapter.Name = "Virtual";
+
+        // Set the Controller settings for NCEPowerCab for Testing Purposes.
+        // ---------------------------------------------------------------------------------------
+        //settings.Controller.Name         = "NCEPowerCab";
+        //settings.Controller.Adapter.Name = "NCEUSBSerial";
+        //settings.Controller.Adapter.Parameters.Add("portName", ports[0].PortName);
+        //settings.Controller.Adapter.Parameters.Add("baudRate", ports[0].BaudRate);
+        //settings.Controller.Adapter.Parameters.Add("dataBits", ports[0].DataBits);
+        //settings.Controller.Adapter.Parameters.Add("stopBits", ports[0].StopBits);
+        //settings.Controller.Adapter.Parameters.Add("parity", ports[0].Parity);
+        //settings.Controller.Adapter.Parameters.Add("timeout", ports[0].Timeout);
 
         /*
         settings.Analyser.Name         = "NCE Packet Analyser";
