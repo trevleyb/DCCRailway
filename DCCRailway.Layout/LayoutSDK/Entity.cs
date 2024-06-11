@@ -1,6 +1,6 @@
 using System.Text;
+using System.Text.Json;
 using DCCRailway.Common.Helpers;
-using Newtonsoft.Json;
 
 namespace DCCRailway.Layout.LayoutSDK;
 
@@ -21,7 +21,7 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         var response = await _httpClient.GetAsync($"/{_entityType}/{id}");
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<TEntity>(content);
+        return JsonSerializer.Deserialize<TEntity>(content);
     }
 
     public TEntity? GetByName(string id) {
@@ -32,7 +32,7 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         var response = await _httpClient.GetAsync($"/{_entityType}?name={name}");
         response.EnsureSuccessStatusCode();
         var content = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<TEntity>(content);
+        return JsonSerializer.Deserialize<TEntity>(content);
     }
 
     public IEnumerable<TEntity> GetAll() {
@@ -43,7 +43,7 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         var response = await _httpClient.GetAsync($"/{_entityType}");
         response.EnsureSuccessStatusCode();
         var content  = await response.Content.ReadAsStringAsync();
-        var entities = JsonConvert.DeserializeObject<List<TEntity>>(content) ?? [];
+        var entities = JsonSerializer.Deserialize<List<TEntity>>(content) ?? [];
         foreach (var entity in entities) yield return await Task.Run(() => entity);
     }
 
@@ -55,7 +55,7 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         var response = await _httpClient.GetAsync($"/{_entityType}");
         response.EnsureSuccessStatusCode();
         var content  = await response.Content.ReadAsStringAsync();
-        var entities = JsonConvert.DeserializeObject<List<TEntity>>(content) ?? [];
+        var entities = JsonSerializer.Deserialize<List<TEntity>>(content) ?? [];
         return entities.FirstOrDefault(predicate) ?? default(TEntity?);
     }
 
@@ -67,7 +67,7 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
         var response = await _httpClient.GetAsync($"/{_entityType}");
         response.EnsureSuccessStatusCode();
         var content  = await response.Content.ReadAsStringAsync();
-        var entities = JsonConvert.DeserializeObject<List<TEntity>>(content) ?? [];
+        var entities = JsonSerializer.Deserialize<List<TEntity>>(content) ?? [];
         foreach (var entity in entities.Where(predicate)) yield return await Task.Run(() => entity);
     }
 
@@ -76,12 +76,12 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
     }
 
     public async Task<TEntity> AddAsync(TEntity entity) {
-        var content  = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
+        var content  = new StringContent(JsonSerializer.Serialize(entity), Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync($"/{_entityType}", content);
 
         if (response.IsSuccessStatusCode) {
             var result = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<TEntity>(result) ?? throw new Exception("Failed to add Entity.");
+            return JsonSerializer.Deserialize<TEntity>(result) ?? throw new Exception("Failed to add Entity.");
         }
 
         throw new Exception($"Failed to add entity: {response.ReasonPhrase}");
@@ -92,12 +92,12 @@ public abstract class Entity<TEntity> : IEntity<TEntity> {
     }
 
     public async Task<TEntity> UpdateAsync(TEntity entity) {
-        var content  = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
+        var content  = new StringContent(JsonSerializer.Serialize(entity), Encoding.UTF8, "application/json");
         var response = await _httpClient.PutAsync($"/{_entityType}", content);
 
         if (response.IsSuccessStatusCode) {
             var result = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<TEntity>(result) ?? throw new Exception("Failed to add Entity.");
+            return JsonSerializer.Deserialize<TEntity>(result) ?? throw new Exception("Failed to add Entity.");
         }
 
         throw new Exception($"Failed to add entity: {response.ReasonPhrase}");

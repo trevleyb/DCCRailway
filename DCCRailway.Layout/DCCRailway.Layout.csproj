@@ -10,15 +10,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
-        <PackageReference Include="Serilog.AspNetCore" Version="8.0.1"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
-        <PackageReference Include="System.IO.Ports" Version="8.0.0"/>
+        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+        <PackageReference Include="System.IO.Ports" Version="8.0.0"/>
     </ItemGroup>
 
 </Project>
