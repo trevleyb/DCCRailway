@@ -4,13 +4,10 @@ using DCCRailway.Managers;
 using DCCRailway.TestClasses;
 using Serilog;
 using Serilog.Core;
+using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 
-TestWiThrottle.WiThrottleRun(args);
-
-//TestWebApi.WebApiRun(args);
-
-void Startup(string[] args) {
+void Main(string[] args) {
     const string consoleOutputTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}|{AssemblyName}.{SourceContext}] {Message:lj} {Exception}{NewLine}";
 
     Parser.Default.ParseArguments<Options>(args).WithParsed(options => {
@@ -29,7 +26,19 @@ void Startup(string[] args) {
         loggerConfig.MinimumLevel.ControlledBy(levelSwitch);
         var logger = loggerConfig.CreateLogger();
 
-        // Validate the options provided
+        // If running simulation mode, then ignore most of the other parameters
+        // and just run the Simulation class. 
+        // --------------------------------------------------------------------
+        if (options.RunSimulation) {
+            loggerConfig.WriteTo.Console(outputTemplate: consoleOutputTemplate, theme: AnsiConsoleTheme.Literate);
+            loggerConfig.MinimumLevel.ControlledBy(new LoggingLevelSwitch(LogEventLevel.Verbose));
+            logger = loggerConfig.CreateLogger();
+            Simulator.Run(args);
+            return;
+        }
+
+        // Validate the options provided and Run The Railway
+        // --------------------------------------------------------------------
         try {
             var path          = ValidatePath(options.Path);
             var name          = ValidateName(path, options.Name);

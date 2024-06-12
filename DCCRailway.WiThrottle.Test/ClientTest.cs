@@ -48,7 +48,7 @@ public class ClientTest {
 
     public static Server.Server? StartServer() {
         var logger   = LoggerHelper.DebugLogger;
-        var settings = new RailwaySettings(logger).Sample("./", "Sample");
+        var settings = new RailwaySettings(logger).CreateSampleData("./", "Sample");
         settings.Controller.Name                  = "Virtual";
         settings.Controller.Adapter.Name          = "Virtual";
         settings.WiThrottlePrefs.HeartbeatSeconds = 1;

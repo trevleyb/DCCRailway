@@ -24,7 +24,7 @@ public class ServiceFinderTest {
 
     public static Server.Server StartServer() {
         var logger   = LoggerHelper.DebugLogger;
-        var settings = new RailwaySettings(logger).Sample("./", "Sample");
+        var settings = new RailwaySettings(logger).CreateSampleData("./", "Sample");
         settings.Controller.Name         = "Virtual";
         settings.Controller.Adapter.Name = "Virtual";
         var stateManager = new StateManager.StateManager();

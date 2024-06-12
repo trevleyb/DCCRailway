@@ -9,7 +9,7 @@ namespace DCCRailway.TestClasses;
 public static class TestWiThrottle {
     public static void WiThrottleRun(string[] args) {
         var logger   = LoggerHelper.DebugLogger;
-        var settings = new RailwaySettings(logger).Sample("./", "Sample");
+        var settings = new RailwaySettings(logger).CreateSampleData("./", "Sample");
 
         // Find the NCE USB Serial Adapter that returns a valid response - send 0x80 and get ! returned
         // --------------------------------------------------------------------------------------------

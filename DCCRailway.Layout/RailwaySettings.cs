@@ -57,7 +57,7 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
     /// <summary>
     /// This will clear out the existing config so that there is a set of blank items.
     /// </summary>
-    public IRailwaySettings Sample(string path, string name) {
+    public IRailwaySettings CreateSampleData(string path, string name) {
         CreateRepositories(path, name);
         InjectTestData.SampleData(this);
         Settings.Name     = name;

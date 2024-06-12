@@ -31,7 +31,7 @@ public interface IRailwaySettings {
     Manufacturers Manufacturers { get; }
 
     IRailwaySettings Save();
-    IRailwaySettings Sample(string path, string name);
+    IRailwaySettings CreateSampleData(string path, string name);
     IRailwaySettings Load(string path, string name);
     IRailwaySettings New(string path, string name);
 }

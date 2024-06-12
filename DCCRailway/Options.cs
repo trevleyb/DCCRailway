@@ -21,4 +21,7 @@ public class Options {
 
     [Option('w', "withrottle", Required = false, HelpText = "If specified, then Withrottle server will run", Default = true)]
     public bool RunWiThrottle { get; set; }
+
+    [Option("simulate", Required = false, HelpText = "Runs the system in virtual simulation mode. Used for testing.")]
+    public bool RunSimulation { get; set; }
 }
