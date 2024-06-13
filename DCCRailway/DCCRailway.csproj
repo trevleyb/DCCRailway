@@ -5,6 +5,9 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Title>DCC Model Railway Control Solution</Title>
+        <Authors>Trevor Leybourne</Authors>
+        <Copyright>Trevor Leybourne</Copyright>
     </PropertyGroup>
 
     <ItemGroup>

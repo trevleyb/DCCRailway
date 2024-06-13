@@ -1,11 +1,14 @@
+using System.Reflection;
 using CommandLine;
 using DCCRailway;
 using DCCRailway.Managers;
 using DCCRailway.TestClasses;
 using Serilog;
 using Serilog.Core;
-using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
+
+// Run the Main Application and parse the command line options.
+Main(args);
 
 void Main(string[] args) {
     const string consoleOutputTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}|{AssemblyName}.{SourceContext}] {Message:lj} {Exception}{NewLine}";
@@ -26,13 +29,14 @@ void Main(string[] args) {
         loggerConfig.MinimumLevel.ControlledBy(levelSwitch);
         var logger = loggerConfig.CreateLogger();
 
+        // Output the information to start
+        // ---------------------------------------------------------------------
+        WriteProductDetailsToLogger(logger);
+
         // If running simulation mode, then ignore most of the other parameters
         // and just run the Simulation class. 
         // --------------------------------------------------------------------
         if (options.RunSimulation) {
-            loggerConfig.WriteTo.Console(outputTemplate: consoleOutputTemplate, theme: AnsiConsoleTheme.Literate);
-            loggerConfig.MinimumLevel.ControlledBy(new LoggingLevelSwitch(LogEventLevel.Verbose));
-            logger = loggerConfig.CreateLogger();
             Simulator.Run(args);
             return;
         }
@@ -50,6 +54,32 @@ void Main(string[] args) {
             logger.Error("DCCRailway existing with a fatal error. : {0}", ex);
         }
     });
+}
+
+void WriteProductDetailsToLogger(Logger logger) {
+    Assembly assembly = Assembly.GetExecutingAssembly();
+
+    // Get product name
+    var productAttributes = assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+    if (productAttributes.Length > 0) {
+        var productAttribute    = (AssemblyProductAttribute)productAttributes[0];
+        var productName         = productAttribute.Product;
+        var productDescriptions = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+        var description         = productDescriptions.Length > 0 ? ((AssemblyDescriptionAttribute)productDescriptions[0]).Description : "";
+        logger.Information($"{productName ?? "DCCRailway"} - {description}");
+    }
+
+    // Get copyright
+    var copyrightAttributes = assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+    if (copyrightAttributes.Length > 0) {
+        var copyrightAttribute = (AssemblyCopyrightAttribute)copyrightAttributes[0];
+        var copyright          = copyrightAttribute.Copyright;
+        logger.Information("Copyright " + copyright ?? "(c) Trevor Leybourne, 2024");
+    }
+
+    // Get version
+    var version = assembly.GetName().Version;
+    logger.Information("Version " + version ?? "0.0.0.0");
 }
 
 //

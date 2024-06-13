@@ -108,10 +108,11 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
                 if ((RouteCommand)commandStr[0] == RouteCommand.Active) {
                     foreach (var turnoutEntry in route.RouteTurnouts) {
                         var turnout = connection.RailwaySettings.Turnouts.GetByID(turnoutEntry.TurnoutID);
-                        if (turnout is { } item) {
-                            var layoutCmds = new LayoutCmdHelper(connection.CommandStation, item.Address);
-                            item.CurrentState = turnoutEntry.State;
-                            layoutCmds.SetTurnoutState(item.CurrentState);
+                        if (turnout is { } turnoutItem) {
+                            var layoutCmds = new LayoutCmdHelper(connection.CommandStation, turnoutItem.Address);
+                            turnoutItem.CurrentState = turnoutEntry.State;
+                            connection.QueueMsgToAll(new MsgTurnoutState(connection, turnoutItem));
+                            layoutCmds.SetTurnoutState(turnoutItem.CurrentState);
                         }
                     }
                 }

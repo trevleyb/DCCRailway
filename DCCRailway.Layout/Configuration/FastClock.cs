@@ -23,8 +23,10 @@ public class FastClock {
 
     public DateTime ClockTime {
         get {
-            var secondsElapsed = DateTime.Now.Subtract(_started);
-            var fastSeconds    = secondsElapsed.Seconds * Ratio;
+            var currentTime    = DateTime.Now;
+            var timeDifference = currentTime.Subtract(_started);
+            var elapsedSeconds = (int)timeDifference.TotalSeconds;
+            var fastSeconds    = elapsedSeconds * Ratio;
             return _started.AddSeconds(fastSeconds);
         }
     }

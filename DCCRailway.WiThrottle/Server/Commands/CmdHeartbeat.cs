@@ -4,7 +4,7 @@ namespace DCCRailway.WiThrottle.Server.Commands;
 
 public class CmdHeartbeat(ILogger logger, Connection connection) : ThrottleCmd, IThrottleCmd {
     public void Execute(string commandStr) {
-        logger.Debug("WiThrottle Recieved Cmd from [{0}]: Heartbeat - {1}:{3}=>'{2}'", connection.ConnectionHandle, ToString(), commandStr, connection.ToString());
+        //logger.Debug("WiThrottle Recieved Cmd from [{0}]: Heartbeat - {1}:{3}=>'{2}'", connection.ConnectionHandle, ToString(), commandStr, connection.ToString());
         if (commandStr.Length == 0) return;
 
         if (commandStr[0] == '*') {

@@ -142,6 +142,17 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings) {
             var           bytes  = new byte[256];
             StringBuilder buffer = new();
 
+            // Start a separate task for sending messages
+            // ------------------------------------------------------------------
+            _ = Task.Run(async () => {
+                while (!_cts.IsCancellationRequested && connection.IsActive) {
+                    if (connection.HasMsg) SendServerMessages(connection, stream);
+                    await Task.Delay(250); // Adjust the delay as needed
+                }
+            });
+
+            // Read any incoming messages from the client and process them
+            // ------------------------------------------------------------------
             while (!_cts.IsCancellationRequested && connection.IsActive) {
                 var bytesRead = 0;
                 try {
@@ -155,7 +166,6 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings) {
                     if (IsBrowserRequest(data, connection, stream)) break;
 
                     buffer.Append(data);
-
                     if (Terminators.HasTerminator(buffer)) {
                         foreach (var command in Terminators.GetMessagesAndLeaveIncomplete(buffer)) {
                             if (!string.IsNullOrEmpty(command)) {
@@ -164,15 +174,13 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings) {
                         }
                     }
                 }
-
-                // Send any queued messages back to the Client
-                // -----------------------------------------------------------
-                if (connection.HasMsg) SendServerMessages(connection, stream);
             }
 
             connection?.Close();
         } catch (ObjectDisposedException) {
             logger.Information("WiThrottle Connection: Client '{0}' has closed. [{1} active / {2} inactive connections]", clientHandle, ActiveClients, _connections.Count);
+        } catch (IOException) {
+            logger.Information("WiThrottle Connection: Client '{0}' has disconnected. [{1} active / {2} inactive connections]", clientHandle, ActiveClients, _connections.Count);
         } catch (Exception ex) {
             logger.Error(ex, "WiThrottle Error: {0}", ex.Message);
         } finally {

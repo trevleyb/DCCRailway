@@ -10,8 +10,9 @@ public class MsgFastClock(IRailwaySettings settings) : ThrottleMsg, IThrottleMsg
             var prefs = settings?.Settings?.FastClock;
             if (prefs is null) return "";
 
-            var referenceDate = new DateTime(1970, 1, 1, 0, 0, 0);
-            var secsSince1970 = (int)prefs.ClockTime.Subtract(referenceDate).TotalSeconds;
+            var referenceDate  = new DateTime(1970, 1, 1, 0, 0, 0);
+            var timeDifference = prefs.ClockTime.Subtract(referenceDate);
+            var secsSince1970  = (int)timeDifference.TotalSeconds;
 
             var sb = new StringBuilder();
             sb.Append("PFT");
