@@ -7,6 +7,7 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
+        <RootNamespace>DCCRailway.WiThrottle.Test</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,7 +28,7 @@
         <ProjectReference Include="..\DCCRailway.Controller.NCE\DCCRailway.Controller.NCE.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller.Sprog\DCCRailway.Controller.Sprog.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj"/>
-        <ProjectReference Include="..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj"/>
+        <ProjectReference Include="..\DCCRailway.WiThrottle.Server\DCCRailway.WiThrottle.Server.csproj"/>
         <ProjectReference Include="..\DCCRailway\DCCRailway.csproj"/>
     </ItemGroup>
 

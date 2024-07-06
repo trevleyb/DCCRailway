@@ -22,7 +22,7 @@
         <ProjectReference Include="..\DCCRailway.StateManager\DCCRailway.StateManager.csproj"/>
         <ProjectReference Include="..\DCCRailway.WebApi\DCCRailway.WebApi.csproj"/>
         <ProjectReference Include="..\DCCRailway.WebApp\DCCRailway.WebApp.csproj"/>
-        <ProjectReference Include="..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj"/>
+        <ProjectReference Include="..\DCCRailway.WiThrottle.Server\DCCRailway.WiThrottle.Server.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
