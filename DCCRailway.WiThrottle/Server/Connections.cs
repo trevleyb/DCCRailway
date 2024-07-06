@@ -53,6 +53,10 @@ public class Connections(ILogger logger) {
         }
     }
 
+    public Connection? GetDuplicatedByID(string hardwareID, ulong connectionHandle) {
+        return ActiveConnections.FirstOrDefault(x => x.HardwareID == hardwareID && x.ConnectionHandle != connectionHandle);
+    }
+
     public bool HasDuplicateID(string hardwareID, ulong connectionHandle) {
         return ActiveConnections.Any(x => x.HardwareID == hardwareID && x.ConnectionHandle != connectionHandle);
     }

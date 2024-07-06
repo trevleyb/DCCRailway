@@ -1,6 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Publish DCCRailway to folder" type="DotNetFolderPublish" factoryName="Publish to folder">
-    <riderPublish configuration="Release" platform="Any CPU" produce_single_file="true" ready_to_run="true" runtime="osx-arm64" self_contained="true" target_folder="$PROJECT_DIR$/publish/osx-arm64" target_framework="net8.0" trim_unused_assemblies="true" uuid_high="6339433017302010850" uuid_low="-7171629552818226286" />
+      <riderPublish configuration="Release" delete_existing_files="true" platform="Any CPU" produce_single_file="true"
+                    runtime="osx-arm64" target_folder="$PROJECT_DIR$/publish/osx-arm64" target_framework="net8.0"
+                    uuid_high="6339433017302010850" uuid_low="-7171629552818226286"/>
     <method v="2" />
   </configuration>
 </component>

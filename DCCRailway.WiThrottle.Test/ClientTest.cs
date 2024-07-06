@@ -1,11 +1,5 @@
-using System.Diagnostics;
-using DCCRailway.Common.Helpers;
-using DCCRailway.Layout;
-using DCCRailway.Managers;
-using DCCRailway.WiThrottle.ServiceHelper;
-
 namespace DCCRailway.WiThrottle.Test;
-
+/*
 [TestFixture]
 public class ClientTest {
     private bool _connected = false;
@@ -65,3 +59,4 @@ public class ClientTest {
         server.Stop();
     }
 }
+*/

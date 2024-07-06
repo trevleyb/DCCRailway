@@ -20,22 +20,13 @@ public class CmdHardware(ILogger logger, Connection connection) : ThrottleCmd, I
 
                 if (connection.HasDuplicateID(hardwareID)) {
                     logger.Information("WiThrottle Duplicate HardwareIDs found {0}:{1} - re-using previous connection.", ToString(), connection.ToString());
-
-                    // Get the other connection (first one that has the same hardwareID but a different connectionID)
-                    // ----------------------------------------------------------------------------------------------
-                    var newConnection = connection.GetByHardwareID(hardwareID);
-
-                    if (newConnection is not null) {
-                        var client = connection.Client;
-                        connection = newConnection;
-                        connection.RemoveDuplicateID(hardwareID);
-                        connection.Client = client;
-                    }
+                    connection.MergePreviousConenctionData();
+                } else {
+                    logger.Information("WiThrottle New Throttle added {0}.", connection.ToString());
+                    connection.QueueMsg(new MsgHardware(connection));
+                    connection.QueueMsg(new MsgHeartbeat(connection));
                 }
 
-                logger.Information("WiThrottle Duplicate HardwareIDs {0}:{2} ==> '{1}'", ToString(), hardwareID, connection.ToString());
-                connection.QueueMsg(new MsgHardware(connection));
-                connection.QueueMsg(new MsgHeartbeat(connection));
                 break;
             }
         }

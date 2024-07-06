@@ -33,13 +33,11 @@ public class Connection {
     }
 
     public TcpClient Client       { get; set; }
-    public string    ThrottleName { get; set; }  = "";
-    public string    HardwareID   { get; set; }  = "";
-    public Guid      ConnectionID { get; init; } = Guid.NewGuid();
+    public string    ThrottleName { get; set; } = "";
+    public string    HardwareID   { get; set; } = "";
 
     public IPAddress? ConnectionAddress => Client.Client.RemoteEndPoint is IPEndPoint endpoint ? endpoint.Address : new IPAddress(0);
-
-    public ulong ConnectionHandle => (ulong)(Client?.Client?.Handle ?? 0);
+    public ulong      ConnectionHandle  => (ulong)(Client?.Client?.Handle ?? 0);
 
     public int HeartbeatSeconds {
         get => _heartbeatSeconds;
@@ -112,6 +110,24 @@ public class Connection {
 
     public void QueueMsgToAll(IThrottleMsg[] messages) {
         _listReference.QueueMsgToAll(messages);
+    }
+
+    /// <summary>
+    /// This methd is used to take the data from a previous connection and merge it into this
+    /// current connection. This is to handle when we loose a connection and it re-connects and
+    /// we need the system to continue as if it did not oose the connection. 
+    /// </summary>
+    public void MergePreviousConenctionData() {
+        var oldConnection = _listReference.GetDuplicatedByID(HardwareID, ConnectionHandle);
+        if (oldConnection is { Client: { } oldClient }) {
+            // This should not be the case, but lets make sure we clean up. 
+            if (oldClient.Connected) oldClient.Close();
+            oldClient.Dispose();
+
+            ThrottleName = oldConnection.ThrottleName;
+            foreach (var message in oldConnection._serverMessages) _serverMessages.Add(message);
+            _listReference.RemoveDuplicateID(HardwareID, ConnectionHandle);
+        }
     }
 
     // Find Helpers

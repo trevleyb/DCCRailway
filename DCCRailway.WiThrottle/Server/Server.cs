@@ -74,7 +74,7 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings) {
     private void StartListener(TcpListener server) {
         // Setup the Server to Broadcast its presence on the network
         // ----------------------------------------------------------
-        var serverBroadcaster = new ServerBroadcast();
+        var serverBroadcaster = new ServerBroadcast(logger);
         serverBroadcaster.Start(railwaySettings.Settings.WiThrottle);
 
         try {
@@ -208,14 +208,13 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings) {
     /// <param name="connection"></param>
     /// <param name="stream"></param>
     private void SendServerMessages(Connection connection, NetworkStream stream) {
-        while (connection.HasMsg) {
+        while (connection is { HasMsg: true, Client: not null, Client.Connected: true }) {
             try {
                 // Get the message off the queue but only call the "Message" property
                 // once as calling it can cause code to be executed such as getting the
                 // power state, or a turnout state etc.
                 // --------------------------------------------------------------------
                 var messageStr = connection.NextMsg?.Message ?? "";
-
                 if (!string.IsNullOrEmpty(Terminators.RemoveTerminators(messageStr)) && Terminators.HasTerminator(messageStr)) {
                     logger.Information("WiThrottle Sending Msg to [{0}]: {1}", connection.ConnectionHandle, Terminators.ForDisplay(messageStr));
                     SendServerMessages(messageStr, stream);
