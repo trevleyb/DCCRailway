@@ -2,6 +2,7 @@ using DCCRailway.Layout;
 using DCCRailway.Layout.Entities;
 using DCCRailway.WebApi.Layout;
 using ILogger = Serilog.ILogger;
+using Route = DCCRailway.Layout.Entities.Route;
 
 namespace DCCRailway.WebApi;
 
@@ -9,6 +10,7 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings) {
     private CancellationTokenSource cts = new();
 
     public async void Start() {
+        logger.Information("Starting DCCRailway");
         var builder = WebApplication.CreateBuilder();
 
         // Add services to the container.
@@ -27,7 +29,7 @@ public class Server(ILogger logger, IRailwaySettings railwaySettings) {
         APIHelper.MapEntity<Accessories, Accessory>(app, "accessories");
         APIHelper.MapEntity<Blocks, Block>(app, "blocks");
         APIHelper.MapEntity<Locomotives, Locomotive>(app, "locomotives");
-        APIHelper.MapEntity<Routes, DCCRailway.Layout.Entities.Route>(app, "routes");
+        APIHelper.MapEntity<Routes, Route>(app, "routes");
         APIHelper.MapEntity<Sensors, Sensor>(app, "sensors");
         APIHelper.MapEntity<Signals, Signal>(app, "signals");
         APIHelper.MapEntity<Turnouts, Turnout>(app, "turnouts");

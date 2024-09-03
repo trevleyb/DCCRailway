@@ -14,7 +14,7 @@ using Serilog;
 namespace DCCRailway.Controller.NCE.Tasks;
 
 [Task("AIUPoller", "NCE AIU Poller")]
-public class NCEAIUPoller(ILogger logger, ICommandStation? cmdStatation) : ControllerTask(logger, cmdStatation), IParameterMappable {
+public class NCEAIUPoller(ILogger logger, ICommandStation cmdStatation) : ControllerTask(logger, cmdStatation), IParameterMappable {
     private readonly ILogger _logger = logger;
 
     [Range(1, 63)]

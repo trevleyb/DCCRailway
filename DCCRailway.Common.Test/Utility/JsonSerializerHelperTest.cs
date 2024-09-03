@@ -25,7 +25,7 @@ public class JsonSerializerHelperTest {
         var loadedObject = JsonSerializerHelper<TestObject>.LoadFile(TestFileName);
 
         // Assert
-        Assert.IsNotNull(loadedObject);
+        Assert.That(loadedObject, Is.Not.Null);
         Assert.That(loadedObject?.Name, Is.EqualTo(expectedObject.Name));
     }
 
@@ -56,10 +56,10 @@ public class JsonSerializerHelperTest {
         JsonSerializerHelper<TestObject>.SaveFile(objectToSave, TestFileName);
 
         // Assert
-        Assert.IsTrue(File.Exists(TestFileName));
+        Assert.That(File.Exists(TestFileName), Is.True);
         var serializedStr      = File.ReadAllText(TestFileName ?? "test.json");
         var deserializedObject = JsonSerializer.Deserialize<TestObject>(serializedStr);
-        Assert.IsNotNull(deserializedObject);
+        Assert.That(deserializedObject, Is.Not.Null);
         Assert.That(deserializedObject?.Name, Is.EqualTo(objectToSave.Name));
     }
 

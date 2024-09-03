@@ -29,7 +29,7 @@ public class PropertyChangeBaseTest {
         testClass.Name = "NewName";
 
         // Assert
-        Assert.IsTrue(propertyChangedEventRaised);
+        Assert.That(propertyChangedEventRaised, Is.True);
         Assert.That(propertyName, Is.EqualTo("Name"));
     }
 }

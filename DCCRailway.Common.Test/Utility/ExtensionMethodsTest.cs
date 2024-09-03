@@ -75,14 +75,14 @@ public class ExtensionMethodsTest {
         var result7 = input.GetBit(7);
 
         // Assert
-        Assert.IsFalse(result0);
-        Assert.IsTrue(result1);
-        Assert.IsFalse(result2);
-        Assert.IsTrue(result3);
-        Assert.IsFalse(result4);
-        Assert.IsTrue(result5);
-        Assert.IsFalse(result6);
-        Assert.IsTrue(result7);
+        Assert.That(result0, Is.False);
+        Assert.That(result1, Is.True);
+        Assert.That(result2, Is.False);
+        Assert.That(result3, Is.True);
+        Assert.That(result4, Is.False);
+        Assert.That(result5, Is.True);
+        Assert.That(result6, Is.False);
+        Assert.That(result7, Is.True);
     }
 
     [Test]
@@ -184,7 +184,7 @@ public class ExtensionMethodsTest {
         var result2 = array1.Compare(array3);
 
         // Assert
-        Assert.IsTrue(result1);
-        Assert.IsFalse(result2);
+        Assert.That(result1, Is.True);
+        Assert.That(result2, Is.False);
     }
 }

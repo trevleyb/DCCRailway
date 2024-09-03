@@ -14,101 +14,101 @@ public class CommandAttributeTests {
 
         // This command supports ANYTHING
         var attr = new CommandAttribute("TestCommand", "Test Description", "1.0");
-        Assert.IsTrue(attr.IsSupported("*"));
-        Assert.IsTrue(attr.IsSupported("*@*"));
-        Assert.IsTrue(attr.IsSupported("*", "*"));
-        Assert.IsTrue(attr.IsSupported("Adapter1"));
-        Assert.IsTrue(attr.IsSupported("Adapter1@1.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter1", "1.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter1@2.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter1", "2.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter1@*"));
-        Assert.IsTrue(attr.IsSupported("Adapter1", "*"));
-        Assert.IsTrue(attr.IsSupported("Adapter2"));
-        Assert.IsTrue(attr.IsSupported("Adapter2@1.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter2@2.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter2@*"));
+        Assert.That(attr.IsSupported("*"), Is.True);
+        Assert.That(attr.IsSupported("*@*"), Is.True);
+        Assert.That(attr.IsSupported("*", "*"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1@1.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1", "1.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1@2.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1", "2.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1@*"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1", "*"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2@1.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2@2.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2@*"), Is.True);
     }
 
     [Test]
     public void TestThatOnlyAdapter1IsSupported() {
         // This command is ONLY supported by Adapter1 but should work for ALL versions
         var attr = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "Adapter1" });
-        Assert.IsTrue(attr.IsSupported("Adapter1"));
-        Assert.IsTrue(attr.IsSupported("Adapter1@1.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter1@2.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter1@*"));
-        Assert.IsFalse(attr.IsSupported("Adapter2"));
-        Assert.IsFalse(attr.IsSupported("Adapter2@1.0"));
-        Assert.IsFalse(attr.IsSupported("Adapter2@2.0"));
-        Assert.IsFalse(attr.IsSupported("Adapter2@*"));
+        Assert.That(attr.IsSupported("Adapter1"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1@1.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1@2.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1@*"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2"), Is.False);
+        Assert.That(attr.IsSupported("Adapter2@1.0"), Is.False);
+        Assert.That(attr.IsSupported("Adapter2@2.0"), Is.False);
+        Assert.That(attr.IsSupported("Adapter2@*"), Is.False);
     }
 
     [Test]
     public void TestThatAnythingExceptAdapter1isSupported() {
         // This command will work with anything EXCEPT Adapter1
         var attr = new CommandAttribute("TestCommand", "Test Description", "1.0", null, new[] { "Adapter1" });
-        Assert.IsTrue(attr.IsSupported("Adapter2"));
-        Assert.IsTrue(attr.IsSupported("Adapter2@1.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter2@2.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter2@*"));
-        Assert.IsFalse(attr.IsSupported("Adapter1"));
-        Assert.IsFalse(attr.IsSupported("Adapter1@1.0"));
-        Assert.IsFalse(attr.IsSupported("Adapter1@2.0"));
-        Assert.IsFalse(attr.IsSupported("Adapter1@*"));
+        Assert.That(attr.IsSupported("Adapter2"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2@1.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2@2.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2@*"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1"), Is.False);
+        Assert.That(attr.IsSupported("Adapter1@1.0"), Is.False);
+        Assert.That(attr.IsSupported("Adapter1@2.0"), Is.False);
+        Assert.That(attr.IsSupported("Adapter1@*"), Is.False);
     }
 
     [Test]
     public void TestThatAnytingExceptAdapter1or3IsSupported() {
         // This command will work with anything EXCEPT Adapter1 or adapter 3
         var attr = new CommandAttribute("TestCommand", "Test Description", "1.0", null, new[] { "Adapter1", "Adapter3@*" });
-        Assert.IsTrue(attr.IsSupported("Adapter2"));
-        Assert.IsTrue(attr.IsSupported("Adapter2@1.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter2@2.0"));
-        Assert.IsTrue(attr.IsSupported("Adapter2@*"));
-        Assert.IsFalse(attr.IsSupported("Adapter1"));
-        Assert.IsFalse(attr.IsSupported("Adapter1@1.0"));
-        Assert.IsFalse(attr.IsSupported("Adapter1@2.0"));
-        Assert.IsFalse(attr.IsSupported("Adapter1@*"));
-        Assert.IsFalse(attr.IsSupported("Adapter3"));
-        Assert.IsFalse(attr.IsSupported("Adapter3@1.0"));
-        Assert.IsFalse(attr.IsSupported("Adapter3@2.0"));
-        Assert.IsFalse(attr.IsSupported("Adapter3@*"));
+        Assert.That(attr.IsSupported("Adapter2"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2@1.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2@2.0"), Is.True);
+        Assert.That(attr.IsSupported("Adapter2@*"), Is.True);
+        Assert.That(attr.IsSupported("Adapter1"), Is.False);
+        Assert.That(attr.IsSupported("Adapter1@1.0"), Is.False);
+        Assert.That(attr.IsSupported("Adapter1@2.0"), Is.False);
+        Assert.That(attr.IsSupported("Adapter1@*"), Is.False);
+        Assert.That(attr.IsSupported("Adapter3"), Is.False);
+        Assert.That(attr.IsSupported("Adapter3@1.0"), Is.False);
+        Assert.That(attr.IsSupported("Adapter3@2.0"), Is.False);
+        Assert.That(attr.IsSupported("Adapter3@*"), Is.False);
     }
 
     [Test]
     public void IsSupported_ReturnsTrue_WhenAdapterAndVersionAreIncluded() {
         var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "Adapter1@1.0" });
-        Assert.IsTrue(commandAttribute.IsSupported("Adapter1@1.0"));
+        Assert.That(commandAttribute.IsSupported("Adapter1@1.0"), Is.True);
     }
 
     [Test]
     public void IsSupported_ReturnsFalse_WhenAdapterIsExcluded() {
         var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", null, new[] { "Adapter1@1.0" });
-        Assert.IsFalse(commandAttribute.IsSupported("Adapter1@1.0"));
+        Assert.That(commandAttribute.IsSupported("Adapter1@1.0"), Is.False);
     }
 
     [Test]
     public void IsSupported_ReturnsTrue_WhenAllAdaptersAndVersionsAreIncluded() {
         var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "*@*" });
-        Assert.IsTrue(commandAttribute.IsSupported("Adapter1@1.0"));
+        Assert.That(commandAttribute.IsSupported("Adapter1@1.0"), Is.True);
     }
 
     [Test]
     public void IsSupported_ReturnsFalse_WhenAllAdaptersAndVersionsAreExcluded() {
         var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", null, new[] { "*@*" });
-        Assert.IsFalse(commandAttribute.IsSupported("Adapter1@1.0"));
+        Assert.That(commandAttribute.IsSupported("Adapter1@1.0"), Is.False);
     }
 
     [Test]
     public void IsSupported_ReturnsTrue_WhenOnlyAdapterIsIncluded() {
         var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "Adapter1" });
-        Assert.IsTrue(commandAttribute.IsSupported("Adapter1@1.0"));
+        Assert.That(commandAttribute.IsSupported("Adapter1@1.0"), Is.True);
     }
 
     [Test]
     public void IsSupported_ReturnsTrue_WhenOnlyVersionIsIncluded() {
         var commandAttribute = new CommandAttribute("TestCommand", "Test Description", "1.0", new[] { "@1.0" });
-        Assert.IsTrue(commandAttribute.IsSupported("Adapter1@1.0"));
+        Assert.That(commandAttribute.IsSupported("Adapter1@1.0"), Is.True);
     }
 }

@@ -9,8 +9,7 @@ public class Result(bool success, string message = "", Exception? exception = nu
     // Data
     // -----------------------------------------------------------------------
     public bool Success { get; protected init; } = success;
-
-    public bool Failed => !Success;
+    public bool Failed  => !Success;
 
     public string     Message   { get; protected init; } = message;
     public Exception? Exception { get; protected init; } = exception;
