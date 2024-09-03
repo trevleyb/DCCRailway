@@ -22,6 +22,9 @@ public class Options {
     [Option('w', "withrottle", Required = false, HelpText = "If specified, then Withrottle server will run", Default = true)]
     public bool RunWiThrottle { get; set; }
 
+    [Option('s', "server", Required = false, HelpText = "Start the WebAPI Server", Default = true)]
+    public bool RunServer { get; set; }
+
     [Option("simulate", Required = false, HelpText = "Runs the system in virtual simulation mode. Used for testing.")]
     public bool RunSimulation { get; set; }
 }

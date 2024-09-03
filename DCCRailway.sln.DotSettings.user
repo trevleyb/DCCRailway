@@ -75,10 +75,8 @@
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
     <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a7508f01_002D1eb9_002D4931_002D9ac1_002Dd1f0de0427ce/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RunClientTest #7" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a7508f01_002D1eb9_002D4931_002D9ac1_002Dd1f0de0427ce/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunClientTest #7" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/trevor/Development/DCCRailway" Presentation="&amp;lt;Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
     <s:String
             x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b208dd58_002D75e7_002D4464_002D9e51_002De6a86af5ee7b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunClientTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
@@ -87,10 +85,8 @@
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
     <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=eaa420ed_002D8c44_002D4cc0_002D893f_002D51147bf1e1f6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunClientTest #6" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest.RunClientTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=eaa420ed_002D8c44_002D4cc0_002D893f_002D51147bf1e1f6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RunClientTest #6" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/trevor/Development/DCCRailway/DCCRailway.Common.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Common.Test&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 
     <s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestRunner/HangingTestRunnerResponse/@EntryValue">KillProcess</s:String>

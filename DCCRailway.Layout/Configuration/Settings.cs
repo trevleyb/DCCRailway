@@ -12,5 +12,8 @@ public class Settings {
     public Controller      Analyser   { get; set; } = new();
     public WiThrottlePrefs WiThrottle { get; set; } = new();
 
+    public int WebApiPort { get; set; } = 8081;
+    public int WebAppPort { get; set; } = 8080;
+
     [JsonIgnore] public FastClock FastClock { get; set; } = new();
 }

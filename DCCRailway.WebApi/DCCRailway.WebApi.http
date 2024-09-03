@@ -1,6 +1,67 @@
-@DCCRailway.WebApi_HostAddress = http://localhost:5139
+@baseUrl = http://localhost:8081
 
-GET {{DCCRailway.WebApi_HostAddress}}/weatherforecast/
+###
+# Get Accessories
+GET {{baseUrl}}/accessories
 Accept: application/json
 
 ###
+# Get Specific Accessory by ID
+GET {{baseUrl}}/accessories/1
+Accept: application/json
+
+###
+# Create a New Accessory
+POST {{baseUrl}}/accessories
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "MyAccessory",
+  "type": "TypeA"
+}
+
+###
+# Update an Existing Accessory
+PUT {{baseUrl}}/accessories/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "UpdatedAccessory",
+  "type": "TypeA"
+}
+
+###
+# Delete Accessory
+DELETE {{baseUrl}}/accessories/1
+
+###
+# Get Blocks
+GET {{baseUrl}}/blocks
+Accept: application/json
+
+###
+# Get Locomotives
+GET {{baseUrl}}/locomotives
+Accept: application/json
+
+###
+# Get Routes
+GET {{baseUrl}}/routes
+Accept: application/json
+
+###
+# Get Sensors
+GET {{baseUrl}}/sensors
+Accept: application/json
+
+###
+# Get Signals
+GET {{baseUrl}}/signals
+Accept: application/json
+
+###
+# Get Turnouts
+GET {{baseUrl}}/turnouts
+Accept: application/json

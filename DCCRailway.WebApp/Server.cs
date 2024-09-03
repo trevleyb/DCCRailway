@@ -1,10 +1,16 @@
+using DCCRailway.Layout;
 using DCCRailway.WebApp.Components;
+using ILogger = Serilog.ILogger;
 
 namespace DCCRailway.WebApp;
 
-public class Server {
-    public void Start(string[] args) {
-        var builder = WebApplication.CreateBuilder(args);
+public class Server(ILogger logger, IRailwaySettings railwaySettings) {
+    public async Task Start() {
+        var options = new WebApplicationOptions {
+            Args = new[] { $"--urls=http://localhost:{railwaySettings.WebAppPort}" }
+        };
+
+        var builder = WebApplication.CreateBuilder(options);
 
         // Add services to the container.
         builder.Services.AddRazorComponents().AddInteractiveServerComponents();
@@ -24,6 +30,7 @@ public class Server {
         app.UseAntiforgery();
         app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
+        logger.Information($"DCCRailway WebAPI Server running on ");
         app.Run();
     }
 }

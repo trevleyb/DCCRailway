@@ -1,15 +1,13 @@
 {
   "Name": "Sample",
   "Description": "A Test configuration file for testing",
-  "PathName": "./Sample240517145413",
+  "PathName": "./Sample",
   "Controller": {
     "Name": "Virtual",
-    "Adapters": [
-      {
+    "Adapter": {
         "Name": "Virtual",
         "Parameters": []
-      }
-    ],
+    },
     "Tasks": [],
     "Parameters": [
       {

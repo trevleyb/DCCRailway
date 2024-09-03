@@ -18,6 +18,9 @@ public interface IRailwaySettings {
     Controller      Analyser        { get; }
     WiThrottlePrefs WiThrottlePrefs { get; }
 
+    int WebApiPort { get; }
+    int WebAppPort { get; }
+
     // Collection/Repository Properties
     // -----------------------------------------------------------------------------
     Settings      Settings      { get; }

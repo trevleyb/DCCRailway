@@ -3,7 +3,7 @@ using DCCRailway.Layout.Entities.Collection;
 
 namespace DCCRailway.WebApi.Layout;
 
-public static class APIHelper {
+public static class ApiHelper {
     public static void MapEntity<TCollection, TEntity>(WebApplication app, string endPointName) where TEntity : ILayoutEntity where TCollection : ILayoutRepository<TEntity> {
         // Register services
         // Make sure your DataContext/Repository is registered so it's injectable

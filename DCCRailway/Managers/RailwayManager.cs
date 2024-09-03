@@ -4,19 +4,24 @@ using DCCRailway.Controller.Tasks.Events;
 using DCCRailway.Layout;
 using DCCRailway.StateManager.Updater.CommandUpdater;
 using DCCRailway.StateManager.Updater.PacketUpdater;
+using DCCRailway.WiThrottle.Server;
 using Serilog;
-using Server = DCCRailway.WebApp.Server;
 
 namespace DCCRailway.Managers;
 
-public sealed class RailwayManager(ILogger logger) : IRailwayManager {
+public sealed class RailwayManager(ILogger logger, bool runWiServer, bool runWebServer) : IRailwayManager {
+    private bool RunWiServer  { get; set; } = runWiServer;
+    private bool RunWebServer { get; set; } = runWebServer;
+
     public ILogger          Logger   { get; init; } = logger;
     public IRailwaySettings Settings { get; private set; }
 
     public ControllerManager         ControllerManager { get; private set; }
     public ControllerManager         AnalyserManager   { get; private set; }
     public StateManager.StateManager StateManager      { get; private set; }
-    public WiThrottle.Server.Server? WiThrottle        { get; private set; }
+    public Server?                   WiThrottle        { get; private set; }
+    public WebApi.Server?            WebApiServer      { get; private set; }
+    public WebApp.Server?            WebAppServer      { get; private set; }
 
     /// <summary>
     /// Re-Loads the repositories into the collections. This is done when we instantiate
@@ -56,8 +61,8 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
             ControllerManager.TaskEvent       += ControllerManagerOnTaskEvent;
             ControllerManager.Start();
 
-            if (Settings.WiThrottlePrefs.RunOnStartup) {
-                WiThrottle = new WiThrottle.Server.Server(Logger, Settings);
+            if (RunWiServer && Settings.WiThrottlePrefs.RunOnStartup) {
+                WiThrottle = new Server(Logger, Settings);
                 WiThrottle.Start(ControllerManager.CommandStation!);
             }
         } else {
@@ -74,10 +79,21 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
             AnalyserManager.Start();
         }
 
-        // This is blocking so will hold until the web-app finishes and then will exit the app
-        // ------------------------------------------------------------------------------------
-        var webApp = new Server();
-        webApp.Start(new string[] { });
+        // Startup the WebServer so we have access to the data via the WebAPIs
+        // -------------------------------------------------------------------
+        if (RunWebServer) {
+            Logger.Information("Starting WebAPI server");
+            WebApiServer = new WebApi.Server(Logger, Settings);
+            WebApiServer.Start();
+
+            // This is blocking so will hold until the web-app finishes and then will exit the app
+            // ------------------------------------------------------------------------------------
+            Logger.Information("Starting WebAPP server");
+            WebAppServer = new WebApp.Server(Logger, Settings);
+            WebAppServer.Start();
+        }
+
+        Logger.Information("All finished. Shutting down.");
     }
 
     private void ControllerManagerOnTaskEvent(object? sender, ITaskEvent e) {
@@ -102,5 +118,6 @@ public sealed class RailwayManager(ILogger logger) : IRailwayManager {
         if (WiThrottle is not null) WiThrottle.Stop();
         if (Settings.Controller is { Name: not null }) ControllerManager.Stop();
         if (Settings.Analyser is { Name: not null }) AnalyserManager.Stop();
+        if (WebApiServer is not null) WebApiServer.Stop();
     }
 }

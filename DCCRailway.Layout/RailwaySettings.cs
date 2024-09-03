@@ -21,6 +21,9 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
     public Controller      Analyser        => Settings.Analyser;
     public WiThrottlePrefs WiThrottlePrefs => Settings.WiThrottle;
 
+    public int WebApiPort => Settings.WebApiPort;
+    public int WebAppPort => Settings.WebAppPort;
+
     // Collection/Repository Properties
     // -----------------------------------------------------------------------------
     public Settings      Settings      { get; private set; }
