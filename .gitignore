@@ -36,3 +36,5 @@ Desktop.ini
 .DS_Store
 *.cache
 DCCRailway.Conversion/obj/Debug/net6.0/DCCRailway.Conversion.csproj.FileListAbsolute.txt
+/publish/
+/DCCRailway/DCCRailway/logs/
