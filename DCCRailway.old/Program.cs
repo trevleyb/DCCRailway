@@ -9,9 +9,10 @@ using Serilog.Core;
 using Serilog.Sinks.SystemConsole.Themes;
 
 // Run the Main Application and parse the command line options.
-Main(args);
+//Main(args);
 
-void Main(string[] args) {
+/*
+void Maixxn(string[] args) {
     const string consoleOutputTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}|{AssemblyName}.{SourceContext}] {Message:lj} {Exception}{NewLine}";
 
     Parser.Default.ParseArguments<Options>(args).WithParsed(options => {
@@ -59,13 +60,13 @@ void Main(string[] args) {
                 railway.Load(path, name);
             }
 
-            logger.Information("Starting the DCCRailway Manager.");
+            logger.Information("Starting the DCCRailway.old Manager.");
             railway.Start();
             logger.Information("WebApp finished. Closing down other services. ");
             railway.Stop();
-            logger.Information("DCCRailway Manager finished.");
+            logger.Information("DCCRailway.old Manager finished.");
         } catch (Exception ex) {
-            logger.Error("DCCRailway existing with a fatal error. : {0}", ex);
+            logger.Error("DCCRailway.old existing with a fatal error. : {0}", ex);
         }
     });
 }
@@ -80,7 +81,7 @@ void WriteProductDetailsToLogger(Logger logger) {
         var productName         = productAttribute.Product;
         var productDescriptions = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
         var description         = productDescriptions.Length > 0 ? ((AssemblyDescriptionAttribute)productDescriptions[0]).Description : "";
-        logger.Information($"{productName ?? "DCCRailway"} - {description}");
+        logger.Information($"{productName ?? "DCCRailway.old"} - {description}");
     }
 
     // Get copyright
@@ -102,7 +103,7 @@ void WriteProductDetailsToLogger(Logger logger) {
 //  a default name or set the layout to this name.
 //  ---------------------------------------------------------------------------------
 static string ValidateName(string path, string? name) {
-    return name ?? FindConfigFile(path) ?? "DCCRailway";
+    return name ?? FindConfigFile(path) ?? "DCCRailway.old";
 }
 
 //
@@ -127,3 +128,4 @@ static string ValidatePath(string path) {
         throw new Exception("Failed to find configuration directory or create directory.", ex);
     }
 }
+*/

@@ -61,7 +61,9 @@ public class CommandStationFactory(ILogger logger) {
             throw new ApplicationException("[Controllers] Invalid Path provided for the CommandStation Assembly Search");
         }
 
-        var assemblies = Directory.GetFiles(DefaultPath).Where(directory => Regex.Match(directory, pattern).Success).ToList();
+        var executingAssembly  = Assembly.GetExecutingAssembly();
+        var executingDirectory = Path.GetDirectoryName(executingAssembly.Location) ?? path;
+        var assemblies         = Directory.GetFiles(executingDirectory).Where(directory => Regex.Match(directory, pattern).Success).ToList();
 
         if (assemblies == null || assemblies.Any() == false) {
             throw new ApplicationException($"[Controllers] Could not find any CommandStation Assemblies '{path} => {pattern}'");

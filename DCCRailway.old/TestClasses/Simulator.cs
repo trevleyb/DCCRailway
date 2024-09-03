@@ -15,7 +15,7 @@ public static class Simulator {
 
         var stateManager = new StateManager.StateManager();
         var cmdStation   = new ControllerManager(logger, settings.Controller);
-        var wii          = new Server(logger, settings);
+        var wii          = new WiThrottle.Server.Server(logger, settings);
 
         // Turn on the fastClock (normally turned on/off in the UI)
         // --------------------------------------------------------------

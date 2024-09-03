@@ -1,0 +1,141 @@
+{
+  "RoutesLabel": "Routes",
+  "RouteLabel": "Route",
+  "ActiveLabel": "Active",
+  "InActiveLabel": "Inactive",
+  "DeActivateOnOverlap": true,
+  "Routes": [
+    {
+      "Key": "R01",
+      "Value": {
+        "State": 2,
+        "RouteTurnouts": [
+          {
+            "TurnoutID": "T01",
+            "State": 0
+          },
+          {
+            "TurnoutID": "T02",
+            "State": 0
+          },
+          {
+            "TurnoutID": "T03",
+            "State": 0
+          },
+          {
+            "TurnoutID": "T04",
+            "State": 0
+          },
+          {
+            "TurnoutID": "T05",
+            "State": 0
+          }
+        ],
+        "Id": "R01",
+        "Name": "Route1",
+        "Description": "Station to Mainline",
+        "Parameters": []
+      }
+    },
+    {
+      "Key": "R04",
+      "Value": {
+        "State": 2,
+        "RouteTurnouts": [
+          {
+            "TurnoutID": "T02",
+            "State": 1
+          },
+          {
+            "TurnoutID": "T03",
+            "State": 0
+          },
+          {
+            "TurnoutID": "T04",
+            "State": 0
+          }
+        ],
+        "Id": "R04",
+        "Name": "Route4",
+        "Description": "Mainline to Station",
+        "Parameters": []
+      }
+    },
+    {
+      "Key": "R03",
+      "Value": {
+        "State": 2,
+        "RouteTurnouts": [
+          {
+            "TurnoutID": "T01",
+            "State": 0
+          },
+          {
+            "TurnoutID": "T02",
+            "State": 0
+          }
+        ],
+        "Id": "R03",
+        "Name": "Route3",
+        "Description": "Yard to Station",
+        "Parameters": []
+      }
+    },
+    {
+      "Key": "R02",
+      "Value": {
+        "State": 2,
+        "RouteTurnouts": [
+          {
+            "TurnoutID": "T01",
+            "State": 0
+          },
+          {
+            "TurnoutID": "T02",
+            "State": 0
+          },
+          {
+            "TurnoutID": "T03",
+            "State": 1
+          },
+          {
+            "TurnoutID": "T04",
+            "State": 1
+          },
+          {
+            "TurnoutID": "T05",
+            "State": 0
+          }
+        ],
+        "Id": "R02",
+        "Name": "Route2",
+        "Description": "Yard to Mainline",
+        "Parameters": []
+      }
+    },
+    {
+      "Key": "R05",
+      "Value": {
+        "State": 2,
+        "RouteTurnouts": [
+          {
+            "TurnoutID": "T02",
+            "State": 0
+          },
+          {
+            "TurnoutID": "T03",
+            "State": 0
+          },
+          {
+            "TurnoutID": "T04",
+            "State": 0
+          }
+        ],
+        "Id": "R05",
+        "Name": "Route5",
+        "Description": "Route 5",
+        "Parameters": []
+      }
+    }
+  ]
+}

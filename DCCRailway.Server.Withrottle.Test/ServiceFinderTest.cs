@@ -5,7 +5,7 @@ public class ServiceFinderTest {
     [Test]
     public void ClientInfoTest() {
         var si = new ServiceInfo(@"DCCRailway\032WiThrottle\032Service._withrottle._tcp.local", "10.0.0.1", 1234);
-        Assert.That(si.Name, Is.EqualTo("DCCRailway WiThrottle Service"));
+        Assert.That(si.Name, Is.EqualTo("DCCRailway.WiThrottle Service"));
     }
 
     [Test]

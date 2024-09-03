@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <PackageReference Include="Serilog" Version="4.0.0"/>
+        <ProjectReference Include="..\..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+        <ProjectReference Include="..\..\DCCRailway.Controller.Analysers\DCCRailway.Controller.Analysers.csproj"/>
+        <ProjectReference Include="..\..\DCCRailway.Controller.Digitrax\DCCRailway.Controller.Digitrax.csproj"/>
+        <ProjectReference Include="..\..\DCCRailway.Controller.NCE\DCCRailway.Controller.NCE.csproj"/>
+        <ProjectReference Include="..\..\DCCRailway.Controller.Sprog\DCCRailway.Controller.Sprog.csproj"/>
+        <ProjectReference Include="..\..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj"/>
+        <ProjectReference Include="..\..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
+        <ProjectReference Include="..\..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
+        <ProjectReference Include="..\..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Client\DCCRailway.Client.csproj"/>
+        <PackageReference Include="CommandLineParser" Version="2.9.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.*"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <AdditionalFiles Include="Settings\Sample.Accessories.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <AdditionalFiles Include="Settings\Sample.Blocks.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <AdditionalFiles Include="Settings\Sample.Locomotives.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <AdditionalFiles Include="Settings\Sample.Manufacturers.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <AdditionalFiles Include="Settings\Sample.Routes.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <AdditionalFiles Include="Settings\Sample.Sensors.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <AdditionalFiles Include="Settings\Sample.Settings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <AdditionalFiles Include="Settings\Sample.Signals.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <AdditionalFiles Include="Settings\Sample.Turnouts.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <Reference Include="DCCPacketAnalyser">
+            <HintPath>..\..\..\DCCPacketAnalyser\DCCPacketAnalyser\bin\Debug\net8.0\DCCPacketAnalyser.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+</Project>

@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Title>DCC Model Railway Control Solution</Title>
         <Authors>Trevor Leybourne</Authors>
         <Copyright>Trevor Leybourne</Copyright>
+        <RootNamespace>DCCRailway</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,7 +22,7 @@
         <ProjectReference Include="..\DCCRailway.StateManager\DCCRailway.StateManager.csproj"/>
         <ProjectReference Include="..\DCCRailway.WebApi\DCCRailway.WebApi.csproj"/>
         <ProjectReference Include="..\DCCRailway.WebApp\DCCRailway.WebApp.csproj"/>
-        <ProjectReference Include="..\DCCRailway.WiThrottle.Server\DCCRailway.WiThrottle.Server.csproj"/>
+        <ProjectReference Include="..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj" />
     </ItemGroup>
 
     <ItemGroup>
