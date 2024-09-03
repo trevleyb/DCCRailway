@@ -52,6 +52,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Controller.Analy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.StateManager", "DCCRailway.StateManager\DCCRailway.StateManager.csproj", "{A97C4C01-0C27-4EB5-BEC1-B6538E6D84B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DccRailway.Server", "DccRailway.Server\DccRailway.Server\DccRailway.Server.csproj", "{A3BA7326-1453-4383-9DE2-C037DE3D392B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DccRailway.Server.Client", "DccRailway.Server\DccRailway.Server.Client\DccRailway.Server.Client.csproj", "{D2A39C5A-D185-4A4D-899F-BF904E9AF721}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,6 +134,14 @@ Global
 		{A97C4C01-0C27-4EB5-BEC1-B6538E6D84B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A97C4C01-0C27-4EB5-BEC1-B6538E6D84B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A97C4C01-0C27-4EB5-BEC1-B6538E6D84B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3BA7326-1453-4383-9DE2-C037DE3D392B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3BA7326-1453-4383-9DE2-C037DE3D392B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3BA7326-1453-4383-9DE2-C037DE3D392B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3BA7326-1453-4383-9DE2-C037DE3D392B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2A39C5A-D185-4A4D-899F-BF904E9AF721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2A39C5A-D185-4A4D-899F-BF904E9AF721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2A39C5A-D185-4A4D-899F-BF904E9AF721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2A39C5A-D185-4A4D-899F-BF904E9AF721}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
