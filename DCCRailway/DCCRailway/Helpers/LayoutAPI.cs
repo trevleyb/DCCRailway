@@ -1,7 +1,7 @@
-using DCCRailway.Layout.Entities.Base;
-using DCCRailway.Layout.Entities.Collection;
+using DCCRailway.Common.Entities.Base;
+using DCCRailway.Common.Entities.Collection;
 
-namespace DCCRailway.WebApi.Layout;
+namespace DCCRailway.Helpers;
 
 public static class ApiHelper {
     public static void MapEntity<TCollection, TEntity>(WebApplication app, string endPointName) where TEntity : ILayoutEntity where TCollection : ILayoutRepository<TEntity> {

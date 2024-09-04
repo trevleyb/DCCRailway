@@ -1,8 +1,8 @@
+using DCCRailway.Common.Converters.JMRI;
 using DCCRailway.Common.Helpers;
-using DCCRailway.Layout.Converters.JMRI;
 using Serilog;
 
-namespace DCCRailway.Layout.Test;
+namespace DCCRailway.Common.Test;
 
 [TestFixture]
 public class JMRIRosterImporterTest {

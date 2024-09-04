@@ -1,6 +1,6 @@
 using DCCRailway.Common.Helpers;
 
-namespace DCCRailway.Layout.Test;
+namespace DCCRailway.Common.Test;
 
 [TestFixture]
 public class ManufacturersLoadTest {

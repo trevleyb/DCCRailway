@@ -36,66 +36,17 @@
     <s:String
             x:Key="/Default/Environment/UnitTesting/CreateUnitTestDialog/TestTemplateMapping/=NUnit3x/@EntryIndexedValue">db4927dd-2e12-48a7-9a84-2b7e3e31b9c8</s:String>
     <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=108750e7_002D4e84_002D4290_002D9114_002D3100c8e666d0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunClientTest #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest.RunClientTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a744f928_002D302d_002D4b1c_002Dafc6_002D60ff2b8bcbb1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>
-    <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=14a5850c_002D7411_002D4ed1_002Dbf30_002Dfacf85f93c3b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FindServiceTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ServiceFinderTest.FindServiceTest&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ServiceFinderTest.ClientInfoTest&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest.FindServiceTest&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest.RunClientTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-    <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=18b4b658_002D9dee_002D40d5_002Dbab4_002D4e4aac4c326e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunClientTest #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest.RunClientTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-    <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4afe4a2a_002Ddc54_002D49a6_002Db478_002D1a423a4c5e62/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ClientInfoTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ServiceFinderTest.ClientInfoTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-    <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=824e8eff_002D5703_002D405e_002D81c1_002D10c1811de898/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunClientTest #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest.RunClientTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-    <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=896fc910_002D6a63_002D4b6a_002D99dd_002Dc9e3fa08d963/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunClientTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest.RunClientTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-    <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a7508f01_002D1eb9_002D4931_002D9ac1_002Dd1f0de0427ce/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunClientTest #7" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/Users/trevor/Development/DCCRailway" Presentation="&amp;lt;Tests&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String>
-    <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b208dd58_002D75e7_002D4464_002D9e51_002De6a86af5ee7b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunClientTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::0379E9A3-34CF-4AC6-ACDA-97484CF9BF60::net8.0::DCCRailway.WiThrottle.Test.ClientTest.RunClientTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-    <s:String
-            x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=eaa420ed_002D8c44_002D4cc0_002D893f_002D51147bf1e1f6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RunClientTest #6" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/Users/trevor/Development/DCCRailway/DCCRailway.Common.Test" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DCCRailway.Common.Test&amp;gt;" /&gt;
-&lt;/SessionState&gt;</s:String>
+
 
     <s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestRunner/HangingTestRunnerResponse/@EntryValue">KillProcess</s:String>
     <s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestRunner/LoggingInternal/@EntryValue">TRACE</s:String>
 
 
     <s:String x:Key="/Default/Monitoring/StartMode/@EntryValue">Disabled</s:String>
-    <s:Boolean
-            x:Key="/Default/UnloadedProject/UnloadedProjects/=7c7e7f41_002D02e2_002D4b89_002Dacbe_002D13e4e9bc605d_0023DCCRailway_002ELayout/@EntryIndexedValue">True</s:Boolean>
+    
 	
 	
 	

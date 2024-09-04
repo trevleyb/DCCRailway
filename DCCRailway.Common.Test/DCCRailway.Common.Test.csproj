@@ -28,4 +28,10 @@
         <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <AdditionalFiles Include="roster.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+    </ItemGroup>
+
 </Project>

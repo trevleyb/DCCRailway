@@ -1,9 +1,9 @@
 using System.ComponentModel;
+using DCCRailway.Common.Entities;
+using DCCRailway.Common.Entities.Base;
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Entities;
-using DCCRailway.Layout.Entities.Base;
 
-namespace DCCRailway.Layout.Test;
+namespace DCCRailway.Common.Test;
 
 [TestFixture]
 public class LayoutPropertyChangedTests {

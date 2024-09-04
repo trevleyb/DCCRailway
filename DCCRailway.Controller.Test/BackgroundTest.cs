@@ -36,7 +36,7 @@ public class BackgroundTest {
         var virtualSystem = new CommandStationFactory(LoggerHelper.DebugLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.DebugLogger));
         Assert.That(virtualSystem, Is.Not.Null, "Should have created a Virtual System with a Adapter");
         var tasks = virtualSystem.Tasks;
-        Assert.That(tasks.Count, Is.GreaterThan(0), "Should return i the Virtual System at least 1 background task");
+        Assert.That(tasks.Count, Is.GreaterThan(0), "Should return the Virtual System at least 1 background task");
         var taskInstance = virtualSystem.CreateTask("VirtualDummyTask");
         Assert.That(taskInstance, Is.Not.Null, "Should have a task instance");
 

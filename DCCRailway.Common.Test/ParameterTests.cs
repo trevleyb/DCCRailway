@@ -1,7 +1,6 @@
 using System.IO.Ports;
-using DCCRailway.Layout.Entities;
 
-namespace DCCRailway.Layout.Test;
+namespace DCCRailway.Common.Test;
 
 [TestFixture]
 public class ParameterTests {
@@ -21,7 +20,7 @@ public class ParameterTests {
 
     [Test]
     public void PropertyBagNullExceptionTest() {
-        var bag = new Parameters();
+        var bag = new Entities.Parameters();
         Assert.That(() => bag.Add(null!, null!), Throws.Exception);
         Assert.That(() => bag.Add("Empty", null!), Throws.Exception);
         Assert.That(() => bag.Add(null!, "empty"), Throws.Exception);
@@ -38,7 +37,7 @@ public class ParameterTests {
 
     [Test]
     public void PropertyBagSetAndCheckTests() {
-        var bag = new Parameters { { "Value1", "Value" } };
+        var bag = new Entities.Parameters { { "Value1", "Value" } };
         Assert.That(bag.Get("value1")!.Equals("Value"));
         bag.Add("Value2", 42);
         Assert.That(bag.Get("value2")!.Equals(42));
@@ -55,7 +54,7 @@ public class ParameterTests {
 
     [Test]
     public void PropertyBagSetAndUpdate() {
-        var bag = new Parameters();
+        var bag = new Entities.Parameters();
         bag.Add("Value1", "Value");
         Assert.That(bag.Get("value1")!.Equals("Value"));
         bag.Set("Value1", "New Value");
@@ -80,7 +79,7 @@ public class ParameterTests {
 
     [Test]
     public void PropertyBagDeleteTest() {
-        var bag = new Parameters { { "String", "String Value" } };
+        var bag = new Entities.Parameters { { "String", "String Value" } };
         Assert.That(bag.Count == 1);
         bag.Delete("String");
         Assert.That(bag.Get("String"), Is.Null);
@@ -89,7 +88,7 @@ public class ParameterTests {
 
     [Test]
     public void PropertyBagAdd() {
-        var bag = new Parameters {
+        var bag = new Entities.Parameters {
             { "1", "b" },
             { "2", (object)"c" },
             { "3", (object)new string("aaa") }
@@ -104,7 +103,7 @@ public class ParameterTests {
 
     [Test]
     public void PropertyBagAddGetTest() {
-        var bag = new Parameters();
+        var bag = new Entities.Parameters();
 
         bag.Add("String", "String Value");
         Assert.That(bag.Get("String"), Is.EqualTo("String Value"));
@@ -125,7 +124,7 @@ public class ParameterTests {
 
     [Test]
     public void TestToString() {
-        var bag = new Parameters { { "String", "String Value" } };
+        var bag = new Entities.Parameters { { "String", "String Value" } };
         var p   = bag["String"];
         Assert.That(p.ToString(), Is.EqualTo("String='String Value'"));
     }

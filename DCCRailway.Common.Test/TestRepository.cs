@@ -1,8 +1,8 @@
-using DCCRailway.Layout.Entities.Base;
-using DCCRailway.Layout.Entities.Collection;
-using DCCRailway.Layout.Events;
+using DCCRailway.Common.Entities.Base;
+using DCCRailway.Common.Entities.Collection;
+using DCCRailway.Common.Events;
 
-namespace DCCRailway.Layout.Test;
+namespace DCCRailway.Common.Test;
 
 [TestFixture]
 public class TestEntityCollectionWithChanges {
@@ -26,7 +26,7 @@ public class TestEntityCollectionWithChanges {
         Assert.That(_id, Is.EqualTo(addEntity.Id));
 
         var entity = collection.IndexOf(0);
-        Assert.That(entity, Is.Not.Null);
+        Assert.That(entity?.Name, Is.Not.Null);
         entity.Name = "Updated Entity";
         collection.Update(entity);
         Assert.That(_action, Is.EqualTo(RepositoryChangeAction.Update));

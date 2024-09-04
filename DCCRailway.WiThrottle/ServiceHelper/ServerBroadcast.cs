@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using DCCRailway.Layout.Configuration;
+using DCCRailway.Common.Configuration;
 using Makaretu.Dns;
 using Serilog;
 

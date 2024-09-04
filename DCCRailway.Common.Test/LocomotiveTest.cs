@@ -1,6 +1,6 @@
-using DCCRailway.Layout.Entities;
+using DCCRailway.Common.Entities;
 
-namespace DCCRailway.Layout.Test;
+namespace DCCRailway.Common.Test;
 
 [TestFixture]
 public class LocomotiveTest {

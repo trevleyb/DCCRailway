@@ -1,6 +1,6 @@
 using System.Text;
-using DCCRailway.Layout;
-using DCCRailway.Layout.Configuration;
+using DCCRailway.Common;
+using DCCRailway.Common.Configuration;
 
 namespace DCCRailway.WiThrottle.Server.Messages;
 

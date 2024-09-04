@@ -10,7 +10,7 @@ namespace DCCRailway.Managers;
 public class ControllerManager : IControllerManager {
     private readonly ILogger _logger;
 
-    public ControllerManager(ILogger logger, Layout.Configuration.Controller controllerSettings) {
+    public ControllerManager(ILogger logger, Common.Configuration.Controller controllerSettings) {
         _logger = logger;
         Configure(controllerSettings);
     }
@@ -47,7 +47,7 @@ public class ControllerManager : IControllerManager {
     ///     adapters to the commandStation and pushing any parameters into the Controllers and Adapaters as defined in the
     ///     configuration.
     /// </summary>
-    public void Configure(Layout.Configuration.Controller controller) {
+    public void Configure(Common.Configuration.Controller controller) {
         if (string.IsNullOrEmpty(controller.Name)) return;
 
         var commandStation = CreateCommandStationController(controller);
@@ -65,7 +65,7 @@ public class ControllerManager : IControllerManager {
     /// <param name="controller">Configuration Collection for the controller to create</param>
     /// <returns>An instance of a Command Station Controller or NULL if it was unable to do so. </returns>
     /// <exception cref="ControllerException">Thrown if it cannot create the controller. </exception>
-    private ICommandStation? CreateCommandStationController(Layout.Configuration.Controller controller) {
+    private ICommandStation? CreateCommandStationController(Common.Configuration.Controller controller) {
         var controllerManager = new CommandStationFactory(_logger);
 
         try {
@@ -89,7 +89,7 @@ public class ControllerManager : IControllerManager {
     /// <param name="controller">The DCCController object representing the controller for the commandStation.</param>
     /// <param name="commandStation">The ICommandStation object representing the commandStation.</param>
     /// <exception cref="AdapterException">Thrown when unable to create an Adapter.</exception>
-    private void AttachCommandStationAdapter(Layout.Configuration.Controller controller, ICommandStation commandStation) {
+    private void AttachCommandStationAdapter(Common.Configuration.Controller controller, ICommandStation commandStation) {
         // Now that we have a commandStation, attach the Adapter to the commandStation and
         // configure the Adapter using the provided Parameters.
         // -----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ public class ControllerManager : IControllerManager {
     /// </summary>
     /// <param name="controller">The DCCController containing the tasks to be attached.</param>
     /// <param name="commandStation">The ICommandStation to which the tasks will be attached.</param>
-    private void AttachCommandStationTasks(Layout.Configuration.Controller controller, ICommandStation commandStation) {
+    private void AttachCommandStationTasks(Common.Configuration.Controller controller, ICommandStation commandStation) {
         try {
             foreach (var task in controller.Tasks) {
                 try {

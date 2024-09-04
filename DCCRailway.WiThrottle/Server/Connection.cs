@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using DCCRailway.Common;
+using DCCRailway.Common.Configuration;
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Controllers;
-using DCCRailway.Layout;
-using DCCRailway.Layout.Configuration;
 using DCCRailway.WiThrottle.Server.Messages;
 
 namespace DCCRailway.WiThrottle.Server;

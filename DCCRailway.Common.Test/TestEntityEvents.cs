@@ -1,8 +1,8 @@
+using DCCRailway.Common.Entities;
 using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
-using DCCRailway.Layout.Entities;
 
-namespace DCCRailway.Layout.Test;
+namespace DCCRailway.Common.Test;
 
 [TestFixture]
 public class TestEntityEvents {

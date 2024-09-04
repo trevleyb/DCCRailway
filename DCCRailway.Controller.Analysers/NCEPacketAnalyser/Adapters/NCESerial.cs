@@ -7,7 +7,7 @@ using DCCRailway.Controller.Attributes;
 using DCCRailway.Controller.Exceptions;
 using Serilog;
 
-namespace DCCRailway.Controller.NCE.Adapters;
+namespace DCCRailway.Controller.Analysers.NCEPacketAnalyser.Adapters;
 
 [Adapter("NCE Serial Adapter", AdapterType.Serial)]
 public class NCESerial(ILogger logger) : SerialAdapter(logger), IAdapter {

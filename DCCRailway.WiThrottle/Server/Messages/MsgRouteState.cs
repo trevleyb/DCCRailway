@@ -1,5 +1,5 @@
 using System.Text;
-using DCCRailway.Layout.Entities;
+using DCCRailway.Common.Entities;
 
 namespace DCCRailway.WiThrottle.Server.Messages;
 

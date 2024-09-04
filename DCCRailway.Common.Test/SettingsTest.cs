@@ -1,7 +1,7 @@
-﻿using DCCRailway.Common.Helpers;
-using DCCRailway.Layout.Entities;
+﻿using DCCRailway.Common.Entities;
+using DCCRailway.Common.Helpers;
 
-namespace DCCRailway.Layout.Test;
+namespace DCCRailway.Common.Test;
 
 [TestFixture]
 public class SettingsTest {

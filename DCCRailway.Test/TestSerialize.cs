@@ -1,6 +1,6 @@
-using DCCRailway.Layout.Entities;
-using DCCRailway.Layout.Entities.Base;
-using DCCRailway.Layout.Entities.Collection;
+using DCCRailway.Common.Entities;
+using DCCRailway.Common.Entities.Base;
+using DCCRailway.Common.Entities.Collection;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;
