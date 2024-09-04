@@ -36,8 +36,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E0D75749
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controllers", "Controllers", "{3ACE341B-05F7-43D5-BA42-3C29FEEF1AA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Layout", "DCCRailway.Layout\DCCRailway.Layout.csproj", "{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.WiThrottle", "DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj", "{BC45E8CA-5408-4AAC-810E-D03A5D8CC228}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Server.Withrottle.Test", "DCCRailway.Server.Withrottle.Test\DCCRailway.Server.Withrottle.Test.csproj", "{0379E9A3-34CF-4AC6-ACDA-97484CF9BF60}"
@@ -96,10 +94,6 @@ Global
 		{ECB148C2-8B76-46FB-B05B-10E0DFF70C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECB148C2-8B76-46FB-B05B-10E0DFF70C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECB148C2-8B76-46FB-B05B-10E0DFF70C31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C7E7F41-02E2-4B89-ACBE-13E4E9BC605D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{57FA30BD-D1AB-4BE2-9C79-40EB2B937B92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{57FA30BD-D1AB-4BE2-9C79-40EB2B937B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57FA30BD-D1AB-4BE2-9C79-40EB2B937B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
