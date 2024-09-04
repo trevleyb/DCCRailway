@@ -1,6 +1,6 @@
 using DCCPacketAnalyser.Analyser.Base;
 using DCCPacketAnalyser.Analyser.Messages;
-using DCCRailway.Common.Helpers;
+using DCCRailway.Common.Result;
 
 namespace DCCRailway.StateManager.Updater.PacketUpdater;
 

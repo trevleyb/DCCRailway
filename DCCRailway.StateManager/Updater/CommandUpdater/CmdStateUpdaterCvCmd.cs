@@ -1,4 +1,4 @@
-using DCCRailway.Common.Helpers;
+using DCCRailway.Common.Result;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Attributes;

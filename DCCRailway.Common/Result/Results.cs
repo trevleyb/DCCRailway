@@ -1,14 +1,14 @@
 namespace DCCRailway.Common.Result;
 
-public abstract class Result {
+public abstract class Results {
     public bool Success { get; protected init; }
     public bool Failure => !Success;
 }
 
-public abstract class Result<T> : Result {
+public abstract class Results<T> : Results {
     private readonly T? _data;
 
-    protected Result(T? data) {
+    protected Results(T? data) {
         Data = data;
     }
 
@@ -18,19 +18,19 @@ public abstract class Result<T> : Result {
     }
 }
 
-public class SuccessResult : Result {
+public class SuccessResult : Results {
     public SuccessResult() {
         Success = true;
     }
 }
 
-public class SuccessResult<T> : Result<T> {
+public class SuccessResult<T> : Results<T> {
     public SuccessResult(T data) : base(data) {
         Success = true;
     }
 }
 
-public class ErrorResult : Result, IErrorResult {
+public class ErrorResult : Results, IErrorResult {
     public ErrorResult(Exception exception) : this(exception.Message) { }
     public ErrorResult(string message) : this(message, Array.Empty<Error>()) { }
 
@@ -44,7 +44,7 @@ public class ErrorResult : Result, IErrorResult {
     public IReadOnlyCollection<Error> Errors  { get; }
 }
 
-public class ErrorResult<T> : Result<T>, IErrorResult {
+public class ErrorResult<T> : Results<T>, IErrorResult {
     public ErrorResult(Exception exception) : this(exception.Message, Array.Empty<Error>(), exception) { }
     public ErrorResult(string message, Exception exception) : this(message, Array.Empty<Error>(), exception) { }
     public ErrorResult(string message) : this(message, Array.Empty<Error>(), null) { }

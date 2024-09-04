@@ -1,4 +1,4 @@
-namespace DCCRailway.Common.Helpers;
+namespace DCCRailway.Common.Result;
 
 public class Result(bool success, string message = "", Exception? exception = null) : IResult {
     // Constructors

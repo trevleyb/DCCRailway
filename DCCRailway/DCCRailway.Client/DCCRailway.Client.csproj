@@ -14,4 +14,12 @@
         <PackageReference Include="MudBlazor.ThemeManager" Version="2.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <None Remove="Resources\appicon.svg"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+    </ItemGroup>
+
 </Project>

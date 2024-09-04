@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using DCCRailway.Common.Helpers;
+using DCCRailway.Common.Result;
 
 namespace DCCRailway.WiThrottle.ServiceHelper;
 

@@ -1,4 +1,4 @@
-using DCCRailway.Common.Helpers;
+using DCCRailway.Common.Result;
 
 namespace DCCRailway.Controller.Actions.Results.Abstract;
 
