@@ -1,10 +1,15 @@
 ﻿using System.Globalization;
 using System.IO.Ports;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace DCCRailway.Common.Entities;
 
 [Serializable]
-public class Parameter {
+public partial class Parameter : ObservableObject {
+    [ObservableProperty] private Guid    _id;
+    [ObservableProperty] private string  _name;
+    [ObservableProperty] private string? _objType = "System.String";
+    [ObservableProperty] private string  _value;
     public Parameter() : this(Guid.NewGuid()) { }
 
     public Parameter(Guid guid) {
@@ -14,11 +19,6 @@ public class Parameter {
     public Parameter(string name, object value) {
         Set(name, value);
     }
-
-    public Guid    Id      { get; set; }
-    public string  Name    { get; set; }
-    public string  Value   { get; set; }
-    public string? ObjType { get; set; }
 
     public void Set(string name, object value) {
         Name    = name;

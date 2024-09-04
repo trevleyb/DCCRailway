@@ -27,14 +27,14 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
     // Collection/Repository Properties
     // -----------------------------------------------------------------------------
     public Settings      Settings      { get; private set; }
-    public Accessories   Accessories   { get; private set; } = [];
-    public Blocks        Blocks        { get; private set; } = [];
-    public Locomotives   Locomotives   { get; private set; } = [];
-    public Routes        Routes        { get; private set; } = [];
-    public Sensors       Sensors       { get; private set; } = [];
-    public Signals       Signals       { get; private set; } = [];
-    public Turnouts      Turnouts      { get; private set; } = [];
-    public Manufacturers Manufacturers { get; private set; } = [];
+    public Accessories   Accessories   { get; private set; } = new();
+    public Blocks        Blocks        { get; private set; } = new();
+    public Locomotives   Locomotives   { get; private set; } = new();
+    public Routes        Routes        { get; private set; } = new();
+    public Sensors       Sensors       { get; private set; } = new();
+    public Signals       Signals       { get; private set; } = new();
+    public Turnouts      Turnouts      { get; private set; } = new();
+    public Manufacturers Manufacturers { get; private set; } = new();
 
     /// <summary>
     /// Re-Loads the repositories into the collections. This is done when we instantiate

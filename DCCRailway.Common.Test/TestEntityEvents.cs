@@ -12,7 +12,7 @@ public class TestEntityEvents {
         var repositoryChanged = false;
         var config            = CreateTestConfig();
         var locomotives       = config.Locomotives;
-        locomotives.RepositoryChanged += (sender, args) => repositoryChanged = true;
+        locomotives.CollectionChanged += (sender, args) => repositoryChanged = true;
 
         propertyChanged = false;
         var addedLoco = locomotives.Add(new Locomotive { Name = "Train06" });

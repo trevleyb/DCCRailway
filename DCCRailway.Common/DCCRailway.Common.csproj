@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2"/>
         <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="2.0.0"/>
         <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0"/>
         <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0"/>

@@ -35,7 +35,6 @@
         <ProjectReference Include="..\DCCRailway.Controller.Sprog\DCCRailway.Controller.Sprog.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj"/>
         <ProjectReference Include="..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj"/>
-        <ProjectReference Include="..\DCCRailway.old\DCCRailway.old.csproj"/>
         <ProjectReference Include="..\DCCRailway\DCCRailway\DCCRailway.csproj"/>
     </ItemGroup>
 

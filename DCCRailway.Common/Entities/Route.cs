@@ -9,8 +9,7 @@ namespace DCCRailway.Common.Entities;
 [DebuggerDisplay("ROUTE={Id}, Name: {Name}")]
 public class Route(string id = "") : LayoutEntity(id) {
     [JsonInclude] public List<RouteTurnout> RouteTurnouts = new();
-
-    [JsonInclude] public RouteState State { get; set; } = RouteState.Unknown;
+    [JsonInclude] public RouteState         State { get; set; } = RouteState.Unknown;
 
     // Add a route to the list of routes at the END of the list
     // ------------------------------------------------------------------------------------------------

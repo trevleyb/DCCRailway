@@ -1,19 +1,15 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using DCCRailway.Common.Types;
 
 namespace DCCRailway.Common.Entities.Base;
 
 [Serializable]
-public class LayoutEntityDecoder(string id = "") : LayoutEntity(id) {
-    private DCCAddress _address;
-    private Decoder    _decoder;
+public partial class LayoutEntityDecoder : LayoutEntity {
+    [ObservableProperty] private DCCAddress _address = new DCCAddress();
+    [ObservableProperty] private Decoder    _decoder = new Decoder();
 
-    public DCCAddress Address {
-        get => _address;
-        set => SetField(ref _address, value);
-    }
-
-    public Decoder Decoder {
-        get => _decoder;
-        set => SetField(ref _decoder, value);
+    /// <inheritdoc/>
+    public LayoutEntityDecoder(string id = "", DCCAddressType addressType = DCCAddressType.Long) : base(id) {
+        Address.AddressType = addressType;
     }
 }

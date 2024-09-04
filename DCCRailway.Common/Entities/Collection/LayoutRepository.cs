@@ -1,20 +1,14 @@
-using System.Collections.Concurrent;
 using System.Text.Json.Serialization;
 using DCCRailway.Common.Entities.Base;
-using DCCRailway.Common.Events;
 
 namespace DCCRailway.Common.Entities.Collection;
 
-public delegate void RepositoryChangedEventHandler(object sender, RepositoryChangedEventArgs args);
-
 [Serializable]
-public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, TEntity>, ILayoutRepository<TEntity> where TEntity : ILayoutEntity {
+public abstract class LayoutRepository<TEntity> : ObservableConcurrentDictionary<string, TEntity>, ILayoutRepository<TEntity> where TEntity : ILayoutEntity {
     private readonly SemaphoreSlim _atomicMutex = new(1, 1);
     private readonly SemaphoreSlim _nextIDMutex = new(1, 1);
 
     [JsonInclude] public string Prefix { get; set; }
-
-    public event RepositoryChangedEventHandler? RepositoryChanged;
 
     public IList<TEntity> GetAll() {
         return Values.ToList();
@@ -36,20 +30,15 @@ public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, T
         return Find(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
     }
 
-    public TEntity? IndexOf(int index) {
-        return this.ElementAtOrDefault(index).Value;
-    }
-
     public TEntity? Update(TEntity entity) {
         try {
             _atomicMutex.Wait();
             if (ContainsKey(entity.Id)) {
                 this[entity.Id] = entity;
-                OnItemChanged(entity.Id, RepositoryChangeAction.Update);
                 return entity;
             } else {
                 if (string.IsNullOrEmpty(entity.Id)) entity.Id = GetNextID();
-                if (TryAdd(entity.Id, entity)) OnItemChanged(entity.Id, RepositoryChangeAction.Add);
+                TryAdd(entity.Id, entity);
                 return this[entity.Id];
             }
         } finally {
@@ -61,7 +50,7 @@ public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, T
         try {
             _atomicMutex.Wait();
             if (string.IsNullOrEmpty(entity.Id)) entity.Id = GetNextID();
-            if (TryAdd(entity.Id, entity)) OnItemChanged(entity.Id, RepositoryChangeAction.Add);
+            TryAdd(entity.Id, entity);
             return this[entity.Id];
         } catch {
             throw new KeyNotFoundException("Provided key in the Entity does not exist.");
@@ -73,9 +62,8 @@ public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, T
     public TEntity? Delete(string id) {
         try {
             _atomicMutex.Wait();
-
             if (ContainsKey(id)) {
-                if (TryRemove(id, out var removed)) OnItemChanged(id, RepositoryChangeAction.Delete);
+                TryRemove(id, out var removed);
                 return removed;
             }
 
@@ -92,11 +80,8 @@ public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, T
 
         try {
             var keys = new List<string>(Keys);
-
             foreach (var key in keys) {
-                if (TryRemove(key, out var removed)) {
-                    OnItemChanged(key, RepositoryChangeAction.Delete);
-                }
+                TryRemove(key, out var removed);
             }
         } finally {
             _atomicMutex.Release();
@@ -116,7 +101,7 @@ public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, T
 
             // sort the current collection and find the highest number in the collection and
             // calculate a new ID based on the entities.Prefix and the next sequential number.
-            if (this.Any()) {
+            if (this.Count > 0) {
                 var maxId = Keys.Where(e => int.TryParse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, ""), out _)).Max(e => int.Parse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, "")));
                 nextID = maxId + 1;
             }
@@ -143,14 +128,6 @@ public abstract class LayoutRepository<TEntity> : ConcurrentDictionary<string, T
 
     protected bool Contains(TEntity item) {
         return ContainsKey(item.Id);
-    }
-
-    private void OnItemChanged(string id, RepositoryChangeAction action) {
-        RepositoryChanged?.Invoke(this, new RepositoryChangedEventArgs(GetType().Name, id, action));
-    }
-
-    private void OnItemChanged(RepositoryChangedEventArgs e) {
-        RepositoryChanged?.Invoke(this, e);
     }
 
     /*

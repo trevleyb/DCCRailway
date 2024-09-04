@@ -144,7 +144,7 @@ public static class LayoutStorage {
 
             // Serialize dictionary items, but do not save any Temporary items
             var collectionName = typeof(TClass).Name;
-            jsonObject[collectionName] = entityClass.Where(x => !x.Value.IsTemporary).Select(kv => new { Key = kv.Key, Value = kv.Value });
+            jsonObject[collectionName] = entityClass.AsEnumerable.Where(x => !x.Value.IsTemporary).Select(kv => new { Key = kv.Key, Value = kv.Value });
             var jsonString = JsonSerializer.Serialize(jsonObject, jsonOptions);
             return jsonString;
         } catch (Exception ex) {

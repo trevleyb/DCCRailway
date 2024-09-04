@@ -17,7 +17,7 @@ public class NullAdapter(ILogger logger) : Adapter, IAdapter {
         SendData(data.ToByteArray(), commandReference);
     }
 
-    public byte[]? RecvData(ICommand command) {
+    public byte[]? RecvData(ICommand? command) {
         return [];
     }
 

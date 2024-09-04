@@ -37,7 +37,7 @@ public class ErrorResult : Results, IErrorResult {
     public ErrorResult(string message, IReadOnlyCollection<Error> errors) {
         Message = message;
         Success = false;
-        Errors  = errors ?? Array.Empty<Error>();
+        Errors  = errors;
     }
 
     public string                     Message { get; }
@@ -49,7 +49,7 @@ public class ErrorResult<T> : Results<T>, IErrorResult {
     public ErrorResult(string message, Exception exception) : this(message, Array.Empty<Error>(), exception) { }
     public ErrorResult(string message) : this(message, Array.Empty<Error>(), null) { }
 
-    public ErrorResult(string message, IReadOnlyCollection<Error>? errors, Exception exception) : base(default) {
+    public ErrorResult(string message, IReadOnlyCollection<Error>? errors, Exception? exception) : base(default) {
         Message   = message;
         Success   = false;
         Errors    = errors ?? Array.Empty<Error>();

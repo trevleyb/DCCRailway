@@ -16,7 +16,6 @@
         <ProjectReference Include="..\..\DCCRailway.Controller.Sprog\DCCRailway.Controller.Sprog.csproj"/>
         <ProjectReference Include="..\..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj"/>
         <ProjectReference Include="..\..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
-        <ProjectReference Include="..\..\DCCRailway.Layout\DCCRailway.Layout.csproj"/>
         <ProjectReference Include="..\..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj"/>
         <ProjectReference Include="..\DCCRailway.Client\DCCRailway.Client.csproj"/>
         <PackageReference Include="CommandLineParser" Version="2.9.1"/>

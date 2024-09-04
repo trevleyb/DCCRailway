@@ -1,16 +1,16 @@
-using System.ComponentModel;
 using System.Text.Json.Serialization;
-using DCCRailway.Common.Events;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace DCCRailway.Common.Entities.Base;
 
 [Serializable]
-public abstract class LayoutEntity : PropertyChangeBase, INotifyPropertyChanged, ILayoutEntity {
-    private string     _description = "";
-    private string     _id          = "";
-    private string     _name        = "";
-    private Parameters _parameters  = [];
+public abstract partial class LayoutEntity : ObservableObject, ILayoutEntity {
+    [ObservableProperty] private string     _description = "";
+    [ObservableProperty] private string     _id          = "";
+    [ObservableProperty] private string     _name        = "";
+    [ObservableProperty] private Parameters _parameters  = [];
 
+    [JsonConstructor]
     protected LayoutEntity() { }
 
     protected LayoutEntity(string id) {
@@ -24,26 +24,6 @@ public abstract class LayoutEntity : PropertyChangeBase, INotifyPropertyChanged,
         Id          = id;
         Name        = name;
         Description = description;
-    }
-
-    public string Id {
-        get => _id;
-        set => SetField(ref _id, value);
-    }
-
-    public string Name {
-        get => _name;
-        set => SetField(ref _name, value);
-    }
-
-    public string Description {
-        get => _description;
-        set => SetField(ref _description, value);
-    }
-
-    public Parameters Parameters {
-        get => _parameters;
-        set => SetField(ref _parameters, value);
     }
 
     [JsonIgnore] public bool IsDirty     { get; set; } = false;
