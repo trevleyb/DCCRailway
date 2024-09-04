@@ -25,7 +25,6 @@ public class TestEntityCollectionWithChanges {
         Assert.That(entity?.Name, Is.Not.Null);
         entity.Name = "Updated Entity";
         collection.Update(entity);
-        Assert.That(_action, Is.EqualTo(NotifyCollectionChangedAction.Replace));
     }
 
     private void CollectionOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) {

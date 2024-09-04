@@ -35,10 +35,10 @@ public class ControllerEventLayoutTest {
                 cmdSetSpeed.Address = new DCCAddress(1024);
                 cmdSetSpeed.Speed   = new DCCSpeed(50);
                 var setSpeedOld = stateManager.GetState<DCCSpeed>(cmdSetSpeed.Address, StateType.Speed, new DCCSpeed(0));
-                Assert.That(setSpeedOld, Is.EqualTo(new DCCSpeed(0)));
+                Assert.That(setSpeedOld.Value, Is.EqualTo(new DCCSpeed(0).Value));
                 cmdSetSpeed.Execute();
                 var setSpeedNew = stateManager.GetState<DCCSpeed>(cmdSetSpeed.Address, StateType.Speed);
-                Assert.That(setSpeedNew, Is.EqualTo(new DCCSpeed(50)));
+                Assert.That(setSpeedNew?.Value, Is.EqualTo(new DCCSpeed(50).Value));
             }
 
             // Try setting a Loco Momentum
@@ -49,10 +49,10 @@ public class ControllerEventLayoutTest {
                 cmdSetMomentum.Address  = new DCCAddress(1024);
                 cmdSetMomentum.Momentum = new DCCMomentum(5);
                 var cmdSetMomentumOld = stateManager.GetState<DCCMomentum>(cmdSetMomentum.Address, StateType.Momentum, new DCCMomentum(0));
-                Assert.That(cmdSetMomentumOld, Is.EqualTo(new DCCMomentum(0)));
+                Assert.That(cmdSetMomentumOld.Value, Is.EqualTo(new DCCMomentum(0).Value));
                 cmdSetMomentum.Execute();
                 var cmdSetMomentumNew = stateManager.GetState<DCCMomentum>(cmdSetMomentum.Address, StateType.Momentum);
-                Assert.That(cmdSetMomentumNew, Is.EqualTo(new DCCMomentum(5)));
+                Assert.That(cmdSetMomentumNew?.Value, Is.EqualTo(new DCCMomentum(5).Value));
             }
         }
     }

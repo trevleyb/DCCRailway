@@ -2,8 +2,8 @@ using DCCRailway.Common.Entities.Base;
 
 namespace DCCRailway.Common.Entities.Collection;
 
-public interface ILayoutRepository<TEntity> : IObservableConcurrentDictionary where TEntity : ILayoutEntity {
-    IEnumerable<KeyValuePair<string, TEntity>> AsEnumerable { get; }
+public interface ILayoutRepository<TEntity> where TEntity : ILayoutEntity {
+    //IEnumerable<KeyValuePair<string, TEntity>> AsEnumerable { get; }
 
     IList<TEntity> GetAll();
     IList<TEntity> GetAll(Func<TEntity, bool> predicate);
@@ -15,4 +15,5 @@ public interface ILayoutRepository<TEntity> : IObservableConcurrentDictionary wh
     TEntity?       Delete(string id);
     void           DeleteAll();
     string         GetNextID();
+    bool           ContainsID(string id);
 }

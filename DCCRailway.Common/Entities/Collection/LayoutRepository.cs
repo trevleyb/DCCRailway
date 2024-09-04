@@ -1,29 +1,34 @@
+using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using DCCRailway.Common.Entities.Base;
 
 namespace DCCRailway.Common.Entities.Collection;
 
 [Serializable]
-public abstract class LayoutRepository<TEntity> : ObservableConcurrentDictionary<string, TEntity>, ILayoutRepository<TEntity> where TEntity : ILayoutEntity {
+public abstract class LayoutRepository<TEntity> : ObservableCollection<TEntity>, ILayoutRepository<TEntity> where TEntity : ILayoutEntity {
     private readonly SemaphoreSlim _atomicMutex = new(1, 1);
     private readonly SemaphoreSlim _nextIDMutex = new(1, 1);
 
     [JsonInclude] public string Prefix { get; set; }
 
+    public TEntity? this[string id] => GetByID(id);
+
+    public bool ContainsID(string id) => GetByID(id) != null;
+
     public IList<TEntity> GetAll() {
-        return Values.ToList();
+        return Items;
     }
 
     public IList<TEntity> GetAll(Func<TEntity, bool> predicate) {
-        return Values.Select(x => x).Where(predicate).ToList();
+        return Items.Select(x => x).Where(predicate).ToList();
     }
 
     public TEntity? Find(Func<TEntity, bool> predicate) {
-        return Values.FirstOrDefault(predicate);
+        return Items.FirstOrDefault(predicate);
     }
 
     public TEntity? GetByID(string id) {
-        return Contains(id) ? this[id] : default(TEntity?) ?? default(TEntity?);
+        return Find(x => x.Id == id) ?? default(TEntity);
     }
 
     public TEntity? GetByName(string name) {
@@ -33,12 +38,13 @@ public abstract class LayoutRepository<TEntity> : ObservableConcurrentDictionary
     public TEntity? Update(TEntity entity) {
         try {
             _atomicMutex.Wait();
-            if (ContainsKey(entity.Id)) {
-                this[entity.Id] = entity;
+            var index = IndexOf(entity);
+            if (index >= 0) {
+                Items[index] = entity;
                 return entity;
             } else {
                 if (string.IsNullOrEmpty(entity.Id)) entity.Id = GetNextID();
-                TryAdd(entity.Id, entity);
+                base.Add(entity);
                 return this[entity.Id];
             }
         } finally {
@@ -46,11 +52,11 @@ public abstract class LayoutRepository<TEntity> : ObservableConcurrentDictionary
         }
     }
 
-    public TEntity? Add(TEntity entity) {
+    public new TEntity? Add(TEntity entity) {
         try {
             _atomicMutex.Wait();
             if (string.IsNullOrEmpty(entity.Id)) entity.Id = GetNextID();
-            TryAdd(entity.Id, entity);
+            base.Add(entity);
             return this[entity.Id];
         } catch {
             throw new KeyNotFoundException("Provided key in the Entity does not exist.");
@@ -62,9 +68,10 @@ public abstract class LayoutRepository<TEntity> : ObservableConcurrentDictionary
     public TEntity? Delete(string id) {
         try {
             _atomicMutex.Wait();
-            if (ContainsKey(id)) {
-                TryRemove(id, out var removed);
-                return removed;
+            var item = GetByID(id);
+            if (item is not null) {
+                Remove(item);
+                return item;
             }
 
             return default;
@@ -77,12 +84,10 @@ public abstract class LayoutRepository<TEntity> : ObservableConcurrentDictionary
 
     public void DeleteAll() {
         _atomicMutex.Wait();
-
         try {
-            var keys = new List<string>(Keys);
-            foreach (var key in keys) {
-                TryRemove(key, out var removed);
-            }
+            var ids = new List<string>();
+            foreach (var item in Items) ids.Add(item.Id);
+            foreach (var id in ids) this.Delete(id);
         } finally {
             _atomicMutex.Release();
         }
@@ -102,7 +107,7 @@ public abstract class LayoutRepository<TEntity> : ObservableConcurrentDictionary
             // sort the current collection and find the highest number in the collection and
             // calculate a new ID based on the entities.Prefix and the next sequential number.
             if (this.Count > 0) {
-                var maxId = Keys.Where(e => int.TryParse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, ""), out _)).Max(e => int.Parse(string.IsNullOrEmpty(Prefix) ? e : e.Replace(Prefix, "")));
+                var maxId = Items.Where(e => int.TryParse(string.IsNullOrEmpty(Prefix) ? e.Id : e.Id.Replace(Prefix, ""), out _)).Max(e => int.Parse(string.IsNullOrEmpty(Prefix) ? e.Id : e.Id.Replace(Prefix, "")));
                 nextID = maxId + 1;
             }
 
@@ -121,110 +126,4 @@ public abstract class LayoutRepository<TEntity> : ObservableConcurrentDictionary
             throw new ApplicationException($"Unable to create or access the specified path for the config files '{pathname}'", ex);
         }
     }
-
-    protected bool Contains(string id) {
-        return ContainsKey(id);
-    }
-
-    protected bool Contains(TEntity item) {
-        return ContainsKey(item.Id);
-    }
-
-    /*
-    public IAsyncEnumerable<TEntity> GetAllAsync() {
-        await foreach (var item in Values.ConvertToAsyncEnumerable()) {
-            yield return item;
-        }
-    }
-
-    public async IAsyncEnumerable<TEntity> GetAllAsync(Func<TEntity, bool> predicate) {
-        await foreach (var item in Values.Select(x => x).Where(predicate).ConvertToAsyncEnumerable()) {
-            yield return item;
-        }
-    }
-
-    public async Task<TEntity?> FindAsync(Func<TEntity, bool> predicate) => await Task.FromResult(Values.FirstOrDefault(predicate));
-    public async Task<TEntity?> GetByIDAsync(string id)                  => await Task.FromResult(this[id]);
-    public async Task<TEntity?> GetByNameAsync(string name)              => await FindAsync(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
-    public async Task<TEntity?> IndexOfAsync(int index)                  => await Task.FromResult(this.ElementAtOrDefault(index).Value);
-
-    public async Task<TEntity?> UpdateAsync(TEntity entity) {
-        try {
-            await _atomicMutex.WaitAsync();
-            if (ContainsKey(entity.Id)) {
-                this[entity.Id] = entity;
-                OnItemChanged(entity.Id, RepositoryChangeAction.Update);
-                return await Task.FromResult(entity);
-            } else {
-                return await Task.FromException<TEntity?>(new KeyNotFoundException("Provided key in the Entity does not exist."));
-            }
-        } finally {
-            _atomicMutex.Release();
-        }
-    }
-
-    public async Task<TEntity?> AddAsync(TEntity entity) {
-        try {
-            await _atomicMutex.WaitAsync();
-            if (string.IsNullOrEmpty(entity.Id)) entity.Id = GetNextIDAsync();
-            if (TryAdd(entity.Id, entity)) OnItemChanged(entity.Id, RepositoryChangeAction.Add);
-            return await Task.FromResult(this[entity.Id]);
-        } catch {
-            return await Task.FromException<TEntity?>(new KeyNotFoundException("Provided key in the Entity does not exist."));
-        } finally {
-            _atomicMutex.Release();
-        }
-    }
-
-    public async Task<TEntity?> DeleteAsync(string id) {
-        try {
-            await _atomicMutex.WaitAsync();
-            if (ContainsKey(id)) {
-                if (TryRemove(id, out var removed)) OnItemChanged(id, RepositoryChangeAction.Delete);
-                return await Task.FromResult(removed);
-            }
-            return await Task.FromResult<TEntity?>(null);
-        } catch {
-            return await Task.FromException<TEntity?>(new KeyNotFoundException("Provided key in the Entity does not exist."));
-        } finally {
-            _atomicMutex.Release();
-        }
-    }
-
-    public async Task<Task> DeleteAllAsync() {
-        await _atomicMutex.WaitAsync();
-        try {
-            var keys = new List<string>(Keys);
-            foreach (var key in keys) {
-                if (TryRemove(key, out var removed)) OnItemChanged(key, RepositoryChangeAction.Delete);
-            }
-        } finally {
-            _atomicMutex.Release();
-        }
-        return Task.CompletedTask;
-    }
-
-    public IList<TEntity> GetAll()                              => GetAllAsync().GetListFromAsyncEnumerable().GetAwaiter().GetResult();
-    public IList<TEntity> GetAll(Func<TEntity, bool> predicate) => GetAllAsync(predicate).GetListFromAsyncEnumerable().GetAwaiter().GetResult();
-    public TEntity?       Find(Func<TEntity, bool> predicate)   => FindAsync(predicate).GetAwaiter().GetResult();
-    public TEntity?       GetByID(string id)                    => GetByIDAsync(id).GetAwaiter().GetResult();
-    public TEntity?       GetByName(string name)                => GetByNameAsync(name).GetAwaiter().GetResult();
-    public TEntity?       IndexOf(int index)                    => IndexOfAsync(index).GetAwaiter().GetResult();
-    public TEntity?       Update(TEntity entity)                => UpdateAsync(entity).GetAwaiter().GetResult();
-    public TEntity?       Add(TEntity entity)                   => AddAsync(entity).GetAwaiter().GetResult();
-    public TEntity?       Delete(string id)                     => DeleteAsync(id).GetAwaiter().GetResult();
-    public void           DeleteAll()                           => DeleteAllAsync().GetAwaiter();
-
-    private void ValidatePath(string pathname) {
-        try {
-            if (!Directory.Exists(pathname)) Directory.CreateDirectory(pathname);
-        } catch (Exception ex) {
-            throw new ApplicationException($"Unable to create or access the specified path for the config files '{pathname}'", ex);
-        }
-    }
-
-    protected async Task<bool> Contains(string id)    => await Task.FromResult(ContainsKey(id));
-    protected async Task<bool> Contains(TEntity item) => await Task.FromResult(ContainsKey(item.Id));
-    public          string     GetNextID()            => GetNextIDAsync();
-*/
 }

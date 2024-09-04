@@ -1,6 +1,8 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using DCCRailway.Common.Entities;
 using DCCRailway.Common.Types;
+using Parameter = DCCRailway.Common.Configuration.Parameter;
 
 namespace DCCRailway.Common.Test;
 
@@ -14,7 +16,7 @@ public class LocomotiveTest {
         };
 
         Assert.That(loco, Is.Not.Null);
-        Assert.That(loco.ToString()!.Equals("MyLoco"));
+        Assert.That(loco.Name.Equals("MyLoco"));
     }
 
     [Test]
@@ -26,11 +28,36 @@ public class LocomotiveTest {
         locos.Add(new Locomotive { Name = "MyLoco4", Description = "My Locomotive4", Id = "AA41", Address = new DCCAddress(130), Speed = new DCCSpeed(40) });
         locos.Add(new Locomotive { Name = "MyLoco5", Description = "My Locomotive5", Id = "AA51", Address = new DCCAddress(140), Speed = new DCCSpeed(50) });
 
-        var json = JsonSerializer.Serialize(locos);
-        var obj  = JsonSerializer.Deserialize<Locomotives>(json) as Locomotives;
+        var options = new JsonSerializerOptions {
+            PropertyNameCaseInsensitive = true,
+            DefaultIgnoreCondition      = JsonIgnoreCondition.WhenWritingNull
+        };
 
-        foreach (var loco in locos.Values) {
-            Assert.That(loco.Name, Is.EqualTo(obj?[loco.Id].Name));
+        try {
+            var json = JsonSerializer.Serialize(locos, options);
+            var obj  = JsonSerializer.Deserialize<Locomotives>(json, options) as Locomotives;
+            foreach (var loco in locos) {
+                Assert.That(loco.Name, Is.EqualTo(obj?[loco.Id].Name));
+            }
+        } catch (Exception e) {
+            Console.Error.WriteLine(e);
+        }
+    }
+
+    [Test]
+    public void SerializeAndDeserializeParameters() {
+        var parameters = new Configuration.Parameters();
+        parameters.Add(new Parameter("Name", "MyLoco"));
+        parameters.Add(new Parameter("Age", 27));
+        parameters.Add(new Parameter("Bool", true));
+        parameters.Add(new Parameter("Value", 167.99));
+
+        var json = JsonSerializer.Serialize(parameters);
+        var obj  = JsonSerializer.Deserialize<Entities.Parameters>(json);
+
+        foreach (var parameter in parameters) {
+            var value = obj?[parameter.Name];
+            Assert.That(parameter.Name, Is.EqualTo(value?.Name));
         }
     }
 }

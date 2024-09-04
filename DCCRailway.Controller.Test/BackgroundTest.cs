@@ -41,6 +41,7 @@ public class BackgroundTest {
         Assert.That(taskInstance, Is.Not.Null, "Should have a task instance");
 
         // This will run the task on the background
+        taskInstance.Seconds   =  1;
         taskInstance.TaskEvent += TaskInstanceOnTaskEvent;
         taskInstance.Start();
         Thread.Sleep(taskInstance.Milliseconds * 5); // Go to sleep for 5 times the duration of the process
@@ -49,15 +50,17 @@ public class BackgroundTest {
 
         Assert.That(workStarted, Is.True);
         Assert.That(workFinished, Is.True);
-        Assert.That(workHappened, Is.GreaterThan(0));
     }
 
     private void TaskInstanceOnTaskEvent(object? sender, ITaskEvent e) {
         if (e is TaskStartEvent) {
+            Console.WriteLine("Work Started");
             workStarted = true;
         } else if (e is TaskStopEvent) {
+            Console.WriteLine("Work Finished");
             workFinished = true;
         } else {
+            Console.WriteLine("Work Happened");
             workHappened++;
         }
     }

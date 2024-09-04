@@ -91,9 +91,9 @@ public static class LayoutStorage {
                     var items = (JsonElement)kvp.Value;
 
                     foreach (var item in items.EnumerateArray()) {
-                        var key       = item.GetProperty("Key").GetString();
-                        var valueJson = item.GetProperty("Value").GetRawText();
-                        var value     = JsonSerializer.Deserialize<TEntity>(valueJson, jsonOptions);
+                        //var key       = item.GetProperty("Key").GetString();
+                        //var valueJson = item.GetProperty("Value").GetRawText();
+                        var value = JsonSerializer.Deserialize<TEntity>(item, jsonOptions);
                         if (value is not null) repository.Add(value);
                     }
                 } else {
@@ -144,7 +144,7 @@ public static class LayoutStorage {
 
             // Serialize dictionary items, but do not save any Temporary items
             var collectionName = typeof(TClass).Name;
-            jsonObject[collectionName] = entityClass.AsEnumerable.Where(x => !x.Value.IsTemporary).Select(kv => new { Key = kv.Key, Value = kv.Value });
+            jsonObject[collectionName] = entityClass.GetAll().Where(x => x.IsTemporary != true);
             var jsonString = JsonSerializer.Serialize(jsonObject, jsonOptions);
             return jsonString;
         } catch (Exception ex) {

@@ -133,7 +133,7 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
         // ----------------------------------------------------------------------------------
         var deactivateList = new List<Route>();
 
-        if (connection.RailwaySettings.Routes.Values is { } routes) {
+        if (connection.RailwaySettings.Routes is { } routes) {
             foreach (var route in routes) {
                 if (AreTurnoutsMatched(refRoute, route)) {
                     deactivateList.Add(route);

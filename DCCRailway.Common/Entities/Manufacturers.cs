@@ -14,7 +14,7 @@ public class Manufacturers : LayoutRepository<Manufacturer> {
 
     private void AddManufacturer(string name, byte id) {
         var idStr = id.ToString();
-        if (!ContainsKey(idStr)) Add(new Manufacturer(idStr, name));
+        if (!ContainsID(idStr)) Add(new Manufacturer(idStr, name));
     }
 
     public void BuildManufacturersList() {

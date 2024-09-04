@@ -9,7 +9,7 @@ public interface IControllerTask : IParameterMappable {
     TimeSpan        Frequency      { get; set; }
     ICommandStation CommandStation { get; }
     int             Milliseconds   { get; }
-    decimal         Seconds        { get; }
+    int             Seconds        { get; set; }
 
     event EventHandler<ITaskEvent> TaskEvent;
 

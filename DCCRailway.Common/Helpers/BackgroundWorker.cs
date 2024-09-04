@@ -5,10 +5,16 @@ namespace DCCRailway.Common.Helpers;
 public abstract class BackgroundWorker(ILogger logger, string? name, TimeSpan? frequency = null) {
     private CancellationTokenSource? _cancellationTokenSource;
 
-    public string             Name         { get; set; } = name ?? "default";
-    public TimeSpan           Frequency    { get; set; } = frequency ?? new TimeSpan(0, 0, 0);
-    public decimal            Seconds      => (decimal)Frequency.TotalSeconds;
-    public int                Milliseconds => (int)Frequency.TotalMilliseconds;
+    public string   Name      { get; set; } = name ?? "default";
+    public TimeSpan Frequency { get; set; } = frequency ?? new TimeSpan(0, 0, 0);
+
+    public int Seconds {
+        get => (int)Frequency.TotalSeconds;
+        set => Frequency = new TimeSpan(0, 0, 0, value);
+    }
+
+    public int Milliseconds => (int)Frequency.TotalMilliseconds;
+
     public event EventHandler WorkStarted;
     public event EventHandler WorkFinished;
     public event EventHandler WorkInProgress;
