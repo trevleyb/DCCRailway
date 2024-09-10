@@ -4,7 +4,6 @@ using DCCRailway.Common.Entities;
 using DCCRailway.Common.Entities.Collection;
 using DCCRailway.Common.Helpers;
 using ILogger = Serilog.ILogger;
-using Route = DCCRailway.Common.Entities.Route;
 
 namespace DCCRailway.Common;
 
@@ -30,7 +29,7 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
     public Accessories   Accessories   { get; private set; } = new();
     public Blocks        Blocks        { get; private set; } = new();
     public Locomotives   Locomotives   { get; private set; } = new();
-    public Routes        Routes        { get; private set; } = new();
+    public TrackRoutes   TrackRoutes   { get; private set; } = new();
     public Sensors       Sensors       { get; private set; } = new();
     public Signals       Signals       { get; private set; } = new();
     public Turnouts      Turnouts      { get; private set; } = new();
@@ -81,7 +80,7 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
         LayoutStorage.SaveFile<Accessories, Accessory>(logger, Accessories, FullName(path, name, "Accessories"));
         LayoutStorage.SaveFile<Blocks, Block>(logger, Blocks, FullName(path, name, "Blocks"));
         LayoutStorage.SaveFile<Locomotives, Locomotive>(logger, Locomotives, FullName(path, name, "Locomotives"));
-        LayoutStorage.SaveFile<Routes, Route>(logger, Routes, FullName(path, name, "Routes"));
+        LayoutStorage.SaveFile<TrackRoutes, TrackRoute>(logger, TrackRoutes, FullName(path, name, "Routes"));
         LayoutStorage.SaveFile<Sensors, Sensor>(logger, Sensors, FullName(path, name, "Sensors"));
         LayoutStorage.SaveFile<Signals, Signal>(logger, Signals, FullName(path, name, "Signals"));
         LayoutStorage.SaveFile<Turnouts, Turnout>(logger, Turnouts, FullName(path, name, "Turnouts"));
@@ -93,7 +92,7 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
         Accessories   = LayoutStorage.LoadFile<Accessories, Accessory>(logger, FullName(path, name, "Accessories")) ?? new Accessories();
         Blocks        = LayoutStorage.LoadFile<Blocks, Block>(logger, FullName(path, name, "Blocks")) ?? new Blocks();
         Locomotives   = LayoutStorage.LoadFile<Locomotives, Locomotive>(logger, FullName(path, name, "Locomotives")) ?? new Locomotives();
-        Routes        = LayoutStorage.LoadFile<Routes, Route>(logger, FullName(path, name, "Routes")) ?? new Routes();
+        TrackRoutes   = LayoutStorage.LoadFile<TrackRoutes, TrackRoute>(logger, FullName(path, name, "Routes")) ?? new TrackRoutes();
         Sensors       = LayoutStorage.LoadFile<Sensors, Sensor>(logger, FullName(path, name, "Sensors")) ?? new Sensors();
         Signals       = LayoutStorage.LoadFile<Signals, Signal>(logger, FullName(path, name, "Signals")) ?? new Signals();
         Turnouts      = LayoutStorage.LoadFile<Turnouts, Turnout>(logger, FullName(path, name, "Turnouts")) ?? new Turnouts();
@@ -106,7 +105,7 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
         Accessories   = new Accessories();
         Blocks        = new Blocks();
         Locomotives   = new Locomotives();
-        Routes        = new Routes();
+        TrackRoutes   = new TrackRoutes();
         Sensors       = new Sensors();
         Signals       = new Signals();
         Turnouts      = new Turnouts();

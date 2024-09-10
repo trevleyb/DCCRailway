@@ -1,7 +1,6 @@
 using DCCRailway.Common.Configuration;
 using DCCRailway.Common.Entities;
 using DCCRailway.Common.Types;
-using Route = DCCRailway.Common.Entities.Route;
 
 namespace DCCRailway.Common.Converters;
 
@@ -56,8 +55,8 @@ public static class InjectTestData {
         signals.Add(new Signal { Id = "SIG02", Name = "Exit-Yard-to-Mainline", Address = new DCCAddress(12) });
         signals.Add(new Signal { Id = "SIG03", Name = "Station-to-Mainline", Address   = new DCCAddress(13) });
 
-        var routes = manager.Routes;
-        var route  = new Route { Id = "R01", Name = "Route1", Description = "Station to Mainline" };
+        var routes = manager.TrackRoutes;
+        var route  = new TrackRoute { Id = "R01", Name = "Route1", Description = "Station to Mainline" };
         route.AddRoute("T01", false);
         route.AddRoute("T02", false);
         route.AddRoute("T03", false);
@@ -65,7 +64,7 @@ public static class InjectTestData {
         route.AddRoute("T05", false);
         routes.Add(route);
 
-        route = new Route { Id = "R02", Name = "Route2", Description = "Yard to Mainline" };
+        route = new TrackRoute { Id = "R02", Name = "Route2", Description = "Yard to Mainline" };
         route.AddRoute("T01", false);
         route.AddRoute("T02", false);
         route.AddRoute("T03", true);
@@ -73,29 +72,29 @@ public static class InjectTestData {
         route.AddRoute("T05", false);
         routes.Add(route);
 
-        route = new Route { Id = "R03", Name = "Route3", Description = "Yard to Station" };
+        route = new TrackRoute { Id = "R03", Name = "Route3", Description = "Yard to Station" };
         route.AddRoute("T01", false);
         route.AddRoute("T02", false);
         routes.Add(route);
 
-        route = new Route { Id = "R04", Name = "Route4", Description = "Mainline to Station" };
+        route = new TrackRoute { Id = "R04", Name = "Route4", Description = "Mainline to Station" };
         route.AddRoute("T02", true);
         route.AddRoute("T03", false);
         route.AddRoute("T04", false);
         routes.Add(route);
 
-        route = new Route { Id = "R05", Name = "Route5", Description = "Route 5" };
+        route = new TrackRoute { Id = "R05", Name = "Route5", Description = "Route 5" };
         route.AddRoute("T02", false);
         route.AddRoute("T03", false);
         route.AddRoute("T04", false);
         routes.Add(route);
 
-        route = new Route { Id = "RX1", Name = "CrossOver1", Description = "CrossOver Passthrough" };
+        route = new TrackRoute { Id = "RX1", Name = "CrossOver1", Description = "CrossOver Passthrough" };
         route.AddRoute("T01", false);
         route.AddRoute("T02", false);
         routes.Add(route);
 
-        route = new Route { Id = "RX2", Name = "CrossOver2", Description = "CrossOver CrossOver" };
+        route = new TrackRoute { Id = "RX2", Name = "CrossOver2", Description = "CrossOver CrossOver" };
         route.AddRoute("T01", true);
         route.AddRoute("T02", true);
         routes.Add(route);

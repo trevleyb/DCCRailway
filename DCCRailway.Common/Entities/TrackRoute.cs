@@ -7,7 +7,7 @@ namespace DCCRailway.Common.Entities;
 
 [Serializable]
 [DebuggerDisplay("ROUTE={Id}, Name: {Name}")]
-public class Route(string id = "") : LayoutEntity(id) {
+public class TrackRoute(string id = "") : LayoutEntity(id) {
     [JsonInclude] public List<RouteTurnout> RouteTurnouts = new();
     [JsonInclude] public RouteState         State { get; set; } = RouteState.Unknown;
 

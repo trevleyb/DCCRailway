@@ -27,7 +27,7 @@ public interface IRailwaySettings {
     Accessories   Accessories   { get; }
     Blocks        Blocks        { get; }
     Locomotives   Locomotives   { get; }
-    Routes        Routes        { get; }
+    TrackRoutes   TrackRoutes   { get; }
     Sensors       Sensors       { get; }
     Signals       Signals       { get; }
     Turnouts      Turnouts      { get; }

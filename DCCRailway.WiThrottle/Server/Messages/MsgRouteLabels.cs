@@ -5,21 +5,21 @@ namespace DCCRailway.WiThrottle.Server.Messages;
 public class MsgRouteLabels(Connection connection) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
-            var routes = connection.RailwaySettings.Routes.GetAll();
+            var routes = connection.RailwaySettings.TrackRoutes.GetAll();
             if (!routes.Any()) return "";
 
             var message = new StringBuilder();
             message.Append("PRT");
             message.Append("]\\[");
-            message.Append(connection.RailwaySettings.Routes.RoutesLabel ?? "Routes");
+            message.Append(connection.RailwaySettings.TrackRoutes.RoutesLabel ?? "Routes");
             message.Append("}|{");
-            message.Append(connection.RailwaySettings.Routes.RouteLabel ?? "Route");
+            message.Append(connection.RailwaySettings.TrackRoutes.RouteLabel ?? "Route");
             message.Append("]\\[");
-            message.Append(connection.RailwaySettings.Routes.ActiveLabel ?? "Active");
+            message.Append(connection.RailwaySettings.TrackRoutes.ActiveLabel ?? "Active");
             message.Append("}|{");
             message.Append("2");
             message.Append("]\\[");
-            message.Append(connection.RailwaySettings.Routes.InActiveLabel ?? "Inactive");
+            message.Append(connection.RailwaySettings.TrackRoutes.InActiveLabel ?? "Inactive");
             message.Append("}|{");
             message.Append("4");
             message.AppendLine();

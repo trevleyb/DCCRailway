@@ -51,7 +51,7 @@ public class SettingsTest {
         var sens = config2.Sensors.GetAll();
         var sigs = config2.Signals.GetAll();
         var turs = config2.Turnouts.GetAll();
-        var ruts = config2.Routes.GetAll();
+        var ruts = config2.TrackRoutes.GetAll();
 
         Assert.That(accs.Count(), Is.EqualTo(config.Accessories.Count));
         Assert.That(blks.Count(), Is.EqualTo(config.Blocks.Count));
@@ -59,7 +59,7 @@ public class SettingsTest {
         Assert.That(sens.Count(), Is.EqualTo(config.Sensors.Count));
         Assert.That(sigs.Count(), Is.EqualTo(config.Signals.Count));
         Assert.That(turs.Count(), Is.EqualTo(config.Turnouts.Count));
-        Assert.That(ruts.Count(), Is.EqualTo(config.Routes.Count));
+        Assert.That(ruts.Count(), Is.EqualTo(config.TrackRoutes.Count));
 
         var acc = accs.First(x => x.Name.Contains("1")).Name;
         var blk = blks.First(x => x.Name.Contains("1")).Name;

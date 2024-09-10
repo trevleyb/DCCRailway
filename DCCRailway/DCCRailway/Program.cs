@@ -9,9 +9,7 @@ using MudBlazor.Services;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
-using _Imports = DCCRailway.Client._Imports;
 using ILogger = Serilog.ILogger;
-using Route = DCCRailway.Common.Entities.Route;
 
 var log = ConfigureLogger();
 LogStartupOptions(log, args);
@@ -28,7 +26,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton(railway.Settings.Accessories);
 builder.Services.AddSingleton(railway.Settings.Blocks);
 builder.Services.AddSingleton(railway.Settings.Locomotives);
-builder.Services.AddSingleton(railway.Settings.Routes);
+builder.Services.AddSingleton(railway.Settings.TrackRoutes);
 builder.Services.AddSingleton(railway.Settings.Sensors);
 builder.Services.AddSingleton(railway.Settings.Signals);
 builder.Services.AddSingleton(railway.Settings.Turnouts);
@@ -37,7 +35,7 @@ var app = builder.Build();
 ApiHelper.MapEntity<Accessories, Accessory>(app, "api/accessories");
 ApiHelper.MapEntity<Blocks, Block>(app, "api/blocks");
 ApiHelper.MapEntity<Locomotives, Locomotive>(app, "api/locomotives");
-ApiHelper.MapEntity<Routes, Route>(app, "api/routes");
+ApiHelper.MapEntity<TrackRoutes, TrackRoute>(app, "api/routes");
 ApiHelper.MapEntity<Sensors, Sensor>(app, "api/sensors");
 ApiHelper.MapEntity<Signals, Signal>(app, "api/signals");
 ApiHelper.MapEntity<Turnouts, Turnout>(app, "api/turnouts");
@@ -53,7 +51,7 @@ if (app.Environment.IsDevelopment()) {
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode().AddInteractiveWebAssemblyRenderMode().AddAdditionalAssemblies(typeof(_Imports).Assembly);
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
 log.Information("Starting DCCRailway services");
 railway.Start();

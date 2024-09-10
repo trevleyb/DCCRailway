@@ -3,10 +3,10 @@ using DCCRailway.Common.Entities.Collection;
 namespace DCCRailway.Common.Entities;
 
 [Serializable]
-public class Routes : LayoutRepository<Route> {
-    public Routes() : this(null) { }
+public class TrackRoutes : LayoutRepository<TrackRoute> {
+    public TrackRoutes() : this(null) { }
 
-    public Routes(string? prefix = null) {
+    public TrackRoutes(string? prefix = null) {
         Prefix = prefix ?? "R";
     }
 

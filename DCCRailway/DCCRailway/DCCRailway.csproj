@@ -36,7 +36,7 @@
         <AdditionalFiles Include="Settings\Sample.Manufacturers.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </AdditionalFiles>
-        <AdditionalFiles Include="Settings\Sample.Routes.json">
+        <AdditionalFiles Include="Settings\Sample.TrackRoutes.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </AdditionalFiles>
         <AdditionalFiles Include="Settings\Sample.Sensors.json">

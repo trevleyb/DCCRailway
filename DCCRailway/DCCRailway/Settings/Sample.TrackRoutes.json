@@ -1,10 +1,10 @@
 {
-  "RoutesLabel": "Routes",
-  "RouteLabel": "Route",
+  "RoutesLabel": "TrackRoutes",
+  "RouteLabel": "TrackRoute",
   "ActiveLabel": "Active",
   "InActiveLabel": "Inactive",
   "DeActivateOnOverlap": true,
-  "Routes": [
+  "TrackRoutes": [
     {
       "State": "Unknown",
       "RouteTurnouts": [

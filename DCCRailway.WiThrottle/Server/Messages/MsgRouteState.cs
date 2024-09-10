@@ -3,7 +3,7 @@ using DCCRailway.Common.Entities;
 
 namespace DCCRailway.WiThrottle.Server.Messages;
 
-public class MsgRouteState(Connection connection, Route? route) : ThrottleMsg, IThrottleMsg {
+public class MsgRouteState(Connection connection, TrackRoute? route) : ThrottleMsg, IThrottleMsg {
     public override string Message {
         get {
             var sb = new StringBuilder();

@@ -98,7 +98,7 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
     private void SetRoute(string commandStr) {
         var routeID = commandStr[1..];
 
-        if (connection.RailwaySettings.Routes is { } routes) {
+        if (connection.RailwaySettings.TrackRoutes is { } routes) {
             var route = routes.GetByID(routeID);
 
             if (route != null) {
@@ -125,17 +125,17 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
     // Force all routes to be deactivated. However, could be more cleaver and could
     // only deactivate routes where there is a clash in the Turnouts.
     // ----------------------------------------------------------------------------
-    private void DeactiveRoutes(Route refRoute) {
+    private void DeactiveRoutes(TrackRoute refTrackRoute) {
         // look to see if any of the Turnouts in the reference Route (refRoute) are contained
         // on any other ACTIVE route. If they are, and if the turnout direct is different,
         // then we need to DEACTIVATE the existing active routes first. We don't need to
         // actually throw the turnouts, just mark the turnout as de-activated
         // ----------------------------------------------------------------------------------
-        var deactivateList = new List<Route>();
+        var deactivateList = new List<TrackRoute>();
 
-        if (connection.RailwaySettings.Routes is { } routes) {
+        if (connection.RailwaySettings.TrackRoutes is { } routes) {
             foreach (var route in routes) {
-                if (AreTurnoutsMatched(refRoute, route)) {
+                if (AreTurnoutsMatched(refTrackRoute, route)) {
                     deactivateList.Add(route);
                     route.State = RouteState.Inactive;
                 }
@@ -145,9 +145,9 @@ public class CmdPanel(ILogger logger, Connection connection) : ThrottleCmd, IThr
         }
     }
 
-    private bool AreTurnoutsMatched(Route refRoute, Route route) {
-        foreach (var turnout in refRoute.RouteTurnouts)
-        foreach (var checkTurnout in route.RouteTurnouts) {
+    private bool AreTurnoutsMatched(TrackRoute refTrackRoute, TrackRoute trackRoute) {
+        foreach (var turnout in refTrackRoute.RouteTurnouts)
+        foreach (var checkTurnout in trackRoute.RouteTurnouts) {
             if (turnout.TurnoutID == checkTurnout.TurnoutID && turnout.State != checkTurnout.State) {
                 return true;
             }
