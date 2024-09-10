@@ -15,7 +15,7 @@ public class ControllerEventLayoutTest {
     public void TestSimpleEventToState() {
         // Create a Virtual Controller so we can issue commands and test results.
         // ----------------------------------------------------------------------------
-        var stateManager = new StateManager.StateManager();
+        var stateManager = new StateTracker(null);
         var controller   = new CommandStationFactory(LoggerHelper.DebugLogger).Find("Virtual")?.Create(new VirtualConsoleAdapter(LoggerHelper.DebugLogger));
         Assert.That(controller, Is.Not.Null);
 

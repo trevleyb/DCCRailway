@@ -14,7 +14,7 @@ namespace DCCRailway.StateManager.Updater.CommandUpdater;
 ///     the collection of all data related to the current executing layout.
 /// </summary>
 public static class CmdStateUpdater {
-    public static IResult Process(ControllerEventArgs message, IStateManager stateManager) {
+    public static IResult Process(ControllerEventArgs message, IStateTracker stateTracker) {
         if (message is ControllerEventArgs { } eventArgs) {
             switch (eventArgs) {
             case CommandEventArgs args:
@@ -29,14 +29,14 @@ public static class CmdStateUpdater {
                 // ---------------------------------------------------
                 if (args.Result is { Success: true, Command: not null } cmdResult) {
                     var result = cmdResult.Command switch {
-                        IAccyCmd    => new CmdStateUpdaterAccyCmd(stateManager).Process(cmdResult),
-                        ILocoCmd    => new CmdStateUpdaterLocoCmd(stateManager).Process(cmdResult),
-                        ISensorCmd  => new CmdStateUpdaterSensorCmd(stateManager).Process(cmdResult),
-                        ISignalCmd  => new CmdStateUpdaterSignalCmd(stateManager).Process(cmdResult),
-                        ISystemCmd  => new CmdStateUpdaterSystemCmd(stateManager).Process(cmdResult),
-                        IConsistCmd => new CmdStateUpdaterConsistCmd(stateManager).Process(cmdResult),
-                        ICVCmd      => new CmdStateUpdaterCvCmd(stateManager).Process(cmdResult),
-                        _           => new CmdStateUpdaterGenericCmd(stateManager).Process(cmdResult)
+                        IAccyCmd    => new CmdStateUpdaterAccyCmd(stateTracker).Process(cmdResult),
+                        ILocoCmd    => new CmdStateUpdaterLocoCmd(stateTracker).Process(cmdResult),
+                        ISensorCmd  => new CmdStateUpdaterSensorCmd(stateTracker).Process(cmdResult),
+                        ISignalCmd  => new CmdStateUpdaterSignalCmd(stateTracker).Process(cmdResult),
+                        ISystemCmd  => new CmdStateUpdaterSystemCmd(stateTracker).Process(cmdResult),
+                        IConsistCmd => new CmdStateUpdaterConsistCmd(stateTracker).Process(cmdResult),
+                        ICVCmd      => new CmdStateUpdaterCvCmd(stateTracker).Process(cmdResult),
+                        _           => new CmdStateUpdaterGenericCmd(stateTracker).Process(cmdResult)
                     };
 
                     return result ?? Result.Ok();

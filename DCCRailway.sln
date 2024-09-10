@@ -36,15 +36,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controllers", "Controllers"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.WiThrottle", "DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj", "{BC45E8CA-5408-4AAC-810E-D03A5D8CC228}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Server.Withrottle.Test", "DCCRailway.Server.Withrottle.Test\DCCRailway.Server.Withrottle.Test.csproj", "{0379E9A3-34CF-4AC6-ACDA-97484CF9BF60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Withrottle.Test", "DCCRailway.Withrottle.Test\DCCRailway.Withrottle.Test.csproj", "{0379E9A3-34CF-4AC6-ACDA-97484CF9BF60}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Controller.Analysers", "DCCRailway.Controller.Analysers\DCCRailway.Controller.Analysers.csproj", "{CCAB3BC9-33FE-4CC4-997F-56159C2E6305}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.StateManager", "DCCRailway.StateManager\DCCRailway.StateManager.csproj", "{A97C4C01-0C27-4EB5-BEC1-B6538E6D84B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway", "DCCRailway\DCCRailway\DCCRailway.csproj", "{BBB770AF-0F42-419D-9335-4329710C026A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway.Client", "DCCRailway\DCCRailway.Client\DCCRailway.Client.csproj", "{49E3E694-10C6-4C9D-AA49-DA6AF8489CFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCCRailway", "DCCRailway\DCCRailway.csproj", "{BBB770AF-0F42-419D-9335-4329710C026A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,10 +110,6 @@ Global
 		{BBB770AF-0F42-419D-9335-4329710C026A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBB770AF-0F42-419D-9335-4329710C026A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBB770AF-0F42-419D-9335-4329710C026A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{49E3E694-10C6-4C9D-AA49-DA6AF8489CFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49E3E694-10C6-4C9D-AA49-DA6AF8489CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{49E3E694-10C6-4C9D-AA49-DA6AF8489CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{49E3E694-10C6-4C9D-AA49-DA6AF8489CFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

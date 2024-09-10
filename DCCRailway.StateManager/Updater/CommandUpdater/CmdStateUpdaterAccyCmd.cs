@@ -6,7 +6,7 @@ using DCCRailway.Controller.Attributes;
 
 namespace DCCRailway.StateManager.Updater.CommandUpdater;
 
-public class CmdStateUpdaterAccyCmd(IStateManager stateManager) {
+public class CmdStateUpdaterAccyCmd(IStateTracker stateTracker) {
     public IResult Process(ICmdResult cmdResult) {
         if (cmdResult.Command is IAccyCmd accyCmd) {
             switch (accyCmd) {
@@ -15,7 +15,7 @@ public class CmdStateUpdaterAccyCmd(IStateManager stateManager) {
             }
 
             case ICmdAccySetState cmd: {
-                stateManager.SetState(cmd.Address, StateType.Accessory, cmd.State);
+                stateTracker.SetState(cmd.Address, StateType.Accessory, cmd.State);
                 break;
             }
 

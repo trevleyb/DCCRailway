@@ -7,31 +7,31 @@ using DCCRailway.Controller.Attributes;
 
 namespace DCCRailway.StateManager.Updater.CommandUpdater;
 
-public class CmdStateUpdaterLocoCmd(IStateManager stateManager) {
+public class CmdStateUpdaterLocoCmd(IStateTracker stateTracker) {
     public IResult Process(ICmdResult cmdResult) {
         // Get the Accessory from the configuration so that we can update its state
         // -----------------------------------------------------------------------------
         if (cmdResult.Command is ILocoCmd locoCmd) {
             switch (locoCmd) {
             case ICmdLocoStop cmd:
-                stateManager.CopyState(cmd.Address, StateType.Speed, StateType.LastSpeed, new DCCSpeed(0));
-                stateManager.CopyState(cmd.Address, StateType.Direction, StateType.LastDirection, DCCDirection.Forward);
-                stateManager.SetState(cmd.Address, StateType.Speed, new DCCSpeed(0));
-                stateManager.SetState(cmd.Address, StateType.Direction, DCCDirection.Stop);
+                stateTracker.CopyState(cmd.Address, StateType.Speed, StateType.LastSpeed, new DCCSpeed(0));
+                stateTracker.CopyState(cmd.Address, StateType.Direction, StateType.LastDirection, DCCDirection.Forward);
+                stateTracker.SetState(cmd.Address, StateType.Speed, new DCCSpeed(0));
+                stateTracker.SetState(cmd.Address, StateType.Direction, DCCDirection.Stop);
                 break;
             case ICmdLocoSetFunction cmd:
-                var currentState = stateManager.GetState<DCCFunctionBlocks>(cmd.Address, StateType.Functions) ?? new DCCFunctionBlocks();
+                var currentState = stateTracker.GetState<DCCFunctionBlocks>(cmd.Address, StateType.Functions) ?? new DCCFunctionBlocks();
                 currentState.SetFunction(cmd.Function, cmd.State);
-                stateManager.SetState<DCCFunctionBlocks>(cmd.Address, StateType.Functions, currentState);
+                stateTracker.SetState<DCCFunctionBlocks>(cmd.Address, StateType.Functions, currentState);
                 break;
             case ICmdLocoSetMomentum cmd:
-                stateManager.SetState<DCCMomentum>(cmd.Address, StateType.Momentum, cmd.Momentum);
+                stateTracker.SetState<DCCMomentum>(cmd.Address, StateType.Momentum, cmd.Momentum);
                 break;
             case ICmdLocoSetSpeed cmd:
-                stateManager.SetState<DCCSpeed>(cmd.Address, StateType.Speed, cmd.Speed);
+                stateTracker.SetState<DCCSpeed>(cmd.Address, StateType.Speed, cmd.Speed);
                 break;
             case ICmdLocoSetSpeedSteps cmd:
-                stateManager.SetState<DCCProtocol>(cmd.Address, StateType.SpeedSteps, cmd.SpeedSteps);
+                stateTracker.SetState<DCCProtocol>(cmd.Address, StateType.SpeedSteps, cmd.SpeedSteps);
                 break;
             case ICmdLocoOpsProg cmd:
                 break;

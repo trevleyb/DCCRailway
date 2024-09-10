@@ -14,7 +14,7 @@ namespace DCCRailway.StateManager.Updater.PacketUpdater;
 ///     the collection of all data related to the current executing layout.
 /// </summary>
 public static class PacketStateUpdater {
-    public static IResult Process(IPacketMessage packetMessage, IStateManager stateManager) {
+    public static IResult Process(IPacketMessage packetMessage, IStateTracker stateTracker) {
         var result = packetMessage switch {
             AccessoryMessage accyMsg          => UpdateAccyMsg(accyMsg),
             AnalogFunctionMessage funcMsg     => UpdateAnalogFuncMsg(funcMsg),

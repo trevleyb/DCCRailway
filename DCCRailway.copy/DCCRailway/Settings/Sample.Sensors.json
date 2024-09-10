@@ -1,0 +1,104 @@
+{
+  "Sensors": [
+    {
+      "Address": {
+        "Address": 3,
+        "AddressType": "Sensor",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "S01",
+      "Name": "Yard-Occupied",
+      "Parameters": []
+    },
+    {
+      "Address": {
+        "Address": 3,
+        "AddressType": "Sensor",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "S02",
+      "Name": "Station-Enter",
+      "Parameters": []
+    },
+    {
+      "Address": {
+        "Address": 3,
+        "AddressType": "Sensor",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "S03",
+      "Name": "Station-Exit",
+      "Parameters": []
+    },
+    {
+      "Address": {
+        "Address": 3,
+        "AddressType": "Sensor",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "S04",
+      "Name": "Station-Occupied",
+      "Parameters": []
+    },
+    {
+      "Address": {
+        "Address": 3,
+        "AddressType": "Sensor",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "S05",
+      "Name": "Mainline-Occupied",
+      "Parameters": []
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "TurnoutsLabel": "Turnouts",
+  "TurnoutLabel": "Turnout",
+  "StraightLabel": "Closed",
+  "DivergingLabel": "Thrown",
+  "Turnouts": [
+    {
+      "CurrentState": "Closed",
+      "InitialState": "Closed",
+      "IsManual": false,
+      "IsReversed": false,
+      "ResetOnPowerOn": false,
+      "Type": "TurnoutLeft",
+      "Address": {
+        "Address": 1,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "T01",
+      "Name": "Mainline-to-Station",
+      "Parameters": []
+    },
+    {
+      "CurrentState": "Closed",
+      "InitialState": "Closed",
+      "IsManual": false,
+      "IsReversed": false,
+      "ResetOnPowerOn": false,
+      "Type": "TurnoutLeft",
+      "Address": {
+        "Address": 2,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "T02",
+      "Name": "Mainline-to-Yard",
+      "Parameters": []
+    },
+    {
+      "CurrentState": "Closed",
+      "InitialState": "Closed",
+      "IsManual": false,
+      "IsReversed": false,
+      "ResetOnPowerOn": false,
+      "Type": "TurnoutLeft",
+      "Address": {
+        "Address": 3,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "T03",
+      "Name": "Turnout 3",
+      "Parameters": []
+    },
+    {
+      "CurrentState": "Closed",
+      "InitialState": "Closed",
+      "IsManual": false,
+      "IsReversed": false,
+      "ResetOnPowerOn": false,
+      "Type": "TurnoutLeft",
+      "Address": {
+        "Address": 4,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "T04",
+      "Name": "Turnout 4",
+      "Parameters": []
+    },
+    {
+      "CurrentState": "Closed",
+      "InitialState": "Closed",
+      "IsManual": false,
+      "IsReversed": false,
+      "ResetOnPowerOn": false,
+      "Type": "TurnoutLeft",
+      "Address": {
+        "Address": 5,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "T05",
+      "Name": "Turnout 5",
+      "Parameters": []
+    }
+  ]
+}

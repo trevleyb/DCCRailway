@@ -5,7 +5,7 @@ using DCCRailway.Controller.Attributes;
 
 namespace DCCRailway.StateManager.Updater.CommandUpdater;
 
-public class CmdStateUpdaterConsistCmd(IStateManager stateManager) {
+public class CmdStateUpdaterConsistCmd(IStateTracker stateTracker) {
     public IResult Process(ICmdResult cmdResult) {
         switch (cmdResult.Command) {
         case ICmdConsistCreate cmd:

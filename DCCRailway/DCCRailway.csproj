@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DCCRailway.Common\DCCRailway.Common.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.Analysers\DCCRailway.Controller.Analysers.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.Digitrax\DCCRailway.Controller.Digitrax.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.NCE\DCCRailway.Controller.NCE.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj"/>
+        <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
+        <ProjectReference Include="..\DCCRailway.StateManager\DCCRailway.StateManager.csproj"/>
+        <ProjectReference Include="..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommandLineParser" Version="2.9.1"/>
+        <PackageReference Include="trevleyb.DCCPacketAnalyser" Version="1.0.1"/>
+    </ItemGroup>
+
+</Project>

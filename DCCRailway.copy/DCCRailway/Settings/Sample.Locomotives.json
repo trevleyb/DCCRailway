@@ -1,0 +1,249 @@
+{
+  "Locomotives": [
+    {
+      "Direction": "Stop",
+      "FunctionBlocks": {},
+      "Manufacturer": "",
+      "Model": "",
+      "Momentum": {
+        "Value": 0
+      },
+      "RoadName": "",
+      "RoadNumber": "",
+      "Speed": {
+        "Value": 0
+      },
+      "Labels": [
+        {
+          "Key": 0,
+          "Momentary": false,
+          "Label": "Lights"
+        },
+        {
+          "Key": 1,
+          "Momentary": false,
+          "Label": "Bell"
+        },
+        {
+          "Key": 2,
+          "Momentary": false,
+          "Label": "Horn"
+        }
+      ],
+      "Address": {
+        "Address": 1029,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "Canadian National (1029)",
+      "Id": "CN1029",
+      "Name": "CN-1029",
+      "Parameters": []
+    },
+    {
+      "Direction": "Stop",
+      "FunctionBlocks": {},
+      "Manufacturer": "",
+      "Model": "",
+      "Momentum": {
+        "Value": 0
+      },
+      "RoadName": "",
+      "RoadNumber": "",
+      "Speed": {
+        "Value": 0
+      },
+      "Labels": [
+        {
+          "Key": 0,
+          "Momentary": false,
+          "Label": "Lights"
+        },
+        {
+          "Key": 1,
+          "Momentary": false,
+          "Label": "Bell"
+        },
+        {
+          "Key": 2,
+          "Momentary": false,
+          "Label": "Horn"
+        }
+      ],
+      "Address": {
+        "Address": 6502,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "Union Pacific (6502)",
+      "Id": "UP6502",
+      "Name": "UP-6502",
+      "Parameters": []
+    },
+    {
+      "Direction": "Stop",
+      "FunctionBlocks": {},
+      "Manufacturer": "",
+      "Model": "",
+      "Momentum": {
+        "Value": 0
+      },
+      "RoadName": "",
+      "RoadNumber": "",
+      "Speed": {
+        "Value": 0
+      },
+      "Labels": [
+        {
+          "Key": 0,
+          "Momentary": false,
+          "Label": "Lights"
+        },
+        {
+          "Key": 1,
+          "Momentary": false,
+          "Label": "Bell"
+        },
+        {
+          "Key": 2,
+          "Momentary": false,
+          "Label": "Horn"
+        }
+      ],
+      "Address": {
+        "Address": 98,
+        "AddressType": "Short",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "Norfolk Southern (98)",
+      "Id": "NS98",
+      "Name": "NS-98",
+      "Parameters": []
+    },
+    {
+      "Direction": "Stop",
+      "FunctionBlocks": {},
+      "Manufacturer": "",
+      "Model": "",
+      "Momentum": {
+        "Value": 0
+      },
+      "RoadName": "",
+      "RoadNumber": "",
+      "Speed": {
+        "Value": 0
+      },
+      "Labels": [
+        {
+          "Key": 0,
+          "Momentary": false,
+          "Label": "Lights"
+        },
+        {
+          "Key": 1,
+          "Momentary": false,
+          "Label": "Bell"
+        },
+        {
+          "Key": 2,
+          "Momentary": false,
+          "Label": "Horn"
+        }
+      ],
+      "Address": {
+        "Address": 97,
+        "AddressType": "Short",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "Norfolk Southern (97)",
+      "Id": "NS97",
+      "Name": "NS-97",
+      "Parameters": []
+    },
+    {
+      "Direction": "Stop",
+      "FunctionBlocks": {},
+      "Manufacturer": "",
+      "Model": "",
+      "Momentum": {
+        "Value": 0
+      },
+      "RoadName": "",
+      "RoadNumber": "",
+      "Speed": {
+        "Value": 0
+      },
+      "Labels": [
+        {
+          "Key": 0,
+          "Momentary": false,
+          "Label": "Lights"
+        },
+        {
+          "Key": 1,
+          "Momentary": false,
+          "Label": "Bell"
+        },
+        {
+          "Key": 2,
+          "Momentary": false,
+          "Label": "Horn"
+        }
+      ],
+      "Address": {
+        "Address": 1020,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "Canadian National (1020)",
+      "Id": "CN1020",
+      "Name": "CN-1020",
+      "Parameters": []
+    }
+  ]
+}

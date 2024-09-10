@@ -1,0 +1,65 @@
+{
+  "Version": "v1.0",
+  "Signals": [
+    {
+      "Address": {
+        "Address": 11,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "SIG01",
+      "Name": "Entrance-to-Yard",
+      "Parameters": []
+    },
+    {
+      "Address": {
+        "Address": 12,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "SIG02",
+      "Name": "Exit-Yard-to-Mainline",
+      "Parameters": []
+    },
+    {
+      "Address": {
+        "Address": 13,
+        "AddressType": "Long",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
+        "Description": "",
+        "Id": "",
+        "Name": "",
+        "Parameters": []
+      },
+      "Description": "",
+      "Id": "SIG03",
+      "Name": "Station-to-Mainline",
+      "Parameters": []
+    }
+  ]
+}
