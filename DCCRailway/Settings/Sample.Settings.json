@@ -31,7 +31,7 @@
     "UseFastClock": false,
     "FastClockSeconds": 15,
     "HeartbeatSeconds": 15,
-    "RunOnStartup": false,
+    "RunOnStartup": true,
     "ZeroSpeedOnDirection": false
   },
   "WebApiPort": 8081,

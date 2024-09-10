@@ -7,6 +7,7 @@ using DCCRailway.StateManager;
 using DCCRailway.StateManager.Updater.CommandUpdater;
 using DCCRailway.StateManager.Updater.PacketUpdater;
 using DCCRailway.WiThrottle.Server;
+using DCCRailway.WiThrottle.ServiceHelper;
 using ILogger = Serilog.ILogger;
 
 namespace DCCRailway.Managers;
@@ -18,20 +19,20 @@ namespace DCCRailway.Managers;
 /// </summary>
 /// <param name="logger"></param>
 public sealed class RailwayManager(ILogger logger) {
-    public ILogger          Logger   { get; init; } = logger;
     public IRailwaySettings Settings { get; private set; }
 
     public ControllerManager ControllerManager { get; private set; }
     public ControllerManager AnalyserManager   { get; private set; }
     public StateTracker      StateManager      { get; private set; }
     public Server            WiThrottle        { get; private set; }
+    public ServerBroadcast   ServerBroadcast   { get; private set; }
 
     /// <summary>
     /// Re-Loads the repositories into the collections. This is done when we instantiate
     /// the Railway Manager anyway, so this is a re-load function.
     /// </summary>
     public RailwayManager Load(string path, string name) {
-        Settings = new RailwaySettings(Logger);
+        Settings = new RailwaySettings(logger);
         Settings.Load(path, name);
         return this;
     }
@@ -40,7 +41,7 @@ public sealed class RailwayManager(ILogger logger) {
     /// This will clear out the existing config so that there is a set of blank items.
     /// </summary>
     public RailwayManager New(string path, string name) {
-        Settings = new RailwaySettings(Logger);
+        Settings = new RailwaySettings(logger);
         Settings.New(path, name);
         return this;
     }
@@ -52,37 +53,39 @@ public sealed class RailwayManager(ILogger logger) {
         Settings.Save();
     }
 
-    public void Start() {
-        StateManager = new StateTracker(Logger);
+    public void Start(string url) {
+        StateManager = new StateTracker(logger);
 
         // Create an instance of the Main Controller that controls the layout
         // -------------------------------------------------------------------
         if (Settings.Controller is { Name: not null }) {
             //var cmdStateUpdater = new CmdStateUpdater(Logger, StateManager);
-            ControllerManager                 =  new ControllerManager(Logger, Settings.Controller);
+            ControllerManager                 =  new ControllerManager(logger, Settings.Controller);
             ControllerManager.ControllerEvent += ControllerManagerOnControllerEvent;
             ControllerManager.TaskEvent       += ControllerManagerOnTaskEvent;
             ControllerManager.Start();
 
             if (Settings.WiThrottlePrefs.RunOnStartup) {
-                WiThrottle = new Server(Logger, Settings);
+                WiThrottle = new Server(logger, Settings);
                 WiThrottle.Start(ControllerManager.CommandStation!);
             }
         } else {
-            Logger.Warning("No controller has been defined in settings. Only WebApp will run.");
+            logger.Warning("No controller has been defined in settings. Only WebApp will run.");
         }
 
         // If we have defined a Packet Analyser, then create an instance of the Packet Analyser
         // -------------------------------------------------------------------
         if (Settings.Analyser is { Name: not null }) {
             //var pktStateUpdater = new PacketStateUpdater(Logger, StateManager);
-            AnalyserManager                 =  new ControllerManager(Logger, Settings.Analyser);
+            AnalyserManager                 =  new ControllerManager(logger, Settings.Analyser);
             AnalyserManager.ControllerEvent += AnalyserManagerOnControllerEvent;
             AnalyserManager.TaskEvent       += AnalyserManagerOnTaskEvent;
             AnalyserManager.Start();
         }
 
-        WriteProductDetailsToLogger(Logger);
+        ServerBroadcast = new ServerBroadcast(logger);
+        ServerBroadcast.Start(url);
+        WriteProductDetailsToLogger();
     }
 
     private void ControllerManagerOnTaskEvent(object? sender, ITaskEvent e) {
@@ -104,13 +107,14 @@ public sealed class RailwayManager(ILogger logger) {
     }
 
     public void Stop() {
+        ServerBroadcast?.Stop();
         WiThrottle?.Stop();
         ControllerManager?.Stop();
         AnalyserManager?.Stop();
-        Logger.Information("All finished. Shutting down.");
+        logger.Information("All finished. Shutting down.");
     }
 
-    public void WriteProductDetailsToLogger(ILogger logger) {
+    public void WriteProductDetailsToLogger() {
         var assembly = Assembly.GetExecutingAssembly();
 
         // Get product name

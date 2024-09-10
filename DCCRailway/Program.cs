@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using CommandLine;
+using DCCRailway;
 using DCCRailway.Common.Entities;
 using DCCRailway.Components;
 using DCCRailway.Helpers;
@@ -8,7 +9,7 @@ using MudBlazor.Services;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
+using ILogger = Serilog.ILogger;
 
 var log = ConfigureLogger();
 LogStartupOptions(log, args);
@@ -52,8 +53,10 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
+var urls = builder.Configuration["urls"] ?? "http://localhost:5000"; // default fallback
+
 log.Information("Starting DCCRailway services");
-railway.Start();
+railway.Start(urls);
 log.Information("Starting DCCRailway WebServer");
 app.Run();
 log.Information("Stopping DCCRailway services");
@@ -66,7 +69,7 @@ ILogger ConfigureLogger() {
     var loggerConfig = new LoggerConfiguration().Enrich.FromLogContext().Enrich.WithAssemblyName().WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Day);
 
     // If we are running in Debugger mode,then output to the Debug window
-    if (Debugger.IsAttached) loggerConfig.WriteTo.Debug();
+    if (Debugger.IsAttached) loggerConfig.WriteTo.Console();
 
     // Set the minimum logging level
     var levelSwitch = new LoggingLevelSwitch(LogEventLevel.Verbose);
@@ -76,37 +79,37 @@ ILogger ConfigureLogger() {
 
 // Log the startup options and parameters
 // -------------------------------------------------------------
-void LogStartupOptions(ILogger log, string[] args) {
-    log.Information("Starting DCCRailway");
+void LogStartupOptions(ILogger logger, string[] args) {
+    logger.Information("Starting DCCRailway");
     if (args is { Length: > 0 }) {
         foreach (var arg in args) {
-            log.Information($"arg: {arg}");
+            logger.Information($"arg: {arg}");
         }
     }
 }
 
 // get the Railway Configuration Data
 // -------------------------------------------------------------
-RailwayManager? GetRailwayManager(ILogger log, string[] args) {
-    RailwayManager? railway = null;
+RailwayManager? GetRailwayManager(ILogger logger, string[] args) {
+    RailwayManager? railwayManager = null;
     Parser.Default.ParseArguments<Options>(args).WithParsed(options => {
         // Validate the options provided and Run The Railway
         // --------------------------------------------------------------------
         try {
-            railway = new RailwayManager(log);
-            var path  = railway.ValidatePath(options.Path);
-            var name  = railway.ValidateName(path, options.Name);
+            railwayManager = new RailwayManager(logger);
+            var path  = railwayManager.ValidatePath(options.Path);
+            var name  = railwayManager.ValidateName(path, options.Name);
             var clean = options.Clean;
             if (clean) {
-                railway.New(path, name);
+                railwayManager.New(path, name);
             } else {
-                railway.Load(path, name);
+                railwayManager.Load(path, name);
             }
         } catch (Exception ex) {
             Console.WriteLine(ex);
-            railway = null;
+            railwayManager = null;
         }
     });
 
-    return railway;
+    return railwayManager;
 }

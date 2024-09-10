@@ -102,14 +102,14 @@ public sealed class RailwaySettings(ILogger logger) : IRailwaySettings {
 
     private void CreateRepositories(string path, string name) {
         Settings      = new Settings();
-        Accessories   = new Accessories();
-        Blocks        = new Blocks();
-        Locomotives   = new Locomotives();
-        TrackRoutes   = new TrackRoutes();
-        Sensors       = new Sensors();
-        Signals       = new Signals();
-        Turnouts      = new Turnouts();
-        Manufacturers = new Manufacturers();
+        Accessories   = [];
+        Blocks        = [];
+        Locomotives   = [];
+        TrackRoutes   = [];
+        Sensors       = [];
+        Signals       = [];
+        Turnouts      = [];
+        Manufacturers = [];
     }
 
     public static string FullName(string path, string name, string entity) {
