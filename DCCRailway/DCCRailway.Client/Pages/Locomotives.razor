@@ -5,21 +5,36 @@
 
 <title>DCCRailway - Locomotives</title>
 <h1>Locomotives</h1>
-<MudDataGrid Items="@Elements.Take(4)">
+<MudDataGrid Items="@Items" Dense="true" Elevation="0"
+             SortMode="SortMode.Multiple"
+             Filterable="true"
+             bind-SelectedItem="@SelectedLoco"
+             Hover="true"
+             Striped="true"
+             Bordered="true"
+             Hideable="true">
     <Columns>
-        <PropertyColumn Property="x => x.Id" Title="Nr"/>
+        <PropertyColumn Property="x => x.Id" Title="ID" ShowColumnOptions="true"/>
         <PropertyColumn Property="x => x.Name" Title="Name"/>
         <PropertyColumn Property="x => x.Description" Title="Description"/>
         <PropertyColumn Property="x => x.Address" Title="Address"/>
     </Columns>
+    <PagerContent>
+        <MudDataGridPager T="Locomotive"/>
+    </PagerContent>
 </MudDataGrid>
 
 @code {
-    private IEnumerable<Locomotive> Elements = new List<Locomotive>();
+    private Locomotive?             SelectedLoco { get; set; }
+    private IEnumerable<Locomotive> Items = new List<Locomotive>();
 
     protected override async Task OnInitializedAsync() {
         var result = await LocomotiveService.GetLocomotivesAsync() ?? [];
-        Elements = result;
+        Items = result;
+    }
+
+    private void SelectedItemChanged() {
+        Console.WriteLine("Selected Loco is: " + SelectedLoco?.Name ?? "none");
     }
 
 }

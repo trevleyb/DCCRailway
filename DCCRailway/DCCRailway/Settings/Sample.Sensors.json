@@ -1,49 +1,104 @@
 {
   "Sensors": [
     {
-      "Key": "S01",
-      "Value": {
-        "Id": "S01",
-        "Name": "Yard-Occupied",
+      "Address": {
+        "Address": 3,
+        "AddressType": "Sensor",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
         "Description": "",
+        "Id": "",
+        "Name": "",
         "Parameters": []
-      }
+      },
+      "Description": "",
+      "Id": "S01",
+      "Name": "Yard-Occupied",
+      "Parameters": []
     },
     {
-      "Key": "S04",
-      "Value": {
-        "Id": "S04",
-        "Name": "Station-Occupied",
+      "Address": {
+        "Address": 3,
+        "AddressType": "Sensor",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
         "Description": "",
+        "Id": "",
+        "Name": "",
         "Parameters": []
-      }
+      },
+      "Description": "",
+      "Id": "S02",
+      "Name": "Station-Enter",
+      "Parameters": []
     },
     {
-      "Key": "S03",
-      "Value": {
-        "Id": "S03",
-        "Name": "Station-Exit",
+      "Address": {
+        "Address": 3,
+        "AddressType": "Sensor",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
         "Description": "",
+        "Id": "",
+        "Name": "",
         "Parameters": []
-      }
+      },
+      "Description": "",
+      "Id": "S03",
+      "Name": "Station-Exit",
+      "Parameters": []
     },
     {
-      "Key": "S02",
-      "Value": {
-        "Id": "S02",
-        "Name": "Station-Enter",
+      "Address": {
+        "Address": 3,
+        "AddressType": "Sensor",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
         "Description": "",
+        "Id": "",
+        "Name": "",
         "Parameters": []
-      }
+      },
+      "Description": "",
+      "Id": "S04",
+      "Name": "Station-Occupied",
+      "Parameters": []
     },
     {
-      "Key": "S05",
-      "Value": {
-        "Id": "S05",
-        "Name": "Mainline-Occupied",
+      "Address": {
+        "Address": 3,
+        "AddressType": "Sensor",
+        "Protocol": "DCC28"
+      },
+      "Decoder": {
+        "Family": "",
+        "Manufacturer": 0,
+        "Model": "",
         "Description": "",
+        "Id": "",
+        "Name": "",
         "Parameters": []
-      }
+      },
+      "Description": "",
+      "Id": "S05",
+      "Name": "Mainline-Occupied",
+      "Parameters": []
     }
   ]
 }

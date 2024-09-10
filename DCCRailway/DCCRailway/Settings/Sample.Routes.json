@@ -6,136 +6,155 @@
   "DeActivateOnOverlap": true,
   "Routes": [
     {
-      "Key": "R01",
-      "Value": {
-        "State": 2,
-        "RouteTurnouts": [
-          {
-            "TurnoutID": "T01",
-            "State": 0
-          },
-          {
-            "TurnoutID": "T02",
-            "State": 0
-          },
-          {
-            "TurnoutID": "T03",
-            "State": 0
-          },
-          {
-            "TurnoutID": "T04",
-            "State": 0
-          },
-          {
-            "TurnoutID": "T05",
-            "State": 0
-          }
-        ],
-        "Id": "R01",
-        "Name": "Route1",
-        "Description": "Station to Mainline",
-        "Parameters": []
-      }
+      "State": "Unknown",
+      "RouteTurnouts": [
+        {
+          "TurnoutID": "T01",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T02",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T03",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T04",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T05",
+          "State": "Closed"
+        }
+      ],
+      "Description": "Station to Mainline",
+      "Id": "R01",
+      "Name": "Route1",
+      "Parameters": []
     },
     {
-      "Key": "R04",
-      "Value": {
-        "State": 2,
-        "RouteTurnouts": [
-          {
-            "TurnoutID": "T02",
-            "State": 1
-          },
-          {
-            "TurnoutID": "T03",
-            "State": 0
-          },
-          {
-            "TurnoutID": "T04",
-            "State": 0
-          }
-        ],
-        "Id": "R04",
-        "Name": "Route4",
-        "Description": "Mainline to Station",
-        "Parameters": []
-      }
+      "State": "Unknown",
+      "RouteTurnouts": [
+        {
+          "TurnoutID": "T01",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T02",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T03",
+          "State": "Thrown"
+        },
+        {
+          "TurnoutID": "T04",
+          "State": "Thrown"
+        },
+        {
+          "TurnoutID": "T05",
+          "State": "Closed"
+        }
+      ],
+      "Description": "Yard to Mainline",
+      "Id": "R02",
+      "Name": "Route2",
+      "Parameters": []
     },
     {
-      "Key": "R03",
-      "Value": {
-        "State": 2,
-        "RouteTurnouts": [
-          {
-            "TurnoutID": "T01",
-            "State": 0
-          },
-          {
-            "TurnoutID": "T02",
-            "State": 0
-          }
-        ],
-        "Id": "R03",
-        "Name": "Route3",
-        "Description": "Yard to Station",
-        "Parameters": []
-      }
+      "State": "Unknown",
+      "RouteTurnouts": [
+        {
+          "TurnoutID": "T01",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T02",
+          "State": "Closed"
+        }
+      ],
+      "Description": "Yard to Station",
+      "Id": "R03",
+      "Name": "Route3",
+      "Parameters": []
     },
     {
-      "Key": "R02",
-      "Value": {
-        "State": 2,
-        "RouteTurnouts": [
-          {
-            "TurnoutID": "T01",
-            "State": 0
-          },
-          {
-            "TurnoutID": "T02",
-            "State": 0
-          },
-          {
-            "TurnoutID": "T03",
-            "State": 1
-          },
-          {
-            "TurnoutID": "T04",
-            "State": 1
-          },
-          {
-            "TurnoutID": "T05",
-            "State": 0
-          }
-        ],
-        "Id": "R02",
-        "Name": "Route2",
-        "Description": "Yard to Mainline",
-        "Parameters": []
-      }
+      "State": "Unknown",
+      "RouteTurnouts": [
+        {
+          "TurnoutID": "T02",
+          "State": "Thrown"
+        },
+        {
+          "TurnoutID": "T03",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T04",
+          "State": "Closed"
+        }
+      ],
+      "Description": "Mainline to Station",
+      "Id": "R04",
+      "Name": "Route4",
+      "Parameters": []
     },
     {
-      "Key": "R05",
-      "Value": {
-        "State": 2,
-        "RouteTurnouts": [
-          {
-            "TurnoutID": "T02",
-            "State": 0
-          },
-          {
-            "TurnoutID": "T03",
-            "State": 0
-          },
-          {
-            "TurnoutID": "T04",
-            "State": 0
-          }
-        ],
-        "Id": "R05",
-        "Name": "Route5",
-        "Description": "Route 5",
-        "Parameters": []
-      }
+      "State": "Unknown",
+      "RouteTurnouts": [
+        {
+          "TurnoutID": "T02",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T03",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T04",
+          "State": "Closed"
+        }
+      ],
+      "Description": "Route 5",
+      "Id": "R05",
+      "Name": "Route5",
+      "Parameters": []
+    },
+    {
+      "State": "Unknown",
+      "RouteTurnouts": [
+        {
+          "TurnoutID": "T01",
+          "State": "Closed"
+        },
+        {
+          "TurnoutID": "T02",
+          "State": "Closed"
+        }
+      ],
+      "Description": "CrossOver Passthrough",
+      "Id": "RX1",
+      "Name": "CrossOver1",
+      "Parameters": []
+    },
+    {
+      "State": "Unknown",
+      "RouteTurnouts": [
+        {
+          "TurnoutID": "T01",
+          "State": "Thrown"
+        },
+        {
+          "TurnoutID": "T02",
+          "State": "Thrown"
+        }
+      ],
+      "Description": "CrossOver CrossOver",
+      "Id": "RX2",
+      "Name": "CrossOver2",
+      "Parameters": []
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "Name": "Sample",
   "Description": "A Test configuration file for testing",
-  "PathName": "./Sample",
+  "PathName": "./Sample240905104626",
   "Controller": {
     "Name": "Virtual",
     "Adapter": {
@@ -18,11 +18,22 @@
     ],
     "SendStopOnDisconnect": false
   },
-  "Parameters": [],
+  "Analyser": {
+    "Adapter": {
+      "Parameters": []
+    },
+    "Tasks": [],
+    "Parameters": [],
+    "SendStopOnDisconnect": false
+  },
   "WiThrottle": {
-    "Name": "DCCRailway WiThrottle Service",
+    "Name": "DCCRailway.WiThrottle Service",
     "UseFastClock": false,
+    "FastClockSeconds": 15,
     "HeartbeatSeconds": 15,
-    "RunOnStartup": false
-  }
+    "RunOnStartup": false,
+    "ZeroSpeedOnDirection": false
+  },
+  "WebApiPort": 8081,
+  "WebAppPort": 8080
 }

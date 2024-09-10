@@ -91,9 +91,7 @@ public static class LayoutStorage {
                     var items = (JsonElement)kvp.Value;
 
                     foreach (var item in items.EnumerateArray()) {
-                        //var key       = item.GetProperty("Key").GetString();
-                        //var valueJson = item.GetProperty("Value").GetRawText();
-                        var value = JsonSerializer.Deserialize<TEntity>(item, jsonOptions);
+                        var value = item.Deserialize<TEntity>(jsonOptions);
                         if (value is not null) repository.Add(value);
                     }
                 } else {

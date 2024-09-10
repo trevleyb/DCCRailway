@@ -1,22 +1,16 @@
 {
   "Blocks": [
     {
-      "Key": "B02",
-      "Value": {
-        "Id": "B02",
-        "Name": "Mainline-East",
-        "Description": "",
-        "Parameters": []
-      }
+      "Description": "",
+      "Id": "B01",
+      "Name": "Mainline-West",
+      "Parameters": []
     },
     {
-      "Key": "B01",
-      "Value": {
-        "Id": "B01",
-        "Name": "Mainline-West",
-        "Description": "",
-        "Parameters": []
-      }
+      "Description": "",
+      "Id": "B02",
+      "Name": "Mainline-East",
+      "Parameters": []
     }
   ]
 }

@@ -1,1480 +1,988 @@
 {
   "Manufacturers": [
     {
-      "Key": "225",
-      "Value": {
-        "Id": "225",
-        "Name": "Blue Digital",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "125",
-      "Value": {
-        "Id": "125",
-        "Name": "ProfiLok Modellbahntechnik GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "139",
-      "Value": {
-        "Id": "139",
-        "Name": "RealRail Effects",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "29",
-      "Value": {
-        "Id": "29",
-        "Name": "Mistral Train Models",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "56",
-      "Value": {
-        "Id": "56",
-        "Name": "LDH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "120",
-      "Value": {
-        "Id": "120",
-        "Name": "csikos-muhely",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "25",
-      "Value": {
-        "Id": "25",
-        "Name": "Team Digital, LLC",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "163",
-      "Value": {
-        "Id": "163",
-        "Name": "WP Railshops",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "89",
-      "Value": {
-        "Id": "89",
-        "Name": "Pojezdy.EU",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "112",
-      "Value": {
-        "Id": "112",
-        "Name": "LSdigital",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "43",
-      "Value": {
-        "Id": "43",
-        "Name": "Ngineering",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "85",
-      "Value": {
-        "Id": "85",
-        "Name": "Uhlenbrock Elektronik",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "155",
-      "Value": {
-        "Id": "155",
-        "Name": "Fleischmann",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "12",
-      "Value": {
-        "Id": "12",
-        "Name": "Wangrow",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "150",
-      "Value": {
-        "Id": "150",
-        "Name": "Wm. K. Walthers, Inc",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "118",
-      "Value": {
-        "Id": "118",
-        "Name": "M\u00DCT GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "27",
-      "Value": {
-        "Id": "27",
-        "Name": "MTH Electric Trains, Inc.",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "127",
-      "Value": {
-        "Id": "127",
-        "Name": "Atlas",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "30",
-      "Value": {
-        "Id": "30",
-        "Name": "Digsight",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "68",
-      "Value": {
-        "Id": "68",
-        "Name": "MAWE Elektronik",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "18",
-      "Value": {
-        "Id": "18",
-        "Name": "JMRI",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "142",
-      "Value": {
-        "Id": "142",
-        "Name": "SLOMO Railroad Models",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "45",
-      "Value": {
-        "Id": "45",
-        "Name": "ANE Model Co, Ltd",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "87",
-      "Value": {
-        "Id": "87",
-        "Name": "RR-CirKits",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "14",
-      "Value": {
-        "Id": "14",
-        "Name": "Lahti Associates",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "114",
-      "Value": {
-        "Id": "114",
-        "Name": "Benezan Electronics",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "148",
-      "Value": {
-        "Id": "148",
-        "Name": "BLOCKsignalling",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "157",
-      "Value": {
-        "Id": "157",
-        "Name": "Kuehn Ing.",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "32",
-      "Value": {
-        "Id": "32",
-        "Name": "Regal Way Co. Ltd",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "106",
-      "Value": {
-        "Id": "106",
-        "Name": "Opherline1",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "47",
-      "Value": {
-        "Id": "47",
-        "Name": "Capecom",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "66",
-      "Value": {
-        "Id": "66",
-        "Name": "Railnet Solutions, LLC",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "101",
-      "Value": {
-        "Id": "101",
-        "Name": "Bachmann Trains",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "144",
-      "Value": {
-        "Id": "144",
-        "Name": "DCC Train Automation",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "99",
-      "Value": {
-        "Id": "99",
-        "Name": "Lenz",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "34",
-      "Value": {
-        "Id": "34",
-        "Name": "Aristo-Craft Trains",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "53",
-      "Value": {
-        "Id": "53",
-        "Name": "Rautenhaus Digital Vertrieb",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "136",
-      "Value": {
-        "Id": "136",
-        "Name": "NYRS",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "71",
-      "Value": {
-        "Id": "71",
-        "Name": "AddNew(new York Byano Limited",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "131",
-      "Value": {
-        "Id": "131",
-        "Name": "Trix Modelleisenbahn",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "21",
-      "Value": {
-        "Id": "21",
-        "Name": "Kreischer Datatechnik",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "40",
-      "Value": {
-        "Id": "40",
-        "Name": "KATO Precision Models",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "59",
-      "Value": {
-        "Id": "59",
-        "Name": "Tam Valley Depot",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "123",
-      "Value": {
-        "Id": "123",
-        "Name": "Massoth Elektronik, GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "36",
-      "Value": {
-        "Id": "36",
-        "Name": "DCCconcepts",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "55",
-      "Value": {
-        "Id": "55",
-        "Name": "QElectronics GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "166",
-      "Value": {
-        "Id": "166",
-        "Name": "Maison de DCC",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "115",
-      "Value": {
-        "Id": "115",
-        "Name": "Dietz Modellbahntechnik",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "161",
-      "Value": {
-        "Id": "161",
-        "Name": "Roco Modelspielwaren",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "73",
-      "Value": {
-        "Id": "73",
-        "Name": "The Electric Railroad Company",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "129",
-      "Value": {
-        "Id": "129",
-        "Name": "Digitrax",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "88",
-      "Value": {
-        "Id": "88",
-        "Name": "HONS Model",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "23",
-      "Value": {
-        "Id": "23",
-        "Name": "S Helper Service",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "110",
-      "Value": {
-        "Id": "110",
-        "Name": "AXJ Electronics",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "42",
-      "Value": {
-        "Id": "42",
-        "Name": "Digikeijs",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "153",
-      "Value": {
-        "Id": "153",
-        "Name": "Train Control Systems",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "57",
-      "Value": {
-        "Id": "57",
-        "Name": "Rampino Elektronik",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "60",
-      "Value": {
-        "Id": "60",
-        "Name": "Bluecher-Electronic",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "102",
-      "Value": {
-        "Id": "102",
-        "Name": "Integrated Signal Systems",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "48",
-      "Value": {
-        "Id": "48",
-        "Name": "Hornby",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "145",
-      "Value": {
-        "Id": "145",
-        "Name": "Zimo",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "159",
-      "Value": {
-        "Id": "159",
-        "Name": "LGB",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "75",
-      "Value": {
-        "Id": "75",
-        "Name": "Digitools Elektronika, Kft",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "140",
-      "Value": {
-        "Id": "140",
-        "Name": "Desktop Station",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "108",
-      "Value": {
-        "Id": "108",
-        "Name": "Nagoden",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "2",
-      "Value": {
-        "Id": "2",
-        "Name": "Train Technology",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "44",
-      "Value": {
-        "Id": "44",
-        "Name": "SPROG DCC",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "117",
-      "Value": {
-        "Id": "117",
-        "Name": "CT Elektronik",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "62",
-      "Value": {
-        "Id": "62",
-        "Name": "Tams Elektronik GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "132",
-      "Value": {
-        "Id": "132",
-        "Name": "ZTC",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "31",
-      "Value": {
-        "Id": "31",
-        "Name": "Brelec",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "77",
-      "Value": {
-        "Id": "77",
-        "Name": "LS Models Sprl",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "204",
-      "Value": {
-        "Id": "204",
-        "Name": "Con-Com GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "104",
-      "Value": {
-        "Id": "104",
-        "Name": "TrainTech",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "170",
-      "Value": {
-        "Id": "170",
-        "Name": "AuroTrains",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "238",
-      "Value": {
-        "Id": "238",
-        "Name": "NMRA Reserved",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "138",
-      "Value": {
-        "Id": "138",
-        "Name": "Train ID Systems",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "19",
-      "Value": {
-        "Id": "19",
-        "Name": "AMW",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "46",
-      "Value": {
-        "Id": "46",
-        "Name": "GFB Designs",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "147",
-      "Value": {
-        "Id": "147",
-        "Name": "Umelec Ing Buero",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "91",
-      "Value": {
-        "Id": "91",
-        "Name": "Railstars Limited",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "64",
-      "Value": {
-        "Id": "64",
-        "Name": "Digital Bahn",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "162",
-      "Value": {
-        "Id": "162",
-        "Name": "PIKO",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "33",
-      "Value": {
-        "Id": "33",
-        "Name": "Praecipuus",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "134",
-      "Value": {
-        "Id": "134",
-        "Name": "LaisDCC",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "51",
-      "Value": {
-        "Id": "51",
-        "Name": "DCC Supplies, Ltd",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "70",
-      "Value": {
-        "Id": "70",
-        "Name": "Rocrail",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "93",
-      "Value": {
-        "Id": "93",
-        "Name": "Kevtronics cc",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "20",
-      "Value": {
-        "Id": "20",
-        "Name": "T4T - Technology for Trains GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "126",
-      "Value": {
-        "Id": "126",
-        "Name": "M\u00F6llehem G\u00E5rdsproduktion",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "39",
-      "Value": {
-        "Id": "39",
-        "Name": "Educational Computer, Inc.",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "58",
-      "Value": {
-        "Id": "58",
-        "Name": "KRES GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "121",
-      "Value": {
-        "Id": "121",
-        "Name": "ECCO GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "35",
-      "Value": {
-        "Id": "35",
-        "Name": "Electronik and Model Produktion",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "164",
-      "Value": {
-        "Id": "164",
-        "Name": "drM",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "80",
-      "Value": {
-        "Id": "80",
-        "Name": "Spectrum Engineering",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "113",
-      "Value": {
-        "Id": "113",
-        "Name": "QSIndustries",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "72",
-      "Value": {
-        "Id": "72",
-        "Name": "MTB Model",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "95",
-      "Value": {
-        "Id": "95",
-        "Name": "Sanda Kan Industrial",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "156",
-      "Value": {
-        "Id": "156",
-        "Name": "Nucky",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "22",
-      "Value": {
-        "Id": "22",
-        "Name": "KAM Industries",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "105",
-      "Value": {
-        "Id": "105",
-        "Name": "Computer Dialysis France",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "151",
-      "Value": {
-        "Id": "151",
-        "Name": "Electronic Solutions Ulm GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "119",
-      "Value": {
-        "Id": "119",
-        "Name": "Signaling Solution",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "37",
-      "Value": {
-        "Id": "37",
-        "Name": "NAC Services, Inc",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "78",
-      "Value": {
-        "Id": "78",
-        "Name": "Tehnologistic (train-O-matic)",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "100",
-      "Value": {
-        "Id": "100",
-        "Name": "Trenes Digitales",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "82",
-      "Value": {
-        "Id": "82",
-        "Name": "HAG Modelleisenbahn AG",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "28",
-      "Value": {
-        "Id": "28",
-        "Name": "Heljan A/S",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "143",
-      "Value": {
-        "Id": "143",
-        "Name": "MRC",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "74",
-      "Value": {
-        "Id": "74",
-        "Name": "PpP Digital",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "97",
-      "Value": {
-        "Id": "97",
-        "Name": "Doehler und Haass",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "186",
-      "Value": {
-        "Id": "186",
-        "Name": "BRAWA Modellspielwaren GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "0",
-      "Value": {
-        "Id": "0",
-        "Name": "Unknown",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "24",
-      "Value": {
-        "Id": "24",
-        "Name": "MoBaTrain.de",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "135",
-      "Value": {
-        "Id": "135",
-        "Name": "CVP Products",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "149",
-      "Value": {
-        "Id": "149",
-        "Name": "Rock Junction Controls",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "61",
-      "Value": {
-        "Id": "61",
-        "Name": "TrainModules",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "130",
-      "Value": {
-        "Id": "130",
-        "Name": "CMos Engineering",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "84",
-      "Value": {
-        "Id": "84",
-        "Name": "Railflyer Model Prototypes, Inc.",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "107",
-      "Value": {
-        "Id": "107",
-        "Name": "Phoenix Sound Systems, Inc.",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "11",
-      "Value": {
-        "Id": "11",
-        "Name": "North Coast Engineering",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "173",
-      "Value": {
-        "Id": "173",
-        "Name": "Arnold - Rivarossi",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "49",
-      "Value": {
-        "Id": "49",
-        "Name": "Joka Electronic",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "76",
-      "Value": {
-        "Id": "76",
-        "Name": "Auvidel",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "122",
-      "Value": {
-        "Id": "122",
-        "Name": "Berros",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "26",
-      "Value": {
-        "Id": "26",
-        "Name": "MBTronik - PiN GITmBH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "165",
-      "Value": {
-        "Id": "165",
-        "Name": "MERG",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "90",
-      "Value": {
-        "Id": "90",
-        "Name": "Shourt Line",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "160",
-      "Value": {
-        "Id": "160",
-        "Name": "MD Electronics",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "63",
-      "Value": {
-        "Id": "63",
-        "Name": "Noarail",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "128",
-      "Value": {
-        "Id": "128",
-        "Name": "Frateschi Model Trains",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "86",
-      "Value": {
-        "Id": "86",
-        "Name": "Wekomm Engineering, GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "137",
-      "Value": {
-        "Id": "137",
-        "Name": "A-Train Electronics",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "13",
-      "Value": {
-        "Id": "13",
-        "Name": "Public-domain and DIY",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "152",
-      "Value": {
-        "Id": "152",
-        "Name": "Digi-CZ",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "50",
-      "Value": {
-        "Id": "50",
-        "Name": "N\u0026amp;Q Electronics",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "69",
-      "Value": {
-        "Id": "69",
-        "Name": "E-Modell",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "92",
-      "Value": {
-        "Id": "92",
-        "Name": "Tawcrafts",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "124",
-      "Value": {
-        "Id": "124",
-        "Name": "DCC-Gaspar-Electronic",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "38",
-      "Value": {
-        "Id": "38",
-        "Name": "Broadway Limited Imports, LLC",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "158",
-      "Value": {
-        "Id": "158",
-        "Name": "Fucik",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "65",
-      "Value": {
-        "Id": "65",
-        "Name": "Gaugemaster",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "1",
-      "Value": {
-        "Id": "1",
-        "Name": "CML Systems",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "15",
-      "Value": {
-        "Id": "15",
-        "Name": "RamFixx Technologies (Wangrow)",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "116",
-      "Value": {
-        "Id": "116",
-        "Name": "MyLocoSound",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "98",
-      "Value": {
-        "Id": "98",
-        "Name": "Harman DCC",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "111",
-      "Value": {
-        "Id": "111",
-        "Name": "Haber and Koenig Electronics GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "52",
-      "Value": {
-        "Id": "52",
-        "Name": "Krois-Modell",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "94",
-      "Value": {
-        "Id": "94",
-        "Name": "Electroniscript, inc",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "154",
-      "Value": {
-        "Id": "154",
-        "Name": "Dapol Limited",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "67",
-      "Value": {
-        "Id": "67",
-        "Name": "Heller Modelbahn",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "103",
-      "Value": {
-        "Id": "103",
-        "Name": "Nagasue CommandStation Design Office",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "17",
-      "Value": {
-        "Id": "17",
-        "Name": "Advance IC Engineering, Inc.",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "146",
-      "Value": {
-        "Id": "146",
-        "Name": "Rails Europ Express",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "81",
-      "Value": {
-        "Id": "81",
-        "Name": "GooVerModels",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "141",
-      "Value": {
-        "Id": "141",
-        "Name": "SoundTraxx (Throttle-Up)",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "109",
-      "Value": {
-        "Id": "109",
-        "Name": "Viessmann Modellspielwaren GmbH",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "54",
-      "Value": {
-        "Id": "54",
-        "Name": "TCH Technology",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "96",
-      "Value": {
-        "Id": "96",
-        "Name": "PRICOM Design",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "133",
-      "Value": {
-        "Id": "133",
-        "Name": "Intelligent Command Control",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "41",
-      "Value": {
-        "Id": "41",
-        "Name": "Passmann",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "79",
-      "Value": {
-        "Id": "79",
-        "Name": "Hattons Model Railways",
-        "Description": "",
-        "Parameters": []
-      }
-    },
-    {
-      "Key": "83",
-      "Value": {
-        "Id": "83",
-        "Name": "JSS-Elektronic",
-        "Description": "",
-        "Parameters": []
-      }
+      "Description": "",
+      "Id": "0",
+      "Name": "Unknown",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "137",
+      "Name": "A-Train Electronics",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "19",
+      "Name": "AMW",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "45",
+      "Name": "ANE Model Co, Ltd",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "110",
+      "Name": "AXJ Electronics",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "17",
+      "Name": "Advance IC Engineering, Inc.",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "34",
+      "Name": "Aristo-Craft Trains",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "173",
+      "Name": "Arnold - Rivarossi",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "127",
+      "Name": "Atlas",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "170",
+      "Name": "AuroTrains",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "76",
+      "Name": "Auvidel",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "148",
+      "Name": "BLOCKsignalling",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "186",
+      "Name": "BRAWA Modellspielwaren GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "101",
+      "Name": "Bachmann Trains",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "114",
+      "Name": "Benezan Electronics",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "122",
+      "Name": "Berros",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "225",
+      "Name": "Blue Digital",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "60",
+      "Name": "Bluecher-Electronic",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "31",
+      "Name": "Brelec",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "38",
+      "Name": "Broadway Limited Imports, LLC",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "1",
+      "Name": "CML Systems",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "130",
+      "Name": "CMos Engineering",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "117",
+      "Name": "CT Elektronik",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "135",
+      "Name": "CVP Products",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "47",
+      "Name": "Capecom",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "105",
+      "Name": "Computer Dialysis France",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "204",
+      "Name": "Con-Com GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "51",
+      "Name": "DCC Supplies, Ltd",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "144",
+      "Name": "DCC Train Automation",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "124",
+      "Name": "DCC-Gaspar-Electronic",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "36",
+      "Name": "DCCconcepts",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "154",
+      "Name": "Dapol Limited",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "140",
+      "Name": "Desktop Station",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "115",
+      "Name": "Dietz Modellbahntechnik",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "152",
+      "Name": "Digi-CZ",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "42",
+      "Name": "Digikeijs",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "64",
+      "Name": "Digital Bahn",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "75",
+      "Name": "Digitools Elektronika, Kft",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "129",
+      "Name": "Digitrax",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "30",
+      "Name": "Digsight",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "97",
+      "Name": "Doehler und Haass",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "69",
+      "Name": "E-Modell",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "121",
+      "Name": "ECCO GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "39",
+      "Name": "Educational Computer, Inc.",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "151",
+      "Name": "Electronic Solutions Ulm GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "35",
+      "Name": "Electronik and Model Produktion",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "94",
+      "Name": "Electroniscript, inc",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "155",
+      "Name": "Fleischmann",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "128",
+      "Name": "Frateschi Model Trains",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "158",
+      "Name": "Fucik",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "46",
+      "Name": "GFB Designs",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "65",
+      "Name": "Gaugemaster",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "81",
+      "Name": "GooVerModels",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "82",
+      "Name": "HAG Modelleisenbahn AG",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "88",
+      "Name": "HONS Model",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "111",
+      "Name": "Haber and Koenig Electronics GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "98",
+      "Name": "Harman DCC",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "79",
+      "Name": "Hattons Model Railways",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "28",
+      "Name": "Heljan A/S",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "67",
+      "Name": "Heller Modelbahn",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "48",
+      "Name": "Hornby",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "102",
+      "Name": "Integrated Signal Systems",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "133",
+      "Name": "Intelligent Command Control",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "18",
+      "Name": "JMRI",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "83",
+      "Name": "JSS-Elektronic",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "49",
+      "Name": "Joka Electronic",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "22",
+      "Name": "KAM Industries",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "40",
+      "Name": "KATO Precision Models",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "58",
+      "Name": "KRES GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "93",
+      "Name": "Kevtronics cc",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "21",
+      "Name": "Kreischer Datatechnik",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "52",
+      "Name": "Krois-Modell",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "157",
+      "Name": "Kuehn Ing.",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "56",
+      "Name": "LDH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "159",
+      "Name": "LGB",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "77",
+      "Name": "LS Models Sprl",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "112",
+      "Name": "LSdigital",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "14",
+      "Name": "Lahti Associates",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "134",
+      "Name": "LaisDCC",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "99",
+      "Name": "Lenz",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "68",
+      "Name": "MAWE Elektronik",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "26",
+      "Name": "MBTronik - PiN GITmBH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "160",
+      "Name": "MD Electronics",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "165",
+      "Name": "MERG",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "143",
+      "Name": "MRC",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "72",
+      "Name": "MTB Model",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "27",
+      "Name": "MTH Electric Trains, Inc.",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "166",
+      "Name": "Maison de DCC",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "123",
+      "Name": "Massoth Elektronik, GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "29",
+      "Name": "Mistral Train Models",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "24",
+      "Name": "MoBaTrain.de",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "116",
+      "Name": "MyLocoSound",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "118",
+      "Name": "M\u00DCT GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "126",
+      "Name": "M\u00F6llehem G\u00E5rdsproduktion",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "50",
+      "Name": "N\u0026amp;Q Electronics",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "37",
+      "Name": "NAC Services, Inc",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "238",
+      "Name": "NMRA Reserved",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "136",
+      "Name": "NYRS",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "103",
+      "Name": "Nagasue CommandStation Design Office",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "108",
+      "Name": "Nagoden",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "71",
+      "Name": "AddNew(new York Byano Limited",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "43",
+      "Name": "Ngineering",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "63",
+      "Name": "Noarail",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "11",
+      "Name": "North Coast Engineering",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "156",
+      "Name": "Nucky",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "106",
+      "Name": "Opherline1",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "162",
+      "Name": "PIKO",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "96",
+      "Name": "PRICOM Design",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "41",
+      "Name": "Passmann",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "107",
+      "Name": "Phoenix Sound Systems, Inc.",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "89",
+      "Name": "Pojezdy.EU",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "74",
+      "Name": "PpP Digital",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "33",
+      "Name": "Praecipuus",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "125",
+      "Name": "ProfiLok Modellbahntechnik GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "13",
+      "Name": "Public-domain and DIY",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "55",
+      "Name": "QElectronics GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "113",
+      "Name": "QSIndustries",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "87",
+      "Name": "RR-CirKits",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "84",
+      "Name": "Railflyer Model Prototypes, Inc.",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "66",
+      "Name": "Railnet Solutions, LLC",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "146",
+      "Name": "Rails Europ Express",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "91",
+      "Name": "Railstars Limited",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "15",
+      "Name": "RamFixx Technologies (Wangrow)",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "57",
+      "Name": "Rampino Elektronik",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "53",
+      "Name": "Rautenhaus Digital Vertrieb",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "139",
+      "Name": "RealRail Effects",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "32",
+      "Name": "Regal Way Co. Ltd",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "149",
+      "Name": "Rock Junction Controls",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "161",
+      "Name": "Roco Modelspielwaren",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "70",
+      "Name": "Rocrail",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "23",
+      "Name": "S Helper Service",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "142",
+      "Name": "SLOMO Railroad Models",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "44",
+      "Name": "SPROG DCC",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "95",
+      "Name": "Sanda Kan Industrial",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "90",
+      "Name": "Shourt Line",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "119",
+      "Name": "Signaling Solution",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "141",
+      "Name": "SoundTraxx (Throttle-Up)",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "80",
+      "Name": "Spectrum Engineering",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "20",
+      "Name": "T4T - Technology for Trains GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "54",
+      "Name": "TCH Technology",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "59",
+      "Name": "Tam Valley Depot",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "62",
+      "Name": "Tams Elektronik GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "92",
+      "Name": "Tawcrafts",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "25",
+      "Name": "Team Digital, LLC",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "78",
+      "Name": "Tehnologistic (train-O-matic)",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "73",
+      "Name": "The Electric Railroad Company",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "153",
+      "Name": "Train Control Systems",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "138",
+      "Name": "Train ID Systems",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "2",
+      "Name": "Train Technology",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "61",
+      "Name": "TrainModules",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "104",
+      "Name": "TrainTech",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "100",
+      "Name": "Trenes Digitales",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "131",
+      "Name": "Trix Modelleisenbahn",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "85",
+      "Name": "Uhlenbrock Elektronik",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "147",
+      "Name": "Umelec Ing Buero",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "109",
+      "Name": "Viessmann Modellspielwaren GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "163",
+      "Name": "WP Railshops",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "12",
+      "Name": "Wangrow",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "86",
+      "Name": "Wekomm Engineering, GmbH",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "150",
+      "Name": "Wm. K. Walthers, Inc",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "132",
+      "Name": "ZTC",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "145",
+      "Name": "Zimo",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "120",
+      "Name": "csikos-muhely",
+      "Parameters": []
+    },
+    {
+      "Description": "",
+      "Id": "164",
+      "Name": "drM",
+      "Parameters": []
     }
   ]
 }
