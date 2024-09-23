@@ -9,9 +9,7 @@ public class CmdResult(bool success, ICommand? command, byte[]? data, string? er
     public CmdResult(bool success, string? errorMessage = null) : this(success, null, null, errorMessage) { }
     public CmdResult(ICommand command, byte[]? data) : this(true, command, data) { }
     public CmdResult(byte[]? data) : this(true, null, data) { }
-
     public CmdResult(bool success, byte[]? data, string? errorMessage = null) : this(success, null, data, errorMessage) { }
-
     public CmdResult(ICmdResult result) : this(result.Success, result.Command, result.Data, result.Message) { }
 
     // Data
