@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using DCCRailway.Common;
 using DCCRailway.Common.Helpers;
+using DCCRailway.Controller.States;
 using DCCRailway.Managers;
-using DCCRailway.StateManager;
 
 namespace DCCRailway.WiThrottle.Test;
 

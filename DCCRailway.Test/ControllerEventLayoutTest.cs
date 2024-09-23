@@ -2,9 +2,9 @@ using DCCRailway.Common.Helpers;
 using DCCRailway.Common.Types;
 using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Controllers;
+using DCCRailway.Controller.States;
+using DCCRailway.Controller.States.CommandUpdater;
 using DCCRailway.Controller.Virtual.Adapters;
-using DCCRailway.StateManager;
-using DCCRailway.StateManager.Updater.CommandUpdater;
 using NUnit.Framework;
 
 namespace DCCRailway.Test;

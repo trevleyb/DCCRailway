@@ -2,7 +2,7 @@ using DCCPacketAnalyser.Analyser.Base;
 using DCCPacketAnalyser.Analyser.Messages;
 using DCCRailway.Common.Result;
 
-namespace DCCRailway.StateManager.Updater.PacketUpdater;
+namespace DCCRailway.Controller.States.PacketUpdater;
 
 /// <summary>
 ///     The LayoutCmdUpdated class is a bridge between an Event being recieved from a system,

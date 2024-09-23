@@ -1,7 +1,7 @@
 using DCCRailway.Common.Result;
 using DCCRailway.Controller.Actions.Results;
 
-namespace DCCRailway.StateManager.Updater.CommandUpdater;
+namespace DCCRailway.Controller.States.CommandUpdater;
 
 public class CmdStateUpdaterGenericCmd(IStateTracker stateTracker) {
     public IResult Process(ICmdResult cmdResult) {

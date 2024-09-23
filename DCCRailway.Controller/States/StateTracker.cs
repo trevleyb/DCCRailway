@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using DCCRailway.Common.Types;
 using Serilog;
 
-namespace DCCRailway.StateManager;
+namespace DCCRailway.Controller.States;
 
 /// <summary>
 ///     A state manager simply tracks the state of given objects. An object must have

@@ -14,6 +14,7 @@
     <ItemGroup>
         <PackageReference Include="MudBlazor" Version="7.8.0"/>
         <PackageReference Include="System.IO.Ports" Version="8.0.0"/>
+        <PackageReference Include="trevleyb.dccpacketanalyser" Version="1.0.1"/>
     </ItemGroup>
 
     <ItemGroup>

@@ -13,7 +13,6 @@
         <ProjectReference Include="..\DCCRailway.Controller.NCE\DCCRailway.Controller.NCE.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller.Virtual\DCCRailway.Controller.Virtual.csproj"/>
         <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
-        <ProjectReference Include="..\DCCRailway.StateManager\DCCRailway.StateManager.csproj"/>
         <ProjectReference Include="..\DCCRailway.WiThrottle\DCCRailway.WiThrottle.csproj"/>
     </ItemGroup>
 

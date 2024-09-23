@@ -2,7 +2,7 @@ using DCCRailway.Common.Result;
 using DCCRailway.Controller.Actions.Commands.Base;
 using DCCRailway.Controller.Controllers.Events;
 
-namespace DCCRailway.StateManager.Updater.CommandUpdater;
+namespace DCCRailway.Controller.States.CommandUpdater;
 
 /// <summary>
 ///     The LayoutCmdUpdated class is a bridge between an Event being recieved from a system,

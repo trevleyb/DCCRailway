@@ -1,6 +1,6 @@
 using DCCRailway.Common.Types;
 
-namespace DCCRailway.StateManager;
+namespace DCCRailway.Controller.States;
 
 public interface IStateTracker {
     List<StateObject> GetAll();

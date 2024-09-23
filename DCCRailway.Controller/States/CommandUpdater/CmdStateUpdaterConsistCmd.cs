@@ -3,7 +3,7 @@ using DCCRailway.Controller.Actions.Commands;
 using DCCRailway.Controller.Actions.Results;
 using DCCRailway.Controller.Attributes;
 
-namespace DCCRailway.StateManager.Updater.CommandUpdater;
+namespace DCCRailway.Controller.States.CommandUpdater;
 
 public class CmdStateUpdaterConsistCmd(IStateTracker stateTracker) {
     public IResult Process(ICmdResult cmdResult) {
