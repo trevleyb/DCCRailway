@@ -37,7 +37,9 @@ public class LocomotiveTest {
             var json = JsonSerializer.Serialize(locos, options);
             var obj  = JsonSerializer.Deserialize<Locomotives>(json, options) as Locomotives;
             foreach (var loco in locos) {
-                Assert.That(loco.Name, Is.EqualTo(obj?[loco.Id].Name));
+                Assert.That(loco.Id, Is.Not.Null, "Invalid Loco ID");
+                Assert.That(loco.Name, Is.Not.Null, "Invalid Loco Name");
+                Assert.That(loco.Name, Is.EqualTo(obj?[loco.Id]?.Name));
             }
         } catch (Exception e) {
             Console.Error.WriteLine(e);
