@@ -27,6 +27,6 @@
         <ProjectReference Include="..\DCCRailway.Controller\DCCRailway.Controller.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="MudBlazor" Version="7.8.0"/>
+        <PackageReference Include="MudBlazor" Version="7.11.0"/>
     </ItemGroup>
 </Project>
