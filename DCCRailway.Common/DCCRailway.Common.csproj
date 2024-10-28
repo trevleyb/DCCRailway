@@ -9,7 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2"/>
-        <PackageReference Include="MudBlazor" Version="7.8.0"/>
+        <PackageReference Include="MudBlazor" Version="7.14.0"/>
         <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="2.0.0"/>
         <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0"/>
         <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0"/>
