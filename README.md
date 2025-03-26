@@ -34,7 +34,7 @@ Commands are send to an Adapter to be executed.
 Interfaces are defined for the commands that the systems support.
 Each system registers the commands that it will support. For example, NCEProwerCab supports ISetLoco Speed using
 NCESetLocoSpeed.
-Not all system support all commands. This is a basic dependency solution I guess.
+Not all systems support all commands. This is a basic dependency solution I guess.
 
 Next: Need to support polling of accessory status etc
 Need to build a front end to support trains.
