@@ -20,10 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Docs\"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ReferencePathWithRefAssemblies Update="\Users\trevor\.nuget\packages\makaretu.dns.new\3.0.1\lib\net6.0\Makaretu.Dns.dll"/>
     </ItemGroup>
 
